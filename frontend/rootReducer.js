@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
+import { problemsReducer } from './components/problems/reducer.js';
+import { answersReducer } from './components/answers/reducer.js';
 
-
-import { combineReducers } from 'redux';
-import todos from './todos';
-
-export default combineReducers({
-  todos: todos.reducer
+const rootReducer = combineReducers({
+  problems: problemsReducer,
+  answers:  answersReducer
 });
+
+export { rootReducer };
 

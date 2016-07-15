@@ -1,9 +1,4 @@
 
-
-
-
-
-
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/frontend/index.html',
@@ -35,14 +30,16 @@ module.exports = {
         exclude: /(node_modules)/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', 'stage-0']
         }
       },
       {
         test: /\.scss$/,
         exclude: /(node_modules)/,
         loaders: [
-          'style', 'css', 'sass'
+          'style', 
+          'css?modules&localIdentName=[name]---[local]---[hash:base64:5]', 
+          'sass'
         ]
       }
     ],
