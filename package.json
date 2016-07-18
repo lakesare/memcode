@@ -5,6 +5,7 @@
   "main": "",
   "scripts": {
     "start": "nodemon --watch backend backend/index.js",
+    "webpack": "webpack -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

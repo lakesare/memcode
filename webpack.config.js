@@ -1,7 +1,7 @@
 
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template: __dirname + '/frontend/index.html',
+  template:  __dirname + '/frontend/index.html',
   // filename: 'index.html',
   inject: 'body'
 });
@@ -52,7 +52,7 @@ module.exports = {
   ],
 
   output: {
-    filename: "index.js",
+    filename: "/index.js",
     path: __dirname + '/frontend/webpacked'
   }
 }
