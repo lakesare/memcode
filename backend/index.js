@@ -8,7 +8,7 @@ app.get('/api', (request, response) => {
   response.send('Hello from Express!')
 })
 
-app.get('/api/problems', (request, response) => {  
+app.get('/api/courses/:id/problems', (request, response) => {  
   response.json({
     problems: [
       {

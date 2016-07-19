@@ -75,27 +75,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var initialState = {
-	  problems: [{
-	    id: 1,
-	    explanation: 'some context to a problem',
-	    answerIds: [1, 2]
-	  }],
-	  answers: [{
-	    id: 1,
-	    precedingText: 'first answer is',
-	    answer: 'hi',
-	    answered: null //'right', 'wrong', null
-	  }, {
-	    id: 2,
-	    precedingText: 'second answer is',
-	    answer: 'hello',
-	    answered: null //'right', 'wrong', null
-	  }]
-
-	};
-
-	var store = (0, _redux.createStore)(_rootReducer.rootReducer, initialState);
+	var store = (0, _redux.createStore)(_rootReducer.rootReducer);
 
 	// TODO how to import ReactRouter and use it as <ReactRouter.Router>?
 
@@ -22019,7 +21999,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
 	var reducer = function reducer() {
 	  var problems = arguments.length <= 0 || arguments[0] === undefined ? {
 	    status: null,
@@ -22029,8 +22008,28 @@
 	  var action = arguments[1];
 
 	  switch (action.type) {
-	    case 'FETCHING_PROBLEM':
-	      return problems;
+	    case 'FETCHING_PROBLEMS':
+	      switch (action.status) {
+	        case 'fetching':
+	          return {
+	            status: 'fetching',
+	            error: null,
+	            items: []
+	          };
+	        case 'success':
+	          return {
+	            status: 'success',
+	            error: null,
+	            items: action.problems
+	          };
+	        case 'failure':
+	          return {
+	            status: 'failure',
+	            error: 'TODO',
+	            items: []
+	          };
+	      }
+
 	    default:
 	      return problems;
 	  }
@@ -22068,6 +22067,16 @@
 	      return [].concat(_toConsumableArray(answers.slice(0, answerIndex)), [_extends({}, answer, {
 	        answered: 'right'
 	      })], _toConsumableArray(answers.slice(answerIndex + 1, answers.length)));
+
+	    case 'FETCHING_PROBLEMS':
+	      switch (action.status) {
+	        case 'fetching':
+	          return [];
+	        case 'success':
+	          return action.answers;
+	        case 'failure':
+	          return [];
+	      }
 	    default:
 	      return answers;
 	  }
@@ -28446,17 +28455,20 @@
 	var CoursesPage = _react2.default.createClass({
 	  displayName: 'CoursesPage',
 	  render: function render() {
-	    var courses = [];
 	    return _react2.default.createElement(
 	      'section',
-	      null,
-	      _react2.default.createElement(_header.Header, null),
+	      { className: 'row' },
 	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        'Courses'
-	      ),
-	      _react2.default.createElement(ConnectedCourses, null)
+	        'div',
+	        { className: 'small-11 small-centered column end' },
+	        _react2.default.createElement(_header.Header, null),
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Courses'
+	        ),
+	        _react2.default.createElement(ConnectedCourses, null)
+	      )
 	    );
 	  }
 	});
@@ -28929,21 +28941,38 @@
 	  };
 	};
 
-	var ConnectedProblemsList = (0, _reactRedux.connect)(mapStateToProps)(_problems.ProblemsList);
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    fetchProblems: function fetchProblems(courseId) {
+	      dispatch({ type: 'FETCHING_PROBLEMS', status: 'fetching' });
+	      fetch('/api/courses/1/problems').then(function (response) {
+	        return response.json();
+	      }).then(function (response) {
+	        dispatch({ type: 'FETCHING_PROBLEMS', status: 'success', problems: response.problems, answers: response.answers });
+	      });
+	    }
+	  };
+	};
+
+	var ConnectedProblemsList = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_problems.ProblemsList);
 
 	var ProblemsPage = _react2.default.createClass({
 	  displayName: 'ProblemsPage',
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'section',
-	      null,
-	      _react2.default.createElement(_header.Header, null),
+	      { className: 'row' },
 	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        'Problems'
-	      ),
-	      _react2.default.createElement(ConnectedProblemsList, null)
+	        'div',
+	        { className: 'small-11 small-centered column end' },
+	        _react2.default.createElement(_header.Header, null),
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Problems'
+	        ),
+	        _react2.default.createElement(ConnectedProblemsList, null)
+	      )
 	    );
 	  }
 	});
@@ -29002,14 +29031,17 @@
 
 
 	  propTypes: {
-	    problems: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object).isRequired,
+	    problems: _react2.default.PropTypes.object.isRequired,
 	    answers: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.object).isRequired
 	  },
 
+	  componentDidMount: function componentDidMount() {
+	    this.props.fetchProblems(1);
+	  },
 	  render: function render() {
 	    var _this = this;
 
-	    var aa = this.props.problems.map(function (problem) {
+	    var aa = this.props.problems.items.map(function (problem) {
 	      var answers = problem.answerIds.map(function (answerId) {
 	        return _this.props.answers.find(function (answer) {
 	          return answer.id === answerId;

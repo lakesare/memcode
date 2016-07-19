@@ -32,12 +32,13 @@ const ConnectedCourses = connect(
 
 const CoursesPage = React.createClass({
   render() {
-    const courses = [];
     return(
-      <section>
-        <Header/>
-        <h1>Courses</h1>
-        <ConnectedCourses/>
+      <section className="row">
+        <div className="small-11 small-centered column end">
+          <Header/>
+          <h1>Courses</h1>
+          <ConnectedCourses/>
+        </div>
       </section>
     )
   }

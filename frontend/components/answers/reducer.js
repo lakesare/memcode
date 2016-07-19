@@ -14,9 +14,20 @@ const reducer = (answers = [], action) => {
         },
         ...answers.slice(answerIndex + 1, answers.length)
       ]
+
+    case 'FETCHING_PROBLEMS':
+      switch (action.status) {
+        case 'fetching':
+          return []
+        case 'success':
+          return action.answers
+        case 'failure':
+          return []
+      }
     default:
       return answers
   }
 };
 
 export { reducer };
+

@@ -13,8 +13,21 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProblems(courseId) {
+      dispatch({ type: 'FETCHING_PROBLEMS', status: 'fetching' });
+      fetch('/api/courses/1/problems').then(response => response.json() )
+        .then((response) => {
+          dispatch({ type: 'FETCHING_PROBLEMS', status: 'success', problems: response.problems, answers: response.answers });
+      });
+    },
+  }
+}
+
 const ConnectedProblemsList = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(ProblemsList);
 
 
@@ -22,10 +35,12 @@ const ConnectedProblemsList = connect(
 const ProblemsPage = React.createClass({
   render() {
     return(
-      <section>
-        <Header/>
-        <h1>Problems</h1>
-        <ConnectedProblemsList/>
+      <section className="row">
+        <div className="small-11 small-centered column end">
+          <Header/>
+          <h1>Problems</h1>
+          <ConnectedProblemsList/>
+        </div>
       </section>
     )
   }
