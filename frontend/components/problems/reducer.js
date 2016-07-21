@@ -1,3 +1,4 @@
+import { answersReducer } from '../answers';
 const reducer = (problems = {
   status: null,
   error: null,
@@ -25,7 +26,21 @@ const reducer = (problems = {
             items: []
           }
       }
-
+    case 'MARK_ANSWER_AS_RIGHT':
+      console.log(problems)
+      const problemIndex = problems.items.findIndex((problem) => problem.id === action.problemId);
+      const problem = problems.items[problemIndex];
+      return {
+        ...problems,
+        items: [
+          ...problems.items.slice(0, problemIndex),
+          {
+            ...problem,
+            content: answersReducer(problem.content, action)
+          },
+          ...problems.items.slice(problemIndex + 1, problems.length)
+        ]
+      }
     default:
       return problems
   }

@@ -1,71 +1,51 @@
-'use strict'
-const express = require('express')  
+// 'use strict'
+
+import express from 'express';
+// const express = require('express');
 const app = express()  
 const port = 3000
+
+import { db } from './db/init.js';
+
 
 
 app.get('/api', (request, response) => {  
   response.send('Hello from Express!')
-})
-
-app.get('/api/courses/:id/problems', (request, response) => {  
-  response.json({
-    problems: [
-      {
-        id: 1,
-        explanation: 'some context to a problem',
-        answerIds: [1, 2]
-      }
-    ],
-    answers: [
-      {
-        id: 1,
-        precedingText: 'first answer is',
-        answer: 'hi',
-        answered: null //'right', 'wrong', null
-      },
-      {
-        id: 2,
-        precedingText: 'second answer is',
-        answer: 'hello',
-        answered: null //'right', 'wrong', null
-      },
-      {
-        id: 3,
-        precedingText: 'first answer is',
-        answer: 'second problem!',
-        answered: null //'right', 'wrong', null
-      }
-    ]
-  });
 });
 
-app.get('/api/courses', (request, response) => {  
-  response.json(
-    [
-      {
-        id: 1,
-        title: 'Ruby',
-        imageUrl: 'http://placehold.it/150x100'
-      },
-      {
-        id: 2,
-        title: 'Js',
-        imageUrl: 'http://placehold.it/150x100'
-      }
-    ]
-  );
+app.get('/api/courses/:id', (request, response) => {
+  const problems = db.any('select * from problems where courseId = ${courseId}', 
+    { 
+      courseId: request.params.id
+    })
+    .then((data) => {
+      response.status(200).json(data);
+    })
+    .catch((data) => {
+      response.status(500).json({ error: data.message });
+    })
+});
+
+app.get('/api/courses', (request, response) => {
+  const courses = db.any("select * from courses")
+    .then((data) => {
+      response.status(200).json(data);
+    })
+    .catch((data) => {
+      response.status(500).json({ error: data.message });
+    })
 });
 
 
-const path = require('path');
 
 
+
+// global routes cause path.join didn't work after update to webpacked ES6
 // serve our static stuff like index.css
-app.use(express.static(path.join(__dirname, '../frontend/webpacked/')))
+app.use(express.static('/home/lakesare/Desktop/memcode/frontend/webpacked'));
 
 app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '/../frontend/webpacked/', 'index.html'))
+  res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html');
 })
 
 app.listen(port, (err) => {  

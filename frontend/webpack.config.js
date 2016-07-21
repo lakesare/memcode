@@ -1,7 +1,7 @@
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
-  template:  __dirname + '/frontend/index.html',
+  template:  __dirname + '/index.html',
   // filename: 'index.html',
   inject: 'body'
 });
@@ -15,7 +15,7 @@ var WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()//(/* s
 
 module.exports = {
   entry: [
-    './frontend/index.js'
+    './index.js'
   ],
 
   module: {
@@ -53,7 +53,7 @@ module.exports = {
 
   output: {
     filename: "/index.js",
-    path: __dirname + '/frontend/webpacked'
+    path: __dirname + '/webpacked'
   }
 }
 

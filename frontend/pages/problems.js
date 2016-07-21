@@ -13,13 +13,21 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchProblems(courseId) {
-      dispatch({ type: 'FETCHING_PROBLEMS', status: 'fetching' });
-      fetch('/api/courses/1/problems').then(response => response.json() )
+    fetchProblems() {
+      dispatch({ 
+        type: 'FETCHING_PROBLEMS', 
+        status: 'fetching' 
+      });
+      fetch(`/api/courses/${ownProps.levelId}`)
+        .then(response => response.json() )
         .then((response) => {
-          dispatch({ type: 'FETCHING_PROBLEMS', status: 'success', problems: response.problems, answers: response.answers });
+          dispatch({ 
+            type: 'FETCHING_PROBLEMS', 
+            status: 'success', 
+            problems: response
+          });
       });
     },
   }
@@ -39,7 +47,7 @@ const ProblemsPage = React.createClass({
         <div className="small-11 small-centered column end">
           <Header/>
           <h1>Problems</h1>
-          <ConnectedProblemsList/>
+          <ConnectedProblemsList levelId={this.props.params.id}/>
         </div>
       </section>
     )

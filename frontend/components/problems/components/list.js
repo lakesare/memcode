@@ -4,22 +4,17 @@ import { Show } from './show';
 const List = React.createClass({
 
   propTypes: {
-    problems: React.PropTypes.object.isRequired,
-    answers: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    problems: React.PropTypes.object.isRequired
   },
 
+
   componentDidMount() {
-    this.props.fetchProblems(1);
+    this.props.fetchProblems();
   },
 
   render() {
     const aa = this.props.problems.items.map((problem) => {
-      let answers = problem.answerIds.map((answerId) => {
-        return this.props.answers.find((answer) => {
-          return answer.id === answerId
-        });
-      });
-      return <Show key={problem.id} problem={problem} answers={answers}/>
+      return <Show key={problem.id} problem={problem}/>
     });
 
 

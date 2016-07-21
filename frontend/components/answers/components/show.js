@@ -5,6 +5,7 @@ let Show = React.createClass({
 
   propTypes: {
     answer: React.PropTypes.object.isRequired
+    // index, problemId
   },
 
 
@@ -12,7 +13,7 @@ let Show = React.createClass({
     const inputedAnswer = this.refs.hi.value;
 
     if (inputedAnswer == this.props.answer.answer) {
-      this.props.answerRight(this.props.answer.id);
+      this.props.answerRight(this.props.id);
     }
   },
 
@@ -31,12 +32,13 @@ let Show = React.createClass({
 });
 
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     answerRight: (id) => {
       dispatch({
         type: 'MARK_ANSWER_AS_RIGHT', 
-        id: id
+        problemId: ownProps.problemId,
+        answerIndex:  ownProps.answerIndex
       });
     },
   }

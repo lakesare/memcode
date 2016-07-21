@@ -6,7 +6,6 @@ import { coursesReducer }  from './components/courses';
 
 const rootReducer = combineReducers({
   problems: problemsReducer,
-  answers:  answersReducer,
   courses:  coursesReducer
 });
 

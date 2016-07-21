@@ -4,7 +4,7 @@ import { AnswersList } from '../../answers';
 const Show = React.createClass({
 
   propTypes: {
-    // problem: React.PropTypes.object.isRequired,
+    problem: React.PropTypes.object.isRequired,
     // answers: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
   },
 
@@ -13,7 +13,7 @@ const Show = React.createClass({
 
     return(
       <div>
-        <AnswersList answers={this.props.answers}/>
+        <AnswersList answers={this.props.problem.content} problemId={this.props.problem.id}/>
         <div>
           {this.props.problem.explanation}
         </div>
