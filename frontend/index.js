@@ -15,13 +15,15 @@ import { Router, Route, Link, browserHistory } from 'react-router'
 
 import { CoursesPage } from './pages/courses';
 import { ProblemsPage } from './pages/problems';
+import { NewCoursePage } from './pages/newCourse';
 
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path='courses' component={CoursesPage}/>
-      <Route path='courses/:id/problems' component={ProblemsPage}/>
+      <Route path='courses/:id' component={ProblemsPage}/>
+      <Route path='courses/new' component={NewCoursePage}/>
     </Router>
   </Provider>
   ,

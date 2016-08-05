@@ -1,16 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import css from './show.scss';
+
 
 let Show = React.createClass({
 
   propTypes: {
-    answer: React.PropTypes.object.isRequired
-    // index, problemId
+    answer: React.PropTypes.object.isRequired,
+    answerIndex: React.PropTypes.number.isRequired,
+    problemId: React.PropTypes.number.isRequired
   },
 
 
   checkAnswer() {
-    const inputedAnswer = this.refs.hi.value;
+    const inputedAnswer = this.refs.input.value;
 
     if (inputedAnswer == this.props.answer.answer) {
       this.props.answerRight(this.props.id);
@@ -19,10 +22,10 @@ let Show = React.createClass({
 
 
   render() {
-    console.log(this.props.answer.answered);
     return(
       <input
-        ref='hi'
+        className={css.input + ' ' + (this.props.answer.answered == 'right' ? css.success : css.failure)}
+        ref='input'
         type='text'
         readOnly={this.props.answer.answered == 'right' ? true : false}
         onChange={this.checkAnswer}

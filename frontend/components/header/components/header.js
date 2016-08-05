@@ -8,7 +8,7 @@ class Header extends React.Component {
     return(
       <nav className='row'>
         <Link to="/courses" activeClassName={css.active} className='columns small-6'>Courses</Link>
-        <Link to="/problems" className='columns small-6'>Problems</Link>
+        <Link to="/courses/new" activeClassName={css.active} className='columns small-6'>Create new course!</Link>
       </nav>
     )
   }

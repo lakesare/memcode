@@ -23,7 +23,7 @@ const List = React.createClass({
 
     });
     return(
-      <div>
+      <div className="columns small-7">
         {aa}
       </div>
     );

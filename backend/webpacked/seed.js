@@ -52,29 +52,50 @@
 
 	var pgPackage = pgp({});
 
-	_init.db.none('INSERT INTO courses (title) VALUES (${title_1}), (${title_2})', {
-	  title_1: 'Ruby',
-	  title_2: 'Python'
-	}).catch(function (data) {
-	  return console.log(data.message);
-	});
+	var seedCourses = function seedCourses() {
+	  _init.db.none('INSERT INTO courses (title) VALUES (${title_1}), (${title_2})', {
+	    title_1: 'Ruby',
+	    title_2: 'Python'
+	  }).then(function () {
+	    log('courses');
+	    seedProblems();
+	  }).catch(function (data) {
+	    return console.log(data.message);
+	  });
+	};
 
-	_init.db.none('INSERT INTO problems (explanation, type, content, courseId) VALUES (${explanation_1}, ${type_1}, ${content_1}, ${courseId_1})', {
-	  explanation_1: 'some context to a problem',
-	  type_1: 'ORDERED_MISSING_TEXT',
-	  content_1: JSON.stringify([{
-	    precedingText: 'first answer is',
-	    answer: 'hi',
-	    answered: null
-	  }, {
-	    precedingText: 'second answer is',
-	    answer: 'hello',
-	    answered: null
-	  }]),
-	  courseId_1: 1
-	}).catch(function (data) {
-	  return console.log(data.message);
-	});
+	var seedProblems = function seedProblems() {
+	  _init.db.none('INSERT INTO problems (explanation, type, content, courseId) VALUES (${explanation_1}, ${type_1}, ${content_1}, ${courseId_1})', {
+	    explanation_1: 'some context to a problem',
+	    type_1: 'ORDERED_MISSING_TEXT',
+	    content_1: JSON.stringify([{
+	      precedingText: 'first answer is ',
+	      answer: 'hi',
+	      answered: null
+	    }, {
+	      precedingText: ', second answer is ',
+	      answer: 'hello',
+	      answered: null
+	    }]),
+	    courseId_1: 1
+	  }).then(function (data) {
+	    log('problems');
+	  }).catch(function (data) {
+	    return console.log(data.message);
+	  });
+	};
+
+	var log = function log(table) {
+	  _init.db.any('SELECT id from ' + table).then(function (data) {
+	    console.log('seeded ' + table + ': ' + data.map(function (column) {
+	      return column.id;
+	    }).join(', '));
+	  }).catch(function (data) {
+	    return console.log(data.message);
+	  });
+	};
+
+	seedCourses();
 
 /***/ },
 /* 1 */,

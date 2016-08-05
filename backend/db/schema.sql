@@ -1,7 +1,7 @@
--- DROP DATABASE memcode;
--- CREATE DATABASE memcode;
+DROP DATABASE memcode;
+CREATE DATABASE memcode;
 
-
+\c memcode;
 
 CREATE TABLE courses (
   id SERIAL PRIMARY KEY,

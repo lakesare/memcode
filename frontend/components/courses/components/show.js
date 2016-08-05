@@ -10,7 +10,7 @@ const Show = React.createClass({
   render() {
     return(
       <div className="columns small-2" >
-        <Link to="/courses/1/problems">
+        <Link to={"/courses/" + this.props.course.id}>
           <h5 className="text-center">{this.props.course.title}</h5>
           <img src={this.props.course.imageUrl}/>
         </Link>

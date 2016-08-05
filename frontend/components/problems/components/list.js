@@ -13,8 +13,8 @@ const List = React.createClass({
   },
 
   render() {
-    const aa = this.props.problems.items.map((problem) => {
-      return <Show key={problem.id} problem={problem}/>
+    const aa = this.props.problems.items.map((problem, index) => {
+      return <Show key={problem.id} problem={problem} index={index}/>
     });
 
 

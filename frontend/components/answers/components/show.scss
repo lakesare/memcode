@@ -1,0 +1,10 @@
+.input{
+  width: 100px;
+  display: inline-block;
+  &.success{
+    border: 1px solid #99f399;
+  }
+  &.failure{
+    border: 1px solid #ff4545;;
+  }
+}
