@@ -9,6 +9,8 @@ import { db } from './db/init.js';
 
 
 
+
+
 app.get('/api', (request, response) => {  
   response.send('Hello from Express!')
 });
@@ -19,6 +21,7 @@ app.get('/api/courses/:id', (request, response) => {
       courseId: request.params.id
     })
     .then((data) => {
+      // data.answers
       response.status(200).json(data);
     })
     .catch((data) => {
@@ -34,6 +37,15 @@ app.get('/api/courses', (request, response) => {
     .catch((data) => {
       response.status(500).json({ error: data.message });
     })
+});
+
+  
+
+import bodyParser from 'body-parser';
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+
+app.post('/api/courses', (request, response) => {
+  response.json(request.body);
 });
 
 

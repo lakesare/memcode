@@ -1,4 +1,3 @@
-
 const reducer = (courses = {
   status: null,
   error: null,
@@ -22,7 +21,17 @@ const reducer = (courses = {
         case 'failure':
           return courses
       }
-
+    case 'CREATE_COURSE':
+      fetch("/api/courses", {
+        method: 'POST',
+        body: JSON.stringify(courseData),
+        headers: new Headers({ "Content-Type": "application/json" })
+      })
+      .then(response => response.json() )
+      .then((response) => {
+        console.log(response)
+      });
+      return courses
     default:
       return courses
   }

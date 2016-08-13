@@ -52,6 +52,10 @@
 
 	var _init = __webpack_require__(2);
 
+	var _bodyParser = __webpack_require__(4);
+
+	var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// const express = require('express');
@@ -67,6 +71,7 @@
 	  var problems = _init.db.any('select * from problems where courseId = ${courseId}', {
 	    courseId: request.params.id
 	  }).then(function (data) {
+	    // data.answers
 	    response.status(200).json(data);
 	  }).catch(function (data) {
 	    response.status(500).json({ error: data.message });
@@ -79,6 +84,12 @@
 	  }).catch(function (data) {
 	    response.status(500).json({ error: data.message });
 	  });
+	});
+
+	app.use(_bodyParser2.default.json()); // to support JSON-encoded bodies
+
+	app.post('/api/courses', function (request, response) {
+	  response.json(request.body);
 	});
 
 	// global routes cause path.join didn't work after update to webpacked ES6
@@ -142,6 +153,12 @@
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	module.exports = require("body-parser");
 
 /***/ }
 /******/ ]);

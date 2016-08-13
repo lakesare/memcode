@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import { rootReducer } from './rootReducer.js';
 
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, window.devToolsExtension && window.devToolsExtension());
 
 
 import { Provider } from 'react-redux';
@@ -22,8 +22,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path='courses' component={CoursesPage}/>
-      <Route path='courses/:id' component={ProblemsPage}/>
       <Route path='courses/new' component={NewCoursePage}/>
+      <Route path='courses/:id' component={ProblemsPage}/>
     </Router>
   </Provider>
   ,

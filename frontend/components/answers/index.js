@@ -1,5 +1,3 @@
 
 
-export { List as AnswersList } from './components/list';
-
-export { reducer as answersReducer } from './reducer';
+export { Show as AnswersShow } from './components/show';

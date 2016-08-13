@@ -26,6 +26,10 @@ module.exports = {
     // loaders: An array of loaders as string
     loaders: [
       {
+        test: /\.json$/,
+        loader: 'json' 
+      }, // json-loader package is for marky (https://github.com/npm/marky-markdown#in-the-browser)
+      {
         test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference

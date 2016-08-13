@@ -1,4 +1,3 @@
-import { answersReducer } from '../answers';
 const reducer = (problems = {
   status: null,
   error: null,
@@ -30,13 +29,27 @@ const reducer = (problems = {
       console.log(problems)
       const problemIndex = problems.items.findIndex((problem) => problem.id === action.problemId);
       const problem = problems.items[problemIndex];
+     
+      const answers = problem.content.answers;
+      const answer = answers[action.answerIndex];
+
       return {
         ...problems,
         items: [
           ...problems.items.slice(0, problemIndex),
           {
             ...problem,
-            content: answersReducer(problem.content, action)
+            content: {
+              text: problem.content.text,
+              answers: [
+                ...answers.slice(0, action.answerIndex),
+                {
+                  ...answer,
+                  answered: 'right'
+                },
+                ...answers.slice(action.answerIndex + 1, answers.length)
+              ]
+            }
           },
           ...problems.items.slice(problemIndex + 1, problems.length)
         ]
@@ -45,5 +58,7 @@ const reducer = (problems = {
       return problems
   }
 };
+
+
 
 export { reducer };

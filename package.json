@@ -27,13 +27,17 @@
     "webpack-error-notification": "^0.1.6"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "json-loader": "^0.5.4",
+    "markdown-it": "^7.0.0",
+    "markdown-it-jsx": "^1.0.0",
     "pg-promise": "^5.2.4",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "redux": "^3.5.2",
-    "redux-form": "^5.3.1"
+    "redux-form": "^6.0.0-rc.4"
   }
 }
