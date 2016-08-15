@@ -31426,7 +31426,7 @@
 
 	var _show2 = _interopRequireDefault(_show);
 
-	var _markdownToJSX = __webpack_require__(372);
+	var _markdownToJsx = __webpack_require__(523);
 
 	var _reactDom = __webpack_require__(36);
 
@@ -31434,6 +31434,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// temporary hack for CDNed Babel
 	window.React = _react2.default;
 	window.AnswersShow = _answers.AnswersShow;
 
@@ -31461,13 +31462,11 @@
 	        aa.push('<AnswersShow \n          key={' + answerIndex + '}\n          answer={' + JSON.stringify(_this.answers()[answerIndex]) + '} \n          answerIndex={' + answerIndex + '} \n          problemId={' + _this.props.problem.id + '}\n        />');
 	        answerIndex++;
 	      } else {
-	        aa.push("```\n Hi \n");
+	        aa.push(textPart);
 	      }
 	    });
 
-	    var text = aa.join('    ');
-	    var jsx = eval((0, _markdownToJSX.MarkdownToJSX)(text));
-	    return _react2.default.createElement(jsx);
+	    return (0, _markdownToJsx.HtmlStringToComponent)(aa.join(' '));
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -31940,42 +31939,7 @@
 
 
 /***/ },
-/* 372 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.MarkdownToJSX = undefined;
-
-	var _markdownIt = __webpack_require__(373);
-
-	var _markdownIt2 = _interopRequireDefault(_markdownIt);
-
-	var _markdownItJsx = __webpack_require__(441);
-
-	var _markdownItJsx2 = _interopRequireDefault(_markdownItJsx);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var md = (0, _markdownIt2.default)();
-	md.use(_markdownItJsx2.default);
-
-	var MarkdownToJSX = function MarkdownToJSX() {
-	  var markdownedText = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-	  var answers = arguments.length <= 1 || arguments[1] === undefined ? [] : arguments[1];
-
-	  var markdownCompileResult = md.render(markdownedText);
-	  var babelCompileResult = Babel.transform('() => (<div>' + markdownCompileResult + '</div>)', { presets: ['react', 'es2015'] }).code;
-
-	  return babelCompileResult;
-	};
-
-	exports.MarkdownToJSX = MarkdownToJSX;
-
-/***/ },
+/* 372 */,
 /* 373 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -49129,6 +49093,46 @@
 		"success": "show---success---2iwLE",
 		"failure": "show---failure---3-rVV"
 	};
+
+/***/ },
+/* 523 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.HtmlStringToComponent = exports.MarkdownStringToHtmlString = undefined;
+
+	var _markdownIt = __webpack_require__(373);
+
+	var _markdownIt2 = _interopRequireDefault(_markdownIt);
+
+	var _markdownItJsx = __webpack_require__(441);
+
+	var _markdownItJsx2 = _interopRequireDefault(_markdownItJsx);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var md = (0, _markdownIt2.default)();
+	md.use(_markdownItJsx2.default);
+
+	var MarkdownStringToHtmlString = function MarkdownStringToHtmlString(markdownedString) {
+	  var htmlString = md.render(markdownedString);
+	  return htmlString;
+	};
+
+	var HtmlStringToComponent = function HtmlStringToComponent(htmlString) {
+	  var jsxString = Babel.transform('() => (<div>' + htmlString + '</div>)', { presets: ['react', 'es2015'] }).code;
+
+	  var jsx = eval(jsxString);
+	  var component = React.createElement(jsx);
+	  return component;
+	};
+
+	exports.MarkdownStringToHtmlString = MarkdownStringToHtmlString;
+	exports.HtmlStringToComponent = HtmlStringToComponent;
 
 /***/ }
 /******/ ]);

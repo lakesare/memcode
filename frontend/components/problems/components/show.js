@@ -1,9 +1,10 @@
 import React from 'react';
 import { AnswersShow } from '../../answers'
 import css from './show.scss';
-import { MarkdownToJSX } from '../../../services/markdownToJSX';
+import { MarkdownStringToHtmlString, HtmlStringToComponent } from '../../../services/markdownToJsx';
 import ReactDOM from 'react-dom';
 
+// temporary hack for CDNed Babel
 window.React = React;
 window.AnswersShow = AnswersShow;
 
@@ -33,13 +34,15 @@ const Show = React.createClass({
         />`);
         answerIndex ++;
       } else {
-        aa.push("```\n Hi \n");
+        aa.push(textPart)
       }
     });
 
-    const text = aa.join('    ');
-    const jsx = eval(MarkdownToJSX(text));
-    return React.createElement(jsx)
+
+
+    return HtmlStringToComponent(aa.join(' '))
+
+
 
 
   },
