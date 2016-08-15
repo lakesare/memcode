@@ -16,6 +16,12 @@ let Show = React.createClass({
     }
   },
 
+  d() {
+    if (this.props.answer.answered) {
+      return this.props.answer.answer
+    } else { return '' }
+  },
+
   render() {
     return(
       <input
@@ -24,6 +30,7 @@ let Show = React.createClass({
         type='text'
         readOnly={this.props.answer.answered == 'right' ? true : false}
         onChange={this.checkAnswer}
+        defaultValue={ this.d() } 
       />
     );
   }

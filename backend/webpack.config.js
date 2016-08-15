@@ -1,8 +1,6 @@
 var WebpackErrorNotificationPlugin = require('webpack-error-notification');
 var WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()//(/* strategy */, /* options */)
 
-var webpack = require('webpack');
-var path = require('path');
 var fs = require('fs');
 
 var nodeModules = {};
@@ -12,7 +10,7 @@ fs.readdirSync('../node_modules')
   })
   .forEach(function(mod) {
     nodeModules[mod] = 'commonjs ' + mod;
-  });
+});
 
 module.exports = {
   externals: nodeModules,
@@ -28,12 +26,6 @@ module.exports = {
     filename: '[name].js'
   },
 
-
-
-
-
-
-
   target: 'node',
 
   module: {
@@ -47,21 +39,9 @@ module.exports = {
         }
       }
     ],
-
   },
 
   plugins: [
     WebpackErrorNotificationConfig
-  ],
-
-  // output: {
-  //   filename: "/index.js",
-  //   path: __dirname + '/webpacked'
-  // }
+  ]
 }
-
-
-
-// To fix this, run webpack -w and that will watch your files and re-execute webpack whenever any of the files Webpack is concerned about changes. 
-
-// scss because used more than less & foundation because grid system's better than bootstraps

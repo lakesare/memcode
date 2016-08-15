@@ -1,12 +1,11 @@
 import React from 'react';
 import { AnswersShow } from '../../answers'
 import css from './show.scss';
+import { MarkdownToJSX } from '../../../services/markdownToJSX';
+import ReactDOM from 'react-dom';
 
-
-import marky from 'marky-markdown';
-
-
-
+window.React = React;
+window.AnswersShow = AnswersShow;
 
 const Show = React.createClass({
   propTypes: {
@@ -14,33 +13,39 @@ const Show = React.createClass({
     index:   React.PropTypes.number.isRequired
   },
 
-  renderContent() {
-    const content = this.props.problem.content;
-    let aa = []
-    let answerIndex = 0
-    content.text.forEach((textPart) => {
-      if (textPart === null) {
-        aa.push(<AnswersShow 
-          key={answerIndex}
-          answer={content.answers[answerIndex]} 
-          answerIndex={answerIndex} 
-          problemId={this.props.problem.id}
-        />);
-        answerIndex ++;
-      } else {
-
-        const htmlizedText = <span dangerouslySetInnerHTML={ 
-          { __html: marky(textPart).html() } 
-        }></span>;
-        aa.push(htmlizedText);
-      }
-    });
-    return aa
+  answers() {
+    return this.props.problem.content.answers
+  },
+  text() {
+    return this.props.problem.content.text
   },
 
-  render() {
-    console.log('problem rendered');
+  renderContent() {
+    let aa = []
+    let answerIndex = 0
+    this.text().forEach((textPart) => {
+      if (textPart === null) {
+        aa.push(`<AnswersShow 
+          key={` + answerIndex + `}
+          answer={` + JSON.stringify(this.answers()[answerIndex]) + `} 
+          answerIndex={` + answerIndex + `} 
+          problemId={` + this.props.problem.id + `}
+        />`);
+        answerIndex ++;
+      } else {
+        aa.push("```\n Hi \n");
+      }
+    });
 
+    const text = aa.join('    ');
+    const jsx = eval(MarkdownToJSX(text));
+    return React.createElement(jsx)
+
+
+  },
+
+
+  render() {
     return(
       <div className={css.problem + ' row'}>
         <div className="columns small-1">{this.props.index + 1}</div>

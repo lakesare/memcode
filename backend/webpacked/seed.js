@@ -69,7 +69,7 @@
 	    explanation_1: 'some context to a problem',
 	    type_1: 'ORDERED_MISSING_TEXT',
 	    content_1: JSON.stringify({
-	      text: ['first answer is ', null, ', second answer is ', null],
+	      text: ['<h1>first answer is ', null, ', second </h1> answer is ', null],
 	      answers: [{ answer: 'hi' }, { answer: 'hello' }]
 
 	    }),
