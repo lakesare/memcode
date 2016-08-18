@@ -2,8 +2,6 @@ import HtmlToReact from 'html-to-react';
 import React from 'react';
 import { AnswersShow } from '../components/answers'
 
-
-
 const htmlToReactParser = new HtmlToReact.Parser(React);
 const processNodeDefinitions = new HtmlToReact.ProcessNodeDefinitions(React);
 
@@ -36,7 +34,6 @@ const problemContentToJsx = (content, problemId) => {
 
   return htmlToReactParser.parseWithInstructions(contentString, (() => true), processingInstructions);
 };
-
 
 const problemContentToString = (content) => {
   let aa = [];
