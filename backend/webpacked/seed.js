@@ -69,7 +69,7 @@
 	    explanation_1: 'some context to a problem',
 	    type_1: 'ORDERED_MISSING_TEXT',
 	    content_1: JSON.stringify({
-	      text: ['<h1>first answer is ', null, ', second </h1> answer <code>is ', null, '</code>'],
+	      text: ['<h1>first answer is ', null, ', </h1> anonymous functions in ruby are called <pre><code class="ruby"> ', null, '</code></pre>'],
 	      answers: [{ answer: 'hi' }, { answer: 'hello' }]
 
 	    }),

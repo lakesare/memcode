@@ -26,13 +26,10 @@
     "webpack-error-notification": "^0.1.6"
   },
   "dependencies": {
-    "babel-core": "^6.10.4",
-    "babel-standalone": "^6.12.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "html-to-react": "^1.0.0",
     "json-loader": "^0.5.4",
-    "markdown-it": "^7.0.0",
-    "markdown-it-jsx": "^1.0.0",
     "pg-promise": "^5.2.4",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",

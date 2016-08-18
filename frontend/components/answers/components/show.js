@@ -16,6 +16,7 @@ let Show = React.createClass({
     }
   },
 
+  // TODO use value instead with onChange updates
   d() {
     if (this.props.answer.answered) {
       return this.props.answer.answer
