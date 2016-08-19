@@ -10,7 +10,6 @@ const Show = React.createClass({
   },
 
   render() {
-    console.log(this)
     return(
       <div className={css.problem + ' row'}>
         <div className="columns small-1">{this.props.index + 1}</div>

@@ -31439,7 +31439,6 @@
 	  },
 
 	  render: function render() {
-	    console.log(this);
 	    return _react2.default.createElement(
 	      'div',
 	      { className: _show2.default.problem + ' row' },
@@ -52806,7 +52805,7 @@
 	    fields.map(function (problem, index) {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { key: index },
 	        _react2.default.createElement(
 	          'button',
 	          {

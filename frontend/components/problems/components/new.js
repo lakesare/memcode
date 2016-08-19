@@ -6,7 +6,7 @@ const New = ({ fields }) => (
   <div>
     {
       fields.map((problem, index) =>
-        <div>
+        <div key={index}>
           <button
             className="button"
             type="button"

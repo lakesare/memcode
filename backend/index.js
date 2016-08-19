@@ -1,60 +1,24 @@
-// 'use strict'
-
 import express from 'express';
-// const express = require('express');
+import bodyParser from 'body-parser';
+
 const app = express()  
 const port = 3000
 
-import { db } from './db/init.js';
-
-
-
-
-
-app.get('/api', (request, response) => {  
-  response.send('Hello from Express!')
-});
-
-app.get('/api/courses/:id', (request, response) => {
-  const problems = db.any('select * from problems where courseId = ${courseId}', 
-    { 
-      courseId: request.params.id
-    })
-    .then((data) => {
-      // data.answers
-      response.status(200).json(data);
-    })
-    .catch((data) => {
-      response.status(500).json({ error: data.message });
-    })
-});
-
-app.get('/api/courses', (request, response) => {
-  const courses = db.any("select * from courses")
-    .then((data) => {
-      response.status(200).json(data);
-    })
-    .catch((data) => {
-      response.status(500).json({ error: data.message });
-    })
-});
-
-  
-
-import bodyParser from 'body-parser';
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
-app.post('/api/courses', (request, response) => {
-  response.json(request.body);
-});
-
-
-
-
-
-// global routes cause path.join didn't work after update to webpacked ES6
+// (global routes, because path.join didn't work after update to webpacked ES6)
 // serve our static stuff like index.css
 app.use(express.static('/home/lakesare/Desktop/memcode/frontend/webpacked'));
+
+
+
+
+import { router } from './components/courses/routes';
+app.use('/api/courses', router);
+
+
+
+
 
 app.get('*', function (req, res) {
   res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html');
@@ -66,5 +30,3 @@ app.listen(port, (err) => {
   }
   console.log(`server is listening on ${port}`)
 })
-
-
