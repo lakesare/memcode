@@ -46,9 +46,9 @@
 
 	"use strict";
 
-	var _init = __webpack_require__(2);
+	var _init = __webpack_require__(4);
 
-	var pgp = __webpack_require__(3);
+	var pgp = __webpack_require__(5);
 
 	var pgPackage = pgp({});
 
@@ -95,7 +95,9 @@
 
 /***/ },
 /* 1 */,
-/* 2 */
+/* 2 */,
+/* 3 */,
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -105,7 +107,7 @@
 	});
 	exports.db = undefined;
 
-	var _pgPromise = __webpack_require__(3);
+	var _pgPromise = __webpack_require__(5);
 
 	var pgPromise = _interopRequireWildcard(_pgPromise);
 
@@ -130,7 +132,7 @@
 	exports.db = db;
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");

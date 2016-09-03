@@ -1,3 +1,7 @@
+import { browserHistory } from 'react-router';
+
+
+
 const reducer = (courses = {
   status: null,
   error: null,
@@ -21,16 +25,18 @@ const reducer = (courses = {
         case 'failure':
           return courses
       }
-    case 'CREATE_COURSE':
-      fetch("/api/courses", {
-        method: 'POST',
-        body: JSON.stringify(courseData),
-        headers: new Headers({ "Content-Type": "application/json" })
-      })
-      .then(response => response.json() )
-      .then((response) => {
-        console.log(response)
-      });
+    case 'CREATING_COURSE':
+      switch (action.status) {
+        case 'fetching':
+          console.log('fetching')
+        case 'success':
+          console.log('success');
+
+          // Triggered somewhere
+          browserHistory.push(`/courses/${action.courseId}`);
+        case 'failure':
+          console.log('failure')
+      }
       return courses
     default:
       return courses

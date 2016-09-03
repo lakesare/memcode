@@ -8,6 +8,7 @@ const pgPackage = pgp({});
 import { db } from './init.js';
 
 
+
 const seedCourses = () => {
   db.none('INSERT INTO courses (title) VALUES (${title_1}), (${title_2})', {
     title_1: 'Ruby',

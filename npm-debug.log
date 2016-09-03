@@ -1,0 +1,31 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'frontend:webpack' ]
+2 info using npm@3.5.2
+3 info using node@v4.2.6
+4 verbose stack Error: Failed to parse json
+4 verbose stack Unexpected token '/' at 1:5
+4 verbose stack     // must close all sessions with db while running it, otherwise it will sile
+4 verbose stack     ^
+4 verbose stack     at parseError (/usr/share/npm/node_modules/read-package-json/read-json.js:379:11)
+4 verbose stack     at parseJson (/usr/share/npm/node_modules/read-package-json/read-json.js:68:23)
+4 verbose stack     at /usr/share/npm/node_modules/read-package-json/read-json.js:48:5
+4 verbose stack     at /usr/share/npm/node_modules/graceful-fs/graceful-fs.js:76:16
+4 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)
+5 verbose cwd /home/lakesare/Desktop/memcode
+6 error Linux 4.6.3-040603-generic
+7 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run" "frontend:webpack"
+8 error node v4.2.6
+9 error npm  v3.5.2
+10 error file /home/lakesare/Desktop/memcode/package.json
+11 error code EJSONPARSE
+12 error Failed to parse json
+12 error Unexpected token '/' at 1:5
+12 error     // must close all sessions with db while running it, otherwise it will sile
+12 error     ^
+13 error File: /home/lakesare/Desktop/memcode/package.json
+14 error Failed to parse package.json data.
+14 error package.json must be actual JSON, not just JavaScript.
+14 error
+14 error This is not a bug in npm.
+14 error Tell the package author to fix their package.json file. JSON.parse
+15 verbose exit [ 1, true ]

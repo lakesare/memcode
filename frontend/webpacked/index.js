@@ -69,11 +69,11 @@
 
 	var _reactRouter = __webpack_require__(449);
 
-	var _courses = __webpack_require__(511);
+	var _courses = __webpack_require__(512);
 
-	var _problems = __webpack_require__(516);
+	var _problems = __webpack_require__(517);
 
-	var _newCourse = __webpack_require__(517);
+	var _newCourse = __webpack_require__(518);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52938,7 +52938,16 @@
 	  }
 	});
 
-	var _reducer = __webpack_require__(510);
+	var _new = __webpack_require__(510);
+
+	Object.defineProperty(exports, 'NewCourse', {
+	  enumerable: true,
+	  get: function get() {
+	    return _new.New;
+	  }
+	});
+
+	var _reducer = __webpack_require__(511);
 
 	Object.defineProperty(exports, 'coursesReducer', {
 	  enumerable: true,
@@ -58553,13 +58562,64 @@
 
 /***/ },
 /* 510 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.New = undefined;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reduxForm = __webpack_require__(190);
+
+	var _problems = __webpack_require__(363);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var New = _react2.default.createClass({
+	  displayName: 'New',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'form',
+	        { onSubmit: this.props.handleSubmit },
+	        _react2.default.createElement(_reduxForm.Field, { name: 'course[title]', type: 'text', component: 'input', placeholder: 'Title' }),
+	        _react2.default.createElement(_reduxForm.FieldArray, { name: 'problems', component: _problems.NewProblem }),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'button', type: 'submit', disabled: this.props.submitting },
+	          'Submit'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports.New = New = (0, _reduxForm.reduxForm)({
+	  form: 'course' })(New);
+
+	exports.New = New;
+
+/***/ },
+/* 511 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.reducer = undefined;
+
+	var _reactRouter = __webpack_require__(449);
+
 	var reducer = function reducer() {
 	  var courses = arguments.length <= 0 || arguments[0] === undefined ? {
 	    status: null,
@@ -58586,16 +58646,18 @@
 	        case 'failure':
 	          return courses;
 	      }
-	    case 'CREATE_COURSE':
-	      fetch("/api/courses", {
-	        method: 'POST',
-	        body: JSON.stringify(courseData),
-	        headers: new Headers({ "Content-Type": "application/json" })
-	      }).then(function (response) {
-	        return response.json();
-	      }).then(function (response) {
-	        console.log(response);
-	      });
+	    case 'CREATING_COURSE':
+	      switch (action.status) {
+	        case 'fetching':
+	          console.log('fetching');
+	        case 'success':
+	          console.log('success');
+
+	          // Triggered somewhere
+	          _reactRouter.browserHistory.push('/courses/' + action.courseId);
+	        case 'failure':
+	          console.log('failure');
+	      }
 	      return courses;
 	    default:
 	      return courses;
@@ -58605,7 +58667,7 @@
 	exports.reducer = reducer;
 
 /***/ },
-/* 511 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58621,7 +58683,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _header = __webpack_require__(512);
+	var _header = __webpack_require__(513);
 
 	var _courses = __webpack_require__(446);
 
@@ -58672,7 +58734,7 @@
 	exports.CoursesPage = CoursesPage;
 
 /***/ },
-/* 512 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58681,7 +58743,7 @@
 	  value: true
 	});
 
-	var _header = __webpack_require__(513);
+	var _header = __webpack_require__(514);
 
 	Object.defineProperty(exports, 'Header', {
 	  enumerable: true,
@@ -58691,7 +58753,7 @@
 	});
 
 /***/ },
-/* 513 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58709,7 +58771,7 @@
 
 	var _reactRouter = __webpack_require__(449);
 
-	var _header = __webpack_require__(514);
+	var _header = __webpack_require__(515);
 
 	var _header2 = _interopRequireDefault(_header);
 
@@ -58758,13 +58820,13 @@
 	exports.Header = Header;
 
 /***/ },
-/* 514 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(515);
+	var content = __webpack_require__(516);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(371)(content, {});
@@ -58784,7 +58846,7 @@
 	}
 
 /***/ },
-/* 515 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(370)();
@@ -58800,7 +58862,7 @@
 	};
 
 /***/ },
-/* 516 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58816,7 +58878,7 @@
 
 	var _reactRedux = __webpack_require__(302);
 
-	var _header = __webpack_require__(512);
+	var _header = __webpack_require__(513);
 
 	var _problems = __webpack_require__(363);
 
@@ -58875,7 +58937,7 @@
 	exports.ProblemsPage = ProblemsPage;
 
 /***/ },
-/* 517 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -58891,30 +58953,18 @@
 
 	var _reactRedux = __webpack_require__(302);
 
-	var _reduxForm = __webpack_require__(190);
+	var _header = __webpack_require__(513);
 
-	var _header = __webpack_require__(512);
+	var _courses = __webpack_require__(446);
 
-	var _newCourse = __webpack_require__(518);
+	var _newCourse = __webpack_require__(519);
 
 	var _newCourse2 = _interopRequireDefault(_newCourse);
-
-	var _problems = __webpack_require__(363);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var NewCoursePage = _react2.default.createClass({
 	  displayName: 'NewCoursePage',
-	  showResults: function showResults(values) {
-	    console.log(values);
-	    new Promise(function (resolve) {
-	      setTimeout(function () {
-	        // simulate server latency
-	        window.alert('You submitted:\n\n' + JSON.stringify(values, null, 2));
-	        resolve();
-	      }, 500);
-	    });
-	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'section',
@@ -58923,82 +58973,57 @@
 	        'div',
 	        { className: 'small-11 small-centered column end' },
 	        _react2.default.createElement(_header.Header, null),
-	        _react2.default.createElement(NewCourseForm, { onSubmit: this.showResults })
-	      )
-	    );
-	  }
-	});
-
-	var NewCourseForm = _react2.default.createClass({
-	  displayName: 'NewCourseForm',
-	  render: function render() {
-	    var _props = this.props;
-	    var handleSubmit = _props.handleSubmit;
-	    var pristine = _props.pristine;
-	    var reset = _props.reset;
-	    var submitting = _props.submitting;
-
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        'New course'
-	      ),
-	      _react2.default.createElement(
-	        'form',
-	        { onSubmit: handleSubmit },
-	        _react2.default.createElement(_reduxForm.Field, { name: 'title', type: 'text', component: 'input', placeholder: 'Title' }),
-	        _react2.default.createElement(_reduxForm.FieldArray, { name: 'problems', component: _problems.NewProblem }),
 	        _react2.default.createElement(
-	          'button',
-	          { className: 'button', type: 'submit', disabled: submitting },
-	          'Submit'
-	        )
+	          'h1',
+	          null,
+	          'New course'
+	        ),
+	        _react2.default.createElement(ConnectedNewCourse, null)
 	      )
 	    );
 	  }
 	});
 
-	NewCourseForm = (0, _reduxForm.reduxForm)({
-	  form: 'course' })(NewCourseForm);
-
-	var toApi = function toApi(string) {
-	  // first thing is: ${'hi'}
-	  var string_from_api = "`" + string + "`";
-	  var a = eval(string_from_api);
-	  return a;
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    onSubmit: function onSubmit(values) {
+	      dispatch({ type: 'CREATING_COURSE', status: 'fetching' });
+	      fetch("/api/courses", {
+	        method: 'POST',
+	        body: JSON.stringify(values),
+	        headers: new Headers({ "Content-Type": "application/json" })
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (response) {
+	        dispatch({
+	          type: 'CREATING_COURSE',
+	          status: 'success',
+	          courseId: response.courseId
+	        });
+	      }).catch(function (response) {
+	        dispatch({
+	          type: 'CREATING_COURSE',
+	          status: 'error'
+	        });
+	      });
+	    }
+	  };
 	};
-	var content = "first thing is: ${'hi'}";
-	content = toApi(content);
 
-	// explanation: 'some context to a problem',
-	// type: 'ORDERED_MISSING_TEXT',
-	// content: [
-	//   {
-	//     precedingText: 'first answer is ',
-	//     answer: 'hi',
-	//     answered: null
-	//   },
-	//   {
-	//     precedingText: ', second answer is ',
-	//     answer: 'hello',
-	//     answered: null
-	//   }
-	// ]
-
+	var ConnectedNewCourse = (0, _reactRedux.connect)(function () {
+	  return {};
+	}, mapDispatchToProps)(_courses.NewCourse);
 
 	exports.NewCoursePage = NewCoursePage;
 
 /***/ },
-/* 518 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(519);
+	var content = __webpack_require__(520);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(371)(content, {});
@@ -59018,7 +59043,7 @@
 	}
 
 /***/ },
-/* 519 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(370)();

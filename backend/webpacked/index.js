@@ -50,11 +50,11 @@
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _bodyParser = __webpack_require__(4);
+	var _bodyParser = __webpack_require__(2);
 
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-	var _routes = __webpack_require__(6);
+	var _routes = __webpack_require__(3);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -88,54 +88,12 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.db = undefined;
-
-	var _pgPromise = __webpack_require__(3);
-
-	var pgPromise = _interopRequireWildcard(_pgPromise);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	var pgPackage = pgPromise.default({});
-
-	var connectionString = {
-	  host: 'localhost', // 'localhost' is the default;
-	  port: 5432, // 5432 is the default;
-	  database: 'memcode',
-	  user: 'postgres',
-	  password: '`1`1`1'
-	};
-	var db = pgPackage(connectionString);
-	db.connect().then(function (obj) {
-	  obj.done(); // success, release the connection;
-	}).catch(function (error) {
-	  console.log("ERROR:", error.message || error);
-	});
-
-	exports.db = db;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	module.exports = require("pg-promise");
-
-/***/ },
-/* 4 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 5 */,
-/* 6 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -149,7 +107,9 @@
 
 	var _express2 = _interopRequireDefault(_express);
 
-	var _init = __webpack_require__(2);
+	var _init = __webpack_require__(4);
+
+	var _model = __webpack_require__(6);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -174,10 +134,167 @@
 	});
 
 	router.post('/', function (request, response) {
-	  response.json(request.body);
+	  var result = (0, _model.createCourseWithProblems)(request.body["course"], request.body["problems"]);
+
+	  if (result.data) {
+	    response.status(200).json({ data: result.data });
+	  } else if (result.error) {
+	    response.status(500).json({ error: result.error });
+	  };
 	});
 
 	exports.router = router;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.db = undefined;
+
+	var _pgPromise = __webpack_require__(5);
+
+	var pgPromise = _interopRequireWildcard(_pgPromise);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	var pgPackage = pgPromise.default({});
+
+	var connectionString = {
+	  host: 'localhost', // 'localhost' is the default;
+	  port: 5432, // 5432 is the default;
+	  database: 'memcode',
+	  user: 'postgres',
+	  password: '`1`1`1'
+	};
+	var db = pgPackage(connectionString);
+	db.connect().then(function (obj) {
+	  obj.done(); // success, release the connection;
+	}).catch(function (error) {
+	  console.log("ERROR:", error.message || error);
+	});
+
+	exports.db = db;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = require("pg-promise");
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createCourseWithProblems = undefined;
+
+	var _init = __webpack_require__(4);
+
+	var _problemContentFromParamsToDb = __webpack_require__(7);
+
+	// course: {title: "aaa"}
+	// problems: [{content: "a", explanation: "aa"}]
+	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
+	  // { validation: 'failed' }
+
+	  var result = _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
+	    var monad = _init.db.tx(function (transaction) {
+	      return createProblemsForCourse(transaction, problems, course.id);
+	    });
+	    return monad;
+	  }).then(function (data) {
+	    return { data: data };
+	  }).catch(function (error) {
+	    return { error: error };
+	  });
+
+	  return result;
+	};
+
+	// problems: [{content: "a", explanation: "aa"}]
+	var createProblemsForCourse = function createProblemsForCourse(transaction, problems, courseId) {
+	  var queries = [];
+	  problems.forEach(function (problem) {
+	    console.log(problem);
+	    queries.push(transaction.none("insert into problems (content, explanation, courseId) values (${content}, ${explanation}, ${courseId})", {
+	      content: (0, _problemContentFromParamsToDb.problemContentFromParamsToDb)(problem.content),
+	      explanation: problem.explanation,
+	      courseId: courseId
+	    }));
+	  });
+
+	  return transaction.batch(queries);
+	};
+
+	exports.createCourseWithProblems = createCourseWithProblems;
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// input: "<h1></h1>"
+
+	// output: "text: ['<h1>first answer is ', null, ', </h1> anonymous functions in ruby are called <pre><code class="ruby"> ', null, '</code></pre>'],
+	// answers: [
+	//   { answer: 'hi' },
+	//   { answer: 'hello' }
+	// ]"
+	var problemContentFromParamsToDb = function problemContentFromParamsToDb(content) {
+	  var text = [];
+	  var answers = [];
+
+	  var contentRemaining = content;
+
+	  while (contentRemaining.length > 0) {
+	    var nextSubstringOfProblemParsed = findNextAnswer(contentRemaining);
+	    text.push(nextSubstringOfProblemParsed.textPiece);
+	    if (nextSubstringOfProblemParsed.answer !== null) {
+	      answers.push({ answer: nextSubstringOfProblemParsed.answer });
+	      text.push(null);
+	    }
+	    contentRemaining = nextSubstringOfProblemParsed.newContentRemaining;
+	  }
+
+	  return JSON.stringify({ answers: answers, text: text });
+	};
+
+	var findNextAnswer = function findNextAnswer(contentRemaining) {
+	  var answerOpens = contentRemaining.indexOf("<answer>");
+	  var answerCloses = contentRemaining.indexOf("</answer>");
+
+	  var _ref = answerOpens === -1 ? {
+	    textPiece: contentRemaining,
+	    answer: null,
+	    newContentRemaining: ''
+	  } : {
+	    textPiece: contentRemaining.slice(0, answerOpens),
+	    answer: contentRemaining.slice(answerOpens + "<answer>".length, answerCloses),
+	    newContentRemaining: contentRemaining.slice(answerCloses + "</answer>".length)
+	  };
+
+	  var textPiece = _ref.textPiece;
+	  var answer = _ref.answer;
+	  var newContentRemaining = _ref.newContentRemaining;
+
+
+	  return { textPiece: textPiece, answer: answer, newContentRemaining: newContentRemaining };
+	};
+
+	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
 
 /***/ }
 /******/ ]);

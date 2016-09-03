@@ -8,33 +8,6 @@ var WebpackErrorNotificationPlugin = require('webpack-error-notification');
 var WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()//(/* strategy */, /* options */)
 
 module.exports = {
-
-
-
-
-  // node: {
-  //   fs: 'empty',
-  //   'child_process': 'empty'
-  // },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   entry: [
     './index.js'
   ],

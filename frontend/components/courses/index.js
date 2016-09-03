@@ -1,6 +1,4 @@
-
 export { List as CoursesList } from './components/list';
-// export { Show as CoursesShow } from './components/show';
-
+export { New as NewCourse } from './components/new';
 
 export { reducer as coursesReducer } from './reducer';
