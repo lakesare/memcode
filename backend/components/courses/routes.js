@@ -31,11 +31,16 @@ import { createCourseWithProblems } from './model';
 router.post('/', (request, response) => {
   const result = createCourseWithProblems(request.body["course"], request.body["problems"]);
 
-  if (result.data) {
-    response.status(200).json({ data: result.data });
-  } else if (result.error) {
-    response.status(500).json({ error: result.error });
-  };
+  result.then((aaa) => {
+    console.log({ data: aaa.data })
+    response.status(200).json({ data: aaa.data });
+  })
+
+  // if (result.data) {
+  //   response.status(200).json({ data: result.data });
+  // } else if (result.error) {
+  //   response.status(500).json({ error: result.error });
+  // };
 
 
 

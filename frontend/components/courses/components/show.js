@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Link } from 'react-router'
 
 const Show = React.createClass({
@@ -9,7 +8,7 @@ const Show = React.createClass({
 
   render() {
     return(
-      <div className="columns small-2" >
+      <div className={"columns small-2" + (this.props.last ? " end" : "")} >
         <Link to={"/courses/" + this.props.course.id}>
           <h5 className="text-center">{this.props.course.title}</h5>
           <img src={this.props.course.imageUrl}/>
@@ -17,8 +16,6 @@ const Show = React.createClass({
       </div>
     );
   }
-
-
 });
 
 export { Show };

@@ -1,6 +1,3 @@
-import { browserHistory } from 'react-router';
-
-
 
 const reducer = (courses = {
   status: null,
@@ -29,13 +26,13 @@ const reducer = (courses = {
       switch (action.status) {
         case 'fetching':
           console.log('fetching')
+          break;
         case 'success':
           console.log('success');
-
-          // Triggered somewhere
-          browserHistory.push(`/courses/${action.courseId}`);
+          break;
         case 'failure':
-          console.log('failure')
+          console.log(action.error)
+          break;
       }
       return courses
     default:

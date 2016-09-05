@@ -136,11 +136,17 @@
 	router.post('/', function (request, response) {
 	  var result = (0, _model.createCourseWithProblems)(request.body["course"], request.body["problems"]);
 
-	  if (result.data) {
-	    response.status(200).json({ data: result.data });
-	  } else if (result.error) {
-	    response.status(500).json({ error: result.error });
-	  };
+	  result.then(function (aaa) {
+	    console.log({ data: aaa.data });
+	    response.status(200).json({ data: aaa.data });
+	  });
+
+	  // if (result.data) {
+	  //   response.status(200).json({ data: result.data });
+	  // } else if (result.error) {
+	  //   response.status(500).json({ error: result.error });
+	  // };
+
 	});
 
 	exports.router = router;
@@ -206,14 +212,18 @@
 	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
 	  // { validation: 'failed' }
 
+	  var courseId = null;
 	  var result = _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
+	    courseId = course.id;
 	    var monad = _init.db.tx(function (transaction) {
 	      return createProblemsForCourse(transaction, problems, course.id);
 	    });
 	    return monad;
 	  }).then(function (data) {
-	    return { data: data };
+	    console.log({ courseId: courseId });
+	    return { data: { courseId: courseId } };
 	  }).catch(function (error) {
+	    console.log({ error: error });
 	    return { error: error };
 	  });
 
@@ -224,7 +234,6 @@
 	var createProblemsForCourse = function createProblemsForCourse(transaction, problems, courseId) {
 	  var queries = [];
 	  problems.forEach(function (problem) {
-	    console.log(problem);
 	    queries.push(transaction.none("insert into problems (content, explanation, courseId) values (${content}, ${explanation}, ${courseId})", {
 	      content: (0, _problemContentFromParamsToDb.problemContentFromParamsToDb)(problem.content),
 	      explanation: problem.explanation,

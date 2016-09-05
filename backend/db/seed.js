@@ -23,6 +23,28 @@ const seedCourses = () => {
 
 
 
+// There are a variety of file system methods, all contained in the <answer>fs</answer> module
+
+// To ensure the stability of my tests, as well as for performance reasons, I can use .shallow() to render this component only one level deep:
+// const wrapper = shallow(<App />);
+
+
+// promise that resolves to hi === promise.then((hi) => {})
+
+
+
+
+
+
+// ____Enzyme
+// shallow Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that your tests aren't indirectly asserting on behavior of child components.
+
+// mount Full DOM rendering is ideal for use cases where you have components that may interact with DOM APIs, or may require the full lifecycle in order to fully test the component (i.e., componentDidMount etc.)
+
+// Enzyme's render function is used to render react components to static HTML and analyze the resulting HTML structure.
+
+
+
 
 const seedProblems = () => {
   db.none('INSERT INTO problems (explanation, type, content, courseId) VALUES (${explanation_1}, ${type_1}, ${content_1}, ${courseId_1})', {

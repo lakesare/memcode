@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { Header } from '../components/header';
 import { NewCourse } from '../components/courses'
@@ -32,16 +33,19 @@ const mapDispatchToProps = (dispatch) => {
         })
         .then(response => response.json() )
         .then((response) => {
+          console.log('theen')
+          browserHistory.push(`/courses/${response.data.courseId}`);
+
           dispatch({
             type: 'CREATING_COURSE', 
-            status: 'success', 
-            courseId: response.courseId
+            status: 'success'
           });
         })
         .catch((response) => {
           dispatch({
             type: 'CREATING_COURSE',
-            status: 'error'
+            status: 'error',
+            error: response.error
           })
         })
     }
