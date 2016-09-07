@@ -1,5 +1,5 @@
 var WebpackErrorNotificationPlugin = require('webpack-error-notification');
-var WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()//(/* strategy */, /* options */)
+var WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()
 
 var fs = require('fs');
 
@@ -12,13 +12,25 @@ fs.readdirSync('../node_modules')
     nodeModules[mod] = 'commonjs ' + mod;
 });
 
+
+var glob = require("glob")
+var testFiles = glob.sync("./**/*.test.js", { ignore: "./webpacked/**" })
+
+var testEntries = {}
+testFiles.forEach(function(testFile) {
+  testEntries['webpacked/test/' + testFile.slice(2, -3)] = testFile
+});
+console.log(testFiles)
+
+var entries = Object.assign(testEntries, {
+  'webpacked/index': './index',
+  'webpacked/seed': './db/seed',
+});
+
 module.exports = {
   externals: nodeModules,
 
-  entry: {
-    'webpacked/index': './index', // will be  ./build/application/bundle.js,
-    'webpacked/seed': './db/seed'// will be  ./build/library/bundle.js
-  },
+  entry: entries,
   // https://github.com/webpack/webpack/issues/1189#issuecomment-156576084
 
   output: {

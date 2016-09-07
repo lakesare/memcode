@@ -1,13 +1,9 @@
 "use strict";
 
 const pgp = require('pg-promise');
-
-
 const pgPackage = pgp({});
 
 import { db } from './init.js';
-
-
 
 const seedCourses = () => {
   db.none('INSERT INTO courses (title) VALUES (${title_1}), (${title_2})', {
@@ -25,8 +21,6 @@ const seedCourses = () => {
 
 // There are a variety of file system methods, all contained in the <answer>fs</answer> module
 
-// To ensure the stability of my tests, as well as for performance reasons, I can use .shallow() to render this component only one level deep:
-// const wrapper = shallow(<App />);
 
 
 // promise that resolves to hi === promise.then((hi) => {})
@@ -42,6 +36,38 @@ const seedCourses = () => {
 // mount Full DOM rendering is ideal for use cases where you have components that may interact with DOM APIs, or may require the full lifecycle in order to fully test the component (i.e., componentDidMount etc.)
 
 // Enzyme's render function is used to render react components to static HTML and analyze the resulting HTML structure.
+
+
+
+
+// async Essentially wraps the return value of the function in a promise
+
+
+
+
+
+// pg-promise transaction syntax
+// ```
+// return db.tx((transaction) => {
+//   const queries = [
+//     transaction.none('delete from courses where id=${courseId}', { courseId }),
+//     transaction.none('delete from problems where courseId=${courseId}', { courseId })
+//   ];
+//   return transaction.batch(queries);
+// }).then(() => { return { data: 'deleted' }
+// }).catch((error) => { return { error } 
+// })
+// ```
+
+
+
+// async awaut tutorial
+
+
+
+
+
+
 
 
 

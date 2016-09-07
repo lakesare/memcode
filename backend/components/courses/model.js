@@ -6,34 +6,24 @@ import { problemContentFromParamsToDb } from '../../services/problemContentFromP
 // problems: [{content: "a", explanation: "aa"}]
 const createCourseWithProblems = (course, problems) => {
   // { validation: 'failed' }
-
   let courseId = null;
   const result = db
     .one("insert into courses (title) values (${title}) RETURNING id", course)
-    .then((course) => {
+      .then((course) => {
       courseId = course.id;
       let monad = db.tx((transaction) => {
-        return createProblemsForCourse(transaction, problems, course.id);
+        return createProblemsOfCourse(transaction, problems, course.id);
       })
       return monad
+    }).then((data) => { return { data: { courseId } } 
+    }).catch((error) => { return { error } 
     })
-    .then((data) => {
-      console.log({courseId})
-      return { data: { courseId } }
-    })
-    .catch((error) => {
-      console.log({error})
-      return { error }
-    })
-
 
   return result
 }
 
-
-
 // problems: [{content: "a", explanation: "aa"}]
-const createProblemsForCourse = (transaction, problems, courseId) => {
+const createProblemsOfCourse = (transaction, problems, courseId) => {
   let queries = [];
   problems.forEach((problem) => {
     queries.push(
@@ -52,5 +42,41 @@ const createProblemsForCourse = (transaction, problems, courseId) => {
 }
 
 
+const getCourseWithProblems = (courseId) => {
+  const result = Promise.all([
+    db.one('select * from courses where id = ${courseId}', { courseId }),
+    db.any('select * from problems where courseId = ${courseId}', { courseId })
+  ]).then((values) => {
+    return(
+      { 
+        data: {
+          course: values[0],
+          problems: values[1]
+        }
+      }
+    )
+  }).catch((error) => {
+    return({ error })
+  })
 
-export { createCourseWithProblems };
+  return result
+}
+
+
+const deleteCourseWithProblems = (courseId) => {
+  return( 
+    db.tx((transaction) => {
+      return transaction.batch([
+        transaction.none('delete from problems where courseId=${courseId}', { courseId }),
+        transaction.none('delete from courses where id=${courseId}', { courseId }),
+      ]);
+    }).then(() => { return { data: true }
+    }).catch((error) => { return { error } 
+    })
+  )
+}
+
+
+
+
+export { createCourseWithProblems, getCourseWithProblems, deleteCourseWithProblems };

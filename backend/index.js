@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 const app = express()  
 const port = 3000
 
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.json());       // to support JSON-encoded bodies
 
 // (global routes, because path.join didn't work after update to webpacked ES6)
 // serve our static stuff like index.css

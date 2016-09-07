@@ -8,6 +8,7 @@ var WebpackErrorNotificationPlugin = require('webpack-error-notification');
 var WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()//(/* strategy */, /* options */)
 
 module.exports = {
+  // devtool: 'source-map',
   entry: [
     './index.js'
   ],

@@ -1,4 +1,3 @@
-
 import * as pgPromise from 'pg-promise';
 
 const pgPackage = pgPromise.default({});
@@ -6,7 +5,7 @@ const pgPackage = pgPromise.default({});
 var connectionString = {
   host: 'localhost', // 'localhost' is the default;
   port: 5432, // 5432 is the default;
-  database: 'memcode',
+  database: (isTest ? 'memcode_test' : 'memcode'),
   user: 'postgres',
   password: '`1`1`1'
 };
@@ -17,6 +16,10 @@ db.connect()
   })
   .catch(function (error) {
     console.log("ERROR:", error.message || error);
-  });
+});
+
+const isTest = () => {
+  return(process.env.NODE_ENV === 'test')
+}
 
 export { db };

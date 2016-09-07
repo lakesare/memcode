@@ -3,11 +3,10 @@ const router = express.Router();
 
 import { db } from '../../db/init.js';
 
+import * as Course from './model';
+
 router.get('/:id', (request, response) => {
-  const problems = db.any('select * from problems where courseId = ${courseId}', 
-    { 
-      courseId: request.params.id
-    })
+  Course.getCourseWithProblems(request.params.id)
   .then((data) => {
     response.status(200).json(data);
   })
@@ -26,13 +25,12 @@ router.get('/', (request, response) => {
   })
 });
 
-import { createCourseWithProblems } from './model';
+
 
 router.post('/', (request, response) => {
-  const result = createCourseWithProblems(request.body["course"], request.body["problems"]);
+  const result = Course.createCourseWithProblems(request.body["course"], request.body["problems"]);
 
   result.then((aaa) => {
-    console.log({ data: aaa.data })
     response.status(200).json({ data: aaa.data });
   })
 
@@ -41,9 +39,13 @@ router.post('/', (request, response) => {
   // } else if (result.error) {
   //   response.status(500).json({ error: result.error });
   // };
-
-
-
 });
+
+
+router.delete('/', (request, response) => {
+  
+});
+
+
 
 export { router };

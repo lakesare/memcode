@@ -3,7 +3,8 @@ import { Show } from './show';
 
 const List = React.createClass({
   propTypes: {
-    problems: React.PropTypes.object.isRequired
+    problems: React.PropTypes.object.isRequired,
+    course:   React.PropTypes.object.isRequired
   },
 
   componentDidMount() {
@@ -15,11 +16,18 @@ const List = React.createClass({
       return <Show key={problem.id} problem={problem} index={index}/>
     });
 
-    return(
-      <div>
-        {aa}
-      </div>
-    );
+    if (this.props.problems.status == 'success'){
+      return(
+        <div>
+          <h1>
+            {this.props.course.items.title}
+          </h1>
+          {aa}
+        </div>
+      )
+    } else {
+      return(<div></div>)
+    }
   }
 });
 

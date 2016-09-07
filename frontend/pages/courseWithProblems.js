@@ -5,11 +5,10 @@ import { Header }       from '../components/header';
 import { ProblemsList } from '../components/problems';
 
 
-
 const mapStateToProps = (state) => {
   return {
     problems: state.problems,
-    answers: state.answers
+    course:   state.courses.course
   }
 }
 
@@ -20,14 +19,23 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         type: 'FETCHING_PROBLEMS', 
         status: 'fetching' 
       });
-      fetch(`/api/courses/${ownProps.levelId}`)
-        .then(response => response.json() )
-        .then((response) => {
-          dispatch({ 
-            type: 'FETCHING_PROBLEMS', 
-            status: 'success', 
-            problems: response
-          });
+      dispatch({ 
+        type: 'FETCHING_COURSE', 
+        status: 'fetching'
+      });
+      fetch(`/api/courses/${ownProps.courseId}`)
+      .then(response => response.json() )
+      .then((response) => {
+        dispatch({
+          type: 'FETCHING_PROBLEMS', 
+          status: 'success',
+          problems: response.data.problems
+        });
+        dispatch({
+          type: 'FETCHING_COURSE', 
+          status: 'success',
+          course: response.data.course
+        });
       });
     },
   }
@@ -40,14 +48,13 @@ const ConnectedProblemsList = connect(
 
 
 
-const ProblemsPage = React.createClass({
+const CourseWithProblemsPage = React.createClass({
   render() {
     return(
       <section className="row">
         <div className="small-11 small-centered column end">
           <Header/>
-          <h1>Problems</h1>
-          <ConnectedProblemsList levelId={this.props.params.id}/>
+          <ConnectedProblemsList courseId={this.props.params.id}/>
         </div>
       </section>
     )
@@ -55,4 +62,4 @@ const ProblemsPage = React.createClass({
 });
 
 
-export { ProblemsPage };
+export { CourseWithProblemsPage };

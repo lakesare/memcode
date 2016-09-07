@@ -24,9 +24,7 @@ module.exports = function (config) {
         'react/addons': true, // important!!
         'react/lib/ExecutionEnvironment': true,
         'react/lib/ReactContext': true, 
-        // 'jsdom': true
       },
-      // target: 'node'
     },
     webpackServer: {
       noInfo: true //please don't spam the console when running in karma!

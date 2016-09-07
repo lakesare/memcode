@@ -7,8 +7,10 @@
     "start": "nodemon --watch backend backend/webpacked/index.js",
     "backend:webpack": "cd backend; webpack -w",
     "frontend:webpack": "cd frontend; webpack -w",
-    "db": "psql -U postgres -f backend/db/schema.sql; node backend/webpacked/seed.js",
-    "backend:test": "cd backend; karma start"
+    "db": "psql -v database=memcode      -U postgres -f backend/db/schema.sql; node backend/webpacked/seed.js",
+    "test:db": "psql -v database=memcode_test -U postgres -f backend/db/schema.sql",
+    "backend:test": "cd backend; NODE_ENV=test mocha --recursive ./webpacked/test --watch ",
+    "frontend:test": "cd frontend; NODE_ENV=test karma start"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "chai-http": "^3.0.0",
     "css-loader": "^0.23.1",
     "enzyme": "^2.4.1",
+    "glob": "^7.0.6",
     "html-webpack-plugin": "^2.22.0",
     "karma": "^1.2.0",
     "karma-chai": "^0.1.0",

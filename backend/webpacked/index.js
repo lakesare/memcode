@@ -111,14 +111,16 @@
 
 	var _model = __webpack_require__(6);
 
+	var Course = _interopRequireWildcard(_model);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var router = _express2.default.Router();
 
 	router.get('/:id', function (request, response) {
-	  var problems = _init.db.any('select * from problems where courseId = ${courseId}', {
-	    courseId: request.params.id
-	  }).then(function (data) {
+	  Course.getCourseWithProblems(request.params.id).then(function (data) {
 	    response.status(200).json(data);
 	  }).catch(function (data) {
 	    response.status(500).json({ error: data.message });
@@ -134,10 +136,9 @@
 	});
 
 	router.post('/', function (request, response) {
-	  var result = (0, _model.createCourseWithProblems)(request.body["course"], request.body["problems"]);
+	  var result = Course.createCourseWithProblems(request.body["course"], request.body["problems"]);
 
 	  result.then(function (aaa) {
-	    console.log({ data: aaa.data });
 	    response.status(200).json({ data: aaa.data });
 	  });
 
@@ -146,8 +147,9 @@
 	  // } else if (result.error) {
 	  //   response.status(500).json({ error: result.error });
 	  // };
-
 	});
+
+	router.delete('/', function (request, response) {});
 
 	exports.router = router;
 
@@ -173,7 +175,7 @@
 	var connectionString = {
 	  host: 'localhost', // 'localhost' is the default;
 	  port: 5432, // 5432 is the default;
-	  database: 'memcode',
+	  database: isTest ? 'memcode_test' : 'memcode',
 	  user: 'postgres',
 	  password: '`1`1`1'
 	};
@@ -183,6 +185,10 @@
 	}).catch(function (error) {
 	  console.log("ERROR:", error.message || error);
 	});
+
+	var isTest = function isTest() {
+	  return process.env.NODE_ENV === 'test';
+	};
 
 	exports.db = db;
 
@@ -201,7 +207,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.createCourseWithProblems = undefined;
+	exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
 
 	var _init = __webpack_require__(4);
 
@@ -211,19 +217,16 @@
 	// problems: [{content: "a", explanation: "aa"}]
 	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
 	  // { validation: 'failed' }
-
 	  var courseId = null;
 	  var result = _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
 	    courseId = course.id;
 	    var monad = _init.db.tx(function (transaction) {
-	      return createProblemsForCourse(transaction, problems, course.id);
+	      return createProblemsOfCourse(transaction, problems, course.id);
 	    });
 	    return monad;
 	  }).then(function (data) {
-	    console.log({ courseId: courseId });
 	    return { data: { courseId: courseId } };
 	  }).catch(function (error) {
-	    console.log({ error: error });
 	    return { error: error };
 	  });
 
@@ -231,7 +234,7 @@
 	};
 
 	// problems: [{content: "a", explanation: "aa"}]
-	var createProblemsForCourse = function createProblemsForCourse(transaction, problems, courseId) {
+	var createProblemsOfCourse = function createProblemsOfCourse(transaction, problems, courseId) {
 	  var queries = [];
 	  problems.forEach(function (problem) {
 	    queries.push(transaction.none("insert into problems (content, explanation, courseId) values (${content}, ${explanation}, ${courseId})", {
@@ -244,7 +247,34 @@
 	  return transaction.batch(queries);
 	};
 
+	var getCourseWithProblems = function getCourseWithProblems(courseId) {
+	  var result = Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where courseId = ${courseId}', { courseId: courseId })]).then(function (values) {
+	    return {
+	      data: {
+	        course: values[0],
+	        problems: values[1]
+	      }
+	    };
+	  }).catch(function (error) {
+	    return { error: error };
+	  });
+
+	  return result;
+	};
+
+	var deleteCourseWithProblems = function deleteCourseWithProblems(courseId) {
+	  return _init.db.tx(function (transaction) {
+	    return transaction.batch([transaction.none('delete from problems where courseId=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
+	  }).then(function () {
+	    return { data: true };
+	  }).catch(function (error) {
+	    return { error: error };
+	  });
+	};
+
 	exports.createCourseWithProblems = createCourseWithProblems;
+	exports.getCourseWithProblems = getCourseWithProblems;
+	exports.deleteCourseWithProblems = deleteCourseWithProblems;
 
 /***/ },
 /* 7 */

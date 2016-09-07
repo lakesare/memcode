@@ -4,11 +4,9 @@ import React from 'react';
 import { Header }      from '../components/header';
 import { CoursesList } from '../components/courses';
 
-
-
 const mapStateToProps = (state) => {
   return {
-    courses: state.courses
+    courses: state.courses.courses
   }
 };
 
@@ -18,7 +16,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: 'FETCHING_COURSES', status: 'fetching' });
       fetch('./api/courses').then(response => response.json() )
         .then((response) => {
-          dispatch({ type: 'FETCHING_COURSES', status: 'success', items: response });
+          dispatch({ 
+            type: 'FETCHING_COURSES', status: 'success', items: response 
+          });
       });
     },
   }

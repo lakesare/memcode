@@ -14,7 +14,7 @@ import { Provider } from 'react-redux';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
 import { CoursesPage } from './pages/courses';
-import { ProblemsPage } from './pages/problems';
+import { CourseWithProblemsPage } from './pages/courseWithProblems';
 import { NewCoursePage } from './pages/newCourse';
 
 
@@ -23,7 +23,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path='courses' component={CoursesPage}/>
       <Route path='courses/new' component={NewCoursePage}/>
-      <Route path='courses/:id' component={ProblemsPage}/>
+      <Route path='courses/:id' component={CourseWithProblemsPage}/>
     </Router>
   </Provider>
   ,
