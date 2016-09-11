@@ -54,6 +54,6 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "redux": "^3.5.2",
-    "redux-form": "^6.0.0-rc.4"
+    "redux-form": "^6.0.2"
   }
 }

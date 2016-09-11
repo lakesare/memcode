@@ -84,7 +84,6 @@ const reducer = (courses = initialState, action) => {
         .findIndex((item) => item.get('id') === action.courseId)
       switch (action.status) {
         case 'fetching':
-
           return courses
             .setIn(['courses', 'items', courseIndex, 'delete', 'status'], 'fetching')
             .toJS()

@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 
 import { Header } from '../components/header';
 import { NewCourse } from '../components/courses'
-import css from './newCourse.scss';
 
 
 const NewCoursePage = React.createClass({

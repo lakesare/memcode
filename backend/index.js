@@ -13,10 +13,11 @@ app.use(express.static('/home/lakesare/Desktop/memcode/frontend/webpacked'));
 
 
 
-import { router } from './components/courses/routes';
-app.use('/api/courses', router);
+import { router as coursesRouter } from './components/courses/routes';
+app.use('/api/courses', coursesRouter);
 
-
+import { router as problemsRouter } from './components/problems/routes';
+app.use('/api/problems', problemsRouter);
 
 
 
@@ -25,8 +26,6 @@ app.get('*', function (req, res) {
 })
 
 app.listen(port, (err) => {  
-  if (err) {
-    return console.log('something bad happened', err)
-  }
+  if (err) { console.log('something bad happened', err) }
   console.log(`server is listening on ${port}`)
 })

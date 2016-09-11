@@ -31,7 +31,7 @@ let Show = React.createClass({
   render() {
     return(
       <div className={"columns small-2" + (this.props.last ? " end " : " ") + this.deletionClasses()}>
-        <div onClick={this.props.deleteCourse}>delete</div>
+        <div className="button alert" onClick={this.props.deleteCourse}>delete</div>
         <Link to={"/courses/" + this.props.course.id}>
           <h5 className="text-center">{this.props.course.title}</h5>
         </Link>
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     deleteCourse: () => {
       const courseId = ownProps.course.id;
       dispatch({ type: 'DELETING_COURSE', status: 'fetching', courseId });
-      fetch(`./api/courses/${courseId}`, {
+      fetch(`/api/courses/${courseId}`, {
         method: "DELETE"
       }).then(() => {
         dispatch({ type: 'DELETING_COURSE', status: 'success', courseId });

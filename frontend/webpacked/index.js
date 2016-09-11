@@ -31786,6 +31786,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(449);
+
 	var _show = __webpack_require__(363);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -31801,8 +31803,11 @@
 	  componentDidMount: function componentDidMount() {
 	    this.props.fetchProblems();
 	  },
+	  redirectToEditCoursePage: function redirectToEditCoursePage() {
+	    _reactRouter.browserHistory.push('/courses/' + this.props.course.id + '/edit');
+	  },
 	  render: function render() {
-	    var aa = this.props.problems.items.map(function (problem, index) {
+	    var listOfProblems = this.props.problems.items.map(function (problem, index) {
 	      return _react2.default.createElement(_show.Show, { key: problem.id, problem: problem, index: index });
 	    });
 
@@ -31811,11 +31816,16 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
+	          'div',
+	          { className: 'button', onClick: this.redirectToEditCoursePage },
+	          'update'
+	        ),
+	        _react2.default.createElement(
 	          'h1',
 	          null,
 	          this.props.course.items.title
 	        ),
-	        aa
+	        listOfProblems
 	      );
 	    } else {
 	      return _react2.default.createElement('div', null);
@@ -31840,6 +31850,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRedux = __webpack_require__(299);
+
 	var _answers = __webpack_require__(364);
 
 	var _show = __webpack_require__(370);
@@ -31855,7 +31867,7 @@
 
 	  propTypes: {
 	    problem: _react2.default.PropTypes.object.isRequired,
-	    index: _react2.default.PropTypes.number.isRequired
+	    index: _react2.default.PropTypes.number.isRequired // just for pretiness, to number down the problems
 	  },
 
 	  render: function render() {
@@ -31869,17 +31881,46 @@
 	      ),
 	      _react2.default.createElement(
 	        'div',
-	        { className: 'columns small-7' },
+	        { className: 'columns small-6' },
 	        (0, _problemContentToJsx.problemContentToJsx)(this.props.problem.content, this.props.problem.id)
 	      ),
 	      _react2.default.createElement(
 	        'div',
 	        { className: _show2.default.context + " columns small-4" },
 	        this.props.problem.explanation
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'columns small-1' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'button alert', onClick: this.props.deleteProblem },
+	          'delete'
+	        )
 	      )
 	    );
 	  }
 	});
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    deleteProblem: function deleteProblem() {
+	      var problemId = ownProps.problem.id;
+	      dispatch({ type: 'DELETING_PROBLEM', status: 'fetching', problemId: problemId });
+	      fetch('/api/problems/' + problemId, {
+	        method: "DELETE"
+	      }).then(function () {
+	        dispatch({ type: 'DELETING_PROBLEM', status: 'success', problemId: problemId });
+	      }).catch(function () {
+	        dispatch({ type: 'DELETING_PROBLEM', status: 'failure' });
+	      });
+	    }
+	  };
+	};
+
+	exports.Show = Show = (0, _reactRedux.connect)(function () {
+	  return {};
+	}, mapDispatchToProps)(Show);
 
 	exports.Show = Show;
 
@@ -53620,12 +53661,28 @@
 	          return problems.set('status', 'failure').set('error', action.error).set('items', []).toJS();
 	      }
 	    case 'MARK_ANSWER_AS_RIGHT':
-	      var problemIndex = problems.get('items').findIndex(function (problem) {
-	        return problem.get('id') === action.problemId;
-	      });
-	      var answerIndex = action.answerIndex;
+	      {
+	        var problemIndex = problems.get('items').findIndex(function (problem) {
+	          return problem.get('id') === action.problemId;
+	        });
+	        var answerIndex = action.answerIndex;
 
-	      return problems.setIn(['items', problemIndex, 'content', 'answers', answerIndex, 'answered'], 'right').toJS();
+	        return problems.setIn(['items', problemIndex, 'content', 'answers', answerIndex, 'answered'], 'right').toJS();
+	      }
+	    case 'DELETING_PROBLEM':
+	      {
+	        var _problemIndex = problems.getIn(['items']).findIndex(function (item) {
+	          return item.get('id') === action.problemId;
+	        });
+	        switch (action.status) {
+	          case 'fetching':
+	            return problems.setIn(['items', _problemIndex, 'delete', 'status'], 'fetching').toJS();
+	          case 'success':
+	            return problems.removeIn(['items', _problemIndex]).toJS();
+	          case 'failure':
+	            return problems.setIn(['items', _problemIndex, 'delete', 'status'], 'failure').setIn(['items', _problemIndex, 'delete', 'error'], action.error).toJS();
+	        }
+	      }
 	    default:
 	      return problems.toJS();
 	  }
@@ -53792,7 +53849,7 @@
 	      { className: "columns small-2" + (this.props.last ? " end " : " ") + this.deletionClasses() },
 	      _react2.default.createElement(
 	        'div',
-	        { onClick: this.props.deleteCourse },
+	        { className: 'button alert', onClick: this.props.deleteCourse },
 	        'delete'
 	      ),
 	      _react2.default.createElement(
@@ -53813,7 +53870,7 @@
 	    deleteCourse: function deleteCourse() {
 	      var courseId = ownProps.course.id;
 	      dispatch({ type: 'DELETING_COURSE', status: 'fetching', courseId: courseId });
-	      fetch('./api/courses/' + courseId, {
+	      fetch('/api/courses/' + courseId, {
 	        method: "DELETE"
 	      }).then(function () {
 	        dispatch({ type: 'DELETING_COURSE', status: 'success', courseId: courseId });
@@ -59547,7 +59604,6 @@
 	      });
 	      switch (action.status) {
 	        case 'fetching':
-
 	          return courses.setIn(['courses', 'items', courseIndex, 'delete', 'status'], 'fetching').toJS();
 	        case 'success':
 	          return courses.setIn(['courses', 'items', courseIndex, 'delete', 'status'], 'success').toJS();
@@ -59898,9 +59954,7 @@
 	      }).then(function (response) {
 	        return response.json();
 	      }).then(function (response) {
-	        console.log('theen');
 	        _reactRouter.browserHistory.push('/courses/' + response.data.courseId);
-
 	        dispatch({
 	          type: 'CREATING_COURSE',
 	          status: 'success'

@@ -56,6 +56,8 @@
 
 	var _routes = __webpack_require__(3);
 
+	var _routes2 = __webpack_require__(8);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var app = (0, _express2.default)();
@@ -69,13 +71,15 @@
 
 	app.use('/api/courses', _routes.router);
 
+	app.use('/api/problems', _routes2.router);
+
 	app.get('*', function (req, res) {
 	  res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html');
 	});
 
 	app.listen(port, function (err) {
 	  if (err) {
-	    return console.log('something bad happened', err);
+	    console.log('something bad happened', err);
 	  }
 	  console.log('server is listening on ' + port);
 	});
@@ -336,6 +340,66 @@
 	};
 
 	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.router = undefined;
+
+	var _express = __webpack_require__(1);
+
+	var _express2 = _interopRequireDefault(_express);
+
+	var _init = __webpack_require__(4);
+
+	var _model = __webpack_require__(9);
+
+	var Problem = _interopRequireWildcard(_model);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var router = _express2.default.Router();
+
+	router.delete('/:id', function (request, response) {
+	  Problem.deleteProblem(request.params.id).then(function () {
+	    response.status(200).json();
+	  }).catch(function (error) {
+	    response.status(500).json(error);
+	  });
+	});
+
+	exports.router = router;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.deleteProblem = undefined;
+
+	var _init = __webpack_require__(4);
+
+	var deleteProblem = function deleteProblem(id) {
+	  return _init.db.none('delete from problems where id=${id}', { id: id }).then(function () {
+	    return { data: true };
+	  }).catch(function (error) {
+	    return { error: error };
+	  });
+	};
+
+	exports.deleteProblem = deleteProblem;
 
 /***/ }
 /******/ ]);

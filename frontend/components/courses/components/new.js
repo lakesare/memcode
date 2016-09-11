@@ -22,6 +22,3 @@ New = reduxForm({
 })(New);
 
 export { New };
-
-
-

@@ -1,18 +1,12 @@
-// import { db } from '../../db/init.js';
+import { db } from '../../db/init.js';
 
+const deleteProblem = (id) => {
+  return(
+    db.none('delete from problems where id=${id}', { id })
+      .then(() => { return { data: true }
+    }).catch((error) => { return { error } 
+    })
+  )
+}
 
-// const createProblemsForCourse = (problems, courseId) => {
-//   db.task((t) => {
-//     let queries = [];
-//     problems.forEach((problem) => {
-//       queries.push(
-//         t.none("insert into problems (title) values (${title})", problem)
-//       );
-//     });
-
-
-//     return t.batch(queries);
-//   });
-// }
-
-// export { createProblemsForCourse };
+export { deleteProblem };
