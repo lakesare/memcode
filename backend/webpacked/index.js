@@ -138,18 +138,20 @@
 	router.post('/', function (request, response) {
 	  var result = Course.createCourseWithProblems(request.body["course"], request.body["problems"]);
 
-	  result.then(function (aaa) {
-	    response.status(200).json({ data: aaa.data });
+	  result.then(function (data) {
+	    response.status(200).json(data);
+	  }).catch(function (error) {
+	    response.status(500).json(error);
 	  });
-
-	  // if (result.data) {
-	  //   response.status(200).json({ data: result.data });
-	  // } else if (result.error) {
-	  //   response.status(500).json({ error: result.error });
-	  // };
 	});
 
-	router.delete('/', function (request, response) {});
+	router.delete('/:id', function (request, response) {
+	  Course.deleteCourseWithProblems(request.params.id).then(function () {
+	    response.status(200).json();
+	  }).catch(function (error) {
+	    response.status(500).json(error);
+	  });
+	});
 
 	exports.router = router;
 
@@ -172,10 +174,14 @@
 
 	var pgPackage = pgPromise.default({});
 
+	var isTest = function isTest() {
+	  return process.env.NODE_ENV === 'test';
+	};
+
 	var connectionString = {
 	  host: 'localhost', // 'localhost' is the default;
 	  port: 5432, // 5432 is the default;
-	  database: isTest ? 'memcode_test' : 'memcode',
+	  database: isTest() ? 'memcode_test' : 'memcode',
 	  user: 'postgres',
 	  password: '`1`1`1'
 	};
@@ -185,10 +191,6 @@
 	}).catch(function (error) {
 	  console.log("ERROR:", error.message || error);
 	});
-
-	var isTest = function isTest() {
-	  return process.env.NODE_ENV === 'test';
-	};
 
 	exports.db = db;
 

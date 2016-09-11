@@ -61,14 +61,25 @@ const seedCourses = () => {
 
 
 
-// async awaut tutorial
+// async await tutorial
+
+// event loop looks at the stack, and, if there is nothing left, pushes the first thing into it. 
 
 
 
 
+// ES6
+
+// maps. are just like js objects, except everything can be a key.
+// let a = new Map();
+// a.set(1,'hi')
+// a.get(1) //=> 'hi'
 
 
-
+// let a = new Set();
+// a.add('hi')
+// a.has('hi') //=> true
+// a.add('hi') //=> nothing changes, set is nonrepeating.
 
 
 

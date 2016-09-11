@@ -2,7 +2,6 @@ import express from 'express';
 const router = express.Router();
 
 import { db } from '../../db/init.js';
-
 import * as Course from './model';
 
 router.get('/:id', (request, response) => {
@@ -25,25 +24,25 @@ router.get('/', (request, response) => {
   })
 });
 
-
-
 router.post('/', (request, response) => {
   const result = Course.createCourseWithProblems(request.body["course"], request.body["problems"]);
 
-  result.then((aaa) => {
-    response.status(200).json({ data: aaa.data });
+  result.then((data) => {
+    response.status(200).json(data);
+  }).catch((error) => {
+    response.status(500).json(error);
   })
 
-  // if (result.data) {
-  //   response.status(200).json({ data: result.data });
-  // } else if (result.error) {
-  //   response.status(500).json({ error: result.error });
-  // };
 });
 
 
-router.delete('/', (request, response) => {
-  
+router.delete('/:id', (request, response) => {
+  Course.deleteCourseWithProblems(request.params.id)
+    .then(() => {
+    response.status(200).json()
+  }).catch((error) => {
+    response.status(500).json(error)
+  })
 });
 
 

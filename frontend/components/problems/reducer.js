@@ -1,61 +1,46 @@
-const reducer = (problems = {
+import Immutable from 'immutable';
+
+const initialState = {
   status: null,
-  error: null,
-  items: []
-}, action) => {
+  error:  null,
+  items:  []
+};
+
+const reducer = (problems = initialState, action) => {
+  problems = Immutable.fromJS(problems);
   switch (action.type) {
     case 'FETCHING_PROBLEMS':
       switch (action.status) {
         case 'fetching':
-          return {
-            status: 'fetching',
-            error: null,
-            items: []
-          }
+          return problems
+            .set('status', 'fetching')
+            .set('error', null)
+            .set('items', [])
+            .toJS()
         case 'success':
-          return {
-            status: 'success',
-            error: null,
-            items: action.problems
-          }
+          return problems
+            .set('status', 'success')
+            .set('error', null)
+            .set('items', action.problems)
+            .toJS()
         case 'failure':
-          return {
-            status: 'failure',
-            error: 'TODO',
-            items: []
-          }
+          return problems
+            .set('status', 'failure')
+            .set('error', action.error)
+            .set('items', [])
+            .toJS()
       }
     case 'MARK_ANSWER_AS_RIGHT':
-      console.log(problems)
-      const problemIndex = problems.items.findIndex((problem) => problem.id === action.problemId);
-      const problem = problems.items[problemIndex];
-     
-      const answers = problem.content.answers;
-      const answer = answers[action.answerIndex];
+      const problemIndex = problems
+        .get('items')
+        .findIndex((problem) => problem.get('id') === action.problemId);
+      const answerIndex = action.answerIndex;
 
-      return {
-        ...problems,
-        items: [
-          ...problems.items.slice(0, problemIndex),
-          {
-            ...problem,
-            content: {
-              text: problem.content.text,
-              answers: [
-                ...answers.slice(0, action.answerIndex),
-                {
-                  ...answer,
-                  answered: 'right'
-                },
-                ...answers.slice(action.answerIndex + 1, answers.length)
-              ]
-            }
-          },
-          ...problems.items.slice(problemIndex + 1, problems.length)
-        ]
-      }
-    default:
       return problems
+        .setIn(['items', problemIndex, 'content', 'answers', answerIndex, 'answered'], 'right')
+        .toJS()
+    default:
+      return problems.toJS()
   }
 };
 

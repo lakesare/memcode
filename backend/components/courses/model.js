@@ -64,7 +64,7 @@ const getCourseWithProblems = (courseId) => {
 
 
 const deleteCourseWithProblems = (courseId) => {
-  return( 
+  return(
     db.tx((transaction) => {
       return transaction.batch([
         transaction.none('delete from problems where courseId=${courseId}', { courseId }),

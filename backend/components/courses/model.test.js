@@ -10,37 +10,16 @@ describe('course model', () => {
     return db.none('TRUNCATE courses, problems RESTART IDENTITY')
   });
 
+  it('deleteCourseWithProblems', async () => {
+    const insertedCourse = await db.one('insert into courses (title) values (${title}) returning id', { title: 'hi' });
+    const insertedProblems = await db.none('insert into problems (explanation, courseId) values (${explanation}, ${courseId})', { explanation: 'hello', courseId: insertedCourse.id });
+    let problemsInDbNow = (await db.any('select id from problems')).length;
+    expect(problemsInDbNow).to.equal(1);
 
-
-  it('deleteCourseWithProblems', () => {
-
-
-    return(
-
-
-      db.none('insert into courses (title) values (${title})', { title: 'hi' })
-        .then(() => {
-        return(
-          db.none('insert into problems (explanation, courseId) values (${explanation}, ${courseId})', { explanation: 'hello', courseId: 1 })
-        )
-      }).then(() => {
-        return(
-          deleteCourseWithProblems(1).then((data) => {
-            expect(data.data).to.equal(true);
-            return(
-              db.any('select id from problems').then((problems) => {
-                const problemIds = problems.map((problem) => problem.id);
-                expect(problemIds).to.deep.equal([]);
-              })
-            )//
-          })
-        )//
-      })
-
-
-
-    )
-    
+    const courseDeleteResult = await deleteCourseWithProblems(1);
+    expect(courseDeleteResult.data).to.equal(true);
+    problemsInDbNow = (await db.any('select id from problems')).length;
+    expect(problemsInDbNow).to.equal(0);
   });
 
 });

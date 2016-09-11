@@ -12,9 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchCourses() {
+    fetchCourses: () => {
       dispatch({ type: 'FETCHING_COURSES', status: 'fetching' });
-      fetch('./api/courses').then(response => response.json() )
+      fetch('./api/courses')
+        .then(response => response.json())
         .then((response) => {
           dispatch({ 
             type: 'FETCHING_COURSES', status: 'success', items: response 

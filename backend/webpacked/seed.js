@@ -94,7 +94,23 @@
 	// ```
 
 
-	// async awaut tutorial
+	// async await tutorial
+
+	// event loop looks at the stack, and, if there is nothing left, pushes the first thing into it. 
+
+
+	// ES6
+
+	// maps. are just like js objects, except everything can be a key.
+	// let a = new Map();
+	// a.set(1,'hi')
+	// a.get(1) //=> 'hi'
+
+
+	// let a = new Set();
+	// a.add('hi')
+	// a.has('hi') //=> true
+	// a.add('hi') //=> nothing changes, set is nonrepeating.
 
 
 	var seedProblems = function seedProblems() {
@@ -148,10 +164,14 @@
 
 	var pgPackage = pgPromise.default({});
 
+	var isTest = function isTest() {
+	  return process.env.NODE_ENV === 'test';
+	};
+
 	var connectionString = {
 	  host: 'localhost', // 'localhost' is the default;
 	  port: 5432, // 5432 is the default;
-	  database: isTest ? 'memcode_test' : 'memcode',
+	  database: isTest() ? 'memcode_test' : 'memcode',
 	  user: 'postgres',
 	  password: '`1`1`1'
 	};
@@ -161,10 +181,6 @@
 	}).catch(function (error) {
 	  console.log("ERROR:", error.message || error);
 	});
-
-	var isTest = function isTest() {
-	  return process.env.NODE_ENV === 'test';
-	};
 
 	exports.db = db;
 
