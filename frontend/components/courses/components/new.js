@@ -3,6 +3,13 @@ import { Field, FieldArray, reduxForm } from 'redux-form';
 import { NewProblem } from '../../problems';
 
 let New = React.createClass({
+
+  componentDidMount() {
+    if (this.props.seedData) {
+      this.props.seedData()
+    }
+  },
+
   render() {
     return(
       <div>
@@ -19,6 +26,7 @@ let New = React.createClass({
 
 New = reduxForm({
   form: 'course', // a unique identifier for this form
+  enableReinitialize: true
 })(New);
 
 export { New };

@@ -1,6 +1,13 @@
 import * as pgPromise from 'pg-promise';
 
-const pgPackage = pgPromise.default({});
+const pgOptions = {
+  query: (e) => {
+    const cyan = '\x1b[36m%s\x1b[0m';
+    console.log(cyan, e.query); // log the query being executed
+  }
+};
+
+const pgPackage = pgPromise.default(pgOptions);
 
 const isTest = () => {
   return(process.env.NODE_ENV === 'test')

@@ -1,12 +1,13 @@
 import HtmlToReact from 'html-to-react';
 import React from 'react';
-import { AnswersShow } from '../components/answers'
+
+import { AnswersShow } from '../components/answers';
 
 const htmlToReactParser = new HtmlToReact.Parser(React);
 const processNodeDefinitions = new HtmlToReact.ProcessNodeDefinitions(React);
 
 const problemContentToJsx = (content, problemId) => {
-  const contentString = problemContentToString(content);
+  const contentString = problemContentTextToString(content.text);
 
   const processingInstructions = [
     {
@@ -35,10 +36,10 @@ const problemContentToJsx = (content, problemId) => {
   return htmlToReactParser.parseWithInstructions(contentString, (() => true), processingInstructions);
 };
 
-const problemContentToString = (content) => {
+const problemContentTextToString = (contentText) => {
   let aa = [];
   let answerIndex = 0;
-  content.text.forEach((textPart) => {
+  contentText.forEach((textPart) => {
     if (textPart === null) {
       aa.push(`<answer index=${answerIndex}></answer>`);
       answerIndex ++;
@@ -49,5 +50,6 @@ const problemContentToString = (content) => {
 
   return ('<div>' + aa.join(' ') + '</div>')
 };
+
 
 export { problemContentToJsx };

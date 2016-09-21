@@ -59,6 +59,8 @@ const seedCourses = () => {
 // })
 // ```
 
+// UPDATE problems SET title = ${title} WHERE id = ${id}
+
 
 
 // async await tutorial
@@ -80,6 +82,17 @@ const seedCourses = () => {
 // a.add('hi')
 // a.has('hi') //=> true
 // a.add('hi') //=> nothing changes, set is nonrepeating.
+
+
+
+
+// javac is used for .java files into binary
+// eclipse uses javac behind the scenes to run the program
+// for every java class, you get one binary file.
+
+
+
+
 
 
 

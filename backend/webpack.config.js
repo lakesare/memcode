@@ -53,6 +53,8 @@ module.exports = {
     ],
   },
 
+  devtool: 'source-map', // check if works in webpack:backend
+
   plugins: [
     WebpackErrorNotificationConfig
   ]

@@ -19,22 +19,33 @@ router.get('/', (request, response) => {
   .then((data) => {
     response.status(200).json(data);
   })
-  .catch((data) => {
-    response.status(500).json({ error: data.message });
+  .catch((error) => {
+    response.status(500).json({ error: error.message });
   })
 });
 
 router.post('/', (request, response) => {
   const result = Course.createCourseWithProblems(request.body["course"], request.body["problems"]);
 
-  result.then((data) => {
-    response.status(200).json(data);
+  result.then((courseIdMap) => {
+    response.status(200).json({ 
+      data: courseIdMap
+    });
   }).catch((error) => {
-    response.status(500).json(error);
+    response.status(500).json({ error: error.message });
+  })
+});
+
+router.put('/:id', (request, response) => {
+  const result = Course.updateCourseWithProblems(request.body["course"], request.body["problems"]);
+
+  result.then((data) => {
+    response.status(200).json({ data: true });
+  }).catch((error) => {
+    response.status(500).json({ error: error.message });
   })
 
 });
-
 
 router.delete('/:id', (request, response) => {
   Course.deleteCourseWithProblems(request.params.id)

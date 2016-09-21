@@ -12,27 +12,32 @@ let Show = React.createClass({
 
   deletionClasses() {
     const deletion = this.props.course.delete;
-    let classes = [css.link];
+    let classes = [];
 
     if (deletion) {
       switch (deletion.status) {
         case 'fetching':
-          classes.push(css.is_deleting);
+          classes.push(css.is_deleting + " ");
           break;
         case 'success':
-          classes.push('hide')
+          classes.push('hide ')
           break;
       }
     }
     
-    return classes.join(' ')
+    return classes.join('')
   },
 
   render() {
     return(
-      <div className={"columns small-2" + (this.props.last ? " end " : " ") + this.deletionClasses()}>
+      <div className={"columns small-2 " + (this.props.last ? "end " : "") + this.deletionClasses() + css.course}>
+
+
         <div className="button alert" onClick={this.props.deleteCourse}>delete</div>
-        <Link to={"/courses/" + this.props.course.id}>
+        <Link className="button" to={"/courses/" + this.props.course.id + "/edit"}>Edit</Link>
+
+
+        <Link to={"/courses/" + this.props.course.id} className={css.link}>
           <h5 className="text-center">{this.props.course.title}</h5>
         </Link>
       </div>

@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 
 import { Header } from '../components/header';
 import { NewCourse } from '../components/courses'
 import css from './newCourse.scss';
+import { createCourseCreator } from '../components/courses/actions';
 
 
 const NewCoursePage = React.createClass({
   render() {
     return(
-      <section className="row">
-        <div className="small-11 small-centered column end">
-          <Header/>
+      <section>
+        <Header/>
 
-          <h1>New course</h1>
-          <ConnectedNewCourse/>
+        <div className="row">
+          <div className="small-12 column">
+            <h1>New course</h1>
+            <ConnectedNewCourse/>
+          </div>
         </div>
       </section>
     )
@@ -24,29 +26,7 @@ const NewCoursePage = React.createClass({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmit: (values) => {
-      dispatch({ type: 'CREATING_COURSE', status: 'fetching' });
-      fetch("/api/courses", {
-          method: 'POST',
-          body: JSON.stringify(values),
-          headers: new Headers({ "Content-Type": "application/json" })
-        })
-        .then(response => response.json() )
-        .then((response) => {
-          browserHistory.push(`/courses/${response.data.courseId}`);
-          dispatch({
-            type: 'CREATING_COURSE', 
-            status: 'success'
-          });
-        })
-        .catch((response) => {
-          dispatch({
-            type: 'CREATING_COURSE',
-            status: 'error',
-            error: response.error
-          })
-        })
-    }
+    onSubmit: createCourseCreator(dispatch)
   }
 }
 

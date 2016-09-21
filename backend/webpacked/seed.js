@@ -1,56 +1,57 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _init = __webpack_require__(4);
-
-	var pgp = __webpack_require__(5);
+	
+	var _init = __webpack_require__(9);
+	
+	var pgp = __webpack_require__(10);
 	var pgPackage = pgp({});
-
+	
 	var seedCourses = function seedCourses() {
 	  _init.db.none('INSERT INTO courses (title) VALUES (${title_1}), (${title_2})', {
 	    title_1: 'Ruby',
@@ -62,24 +63,24 @@
 	    return console.log(data.message);
 	  });
 	};
-
+	
 	// There are a variety of file system methods, all contained in the <answer>fs</answer> module
-
-
+	
+	
 	// promise that resolves to hi === promise.then((hi) => {})
-
-
+	
+	
 	// ____Enzyme
 	// shallow Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that your tests aren't indirectly asserting on behavior of child components.
-
+	
 	// mount Full DOM rendering is ideal for use cases where you have components that may interact with DOM APIs, or may require the full lifecycle in order to fully test the component (i.e., componentDidMount etc.)
-
+	
 	// Enzyme's render function is used to render react components to static HTML and analyze the resulting HTML structure.
-
-
+	
+	
 	// async Essentially wraps the return value of the function in a promise
-
-
+	
+	
 	// pg-promise transaction syntax
 	// ```
 	// return db.tx((transaction) => {
@@ -92,27 +93,34 @@
 	// }).catch((error) => { return { error } 
 	// })
 	// ```
-
-
+	
+	// UPDATE problems SET title = ${title} WHERE id = ${id}
+	
+	
 	// async await tutorial
-
+	
 	// event loop looks at the stack, and, if there is nothing left, pushes the first thing into it. 
-
-
+	
+	
 	// ES6
-
+	
 	// maps. are just like js objects, except everything can be a key.
 	// let a = new Map();
 	// a.set(1,'hi')
 	// a.get(1) //=> 'hi'
-
-
+	
+	
 	// let a = new Set();
 	// a.add('hi')
 	// a.has('hi') //=> true
 	// a.add('hi') //=> nothing changes, set is nonrepeating.
-
-
+	
+	
+	// javac is used for .java files into binary
+	// eclipse uses javac behind the scenes to run the program
+	// for every java class, you get one binary file.
+	
+	
 	var seedProblems = function seedProblems() {
 	  _init.db.none('INSERT INTO problems (explanation, type, content, courseId) VALUES (${explanation_1}, ${type_1}, ${content_1}, ${courseId_1})', {
 	    explanation_1: 'some context to a problem',
@@ -120,7 +128,7 @@
 	    content_1: JSON.stringify({
 	      text: ['<h1>first answer is ', null, ', </h1> anonymous functions in ruby are called <pre><code class="ruby"> ', null, '</code></pre>'],
 	      answers: [{ answer: 'hi' }, { answer: 'hello' }]
-
+	
 	    }),
 	    courseId_1: 1
 	  }).then(function (data) {
@@ -129,7 +137,7 @@
 	    return console.log(data.message);
 	  });
 	};
-
+	
 	var log = function log(table) {
 	  _init.db.any('SELECT id from ' + table).then(function (data) {
 	    console.log('seeded ' + table + ': ' + data.map(function (column) {
@@ -139,35 +147,40 @@
 	    return console.log(data.message);
 	  });
 	};
-
+	
 	seedCourses();
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */
+
+/***/ 9:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	exports.db = undefined;
-
-	var _pgPromise = __webpack_require__(5);
-
+	
+	var _pgPromise = __webpack_require__(10);
+	
 	var pgPromise = _interopRequireWildcard(_pgPromise);
-
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	var pgPackage = pgPromise.default({});
-
+	
+	var pgOptions = {
+	  query: function query(e) {
+	    var cyan = '\x1b[36m%s\x1b[0m';
+	    console.log(cyan, e.query); // log the query being executed
+	  }
+	};
+	
+	var pgPackage = pgPromise.default(pgOptions);
+	
 	var isTest = function isTest() {
 	  return process.env.NODE_ENV === 'test';
 	};
-
+	
 	var connectionString = {
 	  host: 'localhost', // 'localhost' is the default;
 	  port: 5432, // 5432 is the default;
@@ -181,14 +194,17 @@
 	}).catch(function (error) {
 	  console.log("ERROR:", error.message || error);
 	});
-
+	
 	exports.db = db;
 
 /***/ },
-/* 5 */
+
+/***/ 10:
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
 
 /***/ }
-/******/ ]);
+
+/******/ });
+//# sourceMappingURL=seed.js.map

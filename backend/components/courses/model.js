@@ -1,46 +1,65 @@
 import { db } from '../../db/init.js';
+
+import { createProblems, deleteProblems, updateProblems } from '../problems/model';
 import { problemContentFromParamsToDb } from '../../services/problemContentFromParamsToDb';
+
 
 
 // course: {title: "aaa"}
 // problems: [{content: "a", explanation: "aa"}]
+// => { courseId: 5 }
 const createCourseWithProblems = (course, problems) => {
-  // { validation: 'failed' }
+  // { validation: 'failed fields' }
   let courseId = null;
-  const result = db
-    .one("insert into courses (title) values (${title}) RETURNING id", course)
+  const result = 
+    db.one("insert into courses (title) values (${title}) RETURNING id", course)
       .then((course) => {
       courseId = course.id;
-      let monad = db.tx((transaction) => {
-        return createProblemsOfCourse(transaction, problems, course.id);
-      })
-      return monad
-    }).then((data) => { return { data: { courseId } } 
-    }).catch((error) => { return { error } 
-    })
+      return createProblems(problems, course.id);
+    }).then(() => ({ courseId }))
 
   return result
 }
 
-// problems: [{content: "a", explanation: "aa"}]
-const createProblemsOfCourse = (transaction, problems, courseId) => {
-  let queries = [];
-  problems.forEach((problem) => {
-    queries.push(
-      transaction.none(
-        "insert into problems (content, explanation, courseId) values (${content}, ${explanation}, ${courseId})", 
-        {
-          content: problemContentFromParamsToDb(problem.content),
-          explanation: problem.explanation,
-          courseId: courseId
-        }
-      )
-    );
-  });
 
-  return transaction.batch(queries);
+
+
+
+
+const updateCourseWithProblems = (newCourse, newProblems) => {
+  return getCourseWithProblems(newCourse.id)
+    .then((data) => {
+
+    const oldCourse = data.data.course;
+    const oldProblems = data.data.problems;
+
+    return db.tx((transaction) => {
+      let queries = []
+
+      const oldProblemIdsToDelete = oldProblems.filter((oldProblem) => {
+        return !newProblems.find((newProblem) => newProblem.id === oldProblem.id )
+      }).map((oldProblem) => oldProblem.id )
+
+      const newProblemsToCreate = newProblems.filter((newProblem) => !newProblem.id )
+
+      updateCourse  (transaction, queries, oldCourse, newCourse);
+      deleteProblems(transaction, queries, oldProblemIdsToDelete);
+      createProblems(transaction, queries, newProblemsToCreate, oldCourse.id);
+      updateProblems(transaction, queries, newProblems, oldProblems);
+
+      return transaction.batch(queries)
+    })
+  })
 }
 
+
+const updateCourse = (transaction, queries, oldCourse, newCourse) => {
+  if (oldCourse.title !== newCourse.title) {
+    queries.push(
+      transaction.any('UPDATE courses SET title = ${title} WHERE id = ${id}', { title: newCourse.title, id: oldCourse.id })
+    )
+  }
+}
 
 const getCourseWithProblems = (courseId) => {
   const result = Promise.all([
@@ -48,15 +67,13 @@ const getCourseWithProblems = (courseId) => {
     db.any('select * from problems where courseId = ${courseId}', { courseId })
   ]).then((values) => {
     return(
-      { 
+      {
         data: {
           course: values[0],
           problems: values[1]
         }
       }
     )
-  }).catch((error) => {
-    return({ error })
   })
 
   return result
@@ -71,7 +88,7 @@ const deleteCourseWithProblems = (courseId) => {
         transaction.none('delete from courses where id=${courseId}', { courseId }),
       ]);
     }).then(() => { return { data: true }
-    }).catch((error) => { return { error } 
+    }).catch((error) => { return Promise.reject({ error }) 
     })
   )
 }
@@ -79,4 +96,4 @@ const deleteCourseWithProblems = (courseId) => {
 
 
 
-export { createCourseWithProblems, getCourseWithProblems, deleteCourseWithProblems };
+export { createCourseWithProblems, getCourseWithProblems, deleteCourseWithProblems, updateCourseWithProblems };

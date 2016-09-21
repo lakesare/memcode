@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 
 import { Show } from './show';
 
@@ -10,12 +10,9 @@ const List = React.createClass({
   },
 
   componentDidMount() {
-    this.props.fetchProblems();
+    this.props.fetchCourseWithProblems();
   },
 
-  redirectToEditCoursePage() {
-    browserHistory.push(`/courses/${this.props.course.id}/edit`);
-  },
 
   render() {
     const listOfProblems = this.props.problems.items.map((problem, index) => {
@@ -25,9 +22,9 @@ const List = React.createClass({
     if (this.props.problems.status == 'success'){
       return(
         <div>
-          <div className="button" onClick={this.redirectToEditCoursePage}>update</div>
           <h1>
             {this.props.course.items.title}
+            <Link to={`/courses/${this.props.course.items.id}/edit`} className='button float-right'>edit</Link>
           </h1>
           {listOfProblems}
         </div>

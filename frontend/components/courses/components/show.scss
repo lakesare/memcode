@@ -1,6 +1,19 @@
-.is_deleting{
-  opacity: 0.2;
-  background-color: red;
-  display: block;
+
+.course{
+  height: 200px;
+  .link{
+    display: block;
+    background: #161733;
+    border-radius: 20px;
+  }
+
+  &.is_deleting{
+    opacity: 0.2;
+    background-color: red;
+    display: block;
+  }
 }
 
+body{
+  background: rgba(185, 100, 100, 0.49);
+}
