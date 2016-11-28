@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { AnswersShow } from '../../answers'
-import css from './show.scss';
+import css from '../css/show.scss';
 import { problemContentToJsx } from '../../../services/problemContentToJsx'
 
 let Show = React.createClass({

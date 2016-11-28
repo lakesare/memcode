@@ -40,29 +40,74 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _init = __webpack_require__(9);
+	var _model = __webpack_require__(18);
 	
-	var pgp = __webpack_require__(10);
+	var Course = _interopRequireWildcard(_model);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var pgp = __webpack_require__(17);
 	var pgPackage = pgp({});
 	
-	var seedCourses = function seedCourses() {
-	  _init.db.none('INSERT INTO courses (title) VALUES (${title_1}), (${title_2})', {
-	    title_1: 'Ruby',
-	    title_2: 'Python'
-	  }).then(function () {
-	    log('courses');
-	    seedProblems();
-	  }).catch(function (data) {
-	    return console.log(data.message);
-	  });
-	};
+	var a = Course.createCourseWithProblems({ id: 5, title: 'Encryption', owner_id: null }, [{ id: 13,
+	  explanation: 'On the Internet, a digital signature is used not only to ensure that a message or document has been electronically signed by the person that purported to sign the document, but also, since a digital signature can only be created by one person, to ensure that a person cannot later deny that they furnished the signature.',
+	  type: null,
+	  content: '  <answer>repudiation</answer>   - denial of the truth or validity of something.\n\n',
+	  course_id: 5 }, { id: 6,
+	  explanation: null,
+	  type: null,
+	  content: '\nto encrypt letter for someone, we take their key.\nto sign letter, we use our key.',
+	  course_id: 5 }, { id: 14,
+	  explanation: null,
+	  type: null,
+	  content: '<ol>\n<li> user sends their username and password  to server </li>\n<li> server creates a JWT using the secret, and sends it to user </li>\n<li> user saves JWT in localStorage </li>\n<li> whenever the user wants to access a protected route, they should send the JWT, typically in the Authorization header using the Bearer schema.  \n    <code>Authorization: Bearer cn389ncoiwuencr</code>\n</li>\n<li> server checks for a valid JWT in the Authorization header (by generating a signature with their secret and comparing it to the one sent to it) </li>\n</ol>',
+	  course_id: 5 }, { id: 11,
+	  explanation: null,
+	  type: null,
+	  content: '<ul>\n<li><strong>Encoding</strong> is for maintaining data <em>usability</em> and can be reversed by employing the same algorithm that encoded the content, i.e. no key is used. (ASCII, Unicode, URL Encoding, Base64)</li>\n\n<li><strong>Encryption</strong> is to transform data in order to keep it secret from others, e.g. sending someone a secret letter that only they should be able to read and requires the use of a key (kept secret) in order to return to plaintext. (RSA)</li>\n\n<li><strong>Hashing</strong> is for validating the <em>integrity</em> of content by detecting all modification thereof via obvious changes to the hash output, that is - signing. ( SHA-3, MD5)</li>\n\n<li><strong>Obfuscation</strong> is used to <em>prevent people from understanding</em> the meaning of something, and is often used with computer code to help prevent successful reverse engineering and/or theft of a product’s functionality. Obfuscation is not a strong control, but rather an obstacle.</li>\n</ul>',
+	  course_id: 5 }, { id: 7,
+	  explanation: null,
+	  type: null,
+	  content: 'JWT:                      <answer>JSON</answer>                      Web Token',
+	  course_id: 5 }, { id: 12,
+	  explanation: null,
+	  type: null,
+	  content: '<pre>\nCryptographic primitive | Hash |    MAC    | Digital\nSecurity Goal           |      |           | signature\n------------------------+------+-----------+-------------\nIntegrity               |  Yes |    Yes    |   Yes\nAuthentication          |  No  |    Yes    |   Yes\nNon-repudiation         |  No  |    No     |   Yes\n------------------------+------+-----------+-------------\nKind of keys            | none | symmetric | asymmetric\n                        |      |    keys   |    keys\n</pre>',
+	  course_id: 5 }, { id: 8,
+	  explanation: 'Public claims  are the claims that we create ourselves (eg username).\nRegistered claims are not mandatory, but their names are reserved for us (eg iss (issuer), exp (expiration of token)).\nIt is important to understand that the purpose of using JWT is NOT to hide or obscure data in any way. The reason why JWT are used is to prove that the sent data was actually created by an authentic source.\nData inside a JWT is encoded and signed, not encrypted. ',
+	  type: null,
+	  content: 'JWT consists of 3 string divided by dot: <b>header.payload.signature</b>.\n<hr/>\n<h5>Header:</h5>\n<pre>\n{\n    "typ": "JWT", (          <answer>type</answer>          )  \n    "alg": "HS256" ( specifies which hashing algorithm is being used to create the JWT       <answer>signature</answer>        (HMAC SHA256 in this case))  \n}\n</pre>\nWe base64encode encode it, and get something like: <b>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9</b>\n\n<hr/>\n\n<h5>Payload:</h5>\n<pre>\n{\n  "iss": "scotch.io",\n  "exp": 1300819380,\n  "name": "Jane",\n  "admin": true\n}\n</pre>\nOur example payload has two registered (iss, and exp) and two public          <answer>claim</answer>       s (name, admin).\n\n</hr>\n\n<h5>Signature:</h5>\n<pre>\ndata = base64Encode( header ) + “.” + base64Encode( payload )\nsignature = Hash( data, secret );\n</pre>',
+	  course_id: 5 }]);
+	
+	var b = Course.createCourseWithProblems({ id: 1, title: 'Attacks', owner_id: null }, [{ id: 1,
+	  explanation: 'What if only one of the scripts you use is compromised? Malicious JavaScript can be embedded on the page, and Web Storage is compromised. These types of XSS attacks can get everyone’s Web Storage that visits your site, without their knowledge.',
+	  type: 'ORDERED_MISSING_TEXT',
+	  content: ' cross-site scripting   <answer>XSS</answer>   is a type of vulnerability where an attacker can inject JavaScript that will run on your page. ',
+	  course_id: 1 }]);
+	
+	var c = Course.createCourseWithProblems({ id: 7, title: 'Oauth 2', owner_id: null }, [{ id: 16,
+	  explanation: null,
+	  type: null,
+	  content: 'Before you can begin the OAuth process, you must first register a new app with the service. <br>\nYou\'ll be given <b>client_     <answer>id</answer>     </b> and  <b>client_     <answer>secret</answer>     </b>  then.',
+	  course_id: 7 }, { id: 15,
+	  explanation: null,
+	  type: null,
+	  content: '<h4>Oauth grant types:</h4>\n\n<ol>\n<li><b>Authorization Code Grant</b><br>\n\n\n\n</li>\n\n<li>\n<b>Implicit Grant</b><br>\nReturns an access token to JavaScript clients right away. No refresh tokens for long-lived access are returned, so use it for cases when you need a short-lived (few hours) access to someone\'s account.\n</li>\n\n<li>\n<b>Resource Owner Password Credentials Grant</b> <br>\ncredentials (and thus the password) are sent to the client and then to the authorization server. \n</li>\n\n<li>\n    <b>Client Credentials Grant</b> <br>\n     when the client is himself the resource owner\n</li>\n</ol>',
+	  course_id: 7 }, { id: 18,
+	  explanation: null,
+	  type: null,
+	  content: 'As far as an OAuth client is concerned, it asked for a token, got a token, and eventually used that token to access some API.\n\nFrom a viewpoint of OpenID guys, authentication based on OAuth was not secure enough, but they had to admit that people preferred OAuth authentication. As a result,   <answer>OpenID</answer>   guys decided to define a new specification, OpenID Connect, on top of OAuth 2.0.\n',
+	  course_id: 7 }, { id: 17,
+	  explanation: null,
+	  type: null,
+	  content: '<h4>Authorization Code grant type</h4>\n\nwe reate a "Log In" link sending the user to:\n\n<pre>\nhttps://oauth2server.com/auth?response_type=code&\n  client_id=CLIENT_ID&\n  redirect_uri=REDIRECT_URI&\n  scope=photos\n</pre>\n\nif user allows access, oauth server redirects user to <code>https://oauth2client.com/cb?code=AUTH_CODE_HERE</code>\n\nwe exchange <b>AUTH_CODE</b> for an <b>access token</b>.\n<pre>\nPOST https://api.oauth2server.com/token\n    grant_type=authorization_code&\n    code=AUTH_CODE_HERE&\n    redirect_uri=REDIRECT_URI&\n    client_id=CLIENT_ID&\n    client_secret=CLIENT_SECRET\n</pre>\n\n\nOauth server replies with an access token\n<pre>\n{\n    "access_token":"RsT5OjbzRn430zqMLgV3Ia"\n}\n</pre>\n\naccess token can now be used to access some API.',
+	  course_id: 7 }]);
 	
 	// There are a variety of file system methods, all contained in the <answer>fs</answer> module
 	
@@ -85,8 +130,8 @@
 	// ```
 	// return db.tx((transaction) => {
 	//   const queries = [
-	//     transaction.none('delete from courses where id=${courseId}', { courseId }),
-	//     transaction.none('delete from problems where courseId=${courseId}', { courseId })
+	//     transaction.none('delete from courses where id=${course_Id}', { course_Id }),
+	//     transaction.none('delete from problems where course_Id=${course_Id}', { course_Id })
 	//   ];
 	//   return transaction.batch(queries);
 	// }).then(() => { return { data: 'deleted' }
@@ -121,38 +166,40 @@
 	// for every java class, you get one binary file.
 	
 	
-	var seedProblems = function seedProblems() {
-	  _init.db.none('INSERT INTO problems (explanation, type, content, courseId) VALUES (${explanation_1}, ${type_1}, ${content_1}, ${courseId_1})', {
-	    explanation_1: 'some context to a problem',
-	    type_1: 'ORDERED_MISSING_TEXT',
-	    content_1: JSON.stringify({
-	      text: ['<h1>first answer is ', null, ', </h1> anonymous functions in ruby are called <pre><code class="ruby"> ', null, '</code></pre>'],
-	      answers: [{ answer: 'hi' }, { answer: 'hello' }]
+	// const log = (table) => {
+	//   db.any(`SELECT id from ${table}`)
+	//     .then((data) => {
+	//       console.log(
+	//         `seeded ${table}: ` + data.map((column) => column.id).join(', ')
+	//       );
+	//     })
+	//     .catch((data) => console.log(data.message));
+	// };
 	
-	    }),
-	    courseId_1: 1
-	  }).then(function (data) {
-	    log('problems');
-	  }).catch(function (data) {
-	    return console.log(data.message);
-	  });
-	};
-	
-	var log = function log(table) {
-	  _init.db.any('SELECT id from ' + table).then(function (data) {
-	    console.log('seeded ' + table + ': ' + data.map(function (column) {
-	      return column.id;
-	    }).join(', '));
-	  }).catch(function (data) {
-	    return console.log(data.message);
-	  });
-	};
-	
-	seedCourses();
+	Promise.all([a, b, c]).then(function () {
+	  // log('courses');
+	  // log('problems');
+	}).catch(function (error) {
+	  return console.log(error);
+	});
 
 /***/ },
-
-/***/ 9:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -162,17 +209,35 @@
 	});
 	exports.db = undefined;
 	
-	var _pgPromise = __webpack_require__(10);
+	var _pgPromise = __webpack_require__(17);
 	
 	var pgPromise = _interopRequireWildcard(_pgPromise);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
+	// for pgOptions
+	var camelizeColumns = function camelizeColumns(data) {
+	  var template = data[0];
+	  for (var prop in template) {
+	    var camel = pgPromise.utils.camelize(prop);
+	    if (!(camel in template)) {
+	      for (var i = 0; i < data.length; i++) {
+	        var d = data[i];
+	        d[camel] = d[prop];
+	        delete d[prop];
+	      }
+	    }
+	  }
+	};
+	
 	var pgOptions = {
 	  query: function query(e) {
-	    var cyan = '\x1b[36m%s\x1b[0m';
+	    var cyan = "\x1b[36m%s\x1b[0m";
 	    console.log(cyan, e.query); // log the query being executed
-	  }
+	  },
+	  receive: function receive(data, result, e) {
+	    camelizeColumns(data);
+	  } // https://coderwall.com/p/irklcq
 	};
 	
 	var pgPackage = pgPromise.default(pgOptions);
@@ -198,13 +263,233 @@
 	exports.db = db;
 
 /***/ },
-
-/***/ 10:
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
 
-/***/ }
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
 
-/******/ });
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
+	
+	var _init = __webpack_require__(16);
+	
+	var _model = __webpack_require__(19);
+	
+	// course: {title: "aaa"}
+	// problems: [{content: "a", explanation: "aa"}]
+	// => { courseId: 5 }
+	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
+	  // { validation: 'failed fields' }
+	  var courseId = null;
+	  return _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
+	    courseId = course.id;
+	    return _init.db.tx(function (transaction) {
+	      var queries = [];
+	      (0, _model.createProblems)(transaction, queries, problems, courseId);
+	      return transaction.batch(queries);
+	    });
+	  }).then(function () {
+	    return { courseId: courseId };
+	  });
+	};
+	
+	var updateCourseWithProblems = function updateCourseWithProblems(newCourse, newProblems) {
+	  return getCourseWithProblems(newCourse.id).then(function (data) {
+	
+	    var oldCourse = data.data.course;
+	    var oldProblems = data.data.problems;
+	
+	    return _init.db.tx(function (transaction) {
+	      var queries = [];
+	
+	      var oldProblemIdsToDelete = oldProblems.filter(function (oldProblem) {
+	        return !newProblems.find(function (newProblem) {
+	          return newProblem.id === oldProblem.id;
+	        });
+	      }).map(function (oldProblem) {
+	        return oldProblem.id;
+	      });
+	
+	      var newProblemsToCreate = newProblems.filter(function (newProblem) {
+	        return !newProblem.id;
+	      });
+	
+	      updateCourse(transaction, queries, oldCourse, newCourse);
+	      (0, _model.deleteProblems)(transaction, queries, oldProblemIdsToDelete);
+	      (0, _model.createProblems)(transaction, queries, newProblemsToCreate, oldCourse.id);
+	      (0, _model.updateProblems)(transaction, queries, newProblems, oldProblems);
+	
+	      return transaction.batch(queries);
+	    });
+	  });
+	};
+	
+	var updateCourse = function updateCourse(transaction, queries, oldCourse, newCourse) {
+	  if (oldCourse.title !== newCourse.title) {
+	    queries.push(transaction.any('UPDATE courses SET title = ${title} WHERE id = ${id}', { title: newCourse.title, id: oldCourse.id }));
+	  }
+	};
+	
+	var getCourseWithProblems = function getCourseWithProblems(courseId) {
+	  return Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where course_id = ${courseId}', { courseId: courseId })]).then(function (values) {
+	    return {
+	      data: {
+	        course: values[0],
+	        problems: values[1]
+	      }
+	    };
+	  });
+	};
+	
+	var deleteCourseWithProblems = function deleteCourseWithProblems(courseId) {
+	  return _init.db.tx(function (transaction) {
+	    return transaction.batch([transaction.none('delete from problems where course_id=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
+	  }).then(function () {
+	    return { data: true };
+	  }).catch(function (error) {
+	    return Promise.reject({ error: error });
+	  });
+	};
+	
+	exports.createCourseWithProblems = createCourseWithProblems;
+	exports.getCourseWithProblems = getCourseWithProblems;
+	exports.deleteCourseWithProblems = deleteCourseWithProblems;
+	exports.updateCourseWithProblems = updateCourseWithProblems;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
+	
+	var _init = __webpack_require__(16);
+	
+	var _problemContentFromParamsToDb = __webpack_require__(20);
+	
+	var deleteProblem = function deleteProblem(id) {
+	  return _init.db.none('delete from problems where id=${id}', { id: id });
+	};
+	
+	// problems: [{content: "a", explanation: "aa"}]
+	var deleteProblems = function deleteProblems(transaction, queries, problemIds) {
+	  problemIds.forEach(function (id) {
+	    queries.push(transaction.none('delete from problems where id=${id}', { id: id }));
+	  });
+	};
+	
+	var createProblems = function createProblems(transaction, queries, problemsToCreate, courseId) {
+	  problemsToCreate.forEach(function (problem) {
+	    queries.push(transaction.none("insert into problems (content, explanation, course_id) values (${content}, ${explanation}, ${courseId})", {
+	      content: (0, _problemContentFromParamsToDb.problemContentFromParamsToDb)(problem.content),
+	      explanation: problem.explanation,
+	      courseId: courseId
+	    }));
+	  });
+	};
+	
+	var updateProblems = function updateProblems(transaction, queries, newProblems, oldProblems) {
+	  oldProblems.forEach(function (oldProblem) {
+	    var newProblem = newProblems.find(function (possibleNewProblem) {
+	      return possibleNewProblem.id === oldProblem.id;
+	    });
+	
+	    if (!newProblem) {
+	      return;
+	    }
+	
+	    if (oldProblem.explanation !== newProblem.explanation) {
+	      queries.push(transaction.any('UPDATE problems SET explanation = ${explanation} WHERE id = ${id}', {
+	        explanation: newProblem.explanation, id: oldProblem.id
+	      }));
+	    }
+	
+	    var oldContentString = JSON.stringify(oldProblem.content);
+	    var newContentString = (0, _problemContentFromParamsToDb.problemContentFromParamsToDb)(newProblem.content);
+	
+	    // if existing problem changed its content, it's freaking another problem now. so let's delete associated points with it.
+	    if (oldContentString !== newContentString) {
+	      queries.push(transaction.any('UPDATE problems SET content = ${content} WHERE id = ${id}', { content: newContentString, id: oldProblem.id }));
+	    }
+	  });
+	};
+	
+	exports.deleteProblem = deleteProblem;
+	exports.createProblems = createProblems;
+	exports.deleteProblems = deleteProblems;
+	exports.updateProblems = updateProblems;
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// input: "<h1></h1>"
+	
+	// output: "text: ['<h1>first answer is ', null, ', </h1> anonymous functions in ruby are called <pre><code class="ruby"> ', null, '</code></pre>'],
+	// answers: [
+	//   { answer: 'hi' },
+	//   { answer: 'hello' }
+	// ]"
+	var problemContentFromParamsToDb = function problemContentFromParamsToDb(content) {
+	  var text = [];
+	  var answers = [];
+	
+	  var contentRemaining = content;
+	
+	  while (contentRemaining.length > 0) {
+	    var nextSubstringOfProblemParsed = findNextAnswer(contentRemaining);
+	    text.push(nextSubstringOfProblemParsed.textPiece);
+	    if (nextSubstringOfProblemParsed.answer !== null) {
+	      answers.push({ answer: nextSubstringOfProblemParsed.answer });
+	      text.push(null);
+	    }
+	    contentRemaining = nextSubstringOfProblemParsed.newContentRemaining;
+	  }
+	
+	  return JSON.stringify({ answers: answers, text: text });
+	};
+	
+	var findNextAnswer = function findNextAnswer(contentRemaining) {
+	  var answerOpens = contentRemaining.indexOf("<answer>");
+	  var answerCloses = contentRemaining.indexOf("</answer>");
+	
+	  var _ref = answerOpens === -1 ? {
+	    textPiece: contentRemaining,
+	    answer: null,
+	    newContentRemaining: ''
+	  } : {
+	    textPiece: contentRemaining.slice(0, answerOpens),
+	    answer: contentRemaining.slice(answerOpens + "<answer>".length, answerCloses),
+	    newContentRemaining: contentRemaining.slice(answerCloses + "</answer>".length)
+	  };
+	
+	  var textPiece = _ref.textPiece;
+	  var answer = _ref.answer;
+	  var newContentRemaining = _ref.newContentRemaining;
+	
+	
+	  return { textPiece: textPiece, answer: answer, newContentRemaining: newContentRemaining };
+	};
+	
+	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
+
+/***/ }
+/******/ ]);
 //# sourceMappingURL=seed.js.map

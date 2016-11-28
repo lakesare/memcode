@@ -1,7 +1,8 @@
 import React from 'react';
 import { Field } from 'redux-form';
 
-import { newContent } from './newContent'
+import { newContent } from './newContent';
+import css from '../css/new.scss';
 
 const New = React.createClass({
   render() {
@@ -35,7 +36,7 @@ const New = React.createClass({
             </div>
           )
         }
-        <button type="button" onClick={() => fields.push({})}>+</button>
+        <button className={css.button} type="button" onClick={() => fields.push({})}>+</button>
       </div>
     )
   }

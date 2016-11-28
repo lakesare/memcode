@@ -17,7 +17,7 @@ const problemContentToJsx = (content, problemId) => {
       processNode: (node, children) => {
         const answerIndex = node.attribs.index;
         return <AnswersShow
-          key={answerIndex}
+          key={answerIndex + 10000} // temp fix, there is some bug with keying some texts in html-to-react. it disappears if we get rid of either <answer> or all the other tag parsing.
           answer={content.answers[answerIndex]}
           answerIndex={parseInt(answerIndex)}
           problemId={problemId}

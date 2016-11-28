@@ -1,17 +1,33 @@
 import * as pgPromise from 'pg-promise';
 
+// for pgOptions
+const camelizeColumns = (data) => {
+  const template = data[0];
+  for (let prop in template) {
+    const camel = pgPromise.utils.camelize(prop);
+    if (!(camel in template)) {
+      for (let i = 0; i < data.length; i++) {
+        let d = data[i];
+        d[camel] = d[prop];
+        delete d[prop];
+      }
+    }
+  }
+};
+
 const pgOptions = {
   query: (e) => {
-    const cyan = '\x1b[36m%s\x1b[0m';
+    const cyan = "\x1b[36m%s\x1b[0m";
     console.log(cyan, e.query); // log the query being executed
-  }
+  },
+  receive: (data, result, e) => {
+    camelizeColumns(data);
+  } // https://coderwall.com/p/irklcq
 };
 
 const pgPackage = pgPromise.default(pgOptions);
 
-const isTest = () => {
-  return(process.env.NODE_ENV === 'test')
-}
+const isTest = () => (process.env.NODE_ENV === 'test');
 
 const connectionString = {
   host: 'localhost', // 'localhost' is the default;

@@ -16,7 +16,10 @@ const List = React.createClass({
 
   render() {
     const listOfProblems = this.props.problems.items.map((problem, index) => {
-      return <Show key={problem.id} problem={problem} index={index}/>
+      return [
+        <Show key={problem.id} problem={problem} index={index}/>,
+        <hr/>
+      ]
     });
 
     if (this.props.problems.status == 'success'){

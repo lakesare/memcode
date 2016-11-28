@@ -4,9 +4,20 @@ CREATE DATABASE :database;
 
 \c :database;
 
+CREATE TABLE users (
+  oauth_provider VARCHAR,
+  oauth_id INTEGER,
+  username VARCHAR,
+  PRIMARY KEY (oauth_id, oauth_provider)
+);
+
 CREATE TABLE courses (
   id SERIAL PRIMARY KEY,
-  title VARCHAR
+  title VARCHAR,
+
+  user_oauth_id INTEGER,
+  user_oauth_provider VARCHAR,
+  FOREIGN KEY (user_oauth_id, user_oauth_provider) REFERENCES users (oauth_id, oauth_provider)
 );
 
 CREATE TABLE problems (
@@ -16,8 +27,10 @@ CREATE TABLE problems (
   type VARCHAR,
   content JSON,
 
-  courseId integer REFERENCES courses (id)
+  course_id INTEGER REFERENCES courses (id)
 );
+
+
 
 -- dropdb -U postgres memcode
 -- createdb -U postgres memcode

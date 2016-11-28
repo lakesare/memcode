@@ -77,6 +77,8 @@
 
 	var _editCourse = __webpack_require__(526);
 
+	var _profile = __webpack_require__(535);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var store = (0, _redux.createStore)(_rootReducer.rootReducer, window.devToolsExtension && window.devToolsExtension());
@@ -93,7 +95,8 @@
 	    _react2.default.createElement(_reactRouter.Route, { path: 'courses', component: _courses.CoursesPage }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'courses/new', component: _newCourse.NewCoursePage }),
 	    _react2.default.createElement(_reactRouter.Route, { path: 'courses/:id', component: _courseWithProblems.CourseWithProblemsPage }),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'courses/:id/edit', component: _editCourse.EditCoursePage })
+	    _react2.default.createElement(_reactRouter.Route, { path: 'courses/:id/edit', component: _editCourse.EditCoursePage }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'profile', component: _profile.ProfilePage })
 	  )
 	), document.getElementById('root'));
 
@@ -22327,9 +22330,12 @@
 
 	var _courses = __webpack_require__(508);
 
+	var _auth = __webpack_require__(533);
+
 	var rootReducer = (0, _redux.combineReducers)({
 	  problems: _problems.problemsReducer,
 	  courses: _courses.coursesReducer,
+	  auth: _auth.authReducer,
 	  form: _reduxForm.reducer
 	});
 
@@ -31808,7 +31814,7 @@
 	  },
 	  render: function render() {
 	    var listOfProblems = this.props.problems.items.map(function (problem, index) {
-	      return _react2.default.createElement(_show.Show, { key: problem.id, problem: problem, index: index });
+	      return [_react2.default.createElement(_show.Show, { key: problem.id, problem: problem, index: index }), _react2.default.createElement('hr', null)];
 	    });
 
 	    if (this.props.problems.status == 'success') {
@@ -37391,7 +37397,7 @@
 
 	var _answers = __webpack_require__(425);
 
-	var _show = __webpack_require__(431);
+	var _show = __webpack_require__(528);
 
 	var _show2 = _interopRequireDefault(_show);
 
@@ -37911,49 +37917,8 @@
 
 
 /***/ },
-/* 431 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(432);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(430)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../../node_modules/sass-loader/index.js!./show.scss", function() {
-				var newContent = require("!!./../../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../../node_modules/sass-loader/index.js!./show.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 432 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(429)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".show---problem---1RsZK .show---context---22tch {\n  background: #d5dce6;\n  padding: 10px; }\n", ""]);
-
-	// exports
-	exports.locals = {
-		"problem": "show---problem---1RsZK",
-		"context": "show---context---22tch"
-	};
-
-/***/ },
+/* 431 */,
+/* 432 */,
 /* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -37989,8 +37954,8 @@
 	    processNode: function processNode(node, children) {
 	      var answerIndex = node.attribs.index;
 	      return _react2.default.createElement(_answers.AnswersShow, {
-	        key: answerIndex,
-	        answer: content.answers[answerIndex],
+	        key: answerIndex + 10000 // temp fix, there is some bug with keying some texts in html-to-react. it disappears if we get rid of either <answer> or all the other tag parsing.
+	        , answer: content.answers[answerIndex],
 	        answerIndex: parseInt(answerIndex),
 	        problemId: problemId
 	      });
@@ -59021,6 +58986,10 @@
 
 	var _newContent = __webpack_require__(504);
 
+	var _new = __webpack_require__(530);
+
+	var _new2 = _interopRequireDefault(_new);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var New = _react2.default.createClass({
@@ -59067,7 +59036,7 @@
 	      }),
 	      _react2.default.createElement(
 	        'button',
-	        { type: 'button', onClick: function onClick() {
+	        { className: _new2.default.button, type: 'button', onClick: function onClick() {
 	            return fields.push({});
 	          } },
 	        '+'
@@ -64448,7 +64417,7 @@
 
 
 	// module
-	exports.push([module.id, ".show---course---1aEsU {\n  height: 200px; }\n  .show---course---1aEsU .show---link---20gp0 {\n    display: block;\n    background: #161733;\n    border-radius: 20px; }\n  .show---course---1aEsU.show---is_deleting---310Qu {\n    opacity: 0.2;\n    background-color: red;\n    display: block; }\n\nbody {\n  background: rgba(185, 100, 100, 0.49); }\n", ""]);
+	exports.push([module.id, ".show---course---1aEsU {\n  height: 200px; }\n  .show---course---1aEsU .show---link---20gp0 {\n    display: block;\n    background: #161733;\n    border-radius: 20px; }\n  .show---course---1aEsU.show---is_deleting---310Qu {\n    opacity: 0.2;\n    background-color: red;\n    display: block; }\n", ""]);
 
 	// exports
 	exports.locals = {
@@ -64718,8 +64687,6 @@
 	});
 	exports.Header = undefined;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -64730,55 +64697,68 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
+	var _reactRedux = __webpack_require__(299);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Header = function (_React$Component) {
-	  _inherits(Header, _React$Component);
-
-	  function Header() {
-	    _classCallCheck(this, Header);
-
-	    return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-	  }
-
-	  _createClass(Header, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'nav',
-	        { className: _header2.default.nav },
+	var Header = _react2.default.createClass({
+	  displayName: 'Header',
+	  render: function render() {
+	    return _react2.default.createElement(
+	      'nav',
+	      { className: _header2.default.nav },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'row' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/courses',
-	              activeClassName: _header2.default.active,
-	              className: 'columns small-6' },
-	            'Courses'
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/courses/new',
-	              activeClassName: _header2.default.active,
-	              className: 'columns small-6' },
-	            'Create new course!'
-	          )
+	          _reactRouter.Link,
+	          { to: '/courses',
+	            activeClassName: _header2.default.active,
+	            className: 'columns small-3' },
+	          'Courses'
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/courses/new',
+	            activeClassName: _header2.default.active,
+	            className: 'columns small-3' },
+	          'Create new course!'
+	        ),
+	        _react2.default.createElement(
+	          'a',
+	          { href: '/auth/login',
+	            className: 'columns small-3' },
+	          'log in'
+	        ),
+	        _react2.default.createElement(
+	          'a',
+	          { href: '/auth/logout',
+	            className: 'columns small-3' },
+	          'logout'
 	        )
-	      );
-	    }
-	  }]);
+	      )
+	    );
+	  }
+	});
 
-	  return Header;
-	}(_react2.default.Component);
+	// import { signInCreator } from '../../../components/auth/actions';
 
-	;
+
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    // problems: state.problems,
+	    // course:   state.courses.course
+	    auth: ''
+	  };
+	};
+
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    // signIn: signInCreator(dispatch)
+	  };
+	};
+
+	exports.Header = Header = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Header);
 
 	exports.Header = Header;
 
@@ -64817,7 +64797,7 @@
 
 
 	// module
-	exports.push([module.id, ".header---nav---2ole_ {\n  padding: 10px 0;\n  background: #712f2f; }\n  .header---nav---2ole_ .header---active---zNky_ {\n    background: rgba(0, 0, 0, 0.08);\n    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.06) inset, 0px 1px 2px 0px rgba(255, 255, 255, 0.1); }\n  .header---nav---2ole_ a {\n    color: white;\n    padding: 6px 9px;\n    border-radius: 4px;\n    text-transform: uppercase; }\n", ""]);
+	exports.push([module.id, ".header---nav---2ole_ {\n  padding: 10px 0;\n  background: #02071b; }\n  .header---nav---2ole_ .header---active---zNky_ {\n    background: rgba(0, 0, 0, 0.08);\n    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.06) inset, 0px 1px 2px 0px rgba(255, 255, 255, 0.1); }\n  .header---nav---2ole_ a {\n    color: white;\n    padding: 6px 9px;\n    border-radius: 4px;\n    text-transform: uppercase; }\n", ""]);
 
 	// exports
 	exports.locals = {
@@ -64998,15 +64978,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRedux = __webpack_require__(299);
-
 	var _header = __webpack_require__(517);
 
 	var _courses = __webpack_require__(508);
 
-	var _newCourse = __webpack_require__(524);
+	var _newCourse = __webpack_require__(539);
 
 	var _newCourse2 = _interopRequireDefault(_newCourse);
+
+	var _reactRedux = __webpack_require__(299);
 
 	var _actions = __webpack_require__(522);
 
@@ -65050,48 +65030,8 @@
 	exports.NewCoursePage = NewCoursePage;
 
 /***/ },
-/* 524 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(525);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(430)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../node_modules/sass-loader/index.js!./newCourse.scss", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../node_modules/sass-loader/index.js!./newCourse.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 525 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(429)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".newCourse---plus---3KE6k {\n  font-size: 40px;\n  text-align: right;\n  cursor: pointer; }\n", ""]);
-
-	// exports
-	exports.locals = {
-		"plus": "newCourse---plus---3KE6k"
-	};
-
-/***/ },
+/* 524 */,
+/* 525 */,
 /* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -65196,6 +65136,382 @@
 	};
 
 	exports.problemContentToTextarea = problemContentToTextarea;
+
+/***/ },
+/* 528 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(529);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(430)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../../node_modules/sass-loader/index.js!./show.scss", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../../node_modules/sass-loader/index.js!./show.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 529 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(429)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".show---problem---20SYm .show---context---x34vd {\n  background: #d5dce6;\n  padding: 10px; }\n", ""]);
+
+	// exports
+	exports.locals = {
+		"problem": "show---problem---20SYm",
+		"context": "show---context---x34vd"
+	};
+
+/***/ },
+/* 530 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(531);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(430)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../../node_modules/sass-loader/index.js!./new.scss", function() {
+				var newContent = require("!!./../../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../../node_modules/sass-loader/index.js!./new.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 531 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(429)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "button.new---button---2s2sE {\n  font-size: 40px;\n  margin-top: 30px; }\n", ""]);
+
+	// exports
+	exports.locals = {
+		"button": "new---button---2s2sE"
+	};
+
+/***/ },
+/* 532 */,
+/* 533 */
+/***/ function(module, exports) {
+
+	
+	// export { reducer as authReducer } from './reducer';
+	"use strict";
+
+/***/ },
+/* 534 */,
+/* 535 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ProfilePage = undefined;
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(299);
+
+	var _header = __webpack_require__(517);
+
+	var _currentUser = __webpack_require__(541);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ProfilePage = _react2.default.createClass({
+	  displayName: 'ProfilePage',
+	  render: function render() {
+	    console.log({ currentUser: _currentUser.currentUser });
+	    return _react2.default.createElement(
+	      'main',
+	      null,
+	      _react2.default.createElement(_header.Header, null),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'small-12 column' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Profile'
+	          ),
+	          _currentUser.currentUser ? _currentUser.currentUser.username : 'logged out'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports.ProfilePage = ProfilePage;
+
+/***/ },
+/* 536 */,
+/* 537 */,
+/* 538 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * JavaScript Cookie v2.1.3
+	 * https://github.com/js-cookie/js-cookie
+	 *
+	 * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+	 * Released under the MIT license
+	 */
+	;(function (factory) {
+		var registeredInModuleLoader = false;
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+			registeredInModuleLoader = true;
+		}
+		if (true) {
+			module.exports = factory();
+			registeredInModuleLoader = true;
+		}
+		if (!registeredInModuleLoader) {
+			var OldCookies = window.Cookies;
+			var api = window.Cookies = factory();
+			api.noConflict = function () {
+				window.Cookies = OldCookies;
+				return api;
+			};
+		}
+	}(function () {
+		function extend () {
+			var i = 0;
+			var result = {};
+			for (; i < arguments.length; i++) {
+				var attributes = arguments[ i ];
+				for (var key in attributes) {
+					result[key] = attributes[key];
+				}
+			}
+			return result;
+		}
+
+		function init (converter) {
+			function api (key, value, attributes) {
+				var result;
+				if (typeof document === 'undefined') {
+					return;
+				}
+
+				// Write
+
+				if (arguments.length > 1) {
+					attributes = extend({
+						path: '/'
+					}, api.defaults, attributes);
+
+					if (typeof attributes.expires === 'number') {
+						var expires = new Date();
+						expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+						attributes.expires = expires;
+					}
+
+					try {
+						result = JSON.stringify(value);
+						if (/^[\{\[]/.test(result)) {
+							value = result;
+						}
+					} catch (e) {}
+
+					if (!converter.write) {
+						value = encodeURIComponent(String(value))
+							.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+					} else {
+						value = converter.write(value, key);
+					}
+
+					key = encodeURIComponent(String(key));
+					key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
+					key = key.replace(/[\(\)]/g, escape);
+
+					return (document.cookie = [
+						key, '=', value,
+						attributes.expires ? '; expires=' + attributes.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+						attributes.path ? '; path=' + attributes.path : '',
+						attributes.domain ? '; domain=' + attributes.domain : '',
+						attributes.secure ? '; secure' : ''
+					].join(''));
+				}
+
+				// Read
+
+				if (!key) {
+					result = {};
+				}
+
+				// To prevent the for loop in the first place assign an empty array
+				// in case there are no cookies at all. Also prevents odd result when
+				// calling "get()"
+				var cookies = document.cookie ? document.cookie.split('; ') : [];
+				var rdecode = /(%[0-9A-Z]{2})+/g;
+				var i = 0;
+
+				for (; i < cookies.length; i++) {
+					var parts = cookies[i].split('=');
+					var cookie = parts.slice(1).join('=');
+
+					if (cookie.charAt(0) === '"') {
+						cookie = cookie.slice(1, -1);
+					}
+
+					try {
+						var name = parts[0].replace(rdecode, decodeURIComponent);
+						cookie = converter.read ?
+							converter.read(cookie, name) : converter(cookie, name) ||
+							cookie.replace(rdecode, decodeURIComponent);
+
+						if (this.json) {
+							try {
+								cookie = JSON.parse(cookie);
+							} catch (e) {}
+						}
+
+						if (key === name) {
+							result = cookie;
+							break;
+						}
+
+						if (!key) {
+							result[name] = cookie;
+						}
+					} catch (e) {}
+				}
+
+				return result;
+			}
+
+			api.set = api;
+			api.get = function (key) {
+				return api.call(api, key);
+			};
+			api.getJSON = function () {
+				return api.apply({
+					json: true
+				}, [].slice.call(arguments));
+			};
+			api.defaults = {};
+
+			api.remove = function (key, attributes) {
+				api(key, '', extend(attributes, {
+					expires: -1
+				}));
+			};
+
+			api.withConverter = init;
+
+			return api;
+		}
+
+		return init(function () {});
+	}));
+
+
+/***/ },
+/* 539 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(540);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(430)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../node_modules/sass-loader/index.js!./newCourse.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js?modules&localIdentName=[name]---[local]---[hash:base64:5]!./../../../node_modules/sass-loader/index.js!./newCourse.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 540 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(429)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".newCourse---plus---1JUE9 {\n  font-size: 40px;\n  text-align: right;\n  cursor: pointer; }\n", ""]);
+
+	// exports
+	exports.locals = {
+		"plus": "newCourse---plus---1JUE9"
+	};
+
+/***/ },
+/* 541 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.currentUser = undefined;
+
+	var _jsCookie = __webpack_require__(538);
+
+	var cookies = _interopRequireWildcard(_jsCookie);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	var string = cookies.get('currentUser');
+	var currentUser = string !== "undefined" ? JSON.parse(string) : null;
+
+	window.currentUser = currentUser;
+
+	exports.currentUser = currentUser;
 
 /***/ }
 /******/ ]);

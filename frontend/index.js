@@ -17,6 +17,7 @@ import { CoursesPage } from './pages/courses';
 import { CourseWithProblemsPage } from './pages/courseWithProblems';
 import { NewCoursePage } from './pages/newCourse';
 import { EditCoursePage } from './pages/editCourse';
+import { ProfilePage } from './pages/profile';
 
 
 ReactDOM.render(
@@ -26,6 +27,8 @@ ReactDOM.render(
       <Route path='courses/new' component={NewCoursePage}/>
       <Route path='courses/:id' component={CourseWithProblemsPage}/>
       <Route path='courses/:id/edit' component={EditCoursePage}/>
+
+      <Route path='profile' component={ProfilePage}/>
     </Router>
   </Provider>
   ,

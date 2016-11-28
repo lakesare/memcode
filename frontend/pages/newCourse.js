@@ -1,10 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { Header } from '../components/header';
 import { NewCourse } from '../components/courses'
-import css from './newCourse.scss';
-import { createCourseCreator } from '../components/courses/actions';
+import css from './css/newCourse.scss';
 
 
 const NewCoursePage = React.createClass({
@@ -24,6 +22,8 @@ const NewCoursePage = React.createClass({
   }
 });
 
+import { connect } from 'react-redux';
+import { createCourseCreator } from '../components/courses/actions';
 const mapDispatchToProps = (dispatch) => {
   return {
     onSubmit: createCourseCreator(dispatch)

@@ -52,31 +52,62 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _bodyParser = __webpack_require__(7);
+	var _prettyError = __webpack_require__(7);
+	
+	var _allowCrossDomain = __webpack_require__(9);
+	
+	var _bodyParser = __webpack_require__(10);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _routes = __webpack_require__(8);
+	var _ourSession = __webpack_require__(11);
 	
-	var _routes2 = __webpack_require__(14);
+	var _passport = __webpack_require__(13);
+	
+	var _passport2 = _interopRequireDefault(_passport);
+	
+	var _static = __webpack_require__(14);
+	
+	var _routes = __webpack_require__(15);
+	
+	var _routes2 = __webpack_require__(21);
+	
+	var _routes3 = __webpack_require__(22);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var app = (0, _express2.default)();
 	var port = 3000;
 	
+	app.use(_allowCrossDomain.allowCrossDomain);
+	
 	app.use(_bodyParser2.default.json()); // to support JSON-encoded bodies
 	
-	// (global routes, because path.join didn't work after update to webpacked ES6)
-	// serve our static stuff like index.css
-	app.use(_express2.default.static('/home/lakesare/Desktop/memcode/frontend/webpacked'));
+	app.use(_ourSession.ourSession);
+	
+	app.use(_passport2.default.initialize());
+	app.use(_passport2.default.session());
+	
+	app.use(_static.staticAssets);
+	
+	// routes
 	
 	app.use('/api/courses', _routes.router);
 	
 	app.use('/api/problems', _routes2.router);
 	
+	// import { router as usersRouter } from './components/users/routes';
+	// app.use('/api/users', usersRouter);
+	
+	app.use('/auth', _routes3.router);
+	
+	app.use(function (req, res, next) {
+	  res.cookie('currentUser', JSON.stringify(req.user));
+	  next();
+	});
+	
 	app.get('*', function (req, res) {
-	  res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html');
+	  return res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html');
 	});
 	
 	app.listen(port, function (err) {
@@ -611,12 +642,129 @@
 
 /***/ },
 /* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.prettyError = undefined;
+	
+	var _prettyError = __webpack_require__(8);
+	
+	var _prettyError2 = _interopRequireDefault(_prettyError);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var prettyError = new _prettyError2.default();
+	prettyError.skipPackage('express');
+	prettyError.alias('/home/lakesare/Desktop/memcode/backend/webpacked/webpack:', 'backend');
+	prettyError.appendStyle({
+	  // this is a simple selector to the element that says 'Error'
+	  'pretty-error > header': {
+	    display: 'block',
+	    marginTop: 3
+	  },
+	  'pretty-error > header > title > kind': {
+	    background: 'black',
+	    color: 'bright-red'
+	  }
+	});
+	prettyError.start();
+	
+	exports.prettyError = prettyError;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = require("pretty-error");
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var allowCrossDomain = function allowCrossDomain(req, res, next) {
+	  res.status(200);
+	  res.header("Access-Control-Allow-Origin", "*");
+	  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	  next();
+	};
+	
+	exports.allowCrossDomain = allowCrossDomain;
+
+/***/ },
+/* 10 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 8 */
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ourSession = undefined;
+	
+	var _expressSession = __webpack_require__(12);
+	
+	var _expressSession2 = _interopRequireDefault(_expressSession);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ourSession = (0, _expressSession2.default)({
+	  secret: 'keyboard cat',
+	  resave: true,
+	  saveUninitialized: true
+	});
+	
+	exports.ourSession = ourSession;
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = require("express-session");
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = require("passport");
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.staticAssets = undefined;
+	
+	var _express = __webpack_require__(6);
+	
+	var _express2 = _interopRequireDefault(_express);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var staticAssets = _express2.default.static('/home/lakesare/Desktop/memcode/frontend/webpacked'); // (global routes, because path.join didn't work after update to webpacked ES6)
+	// serve our static stuff like index.css
+	exports.staticAssets = staticAssets;
+
+/***/ },
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -630,9 +778,9 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _init = __webpack_require__(9);
+	var _init = __webpack_require__(16);
 	
-	var _model = __webpack_require__(11);
+	var _model = __webpack_require__(18);
 	
 	var Course = _interopRequireWildcard(_model);
 	
@@ -666,6 +814,7 @@
 	      data: courseIdMap
 	    });
 	  }).catch(function (error) {
+	    console.log({ error: error });
 	    response.status(500).json({ error: error.message });
 	  });
 	});
@@ -673,7 +822,17 @@
 	router.put('/:id', function (request, response) {
 	  var result = Course.updateCourseWithProblems(request.body["course"], request.body["problems"]);
 	
-	  result.then(function (data) {
+	  console.log("\n\n\n");
+	  var a = JSON.parse(JSON.stringify(request.body["course"]));
+	  var b = JSON.parse(JSON.stringify(request.body["problems"]));
+	  console.log("Course.createCourseWithProblems(");
+	  console.log(a);
+	  console.log(', ');
+	  console.log(b);
+	  console.log(')');
+	  console.log("\n\n\n");
+	
+	  result.then(function () {
 	    response.status(200).json({ data: true });
 	  }).catch(function (error) {
 	    response.status(500).json({ error: error.message });
@@ -691,7 +850,7 @@
 	exports.router = router;
 
 /***/ },
-/* 9 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -701,17 +860,35 @@
 	});
 	exports.db = undefined;
 	
-	var _pgPromise = __webpack_require__(10);
+	var _pgPromise = __webpack_require__(17);
 	
 	var pgPromise = _interopRequireWildcard(_pgPromise);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
+	// for pgOptions
+	var camelizeColumns = function camelizeColumns(data) {
+	  var template = data[0];
+	  for (var prop in template) {
+	    var camel = pgPromise.utils.camelize(prop);
+	    if (!(camel in template)) {
+	      for (var i = 0; i < data.length; i++) {
+	        var d = data[i];
+	        d[camel] = d[prop];
+	        delete d[prop];
+	      }
+	    }
+	  }
+	};
+	
 	var pgOptions = {
 	  query: function query(e) {
-	    var cyan = '\x1b[36m%s\x1b[0m';
+	    var cyan = "\x1b[36m%s\x1b[0m";
 	    console.log(cyan, e.query); // log the query being executed
-	  }
+	  },
+	  receive: function receive(data, result, e) {
+	    camelizeColumns(data);
+	  } // https://coderwall.com/p/irklcq
 	};
 	
 	var pgPackage = pgPromise.default(pgOptions);
@@ -737,13 +914,13 @@
 	exports.db = db;
 
 /***/ },
-/* 10 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
 
 /***/ },
-/* 11 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -753,11 +930,9 @@
 	});
 	exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
 	
-	var _init = __webpack_require__(9);
+	var _init = __webpack_require__(16);
 	
-	var _model = __webpack_require__(12);
-	
-	var _problemContentFromParamsToDb = __webpack_require__(13);
+	var _model = __webpack_require__(19);
 	
 	// course: {title: "aaa"}
 	// problems: [{content: "a", explanation: "aa"}]
@@ -765,14 +940,16 @@
 	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
 	  // { validation: 'failed fields' }
 	  var courseId = null;
-	  var result = _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
+	  return _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
 	    courseId = course.id;
-	    return (0, _model.createProblems)(problems, course.id);
+	    return _init.db.tx(function (transaction) {
+	      var queries = [];
+	      (0, _model.createProblems)(transaction, queries, problems, courseId);
+	      return transaction.batch(queries);
+	    });
 	  }).then(function () {
 	    return { courseId: courseId };
 	  });
-	
-	  return result;
 	};
 	
 	var updateCourseWithProblems = function updateCourseWithProblems(newCourse, newProblems) {
@@ -813,7 +990,7 @@
 	};
 	
 	var getCourseWithProblems = function getCourseWithProblems(courseId) {
-	  var result = Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where courseId = ${courseId}', { courseId: courseId })]).then(function (values) {
+	  return Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where course_id = ${courseId}', { courseId: courseId })]).then(function (values) {
 	    return {
 	      data: {
 	        course: values[0],
@@ -821,13 +998,11 @@
 	      }
 	    };
 	  });
-	
-	  return result;
 	};
 	
 	var deleteCourseWithProblems = function deleteCourseWithProblems(courseId) {
 	  return _init.db.tx(function (transaction) {
-	    return transaction.batch([transaction.none('delete from problems where courseId=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
+	    return transaction.batch([transaction.none('delete from problems where course_id=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
 	  }).then(function () {
 	    return { data: true };
 	  }).catch(function (error) {
@@ -841,7 +1016,7 @@
 	exports.updateCourseWithProblems = updateCourseWithProblems;
 
 /***/ },
-/* 12 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -851,9 +1026,9 @@
 	});
 	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
 	
-	var _init = __webpack_require__(9);
+	var _init = __webpack_require__(16);
 	
-	var _problemContentFromParamsToDb = __webpack_require__(13);
+	var _problemContentFromParamsToDb = __webpack_require__(20);
 	
 	var deleteProblem = function deleteProblem(id) {
 	  return _init.db.none('delete from problems where id=${id}', { id: id });
@@ -868,7 +1043,7 @@
 	
 	var createProblems = function createProblems(transaction, queries, problemsToCreate, courseId) {
 	  problemsToCreate.forEach(function (problem) {
-	    queries.push(transaction.none("insert into problems (content, explanation, courseId) values (${content}, ${explanation}, ${courseId})", {
+	    queries.push(transaction.none("insert into problems (content, explanation, course_id) values (${content}, ${explanation}, ${courseId})", {
 	      content: (0, _problemContentFromParamsToDb.problemContentFromParamsToDb)(problem.content),
 	      explanation: problem.explanation,
 	      courseId: courseId
@@ -887,7 +1062,9 @@
 	    }
 	
 	    if (oldProblem.explanation !== newProblem.explanation) {
-	      queries.push(transaction.any('UPDATE problems SET explanation = ${explanation} WHERE id = ${id}', { explanation: newProblem.explanation, id: oldProblem.id }));
+	      queries.push(transaction.any('UPDATE problems SET explanation = ${explanation} WHERE id = ${id}', {
+	        explanation: newProblem.explanation, id: oldProblem.id
+	      }));
 	    }
 	
 	    var oldContentString = JSON.stringify(oldProblem.content);
@@ -906,7 +1083,7 @@
 	exports.updateProblems = updateProblems;
 
 /***/ },
-/* 13 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -965,7 +1142,7 @@
 	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
 
 /***/ },
-/* 14 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -979,9 +1156,7 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _init = __webpack_require__(9);
-	
-	var _model = __webpack_require__(12);
+	var _model = __webpack_require__(19);
 	
 	var Problem = _interopRequireWildcard(_model);
 	
@@ -1000,6 +1175,134 @@
 	});
 	
 	exports.router = router;
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.router = undefined;
+	
+	var _express = __webpack_require__(6);
+	
+	var _express2 = _interopRequireDefault(_express);
+	
+	var _passport = __webpack_require__(13);
+	
+	var _passport2 = _interopRequireDefault(_passport);
+	
+	var _passportGithub = __webpack_require__(24);
+	
+	var _passportGithub2 = _interopRequireDefault(_passportGithub);
+	
+	var _model = __webpack_require__(25);
+	
+	var User = _interopRequireWildcard(_model);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var router = _express2.default.Router();
+	
+	// github2 because github module is outdated
+	var GithubStrategy = _passportGithub2.default.Strategy;
+	
+	var github = {
+	  clientID: '1d94a714bab1f1576872',
+	  clientSecret: 'cfd3be4dfba0dea31889e869e2eaf7dd3418ee5f',
+	  callbackURL: 'http://localhost:3000/auth/github/callback'
+	};
+	
+	_passport2.default.use(new GithubStrategy(github, function (accessToken, refreshToken, profile, done) {
+	  // github doesn't give us refreshTokens, so we are not using it.
+	  // we may be storing access_token in case we need to access github's api, but we don't need it.
+	  // find_or_create
+	  User.getUserByOauth('github', profile.id).then(function (user) {
+	    if (user === null) {
+	      User.createUserFromGithub(profile).then(function () {
+	        User.getUserByOauth('github', profile.id).then(function (user) {
+	          return done(null, user);
+	        });
+	      });
+	    } else {
+	      done(null, user);
+	    }
+	  });
+	}));
+	
+	// user: what's returned by done(null, user) in strategy
+	_passport2.default.serializeUser(function (user, done) {
+	  console.log('serializeUser');
+	  done(null, { oauthProvider: user.oauthProvider, oauthId: user.oauthId });
+	});
+	
+	_passport2.default.deserializeUser(function (user, done) {
+	  console.log('deserializeUser');
+	  User.getUserByOauth(user.oauthProvider, user.oauthId).then(function (user) {
+	    done(null, user);
+	  }).catch(function (error) {
+	    return console.log(error);
+	  });
+	});
+	
+	router.get('/logout', function (req, res) {
+	  req.logout();
+	  res.redirect('/courses');
+	});
+	
+	// passport.authenticate() middleware invokes req.login() automatically.
+	// we will call this to start the GitHub Login process
+	router.get('/login', _passport2.default.authenticate('github'));
+	
+	// GitHub will call this URL
+	router.get('/github/callback', _passport2.default.authenticate('github', {
+	  failureRedirect: '/',
+	  successRedirect: '/profile'
+	}));
+	
+	exports.router = router;
+
+/***/ },
+/* 23 */,
+/* 24 */
+/***/ function(module, exports) {
+
+	module.exports = require("passport-github2");
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createUserFromGithub = exports.getUserByOauth = undefined;
+	
+	var _init = __webpack_require__(16);
+	
+	// getUserByOauth('github', 7578559)
+	// => user
+	var getUserByOauth = function getUserByOauth(oauthProvider, oauthId) {
+	  return _init.db.oneOrNone("select * from users where oauth_provider=${oauthProvider} and oauth_id=${oauthId}", { oauthProvider: oauthProvider, oauthId: oauthId });
+	};
+	
+	var createUserFromGithub = function createUserFromGithub(profile) {
+	  return _init.db.none("insert into users (oauth_provider, oauth_id, username) values (${oauthProvider}, ${oauthId}, ${username})", {
+	    oauthProvider: 'github',
+	    oauthId: profile.id,
+	    username: profile.username
+	  });
+	};
+	
+	exports.getUserByOauth = getUserByOauth;
+	exports.createUserFromGithub = createUserFromGithub;
 
 /***/ }
 /******/ ]);

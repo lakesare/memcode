@@ -1,8 +1,6 @@
 import { db } from '../../db/init.js';
 
 import { createProblems, deleteProblems, updateProblems } from '../problems/model';
-import { problemContentFromParamsToDb } from '../../services/problemContentFromParamsToDb';
-
 
 
 // course: {title: "aaa"}
@@ -11,15 +9,16 @@ import { problemContentFromParamsToDb } from '../../services/problemContentFromP
 const createCourseWithProblems = (course, problems) => {
   // { validation: 'failed fields' }
   let courseId = null;
-  const result = 
-    db.one("insert into courses (title) values (${title}) RETURNING id", course)
-      .then((course) => {
+  return db.one("insert into courses (title) values (${title}) RETURNING id", course)
+    .then((course) => {
       courseId = course.id;
-      return createProblems(problems, course.id);
+      return db.tx((transaction) => {
+        let queries = [];
+        createProblems(transaction, queries, problems, courseId);
+        return transaction.batch(queries);
+      });
     }).then(() => ({ courseId }))
-
-  return result
-}
+};
 
 
 
@@ -34,13 +33,13 @@ const updateCourseWithProblems = (newCourse, newProblems) => {
     const oldProblems = data.data.problems;
 
     return db.tx((transaction) => {
-      let queries = []
+      let queries = [];
 
       const oldProblemIdsToDelete = oldProblems.filter((oldProblem) => {
         return !newProblems.find((newProblem) => newProblem.id === oldProblem.id )
-      }).map((oldProblem) => oldProblem.id )
+      }).map((oldProblem) => oldProblem.id );
 
-      const newProblemsToCreate = newProblems.filter((newProblem) => !newProblem.id )
+      const newProblemsToCreate = newProblems.filter((newProblem) => !newProblem.id );
 
       updateCourse  (transaction, queries, oldCourse, newCourse);
       deleteProblems(transaction, queries, oldProblemIdsToDelete);
@@ -50,7 +49,7 @@ const updateCourseWithProblems = (newCourse, newProblems) => {
       return transaction.batch(queries)
     })
   })
-}
+};
 
 
 const updateCourse = (transaction, queries, oldCourse, newCourse) => {
@@ -59,39 +58,37 @@ const updateCourse = (transaction, queries, oldCourse, newCourse) => {
       transaction.any('UPDATE courses SET title = ${title} WHERE id = ${id}', { title: newCourse.title, id: oldCourse.id })
     )
   }
-}
+};
 
 const getCourseWithProblems = (courseId) => {
-  const result = Promise.all([
-    db.one('select * from courses where id = ${courseId}', { courseId }),
-    db.any('select * from problems where courseId = ${courseId}', { courseId })
+  return Promise.all([
+    db.one('select * from courses where id = ${courseId}', {courseId}),
+    db.any('select * from problems where course_id = ${courseId}', {courseId})
   ]).then((values) => {
-    return(
-      {
-        data: {
-          course: values[0],
-          problems: values[1]
-        }
+    return (
+    {
+      data: {
+        course: values[0],
+        problems: values[1]
       }
+    }
     )
-  })
-
-  return result
-}
+  });
+};
 
 
 const deleteCourseWithProblems = (courseId) => {
   return(
     db.tx((transaction) => {
       return transaction.batch([
-        transaction.none('delete from problems where courseId=${courseId}', { courseId }),
+        transaction.none('delete from problems where course_id=${courseId}', { courseId }),
         transaction.none('delete from courses where id=${courseId}', { courseId }),
       ]);
     }).then(() => { return { data: true }
     }).catch((error) => { return Promise.reject({ error }) 
     })
   )
-}
+};
 
 
 

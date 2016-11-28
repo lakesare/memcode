@@ -6,20 +6,18 @@ import * as Course from './model';
 
 router.get('/:id', (request, response) => {
   Course.getCourseWithProblems(request.params.id)
-  .then((data) => {
-    response.status(200).json(data);
-  })
-  .catch((data) => {
-    response.status(500).json({ error: data.message });
+    .then((data) => {
+      response.status(200).json(data);
+  }).catch((data) => {
+      response.status(500).json({ error: data.message });
   })
 });
 
 router.get('/', (request, response) => {
   const courses = db.any("select * from courses")
-  .then((data) => {
-    response.status(200).json(data);
-  })
-  .catch((error) => {
+    .then((data) => {
+      response.status(200).json(data);
+  }).catch((error) => {
     response.status(500).json({ error: error.message });
   })
 });
@@ -32,6 +30,7 @@ router.post('/', (request, response) => {
       data: courseIdMap
     });
   }).catch((error) => {
+    console.log({ error });
     response.status(500).json({ error: error.message });
   })
 });
@@ -39,12 +38,22 @@ router.post('/', (request, response) => {
 router.put('/:id', (request, response) => {
   const result = Course.updateCourseWithProblems(request.body["course"], request.body["problems"]);
 
-  result.then((data) => {
+  console.log("\n\n\n")
+  const a = JSON.parse(JSON.stringify(request.body["course"]))
+  const b = JSON.parse(JSON.stringify(request.body["problems"]))
+  console.log("Course.createCourseWithProblems(");
+  console.log(a)
+  console.log(', ')
+  console.log(b)
+  console.log(')')
+  console.log("\n\n\n")
+
+
+  result.then(() => {
     response.status(200).json({ data: true });
   }).catch((error) => {
     response.status(500).json({ error: error.message });
   })
-
 });
 
 router.delete('/:id', (request, response) => {

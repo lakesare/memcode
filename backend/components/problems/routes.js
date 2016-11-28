@@ -1,7 +1,6 @@
 import express from 'express';
 const router = express.Router();
 
-import { db } from '../../db/init.js';
 import * as Problem from './model';
 
 router.delete('/:id', (request, response) => {
