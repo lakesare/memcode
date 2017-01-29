@@ -23,16 +23,25 @@ router.get('/', (request, response) => {
 });
 
 router.post('/', (request, response) => {
-  const result = Course.createCourseWithProblems(request.body["course"], request.body["problems"]);
+  console.log(request.session.currentUser)
+  // console.log(request.cookies)
+  // const course = {
+  //   ...request.body["course"],
+  //   user_oauth_id: request.user.oauthProvider,
+  //   user_oauth_provider: request.user.oauthId
+  // };
+  // const result = Course.createCourseWithProblems(course, request.body["problems"]);
 
-  result.then((courseIdMap) => {
-    response.status(200).json({ 
-      data: courseIdMap
-    });
-  }).catch((error) => {
-    console.log({ error });
-    response.status(500).json({ error: error.message });
-  })
+  // result.then((courseIdMap) => {
+  //   response.status(200).json({ 
+  //     data: courseIdMap
+  //   });
+  // }).catch((error) => {
+  //   response.status(500).json({ error: error.message });
+  // })
+
+
+  response.status(200).json({ hi: 'hi' })
 });
 
 router.put('/:id', (request, response) => {

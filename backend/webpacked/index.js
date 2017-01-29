@@ -56,17 +56,19 @@
 	
 	var _allowCrossDomain = __webpack_require__(9);
 	
+	var _stopPropagationForAssets = __webpack_require__(26);
+	
 	var _bodyParser = __webpack_require__(10);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
+	
+	var _static = __webpack_require__(14);
 	
 	var _ourSession = __webpack_require__(11);
 	
 	var _passport = __webpack_require__(13);
 	
 	var _passport2 = _interopRequireDefault(_passport);
-	
-	var _static = __webpack_require__(14);
 	
 	var _routes = __webpack_require__(15);
 	
@@ -81,14 +83,16 @@
 	
 	app.use(_allowCrossDomain.allowCrossDomain);
 	
+	app.use(_stopPropagationForAssets.stopPropagationForAssets);
+	
 	app.use(_bodyParser2.default.json()); // to support JSON-encoded bodies
+	
+	app.use(_static.staticAssets);
 	
 	app.use(_ourSession.ourSession);
 	
 	app.use(_passport2.default.initialize());
 	app.use(_passport2.default.session());
-	
-	app.use(_static.staticAssets);
 	
 	// routes
 	
@@ -96,12 +100,11 @@
 	
 	app.use('/api/problems', _routes2.router);
 	
-	// import { router as usersRouter } from './components/users/routes';
-	// app.use('/api/users', usersRouter);
-	
 	app.use('/auth', _routes3.router);
 	
 	app.use(function (req, res, next) {
+	  // console.log(req.user)
+	  req.session.currentUser = req.user;
 	  res.cookie('currentUser', JSON.stringify(req.user));
 	  next();
 	});
@@ -807,16 +810,25 @@
 	});
 	
 	router.post('/', function (request, response) {
-	  var result = Course.createCourseWithProblems(request.body["course"], request.body["problems"]);
+	  console.log(request.session.currentUser);
+	  // console.log(request.cookies)
+	  // const course = {
+	  //   ...request.body["course"],
+	  //   user_oauth_id: request.user.oauthProvider,
+	  //   user_oauth_provider: request.user.oauthId
+	  // };
+	  // const result = Course.createCourseWithProblems(course, request.body["problems"]);
 	
-	  result.then(function (courseIdMap) {
-	    response.status(200).json({
-	      data: courseIdMap
-	    });
-	  }).catch(function (error) {
-	    console.log({ error: error });
-	    response.status(500).json({ error: error.message });
-	  });
+	  // result.then((courseIdMap) => {
+	  //   response.status(200).json({ 
+	  //     data: courseIdMap
+	  //   });
+	  // }).catch((error) => {
+	  //   response.status(500).json({ error: error.message });
+	  // })
+	
+	
+	  response.status(200).json({ hi: 'hi' });
 	});
 	
 	router.put('/:id', function (request, response) {
@@ -1303,6 +1315,28 @@
 	
 	exports.getUserByOauth = getUserByOauth;
 	exports.createUserFromGithub = createUserFromGithub;
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// https://github.com/jaredhanson/passport/issues/14#issuecomment-21863553
+	var stopPropagationForAssets = function stopPropagationForAssets(req, res, next) {
+	  if (req.url != '/favicon.ico' && req.url != '/styles.css') {
+	    return next();
+	  } else {
+	    res.status(200);
+	    res.header('Cache-Control', 'max-age=4294880896');
+	    res.end();
+	  }
+	};
+	
+	exports.stopPropagationForAssets = stopPropagationForAssets;
 
 /***/ }
 /******/ ]);

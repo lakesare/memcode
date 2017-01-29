@@ -64697,12 +64697,35 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
-	var _reactRedux = __webpack_require__(299);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Header = _react2.default.createClass({
 	  displayName: 'Header',
+	  renderCurrentUser: function renderCurrentUser() {
+	    if (currentUser) {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'columns small-5' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/profile' },
+	          currentUser.username
+	        ),
+	        _react2.default.createElement(
+	          'a',
+	          { href: '/auth/logout' },
+	          'logout'
+	        )
+	      );
+	    } else {
+	      return _react2.default.createElement(
+	        'a',
+	        { href: '/auth/login',
+	          className: 'columns small-3' },
+	        'log in'
+	      );
+	    }
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'nav',
@@ -64714,7 +64737,7 @@
 	          _reactRouter.Link,
 	          { to: '/courses',
 	            activeClassName: _header2.default.active,
-	            className: 'columns small-3' },
+	            className: 'columns small-2' },
 	          'Courses'
 	        ),
 	        _react2.default.createElement(
@@ -64724,41 +64747,11 @@
 	            className: 'columns small-3' },
 	          'Create new course!'
 	        ),
-	        _react2.default.createElement(
-	          'a',
-	          { href: '/auth/login',
-	            className: 'columns small-3' },
-	          'log in'
-	        ),
-	        _react2.default.createElement(
-	          'a',
-	          { href: '/auth/logout',
-	            className: 'columns small-3' },
-	          'logout'
-	        )
+	        this.renderCurrentUser()
 	      )
 	    );
 	  }
 	});
-
-	// import { signInCreator } from '../../../components/auth/actions';
-
-
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    // problems: state.problems,
-	    // course:   state.courses.course
-	    auth: ''
-	  };
-	};
-
-	var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-	  return {
-	    // signIn: signInCreator(dispatch)
-	  };
-	};
-
-	exports.Header = Header = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Header);
 
 	exports.Header = Header;
 
@@ -64928,9 +64921,8 @@
 	        status: 'error',
 	        error: response.error
 	      });
-	    }); //fetch
-	  } //funtion returned
-	  ; //return
+	    });
+	  };
 	};
 
 	var updateCourseCreator = function updateCourseCreator(dispatch, courseId) {
