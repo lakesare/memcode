@@ -2,11 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { Header } from '../components/header';
-import { currentUser } from '../services/currentUser';
 
 let ProfilePage = React.createClass({
   render() {
-    console.log({ currentUser });
     return(
       <main>
         <Header/>

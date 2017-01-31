@@ -48,33 +48,29 @@
 	
 	__webpack_require__(1);
 	
-	var _express = __webpack_require__(6);
+	var _express = __webpack_require__(7);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _prettyError = __webpack_require__(7);
+	var _prettyError = __webpack_require__(8);
 	
-	var _allowCrossDomain = __webpack_require__(9);
+	var _allowCrossDomain = __webpack_require__(10);
 	
-	var _stopPropagationForAssets = __webpack_require__(26);
+	var _stopPropagationForAssets = __webpack_require__(11);
 	
-	var _bodyParser = __webpack_require__(10);
+	var _bodyParser = __webpack_require__(12);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _static = __webpack_require__(14);
+	var _static = __webpack_require__(13);
 	
-	var _ourSession = __webpack_require__(11);
+	var _ourSession = __webpack_require__(14);
 	
-	var _passport = __webpack_require__(13);
+	var _routes = __webpack_require__(16);
 	
-	var _passport2 = _interopRequireDefault(_passport);
+	var _routes2 = __webpack_require__(23);
 	
-	var _routes = __webpack_require__(15);
-	
-	var _routes2 = __webpack_require__(21);
-	
-	var _routes3 = __webpack_require__(22);
+	var _routes3 = __webpack_require__(24);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -91,9 +87,6 @@
 	
 	app.use(_ourSession.ourSession);
 	
-	app.use(_passport2.default.initialize());
-	app.use(_passport2.default.session());
-	
 	// routes
 	
 	app.use('/api/courses', _routes.router);
@@ -102,12 +95,12 @@
 	
 	app.use('/auth', _routes3.router);
 	
-	app.use(function (req, res, next) {
-	  // console.log(req.user)
-	  req.session.currentUser = req.user;
-	  res.cookie('currentUser', JSON.stringify(req.user));
-	  next();
-	});
+	// setting current user
+	// app.use((req, res, next) => {
+	//   req.session.currentUser = req.user
+	//   res.cookie('currentUser', JSON.stringify(req.user))
+	//   next();
+	// })
 	
 	app.get('*', function (req, res) {
 	  return res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html');
@@ -133,7 +126,17 @@
 
 	var SourceMapConsumer = __webpack_require__(3).SourceMapConsumer;
 	var path = __webpack_require__(4);
-	var fs = __webpack_require__(5);
+	
+	var fs;
+	try {
+	  fs = __webpack_require__(5);
+	  if (!fs.existsSync || !fs.readFileSync) {
+	    // fs doesn't have all methods we need
+	    fs = null;
+	  }
+	} catch (err) {
+	  /* nop */
+	}
 	
 	// Only install once if called multiple times
 	var errorFormatterInstalled = false;
@@ -191,24 +194,19 @@
 	    return fileContentsCache[path];
 	  }
 	
-	  try {
+	  var contents = null;
+	  if (!fs) {
 	    // Use SJAX if we are in the browser
-	    if (isInBrowser()) {
-	      var xhr = new XMLHttpRequest();
-	      xhr.open('GET', path, false);
-	      xhr.send(null);
-	      var contents = null
-	      if (xhr.readyState === 4 && xhr.status === 200) {
-	        contents = xhr.responseText
-	      }
+	    var xhr = new XMLHttpRequest();
+	    xhr.open('GET', path, false);
+	    xhr.send(null);
+	    var contents = null
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      contents = xhr.responseText
 	    }
-	
+	  } else if (fs.existsSync(path)) {
 	    // Otherwise, use the filesystem
-	    else {
-	      var contents = fs.readFileSync(path, 'utf8');
-	    }
-	  } catch (e) {
-	    var contents = null;
+	    contents = fs.readFileSync(path, 'utf8');
 	  }
 	
 	  return fileContentsCache[path] = contents;
@@ -228,22 +226,25 @@
 	  var fileData;
 	
 	  if (isInBrowser()) {
-	    var xhr = new XMLHttpRequest();
-	    xhr.open('GET', source, false);
-	    xhr.send(null);
-	    fileData = xhr.readyState === 4 ? xhr.responseText : null;
+	     try {
+	       var xhr = new XMLHttpRequest();
+	       xhr.open('GET', source, false);
+	       xhr.send(null);
+	       fileData = xhr.readyState === 4 ? xhr.responseText : null;
 	
-	    // Support providing a sourceMappingURL via the SourceMap header
-	    var sourceMapHeader = xhr.getResponseHeader("SourceMap") ||
-	                          xhr.getResponseHeader("X-SourceMap");
-	    if (sourceMapHeader) {
-	      return sourceMapHeader;
-	    }
+	       // Support providing a sourceMappingURL via the SourceMap header
+	       var sourceMapHeader = xhr.getResponseHeader("SourceMap") ||
+	                             xhr.getResponseHeader("X-SourceMap");
+	       if (sourceMapHeader) {
+	         return sourceMapHeader;
+	       }
+	     } catch (e) {
+	       return null;
+	     }
 	  }
 	
 	  // Get the URL of the source map
 	  fileData = retrieveFile(source);
-	  //        //# sourceMappingURL=foo.js.map                       /*# sourceMappingURL=foo.js.map */
 	  var re = /(?:\/\/[@#][ \t]+sourceMappingURL=([^\s'"]+?)[ \t]*$)|(?:\/\*[@#][ \t]+sourceMappingURL=([^\*]+?)[ \t]*(?:\*\/)[ \t]*$)/mg;
 	  // Keep executing the search to find the *last* sourceMappingURL to avoid
 	  // picking up sourceMappingURLs from comments, strings, etc.
@@ -269,7 +270,7 @@
 	    // Support source map URL as a data url
 	    var rawData = sourceMappingURL.slice(sourceMappingURL.indexOf(',') + 1);
 	    sourceMapData = new Buffer(rawData, "base64").toString();
-	    sourceMappingURL = null;
+	    sourceMappingURL = source;
 	  } else {
 	    // Support source map URLs relative to the source URL
 	    sourceMappingURL = supportRelativeURL(source, sourceMappingURL);
@@ -343,7 +344,7 @@
 	  if (match) {
 	    var position = mapSourcePosition({
 	      source: match[2],
-	      line: match[3],
+	      line: +match[3],
 	      column: match[4] - 1
 	    });
 	    return 'eval at ' + match[1] + ' (' + position.source + ':' +
@@ -403,6 +404,10 @@
 	  var isMethodCall = !(this.isToplevel() || isConstructor);
 	  if (isMethodCall) {
 	    var typeName = this.getTypeName();
+	    // Fixes shim to be backward compatable with Node v0 to v4
+	    if (typeName === "[object Object]") {
+	      typeName = "null";
+	    }
 	    var methodName = this.getMethodName();
 	    if (functionName) {
 	      if (typeName && functionName.indexOf(typeName) != 0) {
@@ -508,7 +513,7 @@
 	    var contents = fileContentsCache[source];
 	
 	    // Support files on disk
-	    if (!contents && fs.existsSync(source)) {
+	    if (!contents && fs && fs.existsSync(source)) {
 	      contents = fs.readFileSync(source, 'utf8');
 	    }
 	
@@ -588,6 +593,27 @@
 	    retrieveMapHandlers.unshift(options.retrieveSourceMap);
 	  }
 	
+	  // Support runtime transpilers that include inline source maps
+	  if (options.hookRequire && !isInBrowser()) {
+	    var Module;
+	    try {
+	      Module = __webpack_require__(6);
+	    } catch (err) {
+	      // NOP: Loading in catch block to convert webpack error to warning.
+	    }
+	    var $compile = Module.prototype._compile;
+	
+	    if (!$compile.__sourceMapSupport) {
+	      Module.prototype._compile = function(content, filename) {
+	        fileContentsCache[filename] = content;
+	        sourceMapCache[filename] = undefined;
+	        return $compile.call(this, content, filename);
+	      };
+	
+	      Module.prototype._compile.__sourceMapSupport = true;
+	    }
+	  }
+	
 	  // Configure options
 	  if (!emptyCacheBetweenOperations) {
 	    emptyCacheBetweenOperations = 'emptyCacheBetweenOperations' in options ?
@@ -641,10 +667,16 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("express");
+	module.exports = require("module");
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("express");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -654,7 +686,7 @@
 	});
 	exports.prettyError = undefined;
 	
-	var _prettyError = __webpack_require__(8);
+	var _prettyError = __webpack_require__(9);
 	
 	var _prettyError2 = _interopRequireDefault(_prettyError);
 	
@@ -679,13 +711,13 @@
 	exports.prettyError = prettyError;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = require("pretty-error");
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -703,13 +735,56 @@
 	exports.allowCrossDomain = allowCrossDomain;
 
 /***/ },
-/* 10 */
+/* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// https://github.com/jaredhanson/passport/issues/14#issuecomment-21863553
+	var stopPropagationForAssets = function stopPropagationForAssets(req, res, next) {
+	  if (req.url != '/favicon.ico' && req.url != '/styles.css') {
+	    return next();
+	  } else {
+	    res.status(200);
+	    res.header('Cache-Control', 'max-age=4294880896');
+	    res.end();
+	  }
+	};
+	
+	exports.stopPropagationForAssets = stopPropagationForAssets;
+
+/***/ },
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 11 */
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.staticAssets = undefined;
+	
+	var _express = __webpack_require__(7);
+	
+	var _express2 = _interopRequireDefault(_express);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var staticAssets = _express2.default.static('/home/lakesare/Desktop/memcode/frontend/webpacked'); // (global routes, because path.join didn't work after update to webpacked ES6)
+	// serve our static stuff like index.css
+	exports.staticAssets = staticAssets;
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -719,7 +794,7 @@
 	});
 	exports.ourSession = undefined;
 	
-	var _expressSession = __webpack_require__(12);
+	var _expressSession = __webpack_require__(15);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
@@ -734,40 +809,13 @@
 	exports.ourSession = ourSession;
 
 /***/ },
-/* 12 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = require("passport");
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.staticAssets = undefined;
-	
-	var _express = __webpack_require__(6);
-	
-	var _express2 = _interopRequireDefault(_express);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var staticAssets = _express2.default.static('/home/lakesare/Desktop/memcode/frontend/webpacked'); // (global routes, because path.join didn't work after update to webpacked ES6)
-	// serve our static stuff like index.css
-	exports.staticAssets = staticAssets;
-
-/***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -777,15 +825,21 @@
 	});
 	exports.router = undefined;
 	
-	var _express = __webpack_require__(6);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _express = __webpack_require__(7);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _init = __webpack_require__(16);
+	var _init = __webpack_require__(17);
 	
-	var _model = __webpack_require__(18);
+	var _model = __webpack_require__(19);
 	
 	var Course = _interopRequireWildcard(_model);
+	
+	var _jsonwebtoken = __webpack_require__(22);
+	
+	var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -809,26 +863,31 @@
 	  });
 	});
 	
-	router.post('/', function (request, response) {
-	  console.log(request.session.currentUser);
-	  // console.log(request.cookies)
-	  // const course = {
-	  //   ...request.body["course"],
-	  //   user_oauth_id: request.user.oauthProvider,
-	  //   user_oauth_provider: request.user.oauthId
-	  // };
-	  // const result = Course.createCourseWithProblems(course, request.body["problems"]);
+	var authenticate = function authenticate(request, response, next) {
+	  var token = request.headers['authorization'].split('Bearer ')[1];
+	  _jsonwebtoken2.default.verify(token, 'our server secret', function (error, user) {
+	    if (error) {
+	      response.status(403).json({ error: error });
+	    } else {
+	      request.currentUser = user;
+	      next();
+	    }
+	  });
+	};
 	
-	  // result.then((courseIdMap) => {
-	  //   response.status(200).json({ 
-	  //     data: courseIdMap
-	  //   });
-	  // }).catch((error) => {
-	  //   response.status(500).json({ error: error.message });
-	  // })
+	router.post('/', authenticate, function (request, response) {
+	  var course = _extends({}, request.body["course"], {
+	    user_oauth_id: request.currentUser.oauthId,
+	    user_oauth_provider: request.currentUser.oauthProvider
+	  });
 	
-	
-	  response.status(200).json({ hi: 'hi' });
+	  Course.createCourseWithProblems(course, request.body["problems"]).then(function (courseIdMap) {
+	    response.status(200).json({
+	      data: courseIdMap
+	    });
+	  }).catch(function (error) {
+	    response.status(500).json({ error: error.message });
+	  });
 	});
 	
 	router.put('/:id', function (request, response) {
@@ -862,7 +921,7 @@
 	exports.router = router;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -872,7 +931,7 @@
 	});
 	exports.db = undefined;
 	
-	var _pgPromise = __webpack_require__(17);
+	var _pgPromise = __webpack_require__(18);
 	
 	var pgPromise = _interopRequireWildcard(_pgPromise);
 	
@@ -926,13 +985,13 @@
 	exports.db = db;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -942,9 +1001,9 @@
 	});
 	exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
 	
-	var _init = __webpack_require__(16);
+	var _init = __webpack_require__(17);
 	
-	var _model = __webpack_require__(19);
+	var _model = __webpack_require__(20);
 	
 	// course: {title: "aaa"}
 	// problems: [{content: "a", explanation: "aa"}]
@@ -952,7 +1011,7 @@
 	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
 	  // { validation: 'failed fields' }
 	  var courseId = null;
-	  return _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
+	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${user_oauth_id}, ${user_oauth_provider}) RETURNING id", course).then(function (course) {
 	    courseId = course.id;
 	    return _init.db.tx(function (transaction) {
 	      var queries = [];
@@ -1028,7 +1087,7 @@
 	exports.updateCourseWithProblems = updateCourseWithProblems;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1038,9 +1097,9 @@
 	});
 	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
 	
-	var _init = __webpack_require__(16);
+	var _init = __webpack_require__(17);
 	
-	var _problemContentFromParamsToDb = __webpack_require__(20);
+	var _problemContentFromParamsToDb = __webpack_require__(21);
 	
 	var deleteProblem = function deleteProblem(id) {
 	  return _init.db.none('delete from problems where id=${id}', { id: id });
@@ -1095,7 +1154,7 @@
 	exports.updateProblems = updateProblems;
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1141,12 +1200,10 @@
 	    textPiece: contentRemaining.slice(0, answerOpens),
 	    answer: contentRemaining.slice(answerOpens + "<answer>".length, answerCloses),
 	    newContentRemaining: contentRemaining.slice(answerCloses + "</answer>".length)
-	  };
-	
-	  var textPiece = _ref.textPiece;
-	  var answer = _ref.answer;
-	  var newContentRemaining = _ref.newContentRemaining;
-	
+	  },
+	      textPiece = _ref.textPiece,
+	      answer = _ref.answer,
+	      newContentRemaining = _ref.newContentRemaining;
 	
 	  return { textPiece: textPiece, answer: answer, newContentRemaining: newContentRemaining };
 	};
@@ -1154,7 +1211,13 @@
 	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
 
 /***/ },
-/* 21 */
+/* 22 */
+/***/ function(module, exports) {
+
+	module.exports = require("jsonwebtoken");
+
+/***/ },
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1164,11 +1227,11 @@
 	});
 	exports.router = undefined;
 	
-	var _express = __webpack_require__(6);
+	var _express = __webpack_require__(7);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _model = __webpack_require__(19);
+	var _model = __webpack_require__(20);
 	
 	var Problem = _interopRequireWildcard(_model);
 	
@@ -1189,7 +1252,7 @@
 	exports.router = router;
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1199,21 +1262,27 @@
 	});
 	exports.router = undefined;
 	
-	var _express = __webpack_require__(6);
+	var _express = __webpack_require__(7);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _passport = __webpack_require__(13);
+	var _jsonwebtoken = __webpack_require__(22);
 	
-	var _passport2 = _interopRequireDefault(_passport);
+	var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 	
-	var _passportGithub = __webpack_require__(24);
+	var _formData = __webpack_require__(25);
 	
-	var _passportGithub2 = _interopRequireDefault(_passportGithub);
+	var _formData2 = _interopRequireDefault(_formData);
 	
-	var _model = __webpack_require__(25);
+	var _nodeFetch = __webpack_require__(26);
+	
+	var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+	
+	var _model = __webpack_require__(27);
 	
 	var User = _interopRequireWildcard(_model);
+	
+	var _init = __webpack_require__(17);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -1221,73 +1290,89 @@
 	
 	var router = _express2.default.Router();
 	
-	// github2 because github module is outdated
-	var GithubStrategy = _passportGithub2.default.Strategy;
-	
 	var github = {
-	  clientID: '1d94a714bab1f1576872',
+	  clientId: '1d94a714bab1f1576872',
 	  clientSecret: 'cfd3be4dfba0dea31889e869e2eaf7dd3418ee5f',
 	  callbackURL: 'http://localhost:3000/auth/github/callback'
 	};
 	
-	_passport2.default.use(new GithubStrategy(github, function (accessToken, refreshToken, profile, done) {
-	  // github doesn't give us refreshTokens, so we are not using it.
-	  // we may be storing access_token in case we need to access github's api, but we don't need it.
-	  // find_or_create
-	  User.getUserByOauth('github', profile.id).then(function (user) {
-	    if (user === null) {
-	      User.createUserFromGithub(profile).then(function () {
-	        User.getUserByOauth('github', profile.id).then(function (user) {
-	          return done(null, user);
-	        });
+	// 1. after user goes to github.com/login/oauth/authorize?client_id=OUR_ID, she is redirected here 
+	router.get('/github/callback', function (req, res) {
+	  // getting access token by sending github authorization code that will prove to github that it's indeed
+	  // we are the application (client_id, client_secret) that user gave access to
+	  var data = new _formData2.default();
+	  data.append('client_id', github.clientId);
+	  data.append('client_secret', github.clientSecret);
+	  data.append('code', req.query.code);
+	
+	  (0, _nodeFetch2.default)('https://github.com/login/oauth/access_token', {
+	    method: 'POST',
+	    body: data
+	  }).then(function (response) {
+	    return response.ok ? response.text() : Promise.reject(response);
+	  }).then(function (response) {
+	    // 'access_token=0bc4d5757978a90d8e9bc96fac795c876179f2ba&scope=&token_type=bearer'
+	    var accessToken = response.split('access_token=')[1].split('&scope')[0];
+	
+	    // fetching our profile info signed in as a user (access token)
+	    return (0, _nodeFetch2.default)('https://api.github.com/user', {
+	      headers: {
+	        Authorization: 'token ' + accessToken
+	      }
+	    }).then(function (response) {
+	      return response.json();
+	    }).then(function (accountReturnedFromGithub) {
+	      // now that we are sure our user is this github's user, let's
+	      return _init.db.oneOrNone("SELECT * FROM users WHERE oauth_provider=${oauth_provider} AND oauth_id=${oauth_id}", {
+	        oauth_provider: 'github',
+	        oauth_id: accountReturnedFromGithub.id.toString()
+	      }).then(function (existingUser) {
+	        if (existingUser) {
+	          // user with this github_id is already in our db! sign in.
+	          var token = _jsonwebtoken2.default.sign(existingUser, 'serverereSecretty');
+	          console.log({ existingUser: existingUser, token: token });
+	          redirectWithToken(res, token);
+	        } else {
+	          // no users with this id found! create such user and sign in.
+	          return _init.db.one("INSERT INTO users(oauth_provider, oauth_id, username, avatar_url) VALUES(${oauth_provider}, ${oauth_id}, ${username}, ${avatar_url}) RETURNING *", {
+	            oauth_provider: 'github',
+	            oauth_id: accountReturnedFromGithub.id.toString(),
+	            username: accountReturnedFromGithub.login,
+	            avatar_url: accountReturnedFromGithub.avatar_url
+	          }).then(function (createdUser) {
+	            var token = _jsonwebtoken2.default.sign(createdUser, 'serverereSecretty');
+	            redirectWithToken(res, token);
+	          });
+	        }
 	      });
-	    } else {
-	      done(null, user);
-	    }
-	  });
-	}));
-	
-	// user: what's returned by done(null, user) in strategy
-	_passport2.default.serializeUser(function (user, done) {
-	  console.log('serializeUser');
-	  done(null, { oauthProvider: user.oauthProvider, oauthId: user.oauthId });
-	});
-	
-	_passport2.default.deserializeUser(function (user, done) {
-	  console.log('deserializeUser');
-	  User.getUserByOauth(user.oauthProvider, user.oauthId).then(function (user) {
-	    done(null, user);
+	    });
 	  }).catch(function (error) {
-	    return console.log(error);
+	    return console.log(error.stack ? error.stack : error);
 	  });
 	});
 	
-	router.get('/logout', function (req, res) {
-	  req.logout();
-	  res.redirect('/courses');
-	});
-	
-	// passport.authenticate() middleware invokes req.login() automatically.
-	// we will call this to start the GitHub Login process
-	router.get('/login', _passport2.default.authenticate('github'));
-	
-	// GitHub will call this URL
-	router.get('/github/callback', _passport2.default.authenticate('github', {
-	  failureRedirect: '/',
-	  successRedirect: '/profile'
-	}));
+	// let's put token into header, so that we don't have to display the query string and the delete it
+	// nope, because turns out we can't see headers on initial page load
+	var redirectWithToken = function redirectWithToken(res, token) {
+	  return res.redirect('/?token=' + token);
+	};
 	
 	exports.router = router;
 
 /***/ },
-/* 23 */,
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
-	module.exports = require("passport-github2");
+	module.exports = require("form-data");
 
 /***/ },
-/* 25 */
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = require("node-fetch");
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1297,7 +1382,7 @@
 	});
 	exports.createUserFromGithub = exports.getUserByOauth = undefined;
 	
-	var _init = __webpack_require__(16);
+	var _init = __webpack_require__(17);
 	
 	// getUserByOauth('github', 7578559)
 	// => user
@@ -1315,28 +1400,6 @@
 	
 	exports.getUserByOauth = getUserByOauth;
 	exports.createUserFromGithub = createUserFromGithub;
-
-/***/ },
-/* 26 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	// https://github.com/jaredhanson/passport/issues/14#issuecomment-21863553
-	var stopPropagationForAssets = function stopPropagationForAssets(req, res, next) {
-	  if (req.url != '/favicon.ico' && req.url != '/styles.css') {
-	    return next();
-	  } else {
-	    res.status(200);
-	    res.header('Cache-Control', 'max-age=4294880896');
-	    res.end();
-	  }
-	};
-	
-	exports.stopPropagationForAssets = stopPropagationForAssets;
 
 /***/ }
 /******/ ]);

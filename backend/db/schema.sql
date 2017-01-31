@@ -6,8 +6,9 @@ CREATE DATABASE :database;
 
 CREATE TABLE users (
   oauth_provider VARCHAR,
-  oauth_id INTEGER,
+  oauth_id VARCHAR,
   username VARCHAR,
+  avatar_url VARCHAR,
   PRIMARY KEY (oauth_id, oauth_provider)
 );
 
@@ -15,7 +16,7 @@ CREATE TABLE courses (
   id SERIAL PRIMARY KEY,
   title VARCHAR,
 
-  user_oauth_id INTEGER,
+  user_oauth_id VARCHAR,
   user_oauth_provider VARCHAR,
   FOREIGN KEY (user_oauth_id, user_oauth_provider) REFERENCES users (oauth_id, oauth_provider)
 );

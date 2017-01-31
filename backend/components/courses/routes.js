@@ -22,26 +22,35 @@ router.get('/', (request, response) => {
   })
 });
 
-router.post('/', (request, response) => {
-  console.log(request.session.currentUser)
-  // console.log(request.cookies)
-  // const course = {
-  //   ...request.body["course"],
-  //   user_oauth_id: request.user.oauthProvider,
-  //   user_oauth_provider: request.user.oauthId
-  // };
-  // const result = Course.createCourseWithProblems(course, request.body["problems"]);
+import jwt from 'jsonwebtoken';
+const authenticate = (request, response, next) => {
+  const token = request.headers['authorization'].split('Bearer ')[1];
+  jwt.verify(token, 'our server secret', (error, user) => {
+    if (error) {
+      response.status(403).json({ error })
+    } else {
+      request.currentUser = user;
+      next();
+    }
+  });
+};
 
-  // result.then((courseIdMap) => {
-  //   response.status(200).json({ 
-  //     data: courseIdMap
-  //   });
-  // }).catch((error) => {
-  //   response.status(500).json({ error: error.message });
-  // })
+router.post('/', authenticate, (request, response) => {
+  const course = {
+    ...request.body["course"],
+    user_oauth_id: request.currentUser.oauthId,
+    user_oauth_provider: request.currentUser.oauthProvider
+  };
 
-
-  response.status(200).json({ hi: 'hi' })
+  Course.createCourseWithProblems(course, request.body["problems"])
+    .then((courseIdMap) => {
+      response.status(200).json({ 
+        data: courseIdMap
+      });
+    })
+    .catch((error) => {
+      response.status(500).json({ error: error.message });
+    })
 });
 
 router.put('/:id', (request, response) => {

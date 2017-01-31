@@ -4,12 +4,13 @@ import { reducer as formReducer } from 'redux-form';
 
 import { problemsReducer } from './components/problems';
 import { coursesReducer }  from './components/courses';
-import { authReducer }  from './components/auth';
+
+import { authenticationReducer } from './ducks/authentication';
 
 const rootReducer = combineReducers({
   problems: problemsReducer,
   courses:  coursesReducer,
-  auth:     authReducer,
+  authentication: authenticationReducer,
   form:     formReducer
 });
 

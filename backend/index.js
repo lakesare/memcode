@@ -20,10 +20,6 @@ app.use(staticAssets);
 import { ourSession } from './middlewares/ourSession';
 app.use(ourSession);
 
-import passport from 'passport';
-app.use(passport.initialize());
-app.use(passport.session());
-
 // routes
 import { router as coursesRouter } from './components/courses/routes';
 app.use('/api/courses', coursesRouter);
@@ -36,13 +32,12 @@ app.use('/auth', authRouter);
 
 
 
-
-app.use((req, res, next) => {
-  // console.log(req.user)
-  req.session.currentUser = req.user
-  res.cookie('currentUser', JSON.stringify(req.user))
-  next();
-})
+// setting current user
+// app.use((req, res, next) => {
+//   req.session.currentUser = req.user
+//   res.cookie('currentUser', JSON.stringify(req.user))
+//   next();
+// })
 
 app.get('*', (req, res) => res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html'));
 

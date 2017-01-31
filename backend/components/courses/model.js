@@ -9,15 +9,18 @@ import { createProblems, deleteProblems, updateProblems } from '../problems/mode
 const createCourseWithProblems = (course, problems) => {
   // { validation: 'failed fields' }
   let courseId = null;
-  return db.one("insert into courses (title) values (${title}) RETURNING id", course)
-    .then((course) => {
-      courseId = course.id;
-      return db.tx((transaction) => {
-        let queries = [];
-        createProblems(transaction, queries, problems, courseId);
-        return transaction.batch(queries);
-      });
-    }).then(() => ({ courseId }))
+  return(
+    db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${user_oauth_id}, ${user_oauth_provider}) RETURNING id", course)
+      .then((course) => {
+        courseId = course.id;
+        return db.tx((transaction) => {
+          let queries = [];
+          createProblems(transaction, queries, problems, courseId);
+          return transaction.batch(queries);
+        });
+      })
+      .then(() => ({ courseId }))
+  );
 };
 
 
@@ -77,18 +80,17 @@ const getCourseWithProblems = (courseId) => {
 };
 
 
-const deleteCourseWithProblems = (courseId) => {
-  return(
-    db.tx((transaction) => {
-      return transaction.batch([
-        transaction.none('delete from problems where course_id=${courseId}', { courseId }),
-        transaction.none('delete from courses where id=${courseId}', { courseId }),
-      ]);
-    }).then(() => { return { data: true }
-    }).catch((error) => { return Promise.reject({ error }) 
-    })
-  )
-};
+const deleteCourseWithProblems = (courseId) => (
+  db.tx(transaction => (
+    transaction.batch([
+      transaction.none('delete from problems where course_id=${courseId}', { courseId }),
+      transaction.none('delete from courses where id=${courseId}', { courseId }),
+    ])
+  ))
+    .then(() => ({ data: true }))
+    .catch(error => Promise.reject({ error }))
+);
+
 
 
 

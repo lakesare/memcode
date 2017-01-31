@@ -14,7 +14,7 @@ describe('course model', () => {
 
   it('deleteCourseWithProblems', async () => {
     const insertedCourse = await db.one('insert into courses (title) values (${title}) returning id', { title: 'hi' });
-    const insertedProblems = await db.none('insert into problems (explanation, courseId) values (${explanation}, ${courseId})', { explanation: 'hello', courseId: insertedCourse.id });
+    const insertedProblems = await db.none('insert into problems (explanation, course_id) values (${explanation}, ${courseId})', { explanation: 'hello', courseId: insertedCourse.id });
     let problemsInDbNow = (await db.any('select id from problems')).length;
     expect(problemsInDbNow).to.equal(1);
 
@@ -28,7 +28,7 @@ describe('course model', () => {
     let courseInDbNow, problemsInDbNow;
 
     const insertedCourse = await db.one('insert into courses (title) values (${title}) returning id', { title: 'hi' });
-    const insertedProblems = await db.none('insert into problems (explanation, courseId) values (${explanation}, ${courseId})', { explanation: 'hello', courseId: insertedCourse.id });
+    const insertedProblems = await db.none('insert into problems (explanation, course_id) values (${explanation}, ${courseId})', { explanation: 'hello', courseId: insertedCourse.id });
     problemsInDbNow = (await db.any('select id from problems')).length;
     expect(problemsInDbNow).to.equal(1);
 

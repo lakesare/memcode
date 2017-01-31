@@ -15,17 +15,15 @@ describe('testing tests', () => {
         )
       })
 
-    const promise = 
-      db.none('insert into courses (title) values (${title})', { title: 'hello' }).then(() => {
-        return(
-          db.any('select * from courses').then((isData) => {  
-            expect(isData).to.deep.equal([ { id: 1, title: 'hello' } ]);
-            return promiseToTruncateDb
-          })
-        )
-      })
+    const promise = db.none('insert into courses (title) values (${title})', { title: 'hello' })
+      .then(() => (
+        db.any('select * from courses').then((isData) => {  
+          expect(isData).to.deep.equal([ { id: 1, title: 'hello', userOauthProvider: null, userOauthId: null } ]);
+          return promiseToTruncateDb
+        })
+      ));
 
-    return promise
+    return promise;
   });
 
   describe('db truncation in before hook', () => {

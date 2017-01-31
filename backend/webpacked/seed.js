@@ -46,13 +46,13 @@
 
 	"use strict";
 	
-	var _model = __webpack_require__(18);
+	var _model = __webpack_require__(19);
 	
 	var Course = _interopRequireWildcard(_model);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	var pgp = __webpack_require__(17);
+	var pgp = __webpack_require__(18);
 	var pgPackage = pgp({});
 	
 	var a = Course.createCourseWithProblems({ id: 5, title: 'Encryption', owner_id: null }, [{ id: 13,
@@ -199,7 +199,8 @@
 /* 13 */,
 /* 14 */,
 /* 15 */,
-/* 16 */
+/* 16 */,
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -209,7 +210,7 @@
 	});
 	exports.db = undefined;
 	
-	var _pgPromise = __webpack_require__(17);
+	var _pgPromise = __webpack_require__(18);
 	
 	var pgPromise = _interopRequireWildcard(_pgPromise);
 	
@@ -263,13 +264,13 @@
 	exports.db = db;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -279,9 +280,9 @@
 	});
 	exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
 	
-	var _init = __webpack_require__(16);
+	var _init = __webpack_require__(17);
 	
-	var _model = __webpack_require__(19);
+	var _model = __webpack_require__(20);
 	
 	// course: {title: "aaa"}
 	// problems: [{content: "a", explanation: "aa"}]
@@ -289,7 +290,7 @@
 	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
 	  // { validation: 'failed fields' }
 	  var courseId = null;
-	  return _init.db.one("insert into courses (title) values (${title}) RETURNING id", course).then(function (course) {
+	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${user_oauth_id}, ${user_oauth_provider}) RETURNING id", course).then(function (course) {
 	    courseId = course.id;
 	    return _init.db.tx(function (transaction) {
 	      var queries = [];
@@ -365,7 +366,7 @@
 	exports.updateCourseWithProblems = updateCourseWithProblems;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -375,9 +376,9 @@
 	});
 	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
 	
-	var _init = __webpack_require__(16);
+	var _init = __webpack_require__(17);
 	
-	var _problemContentFromParamsToDb = __webpack_require__(20);
+	var _problemContentFromParamsToDb = __webpack_require__(21);
 	
 	var deleteProblem = function deleteProblem(id) {
 	  return _init.db.none('delete from problems where id=${id}', { id: id });
@@ -432,7 +433,7 @@
 	exports.updateProblems = updateProblems;
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -478,12 +479,10 @@
 	    textPiece: contentRemaining.slice(0, answerOpens),
 	    answer: contentRemaining.slice(answerOpens + "<answer>".length, answerCloses),
 	    newContentRemaining: contentRemaining.slice(answerCloses + "</answer>".length)
-	  };
-	
-	  var textPiece = _ref.textPiece;
-	  var answer = _ref.answer;
-	  var newContentRemaining = _ref.newContentRemaining;
-	
+	  },
+	      textPiece = _ref.textPiece,
+	      answer = _ref.answer,
+	      newContentRemaining = _ref.newContentRemaining;
 	
 	  return { textPiece: textPiece, answer: answer, newContentRemaining: newContentRemaining };
 	};

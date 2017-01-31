@@ -1,5 +1,5 @@
 
-.nav{
+nav.nav{
   padding: 10px 0;
   background: #02071b;
   .active{
@@ -11,5 +11,8 @@
     padding: 6px 9px;
     border-radius: 4px;
     text-transform: uppercase;
+  }
+  img{
+    max-width: 50px;
   }
 }
