@@ -2,31 +2,38 @@ import React from 'react';
 
 class Answer extends React.Component {
   static propTypes = {
-    answer: React.PropTypes.object.isRequired,
-    answerIndex: React.PropTypes.number.isRequired,
-    answerRight: React.PropTypes.func.isRequired
+    answer: React.PropTypes.string.isRequired,
+    onRightAnswerGiven: React.PropTypes.func.isRequired,
+  }
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isAnswered: false
+    }
   }
 
   checkAnswer = () => {
     const inputedAnswer = this.refs.input.value;
-    if (inputedAnswer === this.props.answer.answer) {
-      this.props.answerRight(this.props.answerIndex);
+    if (inputedAnswer === this.props.answer) {
+      this.setState({ isAnswered: true });
+      this.props.onRightAnswerGiven();
     }
   }
 
   // TODO use value instead with onChange updates
   d = () => {
-    if (this.props.answer.answered) {
+    if (this.props.answer.isAnswered) {
       return this.props.answer.answer;
     } else { return ''; }
   }
 
   render = () =>
     <input
-      className={'answer ' + (this.props.answer.answered === 'right' ? 'success' : 'failure')}
+      className={'answer ' + (this.state.isAnswered ? 'success' : 'failure')}
       ref="input"
       type="text"
-      readOnly={this.props.answer.answered === 'right'}
+      readOnly={this.state.isAnswered}
       onChange={this.checkAnswer}
       defaultValue={this.d()}
     />

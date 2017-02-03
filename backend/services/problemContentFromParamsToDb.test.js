@@ -2,12 +2,11 @@ import { expect } from 'chai';
 import { problemContentFromParamsToDb } from './problemContentFromParamsToDb';
 
 describe('problemContentFromParamsToDb', () => {
-
   it('one answer is possible', () => {
     expect(
       problemContentFromParamsToDb("<h1>heading<answer>hi</answer></h1>")
     ).to.equal(
-      '{"answers":[{"answer":"hi"}],"text":["<h1>heading",null,"</h1>"]}'
+      '{"answers":["hi"],"text":["<h1>heading",null,"</h1>"]}'
     );
   });
 
@@ -15,7 +14,7 @@ describe('problemContentFromParamsToDb', () => {
     expect(
       problemContentFromParamsToDb("<h1>heading<answer></answer></h1>")
     ).to.equal(
-      '{"answers":[{"answer":""}],"text":["<h1>heading",null,"</h1>"]}'
+      '{"answers":[""],"text":["<h1>heading",null,"</h1>"]}'
     );
   });
 
@@ -23,7 +22,7 @@ describe('problemContentFromParamsToDb', () => {
     expect(
       problemContentFromParamsToDb("<h1>heading</h1><answer>hi</answer>")
     ).to.equal(
-      '{"answers":[{"answer":"hi"}],"text":["<h1>heading</h1>",null]}'
+      '{"answers":["hi"],"text":["<h1>heading</h1>",null]}'
     );
   });
 
@@ -31,8 +30,7 @@ describe('problemContentFromParamsToDb', () => {
     expect(
       problemContentFromParamsToDb("<answer>hi</answer><h1>heading</h1>")
     ).to.equal(
-      '{"answers":[{"answer":"hi"}],"text":["",null,"<h1>heading</h1>"]}'
+      '{"answers":["hi"],"text":["",null,"<h1>heading</h1>"]}'
     );
   });
-
 });

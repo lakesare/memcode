@@ -48648,6 +48648,10 @@
 	      }, _this.props.params.id);
 	    };
 
+	    _this.onRightAnswerGiven = function (problemId, answerIndex) {
+	      console.log({ problemId: problemId, answerIndex: answerIndex });
+	    };
+
 	    _this.render = function () {
 	      return _react2.default.createElement(
 	        'main',
@@ -48668,7 +48672,7 @@
 	                  null,
 	                  payload.course.title
 	                ),
-	                _react2.default.createElement(_ListOfProblems.ListOfProblems, { problems: payload.problems })
+	                _react2.default.createElement(_ListOfProblems.ListOfProblems, { problems: payload.problems, onRightAnswerGiven: _this.onRightAnswerGiven })
 	              );
 	            }
 	          )
@@ -48733,7 +48737,12 @@
 
 	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ListOfProblems.__proto__ || Object.getPrototypeOf(ListOfProblems)).call.apply(_ref, [this].concat(args))), _this), _this.render = function () {
 	      var listOfProblems = _this.props.problems.map(function (problem, index) {
-	        return _react2.default.createElement(_Problem.Problem, { key: problem.id, problem: problem, index: index + 1 });
+	        return _react2.default.createElement(_Problem.Problem, {
+	          key: problem.id,
+	          problem: problem,
+	          index: index + 1,
+	          onRightAnswerGiven: _this.props.onRightAnswerGiven
+	        });
 	      });
 
 	      return _react2.default.createElement(
@@ -48748,7 +48757,8 @@
 	}(_react2.default.Component);
 
 	ListOfProblems.propTypes = {
-	  problems: _react2.default.PropTypes.array.isRequired
+	  problems: _react2.default.PropTypes.array.isRequired,
+	  onRightAnswerGiven: _react2.default.PropTypes.func.isRequired
 	};
 	exports.ListOfProblems = ListOfProblems;
 
@@ -48793,9 +48803,11 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Problem.__proto__ || Object.getPrototypeOf(Problem)).call.apply(_ref, [this].concat(args))), _this), _this.renderContent = function () {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Problem.__proto__ || Object.getPrototypeOf(Problem)).call.apply(_ref, [this].concat(args))), _this), _this.onRightAnswerGiven = function (answerIndex) {
+	      _this.props.onRightAnswerGiven(_this.props.problem.id, answerIndex);
+	    }, _this.renderContent = function () {
 	      var content = _this.props.problem.content;
-	      var jsx = (0, _contentStringToJsx.contentStringToJsx)((0, _contentObjectToString.contentObjectToString)(content.text), content.answers);
+	      var jsx = (0, _contentStringToJsx.contentStringToJsx)((0, _contentObjectToString.contentObjectToString)(content.text), content.answers, _this.onRightAnswerGiven);
 	      return jsx;
 	    }, _this.render = function () {
 	      return _react2.default.createElement(
@@ -48829,7 +48841,8 @@
 
 	Problem.propTypes = {
 	  problem: _react2.default.PropTypes.object.isRequired,
-	  index: _react2.default.PropTypes.number.isRequired // just for pretiness, to number down the problems
+	  index: _react2.default.PropTypes.number.isRequired, // just for pretiness, to number down the problems
+	  onRightAnswerGiven: _react2.default.PropTypes.func.isRequired
 	};
 	exports.Problem = Problem;
 
@@ -48889,9 +48902,8 @@
 	var processNodeDefinitions = new _htmlToReact2.default.ProcessNodeDefinitions(_react2.default);
 
 	// contentString: '<div>gestalt principle of   <answer index=0></answer>  : refers to the mind’s tendency to see complete figures or forms even if a picture is incomplete</div>'
-	// 
-	var contentStringToJsx = function contentStringToJsx(contentString, answers) {
-	  var processingInstructions = [{
+	var contentStringToJsx = function contentStringToJsx(contentString, answers, _onRightAnswerGiven) {
+	  var processingInstructions = [{ // procesing <answer></answer> tags
 	    shouldProcessNode: function shouldProcessNode(node) {
 	      return node.name === 'answer';
 	    },
@@ -48900,11 +48912,12 @@
 	      return _react2.default.createElement(_Answer.Answer, {
 	        key: answerIndex + 10000 // temp fix, there is some bug with keying some texts in html-to-react. it disappears if we get rid of either <answer> or all the other tag parsing.
 	        , answer: answers[answerIndex],
-	        answerIndex: parseInt(answerIndex, 10)
+	        onRightAnswerGiven: function onRightAnswerGiven() {
+	          return _onRightAnswerGiven(answerIndex);
+	        }
 	      });
 	    }
-	  }, {
-	    // Anything else
+	  }, { // anything else
 	    shouldProcessNode: function shouldProcessNode() {
 	      return true;
 	    },
@@ -63190,38 +63203,42 @@
 	var Answer = function (_React$Component) {
 	  _inherits(Answer, _React$Component);
 
-	  function Answer() {
-	    var _ref;
-
-	    var _temp, _this, _ret;
-
+	  function Answer(props) {
 	    _classCallCheck(this, Answer);
 
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    var _this = _possibleConstructorReturn(this, (Answer.__proto__ || Object.getPrototypeOf(Answer)).call(this, props));
 
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Answer.__proto__ || Object.getPrototypeOf(Answer)).call.apply(_ref, [this].concat(args))), _this), _this.checkAnswer = function () {
+	    _this.checkAnswer = function () {
 	      var inputedAnswer = _this.refs.input.value;
-	      if (inputedAnswer === _this.props.answer.answer) {
-	        _this.props.answerRight(_this.props.answerIndex);
+	      if (inputedAnswer === _this.props.answer) {
+	        _this.setState({ isAnswered: true });
+	        _this.props.onRightAnswerGiven();
 	      }
-	    }, _this.d = function () {
-	      if (_this.props.answer.answered) {
+	    };
+
+	    _this.d = function () {
+	      if (_this.props.answer.isAnswered) {
 	        return _this.props.answer.answer;
 	      } else {
 	        return '';
 	      }
-	    }, _this.render = function () {
+	    };
+
+	    _this.render = function () {
 	      return _react2.default.createElement('input', {
-	        className: 'answer ' + (_this.props.answer.answered === 'right' ? 'success' : 'failure'),
+	        className: 'answer ' + (_this.state.isAnswered ? 'success' : 'failure'),
 	        ref: 'input',
 	        type: 'text',
-	        readOnly: _this.props.answer.answered === 'right',
+	        readOnly: _this.state.isAnswered,
 	        onChange: _this.checkAnswer,
 	        defaultValue: _this.d()
 	      });
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    };
+
+	    _this.state = {
+	      isAnswered: false
+	    };
+	    return _this;
 	  }
 
 	  // TODO use value instead with onChange updates
@@ -63231,9 +63248,8 @@
 	}(_react2.default.Component);
 
 	Answer.propTypes = {
-	  answer: _react2.default.PropTypes.object.isRequired,
-	  answerIndex: _react2.default.PropTypes.number.isRequired,
-	  answerRight: _react2.default.PropTypes.func.isRequired
+	  answer: _react2.default.PropTypes.string.isRequired,
+	  onRightAnswerGiven: _react2.default.PropTypes.func.isRequired
 	};
 	exports.Answer = Answer;
 

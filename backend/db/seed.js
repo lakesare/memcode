@@ -1,11 +1,16 @@
+/* eslint-disable */
 "use strict";
 
 const pgp = require('pg-promise');
 const pgPackage = pgp({});
 
-import * as Course from '../components/courses/model';
+import * as Course from '~/components/courses/model';
+import * as User from '~/components/users/model';
 
-const a = Course.createCourseWithProblems({ id: 5, title: 'Encryption', owner_id: null }, 
+
+
+const a = () => Course.createCourseWithProblems({ id: 5, title: 'Encryption',   userOauthId: '7578559',
+  userOauthProvider: 'github' }, 
   [ 
     { id: 13,
       explanation: 'On the Internet, a digital signature is used not only to ensure that a message or document has been electronically signed by the person that purported to sign the document, but also, since a digital signature can only be created by one person, to ensure that a person cannot later deny that they furnished the signature.',
@@ -47,7 +52,8 @@ const a = Course.createCourseWithProblems({ id: 5, title: 'Encryption', owner_id
 
 
 
-const b = Course.createCourseWithProblems({ id: 1, title: 'Attacks', owner_id: null }, 
+const b = () => Course.createCourseWithProblems({ id: 1, title: 'Attacks',   userOauthId: '7578559',
+  userOauthProvider: 'github' }, 
   [ { id: 1,
       explanation: 'What if only one of the scripts you use is compromised? Malicious JavaScript can be embedded on the page, and Web Storage is compromised. These types of XSS attacks can get everyone’s Web Storage that visits your site, without their knowledge.',
       type: 'ORDERED_MISSING_TEXT',
@@ -61,38 +67,39 @@ const b = Course.createCourseWithProblems({ id: 1, title: 'Attacks', owner_id: n
 
 
 
-const c = Course.createCourseWithProblems(
-{ id: 7, title: 'Oauth 2', owner_id: null }
-, 
-[ { id: 16,
-    explanation: null,
-    type: null,
-    content: 'Before you can begin the OAuth process, you must first register a new app with the service. <br>\nYou\'ll be given <b>client_     <answer>id</answer>     </b> and  <b>client_     <answer>secret</answer>     </b>  then.',
-    course_id: 7 },
-  { id: 15,
-    explanation: null,
-    type: null,
-    content: '<h4>Oauth grant types:</h4>\n\n<ol>\n<li><b>Authorization Code Grant</b><br>\n\n\n\n</li>\n\n<li>\n<b>Implicit Grant</b><br>\nReturns an access token to JavaScript clients right away. No refresh tokens for long-lived access are returned, so use it for cases when you need a short-lived (few hours) access to someone\'s account.\n</li>\n\n<li>\n<b>Resource Owner Password Credentials Grant</b> <br>\ncredentials (and thus the password) are sent to the client and then to the authorization server. \n</li>\n\n<li>\n    <b>Client Credentials Grant</b> <br>\n     when the client is himself the resource owner\n</li>\n</ol>',
-    course_id: 7 },
-  { id: 18,
-    explanation: null,
-    type: null,
-    content: 'As far as an OAuth client is concerned, it asked for a token, got a token, and eventually used that token to access some API.\n\nFrom a viewpoint of OpenID guys, authentication based on OAuth was not secure enough, but they had to admit that people preferred OAuth authentication. As a result,   <answer>OpenID</answer>   guys decided to define a new specification, OpenID Connect, on top of OAuth 2.0.\n',
-    course_id: 7 },
-  { id: 17,
-    explanation: null,
-    type: null,
-    content: '<h4>Authorization Code grant type</h4>\n\nwe reate a "Log In" link sending the user to:\n\n<pre>\nhttps://oauth2server.com/auth?response_type=code&\n  client_id=CLIENT_ID&\n  redirect_uri=REDIRECT_URI&\n  scope=photos\n</pre>\n\nif user allows access, oauth server redirects user to <code>https://oauth2client.com/cb?code=AUTH_CODE_HERE</code>\n\nwe exchange <b>AUTH_CODE</b> for an <b>access token</b>.\n<pre>\nPOST https://api.oauth2server.com/token\n    grant_type=authorization_code&\n    code=AUTH_CODE_HERE&\n    redirect_uri=REDIRECT_URI&\n    client_id=CLIENT_ID&\n    client_secret=CLIENT_SECRET\n</pre>\n\n\nOauth server replies with an access token\n<pre>\n{\n    "access_token":"RsT5OjbzRn430zqMLgV3Ia"\n}\n</pre>\n\naccess token can now be used to access some API.',
-    course_id: 7 } ]
-)
+const c = () => Course.createCourseWithProblems(
+  { id: 7, title: 'Oauth 2',   userOauthId: '7578559',
+    userOauthProvider: 'github'  }
+  , 
+  [ { id: 16,
+      explanation: null,
+      type: null,
+      content: 'Before you can begin the OAuth process, you must first register a new app with the service. <br>\nYou\'ll be given <b>client_     <answer>id</answer>     </b> and  <b>client_     <answer>secret</answer>     </b>  then.',
+      course_id: 7 },
+    { id: 15,
+      explanation: null,
+      type: null,
+      content: '<h4>Oauth grant types:</h4>\n\n<ol>\n<li><b>Authorization Code Grant</b><br>\n\n\n\n</li>\n\n<li>\n<b>Implicit Grant</b><br>\nReturns an access token to JavaScript clients right away. No refresh tokens for long-lived access are returned, so use it for cases when you need a short-lived (few hours) access to someone\'s account.\n</li>\n\n<li>\n<b>Resource Owner Password Credentials Grant</b> <br>\ncredentials (and thus the password) are sent to the client and then to the authorization server. \n</li>\n\n<li>\n    <b>Client Credentials Grant</b> <br>\n     when the client is himself the resource owner\n</li>\n</ol>',
+      course_id: 7 },
+    { id: 18,
+      explanation: null,
+      type: null,
+      content: 'As far as an OAuth client is concerned, it asked for a token, got a token, and eventually used that token to access some API.\n\nFrom a viewpoint of OpenID guys, authentication based on OAuth was not secure enough, but they had to admit that people preferred OAuth authentication. As a result,   <answer>OpenID</answer>   guys decided to define a new specification, OpenID Connect, on top of OAuth 2.0.\n',
+      course_id: 7 },
+    { id: 17,
+      explanation: null,
+      type: null,
+      content: '<h4>Authorization Code grant type</h4>\n\nwe reate a "Log In" link sending the user to:\n\n<pre>\nhttps://oauth2server.com/auth?response_type=code&\n  client_id=CLIENT_ID&\n  redirect_uri=REDIRECT_URI&\n  scope=photos\n</pre>\n\nif user allows access, oauth server redirects user to <code>https://oauth2client.com/cb?code=AUTH_CODE_HERE</code>\n\nwe exchange <b>AUTH_CODE</b> for an <b>access token</b>.\n<pre>\nPOST https://api.oauth2server.com/token\n    grant_type=authorization_code&\n    code=AUTH_CODE_HERE&\n    redirect_uri=REDIRECT_URI&\n    client_id=CLIENT_ID&\n    client_secret=CLIENT_SECRET\n</pre>\n\n\nOauth server replies with an access token\n<pre>\n{\n    "access_token":"RsT5OjbzRn430zqMLgV3Ia"\n}\n</pre>\n\naccess token can now be used to access some API.',
+      course_id: 7 } ]
+  )
 
 
-Course.createCourseWithProblems(
+const d = () => Course.createCourseWithProblems(
 { id: 7,
   title: 'Gestalt',
   userOauthId: '7578559',
   userOauthProvider: 'github' }
-, 
+,
 [ { id: 16,
     explanation: '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Gestalt_closure.svg/220px-Gestalt_closure.svg.png">',
     type: null,
@@ -196,7 +203,28 @@ Course.createCourseWithProblems(
 //     .catch((data) => console.log(data.message));
 // };
 
-Promise.all([a, b, c]).then(() => {
-  // log('courses');
-  // log('problems');
-}).catch((error) => console.log(error))
+
+// first seeding our user to avoid violating foreign key constraint
+const userPromise = User.createUserFromGithub({
+  id: '7578559',
+  username: 'lakesarerere'
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+userPromise.then(() => {
+  Promise.all([a(), b(), c(), d()]).catch((error) => console.log(error.stack))
+})
+
+
+

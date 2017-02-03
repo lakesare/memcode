@@ -1202,7 +1202,7 @@
 /* 23 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -1210,10 +1210,7 @@
 	// input: "<h1></h1>"
 	
 	// output: "text: ['<h1>first answer is ', null, ', </h1> anonymous functions in ruby are called <pre><code class="ruby"> ', null, '</code></pre>'],
-	// answers: [
-	//   { answer: 'hi' },
-	//   { answer: 'hello' }
-	// ]"
+	// answers: [ 'hi', 'hello' ]
 	var problemContentFromParamsToDb = function problemContentFromParamsToDb(content) {
 	  var text = [];
 	  var answers = [];
@@ -1224,7 +1221,7 @@
 	    var nextSubstringOfProblemParsed = findNextAnswer(contentRemaining);
 	    text.push(nextSubstringOfProblemParsed.textPiece);
 	    if (nextSubstringOfProblemParsed.answer !== null) {
-	      answers.push({ answer: nextSubstringOfProblemParsed.answer });
+	      answers.push(nextSubstringOfProblemParsed.answer);
 	      text.push(null);
 	    }
 	    contentRemaining = nextSubstringOfProblemParsed.newContentRemaining;
@@ -1234,8 +1231,8 @@
 	};
 	
 	var findNextAnswer = function findNextAnswer(contentRemaining) {
-	  var answerOpens = contentRemaining.indexOf("<answer>");
-	  var answerCloses = contentRemaining.indexOf("</answer>");
+	  var answerOpens = contentRemaining.indexOf('<answer>');
+	  var answerCloses = contentRemaining.indexOf('</answer>');
 	
 	  var _ref = answerOpens === -1 ? {
 	    textPiece: contentRemaining,
@@ -1243,8 +1240,8 @@
 	    newContentRemaining: ''
 	  } : {
 	    textPiece: contentRemaining.slice(0, answerOpens),
-	    answer: contentRemaining.slice(answerOpens + "<answer>".length, answerCloses),
-	    newContentRemaining: contentRemaining.slice(answerCloses + "</answer>".length)
+	    answer: contentRemaining.slice(answerOpens + '<answer>'.length, answerCloses),
+	    newContentRemaining: contentRemaining.slice(answerCloses + '</answer>'.length)
 	  },
 	      textPiece = _ref.textPiece,
 	      answer = _ref.answer,

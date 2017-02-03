@@ -6,14 +6,20 @@ import { contentStringToJsx } from '../services/contentStringToJsx';
 class Problem extends React.Component {
   static propTypes = {
     problem: React.PropTypes.object.isRequired,
-    index:   React.PropTypes.number.isRequired // just for pretiness, to number down the problems
+    index:   React.PropTypes.number.isRequired, // just for pretiness, to number down the problems
+    onRightAnswerGiven: React.PropTypes.func.isRequired
+  }
+
+  onRightAnswerGiven = (answerIndex) => {
+    this.props.onRightAnswerGiven(this.props.problem.id, answerIndex);
   }
 
   renderContent = () => {
     const content = this.props.problem.content;
     const jsx = contentStringToJsx(
       contentObjectToString(content.text),
-      content.answers
+      content.answers,
+      this.onRightAnswerGiven
     );
     return jsx;
   }

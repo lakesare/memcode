@@ -29,6 +29,10 @@ class Page_courses_solve extends React.Component {
     );
   }
 
+  onRightAnswerGiven = (problemId, answerIndex) => {
+    console.log({ problemId, answerIndex })
+  }
+
   render = () =>
     <main className={css.main}>
       <Header/>
@@ -37,7 +41,8 @@ class Page_courses_solve extends React.Component {
         <Loading spe={this.state.speGetCourse}>{payload =>
           <div>
             <h1>{payload.course.title}</h1>
-            <ListOfProblems problems={payload.problems}/>
+
+            <ListOfProblems problems={payload.problems} onRightAnswerGiven={this.onRightAnswerGiven}/>
           </div>
         }</Loading>
       </div>
