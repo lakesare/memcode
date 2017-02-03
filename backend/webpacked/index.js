@@ -44,33 +44,47 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(1);
+	module.exports = __webpack_require__(2);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports) {
+
+	module.exports = require("babel-polyfill");
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
-	__webpack_require__(1);
+	__webpack_require__(3);
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(9);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _prettyError = __webpack_require__(8);
+	var _prettyError = __webpack_require__(10);
 	
-	var _allowCrossDomain = __webpack_require__(10);
+	var _allowCrossDomain = __webpack_require__(12);
 	
-	var _stopPropagationForAssets = __webpack_require__(11);
+	var _stopPropagationForAssets = __webpack_require__(13);
 	
-	var _bodyParser = __webpack_require__(12);
+	var _bodyParser = __webpack_require__(14);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _static = __webpack_require__(13);
+	var _static = __webpack_require__(15);
 	
-	var _ourSession = __webpack_require__(14);
+	var _ourSession = __webpack_require__(16);
 	
-	var _routes = __webpack_require__(16);
+	var _routes = __webpack_require__(18);
 	
-	var _routes2 = __webpack_require__(23);
+	var _routes2 = __webpack_require__(26);
 	
-	var _routes3 = __webpack_require__(24);
+	var _routes3 = __webpack_require__(27);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -114,22 +128,22 @@
 	});
 
 /***/ },
-/* 1 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(2).install();
+	__webpack_require__(4).install();
 
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var SourceMapConsumer = __webpack_require__(3).SourceMapConsumer;
-	var path = __webpack_require__(4);
+	var SourceMapConsumer = __webpack_require__(5).SourceMapConsumer;
+	var path = __webpack_require__(6);
 	
 	var fs;
 	try {
-	  fs = __webpack_require__(5);
+	  fs = __webpack_require__(7);
 	  if (!fs.existsSync || !fs.readFileSync) {
 	    // fs doesn't have all methods we need
 	    fs = null;
@@ -597,7 +611,7 @@
 	  if (options.hookRequire && !isInBrowser()) {
 	    var Module;
 	    try {
-	      Module = __webpack_require__(6);
+	      Module = __webpack_require__(8);
 	    } catch (err) {
 	      // NOP: Loading in catch block to convert webpack error to warning.
 	    }
@@ -646,37 +660,37 @@
 
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = require("source-map");
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports) {
 
 	module.exports = require("fs");
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = require("module");
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports) {
 
 	module.exports = require("express");
 
 /***/ },
-/* 8 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -686,7 +700,7 @@
 	});
 	exports.prettyError = undefined;
 	
-	var _prettyError = __webpack_require__(9);
+	var _prettyError = __webpack_require__(11);
 	
 	var _prettyError2 = _interopRequireDefault(_prettyError);
 	
@@ -711,13 +725,13 @@
 	exports.prettyError = prettyError;
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 	module.exports = require("pretty-error");
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -735,7 +749,7 @@
 	exports.allowCrossDomain = allowCrossDomain;
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -757,13 +771,13 @@
 	exports.stopPropagationForAssets = stopPropagationForAssets;
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -773,7 +787,7 @@
 	});
 	exports.staticAssets = undefined;
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(9);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
@@ -784,7 +798,7 @@
 	exports.staticAssets = staticAssets;
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -794,7 +808,7 @@
 	});
 	exports.ourSession = undefined;
 	
-	var _expressSession = __webpack_require__(15);
+	var _expressSession = __webpack_require__(17);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
@@ -809,13 +823,13 @@
 	exports.ourSession = ourSession;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -827,23 +841,21 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(9);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _init = __webpack_require__(17);
-	
-	var _model = __webpack_require__(19);
+	var _model = __webpack_require__(21);
 	
 	var Course = _interopRequireWildcard(_model);
 	
-	var _jsonwebtoken = __webpack_require__(22);
-	
-	var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+	var _authenticate = __webpack_require__(24);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 	
 	var router = _express2.default.Router();
 	
@@ -855,30 +867,53 @@
 	  });
 	});
 	
-	router.get('/', function (request, response) {
-	  var courses = _init.db.any("select * from courses").then(function (data) {
-	    response.status(200).json(data);
-	  }).catch(function (error) {
-	    response.status(500).json({ error: error.message });
-	  });
-	});
-	
-	var authenticate = function authenticate(request, response, next) {
-	  var token = request.headers['authorization'].split('Bearer ')[1];
-	  _jsonwebtoken2.default.verify(token, 'our server secret', function (error, user) {
-	    if (error) {
-	      response.status(403).json({ error: error });
-	    } else {
-	      request.currentUser = user;
-	      next();
-	    }
-	  });
+	// catch Async Await function's error
+	var catchAsync = function catchAsync(asyncFunction) {
+	  return function (request, response, next) {
+	    var promise = asyncFunction(request, response, next);
+	    promise.catch(function (error) {
+	      return next(error);
+	    });
+	  };
 	};
 	
-	router.post('/', authenticate, function (request, response) {
+	router.get('/', catchAsync(function () {
+	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(request, response) {
+	    var courses;
+	    return regeneratorRuntime.wrap(function _callee$(_context) {
+	      while (1) {
+	        switch (_context.prev = _context.next) {
+	          case 0:
+	            _context.next = 2;
+	            return Course.getCourses();
+	
+	          case 2:
+	            courses = _context.sent;
+	
+	            response.json(courses);
+	
+	          case 4:
+	          case 'end':
+	            return _context.stop();
+	        }
+	      }
+	    }, _callee, undefined);
+	  }));
+	
+	  return function (_x, _x2) {
+	    return _ref.apply(this, arguments);
+	  };
+	}()));
+	
+	router.use(function (error, request, response) {
+	  console.error(error);
+	  response.status(500).json({ error: error.message });
+	});
+	
+	router.post('/', _authenticate.authenticateMiddleware, function (request, response) {
 	  var course = _extends({}, request.body["course"], {
-	    user_oauth_id: request.currentUser.oauthId,
-	    user_oauth_provider: request.currentUser.oauthProvider
+	    userOauthId: request.currentUser.oauthId,
+	    userOauthProvider: request.currentUser.oauthProvider
 	  });
 	
 	  Course.createCourseWithProblems(course, request.body["problems"]).then(function (courseIdMap) {
@@ -921,7 +956,7 @@
 	exports.router = router;
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -931,7 +966,7 @@
 	});
 	exports.db = undefined;
 	
-	var _pgPromise = __webpack_require__(18);
+	var _pgPromise = __webpack_require__(20);
 	
 	var pgPromise = _interopRequireWildcard(_pgPromise);
 	
@@ -985,13 +1020,13 @@
 	exports.db = db;
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -999,11 +1034,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
+	exports.getCourses = exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
 	
-	var _init = __webpack_require__(17);
+	var _init = __webpack_require__(19);
 	
-	var _model = __webpack_require__(20);
+	var _model = __webpack_require__(22);
 	
 	// course: {title: "aaa"}
 	// problems: [{content: "a", explanation: "aa"}]
@@ -1011,7 +1046,7 @@
 	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
 	  // { validation: 'failed fields' }
 	  var courseId = null;
-	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${user_oauth_id}, ${user_oauth_provider}) RETURNING id", course).then(function (course) {
+	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course).then(function (course) {
 	    courseId = course.id;
 	    return _init.db.tx(function (transaction) {
 	      var queries = [];
@@ -1021,6 +1056,15 @@
 	  }).then(function () {
 	    return { courseId: courseId };
 	  });
+	};
+	
+	var getCourses = function getCourses() {
+	  return _init.db.any('\
+	    SELECT courses.*, COUNT(*) AS "amount_of_problems"\
+	    FROM courses\
+	      LEFT OUTER JOIN problems ON problems.course_id=courses.id\
+	    GROUP BY courses.id;\
+	  ');
 	};
 	
 	var updateCourseWithProblems = function updateCourseWithProblems(newCourse, newProblems) {
@@ -1085,9 +1129,10 @@
 	exports.getCourseWithProblems = getCourseWithProblems;
 	exports.deleteCourseWithProblems = deleteCourseWithProblems;
 	exports.updateCourseWithProblems = updateCourseWithProblems;
+	exports.getCourses = getCourses;
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1097,9 +1142,9 @@
 	});
 	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
 	
-	var _init = __webpack_require__(17);
+	var _init = __webpack_require__(19);
 	
-	var _problemContentFromParamsToDb = __webpack_require__(21);
+	var _problemContentFromParamsToDb = __webpack_require__(23);
 	
 	var deleteProblem = function deleteProblem(id) {
 	  return _init.db.none('delete from problems where id=${id}', { id: id });
@@ -1154,7 +1199,7 @@
 	exports.updateProblems = updateProblems;
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1211,13 +1256,48 @@
 	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
 
 /***/ },
-/* 22 */
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.authenticateMiddleware = undefined;
+	
+	var _jsonwebtoken = __webpack_require__(25);
+	
+	var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var authenticateMiddleware = function authenticateMiddleware(request, response, next) {
+	  if (request.headers['authorization']) {
+	    var token = request.headers['authorization'].split('Bearer ')[1];
+	    _jsonwebtoken2.default.verify(token, 'serverereSecretty', function (error, user) {
+	      if (error) {
+	        response.status(403).json({ error: error });
+	      } else {
+	        request.currentUser = user;
+	        next();
+	      }
+	    });
+	  } else {
+	    response.status(403).json({ error: "No authorization header provided" });
+	  }
+	};
+	
+	exports.authenticateMiddleware = authenticateMiddleware;
+
+/***/ },
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = require("jsonwebtoken");
 
 /***/ },
-/* 23 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1227,11 +1307,11 @@
 	});
 	exports.router = undefined;
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(9);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _model = __webpack_require__(20);
+	var _model = __webpack_require__(22);
 	
 	var Problem = _interopRequireWildcard(_model);
 	
@@ -1252,7 +1332,7 @@
 	exports.router = router;
 
 /***/ },
-/* 24 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1262,27 +1342,27 @@
 	});
 	exports.router = undefined;
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(9);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _jsonwebtoken = __webpack_require__(22);
+	var _jsonwebtoken = __webpack_require__(25);
 	
 	var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 	
-	var _formData = __webpack_require__(25);
+	var _formData = __webpack_require__(28);
 	
 	var _formData2 = _interopRequireDefault(_formData);
 	
-	var _nodeFetch = __webpack_require__(26);
+	var _nodeFetch = __webpack_require__(29);
 	
 	var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 	
-	var _model = __webpack_require__(27);
+	var _model = __webpack_require__(30);
 	
 	var User = _interopRequireWildcard(_model);
 	
-	var _init = __webpack_require__(17);
+	var _init = __webpack_require__(19);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -1360,19 +1440,19 @@
 	exports.router = router;
 
 /***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = require("form-data");
 
 /***/ },
-/* 26 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = require("node-fetch");
 
 /***/ },
-/* 27 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1382,7 +1462,7 @@
 	});
 	exports.createUserFromGithub = exports.getUserByOauth = undefined;
 	
-	var _init = __webpack_require__(17);
+	var _init = __webpack_require__(19);
 	
 	// getUserByOauth('github', 7578559)
 	// => user

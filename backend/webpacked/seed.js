@@ -40,19 +40,20 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var _model = __webpack_require__(19);
+	var _model = __webpack_require__(21);
 	
 	var Course = _interopRequireWildcard(_model);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	var pgp = __webpack_require__(18);
+	var pgp = __webpack_require__(20);
 	var pgPackage = pgp({});
 	
 	var a = Course.createCourseWithProblems({ id: 5, title: 'Encryption', owner_id: null }, [{ id: 13,
@@ -108,6 +109,19 @@
 	  type: null,
 	  content: '<h4>Authorization Code grant type</h4>\n\nwe reate a "Log In" link sending the user to:\n\n<pre>\nhttps://oauth2server.com/auth?response_type=code&\n  client_id=CLIENT_ID&\n  redirect_uri=REDIRECT_URI&\n  scope=photos\n</pre>\n\nif user allows access, oauth server redirects user to <code>https://oauth2client.com/cb?code=AUTH_CODE_HERE</code>\n\nwe exchange <b>AUTH_CODE</b> for an <b>access token</b>.\n<pre>\nPOST https://api.oauth2server.com/token\n    grant_type=authorization_code&\n    code=AUTH_CODE_HERE&\n    redirect_uri=REDIRECT_URI&\n    client_id=CLIENT_ID&\n    client_secret=CLIENT_SECRET\n</pre>\n\n\nOauth server replies with an access token\n<pre>\n{\n    "access_token":"RsT5OjbzRn430zqMLgV3Ia"\n}\n</pre>\n\naccess token can now be used to access some API.',
 	  course_id: 7 }]);
+	
+	Course.createCourseWithProblems({ id: 7,
+	  title: 'Gestalt',
+	  userOauthId: '7578559',
+	  userOauthProvider: 'github' }, [{ id: 16,
+	  explanation: '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Gestalt_closure.svg/220px-Gestalt_closure.svg.png">',
+	  type: null,
+	  content: 'gestalt principle of  <answer>closure</answer> : refers to the mind’s tendency to see complete figures or forms even if a picture is incomplete',
+	  courseId: 7 }, { id: 15,
+	  explanation: '<img src="https://blog.usertesting.com/wp-content/uploads/2016/02/proximity.png">',
+	  type: null,
+	  content: 'principle of   <answer>proximity</answer>  : shapes that are close to one another appear to form groups\n',
+	  courseId: 7 }]);
 	
 	// There are a variety of file system methods, all contained in the <answer>fs</answer> module
 	
@@ -184,23 +198,8 @@
 	});
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */
+
+/***/ 19:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -210,7 +209,7 @@
 	});
 	exports.db = undefined;
 	
-	var _pgPromise = __webpack_require__(18);
+	var _pgPromise = __webpack_require__(20);
 	
 	var pgPromise = _interopRequireWildcard(_pgPromise);
 	
@@ -264,13 +263,15 @@
 	exports.db = db;
 
 /***/ },
-/* 18 */
+
+/***/ 20:
 /***/ function(module, exports) {
 
 	module.exports = require("pg-promise");
 
 /***/ },
-/* 19 */
+
+/***/ 21:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -278,11 +279,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
+	exports.getCourses = exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
 	
-	var _init = __webpack_require__(17);
+	var _init = __webpack_require__(19);
 	
-	var _model = __webpack_require__(20);
+	var _model = __webpack_require__(22);
 	
 	// course: {title: "aaa"}
 	// problems: [{content: "a", explanation: "aa"}]
@@ -290,7 +291,7 @@
 	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
 	  // { validation: 'failed fields' }
 	  var courseId = null;
-	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${user_oauth_id}, ${user_oauth_provider}) RETURNING id", course).then(function (course) {
+	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course).then(function (course) {
 	    courseId = course.id;
 	    return _init.db.tx(function (transaction) {
 	      var queries = [];
@@ -300,6 +301,15 @@
 	  }).then(function () {
 	    return { courseId: courseId };
 	  });
+	};
+	
+	var getCourses = function getCourses() {
+	  return _init.db.any('\
+	    SELECT courses.*, COUNT(*) AS "amount_of_problems"\
+	    FROM courses\
+	      LEFT OUTER JOIN problems ON problems.course_id=courses.id\
+	    GROUP BY courses.id;\
+	  ');
 	};
 	
 	var updateCourseWithProblems = function updateCourseWithProblems(newCourse, newProblems) {
@@ -364,9 +374,11 @@
 	exports.getCourseWithProblems = getCourseWithProblems;
 	exports.deleteCourseWithProblems = deleteCourseWithProblems;
 	exports.updateCourseWithProblems = updateCourseWithProblems;
+	exports.getCourses = getCourses;
 
 /***/ },
-/* 20 */
+
+/***/ 22:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -376,9 +388,9 @@
 	});
 	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
 	
-	var _init = __webpack_require__(17);
+	var _init = __webpack_require__(19);
 	
-	var _problemContentFromParamsToDb = __webpack_require__(21);
+	var _problemContentFromParamsToDb = __webpack_require__(23);
 	
 	var deleteProblem = function deleteProblem(id) {
 	  return _init.db.none('delete from problems where id=${id}', { id: id });
@@ -433,7 +445,8 @@
 	exports.updateProblems = updateProblems;
 
 /***/ },
-/* 21 */
+
+/***/ 23:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -490,5 +503,6 @@
 	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
 
 /***/ }
-/******/ ]);
+
+/******/ });
 //# sourceMappingURL=seed.js.map

@@ -1,0 +1,34 @@
+:local(main.main){
+  section.problem{
+    margin-bottom: 20px;
+    box-shadow: 1px 3px 9px rgba(187, 208, 183, 0.39);
+    padding: 20px;
+    > .index{
+      position: absolute;
+    }
+    > .explanation{
+      border: 1px solid #150404;
+      padding: 10px;
+    }
+    > .actions{
+      position: absolute;
+      right: 0;
+    }
+
+    input.answer{
+      width: 100px;
+      display: inline-block;
+      padding: 0 10px;
+      border: none;
+      &:focus{ outline: none; }
+      &.success{
+        border: 1px solid #99f399;
+      }
+      &.failure{
+        box-shadow: 0px 0px 8px #f9b8b8;
+      }
+    }
+
+
+  }
+}

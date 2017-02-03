@@ -36,11 +36,11 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.css$/,
         exclude: /(node_modules)/,
         loaders: [
           'style',
-          'css?modules&localIdentName=[name]---[local]---[hash:base64:5]',
+          'css',
           'sass'
         ]
       }

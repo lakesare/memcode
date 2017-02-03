@@ -1,9 +1,8 @@
-var WebpackErrorNotificationPlugin = require('webpack-error-notification');
-var WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()
+const path = require('path');
 
-var fs = require('fs');
+const fs = require('fs');
 
-var nodeModules = {};
+const nodeModules = {};
 fs.readdirSync('../node_modules')
   .filter(function(x) {
     return ['.bin'].indexOf(x) === -1;
@@ -13,17 +12,17 @@ fs.readdirSync('../node_modules')
 });
 
 
-var glob = require("glob")
-var testFiles = glob.sync("./**/*.test.js", { ignore: "./webpacked/**" })
+const glob = require('glob');
+const testFiles = glob.sync('./**/*.test.js', { ignore: './webpacked/**' });
 
-var testEntries = {}
-testFiles.forEach(function(testFile) {
-  testEntries['webpacked/test/' + testFile.slice(2, -3)] = testFile
+const testEntries = {};
+testFiles.forEach((testFile) => {
+  testEntries['webpacked/test/' + testFile.slice(2, -3)] = testFile;
 });
-console.log(testFiles)
 
-var entries = Object.assign(testEntries, {
-  'webpacked/index': './index',
+const entries = Object.assign(testEntries, {
+  // babel-polyfill for await awsync to work: http://stackoverflow.com/a/33527883/3192470
+  'webpacked/index': ['babel-polyfill', './index'],
   'webpacked/seed': './db/seed',
 });
 
@@ -43,6 +42,12 @@ module.exports = {
   module: {
     loaders: [
       {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'eslint-loader',
+        exclude: /(node_modules)/,
+      },
+      {
         test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel', // 'babel-loader' is also a legal name to reference
@@ -53,9 +58,13 @@ module.exports = {
     ],
   },
 
-  devtool: 'source-map', // check if works in webpack:backend
+  // allows to import from the deep nested folders:
+  // instead of: import '../../../../../services',
+  // import '~/services'
+  // idea from http://stackoverflow.com/questions/27502608/resolving-require-paths-with-webpack#comment60353452_35047907
+  resolve: {
+    alias: { '~': path.resolve(__dirname) }
+  },
 
-  plugins: [
-    WebpackErrorNotificationConfig
-  ]
-}
+  devtool: 'source-map', // check if works in webpack:backend
+};

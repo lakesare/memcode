@@ -10,7 +10,7 @@ const createCourseWithProblems = (course, problems) => {
   // { validation: 'failed fields' }
   let courseId = null;
   return(
-    db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${user_oauth_id}, ${user_oauth_provider}) RETURNING id", course)
+    db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course)
       .then((course) => {
         courseId = course.id;
         return db.tx((transaction) => {
@@ -23,10 +23,13 @@ const createCourseWithProblems = (course, problems) => {
   );
 };
 
-
-
-
-
+const getCourses = () =>
+  db.any('\
+    SELECT courses.*, COUNT(*) AS "amount_of_problems"\
+    FROM courses\
+      LEFT OUTER JOIN problems ON problems.course_id=courses.id\
+    GROUP BY courses.id;\
+  ');
 
 const updateCourseWithProblems = (newCourse, newProblems) => {
   return getCourseWithProblems(newCourse.id)
@@ -95,4 +98,4 @@ const deleteCourseWithProblems = (courseId) => (
 
 
 
-export { createCourseWithProblems, getCourseWithProblems, deleteCourseWithProblems, updateCourseWithProblems };
+export { createCourseWithProblems, getCourseWithProblems, deleteCourseWithProblems, updateCourseWithProblems, getCourses };

@@ -1,8 +1,10 @@
 import express from 'express';
 const router = express.Router();
 
-import { db } from '../../db/init.js';
 import * as Course from './model';
+
+import { authenticateMiddleware } from '~/middlewares/authenticate';
+
 
 router.get('/:id', (request, response) => {
   Course.getCourseWithProblems(request.params.id)
@@ -10,36 +12,48 @@ router.get('/:id', (request, response) => {
       response.status(200).json(data);
   }).catch((data) => {
       response.status(500).json({ error: data.message });
-  })
-});
-
-router.get('/', (request, response) => {
-  const courses = db.any("select * from courses")
-    .then((data) => {
-      response.status(200).json(data);
-  }).catch((error) => {
-    response.status(500).json({ error: error.message });
-  })
-});
-
-import jwt from 'jsonwebtoken';
-const authenticate = (request, response, next) => {
-  const token = request.headers['authorization'].split('Bearer ')[1];
-  jwt.verify(token, 'our server secret', (error, user) => {
-    if (error) {
-      response.status(403).json({ error })
-    } else {
-      request.currentUser = user;
-      next();
-    }
   });
-};
+});
 
-router.post('/', authenticate, (request, response) => {
+
+// catch Async Await function's error
+const catchAsync = asyncFunction =>
+  (request, response, next) => {
+    const promise = asyncFunction(request, response, next);
+    promise.catch(error => next(error));
+  };
+
+
+router.get('/', catchAsync(async (request, response) => {
+  const courses = await Course.getCourses();
+  response.json(courses);
+}));
+
+router.use((error, request, response) => {
+  console.error(error);
+  response.status(500).json({ error: error.message });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.post('/', authenticateMiddleware, (request, response) => {
   const course = {
     ...request.body["course"],
-    user_oauth_id: request.currentUser.oauthId,
-    user_oauth_provider: request.currentUser.oauthProvider
+    userOauthId: request.currentUser.oauthId,
+    userOauthProvider: request.currentUser.oauthProvider
   };
 
   Course.createCourseWithProblems(course, request.body["problems"])

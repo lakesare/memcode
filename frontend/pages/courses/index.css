@@ -1,0 +1,7 @@
+:local(main.main){
+  section.list-of-courses{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}

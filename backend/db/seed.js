@@ -87,6 +87,24 @@ const c = Course.createCourseWithProblems(
 )
 
 
+Course.createCourseWithProblems(
+{ id: 7,
+  title: 'Gestalt',
+  userOauthId: '7578559',
+  userOauthProvider: 'github' }
+, 
+[ { id: 16,
+    explanation: '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Gestalt_closure.svg/220px-Gestalt_closure.svg.png">',
+    type: null,
+    content: 'gestalt principle of  <answer>closure</answer> : refers to the mind’s tendency to see complete figures or forms even if a picture is incomplete',
+    courseId: 7 },
+  { id: 15,
+    explanation: '<img src="https://blog.usertesting.com/wp-content/uploads/2016/02/proximity.png">',
+    type: null,
+    content: 'principle of   <answer>proximity</answer>  : shapes that are close to one another appear to form groups\n',
+    courseId: 7 } ]
+)
+
 
 
 // There are a variety of file system methods, all contained in the <answer>fs</answer> module
