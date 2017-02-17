@@ -1,6 +1,5 @@
 import 'source-map-support/register';
 import express from 'express';
-import { prettyError } from './middlewares/prettyError';
 
 const app = express();
 const port = 3000;
@@ -31,17 +30,14 @@ import { router as authRouter } from './components/auth/routes';
 app.use('/auth', authRouter);
 
 
-
-// setting current user
-// app.use((req, res, next) => {
-//   req.session.currentUser = req.user
-//   res.cookie('currentUser', JSON.stringify(req.user))
-//   next();
-// })
+app.use((error, request, response, next) => {
+  console.error(error);
+  response.status(500).json({ error: error.message });
+});
 
 app.get('*', (req, res) => res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html'));
 
 app.listen(port, (err) => {
-  if (err) { console.log('something bad happened', err) }
-  console.log(`server is listening on ${port}`)
+  if (err) console.log('something bad happened', err);
+  console.log(`server is listening on ${port}`);
 });

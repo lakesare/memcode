@@ -16,6 +16,7 @@ module.exports = {
     "import/no-unresolved": "off",
     "import/extensions": "off",
     "import/first": "off",
+    "import/newline-after-import": "off",
 
     // for cases such as this:
     // openModal  = () => this.setState({ ifModalIsOpen: true })
@@ -69,7 +70,10 @@ module.exports = {
     // accessibility is important, but turn it off while developing
     "jsx-a11y/img-has-alt": "off",
 
-    "no-multi-str": "off"
+    "no-multi-str": "off",
+
+    // didn't allow request.body['course'], wanted body.course
+    "dot-notation": "off"
   },
   "globals": {
     "fetch": true,

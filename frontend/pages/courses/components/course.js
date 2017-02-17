@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import css from './show.css';
 import { apiDeleteCourse } from '~/ducks/courses/actions';
 
-class Show extends React.Component {
+class Course extends React.Component {
   static propTypes = {
     course: React.PropTypes.object.isRequired,
   }
@@ -20,7 +19,7 @@ class Show extends React.Component {
     const course = this.props.course;
 
     return (
-      <div className={css.course}>
+      <div className="course">
         <section className="actions">
           <Link
             className="edit"
@@ -37,7 +36,7 @@ class Show extends React.Component {
         </section>
 
         <section className="details">
-          <Link to={'/courses/' + course.id} className={css.link}>
+          <Link to={'/courses/' + course.id} className="link">
             <h5 className="title">{course.title}</h5>
 
             <div className="additional-information">
@@ -50,4 +49,4 @@ class Show extends React.Component {
   }
 }
 
-export { Show };
+export { Course };

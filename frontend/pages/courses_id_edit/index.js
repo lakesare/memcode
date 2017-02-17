@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { Header }       from '~/components/header';
+import { Header }       from '~/components/Header';
 import { Loading } from '~/components/Loading';
-import { ListOfProblems } from './components/ListOfProblems';
+import { Problem } from './components/Problem';
 
 import { apiGetCourse } from '~/ducks/courses/actions';
 
-import css from './index.css';
-
-class Page_courses_solve extends React.Component {
+class Page_courses_id_edit extends React.Component {
   static propTypes = {
     params: React.PropTypes.shape({
       id: React.PropTypes.string
@@ -29,12 +27,17 @@ class Page_courses_solve extends React.Component {
     );
   }
 
-  onRightAnswerGiven = (problemId, answerIndex) => {
-    console.log({ problemId, answerIndex })
-  }
+  renderListOfProblems = problems =>
+    problems.map((problem, index) =>
+      <Problem
+        key={problem.id}
+        problem={problem}
+        index={index + 1}
+      />
+    )
 
   render = () =>
-    <main className={css.main}>
+    <main>
       <Header/>
 
       <div className="container">
@@ -42,11 +45,11 @@ class Page_courses_solve extends React.Component {
           <div>
             <h1>{payload.course.title}</h1>
 
-            <ListOfProblems problems={payload.problems} onRightAnswerGiven={this.onRightAnswerGiven}/>
+            {this.renderListOfProblems(payload.problems)}
           </div>
         }</Loading>
       </div>
     </main>
 }
 
-export { Page_courses_solve };
+export { Page_courses_id_edit };

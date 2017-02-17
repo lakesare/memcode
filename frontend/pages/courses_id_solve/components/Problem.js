@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { contentObjectToString } from '../services/contentObjectToString';
-import { contentStringToJsx } from '../services/contentStringToJsx';
+import { Answer } from './Answer';
+
+import { contentObjectToString } from '~/services/contentObjectToString';
+import { contentStringToJsx } from '~/services/contentStringToJsx';
 
 class Problem extends React.Component {
   static propTypes = {
@@ -18,8 +20,12 @@ class Problem extends React.Component {
     const content = this.props.problem.content;
     const jsx = contentStringToJsx(
       contentObjectToString(content.text),
-      content.answers,
-      this.onRightAnswerGiven
+      answerIndex =>
+        <Answer
+          key={answerIndex + 10000} // temp fix, there is some bug with keying some texts in html-to-react. it disappears if we get rid of either <answer> or all the other tag parsing.
+          answer={content.answers[answerIndex]}
+          onRightAnswerGiven={() => this.props.onRightAnswerGiven(answerIndex)}
+        />
     );
     return jsx;
   }
@@ -36,10 +42,6 @@ class Problem extends React.Component {
         className="explanation col-6"
         dangerouslySetInnerHTML={{ __html: this.props.problem.explanation }}
       />
-
-      <div className="actions">
-        <i className="fa fa-trash-o"/>
-      </div>
     </section>
 }
 

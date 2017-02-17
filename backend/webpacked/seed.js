@@ -48,11 +48,11 @@
 	/* eslint-disable */
 	"use strict";
 	
-	var _model = __webpack_require__(21);
+	var _model = __webpack_require__(18);
 	
 	var Course = _interopRequireWildcard(_model);
 	
-	var _model2 = __webpack_require__(30);
+	var _model2 = __webpack_require__(29);
 	
 	var User = _interopRequireWildcard(_model2);
 	
@@ -221,6 +221,82 @@
 
 /***/ },
 
+/***/ 18:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getCourses = exports.update = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
+	
+	var _init = __webpack_require__(19);
+	
+	var _model = __webpack_require__(21);
+	
+	// course: {title: "aaa"}
+	// problems: [{content: "a", explanation: "aa"}]
+	// => { courseId: 5 }
+	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
+	  // { validation: 'failed fields' }
+	  var courseId = null;
+	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course).then(function (course) {
+	    courseId = course.id;
+	    return _init.db.tx(function (transaction) {
+	      var queries = [];
+	      (0, _model.createProblems)(transaction, queries, problems, courseId);
+	      return transaction.batch(queries);
+	    });
+	  }).then(function () {
+	    return { courseId: courseId };
+	  });
+	};
+	
+	var getCourses = function getCourses() {
+	  return _init.db.any('\
+	    SELECT courses.*, COUNT(*) AS "amount_of_problems"\
+	    FROM courses\
+	      LEFT OUTER JOIN problems ON problems.course_id=courses.id\
+	    GROUP BY courses.id;\
+	  ');
+	};
+	
+	var update = function update(course) {
+	  return _init.db.any('UPDATE courses SET title = ${title} WHERE id = ${id}', {
+	    title: course.title, id: course.id
+	  });
+	};
+	
+	var getCourseWithProblems = function getCourseWithProblems(courseId) {
+	  return Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where course_id = ${courseId}', { courseId: courseId })]).then(function (values) {
+	    return {
+	      data: {
+	        course: values[0],
+	        problems: values[1]
+	      }
+	    };
+	  });
+	};
+	
+	var deleteCourseWithProblems = function deleteCourseWithProblems(courseId) {
+	  return _init.db.tx(function (transaction) {
+	    return transaction.batch([transaction.none('delete from problems where course_id=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
+	  }).then(function () {
+	    return { data: true };
+	  }).catch(function (error) {
+	    return Promise.reject({ error: error });
+	  });
+	};
+	
+	exports.createCourseWithProblems = createCourseWithProblems;
+	exports.getCourseWithProblems = getCourseWithProblems;
+	exports.deleteCourseWithProblems = deleteCourseWithProblems;
+	exports.update = update;
+	exports.getCourses = getCourses;
+
+/***/ },
+
 /***/ 19:
 /***/ function(module, exports, __webpack_require__) {
 
@@ -301,118 +377,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getCourses = exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
-	
-	var _init = __webpack_require__(19);
-	
-	var _model = __webpack_require__(22);
-	
-	// course: {title: "aaa"}
-	// problems: [{content: "a", explanation: "aa"}]
-	// => { courseId: 5 }
-	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
-	  // { validation: 'failed fields' }
-	  var courseId = null;
-	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course).then(function (course) {
-	    courseId = course.id;
-	    return _init.db.tx(function (transaction) {
-	      var queries = [];
-	      (0, _model.createProblems)(transaction, queries, problems, courseId);
-	      return transaction.batch(queries);
-	    });
-	  }).then(function () {
-	    return { courseId: courseId };
-	  });
-	};
-	
-	var getCourses = function getCourses() {
-	  return _init.db.any('\
-	    SELECT courses.*, COUNT(*) AS "amount_of_problems"\
-	    FROM courses\
-	      LEFT OUTER JOIN problems ON problems.course_id=courses.id\
-	    GROUP BY courses.id;\
-	  ');
-	};
-	
-	var updateCourseWithProblems = function updateCourseWithProblems(newCourse, newProblems) {
-	  return getCourseWithProblems(newCourse.id).then(function (data) {
-	
-	    var oldCourse = data.data.course;
-	    var oldProblems = data.data.problems;
-	
-	    return _init.db.tx(function (transaction) {
-	      var queries = [];
-	
-	      var oldProblemIdsToDelete = oldProblems.filter(function (oldProblem) {
-	        return !newProblems.find(function (newProblem) {
-	          return newProblem.id === oldProblem.id;
-	        });
-	      }).map(function (oldProblem) {
-	        return oldProblem.id;
-	      });
-	
-	      var newProblemsToCreate = newProblems.filter(function (newProblem) {
-	        return !newProblem.id;
-	      });
-	
-	      updateCourse(transaction, queries, oldCourse, newCourse);
-	      (0, _model.deleteProblems)(transaction, queries, oldProblemIdsToDelete);
-	      (0, _model.createProblems)(transaction, queries, newProblemsToCreate, oldCourse.id);
-	      (0, _model.updateProblems)(transaction, queries, newProblems, oldProblems);
-	
-	      return transaction.batch(queries);
-	    });
-	  });
-	};
-	
-	var updateCourse = function updateCourse(transaction, queries, oldCourse, newCourse) {
-	  if (oldCourse.title !== newCourse.title) {
-	    queries.push(transaction.any('UPDATE courses SET title = ${title} WHERE id = ${id}', { title: newCourse.title, id: oldCourse.id }));
-	  }
-	};
-	
-	var getCourseWithProblems = function getCourseWithProblems(courseId) {
-	  return Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where course_id = ${courseId}', { courseId: courseId })]).then(function (values) {
-	    return {
-	      data: {
-	        course: values[0],
-	        problems: values[1]
-	      }
-	    };
-	  });
-	};
-	
-	var deleteCourseWithProblems = function deleteCourseWithProblems(courseId) {
-	  return _init.db.tx(function (transaction) {
-	    return transaction.batch([transaction.none('delete from problems where course_id=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
-	  }).then(function () {
-	    return { data: true };
-	  }).catch(function (error) {
-	    return Promise.reject({ error: error });
-	  });
-	};
-	
-	exports.createCourseWithProblems = createCourseWithProblems;
-	exports.getCourseWithProblems = getCourseWithProblems;
-	exports.deleteCourseWithProblems = deleteCourseWithProblems;
-	exports.updateCourseWithProblems = updateCourseWithProblems;
-	exports.getCourses = getCourses;
-
-/***/ },
-
-/***/ 22:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
 	
 	var _init = __webpack_require__(19);
 	
-	var _problemContentFromParamsToDb = __webpack_require__(23);
+	var _problemContentFromParamsToDb = __webpack_require__(22);
 	
 	var deleteProblem = function deleteProblem(id) {
 	  return _init.db.none('delete from problems where id=${id}', { id: id });
@@ -468,7 +437,7 @@
 
 /***/ },
 
-/***/ 23:
+/***/ 22:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -523,7 +492,7 @@
 
 /***/ },
 
-/***/ 30:
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

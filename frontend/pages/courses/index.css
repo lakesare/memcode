@@ -3,5 +3,52 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    .course{
+      height: 200px;
+      width: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      box-shadow: 0 2px 1px #777;
+      > section.actions{
+        display: flex;
+        justify-content: flex-end;
+        > a{
+          cursor: pointer;
+          padding: 10px;
+          &:hover{
+            opacity: 0.8;
+          }
+          &.delete{
+            color: red;
+          }
+          &.edit{
+            color: blue;
+          }
+        }
+      }
+      > section.details{
+        padding: 10px; padding-top: 0;
+        height: 60%;
+        a{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+          color: black;
+          &:hover{
+            text-decoration: none;
+            opacity: 0.6;
+          }
+          > h5.title{
+            text-align: center;
+          }
+          > div.additional-information{
+            font-size: 12px;
+          }
+        }
+      }
+    }
   }
 }

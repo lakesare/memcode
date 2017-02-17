@@ -10,7 +10,7 @@ prettyError.appendStyle({
   },
   'pretty-error > header > title > kind': {
     background: 'black',
-    color: 'bright-red' 
+    color: 'bright-red'
   }
 });
 prettyError.start();

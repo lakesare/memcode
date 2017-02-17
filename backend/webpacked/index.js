@@ -66,25 +66,23 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _prettyError = __webpack_require__(10);
+	var _allowCrossDomain = __webpack_require__(10);
 	
-	var _allowCrossDomain = __webpack_require__(12);
+	var _stopPropagationForAssets = __webpack_require__(11);
 	
-	var _stopPropagationForAssets = __webpack_require__(13);
-	
-	var _bodyParser = __webpack_require__(14);
+	var _bodyParser = __webpack_require__(12);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _static = __webpack_require__(15);
+	var _static = __webpack_require__(13);
 	
-	var _ourSession = __webpack_require__(16);
+	var _ourSession = __webpack_require__(14);
 	
-	var _routes = __webpack_require__(18);
+	var _routes = __webpack_require__(16);
 	
-	var _routes2 = __webpack_require__(26);
+	var _routes2 = __webpack_require__(25);
 	
-	var _routes3 = __webpack_require__(27);
+	var _routes3 = __webpack_require__(26);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -109,21 +107,17 @@
 	
 	app.use('/auth', _routes3.router);
 	
-	// setting current user
-	// app.use((req, res, next) => {
-	//   req.session.currentUser = req.user
-	//   res.cookie('currentUser', JSON.stringify(req.user))
-	//   next();
-	// })
+	app.use(function (error, request, response, next) {
+	  console.error(error);
+	  response.status(500).json({ error: error.message });
+	});
 	
 	app.get('*', function (req, res) {
 	  return res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html');
 	});
 	
 	app.listen(port, function (err) {
-	  if (err) {
-	    console.log('something bad happened', err);
-	  }
+	  if (err) console.log('something bad happened', err);
 	  console.log('server is listening on ' + port);
 	});
 
@@ -691,47 +685,6 @@
 
 /***/ },
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.prettyError = undefined;
-	
-	var _prettyError = __webpack_require__(11);
-	
-	var _prettyError2 = _interopRequireDefault(_prettyError);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var prettyError = new _prettyError2.default();
-	prettyError.skipPackage('express');
-	prettyError.alias('/home/lakesare/Desktop/memcode/backend/webpacked/webpack:', 'backend');
-	prettyError.appendStyle({
-	  // this is a simple selector to the element that says 'Error'
-	  'pretty-error > header': {
-	    display: 'block',
-	    marginTop: 3
-	  },
-	  'pretty-error > header > title > kind': {
-	    background: 'black',
-	    color: 'bright-red'
-	  }
-	});
-	prettyError.start();
-	
-	exports.prettyError = prettyError;
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	module.exports = require("pretty-error");
-
-/***/ },
-/* 12 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -749,7 +702,7 @@
 	exports.allowCrossDomain = allowCrossDomain;
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -771,13 +724,13 @@
 	exports.stopPropagationForAssets = stopPropagationForAssets;
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -798,7 +751,7 @@
 	exports.staticAssets = staticAssets;
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -808,7 +761,7 @@
 	});
 	exports.ourSession = undefined;
 	
-	var _expressSession = __webpack_require__(17);
+	var _expressSession = __webpack_require__(15);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
@@ -823,13 +776,13 @@
 	exports.ourSession = ourSession;
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -845,11 +798,13 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _model = __webpack_require__(21);
+	var _catchAsync = __webpack_require__(17);
+	
+	var _model = __webpack_require__(18);
 	
 	var Course = _interopRequireWildcard(_model);
 	
-	var _authenticate = __webpack_require__(24);
+	var _authenticate = __webpack_require__(23);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -859,38 +814,20 @@
 	
 	var router = _express2.default.Router();
 	
-	router.get('/:id', function (request, response) {
-	  Course.getCourseWithProblems(request.params.id).then(function (data) {
-	    response.status(200).json(data);
-	  }).catch(function (data) {
-	    response.status(500).json({ error: data.message });
-	  });
-	});
-	
-	// catch Async Await function's error
-	var catchAsync = function catchAsync(asyncFunction) {
-	  return function (request, response, next) {
-	    var promise = asyncFunction(request, response, next);
-	    promise.catch(function (error) {
-	      return next(error);
-	    });
-	  };
-	};
-	
-	router.get('/', catchAsync(function () {
+	router.get('/:id', (0, _catchAsync.catchAsync)(function () {
 	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(request, response) {
-	    var courses;
+	    var course;
 	    return regeneratorRuntime.wrap(function _callee$(_context) {
 	      while (1) {
 	        switch (_context.prev = _context.next) {
 	          case 0:
 	            _context.next = 2;
-	            return Course.getCourses();
+	            return Course.getCourseWithProblems(request.params.id);
 	
 	          case 2:
-	            courses = _context.sent;
+	            course = _context.sent;
 	
-	            response.json(courses);
+	            response.json(course);
 	
 	          case 4:
 	          case 'end':
@@ -905,55 +842,213 @@
 	  };
 	}()));
 	
-	router.use(function (error, request, response) {
-	  console.error(error);
-	  response.status(500).json({ error: error.message });
-	});
+	router.get('/', (0, _catchAsync.catchAsync)(function () {
+	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(request, response) {
+	    var courses;
+	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	      while (1) {
+	        switch (_context2.prev = _context2.next) {
+	          case 0:
+	            _context2.next = 2;
+	            return Course.getCourses();
 	
-	router.post('/', _authenticate.authenticateMiddleware, function (request, response) {
-	  var course = _extends({}, request.body["course"], {
-	    userOauthId: request.currentUser.oauthId,
-	    userOauthProvider: request.currentUser.oauthProvider
-	  });
+	          case 2:
+	            courses = _context2.sent;
 	
-	  Course.createCourseWithProblems(course, request.body["problems"]).then(function (courseIdMap) {
-	    response.status(200).json({
-	      data: courseIdMap
-	    });
-	  }).catch(function (error) {
-	    response.status(500).json({ error: error.message });
-	  });
-	});
+	            response.json(courses);
 	
-	router.put('/:id', function (request, response) {
-	  var result = Course.updateCourseWithProblems(request.body["course"], request.body["problems"]);
+	          case 4:
+	          case 'end':
+	            return _context2.stop();
+	        }
+	      }
+	    }, _callee2, undefined);
+	  }));
 	
-	  console.log("\n\n\n");
-	  var a = JSON.parse(JSON.stringify(request.body["course"]));
-	  var b = JSON.parse(JSON.stringify(request.body["problems"]));
-	  console.log("Course.createCourseWithProblems(");
-	  console.log(a);
-	  console.log(', ');
-	  console.log(b);
-	  console.log(')');
-	  console.log("\n\n\n");
+	  return function (_x3, _x4) {
+	    return _ref2.apply(this, arguments);
+	  };
+	}()));
 	
-	  result.then(function () {
-	    response.status(200).json({ data: true });
-	  }).catch(function (error) {
-	    response.status(500).json({ error: error.message });
-	  });
-	});
+	router.post('/', _authenticate.authenticateMiddleware, (0, _catchAsync.catchAsync)(function () {
+	  var _ref3 = _asyncToGenerator(regeneratorRuntime.mark(function _callee3(request, response) {
+	    var course, courseIdMap;
+	    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	      while (1) {
+	        switch (_context3.prev = _context3.next) {
+	          case 0:
+	            course = _extends({}, request.body['course'], {
+	              userOauthId: request.currentUser.oauthId,
+	              userOauthProvider: request.currentUser.oauthProvider
+	            });
+	            _context3.next = 3;
+	            return Course.createCourseWithProblems(course, request.body['problems']);
 	
-	router.delete('/:id', function (request, response) {
-	  Course.deleteCourseWithProblems(request.params.id).then(function () {
-	    response.status(200).json();
-	  }).catch(function (error) {
-	    response.status(500).json(error);
-	  });
-	});
+	          case 3:
+	            courseIdMap = _context3.sent;
+	
+	            response.json(courseIdMap);
+	
+	          case 5:
+	          case 'end':
+	            return _context3.stop();
+	        }
+	      }
+	    }, _callee3, undefined);
+	  }));
+	
+	  return function (_x5, _x6) {
+	    return _ref3.apply(this, arguments);
+	  };
+	}()));
+	
+	router.put('/:id', (0, _catchAsync.catchAsync)(function () {
+	  var _ref4 = _asyncToGenerator(regeneratorRuntime.mark(function _callee4(request, response) {
+	    return regeneratorRuntime.wrap(function _callee4$(_context4) {
+	      while (1) {
+	        switch (_context4.prev = _context4.next) {
+	          case 0:
+	            _context4.next = 2;
+	            return Course.update(request.body['course']);
+	
+	          case 2:
+	            response.status(200);
+	
+	          case 3:
+	          case 'end':
+	            return _context4.stop();
+	        }
+	      }
+	    }, _callee4, undefined);
+	  }));
+	
+	  return function (_x7, _x8) {
+	    return _ref4.apply(this, arguments);
+	  };
+	}()));
+	
+	router.delete('/:id', (0, _catchAsync.catchAsync)(function () {
+	  var _ref5 = _asyncToGenerator(regeneratorRuntime.mark(function _callee5(request, response) {
+	    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+	      while (1) {
+	        switch (_context5.prev = _context5.next) {
+	          case 0:
+	            _context5.next = 2;
+	            return Course.deleteCourseWithProblems(request.params.id);
+	
+	          case 2:
+	            response.status(200);
+	
+	          case 3:
+	          case 'end':
+	            return _context5.stop();
+	        }
+	      }
+	    }, _callee5, undefined);
+	  }));
+	
+	  return function (_x9, _x10) {
+	    return _ref5.apply(this, arguments);
+	  };
+	}()));
 	
 	exports.router = router;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// catch Async Await function's error
+	var catchAsync = function catchAsync(asyncFunction) {
+	  return function (request, response, next) {
+	    var promise = asyncFunction(request, response, next);
+	    promise.catch(function (error) {
+	      return next(error);
+	    });
+	  };
+	};
+	
+	exports.catchAsync = catchAsync;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getCourses = exports.update = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
+	
+	var _init = __webpack_require__(19);
+	
+	var _model = __webpack_require__(21);
+	
+	// course: {title: "aaa"}
+	// problems: [{content: "a", explanation: "aa"}]
+	// => { courseId: 5 }
+	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
+	  // { validation: 'failed fields' }
+	  var courseId = null;
+	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course).then(function (course) {
+	    courseId = course.id;
+	    return _init.db.tx(function (transaction) {
+	      var queries = [];
+	      (0, _model.createProblems)(transaction, queries, problems, courseId);
+	      return transaction.batch(queries);
+	    });
+	  }).then(function () {
+	    return { courseId: courseId };
+	  });
+	};
+	
+	var getCourses = function getCourses() {
+	  return _init.db.any('\
+	    SELECT courses.*, COUNT(*) AS "amount_of_problems"\
+	    FROM courses\
+	      LEFT OUTER JOIN problems ON problems.course_id=courses.id\
+	    GROUP BY courses.id;\
+	  ');
+	};
+	
+	var update = function update(course) {
+	  return _init.db.any('UPDATE courses SET title = ${title} WHERE id = ${id}', {
+	    title: course.title, id: course.id
+	  });
+	};
+	
+	var getCourseWithProblems = function getCourseWithProblems(courseId) {
+	  return Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where course_id = ${courseId}', { courseId: courseId })]).then(function (values) {
+	    return {
+	      data: {
+	        course: values[0],
+	        problems: values[1]
+	      }
+	    };
+	  });
+	};
+	
+	var deleteCourseWithProblems = function deleteCourseWithProblems(courseId) {
+	  return _init.db.tx(function (transaction) {
+	    return transaction.batch([transaction.none('delete from problems where course_id=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
+	  }).then(function () {
+	    return { data: true };
+	  }).catch(function (error) {
+	    return Promise.reject({ error: error });
+	  });
+	};
+	
+	exports.createCourseWithProblems = createCourseWithProblems;
+	exports.getCourseWithProblems = getCourseWithProblems;
+	exports.deleteCourseWithProblems = deleteCourseWithProblems;
+	exports.update = update;
+	exports.getCourses = getCourses;
 
 /***/ },
 /* 19 */
@@ -1034,117 +1129,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getCourses = exports.updateCourseWithProblems = exports.deleteCourseWithProblems = exports.getCourseWithProblems = exports.createCourseWithProblems = undefined;
-	
-	var _init = __webpack_require__(19);
-	
-	var _model = __webpack_require__(22);
-	
-	// course: {title: "aaa"}
-	// problems: [{content: "a", explanation: "aa"}]
-	// => { courseId: 5 }
-	var createCourseWithProblems = function createCourseWithProblems(course, problems) {
-	  // { validation: 'failed fields' }
-	  var courseId = null;
-	  return _init.db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course).then(function (course) {
-	    courseId = course.id;
-	    return _init.db.tx(function (transaction) {
-	      var queries = [];
-	      (0, _model.createProblems)(transaction, queries, problems, courseId);
-	      return transaction.batch(queries);
-	    });
-	  }).then(function () {
-	    return { courseId: courseId };
-	  });
-	};
-	
-	var getCourses = function getCourses() {
-	  return _init.db.any('\
-	    SELECT courses.*, COUNT(*) AS "amount_of_problems"\
-	    FROM courses\
-	      LEFT OUTER JOIN problems ON problems.course_id=courses.id\
-	    GROUP BY courses.id;\
-	  ');
-	};
-	
-	var updateCourseWithProblems = function updateCourseWithProblems(newCourse, newProblems) {
-	  return getCourseWithProblems(newCourse.id).then(function (data) {
-	
-	    var oldCourse = data.data.course;
-	    var oldProblems = data.data.problems;
-	
-	    return _init.db.tx(function (transaction) {
-	      var queries = [];
-	
-	      var oldProblemIdsToDelete = oldProblems.filter(function (oldProblem) {
-	        return !newProblems.find(function (newProblem) {
-	          return newProblem.id === oldProblem.id;
-	        });
-	      }).map(function (oldProblem) {
-	        return oldProblem.id;
-	      });
-	
-	      var newProblemsToCreate = newProblems.filter(function (newProblem) {
-	        return !newProblem.id;
-	      });
-	
-	      updateCourse(transaction, queries, oldCourse, newCourse);
-	      (0, _model.deleteProblems)(transaction, queries, oldProblemIdsToDelete);
-	      (0, _model.createProblems)(transaction, queries, newProblemsToCreate, oldCourse.id);
-	      (0, _model.updateProblems)(transaction, queries, newProblems, oldProblems);
-	
-	      return transaction.batch(queries);
-	    });
-	  });
-	};
-	
-	var updateCourse = function updateCourse(transaction, queries, oldCourse, newCourse) {
-	  if (oldCourse.title !== newCourse.title) {
-	    queries.push(transaction.any('UPDATE courses SET title = ${title} WHERE id = ${id}', { title: newCourse.title, id: oldCourse.id }));
-	  }
-	};
-	
-	var getCourseWithProblems = function getCourseWithProblems(courseId) {
-	  return Promise.all([_init.db.one('select * from courses where id = ${courseId}', { courseId: courseId }), _init.db.any('select * from problems where course_id = ${courseId}', { courseId: courseId })]).then(function (values) {
-	    return {
-	      data: {
-	        course: values[0],
-	        problems: values[1]
-	      }
-	    };
-	  });
-	};
-	
-	var deleteCourseWithProblems = function deleteCourseWithProblems(courseId) {
-	  return _init.db.tx(function (transaction) {
-	    return transaction.batch([transaction.none('delete from problems where course_id=${courseId}', { courseId: courseId }), transaction.none('delete from courses where id=${courseId}', { courseId: courseId })]);
-	  }).then(function () {
-	    return { data: true };
-	  }).catch(function (error) {
-	    return Promise.reject({ error: error });
-	  });
-	};
-	
-	exports.createCourseWithProblems = createCourseWithProblems;
-	exports.getCourseWithProblems = getCourseWithProblems;
-	exports.deleteCourseWithProblems = deleteCourseWithProblems;
-	exports.updateCourseWithProblems = updateCourseWithProblems;
-	exports.getCourses = getCourses;
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.updateProblems = exports.deleteProblems = exports.createProblems = exports.deleteProblem = undefined;
 	
 	var _init = __webpack_require__(19);
 	
-	var _problemContentFromParamsToDb = __webpack_require__(23);
+	var _problemContentFromParamsToDb = __webpack_require__(22);
 	
 	var deleteProblem = function deleteProblem(id) {
 	  return _init.db.none('delete from problems where id=${id}', { id: id });
@@ -1199,7 +1188,7 @@
 	exports.updateProblems = updateProblems;
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1253,7 +1242,7 @@
 	exports.problemContentFromParamsToDb = problemContentFromParamsToDb;
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1263,12 +1252,15 @@
 	});
 	exports.authenticateMiddleware = undefined;
 	
-	var _jsonwebtoken = __webpack_require__(25);
+	var _jsonwebtoken = __webpack_require__(24);
 	
 	var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// make request.currentUser available
+	// request.currentUser.oauthId,
+	// request.currentUser.oauthProvider
 	var authenticateMiddleware = function authenticateMiddleware(request, response, next) {
 	  if (request.headers['authorization']) {
 	    var token = request.headers['authorization'].split('Bearer ')[1];
@@ -1288,13 +1280,13 @@
 	exports.authenticateMiddleware = authenticateMiddleware;
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = require("jsonwebtoken");
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1308,7 +1300,7 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _model = __webpack_require__(22);
+	var _model = __webpack_require__(21);
 	
 	var Problem = _interopRequireWildcard(_model);
 	
@@ -1329,7 +1321,7 @@
 	exports.router = router;
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1343,19 +1335,19 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _jsonwebtoken = __webpack_require__(25);
+	var _jsonwebtoken = __webpack_require__(24);
 	
 	var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 	
-	var _formData = __webpack_require__(28);
+	var _formData = __webpack_require__(27);
 	
 	var _formData2 = _interopRequireDefault(_formData);
 	
-	var _nodeFetch = __webpack_require__(29);
+	var _nodeFetch = __webpack_require__(28);
 	
 	var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 	
-	var _model = __webpack_require__(30);
+	var _model = __webpack_require__(29);
 	
 	var User = _interopRequireWildcard(_model);
 	
@@ -1437,19 +1429,19 @@
 	exports.router = router;
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = require("form-data");
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = require("node-fetch");
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
