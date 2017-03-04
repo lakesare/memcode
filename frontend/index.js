@@ -16,6 +16,10 @@ import { Page_courses_id_solve } from './pages/courses_id_solve';
 import { Page_courses_id_edit } from './pages/courses_id_edit';
 // import { ProfilePage } from './pages/profile';
 import { RootPage } from './pages/root';
+import { Page_test } from './pages/test';
+
+// common css
+import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -23,6 +27,8 @@ ReactDOM.render(
       <Route path="courses"          component={Page_courses}/>
       <Route path="courses/:id"      component={Page_courses_id_solve}/>
       <Route path="courses/:id/edit" component={Page_courses_id_edit}/>
+
+      <Route path="/test" component={Page_test}/>
 
       <Route path="/" component={RootPage}/>
     </Router>

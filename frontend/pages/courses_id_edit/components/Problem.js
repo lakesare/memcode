@@ -3,12 +3,28 @@ import React from 'react';
 import { contentObjectToString } from '~/services/contentObjectToString';
 import { contentStringToJsx } from '~/services/contentStringToJsx';
 
+import {
+  Editor, EditorState, convertFromHTML, ContentState,
+  RichUtils, getDefaultKeyBinding
+} from 'draft-js';
+
 
 
 class Problem extends React.Component {
   static propTypes = {
     problem: React.PropTypes.object.isRequired,
     index:   React.PropTypes.number.isRequired, // just for pretiness, to number down the problems
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      editorState: EditorState.createWithContent(
+        ContentState.createFromBlockArray(
+          convertFromHTML(this.props.problem.explanation || '')
+        )
+      )
+    };
   }
 
   renderContent = () => {
@@ -20,9 +36,27 @@ class Problem extends React.Component {
     return jsx;
   }
 
-  makeExplanationEditable = (event) => {
-    console.log(event.target.innerText)
+  myKeyBindingFn = (e) => {
+    console.log(e.keyCode);
+    if (e.keyCode === 17) {
+      return 'BOLD';
+    }
+    return getDefaultKeyBinding(e);
   }
+
+  handleKeyCommand = (command) => {
+    let newState;
+    if (command === 'BOLD') {
+      newState = RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD');
+    }
+
+    if (newState) {
+      this.setState({ editorState: newState });
+      return 'handled';
+    }
+    return 'not-handled';
+  }
+
 
   render = () =>
     <section className="problem row">
@@ -32,10 +66,11 @@ class Problem extends React.Component {
         {this.renderContent()}
       </div>
 
-      <div
-        className="explanation col-6"
-        dangerouslySetInnerHTML={{ __html: this.props.problem.explanation }}
-        onClick={this.makeExplanationEditable}
+      <Editor
+        editorState={this.state.editorState}
+        onChange={(newState) => this.setState({ editorState: newState })}
+        handleKeyCommand={this.handleKeyCommand}
+        keyBindingFn={this.myKeyBindingFn}
       />
 
       <div className="actions">
@@ -49,7 +84,7 @@ export { Problem };
 
 // import { problemContentToTextarea } from '~/services/problemContentToTextarea';
 
-// problems: problems.map(problem => ({ ...problem, content: problemContentToTextarea(problem.content) }))
+// // problems: problems.map(problem => ({ ...problem, content: problemContentToTextarea(problem.content) }))
 
 
 // import React from 'react';

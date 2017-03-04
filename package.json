@@ -55,6 +55,7 @@
   "dependencies": {
     "body-parser": "^1.16.0",
     "buffer": "^5.0.2",
+    "draft-js": "^0.10.0",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "form-data": "^2.1.2",

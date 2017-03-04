@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Header } from '../components/header';
+import { Header } from '~/components/Header';
 
 class RootPage extends Component {
   static propTypes = {

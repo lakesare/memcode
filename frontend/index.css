@@ -1,0 +1,10 @@
+.DraftEditor-root{
+  min-height: 200px;
+  width: 300px;
+  border: 1px solid grey;
+}
+
+
+.cssClassToUseOnEveryH6{
+  background: pink;
+}
