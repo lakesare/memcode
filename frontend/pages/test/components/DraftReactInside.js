@@ -2,20 +2,10 @@ import React from 'react';
 
 import {
   Editor, EditorState,
-  AtomicBlockUtils, Modifier
+  AtomicBlockUtils
 } from 'draft-js';
 
-const Image = (props) => {
-  const entity = props.contentState.getEntity(
-    props.block.getEntityAt(0) // returns entity key
-  );
-  const data = entity.getData();
-  console.log(props)
-  return <img src={data.src}/>
-
-
-  // console.log(entity.getType()) // immmage
-}
+const Image = props => <img src={props.blockProps.src}/>;
 
 class Draft extends React.Component {
   constructor(props) {
@@ -26,21 +16,29 @@ class Draft extends React.Component {
   blockRendererFn = (contentBlock) => {
     const type = contentBlock.getType();
     if (type === 'atomic') {
-      return {
-        component: Image,
-        editable: false,
-        // props: { hello: 'wow' } // accessible via props.blockProps
-      };
+      const entity = this.state.editorState.getCurrentContent().getEntity(
+        contentBlock.getEntityAt(0)
+      );
+
+      const metaData = entity.getData();
+      switch (entity.getType()) {
+        case 'immmage':
+          return {
+            component: Image,
+            editable: false,
+            props: { src: metaData.src } // accessible via props.blockProps
+          };
+        default: return null;
+      }
     }
     return null;
   }
 
-  pasteInImage = (src) => {
+  insertImage = (src) => {
     const editorState = this.state.editorState;
     const contentState = editorState.getCurrentContent();
 
-    const contentStateWithEntity = contentState.createEntity('immmmage', 'IMMUTABLE', { src })
-
+    const contentStateWithEntity = contentState.createEntity('immmage', 'IMMUTABLE', { src });
     const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
 
     const newEditorState = EditorState.set(
@@ -59,21 +57,19 @@ class Draft extends React.Component {
 
   handlePastedFiles = (files) => {
     const reader = new FileReader();
-    reader.onloadend = () => this.pasteInImage(reader.result);
+    reader.onloadend = () => this.insertImage(reader.result);
+
     reader.readAsDataURL(files[0]); // result attribute contains  the data as a URL representing the file's data as a base64 encoded string.
   }
 
   render = () =>
-    <div>
-      <Editor
-        editorState={this.state.editorState}
-        onChange={newState => this.setState({ editorState: newState })}
-        blockRendererFn={this.blockRendererFn}
-        handlePastedFiles={this.handlePastedFiles}
-      />
-    </div>
+    <Editor
+      editorState={this.state.editorState}
+      onChange={newState => this.setState({ editorState: newState })}
+      blockRendererFn={this.blockRendererFn}
+      handlePastedFiles={this.handlePastedFiles}
+    />
+
 }
 
 export { Draft };
-
-

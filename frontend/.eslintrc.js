@@ -80,6 +80,7 @@ module.exports = {
     "FormData": true,
     "window": true,
     "Headers": true,
+    "FileReader": true,
 
     // in our tests
     "describe": true,
