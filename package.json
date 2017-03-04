@@ -56,6 +56,7 @@
     "body-parser": "^1.16.0",
     "buffer": "^5.0.2",
     "draft-js": "^0.10.0",
+    "draft-js-plugins-editor": "^2.0.0-beta1",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "form-data": "^2.1.2",

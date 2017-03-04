@@ -1,7 +1,7 @@
 import React from 'react';
 
 // import { Draft } from './components/Draft';
-import { Draft } from './components/DraftReactInside';
+import { Draft } from './components/DraftImageFromClipboard';
 
 class Page_test extends React.Component {
   render = () =>

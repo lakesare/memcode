@@ -3,11 +3,12 @@ import React from 'react';
 import { contentObjectToString } from '~/services/contentObjectToString';
 import { contentStringToJsx } from '~/services/contentStringToJsx';
 
+import Editor from 'draft-js-plugins-editor';
 import {
-  Editor, EditorState, convertFromHTML, ContentState,
-  RichUtils, getDefaultKeyBinding
+  EditorState, convertFromHTML, ContentState,
 } from 'draft-js';
 
+import { draftJsKeyBindingPlugin } from './draftJsKeyBindingPlugin';
 
 
 class Problem extends React.Component {
@@ -36,28 +37,6 @@ class Problem extends React.Component {
     return jsx;
   }
 
-  myKeyBindingFn = (e) => {
-    console.log(e.keyCode);
-    if (e.keyCode === 17) {
-      return 'BOLD';
-    }
-    return getDefaultKeyBinding(e);
-  }
-
-  handleKeyCommand = (command) => {
-    let newState;
-    if (command === 'BOLD') {
-      newState = RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD');
-    }
-
-    if (newState) {
-      this.setState({ editorState: newState });
-      return 'handled';
-    }
-    return 'not-handled';
-  }
-
-
   render = () =>
     <section className="problem row">
       <div className="index">{this.props.index}</div>
@@ -68,9 +47,8 @@ class Problem extends React.Component {
 
       <Editor
         editorState={this.state.editorState}
-        onChange={(newState) => this.setState({ editorState: newState })}
-        handleKeyCommand={this.handleKeyCommand}
-        keyBindingFn={this.myKeyBindingFn}
+        onChange={newState => this.setState({ editorState: newState })}
+        plugins={[draftJsKeyBindingPlugin]}
       />
 
       <div className="actions">
@@ -81,32 +59,3 @@ class Problem extends React.Component {
 
 export { Problem };
 
-
-// import { problemContentToTextarea } from '~/services/problemContentToTextarea';
-
-// // problems: problems.map(problem => ({ ...problem, content: problemContentToTextarea(problem.content) }))
-
-
-// import React from 'react';
-// import { surroundSelectionWithString } from '../../../services/surroundSelectionWithString';
-
-// const newContent = React.createClass({
-//   checkIfShortcutForAnswerTag(event) {
-//     if(event.ctrlKey && event.keyCode == 16){
-//       surroundSelectionWithString(event.target, '<answer>', '</answer>');
-//     }
-//   },
-
-//   render() {
-//     const { input } = this.props
-//     return (
-//       <div>
-//         <p>Press CTRL+SHIFT to input an answer.</p>
-//         <textarea {...input} onKeyUp={this.checkIfShortcutForAnswerTag}></textarea>
-//       </div>
-//     )
-//   }
-
-// });
-
-// export { newContent };

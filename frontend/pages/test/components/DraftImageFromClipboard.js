@@ -57,9 +57,9 @@ class Draft extends React.Component {
 
   handlePastedFiles = (files) => {
     const reader = new FileReader();
+    // reader.result contains  the data as a URL representing the file's data as a base64 encoded string.
     reader.onloadend = () => this.insertImage(reader.result);
-
-    reader.readAsDataURL(files[0]); // result attribute contains  the data as a URL representing the file's data as a base64 encoded string.
+    reader.readAsDataURL(files[0]);
   }
 
   render = () =>
