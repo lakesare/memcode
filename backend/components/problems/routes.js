@@ -1,15 +1,22 @@
 import express from 'express';
 const router = express.Router();
 
+import { catchAsync } from '~/services/catchAsync';
 import * as Problem from './model';
 
-router.delete('/:id', (request, response) => {
-  Problem.deleteProblem(request.params.id)
-    .then(() => {
-    response.status(200).json()
-  }).catch((error) => {
-    response.status(500).json(error)
-  })
-});
+router.post('/', catchAsync(async (request, response) => {
+  const createdProblem = await Problem.create(request.body['problem']);
+  response.status(200).json(createdProblem);
+}));
+
+router.put('/:id', catchAsync(async (request, response) => {
+  const updatedProblem = await Problem.update(request.body['problem'], request.params['id']);
+  response.status(200).json(updatedProblem);
+}));
+
+router.delete('/:id', catchAsync(async (request, response) => {
+  await Problem.destroy(request.params['id']);
+  response.status(200);
+}));
 
 export { router };

@@ -23,9 +23,9 @@ router.post('/', authenticateMiddleware, catchAsync(async (request, response) =>
     userOauthId: request.currentUser.oauthId,
     userOauthProvider: request.currentUser.oauthProvider
   };
+  const courseId = await Course.create(course);
 
-  const courseIdMap = await Course.createCourseWithProblems(course, request.body['problems']);
-  response.json(courseIdMap);
+  response.json({ courseId });
 }));
 
 router.put('/:id', catchAsync(async (request, response) => {

@@ -73,7 +73,10 @@ module.exports = {
     "no-multi-str": "off",
 
     // didn't allow request.body['course'], wanted body.course
-    "dot-notation": "off"
+    "dot-notation": "off",
+
+    // it was prohibiting (saveFn) =>, wanted it without ()
+    "arrow-parens": "off"
   },
   "globals": {
     "fetch": true,

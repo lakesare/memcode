@@ -1,27 +1,10 @@
 import { db } from '../../db/init.js';
 
-import { createProblems } from '../problems/model';
-
-
-// course: {title: "aaa"}
-// problems: [{content: "a", explanation: "aa"}]
+// course: {title: "aaa", userOauthId, userOauthProvider}
 // => { courseId: 5 }
-const createCourseWithProblems = (course, problems) => {
-  // { validation: 'failed fields' }
-  let courseId = null;
-  return (
-    db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course)
-      .then((course) => {
-        courseId = course.id;
-        return db.tx((transaction) => {
-          let queries = [];
-          createProblems(transaction, queries, problems, courseId);
-          return transaction.batch(queries);
-        });
-      })
-      .then(() => ({ courseId }))
-  );
-};
+const create = (course) =>
+  db.one("insert into courses (title, user_oauth_id, user_oauth_provider) values (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id", course)
+  .then(createdCourse => createdCourse.id);
 
 const getCourses = () =>
   db.any('\
@@ -52,7 +35,6 @@ const getCourseWithProblems = (courseId) => {
   });
 };
 
-
 const deleteCourseWithProblems = (courseId) => (
   db.tx(transaction => (
     transaction.batch([
@@ -64,4 +46,4 @@ const deleteCourseWithProblems = (courseId) => (
     .catch(error => Promise.reject({ error }))
 );
 
-export { createCourseWithProblems, getCourseWithProblems, deleteCourseWithProblems, update, getCourses };
+export { create, getCourseWithProblems, deleteCourseWithProblems, update, getCourses };

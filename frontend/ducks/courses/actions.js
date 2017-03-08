@@ -1,28 +1,25 @@
-
 import * as spe from '~/services/spe';
 
-const apiCreateCourse = dispatch => (
-  (values) => {
-    dispatch(spe.request());
-    return fetch('/api/courses', {
-      method: 'POST',
-      body: JSON.stringify(values),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('jwt')
-      })
+const apiCreateCourse = (dispatch, values) => {
+  dispatch(spe.request());
+  return fetch('/api/courses', {
+    method: 'POST',
+    body: JSON.stringify(values),
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('jwt')
     })
-      .then(response => response.json())
-      .then((response) => {
-        dispatch(spe.success(response));
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        dispatch(spe.failure(error.error));
-        return Promise.reject(error);
-      });
-  }
-);
+  })
+    .then(response => response.json())
+    .then((response) => {
+      dispatch(spe.success(response));
+      return Promise.resolve(response);
+    })
+    .catch((error) => {
+      dispatch(spe.failure(error.error));
+      return Promise.reject(error);
+    });
+};
 
 const apiGetCourses = (dispatch) => {
   dispatch(spe.request());

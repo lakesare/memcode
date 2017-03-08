@@ -23,9 +23,9 @@ CREATE TABLE courses (
 
 CREATE TABLE problems (
   id SERIAL PRIMARY KEY,
-  explanation VARCHAR,
-
   type VARCHAR,
+
+  explanation JSON,
   content JSON,
 
   course_id INTEGER REFERENCES courses (id)

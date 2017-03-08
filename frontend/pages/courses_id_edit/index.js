@@ -2,9 +2,12 @@ import React from 'react';
 
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
-import { Problem } from './components/Problem';
+import { OldProblem } from './components/Problem';
+import { NewProblem } from './components/NewProblem';
 
 import { apiGetCourse } from '~/ducks/courses/actions';
+
+import Immutable from 'immutable';
 
 class Page_courses_id_edit extends React.Component {
   static propTypes = {
@@ -27,12 +30,30 @@ class Page_courses_id_edit extends React.Component {
     );
   }
 
+  addNewProblem = (createdProblem) => {
+    const spe = Immutable.fromJS(this.state.speGetCourse);
+    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.push(createdProblem));
+
+    this.setState({ speGetCourse: newSpe.toJS() });
+  }
+
+  updateOldProblem = (updatedProblem) => {
+    const spe = Immutable.fromJS(this.state.speGetCourse);
+
+    const index = spe.getIn(['payload', 'problems']).findIndex(
+      (problem) => problem.get('id') === updatedProblem.id
+    );
+    const newSpe = spe.setIn(['payload', 'problems', index], updatedProblem);
+
+    this.setState({ speGetCourse: newSpe.toJS() });
+  }
+
   renderListOfProblems = problems =>
-    problems.map((problem, index) =>
-      <Problem
+    problems.map((problem) =>
+      <OldProblem
         key={problem.id}
         problem={problem}
-        index={index + 1}
+        updateOldProblem={this.updateOldProblem}
       />
     )
 
@@ -46,6 +67,8 @@ class Page_courses_id_edit extends React.Component {
             <h1>{payload.course.title}</h1>
 
             {this.renderListOfProblems(payload.problems)}
+
+            <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
           </div>
         }</Loading>
       </div>

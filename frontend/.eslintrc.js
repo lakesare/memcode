@@ -67,7 +67,10 @@ module.exports = {
     "react/prefer-stateless-function": "off",
 
     // accessibility is important, but turn it off while developing
-    "jsx-a11y/img-has-alt": "off"
+    "jsx-a11y/img-has-alt": "off",
+
+    // it was prohibiting (saveFn) =>, wanted it without ()
+    "arrow-parens": "off"
   },
   "globals": {
     "fetch": true,

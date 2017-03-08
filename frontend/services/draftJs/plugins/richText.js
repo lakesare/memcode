@@ -1,16 +1,17 @@
-import { RichUtils, getDefaultKeyBinding } from 'draft-js';
+import { RichUtils, KeyBindingUtil } from 'draft-js';
 
-const draftJsKeyBindingPlugin = {
-  keyBindingFn: (e) => {
-    if (e.keyCode === 17) {
-      return 'BOLD';
+const richText = () => ({
+  keyBindingFn: (event) => {
+    // B
+    if (KeyBindingUtil.hasCommandModifier(event) && event.keyCode === 66) {
+      return 'bbbold';
     }
-    return getDefaultKeyBinding(e);
   },
 
   handleKeyCommand: (command, pluginFunctions) => {
+
     let newState;
-    if (command === 'BOLD') {
+    if (command === 'bbbold') {
       newState = RichUtils.toggleInlineStyle(pluginFunctions.getEditorState(), 'BOLD');
     }
 
@@ -20,6 +21,6 @@ const draftJsKeyBindingPlugin = {
     }
     return 'not-handled';
   }
-};
+});
 
-export { draftJsKeyBindingPlugin };
+export { richText };

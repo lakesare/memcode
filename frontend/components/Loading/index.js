@@ -32,7 +32,7 @@ const Loading = (props) => {
       }
     case 'failure':
       return <div className={`${css.loading} error`}>{props.spe.error}</div>;
-    default:
+    default: // spe is {}, request was not yet initiated
       return null;
   }
 };
