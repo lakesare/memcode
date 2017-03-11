@@ -4,7 +4,7 @@ import {
 
 const answerInput = () => ({
   keyBindingFn: (event) => {
-    if (KeyBindingUtil.hasCommandModifier(event) && event.keyCode === 81) { // Q
+    if (KeyBindingUtil.hasCommandModifier(event) && event.keyCode === 65) { // A
       return 'markAsAnswer';
     }
   },

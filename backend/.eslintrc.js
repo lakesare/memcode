@@ -76,7 +76,11 @@ module.exports = {
     "dot-notation": "off",
 
     // it was prohibiting (saveFn) =>, wanted it without ()
-    "arrow-parens": "off"
+    "arrow-parens": "off",
+
+    // didn't allow pg-promise's
+    // db.one('select * from courses where id = ${courseId}'
+    "no-template-curly-in-string": "off"
   },
   "globals": {
     "fetch": true,

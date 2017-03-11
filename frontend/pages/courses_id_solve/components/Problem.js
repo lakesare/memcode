@@ -1,47 +1,64 @@
+
 import React from 'react';
 
-import { Answer } from './Answer';
 
-import { contentObjectToString } from '~/services/contentObjectToString';
-import { contentStringToJsx } from '~/services/contentStringToJsx';
+import Editor from 'draft-js-plugins-editor';
+import { EditorState, convertFromRaw } from 'draft-js';
+
+// draftJs
+import { DraftJsPlugins } from '~/services/draftJs/plugins';
+import { DraftJsDecorators } from '~/services/draftJs/decorators';
+
 
 class Problem extends React.Component {
   static propTypes = {
     problem: React.PropTypes.object.isRequired,
-    index:   React.PropTypes.number.isRequired, // just for pretiness, to number down the problems
     onRightAnswerGiven: React.PropTypes.func.isRequired
   }
 
-  onRightAnswerGiven = (answerIndex) => {
-    this.props.onRightAnswerGiven(this.props.problem.id, answerIndex);
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      contentEditorState: this.createEditorState(this.props.problem.content),
+      explanationEditorState: this.createEditorState(this.props.problem.explanation),
+
+      speUpdateProblem: {}
+    };
   }
 
-  renderContent = () => {
-    const content = this.props.problem.content;
-    const jsx = contentStringToJsx(
-      contentObjectToString(content.text),
-      answerIndex =>
-        <Answer
-          key={answerIndex + 10000} // temp fix, there is some bug with keying some texts in html-to-react. it disappears if we get rid of either <answer> or all the other tag parsing.
-          answer={content.answers[answerIndex]}
-          onRightAnswerGiven={() => this.props.onRightAnswerGiven(answerIndex)}
-        />
-    );
-    return jsx;
-  }
+  createEditorState = (raw) =>
+    EditorState.createWithContent(convertFromRaw(raw));
 
   render = () =>
     <section className="problem row">
-      <div className="index">{this.props.index}</div>
-
       <div className="content col-6">
-        {this.renderContent()}
+        <Editor
+          editorState={this.state.contentEditorState}
+          onChange={newState => this.setState({ contentEditorState: newState })}
+          plugins={[
+            DraftJsPlugins.richText(),
+            DraftJsPlugins.pasteImageFromClipboard(),
+            DraftJsPlugins.answerInput()
+          ]}
+          decorators={[
+            DraftJsDecorators.solvableAnswer(this.props.onRightAnswerGiven)
+          ]}
+          readOnly
+        />
       </div>
 
-      <div
-        className="explanation col-6"
-        dangerouslySetInnerHTML={{ __html: this.props.problem.explanation }}
-      />
+      <div className="explanation col-6">
+        <Editor
+          editorState={this.state.explanationEditorState}
+          onChange={newState => this.setState({ explanationEditorState: newState })}
+          plugins={[
+            DraftJsPlugins.richText(),
+            DraftJsPlugins.pasteImageFromClipboard()
+          ]}
+          readOnly
+        />
+      </div>
     </section>
 }
 

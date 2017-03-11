@@ -16,7 +16,7 @@ router.put('/:id', catchAsync(async (request, response) => {
 
 router.delete('/:id', catchAsync(async (request, response) => {
   await Problem.destroy(request.params['id']);
-  response.status(200);
+  response.status(200).json({});
 }));
 
 export { router };

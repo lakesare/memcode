@@ -6,11 +6,11 @@ class Answer extends React.Component {
     onRightAnswerGiven: React.PropTypes.func.isRequired,
   }
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       isAnswered: false
-    }
+    };
   }
 
   checkAnswer = () => {

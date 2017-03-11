@@ -2,18 +2,7 @@
   section.problem{
     margin-bottom: 20px;
     box-shadow: 1px 3px 9px rgba(187, 208, 183, 0.39);
-    padding: 20px;
-    > .index{
-      position: absolute;
-    }
-    > .explanation{
-      border: 1px solid #150404;
-      padding: 10px;
-    }
-    > .actions{
-      position: absolute;
-      right: 0;
-    }
+    padding: 5px 0;
 
     input.answer{
       width: 100px;

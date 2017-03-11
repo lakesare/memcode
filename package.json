@@ -1,13 +1,21 @@
 {
   "name": "memcode",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "description": "Memrise. For code.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lakesare/memcode.git"
+  },
+  "main": "Memrise. For code.",
   "scripts": {
     "start": "nodemon --watch backend backend/webpacked/index.js",
-    "backend:webpack": "cd backend; webpack -w",
-    "frontend:webpack": "cd frontend; webpack -w",
-    "db": "psql -v database=memcode           -U postgres -f backend/db/schema.sql; node backend/webpacked/seed.js",
+    "backend:webpack": "cd backend; ../node_modules/.bin/webpack -w",
+    "frontend:webpack": "cd frontend; ../node_modules/.bin/webpack -w",
+    "db:setup_blank_from_seed": "psql -v database=memcode -U postgres -f backend/db/schema.sql; node backend/webpacked/seed.js",
+    "db:drop": "psql -v database=memcode -U postgres -c 'DROP DATABASE memcode'",
+    "db:create": "psql -U postgres -c 'CREATE DATABASE memcode'",
+    "db:dump": "pg_dump -o memcode -U postgres > backend/db/dump.sql",
+    "db:restore": "psql -d memcode -U postgres < backend/db/dump.sql",
     "test:db": "psql -v database=memcode_test -U postgres -f backend/db/schema.sql",
     "backend:test": "cd backend; NODE_ENV=test mocha --recursive ./webpacked/test --require babel-polyfill --watch",
     "frontend:test": "cd frontend; NODE_ENV=test karma start"
@@ -32,8 +40,11 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
     "eslint-plugin-react": "^6.9.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
     "glob": "^7.0.6",
     "html-webpack-plugin": "^2.22.0",
+    "json-loader": "^0.5.4",
     "karma": "^1.4.0",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",
@@ -45,12 +56,10 @@
     "node-sass": "^3.8.0",
     "pretty-error": "^2.0.2",
     "react-addons-test-utils": "^15.3.1",
-    "react-dom": "^15.3.1",
     "sass-loader": "^4.0.0",
     "source-map-support": "^0.4.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1",
-    "webpack-error-notification": "^0.1.6"
+    "webpack": "^2.2.1"
   },
   "dependencies": {
     "body-parser": "^1.16.0",
@@ -62,7 +71,6 @@
     "form-data": "^2.1.2",
     "immutable": "^3.8.1",
     "js-cookie": "^2.1.3",
-    "json-loader": "^0.5.4",
     "jsonwebtoken": "^7.2.1",
     "node-fetch": "^2.0.0-alpha.3",
     "pg-promise": "^5.2.4",

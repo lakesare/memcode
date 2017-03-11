@@ -1,7 +1,9 @@
-import { answer } from './answer';
+import { editableAnswer } from './editableAnswer';
+import { solvableAnswer } from './solvableAnswer';
 
 const DraftJsDecorators = {
-  answer
+  editableAnswer,
+  solvableAnswer
 };
 
 export { DraftJsDecorators };

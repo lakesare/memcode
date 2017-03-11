@@ -6,43 +6,48 @@ const HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 });
 
-// const WebpackErrorNotificationPlugin = require('webpack-error-notification');
-// const WebpackErrorNotificationConfig = new WebpackErrorNotificationPlugin()//(/* strategy */, /* options */)
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  // devtool: 'source-map',
   entry: [
     './index.js'
   ],
 
   module: {
-    loaders: [
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'eslint-loader',
-        exclude: /(node_modules)/,
-      },
+    rules: [
       {
         test: /\.json$/,
-        loader: 'json'
-      }, // json-loader package is for marky (https://github.com/npm/marky-markdown#in-the-browser)
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
-        loader: 'babel', // 'babel-loader' is also a legal name to reference
-        query: {
-          presets: ['es2015', 'react', 'stage-0']
-        }
+        use: ['json-loader']
       },
       {
-        test: /\.css$/,
-        exclude: /(node_modules)/,
-        loaders: [
-          'style',
-          'css',
-          'sass'
+        test: /\.js$/,
+        exclude: [/(node_modules)/],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015', 'react', 'stage-0']
+            }
+          },
+          {
+            loader: 'eslint-loader'
+          }
         ]
+      },
+      {
+        test: /\.(css|scss)$/,
+        exclude: /(node_modules)/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'sass-loader'
+          ]
+        })
+      },
+      { // the file-loader emits files.
+        test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: ['file-loader']
       }
     ],
 
@@ -58,6 +63,7 @@ module.exports = {
 
   plugins: [
     HTMLWebpackPluginConfig,
+    new ExtractTextPlugin("/index.css")
     // WebpackErrorNotificationConfig
   ],
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import { apiDeleteCourse } from '~/ducks/courses/actions';
+import * as CourseApi from '~/api/Course';
 
 class Course extends React.Component {
   static propTypes = {
@@ -9,7 +9,7 @@ class Course extends React.Component {
   }
 
   apiDeleteCourse = () => {
-    apiDeleteCourse(
+    CourseApi.destroy(
       spe => this.setState({ speDeleteCourse: spe }),
       this.props.course.id
     );

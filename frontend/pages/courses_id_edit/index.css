@@ -1,0 +1,12 @@
+:local(main.main){
+  section.problem{
+    margin-bottom: 10px;
+  }
+  .actions{
+    position: absolute;
+    right: -5px;
+    i.fa-trash-o{
+      cursor: pointer;
+    }
+  }
+}

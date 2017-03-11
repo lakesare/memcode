@@ -3,9 +3,9 @@ import React from 'react';
 import { Header }      from '~/components/Header';
 import { Loading } from '~/components/Loading';
 
-import { Course } from './components/course';
+import { Course } from './components/Course';
 
-import { apiGetCourses } from '~/ducks/courses/actions';
+import * as CourseApi from '~/api/Course';
 
 import css from './index.css';
 
@@ -18,7 +18,7 @@ class Page_courses extends React.Component {
   }
 
   componentDidMount = () => {
-    apiGetCourses(spe => this.setState({ speGetCourses: spe }));
+    CourseApi.index(spe => this.setState({ speGetCourses: spe }));
   }
 
   render = () =>

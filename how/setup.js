@@ -4,3 +4,8 @@ ___see db in browser?
 
 ___webstorm doesn't spy
 	chrome://net-internals/#proxy
+
+___reset database with dumped good db? (when want to input some actual data)
+  npm run db:drop
+  npm run db:create
+  npm run db:restore

@@ -5,7 +5,7 @@ import { Loading } from '~/components/Loading';
 
 import { Problem } from './components/Problem';
 
-import { apiGetCourse } from '~/ducks/courses/actions';
+import * as CourseApi from '~/api/Course';
 
 import css from './index.css';
 
@@ -24,7 +24,7 @@ class Page_courses_id_solve extends React.Component {
   }
 
   componentDidMount = () => {
-    apiGetCourse(
+    CourseApi.show(
       spe => this.setState({ speGetCourse: spe }),
       this.props.params.id
     );
@@ -35,11 +35,10 @@ class Page_courses_id_solve extends React.Component {
   }
 
   renderListOfProblems = problems =>
-    problems.map((problem, index) =>
+    problems.map((problem) =>
       <Problem
         key={problem.id}
         problem={problem}
-        index={index + 1}
         onRightAnswerGiven={this.onRightAnswerGiven}
       />
     )

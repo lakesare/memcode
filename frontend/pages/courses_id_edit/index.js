@@ -2,12 +2,14 @@ import React from 'react';
 
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
-import { OldProblem } from './components/Problem';
+import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
 
-import { apiGetCourse } from '~/ducks/courses/actions';
+import * as CourseApi from '~/api/Course';
 
 import Immutable from 'immutable';
+
+import css from './index.css';
 
 class Page_courses_id_edit extends React.Component {
   static propTypes = {
@@ -24,7 +26,7 @@ class Page_courses_id_edit extends React.Component {
   }
 
   componentDidMount = () => {
-    apiGetCourse(
+    CourseApi.show(
       spe => this.setState({ speGetCourse: spe }),
       this.props.params.id
     );
@@ -48,17 +50,29 @@ class Page_courses_id_edit extends React.Component {
     this.setState({ speGetCourse: newSpe.toJS() });
   }
 
+  removeOldProblem = (problemId) => {
+    const spe = Immutable.fromJS(this.state.speGetCourse);
+
+    const index = spe.getIn(['payload', 'problems']).findIndex(
+      (problem) => problem.get('id') === problemId
+    );
+    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.pop(index));
+
+    this.setState({ speGetCourse: newSpe.toJS() });
+  }
+
   renderListOfProblems = problems =>
     problems.map((problem) =>
       <OldProblem
         key={problem.id}
         problem={problem}
         updateOldProblem={this.updateOldProblem}
+        removeOldProblem={this.removeOldProblem}
       />
     )
 
   render = () =>
-    <main>
+    <main className={css.main}>
       <Header/>
 
       <div className="container">

@@ -12,9 +12,9 @@ const authenticationReducer = (authentication = initialState, action) => {
     case 'SET_CURRENT_USER':
       return authentication
         .setIn(['currentUser'], action.payload)
-        .toJS()
+        .toJS();
     default:
-      return authentication.toJS()
+      return authentication.toJS();
   }
 };
 
@@ -22,8 +22,8 @@ const authenticationReducer = (authentication = initialState, action) => {
 
 // after we update localStorage we need to call this action
 const renewCurrentUserFromStorage = (dispatch) => {
-  dispatch({ type: 'SET_CURRENT_USER', payload: getCurrentUserFromLocalStorage() })
-}
+  dispatch({ type: 'SET_CURRENT_USER', payload: getCurrentUserFromLocalStorage() });
+};
 
 
 export {

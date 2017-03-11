@@ -70,7 +70,7 @@ module.exports = {
     "jsx-a11y/img-has-alt": "off",
 
     // it was prohibiting (saveFn) =>, wanted it without ()
-    "arrow-parens": "off"
+    "arrow-parens": "off",
   },
   "globals": {
     "fetch": true,

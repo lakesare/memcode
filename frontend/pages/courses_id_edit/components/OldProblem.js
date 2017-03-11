@@ -12,7 +12,8 @@ import * as ProblemApi from '~/api/Problem';
 class OldProblem extends React.Component {
   static propTypes = {
     problem: React.PropTypes.object.isRequired,
-    updateOldProblem: React.PropTypes.func.isRequired
+    updateOldProblem: React.PropTypes.func.isRequired,
+    removeOldProblem: React.PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -22,14 +23,15 @@ class OldProblem extends React.Component {
       contentEditorState: this.createEditorState(this.props.problem.content),
       explanationEditorState: this.createEditorState(this.props.problem.explanation),
 
-      speUpdateProblem: {}
+      speUpdateProblem: {},
+      speDestroyProblem: {}
     };
   }
 
   createEditorState = (raw) =>
     EditorState.createWithContent(convertFromRaw(raw));
 
-  save = () => {
+  apiSave = () => {
     ProblemApi.update(
       (spe) => this.setState({ speUpdateProblem: spe }),
       this.props.problem.id,
@@ -43,6 +45,16 @@ class OldProblem extends React.Component {
       });
   }
 
+  apiDestroy = () => {
+    ProblemApi.destroy(
+      (spe) => this.setState({ speDestroyProblem: spe }),
+      this.props.problem.id
+    )
+      .then(() => {
+        this.props.removeOldProblem(this.props.problem.id);
+      });
+  }
+
   render = () =>
     <section className="problem row">
       <div className="content col-6">
@@ -50,12 +62,12 @@ class OldProblem extends React.Component {
           editorState={this.state.contentEditorState}
           onChange={newState => this.setState({ contentEditorState: newState })}
           plugins={[
-            DraftJsPlugins.saveProblem(this.save),
+            DraftJsPlugins.saveProblem(this.apiSave),
             DraftJsPlugins.richText(),
             DraftJsPlugins.pasteImageFromClipboard(),
             DraftJsPlugins.answerInput()
           ]}
-          decorators={[DraftJsDecorators.answer]}
+          decorators={[DraftJsDecorators.editableAnswer()]}
         />
       </div>
 
@@ -64,7 +76,7 @@ class OldProblem extends React.Component {
           editorState={this.state.explanationEditorState}
           onChange={newState => this.setState({ explanationEditorState: newState })}
           plugins={[
-            DraftJsPlugins.saveProblem(this.save),
+            DraftJsPlugins.saveProblem(this.apiSave),
             DraftJsPlugins.richText(),
             DraftJsPlugins.pasteImageFromClipboard()
           ]}
@@ -72,7 +84,7 @@ class OldProblem extends React.Component {
       </div>
 
       <div className="actions">
-        <i className="fa fa-trash-o"/>
+        <i className="fa fa-trash-o" onClick={this.apiDestroy}/>
       </div>
     </section>
 }

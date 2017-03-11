@@ -22,6 +22,8 @@ import { Page_test } from './pages/test';
 // common css
 import './index.css';
 
+import './fonts/font-awesome/scss/font-awesome.scss';
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>

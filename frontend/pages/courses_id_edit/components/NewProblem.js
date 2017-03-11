@@ -18,6 +18,9 @@ class NewProblem extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.initialState();
+    this.references = {
+      contentEditor: null
+    };
   }
 
   initialState = () => ({
@@ -38,6 +41,7 @@ class NewProblem extends React.Component {
     )
       .then((createdProblem) => {
         this.props.addNewProblem(createdProblem);
+        this.references.contentEditor.focus();
         this.setState(this.initialState());
       });
   }
@@ -54,7 +58,8 @@ class NewProblem extends React.Component {
             DraftJsPlugins.pasteImageFromClipboard(),
             DraftJsPlugins.answerInput()
           ]}
-          decorators={[DraftJsDecorators.answer]}
+          decorators={[DraftJsDecorators.editableAnswer()]}
+          ref={ref => { this.references.contentEditor = ref; }}
         />
       </div>
 

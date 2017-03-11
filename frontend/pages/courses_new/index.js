@@ -3,11 +3,9 @@ import React from 'react';
 import { Header } from '~/components/Header';
 import { browserHistory } from 'react-router';
 
-import { apiCreateCourse } from '~/ducks/courses/actions';
-
+import * as CourseApi from '~/api/Course';
 
 class Page_courses_new extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -24,9 +22,9 @@ class Page_courses_new extends React.Component {
   }
 
   apiCreateCourse = (title) => {
-    apiCreateCourse(
+    CourseApi.create(
       spe => this.setState({ speCreateCourse: spe }),
-      { course: { title } }
+      { title }
     ).then((response) => {
       browserHistory.push(`/courses/${response.courseId}/edit`);
     });

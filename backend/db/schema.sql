@@ -35,4 +35,6 @@ CREATE TABLE problems (
 
 -- dropdb -U postgres memcode
 -- createdb -U postgres memcode
--- psql -d memcode -U postgres -W -f backend/db/schema.sql
+-- 
+
+-- psql dbname < infile
