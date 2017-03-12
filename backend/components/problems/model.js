@@ -2,11 +2,12 @@ import { db } from '../../db/init.js';
 
 const create = (problem) =>
   db.one(
-    "INSERT INTO problems (content, explanation, course_id) VALUES (${content}, ${explanation}, ${courseId}) RETURNING *",
+    "INSERT INTO problems (content, explanation, course_id, created_at) VALUES (${content}, ${explanation}, ${courseId}, ${created_at}) RETURNING *",
     {
       content: problem.content,
       explanation: problem.explanation,
-      courseId: problem.courseId
+      courseId: problem.courseId,
+      created_at: new Date()
     }
   );
 

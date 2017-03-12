@@ -2,6 +2,21 @@ import {
   EditorState, KeyBindingUtil, Modifier
 } from 'draft-js';
 
+const getSelectedText = (editorState) => {
+  // Get block for current selection
+  const selection = editorState.getSelection();
+  const anchorKey = selection.getAnchorKey();
+  const currentBlock = editorState.getCurrentContent().getBlockForKey(anchorKey);
+
+  // Then based on the docs for SelectionState -
+  const selectedText = currentBlock.getText().slice(
+    selection.getStartOffset(),
+    selection.getEndOffset()
+  );
+
+  return selectedText;
+};
+
 const answerInput = () => ({
   keyBindingFn: (event) => {
     if (KeyBindingUtil.hasCommandModifier(event) && event.keyCode === 65) { // A
@@ -16,7 +31,8 @@ const answerInput = () => ({
 
       const contentStateWithEntity = contentState.createEntity(
         'answer',
-        'MUTABLE'
+        'MUTABLE',
+        { answer: getSelectedText(editorState) }
       );
       const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
 

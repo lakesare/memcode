@@ -80,7 +80,10 @@ module.exports = {
 
     // didn't allow pg-promise's
     // db.one('select * from courses where id = ${courseId}'
-    "no-template-curly-in-string": "off"
+    "no-template-curly-in-string": "off",
+
+    // for "INSERT INTO problems (content, explanation, course_id, created_at) VALUES (${content}, ${explanation}, ${courseId}, ${created_at}) RETURNING *",
+    "quotes": "off"
   },
   "globals": {
     "fetch": true,

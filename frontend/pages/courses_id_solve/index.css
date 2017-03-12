@@ -1,6 +1,12 @@
 :local(main.main){
+  background: #383131;
+  h1.course-title{
+    color: white;
+    padding-top: 10px;
+  }
   section.problem{
-    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.79);
+    margin-bottom: 20px; margin-top: 200px;
     box-shadow: 1px 3px 9px rgba(187, 208, 183, 0.39);
     padding: 5px 0;
 
@@ -11,10 +17,15 @@
       border: none;
       &:focus{ outline: none; }
       &.success{
-        border: 1px solid #99f399;
+        // border: 1px solid #99f399;
+        box-shadow: 0px 0px 10px 4px #cbf9b8;
       }
       &.failure{
-        box-shadow: 0px 0px 8px #f9b8b8;
+        // box-shadow: 0px 0px 8px #f9b8b8;
+        border: 1px solid pink;
+      }
+      &.waiting{
+        border: 1px solid #FFEB3B;
       }
     }
   }

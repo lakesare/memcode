@@ -22,7 +22,7 @@ const update = course =>
 const getCourseWithProblems = (courseId) =>
   Promise.all([
     db.one('select * from courses where id = ${courseId}', { courseId }),
-    db.any('select * from problems where course_id = ${courseId}', { courseId })
+    db.any('select * from problems where course_id = ${courseId} ORDER BY created_at', { courseId })
   ])
     .then((values) => ({
       course: values[0], problems: values[1]

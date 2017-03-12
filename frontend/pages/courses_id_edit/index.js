@@ -56,7 +56,8 @@ class Page_courses_id_edit extends React.Component {
     const index = spe.getIn(['payload', 'problems']).findIndex(
       (problem) => problem.get('id') === problemId
     );
-    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.pop(index));
+
+    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.delete(index));
 
     this.setState({ speGetCourse: newSpe.toJS() });
   }

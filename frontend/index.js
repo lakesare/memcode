@@ -27,10 +27,10 @@ import './fonts/font-awesome/scss/font-awesome.scss';
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="courses"          component={Page_courses}/>
-      <Route path="courses/new"      component={Page_courses_new}/>
-      <Route path="courses/:id"      component={Page_courses_id_solve}/>
-      <Route path="courses/:id/edit" component={Page_courses_id_edit}/>
+      <Route path="courses"           component={Page_courses}/>
+      <Route path="courses/new"       component={Page_courses_new}/>
+      <Route path="courses/:id/solve" component={Page_courses_id_solve}/>
+      <Route path="courses/:id/edit"  component={Page_courses_id_edit}/>
 
       <Route path="/test" component={Page_test}/>
 

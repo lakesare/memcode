@@ -36,7 +36,7 @@ class Course extends React.Component {
         </section>
 
         <section className="details">
-          <Link to={'/courses/' + course.id} className="link">
+          <Link to={'/courses/' + course.id + '/solve'} className="link">
             <h5 className="title">{course.title}</h5>
 
             <div className="additional-information">

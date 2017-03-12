@@ -108,8 +108,11 @@ const userPromise = User.createUserFromGithub({
 
 
 
+// ___WEBPACK
+// The url-loader works like the file-loader, but can return a Data URL if the file is smaller than a byte limit.
 
-
+// part of css-loader functionality is seeing background: url('../pics/hi.png')
+// this functionality can be turned off, but we may want to use it because eg image-loader allows us to compress images.
 
 
 

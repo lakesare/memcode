@@ -28,9 +28,10 @@ CREATE TABLE problems (
   explanation JSON,
   content JSON,
 
-  course_id INTEGER REFERENCES courses (id)
-);
+  course_id INTEGER REFERENCES courses (id),
 
+  created_at TIMESTAMP
+);
 
 
 -- dropdb -U postgres memcode

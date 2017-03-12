@@ -2,24 +2,31 @@ import { RichUtils, KeyBindingUtil } from 'draft-js';
 
 const richText = () => ({
   keyBindingFn: (event) => {
-    // B
-    if (KeyBindingUtil.hasCommandModifier(event) && event.keyCode === 66) {
-      return 'bbbold';
+    if (!KeyBindingUtil.hasCommandModifier(event)) return;
+
+    switch (event.keyCode) {
+      case 66: return 'bbbold'; // B
+      case 75: return 'cccode'; // K
+      default: return undefined; // must return undefined to allow for other plugins
     }
   },
 
   handleKeyCommand: (command, pluginFunctions) => {
-
     let newState;
-    if (command === 'bbbold') {
-      newState = RichUtils.toggleInlineStyle(pluginFunctions.getEditorState(), 'BOLD');
+
+    switch (command) {
+      case 'bbbold':
+        newState = RichUtils.toggleInlineStyle(pluginFunctions.getEditorState(), 'BOLD');
+        break;
+      case 'cccode':
+        newState = RichUtils.toggleCode(pluginFunctions.getEditorState());
+        break;
+      default:
+        return 'not-handled';
     }
 
-    if (newState) {
-      pluginFunctions.setEditorState(newState);
-      return 'handled';
-    }
-    return 'not-handled';
+    pluginFunctions.setEditorState(newState);
+    return 'handled';
   }
 });
 

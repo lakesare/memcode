@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Answer } from '~/pages/courses_id_solve/components/Answer';
+import { InputForAnswer } from '~/pages/courses_id_solve/components/InputForAnswer';
 
 const solvableAnswer = (onRightAnswerGiven) => ({
   strategy: (contentBlock, callback, contentState) => {
@@ -14,7 +14,28 @@ const solvableAnswer = (onRightAnswerGiven) => ({
     );
   },
   component: (props) =>
-    <Answer answer={props.decoratedText} onRightAnswerGiven={onRightAnswerGiven}/>
+    <InputForAnswerContainer {...props} onRightAnswerGiven={onRightAnswerGiven}/>
 });
+
+class InputForAnswerContainer extends React.Component {
+  static propTypes = {
+    contentState: React.PropTypes.object.isRequired,
+    entityKey: React.PropTypes.string.isRequired,
+    onRightAnswerGiven: React.PropTypes.func
+  }
+
+  static defaultProps = {
+    onRightAnswerGiven: null
+  }
+
+  getAnswer = () => {
+    const entity = this.props.contentState.getEntity(this.props.entityKey);
+    const answer = entity.getData().answer;
+    return answer;
+  }
+
+  render = () =>
+    <InputForAnswer answer={this.getAnswer()} onRightAnswerGiven={this.props.onRightAnswerGiven}/>;
+}
 
 export { solvableAnswer };

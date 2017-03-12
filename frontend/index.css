@@ -11,3 +11,12 @@
     background: #adffb9;
   }
 }
+
+// so that background-color is colored everywhere from top to bottom
+html, body, div#root, main{
+  height: 100%;
+}
+
+main{
+  border: 10px solid rgb(123, 255, 66);
+}

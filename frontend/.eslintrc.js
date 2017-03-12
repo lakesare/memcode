@@ -71,6 +71,13 @@ module.exports = {
 
     // it was prohibiting (saveFn) =>, wanted it without ()
     "arrow-parens": "off",
+
+    "consistent-return": "off",
+
+    // sometines it's really not needed
+    "default-case": "off",
+
+    "import/newline-after-import": "off"
   },
   "globals": {
     "fetch": true,

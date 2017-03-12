@@ -9,7 +9,7 @@ fs.readdirSync('../node_modules')
   })
   .forEach(function(mod) {
     nodeModules[mod] = 'commonjs ' + mod;
-});
+  });
 
 
 const glob = require('glob');
@@ -40,22 +40,23 @@ module.exports = {
   target: 'node',
 
   module: {
-    loaders: [
-      {
-        enforce: 'pre',
-        test: /\.js$/,
-        loader: 'eslint-loader',
-        exclude: /(node_modules)/,
-      },
+    rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
-        loader: 'babel', // 'babel-loader' is also a legal name to reference
-        query: {
-          presets: ['es2015', 'stage-0']
-        }
+        exclude: [/(node_modules)/],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015', 'stage-0']
+            }
+          },
+          {
+            loader: 'eslint-loader'
+          }
+        ]
       }
-    ],
+    ]
   },
 
   // allows to import from the deep nested folders:
