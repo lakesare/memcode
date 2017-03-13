@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { browserHistory } from 'react-router';
+
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
 
@@ -51,6 +53,10 @@ class Page_courses_id_solve extends React.Component {
       });
   }
 
+  componentWillUnmount = () => {
+    document.removeEventListener('keydown', this.onEnter);
+  }
+
   onEnter = (event) => {
     if (event.keyCode !== 13) return;
 
@@ -62,13 +68,13 @@ class Page_courses_id_solve extends React.Component {
       // if already succumbed and looked through the answers
       if (this.props.statusOfSolvingCurrentProblem === 'succumbedAfterSolving') {
         this.recordScore(given, wanted);
-        this.nextProblem();
+        this.goToNextProblem();
       } else {
         this.props.succumb();
       }
     } else {
       this.recordScore(given, wanted);
-      this.nextProblem();
+      this.goToNextProblem();
     }
   }
 
@@ -81,16 +87,32 @@ class Page_courses_id_solve extends React.Component {
   // given: amount of answers that were properly given
   // wanted: amount of all problems
   recordScore = (given, wanted) => {
-
-    const score = {
-      problemId: this.state.currentProblemIndex,
-      score: this.calculateScore(given, wanted)
-    };
-
-
-
+    ProblemApi.solve(
+      () => {},
+      this.currentProblem().id,
+      this.calculateScore(given, wanted)
+    );
   }
 
+  goToNextProblem = () => {
+    const nextProblemIndex = this.state.currentProblemIndex + 1;
+    const isThereNextProblem = !!this.state.speGetCourse.payload.problems[nextProblemIndex];
+
+    if (isThereNextProblem) {
+      this.props.solve();
+      this.setState({
+        currentProblemIndex: nextProblemIndex,
+        amountOfRightAnswersGivenForCurrentProblem: 0
+      });
+    } else {
+      browserHistory.push('/courses');
+    }
+  }
+
+  currentProblem = () =>
+    this.state.speGetCourse.payload.problems[this.state.currentProblemIndex]
+
+  // to problem model?
   calculateScore = (given, wanted) => {
     if (given === wanted) {
       return 1;
@@ -99,35 +121,12 @@ class Page_courses_id_solve extends React.Component {
     }
   }
 
-  nextProblem = () => {
-    this.props.solve();
-    this.setState({
-      currentProblemIndex: this.state.currentProblemIndex + 1,
-      amountOfRightAnswersGivenForCurrentProblem: 0
-    });
-  }
-
-  currentProblem = () =>
-    this.state.speGetCourse.payload.problems[this.state.currentProblemIndex]
-
+  // to problem model?
   amountOfAnswerInputsInProblem = (problem) => {
     const entities = problem.content.entityMap;
     const answerEntities = Object.keys(entities)
       .filter((key) => entities[key].type === 'answer');
     return answerEntities.length;
-  }
-
-  renderProblem = () => {
-    const problem = this.currentProblem();
-
-    return (
-      <ProblemBeingSolved
-        key={problem.id} // is needed, otherwise Editor will just stay the same
-        mode={this.state.statusOfSolvingCurrentProblem}
-        problem={problem}
-        onRightAnswerGivenFn={this.onRightAnswerGivenFn}
-      />
-    );
   }
 
   render = () =>
@@ -139,7 +138,12 @@ class Page_courses_id_solve extends React.Component {
           <div>
             <h1 className="course-title">{payload.course.title}</h1>
 
-            {this.renderProblem()}
+            <ProblemBeingSolved
+              key={this.state.currentProblemIndex} // is needed, otherwise Editor will just stay the same
+              mode={this.state.statusOfSolvingCurrentProblem}
+              problem={this.currentProblem()}
+              onRightAnswerGivenFn={this.onRightAnswerGivenFn}
+            />
           </div>
         }</Loading>
       </div>

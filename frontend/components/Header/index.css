@@ -53,16 +53,68 @@ body{
 
     > section.current-user{
       position: relative;
-      img.avatar{
-        max-width: 50px;
-        position: absolute;
-        top: -10px;
-        border: 2px solid #4b4c4b; // grey
-      }
-      a.sign-out{
-        font-size: 12px;
+      > .tooltip-wrapper{
+        img.avatar{
+          max-width: 50px;
+          border: 2px solid #4b4c4b; // grey
+        }
+        
+        > .tooltip{
+          a.sign-out{
+            font-size: 12px;
+          }
+        }
       }
     }
     
+  }
+}
+
+
+.tooltip-wrapper {
+  position: relative;
+  .tooltip {
+    width: 100px;
+    background: #1496bb;
+    top: 100%;
+    color: #fff;
+    display: block;
+    left: -25px;
+    margin-bottom: 15px;
+    opacity: 0;
+    padding: 20px;
+    pointer-events: none;
+    position: absolute;
+    transform: translateY(10px);
+    transition: all .25s ease-out;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+    /* This bridges the gap so you can mouse into the tooltip without it disappearing */
+    &:before {
+      bottom: -20px;
+      content: " ";
+      display: block;
+      height: 20px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+    /* CSS Triangles - see Trevor's post */
+    &:before {
+      border-left: solid transparent 10px;
+      border-right: solid transparent 10px;
+      border-bottom: solid #1496bb 10px;
+      position: absolute;
+      top: -10px; left: 50%;
+      content: " ";
+      height: 0;  width: 0;
+      margin-left: -13px;
+    }
+  }
+  &:hover{
+    .tooltip{
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0px);
+    }
   }
 }

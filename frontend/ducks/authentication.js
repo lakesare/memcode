@@ -1,32 +1,30 @@
-import Immutable from 'immutable';
-
-import { getCurrentUserFromLocalStorage } from '../services/getCurrentUserFromLocalStorage';
+import { jwtToUserObject } from '~/services/jwtToUserObject';
 
 const initialState = {
-  currentUser: getCurrentUserFromLocalStorage()
+  currentUser: jwtToUserObject(localStorage.getItem('jwt'))
 };
 
 const authenticationReducer = (authentication = initialState, action) => {
-  authentication = Immutable.fromJS(authentication);
   switch (action.type) {
     case 'SET_CURRENT_USER':
-      return authentication
-        .setIn(['currentUser'], action.payload)
-        .toJS();
+      return { currentUser: action.payload };
     default:
-      return authentication.toJS();
+      return authentication;
   }
 };
 
-// async action creators
-
-// after we update localStorage we need to call this action
-const renewCurrentUserFromStorage = (dispatch) => {
-  dispatch({ type: 'SET_CURRENT_USER', payload: getCurrentUserFromLocalStorage() });
+// non-api action creators
+const signIn = (dispatch, token) => {
+  localStorage.setItem('jwt', token);
+  dispatch({ type: 'SET_CURRENT_USER', payload: jwtToUserObject(token) });
 };
 
+const signOut = (dispatch) => {
+  localStorage.setItem('jwt', null);
+  dispatch({ type: 'SET_CURRENT_USER', payload: null });
+};
 
 export {
   authenticationReducer,
-  renewCurrentUserFromStorage
+  signIn, signOut
 };

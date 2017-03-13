@@ -1,10 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
+
+import { browserHistory } from 'react-router';
 
 import { Header } from '~/components/Header';
 
-class RootPage extends Component {
+class RootPage extends React.Component {
   static propTypes = {
-    renewCurrentUserFromStorage: PropTypes.func.isRequired
+    signIn: React.PropTypes.func.isRequired
   }
 
   componentDidMount = () => {
@@ -14,9 +16,8 @@ class RootPage extends Component {
   tryToFindToken = () => {
     const token = window.location.href.split('?token=')[1];
     if (token) {
-      localStorage.setItem('jwt', token);
-      window.location = '/';
-      this.props.renewCurrentUserFromStorage();
+      this.props.signIn(token);
+      browserHistory.push('/'); // needed?
     }
   }
 
@@ -34,14 +35,13 @@ class RootPage extends Component {
     </main>
 }
 
-import { renewCurrentUserFromStorage } from '../ducks/authentication';
+import { signIn } from '~/ducks/authentication';
 
 const mapDispatchToProps = dispatch => ({
-  renewCurrentUserFromStorage: () => renewCurrentUserFromStorage(dispatch)
+  signIn: (token) => signIn(dispatch, token)
 });
 
 import { connect } from 'react-redux';
-
 RootPage = connect(() => ({}), mapDispatchToProps)(RootPage);
 
 export { RootPage };

@@ -119,9 +119,9 @@ const userPromise = User.createUserFromGithub({
 
 
 
-userPromise.then(() => {
-  // Promise.all([a()]).catch((error) => console.log(error.stack))
-})
+// userPromise.then(() => {
+//   // Promise.all([a()]).catch((error) => console.log(error.stack))
+// })
 
 
 

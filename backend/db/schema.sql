@@ -4,34 +4,47 @@ CREATE DATABASE :database;
 
 \c :database;
 
-CREATE TABLE users (
+-- always use "user" (double quotes) when you reference this table.
+-- because 'user' is a reserved word in postgres, and it will complain about user table.
+-- alternative are:
+--   1. renaming table to eg profile/learner. but course_learner_learns or course_profile_learns don't sound good.
+--   2. all tables are in sigular, but consider this an exception and user users. but exception of writing 'user' instead of user is no more tedious.
+CREATE TABLE "user" (
+  id SERIAL PRIMARY KEY,
   oauth_provider VARCHAR,
   oauth_id VARCHAR,
   username VARCHAR,
-  avatar_url VARCHAR,
-  PRIMARY KEY (oauth_id, oauth_provider)
+  avatar_url VARCHAR
 );
 
-CREATE TABLE courses (
+CREATE TABLE course (
   id SERIAL PRIMARY KEY,
   title VARCHAR,
 
-  user_oauth_id VARCHAR,
-  user_oauth_provider VARCHAR,
-  FOREIGN KEY (user_oauth_id, user_oauth_provider) REFERENCES users (oauth_id, oauth_provider)
+  user_id INTEGER REFERENCES "user" (id)
 );
 
-CREATE TABLE problems (
+CREATE TABLE problem (
   id SERIAL PRIMARY KEY,
   type VARCHAR,
 
   explanation JSON,
   content JSON,
 
-  course_id INTEGER REFERENCES courses (id),
+  created_at TIMESTAMP,
 
-  created_at TIMESTAMP
+  course_id INTEGER REFERENCES course (id)
 );
+
+-- CREATE TABLE course_user_learns (
+--   id SERIAL PRIMARY KEY,
+
+--   course_id INTEGER REFERENCES courses (id),
+--   user_id INTEGER REFERENCES user (id)
+-- );
+
+
+
 
 
 -- dropdb -U postgres memcode

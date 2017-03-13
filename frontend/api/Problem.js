@@ -17,5 +17,12 @@ const destroy = (dispatch, problemId) =>
     'DELETE', `/api/problems/${problemId}`
   );
 
+// solve with some score 0..1
+const solve = (dispatch, problemId, score) =>
+  commonFetch(dispatch,
+    'POST',  `/api/problems/${problemId}/solve`,
+    { score }
+  );
+
 // import * as ProblemApi from '~/api/Problem';
-export { create, update, destroy };
+export { create, update, destroy, solve };

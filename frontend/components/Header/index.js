@@ -1,42 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { CurrentUser } from './components/CurrentUser';
 import css from './index.css';
 
 class Header extends React.Component {
   static propTypes = {
-    renewCurrentUserFromStorage: React.PropTypes.func.isRequired,
-    currentUser: React.PropTypes.object
-  }
-
-  static defaultProps = {
-    currentUser: null
-  }
-
-  signOut = () => {
-    localStorage.setItem('jwt', null);
-    this.props.renewCurrentUserFromStorage();
-  }
-
-  renderCurrentUser = () => {
-    const currentUser = this.props.currentUser;
-    if (currentUser) {
-      return (
-        <section className="current-user">
-          <Link to="/profile">
-            <img className="avatar" src={currentUser.avatarUrl}/>
-          </Link>
-          <a className="sign-out" onClick={this.signOut}>sign out</a>
-        </section>
-      );
-    } else {
-      return (
-        <section className="current-user">
-          <a href="https://github.com/login/oauth/authorize?client_id=1d94a714bab1f1576872">
-            Sign in with github!
-          </a>
-        </section>
-      );
-    }
+    signOut: React.PropTypes.func.isRequired,
+    currentUser: React.PropTypes.object.isRequired
   }
 
   renderNavigation = () =>
@@ -62,17 +32,17 @@ class Header extends React.Component {
           </div>
         </section>
         {this.renderNavigation()}
-        {this.renderCurrentUser()}
+        <CurrentUser currentUser={this.props.currentUser} signOut={this.props.signOut}/>
       </div>
     </header>
 }
 
-import { renewCurrentUserFromStorage } from '../../ducks/authentication';
+import { signOut } from '~/ducks/authentication';
 const mapStateToProps = (state) => ({
   currentUser: state.authentication.currentUser
 });
 const mapDispatchToProps = (dispatch) => ({
-  renewCurrentUserFromStorage: () => renewCurrentUserFromStorage(dispatch)
+  signOut: () => signOut(dispatch)
 });
 
 import { connect } from 'react-redux';
