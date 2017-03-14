@@ -36,19 +36,13 @@ CREATE TABLE problem (
   course_id INTEGER REFERENCES course (id)
 );
 
--- CREATE TABLE course_user_learns (
---   id SERIAL PRIMARY KEY,
+CREATE TABLE course_user_learns (
+  id SERIAL PRIMARY KEY,
 
---   course_id INTEGER REFERENCES courses (id),
---   user_id INTEGER REFERENCES user (id)
--- );
+  problemScores JSON,
 
+  active BOOLEAN, -- whether it's shown in /profile/learning
 
-
-
-
--- dropdb -U postgres memcode
--- createdb -U postgres memcode
--- 
-
--- psql dbname < infile
+  course_id INTEGER REFERENCES course (id),
+  user_id INTEGER REFERENCES "user" (id)
+);

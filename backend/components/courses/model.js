@@ -1,5 +1,7 @@
 import { db } from '~/db/init.js';
 
+import * as Problem from '~/components/problems/model';
+
 // course: {title: "aaa", userOauthId, userOauthProvider}
 // => { courseId: 5 }
 const create = (course) =>
@@ -22,7 +24,7 @@ const update = course =>
 const getCourseWithProblems = (courseId) =>
   Promise.all([
     db.one('SELECT * FROM course WHERE id = ${courseId}', { courseId }),
-    db.any('select * from problem where course_id = ${courseId} ORDER BY created_at', { courseId })
+    Problem.indexByCourseId(courseId)
   ])
     .then((values) => ({
       course: values[0], problems: values[1]

@@ -36,7 +36,6 @@ class RootPage extends React.Component {
 }
 
 import { signIn } from '~/ducks/authentication';
-
 const mapDispatchToProps = dispatch => ({
   signIn: (token) => signIn(dispatch, token)
 });

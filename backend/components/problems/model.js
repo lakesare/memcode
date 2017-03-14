@@ -1,5 +1,11 @@
 import { db } from '~/db/init.js';
 
+const indexByCourseId = (courseId) =>
+  db.any(
+    'SELECT * FROM problem WHERE course_id = ${courseId} ORDER BY created_at',
+    { courseId }
+  );
+
 const create = (problem) =>
   db.one(
     "INSERT INTO problem (content, explanation, course_id, created_at) VALUES (${content}, ${explanation}, ${courseId}, ${created_at}) RETURNING *",
@@ -24,4 +30,4 @@ const update = (problem, problemId) =>
 const destroy = (id) =>
   db.none('delete from problem where id=${id}', { id });
 
-export { create, update, destroy };
+export { indexByCourseId, create, update, destroy };
