@@ -2,9 +2,9 @@ import express from 'express';
 const router = express.Router();
 
 import { catchAsync } from '~/services/catchAsync';
-import * as Course from './model';
-
 import { authenticateMiddleware } from '~/middlewares/authenticate';
+
+import * as Course from './model';
 
 
 router.get('/:id', catchAsync(async (request, response) => {

@@ -26,11 +26,11 @@ app.use('/api/courses', coursesRouter);
 import { router as problemsRouter } from './components/problems/routes';
 app.use('/api/problems', problemsRouter);
 
-import { router as courseUserIsLearningRouter } from './components/courseUserIsLearning/routes';
-app.use('/api/courseUserIsLearning', courseUserIsLearningRouter);
+import { router as coursesUserIsLearningRouter } from './components/coursesUserIsLearning/routes';
+app.use('/api/coursesUserIsLearning', coursesUserIsLearningRouter);
 
 import { router as authRouter } from './components/auth/routes';
-app.use('/api/auth', authRouter);
+app.use('/auth', authRouter);
 
 app.get('*', (request, response) =>
   response.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html')

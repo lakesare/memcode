@@ -13,7 +13,6 @@ import * as User from '~/components/users/model';
 const github = {
   clientId: '1d94a714bab1f1576872',
   clientSecret: 'cfd3be4dfba0dea31889e869e2eaf7dd3418ee5f',
-  callbackURL: 'http://localhost:3000/api/auth/github/callback'
 };
 
 // 1. after user goes to github.com/login/oauth/authorize?client_id=OUR_ID, she is redirected here

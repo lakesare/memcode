@@ -29,8 +29,46 @@
 import { db } from '~/db/init.js';
 
 import * as Problem from '~/components/problems/model';
+import * as Course from '~/components/courses/model';
 import { getNextProblemScoreValue } from './services/getNextProblemScoreValue';
 import { initialProblemScore } from './services/initialProblemScore';
+
+// => [{
+//   ...usual course object,
+//   courseUserIsLearningId: 10,
+//   amountOfDueProblems: 3
+// }], active, filtered by amount of due problems
+const coursesWithDueProblems = async (userId) => {
+  const allCoursesUserLearns = await db.any(
+    "SELECT course_id, problem_scores from course_user_is_learning WHERE user_id = ${userId} and active = true",
+    { userId }
+  );
+
+  const amountAndIds = allCoursesUserLearns.map((courseUserIsLearning) => {
+    const dueProblems = courseUserIsLearning.problem_scores
+      .filter(problemScore => problemScore.dueDate > new Date());
+    return ({
+      courseId: courseUserIsLearning.course_id,
+      amountOfDueProblems: dueProblems.count(),
+      courseUserIsLearningId: courseUserIsLearning.id
+    });
+  });
+
+  const sortedAmountAndIds = amountAndIds.sort((a, b) => a.amountOfDueProblems - b.amountOfDueProblems);
+
+  const courseIds = sortedAmountAndIds.map((amountAndId) => amountAndId.courseId);
+  const courses = await Course.indexByIds(courseIds);
+
+  const modifiedCourses = sortedAmountAndIds.map((amountAndId) => {
+    const course = courses.find(c => c.id === amountAndId.courseId);
+    return ({
+      ...course,
+      amountAndId
+    });
+  });
+
+  return modifiedCourses;
+};
 
 // when user first /courses/1/solve the course, course_user_is_learning record is created.
 const create = (courseId, userId) => {
@@ -86,4 +124,4 @@ const getDueProblems = async (id) => {
   return Problem.indexByIds(idsOfDueProblems);
 };
 
-export { create, updateProblemScore, getDueProblems };
+export { coursesWithDueProblems, create, updateProblemScore, getDueProblems };

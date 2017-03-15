@@ -2,6 +2,14 @@ import { db } from '~/db/init.js';
 
 import * as Problem from '~/components/problems/model';
 
+const indexByIds = (ids) => {
+  if (ids.length === 0) return [];
+  const stringOfIds = ids.join(', '); // (1, 3, 17)
+  return db.any(
+    `SELECT * FROM course WHERE id IN (${stringOfIds})`
+  );
+};
+
 // course: {title: "aaa", userOauthId, userOauthProvider}
 // => { courseId: 5 }
 const create = (course) =>
@@ -41,4 +49,4 @@ const deleteCourseWithProblems = (courseId) => (
     .catch(error => Promise.reject({ error }))
 );
 
-export { create, getCourseWithProblems, deleteCourseWithProblems, update, getCourses };
+export { indexByIds, create, getCourseWithProblems, deleteCourseWithProblems, update, getCourses };

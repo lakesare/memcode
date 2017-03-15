@@ -2,7 +2,19 @@ import express from 'express';
 const router = express.Router();
 
 import { catchAsync } from '~/services/catchAsync';
+import { authenticateMiddleware } from '~/middlewares/authenticate';
+
 import * as CourseUserIsLearning from './model';
+
+// => [{
+//   ...usual course object,
+//   courseUserIsLearningId: 10,
+//   amountOfDueProblems: 3
+// }], active, filtered by amount of due problems
+router.get('/coursesWithDueProblems', authenticateMiddleware, catchAsync(async (request, response) => {
+  const modifiedCourses = await CourseUserIsLearning.coursesWithDueProblems(request.currentUser.id);
+  response.status(200).json(modifiedCourses);
+}));
 
 router.get('/:id/dueProblems', catchAsync(async (request, response) => {
   const dueProblems = await CourseUserIsLearning.getDueProblems(request.params['id']);

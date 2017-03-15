@@ -3,7 +3,7 @@ import React from 'react';
 import { Header }      from '~/components/Header';
 import { Loading } from '~/components/Loading';
 
-import { Course } from '~/components/Course';
+import { ListOfCourses } from '~/components/ListOfCourses';
 
 import * as CourseApi from '~/api/Course';
 
@@ -27,9 +27,7 @@ class Page_courses extends React.Component {
       <div className="container">
         <h1>Courses</h1>
         <Loading spe={this.state.speGetCourses}>{courses =>
-          <section className="list-of-courses">
-            {courses.map(course => <Course key={course.id} course={course}/>)}
-          </section>
+          <ListOfCourses courses={courses}/>
         }</Loading>
       </div>
     </main>

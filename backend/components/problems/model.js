@@ -7,8 +7,9 @@ const indexByCourseId = (courseId) =>
   );
 
 const indexByIds = (ids) => {
+  if (ids.length === 0) return [];
   const stringOfIds = ids.join(', '); // (1, 3, 17)
-  db.any(
+  return db.any(
     `SELECT * FROM problem WHERE id IN (${stringOfIds})`
   );
 };

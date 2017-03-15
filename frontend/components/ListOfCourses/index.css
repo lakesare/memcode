@@ -1,0 +1,101 @@
+:local(.list-of-courses){
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 -10px;
+  > .course{
+    height: 200px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    box-shadow: 0 2px 1px #777;
+    text-align: center;
+    margin-right: 10px; margin-left: 10px;
+    margin-bottom: 20px;
+
+    > section.actions{
+      display: flex;
+      justify-content: flex-end;
+      > a{
+        cursor: pointer;
+        padding: 10px;
+        &:hover{
+          opacity: 0.8;
+        }
+        &.view{
+          color: red;
+        }
+        &.edit{
+          color: blue;
+        }
+      }
+    }
+
+    > section.main{
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 20px;
+      > h5.title{}
+      > .amount-of-mems-to-review-and-learn{
+        display: flex;
+        > .to-review, > .to-learn{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 50%;
+          background: rgba(0, 0, 0, 0.5);
+          color: white;
+          z-index: 100;
+        }
+      }
+
+    }
+
+    > section.main{
+      position: relative;
+      > .review-and-learn-more{
+        visibility: hidden;
+        width: 100%;
+        display: flex;
+        position: absolute;
+        top: 0; bottom: 0;
+        > a.review, > a.learn-more{
+          opacity: 0.9;
+          width: 50%;
+          color: white;
+          font-size: 12px;
+          font-weight: bold;
+
+          // center text
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:hover{
+            text-decoration: none;
+            opacity: 1;
+          }
+        }
+        > a.review{
+          background: #9c0c0c;
+        }
+        > a.learn-more{
+          background: #1d1d56;
+        }
+      }
+      &:hover{
+        .review-and-learn-more{ visibility: visible; }
+      }
+    }
+
+    > section.total-amount-of-mems, .amount-of-mems-to-review-and-learn{
+      font-size: 11px;
+      font-weight: bold;
+    }
+  }
+}

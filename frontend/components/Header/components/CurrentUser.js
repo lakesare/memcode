@@ -12,13 +12,11 @@ class CurrentUser extends React.Component {
   }
 
   renderSignedInUser = (currentUser) =>
-    <div className="tooltip-wrapper">
-      <Link className="tooltip-toggler" to="/profile" data-toggle="tooltip">
-        <img className="avatar" src={currentUser.avatarUrl}/>
+    <div>
+      <Link className="avatar" to="/profile/courses-learned-by-me">
+        <img src={currentUser.avatarUrl}/>
       </Link>
-      <div className="tooltip-inner">
-        <a className="sign-out" onClick={this.props.signOut}>SIGN OUT</a>
-      </div>
+      <a className="sign-out" onClick={this.props.signOut}>SIGN OUT</a>
     </div>
 
   renderSignInLink = () =>

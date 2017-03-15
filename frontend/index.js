@@ -13,8 +13,10 @@ import { Router, Route, browserHistory } from 'react-router';
 
 import { Page_courses } from './pages/courses';
 import { Page_courses_new } from './pages/courses_new';
+import { Page_courses_id } from './pages/courses_id';
 import { Page_courses_id_review } from './pages/courses_id_review';
 import { Page_courses_id_edit } from './pages/courses_id_edit';
+import { Page_profile_coursesLearnedByMe } from './pages/profile_coursesLearnedByMe';
 // import { ProfilePage } from './pages/profile';
 import { RootPage } from './pages/root';
 import { Page_test } from './pages/test';
@@ -27,10 +29,12 @@ import './fonts/font-awesome/scss/font-awesome.scss';
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="courses"           component={Page_courses}/>
-      <Route path="courses/new"       component={Page_courses_new}/>
+      <Route path="courses"            component={Page_courses}/>
+      <Route path="courses/new"        component={Page_courses_new}/>
+      <Route path="courses/:id"        component={Page_courses_id}/>
       <Route path="courses/:id/review" component={Page_courses_id_review}/>
       <Route path="courses/:id/edit"  component={Page_courses_id_edit}/>
+      <Route path="profile/courses-learned-by-me"  component={Page_profile_coursesLearnedByMe}/>
 
       <Route path="/test" component={Page_test}/>
 
