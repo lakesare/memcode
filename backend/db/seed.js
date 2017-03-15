@@ -98,13 +98,6 @@ import * as User from '~/components/users/model';
 // };
 
 
-// first seeding our user to avoid violating foreign key constraint
-const userPromise = User.createUserFromGithub({
-  id: '7578559',
-  username: 'lakesarerere'
-});
-
-
 
 
 
@@ -113,15 +106,6 @@ const userPromise = User.createUserFromGithub({
 
 // part of css-loader functionality is seeing background: url('../pics/hi.png')
 // this functionality can be turned off, but we may want to use it because eg image-loader allows us to compress images.
-
-
-
-
-
-
-// userPromise.then(() => {
-//   // Promise.all([a()]).catch((error) => console.log(error.stack))
-// })
 
 
 

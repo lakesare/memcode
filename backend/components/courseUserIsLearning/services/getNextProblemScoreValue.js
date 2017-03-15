@@ -1,3 +1,5 @@
+// http://www.blueraja.com/blog/477/a-better-spaced-repetition-learning-algorithm-sm2
+
 // easiness:float – A number ≥ 1.3 representing how easy the item is, with 1.3 being the hardest.  Defaults to 2.5
 // consecutiveCorrectAnswers:int – How many times in a row the user has correctly answered this item
 // nextDueDate:datetime – The next time this item needs to be reviewed

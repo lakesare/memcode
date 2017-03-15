@@ -77,7 +77,10 @@ module.exports = {
     // sometines it's really not needed
     "default-case": "off",
 
-    "import/newline-after-import": "off"
+    "import/newline-after-import": "off",
+
+    // didn't allow me to write "he's" in react! well maybe it's a bad thing to do, may be worth checking
+    "react/no-unescaped-entities": "off"
   },
   "globals": {
     "fetch": true,

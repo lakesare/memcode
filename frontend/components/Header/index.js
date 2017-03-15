@@ -6,7 +6,11 @@ import css from './index.css';
 class Header extends React.Component {
   static propTypes = {
     signOut: React.PropTypes.func.isRequired,
-    currentUser: React.PropTypes.object.isRequired
+    currentUser: React.PropTypes.object
+  }
+
+  static defaultProps = {
+    currentUser: null
   }
 
   renderNavigation = () =>

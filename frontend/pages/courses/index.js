@@ -3,7 +3,7 @@ import React from 'react';
 import { Header }      from '~/components/Header';
 import { Loading } from '~/components/Loading';
 
-import { Course } from './components/Course';
+import { Course } from '~/components/Course';
 
 import * as CourseApi from '~/api/Course';
 

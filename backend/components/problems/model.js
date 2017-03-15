@@ -6,6 +6,13 @@ const indexByCourseId = (courseId) =>
     { courseId }
   );
 
+const indexByIds = (ids) => {
+  const stringOfIds = ids.join(', '); // (1, 3, 17)
+  db.any(
+    `SELECT * FROM problem WHERE id IN (${stringOfIds})`
+  );
+};
+
 const create = (problem) =>
   db.one(
     "INSERT INTO problem (content, explanation, course_id, created_at) VALUES (${content}, ${explanation}, ${courseId}, ${created_at}) RETURNING *",
@@ -30,4 +37,4 @@ const update = (problem, problemId) =>
 const destroy = (id) =>
   db.none('delete from problem where id=${id}', { id });
 
-export { indexByCourseId, create, update, destroy };
+export { indexByCourseId, indexByIds, create, update, destroy };

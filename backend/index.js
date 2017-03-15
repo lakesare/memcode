@@ -1,4 +1,4 @@
-import 'source-map-support/register';
+// import 'source-map-support/register';
 import express from 'express';
 
 const app = express();
@@ -26,16 +26,15 @@ app.use('/api/courses', coursesRouter);
 import { router as problemsRouter } from './components/problems/routes';
 app.use('/api/problems', problemsRouter);
 
+import { router as courseUserIsLearningRouter } from './components/courseUserIsLearning/routes';
+app.use('/api/courseUserIsLearning', courseUserIsLearningRouter);
+
 import { router as authRouter } from './components/auth/routes';
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
 
-
-app.use((error, request, response, next) => {
-  console.error(error);
-  response.status(500).json({ error: error.message });
-});
-
-app.get('*', (req, res) => res.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html'));
+app.get('*', (request, response) =>
+  response.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html')
+);
 
 app.listen(port, (err) => {
   if (err) console.log('something bad happened', err);

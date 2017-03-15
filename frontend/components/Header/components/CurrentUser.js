@@ -4,16 +4,20 @@ import { Link } from 'react-router';
 class CurrentUser extends React.Component {
   static propTypes = {
     signOut: React.PropTypes.func.isRequired,
-    currentUser: React.PropTypes.object.isRequired
+    currentUser: React.PropTypes.object
+  }
+
+  static defaultProps = {
+    currentUser: null
   }
 
   renderSignedInUser = (currentUser) =>
     <div className="tooltip-wrapper">
-      <Link to="/profile" data-toggle="tooltip">
+      <Link className="tooltip-toggler" to="/profile" data-toggle="tooltip">
         <img className="avatar" src={currentUser.avatarUrl}/>
       </Link>
-      <div className="tooltip">
-        <a className="sign-out" onClick={this.props.signOut}>sign out</a>
+      <div className="tooltip-inner">
+        <a className="sign-out" onClick={this.props.signOut}>SIGN OUT</a>
       </div>
     </div>
 

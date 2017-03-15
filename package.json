@@ -11,7 +11,7 @@
     "start": "nodemon --watch backend backend/webpacked/index.js",
     "backend:webpack": "cd backend; ../node_modules/.bin/webpack -w",
     "frontend:webpack": "cd frontend; ../node_modules/.bin/webpack -w",
-    "db:setup_blank_from_seed": "psql -v database=memcode -U postgres -f backend/db/schema.sql; node backend/webpacked/seed.js",
+    "db:reset": "psql -v database=memcode -U postgres -f backend/db/schema.sql;",
     "db:drop": "psql -v database=memcode -U postgres -c 'DROP DATABASE memcode'",
     "db:create": "psql -U postgres -c 'CREATE DATABASE memcode'",
     "db:dump": "pg_dump -o memcode -U postgres > backend/db/dump.sql",

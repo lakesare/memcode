@@ -24,7 +24,7 @@ import css from './index.css';
 
 //   if there are no answers in problem:
 //     -> we accept problem and move to the next problem
-class Page_courses_id_solve extends React.Component {
+class Page_courses_id_review extends React.Component {
   static propTypes = {
     params: React.PropTypes.shape({
       id: React.PropTypes.string
@@ -155,10 +155,10 @@ const mapDispatchToProps = dispatch => ({
   solve:   () => dispatch({ type: 'SOLVE' })
 });
 const mapStateToProps = (state) => ({
-  statusOfSolvingCurrentProblem: state.page_courses_id_solve.statusOfSolvingCurrentProblem
+  statusOfSolvingCurrentProblem: state.page_courses_id_review.statusOfSolvingCurrentProblem
 });
 
 import { connect } from 'react-redux';
-Page_courses_id_solve = connect(mapStateToProps, mapDispatchToProps)(Page_courses_id_solve);
+Page_courses_id_review = connect(mapStateToProps, mapDispatchToProps)(Page_courses_id_review);
 
-export { Page_courses_id_solve };
+export { Page_courses_id_review };

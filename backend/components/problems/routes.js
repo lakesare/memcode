@@ -19,20 +19,4 @@ router.delete('/:id', catchAsync(async (request, response) => {
   response.status(200).json({});
 }));
 
-router.post('/:id/solve', catchAsync(async (request, response) => {
-
-  request.body['score']
-
-  response.status(200).json({});
-}));
-
-
-
-
-
-
-
-
-
-
 export { router };

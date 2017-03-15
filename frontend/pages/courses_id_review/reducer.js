@@ -6,7 +6,7 @@ const initialState = {
 // because of draftjs.
 // it's easier to connect AnswerInput and Problem to the store
 // than try and pass state from Problem to AnswerInput through draftjs's decorator
-const page_courses_id_solve_reducer = (pageState = initialState, action) => {
+const page_courses_id_review_reducer = (pageState = initialState, action) => {
   switch (action.type) {
     case 'SUCCUMB':
       return { statusOfSolvingCurrentProblem: 'succumbedAfterSolving' };
@@ -17,4 +17,4 @@ const page_courses_id_solve_reducer = (pageState = initialState, action) => {
   }
 };
 
-export { page_courses_id_solve_reducer };
+export { page_courses_id_review_reducer };

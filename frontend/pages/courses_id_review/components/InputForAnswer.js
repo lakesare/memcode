@@ -57,7 +57,7 @@ class InputForAnswer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  statusOfSolvingCurrentProblem: state.page_courses_id_solve.statusOfSolvingCurrentProblem
+  statusOfSolvingCurrentProblem: state.page_courses_id_review.statusOfSolvingCurrentProblem
 });
 
 import { connect } from 'react-redux';

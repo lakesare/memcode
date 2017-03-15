@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InputForAnswer } from '~/pages/courses_id_solve/components/InputForAnswer';
+import { InputForAnswer } from '~/pages/courses_id_review/components/InputForAnswer';
 
 const solvableAnswer = (onRightAnswerGiven) => ({
   strategy: (contentBlock, callback, contentState) => {

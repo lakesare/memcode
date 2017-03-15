@@ -17,6 +17,7 @@ html, body, div#root, main{
   height: 100%;
 }
 
+// fun green border
 main{
-  border: 10px solid rgb(123, 255, 66);
+  // border: 10px solid rgb(123, 255, 66);
 }

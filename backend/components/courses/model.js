@@ -5,7 +5,7 @@ import * as Problem from '~/components/problems/model';
 // course: {title: "aaa", userOauthId, userOauthProvider}
 // => { courseId: 5 }
 const create = (course) =>
-  db.one('INSERT INTO course (title, user_oauth_id, user_oauth_provider) VALUES (${title}, ${userOauthId}, ${userOauthProvider}) RETURNING id', course)
+  db.one('INSERT INTO course (title, user_id) VALUES (${title}, ${userId}) RETURNING id', course)
   .then(createdCourse => createdCourse.id);
 
 const getCourses = () =>

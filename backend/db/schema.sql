@@ -36,10 +36,10 @@ CREATE TABLE problem (
   course_id INTEGER REFERENCES course (id)
 );
 
-CREATE TABLE course_user_learns (
+CREATE TABLE course_user_is_learning (
   id SERIAL PRIMARY KEY,
 
-  problemScores JSON,
+  problem_scores JSON,
 
   active BOOLEAN, -- whether it's shown in /profile/learning
 

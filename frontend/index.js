@@ -13,7 +13,7 @@ import { Router, Route, browserHistory } from 'react-router';
 
 import { Page_courses } from './pages/courses';
 import { Page_courses_new } from './pages/courses_new';
-import { Page_courses_id_solve } from './pages/courses_id_solve';
+import { Page_courses_id_review } from './pages/courses_id_review';
 import { Page_courses_id_edit } from './pages/courses_id_edit';
 // import { ProfilePage } from './pages/profile';
 import { RootPage } from './pages/root';
@@ -29,7 +29,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="courses"           component={Page_courses}/>
       <Route path="courses/new"       component={Page_courses_new}/>
-      <Route path="courses/:id/solve" component={Page_courses_id_solve}/>
+      <Route path="courses/:id/review" component={Page_courses_id_review}/>
       <Route path="courses/:id/edit"  component={Page_courses_id_edit}/>
 
       <Route path="/test" component={Page_test}/>
