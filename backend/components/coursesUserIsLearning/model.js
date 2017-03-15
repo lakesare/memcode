@@ -33,6 +33,10 @@ import * as Course from '~/components/courses/model';
 import { getNextProblemScoreValue } from './services/getNextProblemScoreValue';
 import { initialProblemScore } from './services/initialProblemScore';
 
+
+const isProblemDue = (problemScore) =>
+  new Date(problemScore.value.nextDueDate) < new Date();
+
 // => [{
 //   ...usual course object,
 //   courseUserIsLearningId: 10,
@@ -40,16 +44,16 @@ import { initialProblemScore } from './services/initialProblemScore';
 // }], active, filtered by amount of due problems
 const coursesWithDueProblems = async (userId) => {
   const allCoursesUserLearns = await db.any(
-    "SELECT course_id, problem_scores from course_user_is_learning WHERE user_id = ${userId} and active = true",
+    "SELECT id, course_id, problem_scores from course_user_is_learning WHERE user_id = ${userId} and active = true",
     { userId }
   );
 
   const amountAndIds = allCoursesUserLearns.map((courseUserIsLearning) => {
-    const dueProblems = courseUserIsLearning.problem_scores
-      .filter(problemScore => problemScore.dueDate > new Date());
+    const dueProblems = courseUserIsLearning.problemScores
+      .filter(problemScore => isProblemDue(problemScore));
     return ({
-      courseId: courseUserIsLearning.course_id,
-      amountOfDueProblems: dueProblems.count(),
+      courseId: courseUserIsLearning.courseId,
+      amountOfDueProblems: dueProblems.length,
       courseUserIsLearningId: courseUserIsLearning.id
     });
   });
@@ -63,26 +67,28 @@ const coursesWithDueProblems = async (userId) => {
     const course = courses.find(c => c.id === amountAndId.courseId);
     return ({
       ...course,
-      amountAndId
+      amountOfDueProblems: amountAndId.amountOfDueProblems,
+      courseUserIsLearningId: amountAndId.courseUserIsLearningId
     });
   });
 
   return modifiedCourses;
 };
 
-// when user first /courses/1/solve the course, course_user_is_learning record is created.
-const create = (courseId, userId) => {
-  const initialProblemScores = Problem.indexByCourseId(courseId)
-    .then((problems) => {
-      problems.map((problem) => initialProblemScore(problem.id));
-    });
+const create = async (courseId, userId) => {
+  const initialProblemScores = await Problem.indexByCourseId(courseId)
+    .then((problems) =>
+      problems.map((problem) => initialProblemScore(problem.id))
+    );
   return db.none(
-    "INSERT INTO course_user_is_learning (problem_scores, active, course_id, user_id) VALUES (${content}, ${explanation}, ${courseId}, ${created_at})",
+    "INSERT INTO course_user_is_learning \
+    (problem_scores, active, course_id, user_id) VALUES \
+    (${problemScores}, ${active}, ${courseId}, ${userId})",
     {
-      problem_scores: initialProblemScores,
+      problemScores: JSON.stringify(initialProblemScores),
       active: true,
-      course_id: courseId,
-      user_id: userId
+      courseId,
+      userId
     }
   );
 };
@@ -114,14 +120,21 @@ const findById = (id) =>
     { id }
   );
 
+// => {
+//   course: { title: 'wow' },
+//   problems: dueProblems
+// }
 const getDueProblems = async (id) => {
   const courseUserIsLearning = await findById(id);
 
-  const idsOfDueProblems = courseUserIsLearning.problem_scores
-    .filter(problemScore => problemScore.dueDate > new Date())
+  const idsOfDueProblems = courseUserIsLearning.problemScores
+    .filter(problemScore => isProblemDue(problemScore))
     .map(problemScore => problemScore.problemId);
 
-  return Problem.indexByIds(idsOfDueProblems);
+  return {
+    course: await Course.findById(courseUserIsLearning.courseId),
+    problems: await Problem.indexByIds(idsOfDueProblems)
+  };
 };
 
 export { coursesWithDueProblems, create, updateProblemScore, getDueProblems };

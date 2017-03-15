@@ -1,4 +1,8 @@
 :local(.loading){
+  &.request{
+    text-align: center;
+    padding: 20px;
+  }
   &.error{
     text-align: center;
     padding: 30px;

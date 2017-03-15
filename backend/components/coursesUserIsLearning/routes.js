@@ -21,8 +21,8 @@ router.get('/:id/dueProblems', catchAsync(async (request, response) => {
   response.status(200).json(dueProblems);
 }));
 
-router.post('/', catchAsync(async (request, response) => {
-  await CourseUserIsLearning.create(request.body['courseUserIsLearning']);
+router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
+  await CourseUserIsLearning.create(request.body['courseId'], request.currentUser.id);
   response.status(200).json({});
 }));
 

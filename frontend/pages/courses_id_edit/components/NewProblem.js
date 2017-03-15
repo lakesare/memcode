@@ -2,9 +2,9 @@ import React from 'react';
 
 import { EditorState } from 'draft-js';
 
-import * as ProblemApi from '~/api/Problem';
-
 import { Problem } from '~/components/Problem';
+
+import * as ProblemApi from '~/api/Problem';
 
 class NewProblem extends React.Component {
   static propTypes = {
@@ -31,12 +31,7 @@ class NewProblem extends React.Component {
       });
 
   render = () =>
-    <Problem
-      mode={'editing'}
-      saveFn={this.save}
-      initialContentEditorState={EditorState.createEmpty()}
-      initialExplanationEditorState={EditorState.createEmpty()}
-    />
+    <Problem mode="editing" saveFn={this.save}/>
 }
 
 export { NewProblem };

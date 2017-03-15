@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Link } from 'react-router';
-import { Header }      from '~/components/Header';
+import { Link }    from 'react-router';
+import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 
@@ -16,7 +16,7 @@ class Page_profile_coursesLearnedByMe extends React.Component {
   }
 
   componentDidMount = () => {
-    CourseUserIsLearningApi.coursesWithDueProblems(
+    CourseUserIsLearningApi.getCoursesWithDueProblems(
       spe => this.setState({ speGetCourses: spe }),
     );
   }

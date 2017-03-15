@@ -3,7 +3,7 @@ const initialProblemScore = (problemId) => ({
   value: {
     easiness: 2.5,
     consecutiveCorrectAnswers: 0,
-    nextDueDate: null
+    nextDueDate: new Date()
   }
 });
 

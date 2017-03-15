@@ -22,9 +22,6 @@ class OldProblem extends React.Component {
     };
   }
 
-  createEditorState = (raw) =>
-    EditorState.createWithContent(convertFromRaw(raw));
-
   save = (content, explanation) =>
     ProblemApi.update(
       (spe) => this.setState({ speUpdateProblem: spe }),
@@ -48,11 +45,11 @@ class OldProblem extends React.Component {
 
   render = () =>
     <Problem
-      mode={'editing'}
+      mode="editing"
       saveFn={this.save}
       destroyFn={this.destroy}
-      initialContentEditorState={this.createEditorState(this.props.problem.content)}
-      initialExplanationEditorState={this.createEditorState(this.props.problem.explanation)}
+      initialContentEditorState={this.props.problem.content}
+      initialExplanationEditorState={this.props.problem.explanation}
     />
 }
 

@@ -7,7 +7,7 @@ import { Loading } from '~/components/Loading';
 
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
 
-import * as CourseApi from '~/api/Course';
+import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 import * as ProblemApi from '~/api/Problem';
 
 import css from './index.css';
@@ -27,7 +27,7 @@ import css from './index.css';
 class Page_courses_id_review extends React.Component {
   static propTypes = {
     params: React.PropTypes.shape({
-      id: React.PropTypes.string
+      courseUserIsLearningId: React.PropTypes.string
     }).isRequired,
     succumb: React.PropTypes.func.isRequired,
     solve:   React.PropTypes.func.isRequired,
@@ -44,9 +44,10 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidMount = () => {
-    CourseApi.show(
+    // { course, problems: dueProblems }
+    CourseUserIsLearningApi.getDueProblems(
       spe => this.setState({ speGetCourse: spe }),
-      this.props.params.id
+      this.props.params.courseUserIsLearningId
     )
       .then(() => {
         document.addEventListener('keydown', this.onEnter, false);

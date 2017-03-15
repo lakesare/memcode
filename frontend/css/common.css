@@ -1,0 +1,13 @@
+a.view, a.edit, a.remove{
+  i{ font-size: 17px; }
+}
+
+a.view i{
+  color: red;
+}
+a.edit i{
+  color: blue;
+}
+a.remove i{
+  color: red;
+}

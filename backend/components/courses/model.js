@@ -4,11 +4,21 @@ import * as Problem from '~/components/problems/model';
 
 const indexByIds = (ids) => {
   if (ids.length === 0) return [];
-  const stringOfIds = ids.join(', '); // (1, 3, 17)
-  return db.any(
-    `SELECT * FROM course WHERE id IN (${stringOfIds})`
-  );
+  const stringOfIds = ids.join(', '); // '1, 3, 17'
+  // return db.any(
+  //   `SELECT * FROM course WHERE id IN (${stringOfIds})`
+  // );
+  return db.any(`\
+    SELECT course.*, COUNT(*) AS "amount_of_problems"\
+    FROM course\
+      LEFT OUTER JOIN problem ON problem.course_id=course.id\
+    WHERE course.id IN (${stringOfIds})
+    GROUP BY course.id\
+  `);
 };
+
+const findById = (id) =>
+  db.one('SELECT * FROM course WHERE id = ${id}', { id })
 
 // course: {title: "aaa", userOauthId, userOauthProvider}
 // => { courseId: 5 }
@@ -49,4 +59,4 @@ const deleteCourseWithProblems = (courseId) => (
     .catch(error => Promise.reject({ error }))
 );
 
-export { indexByIds, create, getCourseWithProblems, deleteCourseWithProblems, update, getCourses };
+export { indexByIds, findById, create, getCourseWithProblems, deleteCourseWithProblems, update, getCourses };

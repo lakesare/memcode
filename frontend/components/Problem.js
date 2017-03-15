@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { convertToRaw, DefaultDraftBlockRenderMap } from 'draft-js';
+import {
+  EditorState,
+  convertToRaw, convertFromRaw,
+  DefaultDraftBlockRenderMap
+} from 'draft-js';
 
 import Immutable from 'immutable';
 
@@ -12,32 +16,42 @@ import Editor from 'draft-js-plugins-editor';
 
 class Problem extends React.Component {
   static propTypes = {
-    mode: React.PropTypes.oneOf(['editing', 'solving', 'succumbedAfterSolving']).isRequired,
-    saveFn: React.PropTypes.func,
-    destroyFn: React.PropTypes.func,
+    mode: React.PropTypes.oneOf(['viewing', 'editing', 'solving', 'succumbedAfterSolving']).isRequired,
+    saveFn:               React.PropTypes.func,
+    destroyFn:            React.PropTypes.func,
     onRightAnswerGivenFn: React.PropTypes.func,
 
-    initialContentEditorState: React.PropTypes.object.isRequired,
-    initialExplanationEditorState: React.PropTypes.object.isRequired,
+    initialContentEditorState:     React.PropTypes.object,
+    initialExplanationEditorState: React.PropTypes.object,
   }
 
   static defaultProps = {
     saveFn: null,
     destroyFn: null,
-    onRightAnswerGivenFn: null
+    onRightAnswerGivenFn: null,
+    initialContentEditorState: null,
+    initialExplanationEditorState: null
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      contentEditorState: this.props.initialContentEditorState,
-      explanationEditorState: this.props.initialExplanationEditorState,
+      contentEditorState: this.createEditorState(this.props.initialContentEditorState),
+      explanationEditorState: this.createEditorState(this.props.initialExplanationEditorState),
     };
 
     this.references = {
       contentEditor: null
     };
+  }
+
+  createEditorState = (raw) => {
+    if (raw) {
+      return EditorState.createWithContent(convertFromRaw(raw));
+    } else {
+      return EditorState.createEmpty();
+    }
   }
 
   blockRenderMap = () =>
@@ -60,6 +74,11 @@ class Problem extends React.Component {
       });
   }
 
+  isReadonly = (mode) =>
+    mode === 'solving' ||
+    mode === 'succumbedAfterSolving' ||
+    mode === 'viewing'
+
   render = () =>
     <section className="problem row">
       <div className="content col-6">
@@ -76,6 +95,7 @@ class Problem extends React.Component {
             ( // only initialized on mount
               () => {
                 switch (this.props.mode) {
+                  case 'viewing':
                   case 'editing':
                     return [DraftJsDecorators.editableAnswer()];
                   case 'solving':
@@ -86,7 +106,7 @@ class Problem extends React.Component {
           }
           ref={ref => { this.references.contentEditor = ref; }}
           blockRenderMap={this.blockRenderMap()}
-          readOnly={this.props.mode === 'solving' || this.props.mode === 'succumbedAfterSolving'}
+          readOnly={this.isReadonly(this.props.mode)}
         />
       </div>
 
@@ -99,7 +119,7 @@ class Problem extends React.Component {
             DraftJsPlugins.richText(),
             DraftJsPlugins.pasteImageFromClipboard()
           ]}
-          readOnly={this.props.mode === 'solving' || this.props.mode === 'succumbedAfterSolving'}
+          readOnly={this.isReadonly(this.props.mode)}
         />
       </div>
 

@@ -32,9 +32,9 @@ ReactDOM.render(
       <Route path="courses"            component={Page_courses}/>
       <Route path="courses/new"        component={Page_courses_new}/>
       <Route path="courses/:id"        component={Page_courses_id}/>
-      <Route path="courses/:id/review" component={Page_courses_id_review}/>
-      <Route path="courses/:id/edit"  component={Page_courses_id_edit}/>
-      <Route path="profile/courses-learned-by-me"  component={Page_profile_coursesLearnedByMe}/>
+      <Route path="courses/:courseUserIsLearningId/review" component={Page_courses_id_review}/>
+      <Route path="courses/:id/edit"   component={Page_courses_id_edit}/>
+      <Route path="profile/courses-learned-by-me" component={Page_profile_coursesLearnedByMe}/>
 
       <Route path="/test" component={Page_test}/>
 

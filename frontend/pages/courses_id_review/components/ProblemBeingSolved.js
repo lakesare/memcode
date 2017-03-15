@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { EditorState, convertFromRaw } from 'draft-js';
-
 import { Problem } from '~/components/Problem';
 
 class ProblemBeingSolved extends React.Component {
@@ -15,15 +13,12 @@ class ProblemBeingSolved extends React.Component {
     this.state = { speUpdateProblem: {} };
   }
 
-  createEditorState = (raw) =>
-    EditorState.createWithContent(convertFromRaw(raw));
-
   render = () =>
     <Problem
-      mode={'solving'}
+      mode="solving"
       onRightAnswerGivenFn={this.props.onRightAnswerGivenFn}
-      initialContentEditorState={this.createEditorState(this.props.problem.content)}
-      initialExplanationEditorState={this.createEditorState(this.props.problem.explanation)}
+      initialContentEditorState={this.props.problem.content}
+      initialExplanationEditorState={this.props.problem.explanation}
     />
 }
 

@@ -1,11 +1,14 @@
-
-
 import React from 'react';
 
-import { Link } from 'react-router';
-import { Header }      from '~/components/Header';
+import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
+
 import { Actions } from './components/Actions';
+import { Problem } from '~/components/Problem';
+
+import * as CourseApi from '~/api/Course';
+
+import css from './index.css';
 
 class Page_courses_id extends React.Component {
   static propTypes = {
@@ -28,15 +31,26 @@ class Page_courses_id extends React.Component {
     );
   }
 
-
   render = () =>
-    <main>
+    <main className={css.main}>
       <Header/>
-      <div className="container">
-        <Loading spe={this.state.speGetCourse}>{course =>
-          
-        }</Loading>
-      </div>
+      <Loading spe={this.state.speGetCourse}>{({ course, problems }) =>
+        <div className="container">
+
+          <Actions course={course}/>
+
+          {
+            problems.map((problem) =>
+              <Problem
+                key={problem.id}
+                mode="viewing"
+                initialContentEditorState={problem.content}
+                initialExplanationEditorState={problem.explanation}
+              />
+            )
+          }
+        </div>
+      }</Loading>
     </main>
 }
 

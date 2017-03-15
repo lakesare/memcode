@@ -24,12 +24,6 @@
         &:hover{
           opacity: 0.8;
         }
-        &.view{
-          color: red;
-        }
-        &.edit{
-          color: blue;
-        }
       }
     }
 

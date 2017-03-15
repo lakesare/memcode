@@ -58,7 +58,7 @@ class ListOfCourses extends React.Component {
       {
         this.props.isDisplayed.reviewAndLearn &&
         <div className="review-and-learn-more">
-          <Link className="review" to={`/courses/${course.id}/review`} >
+          <Link className="review" to={`/courses/${course.courseUserIsLearningId}/review`} >
             REVIEW
           </Link>
           <Link className="learn-more" to={`/courses/${course.id}`} >
