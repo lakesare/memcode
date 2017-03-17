@@ -8,10 +8,12 @@ import { dateNDaysFromToday } from './dateNDaysFromToday';
 
 // performanceRating: on a scale from 0-5 (0=worst, 5=best)
 const getNextProblemScoreValue = (prevScoreValue, performanceRating) => {
-  const nextEasiness = prevScoreValue.easiness +
+  const nextEasiness = clipEasiness(
+    prevScoreValue.easiness +
     (-0.8) +
     (0.28 * performanceRating) +
-    (0.02 * (performanceRating ** 2));
+    (0.02 * (performanceRating ** 2))
+  );
 
   const nextConsecutiveCorrectAnswers =
     isAnswerCorrect(performanceRating) ?
@@ -34,5 +36,9 @@ const getNextProblemScoreValue = (prevScoreValue, performanceRating) => {
 };
 
 const isAnswerCorrect = (performanceRating) => performanceRating > 4;
+
+// easiness must be >= 1.3
+// if it's smaller - make it 1.3
+const clipEasiness = (easiness) => Math.max(easiness, 1.3);
 
 export { getNextProblemScoreValue };

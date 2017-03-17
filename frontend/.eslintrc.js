@@ -80,7 +80,12 @@ module.exports = {
     "import/newline-after-import": "off",
 
     // didn't allow me to write "he's" in react! well maybe it's a bad thing to do, may be worth checking
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+
+    // sometimes it's more readable without them!
+    "react/jsx-wrap-multilines": "off",
+
+    "no-return-assign": "off"
   },
   "globals": {
     "fetch": true,

@@ -7,8 +7,6 @@ import { ListOfCourses } from '~/components/ListOfCourses';
 
 import * as CourseApi from '~/api/Course';
 
-import css from './index.css';
-
 class Page_courses extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +20,7 @@ class Page_courses extends React.Component {
   }
 
   render = () =>
-    <main className={css.main}>
+    <main>
       <Header/>
       <div className="container">
         <h1>Courses</h1>

@@ -22,13 +22,23 @@ router.get('/:id/dueProblems', catchAsync(async (request, response) => {
 }));
 
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
-  await CourseUserIsLearning.create(request.body['courseId'], request.currentUser.id);
+  const courseUserIsLearning = await CourseUserIsLearning.create(request.body['courseId'], request.currentUser.id);
+  response.status(200).json(courseUserIsLearning);
+}));
+
+router.put('/:id/updateProblemScore', catchAsync(async (request, response) => {
+  await CourseUserIsLearning.updateProblemScore(request.params['id'], request.body['problemId'], request.body['performanceRating']);
   response.status(200).json({});
 }));
 
-router.post('/:id/updateProblemScore', catchAsync(async (request, response) => {
-  await CourseUserIsLearning.updateProblemScore(request.params['id'], request.body['problemId'], request.body['performanceRating']);
-  response.status(200).json({});
+router.put('/:id/resumeLearning', catchAsync(async (request, response) => {
+  const courseUserIsLearning = await CourseUserIsLearning.updateActive(request.params['id'], true);
+  response.status(200).json(courseUserIsLearning);
+}));
+
+router.put('/:id/stopLearning', catchAsync(async (request, response) => {
+  const courseUserIsLearning = await CourseUserIsLearning.updateActive(request.params['id'], false);
+  response.status(200).json(courseUserIsLearning);
 }));
 
 export { router };

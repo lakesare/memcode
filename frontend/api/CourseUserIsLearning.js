@@ -18,8 +18,28 @@ const getDueProblems = (dispatch, id) =>
 
 const create = (dispatch, courseId) =>
   commonFetch(dispatch,
-    'post', '/api/coursesUserIsLearning',
+    'POST', '/api/coursesUserIsLearning',
     { courseId }
   );
 
-export { getCoursesWithDueProblems, getDueProblems, create };
+const stopLearning   = (dispatch, id) =>
+  commonFetch(dispatch,
+    'PUT', `/api/coursesUserIsLearning/${id}/stopLearning`
+  );
+
+const resumeLearning = (dispatch, id) =>
+  commonFetch(dispatch,
+    'PUT', `/api/coursesUserIsLearning/${id}/resumeLearning`
+  );
+
+const updateProblemScore = (dispatch, id, problemId, performanceRating) =>
+  commonFetch(dispatch,
+    'PUT', `/api/coursesUserIsLearning/${id}/updateProblemScore`,
+    { problemId, performanceRating }
+  )
+
+export {
+  getCoursesWithDueProblems, getDueProblems, create,
+  stopLearning, resumeLearning,
+  updateProblemScore
+};

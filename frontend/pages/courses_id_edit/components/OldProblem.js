@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { EditorState, convertFromRaw } from 'draft-js';
-
 import * as ProblemApi from '~/api/Problem';
 
 import { Problem } from '~/components/Problem';
@@ -30,7 +28,6 @@ class OldProblem extends React.Component {
     )
       .then((updatedProblem) => {
         this.props.updateOldProblem(updatedProblem);
-        return Promise.resolve();
       });
 
   destroy = () => {

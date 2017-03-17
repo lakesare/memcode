@@ -80,10 +80,11 @@ const create = async (courseId, userId) => {
     .then((problems) =>
       problems.map((problem) => initialProblemScore(problem.id))
     );
-  return db.none(
+  return db.one(
     "INSERT INTO course_user_is_learning \
     (problem_scores, active, course_id, user_id) VALUES \
-    (${problemScores}, ${active}, ${courseId}, ${userId})",
+    (${problemScores}, ${active}, ${courseId}, ${userId}) \
+    RETURNING *",
     {
       problemScores: JSON.stringify(initialProblemScores),
       active: true,
@@ -95,7 +96,7 @@ const create = async (courseId, userId) => {
 
 // solve particular problem
 const updateProblemScore = async (courseUserIsLearningId, problemId, performanceRating) => {
-  const problemScores = await findById(courseUserIsLearningId).problemScores;
+  const problemScores = (await findById(courseUserIsLearningId)).problemScores;
 
   const problemScore = problemScores.find(score =>
     score.problemId === problemId
@@ -107,17 +108,31 @@ const updateProblemScore = async (courseUserIsLearningId, problemId, performance
   return db.none(
     "UPDATE course_user_is_learning SET problem_scores = ${problemScores} WHERE id = ${id}",
     {
-      problemScores,
+      problemScores: JSON.stringify(problemScores),
       id: courseUserIsLearningId
     }
   );
 };
 
+const updateActive = (id, ifActive) =>
+  db.one(
+    "UPDATE course_user_is_learning \
+    SET active = ${active} \
+    WHERE id = ${id} \
+    RETURNING *",
+    { active: ifActive, id }
+  );
 
 const findById = (id) =>
   db.one(
     "SELECT * FROM course_user_is_learning WHERE id = ${id}",
     { id }
+  );
+
+const findByUserIdAndCourseId = (userId, courseId) =>
+  db.oneOrNone(
+    "SELECT * FROM course_user_is_learning WHERE user_id=${userId} and course_id=${courseId}",
+    { userId, courseId }
   );
 
 // => {
@@ -137,4 +152,4 @@ const getDueProblems = async (id) => {
   };
 };
 
-export { coursesWithDueProblems, create, updateProblemScore, getDueProblems };
+export { coursesWithDueProblems, create, updateProblemScore, getDueProblems, findByUserIdAndCourseId, updateActive };

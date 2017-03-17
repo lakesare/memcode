@@ -21,7 +21,7 @@ CREATE TABLE course (
   id SERIAL PRIMARY KEY,
   title VARCHAR,
 
-  user_id INTEGER REFERENCES "user" (id)
+  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE
 );
 
 CREATE TABLE problem (
@@ -33,7 +33,7 @@ CREATE TABLE problem (
 
   created_at TIMESTAMP,
 
-  course_id INTEGER REFERENCES course (id)
+  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE
 );
 
 CREATE TABLE course_user_is_learning (
@@ -43,6 +43,7 @@ CREATE TABLE course_user_is_learning (
 
   active BOOLEAN, -- whether it's shown in /profile/learning
 
-  course_id INTEGER REFERENCES course (id),
-  user_id INTEGER REFERENCES "user" (id)
+  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE,
+  unique (course_id, user_id)
 );

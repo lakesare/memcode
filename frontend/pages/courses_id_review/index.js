@@ -8,7 +8,6 @@ import { Loading } from '~/components/Loading';
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
 
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
-import * as ProblemApi from '~/api/Problem';
 
 import css from './index.css';
 
@@ -88,8 +87,9 @@ class Page_courses_id_review extends React.Component {
   // given: amount of answers that were properly given
   // wanted: amount of all problems
   recordScore = (given, wanted) => {
-    ProblemApi.solve(
+    CourseUserIsLearningApi.updateProblemScore(
       () => {},
+      this.props.params.courseUserIsLearningId,
       this.currentProblem().id,
       this.calculateScore(given, wanted)
     );
@@ -116,9 +116,9 @@ class Page_courses_id_review extends React.Component {
   // to problem model?
   calculateScore = (given, wanted) => {
     if (given === wanted) {
-      return 1;
+      return 5;
     } else { // given < wanted
-      return given / wanted; // 0..1
+      return (given / wanted) * 5; // 0..5
     }
   }
 

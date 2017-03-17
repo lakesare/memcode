@@ -1,12 +1,5 @@
 @import 'css/variables';
 
-@import url('https://fonts.googleapis.com/css?family=Orbitron');
-
-@import url('https://fonts.googleapis.com/css?family=Amethysta');
-body{
-  font-family: 'Amethysta', serif;
-}
-
 :local(header.header){
   border-bottom: 3px solid rgb(17, 17, 17);
   background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(rgb(51, 51, 51)), to(rgb(68, 68, 68)));

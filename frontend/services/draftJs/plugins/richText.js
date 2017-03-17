@@ -5,8 +5,8 @@ const richText = () => ({
     if (!KeyBindingUtil.hasCommandModifier(event)) return;
 
     switch (event.keyCode) {
-      case 66: return 'bbbold'; // B
-      case 75: return 'cccode'; // K
+      case 66: return 'bold'; // B
+      case 75: return 'code'; // K
       default: return undefined; // must return undefined to allow for other plugins
     }
   },
@@ -15,10 +15,10 @@ const richText = () => ({
     let newState;
 
     switch (command) {
-      case 'bbbold':
+      case 'bold':
         newState = RichUtils.toggleInlineStyle(pluginFunctions.getEditorState(), 'BOLD');
         break;
-      case 'cccode':
+      case 'code':
         newState = RichUtils.toggleCode(pluginFunctions.getEditorState());
         break;
       default:

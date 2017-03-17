@@ -1,0 +1,14 @@
+:local(main.main){
+  form{
+    text-align: center;
+    h2{ margin: 20px 0; }
+    input{
+      padding: 0 10px;
+    }
+
+    button{
+      margin: 20px 0;
+      cursor: pointer;
+    }
+  }
+}

@@ -63,16 +63,11 @@ class Problem extends React.Component {
       })
     );
 
-  save = () => {
+  save = () =>
     this.props.saveFn(
       convertToRaw(this.state.    contentEditorState.getCurrentContent()),
       convertToRaw(this.state.explanationEditorState.getCurrentContent())
     )
-      .then((nextState) => {
-        this.references.contentEditor.focus();
-        if (nextState) this.setState(nextState);
-      });
-  }
 
   isReadonly = (mode) =>
     mode === 'solving' ||

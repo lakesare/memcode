@@ -6,9 +6,13 @@ import { authenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as Course from './model';
 
-
-router.get('/:id', catchAsync(async (request, response) => {
-  const course = await Course.getCourseWithProblems(request.params.id);
+// => {
+//   course,
+//   problems,
+//   courseUserIsLearning: null // OR { id: 1, active: false }
+// }
+router.get('/:id', authenticateMiddleware, catchAsync(async (request, response) => {
+  const course = await Course.getCourseWithProblems(request.currentUser.id, request.params.id);
   response.status(200).json(course);
 }));
 
@@ -24,7 +28,7 @@ router.post('/', authenticateMiddleware, catchAsync(async (request, response) =>
   };
   const courseId = await Course.create(course);
 
-  response.status(200).json({ courseId });
+  response.status(200).json(courseId);
 }));
 
 router.put('/:id', catchAsync(async (request, response) => {
@@ -33,7 +37,7 @@ router.put('/:id', catchAsync(async (request, response) => {
 }));
 
 router.delete('/:id', catchAsync(async (request, response) => {
-  await Course.deleteCourseWithProblems(request.params.id);
+  await Course.destroyCourseWithProblems(request.params.id);
   response.status(200).json({});
 }));
 

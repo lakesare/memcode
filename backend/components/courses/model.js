@@ -1,6 +1,7 @@
 import { db } from '~/db/init.js';
 
 import * as Problem from '~/components/problems/model';
+import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
 
 const indexByIds = (ids) => {
   if (ids.length === 0) return [];
@@ -18,7 +19,7 @@ const indexByIds = (ids) => {
 };
 
 const findById = (id) =>
-  db.one('SELECT * FROM course WHERE id = ${id}', { id })
+  db.one('SELECT * FROM course WHERE id = ${id}', { id });
 
 // course: {title: "aaa", userOauthId, userOauthProvider}
 // => { courseId: 5 }
@@ -39,24 +40,20 @@ const update = course =>
     title: course.title, id: course.id
   });
 
-const getCourseWithProblems = (courseId) =>
+const getCourseWithProblems = (userId, courseId) =>
   Promise.all([
     db.one('SELECT * FROM course WHERE id = ${courseId}', { courseId }),
-    Problem.indexByCourseId(courseId)
+    Problem.indexByCourseId(courseId),
+    CourseUserIsLearning.findByUserIdAndCourseId(userId, courseId)
   ])
     .then((values) => ({
-      course: values[0], problems: values[1]
+      course: values[0],
+      problems: values[1],
+      courseUserIsLearning: values[2]
     }));
 
-const deleteCourseWithProblems = (courseId) => (
-  db.tx(transaction => (
-    transaction.batch([
-      transaction.none('DELETE FROM problem WHERE course_id=${courseId}', { courseId }),
-      transaction.none('DELETE FROM course WHERE id=${courseId}', { courseId }),
-    ])
-  ))
-    .then(() => ({ data: true }))
-    .catch(error => Promise.reject({ error }))
-);
+// will delete all problems of this course and all course_user_is_learning
+const destroyCourseWithProblems = (courseId) =>
+  db.none('DELETE FROM course WHERE id=${courseId}', { courseId });
 
-export { indexByIds, findById, create, getCourseWithProblems, deleteCourseWithProblems, update, getCourses };
+export { indexByIds, findById, create, getCourseWithProblems, destroyCourseWithProblems, update, getCourses };

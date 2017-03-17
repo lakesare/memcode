@@ -57,11 +57,11 @@
     "pretty-error": "^2.0.2",
     "react-addons-test-utils": "^15.3.1",
     "sass-loader": "^4.0.0",
-    "source-map-support": "^0.4.2",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "source-map-support": "^0.4.2",
     "body-parser": "^1.16.0",
     "buffer": "^5.0.2",
     "draft-js": "^0.10.0",

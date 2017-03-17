@@ -34,10 +34,10 @@ class Page_courses_id extends React.Component {
   render = () =>
     <main className={css.main}>
       <Header/>
-      <Loading spe={this.state.speGetCourse}>{({ course, problems }) =>
+      <Loading spe={this.state.speGetCourse}>{({ course, problems, courseUserIsLearning }) =>
         <div className="container">
 
-          <Actions course={course}/>
+          <Actions course={course} courseUserIsLearning={courseUserIsLearning}/>
 
           {
             problems.map((problem) =>

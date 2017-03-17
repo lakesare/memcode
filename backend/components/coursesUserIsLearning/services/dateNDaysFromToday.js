@@ -1,5 +1,5 @@
 const dateNDaysFromToday = (n) =>
-  new Date(currentDateInMilliseconds + (n * oneDayInMilliseconds));
+  new Date(currentDateInMilliseconds() + (n * oneDayInMilliseconds));
 
 const currentDateInMilliseconds = () =>
   new Date().getTime();

@@ -1,6 +1,4 @@
-import {
-  EditorState, KeyBindingUtil, Modifier
-} from 'draft-js';
+import { EditorState, Modifier } from 'draft-js';
 
 const getSelectedText = (editorState) => {
   // Get block for current selection
@@ -18,9 +16,12 @@ const getSelectedText = (editorState) => {
 };
 
 const answerInput = () => ({
-  keyBindingFn: (event) => {
-    if (KeyBindingUtil.hasCommandModifier(event) && event.keyCode === 65) { // A
-      return 'markAsAnswer';
+  keyBindingFn: (event, pluginFunctions) => {
+    const isCollapsed = pluginFunctions.getEditorState().getSelection().isCollapsed();
+    if (!isCollapsed) {
+      if (event.keyCode === 13) { // A
+        return 'markAsAnswer';
+      }
     }
   },
 
@@ -31,7 +32,7 @@ const answerInput = () => ({
 
       const contentStateWithEntity = contentState.createEntity(
         'answer',
-        'MUTABLE',
+        'IMMUTABLE',
         { answer: getSelectedText(editorState) }
       );
       const entityKey = contentStateWithEntity.getLastCreatedEntityKey();

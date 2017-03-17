@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { EditorState } from 'draft-js';
-
 import { Problem } from '~/components/Problem';
 
 import * as ProblemApi from '~/api/Problem';
@@ -24,14 +22,10 @@ class NewProblem extends React.Component {
     )
       .then((createdProblem) => {
         this.props.addNewProblem(createdProblem);
-        return Promise.resolve({
-          contentEditorState: EditorState.createEmpty(),
-          explanationEditorState: EditorState.createEmpty()
-        });
       });
 
   render = () =>
-    <Problem mode="editing" saveFn={this.save}/>
+    <Problem key={Math.random(1) * 10000} mode="editing" saveFn={this.save}/>
 }
 
 export { NewProblem };

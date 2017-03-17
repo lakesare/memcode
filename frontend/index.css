@@ -1,5 +1,11 @@
 @import 'css/common';
 
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+@import url('https://fonts.googleapis.com/css?family=Amethysta');
+body, button{
+  font-family: 'Amethysta', serif;
+}
+
 .DraftEditor-root{
   max-height: 200px;
   overflow-y: auto;

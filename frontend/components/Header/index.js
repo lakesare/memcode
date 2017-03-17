@@ -29,7 +29,9 @@ class Header extends React.Component {
     <header className={css.header}>
       <div className="container">
         <section className="logo">
-          <h1>MemCode</h1>
+          <Link to="/profile/courses-learned-by-me">
+            <h1>MemCode</h1>
+          </Link>
           <div className="memorizing-is-hard-caption">
             Memorizing is hard.<br/>
             Let's get started.
