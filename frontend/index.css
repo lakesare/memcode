@@ -18,6 +18,16 @@ body, button{
   .editableAnswer{
     background: #adffb9;
   }
+
+  pre{
+    background: #3e4e4c;
+    margin-bottom: 0;
+    padding: 10px;
+    color: white;
+    span.editableAnswer{
+      color: black;
+    }
+  }
 }
 
 // so that background-color is colored everywhere from top to bottom

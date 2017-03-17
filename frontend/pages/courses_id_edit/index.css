@@ -1,12 +1,18 @@
 :local(main.main){
-  section.problem{
-    margin-bottom: 10px;
+  section.instructions{
+    font-size: 12px;
+    max-width: 400px;
   }
-  .actions{
-    position: absolute;
-    right: -5px;
-    i.fa-trash-o{
-      cursor: pointer;
+  section.problems{
+    > section.problem{
+      margin-bottom: 10px;
+      > .remove{
+        position: absolute;
+        right: -5px;
+        i.fa-trash-o{
+          cursor: pointer;
+        }
+      }
     }
   }
 }

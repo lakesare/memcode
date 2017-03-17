@@ -12,7 +12,10 @@ class NewProblem extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { speCreateProblem: {} };
+    this.state = {
+      speCreateProblem: {},
+      key: this.randomKey()
+    };
   }
 
   save = (content, explanation) =>
@@ -22,10 +25,15 @@ class NewProblem extends React.Component {
     )
       .then((createdProblem) => {
         this.props.addNewProblem(createdProblem);
+        this.setState({ key: this.randomKey() });
       });
 
+  // :-D. yeaah. because Draft will keep the state otherwise, but we want our inputs cleared when we add a new problem.
+  // alternative would be to keep state in this component, but I'm expicitly avoiding this.
+  randomKey = () => Math.random(1) * 10000
+
   render = () =>
-    <Problem key={Math.random(1) * 10000} mode="editing" saveFn={this.save}/>
+    <Problem key={this.state.key} mode="editing" saveFn={this.save}/>
 }
 
 export { NewProblem };

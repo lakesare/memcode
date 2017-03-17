@@ -76,17 +76,38 @@ class Page_courses_id_edit extends React.Component {
     <main className={css.main}>
       <Header/>
 
-      <div className="container">
-        <Loading spe={this.state.speGetCourse}>{payload =>
-          <div>
-            <h1>{payload.course.title}</h1>
+      <Loading spe={this.state.speGetCourse}>{payload =>
+        <div className="container">
+          <h1>{payload.course.title}</h1>
 
+          <section className="instructions row">
+            <div className="col-2">ENTER</div>
+            <div className="col-10">while some word is selected will make this word the one you'll have to recall when reviewing these memes.</div>
+
+            <div className="col-2">CTRL+S</div>
+            <div className="col-10">will save the new meme, it will also get saved automatically when you click from one meme to another.</div>
+
+            <div className="col-2">CTRL+B</div>
+            <div className="col-10">bold text</div>
+
+            <div className="col-2">CTRL+K</div>
+            <div className="col-10">code block</div>
+
+            <div className="col-2">CTRL+ENTER</div>
+            <div className="col-10">soft newline inside of the code block</div>
+          </section>
+
+
+          <section className="problems">
+            <div className="thead row">
+              <div className="col-6">Explanation</div>
+              <div className="col-6">Content</div>
+            </div>
             {this.renderListOfProblems(payload.problems)}
-
             <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
-          </div>
-        }</Loading>
-      </div>
+          </section>
+        </div>
+      }</Loading>
     </main>
 }
 

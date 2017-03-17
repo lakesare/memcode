@@ -14,6 +14,11 @@ import { DraftJsDecorators } from '~/services/draftJs/decorators';
 
 import Editor from 'draft-js-plugins-editor';
 
+class Hi extends React.Component {
+  render = () =>
+    <pre><code>{this.props.children}</code></pre>
+}
+
 class Problem extends React.Component {
   static propTypes = {
     mode: React.PropTypes.oneOf(['viewing', 'editing', 'solving', 'succumbedAfterSolving']).isRequired,
@@ -58,7 +63,7 @@ class Problem extends React.Component {
     DefaultDraftBlockRenderMap.merge(
       Immutable.Map({
         'code-block': {
-          element: 'code', // or
+          wrapper: <Hi/>
         }
       })
     );
@@ -68,6 +73,13 @@ class Problem extends React.Component {
       convertToRaw(this.state.    contentEditorState.getCurrentContent()),
       convertToRaw(this.state.explanationEditorState.getCurrentContent())
     )
+
+  onBlur = () => {
+    const isNewProblem = this.props.initialContentEditorState === null;
+    if (!isNewProblem) {
+      this.save();
+    }
+  }
 
   isReadonly = (mode) =>
     mode === 'solving' ||
@@ -80,6 +92,7 @@ class Problem extends React.Component {
         <Editor
           editorState={this.state.contentEditorState}
           onChange={newState => this.setState({ contentEditorState: newState })}
+          onBlur={this.onBlur}
           plugins={[
             DraftJsPlugins.saveProblem(this.save),
             DraftJsPlugins.richText(),
@@ -109,6 +122,7 @@ class Problem extends React.Component {
         <Editor
           editorState={this.state.explanationEditorState}
           onChange={newState => this.setState({ explanationEditorState: newState })}
+          onBlur={this.onBlur}
           plugins={[
             DraftJsPlugins.saveProblem(this.save),
             DraftJsPlugins.richText(),
@@ -121,9 +135,9 @@ class Problem extends React.Component {
       {
         this.props.mode === 'editing' &&
         this.props.destroyFn &&
-        <div className="actions">
-          <i className="fa fa-trash-o" onClick={this.props.destroyFn}/>
-        </div>
+        <a className="remove" onClick={this.props.destroyFn}>
+          <i className="fa fa-trash-o"/>
+        </a>
       }
     </section>
 }
