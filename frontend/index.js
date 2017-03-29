@@ -15,6 +15,7 @@ import { Page_courses } from './pages/courses';
 import { Page_courses_new } from './pages/courses_new';
 import { Page_courses_id } from './pages/courses_id';
 import { Page_courses_id_review } from './pages/courses_id_review';
+import { Page_courses_id_learn } from './pages/courses_id_learn';
 import { Page_courses_id_edit } from './pages/courses_id_edit';
 import { Page_profile_coursesLearnedByMe } from './pages/profile_coursesLearnedByMe';
 // import { ProfilePage } from './pages/profile';
@@ -32,8 +33,9 @@ ReactDOM.render(
       <Route path="courses"            component={Page_courses}/>
       <Route path="courses/new"        component={Page_courses_new}/>
       <Route path="courses/:id"        component={Page_courses_id}/>
-      <Route path="courses/:courseUserIsLearningId/review" component={Page_courses_id_review}/>
       <Route path="courses/:id/edit"   component={Page_courses_id_edit}/>
+      <Route path="courses/:id/learn"  component={Page_courses_id_learn}/>
+      <Route path="courses/:id/review" component={Page_courses_id_review}/>
       <Route path="profile/courses-learned-by-me" component={Page_profile_coursesLearnedByMe}/>
 
       <Route path="/test" component={Page_test}/>

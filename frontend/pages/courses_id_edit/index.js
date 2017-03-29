@@ -2,10 +2,12 @@ import React from 'react';
 
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
+import { Actions } from '~/components/Actions';
 import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
+import { Instructions } from './components/Instructions';
 
-import * as CourseApi from '~/api/Course';
+import * as ProblemApi from '~/api/Problem';
 
 import Immutable from 'immutable';
 
@@ -21,45 +23,45 @@ class Page_courses_id_edit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      speGetCourse: {}
+      speGetProblems: {}
     };
   }
 
   componentDidMount = () => {
-    CourseApi.show(
-      spe => this.setState({ speGetCourse: spe }),
+    ProblemApi.getAllByCourseId(
+      spe => this.setState({ speGetProblems: spe }),
       this.props.params.id
     );
   }
 
   addNewProblem = (createdProblem) => {
-    const spe = Immutable.fromJS(this.state.speGetCourse);
-    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.push(createdProblem));
+    const spe = Immutable.fromJS(this.state.speGetProblems);
+    const newSpe = spe.updateIn(['payload'], problems => problems.push(createdProblem));
 
-    this.setState({ speGetCourse: newSpe.toJS() });
+    this.setState({ speGetProblems: newSpe.toJS() });
   }
 
   updateOldProblem = (updatedProblem) => {
-    const spe = Immutable.fromJS(this.state.speGetCourse);
+    const spe = Immutable.fromJS(this.state.speGetProblems);
 
-    const index = spe.getIn(['payload', 'problems']).findIndex(
+    const index = spe.getIn(['payload']).findIndex(
       (problem) => problem.get('id') === updatedProblem.id
     );
-    const newSpe = spe.setIn(['payload', 'problems', index], updatedProblem);
+    const newSpe = spe.setIn(['payload', index], updatedProblem);
 
-    this.setState({ speGetCourse: newSpe.toJS() });
+    this.setState({ speGetProblems: newSpe.toJS() });
   }
 
   removeOldProblem = (problemId) => {
-    const spe = Immutable.fromJS(this.state.speGetCourse);
+    const spe = Immutable.fromJS(this.state.speGetProblems);
 
-    const index = spe.getIn(['payload', 'problems']).findIndex(
+    const index = spe.getIn(['payload']).findIndex(
       (problem) => problem.get('id') === problemId
     );
 
-    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.delete(index));
+    const newSpe = spe.updateIn(['payload'], problems => problems.delete(index));
 
-    this.setState({ speGetCourse: newSpe.toJS() });
+    this.setState({ speGetProblems: newSpe.toJS() });
   }
 
   renderListOfProblems = problems =>
@@ -76,34 +78,21 @@ class Page_courses_id_edit extends React.Component {
     <main className={css.main}>
       <Header/>
 
-      <Loading spe={this.state.speGetCourse}>{payload =>
+      <div className="container">
+        <Actions courseId={this.props.params.id}/>
+      </div>
+
+      <Loading spe={this.state.speGetProblems}>{problems =>
         <div className="container">
-          <h1>{payload.course.title}</h1>
-
-          <section className="instructions row">
-            <div className="col-2">ENTER</div>
-            <div className="col-10">while some word is selected will make this word the one you'll have to recall when reviewing these memes.</div>
-
-            <div className="col-2">CTRL+S</div>
-            <div className="col-10">will save the new meme, it will also get saved automatically when you click from one meme to another.</div>
-
-            <div className="col-2">CTRL+B</div>
-            <div className="col-10">bold text</div>
-
-            <div className="col-2">CTRL+K</div>
-            <div className="col-10">code block</div>
-
-            <div className="col-2">CTRL+ENTER</div>
-            <div className="col-10">soft newline inside of the code block</div>
-          </section>
-
-
           <section className="problems">
-            <div className="thead row">
-              <div className="col-6">Explanation</div>
-              <div className="col-6">Content</div>
+            <div className="thead">
+              <div className="content">Content</div>
+              <div className="explanation">Explanation</div>
+              <Instructions/>
             </div>
-            {this.renderListOfProblems(payload.problems)}
+            <div className="tbody">
+              {this.renderListOfProblems(problems)}
+            </div>
             <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
           </section>
         </div>

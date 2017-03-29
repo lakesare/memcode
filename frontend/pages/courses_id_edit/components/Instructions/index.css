@@ -1,0 +1,30 @@
+@import 'css/variables';
+
+:local(section.instructions){
+  > div.toggler{
+    position: absolute;
+    right: 15px; top: -6px;
+
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  > div.modal{
+    max-width: 500px;
+    position: fixed;
+    bottom: 20px; right: 20px;
+
+    background: white;
+    z-index: 100;
+    border: 1px solid black;
+    font-size: 12px;
+    table{
+      cursor: pointer;
+      td{
+        vertical-align: top;
+        border: solid 1px $sims-green-color;
+        padding: 3px 5px;
+      }
+    }
+  }
+}

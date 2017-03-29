@@ -8,6 +8,8 @@ import { Loading } from '~/components/Loading';
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
 
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
+import { commonFetch } from '~/api/commonFetch';
+
 
 import css from './index.css';
 
@@ -26,7 +28,7 @@ import css from './index.css';
 class Page_courses_id_review extends React.Component {
   static propTypes = {
     params: React.PropTypes.shape({
-      courseUserIsLearningId: React.PropTypes.string
+      id: React.PropTypes.string
     }).isRequired,
     succumb: React.PropTypes.func.isRequired,
     solve:   React.PropTypes.func.isRequired,
@@ -36,17 +38,16 @@ class Page_courses_id_review extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      speGetCourse: {},
+      speGetPage: {},
       currentProblemIndex: 0,
       amountOfRightAnswersGivenForCurrentProblem: 0
     };
   }
 
   componentDidMount = () => {
-    // { course, problems: dueProblems }
-    CourseUserIsLearningApi.getDueProblems(
-      spe => this.setState({ speGetCourse: spe }),
-      this.props.params.courseUserIsLearningId
+    commonFetch(
+      (spe) => this.setState({ speGetPage: spe }),
+      'GET', `/api/pages/courses/${this.props.params.id}/review`
     )
       .then(() => {
         document.addEventListener('keydown', this.onEnter, false);
@@ -87,9 +88,9 @@ class Page_courses_id_review extends React.Component {
   // given: amount of answers that were properly given
   // wanted: amount of all problems
   recordScore = (given, wanted) => {
-    CourseUserIsLearningApi.updateProblemScore(
+    CourseUserIsLearningApi.reviewProblem(
       () => {},
-      this.props.params.courseUserIsLearningId,
+      this.state.speGetPage.payload.courseUserIsLearning.id,
       this.currentProblem().id,
       this.calculateScore(given, wanted)
     );
@@ -97,7 +98,7 @@ class Page_courses_id_review extends React.Component {
 
   goToNextProblem = () => {
     const nextProblemIndex = this.state.currentProblemIndex + 1;
-    const isThereNextProblem = !!this.state.speGetCourse.payload.problems[nextProblemIndex];
+    const isThereNextProblem = !!this.state.speGetPage.payload.problems[nextProblemIndex];
 
     if (isThereNextProblem) {
       this.props.solve();
@@ -111,7 +112,7 @@ class Page_courses_id_review extends React.Component {
   }
 
   currentProblem = () =>
-    this.state.speGetCourse.payload.problems[this.state.currentProblemIndex]
+    this.state.speGetPage.payload.problems[this.state.currentProblemIndex]
 
   // to problem model?
   calculateScore = (given, wanted) => {
@@ -135,9 +136,9 @@ class Page_courses_id_review extends React.Component {
       <Header/>
 
       <div className="container">
-        <Loading spe={this.state.speGetCourse}>{payload =>
+        <Loading spe={this.state.speGetPage}>{({ courseUserIsLearning, course, problems }) =>
           <div>
-            <h1 className="course-title">{payload.course.title}</h1>
+            <h1 className="course-title">{course.title}</h1>
 
             <ProblemBeingSolved
               key={this.state.currentProblemIndex} // is needed, otherwise Editor will just stay the same

@@ -20,7 +20,3 @@ vs
 
 I chose hash with id inside, because was confused as to how to work with eg
 course = { 1: {} }. Should I Object.keys(course)[0] all the time?
-
-
-
-

@@ -6,11 +6,10 @@ const camelizeColumns = (data) => {
   for (let prop in template) {
     const camel = pgPromise.utils.camelize(prop);
     if (!(camel in template)) {
-      for (let i = 0; i < data.length; i++) {
-        let d = data[i];
+      data.map((d) => {
         d[camel] = d[prop];
         delete d[prop];
-      }
+      });
     }
   }
 };
@@ -20,7 +19,7 @@ const pgOptions = {
     const cyan = "\x1b[36m%s\x1b[0m";
     console.log(cyan, e.query); // log the query being executed
   },
-  receive: (data, result, e) => {
+  receive: (data) => {
     camelizeColumns(data);
   } // https://coderwall.com/p/irklcq
 };
@@ -38,12 +37,11 @@ const connectionString = {
 };
 const db = pgPackage(connectionString);
 db.connect()
-  .then(function (obj) {
+  .then((obj) => {
     obj.done(); // success, release the connection;
   })
-  .catch(function (error) {
+  .catch((error) => {
     console.log("ERROR:", error.message || error);
-});
-
+  });
 
 export { db };

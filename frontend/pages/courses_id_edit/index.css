@@ -1,16 +1,28 @@
 :local(main.main){
-  section.instructions{
-    font-size: 12px;
-    max-width: 400px;
-  }
   section.problems{
-    > section.problem{
-      margin-bottom: 10px;
-      > .remove{
-        position: absolute;
-        right: -5px;
-        i.fa-trash-o{
-          cursor: pointer;
+    > .thead{
+      display: flex;
+      position: relative;
+      padding-bottom: 6px;
+      .explanation, .content{
+        width: 50%;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+        &.content{ margin-right: 10px; }
+        &.explanation{ margin-left: 10px; }
+      }
+    }
+    > .tbody{
+      > section.problem{
+        margin-bottom: 10px;
+        position: relative;
+        > .remove{
+          position: absolute;
+          right: -20px;
+          i.fa-trash-o{
+            cursor: pointer;
+          }
         }
       }
     }

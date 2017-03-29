@@ -8,17 +8,6 @@
   },
   "main": "Memrise. For code.",
   "scripts": {
-    "start": "nodemon --watch backend backend/webpacked/index.js",
-    "backend:webpack": "cd backend; ../node_modules/.bin/webpack -w",
-    "frontend:webpack": "cd frontend; ../node_modules/.bin/webpack -w",
-    "db:reset": "psql -v database=memcode -U postgres -f backend/db/schema.sql;",
-    "db:drop": "psql -v database=memcode -U postgres -c 'DROP DATABASE memcode'",
-    "db:create": "psql -U postgres -c 'CREATE DATABASE memcode'",
-    "db:dump": "pg_dump -o memcode -U postgres > backend/db/dump.sql",
-    "db:restore": "psql -d memcode -U postgres < backend/db/dump.sql",
-    "test:db": "psql -v database=memcode_test -U postgres -f backend/db/schema.sql",
-    "backend:test": "cd backend; NODE_ENV=test mocha --recursive ./webpacked/test --require babel-polyfill --watch",
-    "frontend:test": "cd frontend; NODE_ENV=test karma start"
   },
   "author": "",
   "license": "ISC",

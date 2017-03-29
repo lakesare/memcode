@@ -35,6 +35,31 @@ html, body, div#root, main{
   height: 100%;
 }
 
+.container{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+body{
+  margin: 0;
+  color: #292b2c;
+}
+a{
+  text-decoration: none;
+}
+h1, h2, h3{
+  margin-top: 0; margin-bottom: 0;
+  font-weight: normal;
+}
+// only use these
+h1{ font-size: 25px; }
+h2{ font-size: 22px; }
+h3{ font-size: 19px; }
+
+table{
+  border-collapse: collapse;
+}
+
 // fun green border
 main{
   // border: 10px solid rgb(123, 255, 66);

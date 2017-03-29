@@ -5,7 +5,7 @@ import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 
-import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
+import * as CourseApi from '~/api/Course';
 
 class Page_profile_coursesLearnedByMe extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class Page_profile_coursesLearnedByMe extends React.Component {
   }
 
   componentDidMount = () => {
-    CourseUserIsLearningApi.getCoursesWithDueProblems(
+    CourseApi.selectAllLearned(
       spe => this.setState({ speGetCourses: spe }),
     );
   }
@@ -30,8 +30,8 @@ class Page_profile_coursesLearnedByMe extends React.Component {
           <Link to="/profile/courses-created-by-me">courses I created</Link>
         </nav>
 
-        <Loading spe={this.state.speGetCourses}>{courses =>
-          <ListOfCourses courses={courses} isDisplayed={{ reviewAndLearn: true }} />
+        <Loading spe={this.state.speGetCourses}>{coursesData =>
+          <ListOfCourses coursesData={coursesData}/>
         }</Loading>
       </div>
     </main>

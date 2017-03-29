@@ -1,23 +1,15 @@
 import React from 'react';
 
-import {
-  EditorState,
-  convertToRaw, convertFromRaw,
-  DefaultDraftBlockRenderMap
-} from 'draft-js';
-
-import Immutable from 'immutable';
+import { convertToRaw } from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
 
 // draftJs
 import { DraftJsPlugins } from '~/services/draftJs/plugins';
 import { DraftJsDecorators } from '~/services/draftJs/decorators';
+import { blockRenderMap } from '~/services/draftJs/blockRenderMap';
+import { createEditorState } from '~/services/draftJs/createEditorState';
 
-import Editor from 'draft-js-plugins-editor';
-
-class Hi extends React.Component {
-  render = () =>
-    <pre><code>{this.props.children}</code></pre>
-}
+import css from './index.css';
 
 class Problem extends React.Component {
   static propTypes = {
@@ -42,37 +34,10 @@ class Problem extends React.Component {
     super(props);
 
     this.state = {
-      contentEditorState: this.createEditorState(this.props.initialContentEditorState),
-      explanationEditorState: this.createEditorState(this.props.initialExplanationEditorState),
-    };
-
-    this.references = {
-      contentEditor: null
+      contentEditorState: createEditorState(this.props.initialContentEditorState),
+      explanationEditorState: createEditorState(this.props.initialExplanationEditorState),
     };
   }
-
-  createEditorState = (raw) => {
-    if (raw) {
-      return EditorState.createWithContent(convertFromRaw(raw));
-    } else {
-      return EditorState.createEmpty();
-    }
-  }
-
-  blockRenderMap = () =>
-    DefaultDraftBlockRenderMap.merge(
-      Immutable.Map({
-        'code-block': {
-          wrapper: <Hi/>
-        }
-      })
-    );
-
-  save = () =>
-    this.props.saveFn(
-      convertToRaw(this.state.    contentEditorState.getCurrentContent()),
-      convertToRaw(this.state.explanationEditorState.getCurrentContent())
-    )
 
   onBlur = () => {
     const isNewProblem = this.props.initialContentEditorState === null;
@@ -81,14 +46,20 @@ class Problem extends React.Component {
     }
   }
 
+  save = () =>
+    this.props.saveFn(
+      convertToRaw(this.state.    contentEditorState.getCurrentContent()),
+      convertToRaw(this.state.explanationEditorState.getCurrentContent())
+    )
+
   isReadonly = (mode) =>
     mode === 'solving' ||
     mode === 'succumbedAfterSolving' ||
     mode === 'viewing'
 
   render = () =>
-    <section className="problem row">
-      <div className="content col-6">
+    <section className={`problem ${css.problem}`}>
+      <div className="content">
         <Editor
           editorState={this.state.contentEditorState}
           onChange={newState => this.setState({ contentEditorState: newState })}
@@ -112,13 +83,12 @@ class Problem extends React.Component {
               }
             )()
           }
-          ref={ref => { this.references.contentEditor = ref; }}
-          blockRenderMap={this.blockRenderMap()}
+          blockRenderMap={blockRenderMap()}
           readOnly={this.isReadonly(this.props.mode)}
         />
       </div>
 
-      <div className="explanation col-6">
+      <div className="explanation">
         <Editor
           editorState={this.state.explanationEditorState}
           onChange={newState => this.setState({ explanationEditorState: newState })}
@@ -128,6 +98,7 @@ class Problem extends React.Component {
             DraftJsPlugins.richText(),
             DraftJsPlugins.pasteImageFromClipboard()
           ]}
+          blockRenderMap={blockRenderMap()}
           readOnly={this.isReadonly(this.props.mode)}
         />
       </div>

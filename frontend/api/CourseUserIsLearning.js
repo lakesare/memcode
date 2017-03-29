@@ -1,21 +1,5 @@
 import { commonFetch } from './commonFetch';
 
-// of authenticated user
-// => [{
-//   ...usual course object,
-//   courseUserIsLearningId: 10,
-//   amountOfDueProblems: 3
-// }], active, filtered by amount of due problems
-const getCoursesWithDueProblems = (dispatch) =>
-  commonFetch(dispatch,
-    'GET', '/api/coursesUserIsLearning/coursesWithDueProblems'
-  );
-
-const getDueProblems = (dispatch, id) =>
-  commonFetch(dispatch,
-    'GET', `/api/coursesUserIsLearning/${id}/dueProblems`
-  );
-
 const create = (dispatch, courseId) =>
   commonFetch(dispatch,
     'POST', '/api/coursesUserIsLearning',
@@ -32,14 +16,30 @@ const resumeLearning = (dispatch, id) =>
     'PUT', `/api/coursesUserIsLearning/${id}/resumeLearning`
   );
 
-const updateProblemScore = (dispatch, id, problemId, performanceRating) =>
+const learnProblem = (dispatch, id, problemId) =>
   commonFetch(dispatch,
-    'PUT', `/api/coursesUserIsLearning/${id}/updateProblemScore`,
-    { problemId, performanceRating }
-  )
+    'POST', `/api/coursesUserIsLearning/${id}/problems/${problemId}/learn`
+  );
+
+const reviewProblem = (dispatch, id, problemId, performanceRating) =>
+  commonFetch(dispatch,
+    'PUT', `/api/coursesUserIsLearning/${id}/problems/${problemId}/review`,
+    { performanceRating }
+  );
+
+const getProblemsToLearn = (dispatch, id) =>
+  commonFetch(dispatch,
+    'GET', `/api/coursesUserIsLearning/${id}/problemsToLearn`
+  );
+
+const getProblemsToReview = (dispatch, id) =>
+  commonFetch(dispatch,
+    'GET', `/api/coursesUserIsLearning/${id}/problemsToReview`
+  );
 
 export {
-  getCoursesWithDueProblems, getDueProblems, create,
+  create,
   stopLearning, resumeLearning,
-  updateProblemScore
+  learnProblem, reviewProblem,
+  getProblemsToLearn, getProblemsToReview
 };

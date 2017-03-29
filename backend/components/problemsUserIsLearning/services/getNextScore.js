@@ -7,9 +7,9 @@
 import { dateNDaysFromToday } from './dateNDaysFromToday';
 
 // performanceRating: on a scale from 0-5 (0=worst, 5=best)
-const getNextProblemScoreValue = (prevScoreValue, performanceRating) => {
+const getNextScore = (puil, performanceRating) => {
   const nextEasiness = clipEasiness(
-    prevScoreValue.easiness +
+    puil.easiness +
     (-0.8) +
     (0.28 * performanceRating) +
     (0.02 * (performanceRating ** 2))
@@ -17,7 +17,7 @@ const getNextProblemScoreValue = (prevScoreValue, performanceRating) => {
 
   const nextConsecutiveCorrectAnswers =
     isAnswerCorrect(performanceRating) ?
-    prevScoreValue.consecutiveCorrectAnswers + 1 :
+    puil.consecutiveCorrectAnswers + 1 :
     0;
 
   const daysToWait = 6 * (nextEasiness ** (nextConsecutiveCorrectAnswers - 1));
@@ -26,13 +26,11 @@ const getNextProblemScoreValue = (prevScoreValue, performanceRating) => {
     dateNDaysFromToday(daysToWait) :
     dateNDaysFromToday(1);
 
-  const nextScoreValue = {
+  return {
     easiness: nextEasiness,
     consecutiveCorrectAnswers: nextConsecutiveCorrectAnswers,
     nextDueDate: nextNextDueDate
   };
-
-  return nextScoreValue;
 };
 
 const isAnswerCorrect = (performanceRating) => performanceRating > 4;
@@ -41,4 +39,4 @@ const isAnswerCorrect = (performanceRating) => performanceRating > 4;
 // if it's smaller - make it 1.3
 const clipEasiness = (easiness) => Math.max(easiness, 1.3);
 
-export { getNextProblemScoreValue };
+export { getNextScore };

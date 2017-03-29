@@ -1,0 +1,26 @@
+@import 'css/variables';
+
+:local(.learn-and-review-buttons){
+  display: inline-block;
+  vertical-align: middle;
+  a{
+    display: inline-block;
+    margin-left: 10px;
+
+    padding: 2px 10px;
+    color: white;
+    font-size: 12px;
+    text-decoration: none;
+    border: 1px solid black;
+    &.-disabled{
+      pointer-events: none;
+      opacity: 0.1;
+    }
+    &.review{
+      background: $review-button-color;
+    }
+    &.learn{
+      background: $learn-button-color;
+    }
+  }
+}

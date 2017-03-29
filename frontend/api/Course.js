@@ -5,6 +5,16 @@ const index = (dispatch) =>
     'GET', '/api/courses'
   );
 
+const selectAllLearned = (dispatch) =>
+  commonFetch(dispatch,
+    'GET', '/api/courses/allLearned'
+  );
+
+const selectAllCreated = (dispatch) =>
+  commonFetch(dispatch,
+    'GET', '/api/courses/allCreated'
+  );
+
 const show = (dispatch, courseId) =>
   commonFetch(dispatch,
     'GET', `/api/courses/${courseId}`
@@ -27,4 +37,7 @@ const destroy = (dispatch, courseId) =>
     'DELETE', `/api/courses/${courseId}`
   );
 
-export { index, show, create, update, destroy };
+export {
+  index, show, create, update, destroy,
+  selectAllLearned, selectAllCreated
+};

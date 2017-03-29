@@ -1,0 +1,8 @@
+:local(main.main){
+  .course{
+    cursor: pointer;
+    &:hover{
+      box-shadow: 0 2px 3px #777;
+    }
+  }
+}

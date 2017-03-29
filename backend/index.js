@@ -29,6 +29,10 @@ app.use('/api/problems', problemsRouter);
 import { router as coursesUserIsLearningRouter } from './components/coursesUserIsLearning/routes';
 app.use('/api/coursesUserIsLearning', coursesUserIsLearningRouter);
 
+// GET routes that return results for particular frontend page. something like what server-rendering would do.
+import { router as pagesRouter } from './components/pages/routes';
+app.use('/api/pages', pagesRouter);
+
 import { router as authRouter } from './components/auth/routes';
 app.use('/auth', authRouter);
 

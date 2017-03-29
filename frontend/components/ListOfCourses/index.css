@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 :local(.list-of-courses){
   display: flex;
   flex-wrap: wrap;
@@ -27,59 +29,61 @@
       }
     }
 
-    > section.main{
-      height: 100%;
+    // had to wrap this into .review-and-learn because of react, so repeating main's style:
+    > section.main,
+    > section.main > .review-and-learn{
       display: flex;
       flex-wrap: wrap;
       flex-direction: column;
       justify-content: space-between;
-      padding-top: 20px;
-      > h5.title{}
-      > .amount-of-mems-to-review-and-learn{
-        display: flex;
-        > .to-review, > .to-learn{
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          width: 50%;
-          background: rgba(0, 0, 0, 0.5);
-          color: white;
-          z-index: 100;
-        }
-      }
-
     }
 
     > section.main{
+      height: 100%;
+      padding-top: 20px;
       position: relative;
-      > .review-and-learn-more{
-        visibility: hidden;
-        width: 100%;
-        display: flex;
-        position: absolute;
-        top: 0; bottom: 0;
-        > a.review, > a.learn-more{
-          opacity: 0.9;
-          width: 50%;
-          color: white;
-          font-size: 12px;
-          font-weight: bold;
-
-          // center text
+      > .review-and-learn{
+        > .review-and-learn-more{
+          visibility: hidden;
+          width: 100%;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          &:hover{
-            text-decoration: none;
-            opacity: 1;
+          position: absolute;
+          top: 0; bottom: 0;
+          > a.review, > a.learn-more{
+            opacity: 0.9;
+            width: 50%;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+
+            // center text
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &:hover{
+              text-decoration: none;
+              opacity: 1;
+            }
+          }
+          > a.review{
+            background: $review-button-color;
+          }
+          > a.learn-more{
+            background: $learn-button-color;
           }
         }
-        > a.review{
-          background: #9c0c0c;
-        }
-        > a.learn-more{
-          background: #1d1d56;
+        > .amount-of-mems-to-review-and-learn{
+          display: flex;
+          > .to-review, > .to-learn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            z-index: 100;
+          }
         }
       }
       &:hover{

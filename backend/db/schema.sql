@@ -11,17 +11,18 @@ CREATE DATABASE :database;
 --   2. all tables are in sigular, but consider this an exception and user users. but exception of writing 'user' instead of user is no more tedious.
 CREATE TABLE "user" (
   id SERIAL PRIMARY KEY,
-  oauth_provider VARCHAR,
-  oauth_id VARCHAR,
-  username VARCHAR,
-  avatar_url VARCHAR
+  oauth_provider VARCHAR NOT NULL,
+  oauth_id VARCHAR NOT NULL,
+  username VARCHAR NOT NULL,
+  avatar_url VARCHAR,
+  unique (oauth_provider, oauth_id)
 );
 
 CREATE TABLE course (
   id SERIAL PRIMARY KEY,
-  title VARCHAR,
+  title VARCHAR NOT NULL,
 
-  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE
+  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE problem (
@@ -31,19 +32,31 @@ CREATE TABLE problem (
   explanation JSON,
   content JSON,
 
-  created_at TIMESTAMP,
+  created_at TIMESTAMP NOT NULL,
 
-  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE
+  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE course_user_is_learning (
   id SERIAL PRIMARY KEY,
 
-  problem_scores JSON,
+  active BOOLEAN NOT NULL, -- whether it's shown in /profile/learning
 
-  active BOOLEAN, -- whether it's shown in /profile/learning
-
-  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE,
-  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE,
+  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
+  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
   unique (course_id, user_id)
+);
+
+-- this is the table only for already learned problems
+CREATE TABLE problem_user_is_learning (
+  id SERIAL PRIMARY KEY,
+
+  easiness SMALLINT NOT NULL,
+  consecutive_correct_answers SMALLINT NOT NULL,
+  next_due_date TIMESTAMP NOT NULL,
+
+  problem_id INTEGER REFERENCES problem (id) ON DELETE CASCADE NOT NULL,
+  course_user_is_learning_id INTEGER REFERENCES "course_user_is_learning" (id) ON DELETE CASCADE NOT NULL,
+  unique (problem_id, course_user_is_learning_id),
+  CHECK (consecutive_correct_answers >= 0)
 );

@@ -41,14 +41,14 @@ router.get('/github/callback',  catchAsync(async (request, response) => {
   }).then(res => res.json());
 
   // now that we are sure our user is this github's user, let's
-  const existingUser = await User.getUserByOauth('github', accountReturnedFromGithub.id);
+  const existingUser = await User.select.oneByOauth('github', accountReturnedFromGithub.id);
 
 
   if (existingUser) { // user with this github_id is already in our db! sign in.
     const token = jwt.sign(existingUser, 'serverereSecretty');
     redirectWithToken(response, token);
   } else { // no users with this id found! create such user and sign in.
-    const createdUser = await User.createUserFromGithub(accountReturnedFromGithub);
+    const createdUser = await User.insert.createFromGithub(accountReturnedFromGithub);
     const token = jwt.sign(createdUser, 'serverereSecretty');
     redirectWithToken(response, token);
   }

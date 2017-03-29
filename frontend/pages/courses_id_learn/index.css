@@ -1,0 +1,17 @@
+@import 'css/variables';
+
+:local(main.main){
+
+  section.problems{
+    > .problem-wrapper{
+      cursor: pointer;
+      padding: 10px;
+      &.-learned{
+        outline: $sims-green-color 3px solid;
+      }
+      > .problem{
+        margin-bottom: 0;
+      }
+    }
+  }
+}

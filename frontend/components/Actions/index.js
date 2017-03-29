@@ -1,48 +1,52 @@
 import React from 'react';
 
 import { Link, browserHistory } from 'react-router';
-
 import { Loading } from '~/components/Loading';
+import { LearnAndReviewButtons } from '~/components/LearnAndReviewButtons';
+
+import css from './index.css';
 
 import * as CourseApi from '~/api/Course';
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 
-
 //   'delete' (if owner) => just deletes it
 //   'edit'   (if owner) => /courses/:id/edit
-//   'review'     (if learner) => /courses/:id/review
-//   'learn mode' (if learner) => switch to learn mode
+//   'review' (if learner) => /courses/:id/review
+//   'learn'  (if learner) => switch to learn mode
 //   'add to learned courses'/'remove from learned courses'/'resume learning this course' button
 class Actions extends React.Component {
   static propTypes = {
-    course: React.PropTypes.object.isRequired,
-    courseUserIsLearning: React.PropTypes.object,
+    courseId: React.PropTypes.string.isRequired,
     currentUser: React.PropTypes.object.isRequired
-  }
-
-  static defaultProps = {
-    courseUserIsLearning: null
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      speCourseUserIsLearning: {
-        status: 'success',
-        payload: props.courseUserIsLearning
-      },
+      speGetCourse: {},
+      speCourseUserIsLearning: {}
     };
   }
 
+  componentDidMount = () => {
+    CourseApi.show(
+      spe => this.setState({ speGetCourse: spe }),
+      this.props.courseId
+    )
+      .then(({ courseUserIsLearning }) => {
+        this.setState({ speCourseUserIsLearning: { status: 'success', payload: courseUserIsLearning } });
+      });
+  }
+
   apiDeleteCourse = () => {
-    CourseApi.destroy(() => {}, this.props.course.id);
+    CourseApi.destroy(() => {}, this.props.courseId);
     browserHistory.goBack();
   }
 
   apiStartLearning = () =>
     CourseUserIsLearningApi.create(
       spe => this.setState({ speCourseUserIsLearning: spe }),
-      this.props.course.id
+      this.props.courseId
     )
 
   apiStopLearning = () =>
@@ -57,15 +61,8 @@ class Actions extends React.Component {
       this.state.speCourseUserIsLearning.payload.id
     )
 
-  isCourseLearnedAndActive = () => {
-    const courseUserIsLearning = this.state.speCourseUserIsLearning.payload;
-    return courseUserIsLearning &&
-    courseUserIsLearning.active;
-  }
-
-  canLearnMode = () => this.isCourseLearnedAndActive()
-  canReview    = () => this.isCourseLearnedAndActive()
-  canEdit      = () => this.props.course.userId === this.props.currentUser.id
+  canEdit = () =>
+    this.state.speGetCourse.payload.course.userId === this.props.currentUser.id
 
   renderAddToLearned = (courseUserIsLearning) => {
     if (courseUserIsLearning === null) {
@@ -84,41 +81,33 @@ class Actions extends React.Component {
   }
 
   render = () =>
-    <section className="actions">
-      <h3 className="course-title">{this.props.course.title}</h3>
+    <Loading spe={this.state.speGetCourse}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
+      <section className={css.actions}>
+        <h3 className="course-title">{course.title}</h3>
 
-      <a className="add-to-learned">
-        <Loading spe={this.state.speCourseUserIsLearning}>{(courseUserIsLearning) =>
-          this.renderAddToLearned(courseUserIsLearning)
-        }</Loading>
-      </a>
-
-      {
-        this.canLearnMode() &&
-        <a>LEARN MODE</a>
-      }
-
-      {
-        this.canReview() &&
-        <Link className="review">
-          REVIEW
-        </Link>
-      }
-
-      {
-        this.canEdit() &&
-        <Link className="edit" to={`/courses/${this.props.course.id}/edit`}>
-          <i className="fa fa-pencil-square-o"/>
-        </Link>
-      }
-
-      {
-        this.canEdit() &&
-        <a className="remove" onClick={this.apiDeleteCourse}>
-          <i className="fa fa-trash-o"/>
+        <a className="add-to-learned">
+          <Loading spe={this.state.speCourseUserIsLearning}>{(cuil) =>
+            this.renderAddToLearned(cuil)
+          }</Loading>
         </a>
-      }
-    </section>
+
+        <LearnAndReviewButtons courseUserIsLearning={this.state.speCourseUserIsLearning.payload} amountOfProblemsToLearn={amountOfProblemsToLearn} amountOfProblemsToReview={amountOfProblemsToReview}/>
+
+        {
+          this.canEdit() &&
+          <Link className="edit" to={`/courses/${course.id}/edit`}>
+            <i className="fa fa-pencil-square-o"/>
+          </Link>
+        }
+
+        {
+          this.canEdit() &&
+          <a className="remove" onClick={this.apiDeleteCourse}>
+            <i className="fa fa-trash-o"/>
+          </a>
+        }
+      </section>
+    }</Loading>
 }
 
 import { connect } from 'react-redux';

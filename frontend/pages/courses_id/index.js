@@ -3,10 +3,10 @@ import React from 'react';
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
 
-import { Actions } from './components/Actions';
+import { Actions } from '~/components/Actions';
 import { Problem } from '~/components/Problem';
 
-import * as CourseApi from '~/api/Course';
+import * as ProblemApi from '~/api/Problem';
 
 import css from './index.css';
 
@@ -20,13 +20,13 @@ class Page_courses_id extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      speGetCourse: {}
+      speGetProblems: {}
     };
   }
 
   componentDidMount = () => {
-    CourseApi.show(
-      spe => this.setState({ speGetCourse: spe }),
+    ProblemApi.getAllByCourseId(
+      spe => this.setState({ speGetProblems: spe }),
       this.props.params.id
     );
   }
@@ -34,23 +34,25 @@ class Page_courses_id extends React.Component {
   render = () =>
     <main className={css.main}>
       <Header/>
-      <Loading spe={this.state.speGetCourse}>{({ course, problems, courseUserIsLearning }) =>
-        <div className="container">
 
-          <Actions course={course} courseUserIsLearning={courseUserIsLearning}/>
+      <div className="container">
+        <Actions courseId={this.props.params.id}/>
 
-          {
-            problems.map((problem) =>
-              <Problem
-                key={problem.id}
-                mode="viewing"
-                initialContentEditorState={problem.content}
-                initialExplanationEditorState={problem.explanation}
-              />
-            )
-          }
-        </div>
-      }</Loading>
+        <Loading spe={this.state.speGetProblems}>{(problems) =>
+          <div className="problems">
+            {
+              problems.map((problem) =>
+                <Problem
+                  key={problem.id}
+                  mode="viewing"
+                  initialContentEditorState={problem.content}
+                  initialExplanationEditorState={problem.explanation}
+                />
+              )
+            }
+          </div>
+        }</Loading>
+      </div>
     </main>
 }
 
