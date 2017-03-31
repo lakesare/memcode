@@ -51,7 +51,7 @@ CREATE TABLE course_user_is_learning (
 CREATE TABLE problem_user_is_learning (
   id SERIAL PRIMARY KEY,
 
-  easiness SMALLINT NOT NULL,
+  easiness REAL NOT NULL,
   consecutive_correct_answers SMALLINT NOT NULL,
   next_due_date TIMESTAMP NOT NULL,
 

@@ -109,3 +109,6 @@ import * as User from '~/components/users/model';
 
 
 
+// http://supermemopedia.com/wiki/We_should_have_two_independent_measures_of_difficulty!
+//
+// Human memory works to combat complex memories by means of forgetting, replacement connections, interference, abstraction, etc. As forgetting and interference target complex memories, Darwinian mechanisms favor simple abstractions that are cheap to maintain and serve more efficient computation. That aspect of forgetting underlies human intelligence and creativity!

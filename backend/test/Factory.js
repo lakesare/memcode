@@ -29,10 +29,10 @@ const RawFactory = {
     }),
 
   courseUserIsLearning: ({ courseId, userId }) =>
-    CourseUserIsLearning.insert.create({ courseId, userId }),
+    CourseUserIsLearning.insert.create(courseId, userId),
 
   problemUserIsLearning: ({ problemId, courseUserIsLearningId }) =>
-    ProblemUserIsLearning.insert.create({ problemId, courseUserIsLearningId })
+    ProblemUserIsLearning.insert.create(courseUserIsLearningId, problemId)
 };
 
 const Factory = {

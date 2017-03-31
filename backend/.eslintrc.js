@@ -85,7 +85,10 @@ module.exports = {
     // for "INSERT INTO problems (content, explanation, course_id, created_at) VALUES (${content}, ${explanation}, ${courseId}, ${created_at}) RETURNING *",
     "quotes": "off",
 
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+
+    // I know myseeelf when to use or not to use it.
+    "no-await-in-loop": "off"
   },
   "globals": {
     "fetch": true,
@@ -102,5 +105,6 @@ module.exports = {
     // in our tests
     "describe": true,
     "expect": true,
+    "beforeEach": true
   }
 }

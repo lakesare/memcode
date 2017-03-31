@@ -34,9 +34,9 @@ router.get('/:id', authenticateMiddleware, catchAsync(async (request, response) 
 }));
 
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
-  const courseId = await Course.insert.create(request.body['course'], request.currentUser.id);
+  const course = await Course.insert.create(request.body['course'], request.currentUser.id);
 
-  response.status(200).json(courseId);
+  response.status(200).json(course.id);
 }));
 
 router.put('/:id', catchAsync(async (request, response) => {
