@@ -21,6 +21,11 @@ const select = {
         FROM problem_user_is_learning
         WHERE problem_user_is_learning.course_user_is_learning_id = \${id}
       )
+      AND problem.course_id = (
+        SELECT course_user_is_learning.course_id
+        FROM course_user_is_learning
+        WHERE course_user_is_learning.id = \${id}
+      )
       `,
       { id }
     ),
@@ -33,7 +38,11 @@ const select = {
       WHERE problem.id IN (
         SELECT problem_user_is_learning.problem_id
         FROM problem_user_is_learning
-        WHERE problem_user_is_learning.course_user_is_learning_id = \${id}
+        WHERE (
+          problem_user_is_learning.course_user_is_learning_id = \${id}
+          AND
+          problem_user_is_learning.next_due_date < timezone('UTC', now())
+        )
       )
       `,
       { id }

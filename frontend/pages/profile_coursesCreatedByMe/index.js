@@ -7,8 +7,7 @@ import { ProfileNavigation } from '~/components/ProfileNavigation';
 
 import * as CourseApi from '~/api/Course';
 
-
-class Page_profile_coursesLearnedByMe extends React.Component {
+class Page_profile_coursesCreatedByMe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +16,7 @@ class Page_profile_coursesLearnedByMe extends React.Component {
   }
 
   componentDidMount = () => {
-    CourseApi.selectAllLearned(
+    CourseApi.selectAllCreated(
       spe => this.setState({ speGetCourses: spe }),
     );
   }
@@ -35,4 +34,4 @@ class Page_profile_coursesLearnedByMe extends React.Component {
     </main>
 }
 
-export { Page_profile_coursesLearnedByMe };
+export { Page_profile_coursesCreatedByMe };

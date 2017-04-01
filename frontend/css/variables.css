@@ -2,3 +2,15 @@ $sims-green-color: #00ff1d;
 
 $review-button-color: #9c0c0c;
 $learn-button-color: #1d1d56;
+
+$black-gradient: -webkit-gradient(linear, 0% 100%, 0% 0%, from(rgb(51, 51, 51)), to(rgb(68, 68, 68)));
+$green-nav-border: 2px $sims-green-color solid;
+
+// for MEMCODE logo
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+
+@import url('https://fonts.googleapis.com/css?family=Amethysta');
+@import url('https://fonts.googleapis.com/css?family=Sintony:400,700');
+
+$body-font: 'Amethysta';
+$heading-font: 'Sintony';

@@ -43,17 +43,19 @@ class Page_courses_new extends React.Component {
       <div className="container">
         <form>
           <h2>Create a course</h2>
-          <div className="row">
-            <div className="col-6">
+
+          {/* not real field because it can't be flexbox */}
+          <div className="fieldset">
+            <div className="label">
               <label htmlFor="title">Title:</label>
             </div>
-            <div className="col-6">
-              <input id="title" onKeyDown={this.onKeyDown} ref={ref => this.references.title = ref}/>
+            <div className="input">
+              <input id="title" type="text" onKeyDown={this.onKeyDown} ref={ref => this.references.title = ref}/>
             </div>
           </div>
 
           <button
-            className="btn btn-primary"
+            className="button -black"
             onClick={this.apiCreateCourse}
             disabled={this.state.speCreateCourse.status === 'request'}
           >

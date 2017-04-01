@@ -29,7 +29,7 @@ class Page_courses extends React.Component {
     <main className={css.main}>
       <Header/>
       <div className="container">
-        <h1>Courses</h1>
+        <div className="space"/>
         <Loading spe={this.state.speGetCourses}>{courses =>
           <section className={listOfCoursesCss['list-of-courses']}>
             {

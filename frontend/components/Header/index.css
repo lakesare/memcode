@@ -2,17 +2,14 @@
 
 :local(header.header){
   border-bottom: 3px solid rgb(17, 17, 17);
-  background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(rgb(51, 51, 51)), to(rgb(68, 68, 68)));
+  background: $black-gradient;
 
   .container{
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    a{
-      color: white; cursor: pointer;
-      &:hover{ color: white; text-decoration: none; }
-    }
+    a{ color: white; }
     > section.logo{
       display: flex;
       align-items: center;
@@ -33,34 +30,52 @@
     }
 
     > nav{
-      a.active{
-        background: rgba(0,0,0,0.08);
-        box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.06) inset,0px 1px 2px 0px rgba(255,255,255,0.1);
-        padding: 8px; padding-top: 13px;
-        border-bottom: 2px $sims-green-color solid;
-      }
-      a{
+      font-family: $heading-font;
+      display: flex;
+      align-items: center;
+      position: relative; top: 3px;
+      a.link{
+        padding: 8px; padding-top: 11px;
         text-transform: uppercase;
         font-size: 11px;
-        margin-right: 10px;
-      }
-    }
-
-    > section.current-user{
-      a.avatar{
-        position: relative;
-        img{
-          position: absolute;
-          right: 0;
-          max-width: 50px;
-          border: 2px solid #4b4c4b; // grey
+        border-bottom: 2px solid rgba(0, 0, 0, 0);
+        &.active{
+          background: rgba(0, 0, 0, 0.08);
+          border-bottom: $green-nav-border;
+        }
+        &:hover{
+          border-bottom: $green-nav-border;
         }
       }
-      a.sign-out{
-        font-size: 11px;
+      section.current-user{
+        a.avatar{
+          display: block;
+          line-height: 0;
+          border-bottom: 2px solid rgba(0, 0, 0, 0);
+          &.active, &:hover{ border-bottom: $green-nav-border; }
+          img{
+            max-width: 30px;
+            max-height: 30px;
+            padding-bottom: 2px;
+          }
+        }
+        a.sign-in{
+          font-size: 11px;
+          font-family: $heading-font;
+          color: $sims-green-color;
+          text-transform: uppercase;
+          i{
+            font-size: 20px;
+            position: relative;
+            top: 2px;
+            padding-left: 3px;
+          }
+          &:hover{
+            opacity: 0.8;
+          }
+          // display: none;
+        }
       }
-
     }
-    
   }
 }

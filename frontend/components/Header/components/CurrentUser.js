@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 
 class CurrentUser extends React.Component {
   static propTypes = {
-    signOut: React.PropTypes.func.isRequired,
     currentUser: React.PropTypes.object
   }
 
@@ -12,16 +11,13 @@ class CurrentUser extends React.Component {
   }
 
   renderSignedInUser = (currentUser) =>
-    <div>
-      <Link className="avatar" to="/profile/courses-learned-by-me">
-        <img src={currentUser.avatarUrl}/>
-      </Link>
-      <a className="sign-out" onClick={this.props.signOut}>SIGN OUT</a>
-    </div>
+    <Link className="avatar" to="/profile/courses-learned-by-me" activeClassName="active">
+      <img src={currentUser.avatarUrl}/>
+    </Link>
 
   renderSignInLink = () =>
-    <a href="https://github.com/login/oauth/authorize?client_id=1d94a714bab1f1576872">
-      Sign in with github!
+    <a className="sign-in" href="https://github.com/login/oauth/authorize?client_id=1d94a714bab1f1576872">
+      Sign in <i className="fa fa-github"/>
     </a>
 
   render = () =>

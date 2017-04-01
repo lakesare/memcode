@@ -2,13 +2,21 @@
   form{
     text-align: center;
     h2{ margin: 20px 0; }
-    input{
-      padding: 0 10px;
+
+    .fieldset{
+      display: flex;
+      align-items: center;
+      margin: 26px 0 40px 0;
+      > .label, > .input{
+        width: 50%;
+        margin: 0 50px;
+        label{ float: right; }
+        input{ float: left; }
+      }
     }
 
     button{
-      margin: 20px 0;
-      cursor: pointer;
+      margin: 20px auto;
     }
   }
 }

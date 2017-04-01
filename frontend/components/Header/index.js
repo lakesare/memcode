@@ -5,7 +5,6 @@ import css from './index.css';
 
 class Header extends React.Component {
   static propTypes = {
-    signOut: React.PropTypes.func.isRequired,
     currentUser: React.PropTypes.object
   }
 
@@ -18,11 +17,14 @@ class Header extends React.Component {
       <Link
         to="/courses"
         activeClassName="active"
+        className="link"
       >all courses</Link>
       <Link
         to="/courses/new"
         activeClassName="active"
+        className="link"
       >create own course!</Link>
+      <CurrentUser currentUser={this.props.currentUser}/>
     </nav>
 
   render = () =>
@@ -38,18 +40,14 @@ class Header extends React.Component {
           </div>
         </section>
         {this.renderNavigation()}
-        <CurrentUser currentUser={this.props.currentUser} signOut={this.props.signOut}/>
       </div>
     </header>
 }
 
-import { signOut } from '~/ducks/authentication';
 const mapStateToProps = (state) => ({
   currentUser: state.authentication.currentUser
 });
-const mapDispatchToProps = (dispatch) => ({
-  signOut: () => signOut(dispatch)
-});
+const mapDispatchToProps = () => ({});
 
 import { connect } from 'react-redux';
 Header = connect(mapStateToProps, mapDispatchToProps)(Header);

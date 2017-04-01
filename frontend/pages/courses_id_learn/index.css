@@ -8,6 +8,7 @@
       padding: 10px;
       &.-learned{
         outline: $sims-green-color 3px solid;
+        background: #a1f5a1;
       }
       > .problem{
         margin-bottom: 0;

@@ -1,8 +1,8 @@
 run:
 	gnome-terminal \
-	  --tab -e 'make start' \
-	  --tab -e 'make backend-webpack' \
-	  --tab -e 'make frontend-webpack'
+		--tab -e 'make start' \
+		--tab -e 'make backend-webpack' \
+		--tab -e 'make frontend-webpack'
 
 start:
 	nodemon --inspect --watch backend backend/webpacked/index.js

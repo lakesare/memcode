@@ -25,3 +25,9 @@ course has buttons:
   'add to learned courses'/'remove from learned courses'/'resume learning this course' button
 
 learned mode resumes from the last learnt mem
+
+
+crappyken.com
+merimory.com
+memcode.com
+

@@ -20,12 +20,12 @@ const fetchCoursesAndTheirStats = (where, userId) =>
     `SELECT
       row_to_json(course.*)                  AS course,
       row_to_json(course_user_is_learning.*) AS course_user_is_learning,
-      COUNT(distinct problem_user_is_learning.id)     AS amount_of_problems_to_review,
+      COUNT(distinct problem_user_is_learning.id) AS amount_of_problems_to_review,
       (
         (SELECT COUNT(problem.*) FROM problem WHERE problem.course_id = course.id) -
         (SELECT COUNT(problem_user_is_learning.*) FROM problem_user_is_learning WHERE problem_user_is_learning.course_user_is_learning_id = course_user_is_learning.id)
       )                                      AS amount_of_problems_to_learn,
-      COUNT(distinct problem.id)                      AS amount_of_problems
+      COUNT(distinct problem.id)             AS amount_of_problems
 
     FROM course
 
@@ -42,7 +42,7 @@ const fetchCoursesAndTheirStats = (where, userId) =>
       ON (
         course_user_is_learning.id = problem_user_is_learning.course_user_is_learning_id
         AND
-        problem_user_is_learning.next_due_date > timezone('UTC', now())
+        problem_user_is_learning.next_due_date < timezone('UTC', now())
       )
 
     -- amount_of_problems

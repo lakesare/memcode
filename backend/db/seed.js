@@ -8,13 +8,7 @@ import * as Course from '~/components/courses/model';
 import * as User from '~/components/users/model';
 
 
-// There are a variety of file system methods, all contained in the <answer>fs</answer> module
-
-
-
-// promise that resolves to hi === promise.then((hi) => {})
-
-
+// There are a variety of file system methods, all contained in the fs module
 
 
 
@@ -78,24 +72,6 @@ import * as User from '~/components/users/model';
 // javac is used for .java files into binary
 // eclipse uses javac behind the scenes to run the program
 // for every java class, you get one binary file.
-
-
-
-
-
-
-
-
-
-// const log = (table) => {
-//   db.any(`SELECT id from ${table}`)
-//     .then((data) => {
-//       console.log(
-//         `seeded ${table}: ` + data.map((column) => column.id).join(', ')
-//       );
-//     })
-//     .catch((data) => console.log(data.message));
-// };
 
 
 

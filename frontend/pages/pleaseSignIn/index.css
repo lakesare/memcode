@@ -1,0 +1,15 @@
+:local(main.main){
+  article{
+    max-width: 300px;
+    margin: 0 auto;
+    text-align: center;
+
+    .button.sign-in{
+      margin-top: 35px;
+      i{
+        font-size: 20px;
+        padding-left: 10px;
+      }
+    }
+  }
+}
