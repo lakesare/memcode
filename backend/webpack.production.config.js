@@ -10,20 +10,11 @@ fs.readdirSync('../node_modules')
     nodeModules[mod] = 'commonjs ' + mod;
   });
 
-
-const glob = require('glob');
-const testFiles = glob.sync('./**/*.test.js', { ignore: './webpacked/**' });
-
-const testEntries = {};
-testFiles.forEach((testFile) => {
-  testEntries['test/' + testFile.slice(2, -3)] = testFile;
-});
-
-const entries = Object.assign(testEntries, {
+const entries = {
   // babel-polyfill for await async to work: http://stackoverflow.com/a/33527883/3192470
   index: ['babel-polyfill', './index'],
   seed: './db/seed',
-});
+};
 
 module.exports = {
   externals: nodeModules,
@@ -56,12 +47,6 @@ module.exports = {
             options: {
               presets: ['es2015', 'stage-0']
             }
-          },
-          {
-            loader: 'eslint-loader',
-            options: {
-              configFile: '../.eslintrc.js'
-            }
           }
         ]
       }
@@ -74,7 +59,5 @@ module.exports = {
   // idea from http://stackoverflow.com/questions/27502608/resolving-require-paths-with-webpack#comment60353452_35047907
   resolve: {
     alias: { '~': path.resolve(__dirname) }
-  },
-
-  devtool: 'source-map', // check if works in webpack:backend
+  }
 };

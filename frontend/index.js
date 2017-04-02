@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { rootReducer } from './rootReducer.js';
 
-
-const store = createStore(rootReducer, window.devToolsExtension && window.devToolsExtension());
+// const store = createStore(rootReducer, window.devToolsExtension && window.devToolsExtension());
+const store = createStore(rootReducer);
 
 import { Provider } from 'react-redux';
 

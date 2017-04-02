@@ -4,7 +4,7 @@ const integerizeColumnsIn = (aOld, asTitlesArray) => {
 
   Object.keys(aOld).forEach((key) => {
     asTitlesArray.includes(key) ?
-      aNew[key] = parseInt(aOld[key]) :
+      aNew[key] = parseInt(aOld[key], 10) :
       aNew[key] = aOld[key];
   });
 

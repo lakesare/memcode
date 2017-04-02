@@ -8,8 +8,8 @@ ___what to send to api?
 ___what to expect from api?
   ___statuses
     200: "All good"
-    403: "Unauthenticated"
-    401: "Unauthorized"
+    401: "Unauthenticated" (no credenials)
+    403: "Unauthorized" (doesnt have access)
     500: server error, will return .json({ error: error.message });
   ___response
     response will not be under key, if api return course, it will return { courseId: 2 } etc. 

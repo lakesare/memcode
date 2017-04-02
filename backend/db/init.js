@@ -1,6 +1,7 @@
 import * as pgPromise from 'pg-promise';
 
 // for pgOptions
+/* eslint-disable */ // because it's taken from online source, may want to rewrite some time
 const camelizeColumns = (data) => {
   const template = data[0];
   for (let prop in template) {

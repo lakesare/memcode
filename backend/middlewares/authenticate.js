@@ -6,9 +6,9 @@ import jwt from 'jsonwebtoken';
 const authenticateMiddleware = (request, response, next) => {
   if (request.headers['authorization']) {
     const token = request.headers['authorization'].split('Bearer ')[1];
-    jwt.verify(token, 'serverereSecretty', (error, user) => {
+    jwt.verify(token, process.env['JWT_SECRET'], (error, user) => {
       if (error) {
-        response.status(500).json({ error });
+        response.status(401).json({ error });
       } else {
         // eslint-disable-next-line
         request.currentUser = user;
@@ -16,7 +16,7 @@ const authenticateMiddleware = (request, response, next) => {
       }
     });
   } else {
-    response.status(500).json({ error: "No authorization header provided" });
+    response.status(401).json({ error: "No authorization header provided" });
   }
 };
 

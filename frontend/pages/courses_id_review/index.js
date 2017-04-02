@@ -136,7 +136,7 @@ class Page_courses_id_review extends React.Component {
       <Header/>
 
       <div className="container">
-        <Loading spe={this.state.speGetPage}>{({ courseUserIsLearning, course, problems }) =>
+        <Loading spe={this.state.speGetPage}>{({ course }) =>
           <div>
             <h1 className="course-title">{course.title}</h1>
 

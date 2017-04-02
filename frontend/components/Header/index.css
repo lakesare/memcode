@@ -64,6 +64,8 @@
           font-family: $heading-font;
           color: $sims-green-color;
           text-transform: uppercase;
+          padding-bottom: 5px;
+          display: block;
           i{
             font-size: 20px;
             position: relative;
@@ -73,7 +75,6 @@
           &:hover{
             opacity: 0.8;
           }
-          // display: none;
         }
       }
     }

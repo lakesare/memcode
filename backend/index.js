@@ -1,6 +1,9 @@
 import 'source-map-support/register';
 import express from 'express';
 
+// load environment variables.
+import '../env.js';
+
 const app = express();
 const port = 3000;
 
@@ -15,9 +18,6 @@ app.use(bodyParser.json()); // to support JSON-encoded bodies
 
 import { staticAssets } from './middlewares/static';
 app.use(staticAssets);
-
-import { ourSession } from './middlewares/ourSession';
-app.use(ourSession);
 
 // routes
 import { router as coursesRouter } from './components/courses/routes';
@@ -34,10 +34,28 @@ import { router as pagesRouter } from './components/pages/routes';
 app.use('/api/pages', pagesRouter);
 
 import { router as authRouter } from './components/auth/routes';
-app.use('/auth', authRouter);
+app.use('/api/auth', authRouter);
 
 app.get('*', (request, response) =>
-  response.sendFile('/home/lakesare/Desktop/memcode/frontend/webpacked/index.html')
+  response.send(
+    `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <title>Memcode</title>
+      <link rel="stylesheet" href="/styles.css">
+      <link href="/index.css" rel="stylesheet"></head>
+    <body>
+      <div id="root"></div>
+      <script>
+        window.env = {
+          githubSignInLink: 'https://github.com/login/oauth/authorize?client_id=${process.env['GITHUB_OAUTH_ID']}'
+        };
+      </script>
+      <script type="text/javascript" src="/index.js"></script>
+    </html>
+    `
+  )
 );
 
 app.listen(port, (err) => {

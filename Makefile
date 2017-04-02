@@ -30,3 +30,15 @@ backend-test:
 	cd backend; NODE_ENV=test mocha --recursive ./webpacked/test --require babel-polyfill --watch
 frontend-test:
 	cd frontend; NODE_ENV=test karma start
+
+# production
+heroku-postbuild:
+	touch env.js;
+	npm install;
+	make backend-webpack-production &
+	make frontend-webpack-production
+
+backend-webpack-production:
+	cd backend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
+frontend-webpack-production:
+	cd frontend; ../node_modules/.bin/webpack --config ./webpack.production.config.js

@@ -16,7 +16,7 @@ class CurrentUser extends React.Component {
     </Link>
 
   renderSignInLink = () =>
-    <a className="sign-in" href="https://github.com/login/oauth/authorize?client_id=1d94a714bab1f1576872">
+    <a className="sign-in" href={window.env.githubSignInLink}>
       Sign in <i className="fa fa-github"/>
     </a>
 

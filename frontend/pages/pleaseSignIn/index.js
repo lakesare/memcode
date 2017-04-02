@@ -14,7 +14,7 @@ class Page_pleaseSignIn extends React.Component {
           <p>
             Sign in with your github account, and get access to creating your own courses, learning and reviewing mems and so on.
           </p>
-          <a className="sign-in button -black" href="https://github.com/login/oauth/authorize?client_id=1d94a714bab1f1576872">
+          <a className="sign-in button -black" href={window.env.githubSignInLink}>
             Sign in <i className="fa fa-github"/>
           </a>
         </article>

@@ -22,6 +22,8 @@ const signIn = (dispatch, token) => {
 const signOut = (dispatch) => {
   localStorage.setItem('jwt', null);
   dispatch({ type: 'SET_CURRENT_USER', payload: null });
+  // temporary hack
+  location.reload();
 };
 
 export {

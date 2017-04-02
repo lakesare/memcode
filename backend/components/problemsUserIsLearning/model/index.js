@@ -1,14 +1,14 @@
 // CREATE TABLE problem_user_is_learning (
 //   id SERIAL PRIMARY KEY,
-// 
+//
 //   is_learned BOOLEAN,
-// 
+//
 //   easiness SMALLINT, [A number ≥ 1.3 representing how easy the item is, with 1.3 being the hardest.  Defaults to 2.5]
-// 
+//
 //   consecutive_correct_answers SMALLINT, [How many times in a row the user has correctly answered this item]
-// 
+//
 //   nextDueDate TIMESTAMP, [The next time this item needs to be reviewed]
-// 
+//
 //   problem_id INTEGER REFERENCES problem (id) ON DELETE CASCADE,
 //   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE,
 //   unique (problem_id, user_id)

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { browserHistory } from 'react-router';
-
 import { Header } from '~/components/Header';
+import { browserHistory } from 'react-router';
 
 class RootPage extends React.Component {
   static propTypes = {
@@ -17,17 +16,9 @@ class RootPage extends React.Component {
     const token = window.location.href.split('?token=')[1];
     if (token) {
       this.props.signIn(token);
-      browserHistory.push('/'); // needed?
+      browserHistory.push('/profile/courses-learned-by-me'); // needed?
     }
   }
-
-  // getSecretInfo = () =>
-  //   fetch('/secret_info', {
-  //     headers: new Headers({
-  //       "Content-Type": "application/json",
-  //       Authorization: localStorage.getItem('jwt')
-  //     })
-  //   });
 
   render = () =>
     <main>
