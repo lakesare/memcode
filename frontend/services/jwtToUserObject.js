@@ -2,7 +2,7 @@ import { Buffer } from 'buffer/';
 
 // token => lala.lala.lala
 const jwtToUserObject = (token) => {
-  if (token === 'null') {
+  if (token === null) {
     return null;
   } else {
     const base64User = token.split('.')[1]; // => lala

@@ -42,6 +42,9 @@ heroku-postbuild:
 	make heroku-backend-webpack &
 	make heroku-frontend-webpack
 
+heroku-deploy:
+	git push heroku master
+
 heroku-backend-webpack:
 	cd backend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
 heroku-frontend-webpack:
