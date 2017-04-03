@@ -5,7 +5,7 @@ import express from 'express';
 import '../env.js';
 
 const app = express();
-const port = 3000;
+
 
 import { allowCrossDomain } from './middlewares/allowCrossDomain';
 app.use(allowCrossDomain);
@@ -58,7 +58,11 @@ app.get('*', (request, response) =>
   )
 );
 
+// process.env.PORT lets the port be set by Heroku
+const port = process.env.PORT || 3000;
+
 app.listen(port, (err) => {
-  if (err) console.log('something bad happened', err);
-  console.log(`server is listening on ${port}`);
+  err ?
+  console.log(`server start error: ${err}`) :
+  console.log(`server is listening on port: ${port}`);
 });

@@ -15,6 +15,7 @@ frontend-webpack:
 
 # database
 db-reset:
+	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 
 # dump and restore data
@@ -24,21 +25,27 @@ db-restore:
 	psql -d memcode -U postgres < backend/db/dump.sql
 
 # test
-db-reset-test:
+test-db-reset:
 	psql -v database=memcode_test -U postgres -f backend/db/schema.sql
-backend-test:
+test-backend:
 	cd backend; NODE_ENV=test mocha --recursive ./webpacked/test --require babel-polyfill --watch
-frontend-test:
+test-frontend:
 	cd frontend; NODE_ENV=test karma start
 
 # production
 heroku-postbuild:
+	# npm install
+	# is run automatically. since we need to compile code on heroku, we need our devDependencies installed too. so I set
+	# heroku config:set NPM_CONFIG_PRODUCTION=false
+	# for this purpose.
 	touch env.js;
-	npm install;
-	make backend-webpack-production &
-	make frontend-webpack-production
+	make heroku-backend-webpack &
+	make heroku-frontend-webpack
 
-backend-webpack-production:
+heroku-backend-webpack:
 	cd backend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
-frontend-webpack-production:
+heroku-frontend-webpack:
 	cd frontend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
+
+heroku-db-reset:
+	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/schema.sql
