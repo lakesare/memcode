@@ -25,18 +25,32 @@ const pgOptions = {
   } // https://coderwall.com/p/irklcq
 };
 
-const pgPackage = pgPromise.default(pgOptions);
-
-const isTest = () => (process.env.NODE_ENV === 'test');
-
-const connectionString = {
-  host: 'localhost', // 'localhost' is the default;
-  port: 5432, // 5432 is the default;
-  database: (isTest() ? 'memcode_test' : 'memcode'),
-  user: 'postgres',
-  password: '`1`1`1'
+const getConnectionString = () => {
+  switch (process.env.NODE_ENV) {
+    case 'development':
+      return {
+        host: 'localhost', // 'localhost' is the default;
+        port: 5432, // 5432 is the default;
+        database: 'memcode',
+        user: 'postgres',
+        password: '`1`1`1'
+      };
+    case 'test':
+      return {
+        host: 'localhost', // 'localhost' is the default;
+        port: 5432, // 5432 is the default;
+        database: 'memcode_test',
+        user: 'postgres',
+        password: '`1`1`1'
+      };
+    case 'production':
+      // this variable is set automatically after we do heroku addons:create heroku-postgresql:hobby-dev
+      return process.env.DATABASE_URL;
+  }
 };
-const db = pgPackage(connectionString);
+
+const pgPackage = pgPromise.default(pgOptions);
+const db = pgPackage(getConnectionString());
 db.connect()
   .then((obj) => {
     obj.done(); // success, release the connection;
