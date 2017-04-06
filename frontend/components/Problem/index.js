@@ -13,7 +13,7 @@ import css from './index.css';
 
 class Problem extends React.Component {
   static propTypes = {
-    mode: React.PropTypes.oneOf(['viewing', 'editing', 'solving', 'succumbedAfterSolving']).isRequired,
+    mode: React.PropTypes.oneOf(['viewing', 'editing', 'solving', 'succumbed']).isRequired,
     saveFn:               React.PropTypes.func,
     destroyFn:            React.PropTypes.func,
     onRightAnswerGivenFn: React.PropTypes.func,
@@ -54,7 +54,7 @@ class Problem extends React.Component {
 
   isReadonly = (mode) =>
     mode === 'solving' ||
-    mode === 'succumbedAfterSolving' ||
+    mode === 'succumbed' ||
     mode === 'viewing'
 
   render = () =>

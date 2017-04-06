@@ -26,9 +26,9 @@ class RootPage extends React.Component {
     </main>
 }
 
-import { signIn } from '~/ducks/authentication';
+import { AuthenticationActions } from '~/reducers/Authentication';
 const mapDispatchToProps = dispatch => ({
-  signIn: (token) => signIn(dispatch, token)
+  signIn: (token) => AuthenticationActions.signIn(dispatch, token)
 });
 
 import { connect } from 'react-redux';

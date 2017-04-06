@@ -45,7 +45,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentUser: state.authentication.currentUser
+  currentUser: state.global.Authentication.currentUser
 });
 const mapDispatchToProps = () => ({});
 

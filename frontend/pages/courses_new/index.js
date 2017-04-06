@@ -14,27 +14,45 @@ class Page_courses_new extends React.Component {
     super(props);
 
     this.state = {
-      speCreateCourse: {}
-    };
-
-    this.references = {
-      title: null
+      speCreateCourse: {},
+      validationErrors: {},
+      formValues: {
+        title: ''
+      }
     };
   }
 
-  onKeyDown = (event) => {
-    if (event.keyCode === 13) {
-      this.apiCreateCourse();
+  updateFormValues = (event, inputTitle) => {
+    this.setState({
+      formValues: {
+        ...this.state.formValues,
+        [inputTitle]: event.target.value
+      }
+    });
+  }
+
+  validateAndSubmit = (e) => {
+    e.preventDefault();
+    if (this.validate()) this.apiCreateCourse();
+  }
+
+  validate = () => {
+    if (this.state.formValues.title.length < 2) {
+      this.setState({ validationErrors: { title: 'Title must be longer than 2 letters' } });
+      return false;
+    } else {
+      return true;
     }
   }
 
   apiCreateCourse = () =>
     CourseApi.create(
       spe => this.setState({ speCreateCourse: spe }),
-      { title: this.references.title.value }
-    ).then((courseId) => {
-      browserHistory.push(`/courses/${courseId}/edit`);
-    });
+      { title: this.state.formValues.title }
+    )
+      .then((course) => {
+        browserHistory.push(`/courses/${course.id}/edit`);
+      })
 
   render = () =>
     <main className={css.main}>
@@ -50,13 +68,19 @@ class Page_courses_new extends React.Component {
               <label htmlFor="title">Title:</label>
             </div>
             <div className="input">
-              <input id="title" type="text" onKeyDown={this.onKeyDown} ref={ref => this.references.title = ref}/>
+              <input type="text" onChange={(e) => this.updateFormValues(e, 'title')} value={this.state.formValues.title}/>
             </div>
+            {
+              this.state.validationErrors.title &&
+              <div className="error">
+                {this.state.validationErrors.title}
+              </div>
+            }
           </div>
 
           <button
             className="button -black"
-            onClick={this.apiCreateCourse}
+            onClick={this.validateAndSubmit}
             disabled={this.state.speCreateCourse.status === 'request'}
           >
             Create!

@@ -3,6 +3,7 @@ import express from 'express';
 
 // load environment variables.
 import '../env.js';
+console.log('node env: ' + process.env.NODE_ENV);
 
 const app = express();
 
@@ -57,6 +58,13 @@ app.get('*', (request, response) =>
     `
   )
 );
+
+// because express needs to see there are 4 arguments to treat :error as error.
+// this middleware should also come last.
+// eslint-disable-next-line no-unused-vars
+app.use((error, req, res, next) => {
+  res.status(500).json({ error: error.message });
+});
 
 // process.env.PORT lets the port be set by Heroku
 const port = process.env.PORT || 3000;

@@ -1,5 +1,5 @@
 import * as spe from '~/services/spe.js';
-
+import { handleErrors } from './handleErrors';
 // ___how to use it?
 //
 // _in api/UserApi.js:
@@ -32,12 +32,12 @@ const commonFetch = (dispatch, method, url, body = undefined) => {
     }),
     body: JSON.stringify(body)
   })
-    .then(response => response.json())
+    .then(handleErrors)
     .then((response) => {
       dispatch(spe.success(response));
       return Promise.resolve(response);
     })
-    .catch((error) => {
+    .catch((error) => { // { error: error }
       dispatch(spe.failure(error.error));
       return Promise.reject(error);
     });

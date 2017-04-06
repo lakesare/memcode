@@ -7,7 +7,9 @@ import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 class ListOfProblems extends React.Component {
   static propTypes = {
     problems: React.PropTypes.array.isRequired,
-    courseUserIsLearningId: React.PropTypes.number.isRequired
+    courseUserIsLearningId: React.PropTypes.number.isRequired,
+    changeAmountOfProblemsToLearnBy: React.PropTypes.func.isRequired,
+    changeAmountOfProblemsToReviewBy: React.PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -23,6 +25,8 @@ class ListOfProblems extends React.Component {
       this.props.courseUserIsLearningId, problemId
     );
     this.markProblemAsLearned(problemId);
+    this.props.changeAmountOfProblemsToLearnBy(-1);
+    this.props.changeAmountOfProblemsToReviewBy(1);
   }
 
   markProblemAsLearned = (problemId) =>
@@ -57,5 +61,20 @@ class ListOfProblems extends React.Component {
       {this.props.problems.map(this.renderProblemWrapper)}
     </section>
 }
+
+import { connect } from 'react-redux';
+ListOfProblems = connect(
+  () => ({}),
+  (dispatch) => ({
+    changeAmountOfProblemsToLearnBy: (by) => dispatch({
+      type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_LEARN_BY',
+      payload: by
+    }),
+    changeAmountOfProblemsToReviewBy: (by) => dispatch({
+      type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
+      payload: by
+    })
+  })
+)(ListOfProblems);
 
 export { ListOfProblems };

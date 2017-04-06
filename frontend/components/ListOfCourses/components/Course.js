@@ -64,7 +64,7 @@ class Course extends React.Component {
 import { connect } from 'react-redux';
 Course = connect(
   (state) => ({
-    currentUser: state.authentication.currentUser
+    currentUser: state.global.Authentication.currentUser
   }),
   () => ({})
 )(Course);

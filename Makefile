@@ -5,7 +5,7 @@ run:
 		--tab -e 'make frontend-webpack'
 
 start:
-	nodemon --inspect --watch backend backend/webpacked/index.js
+	NODE_ENV=development nodemon --inspect --watch backend backend/webpacked/index.js
 
 # build and watch
 backend-webpack:

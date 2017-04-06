@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { createStore } from 'redux';
-import { rootReducer } from './rootReducer.js';
+import { RootReducer } from './RootReducer.js';
 
-// const store = createStore(rootReducer, window.devToolsExtension && window.devToolsExtension());
-const store = createStore(rootReducer);
+const store = createStore(RootReducer, window.devToolsExtension && window.devToolsExtension());
+// const store = createStore(RootReducer);
 
 import { Provider } from 'react-redux';
 
@@ -26,12 +26,11 @@ import { Page_pleaseSignIn } from './pages/pleaseSignIn';
 
 // common css
 import './index.css';
-
 import './fonts/font-awesome/scss/font-awesome.scss';
 
 const auth = {
   onEnter: (nextState, transition, callback) => {
-    if (!store.getState().authentication.currentUser) {
+    if (!store.getState().global.Authentication.currentUser) {
       transition({ pathname: '/please-sign-in' });
     }
     callback();

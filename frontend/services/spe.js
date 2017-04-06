@@ -6,9 +6,9 @@ const request = () => ({
   error: null
 });
 
-const success = response => ({
+const success = payload => ({
   status: 'success',
-  payload: response,
+  payload,
   error: null
 });
 

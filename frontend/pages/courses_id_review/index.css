@@ -1,32 +1,69 @@
+@import 'css/variables';
+
 :local(main.main){
   background: #383131;
-  h1.course-title{
-    color: white;
-    padding-top: 10px;
+  h3.course-title{
+    a{ color: white; }
   }
   section.problem{
-    background: rgba(255, 255, 255, 0.79);
     margin-bottom: 20px; margin-top: 200px;
     box-shadow: 1px 3px 9px rgba(187, 208, 183, 0.39);
-    padding: 5px 0;
+    padding: 5px;
+
+    .DraftEditor-root{
+      border: none;
+      max-height: none;
+    }
 
     input.answer{
       width: 100px;
       display: inline-block;
       padding: 0 10px;
       border: none;
+      font-size: 16px;
+      text-align: center;
       &:focus{ outline: none; }
       &.success{
-        // border: 1px solid #99f399;
-        box-shadow: 0px 0px 10px 4px #cbf9b8;
+        border: 2px solid $sims-green-color;
+        background: $sims-green-color;
       }
       &.failure{
-        // box-shadow: 0px 0px 8px #f9b8b8;
-        border: 1px solid pink;
+        border: 2px solid #f9637d;
       }
       &.waiting{
-        border: 1px solid #FFEB3B;
+        border: 2px solid #FFEB3B;
       }
     }
   }
+
+  .button.next{
+    color: white;
+    background: rgba(0, 255, 29, 0.48);
+    max-width: 100px;
+    margin: 0 auto;
+    margin-top: 100px;
+    display: block;
+    border-radius: 2px;
+    &:hover{
+      opacity: 1;
+      background: rgba(0, 255, 29, 0.77);;
+    }
+  }
+
+  article.what-next{
+    > section.congratulations{
+      color: white;
+      text-align: center;
+      h2{ margin-bottom: 20px; }
+      h3{ margin-bottom: 30px; }
+    }
+    > section.offered-courses{
+      max-width: 400px;
+      margin: 0 auto;
+      margin-top: 40px;
+      .layout-div{ display: none; }
+    }
+  }
 }
+// rgb(185, 49, 49) red
+// rgba(115, 232, 61, 0.79) green

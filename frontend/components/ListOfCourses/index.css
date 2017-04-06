@@ -16,6 +16,7 @@
     text-align: center;
     margin-right: 10px; margin-left: 10px;
     margin-bottom: 20px;
+    background: white;
 
     > section.actions{
       display: flex;
@@ -95,5 +96,8 @@
       font-size: 11px;
       font-weight: bold;
     }
+  }
+  > .layout-div{
+    width: 150px;
   }
 }

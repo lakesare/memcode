@@ -4,7 +4,7 @@ class InputForAnswer extends React.Component {
   static propTypes = {
     answer: React.PropTypes.string.isRequired,
     onRightAnswerGiven: React.PropTypes.func,
-    statusOfSolvingCurrentProblem: React.PropTypes.oneOf(['solving', 'succumbedAfterSolving']).isRequired
+    statusOfSolvingCurrentProblem: React.PropTypes.oneOf(['solving', 'succumbed']).isRequired
   }
 
   static defaultProps = {
@@ -44,7 +44,7 @@ class InputForAnswer extends React.Component {
           value={this.state.currentGuess}
         />
       );
-      case 'succumbedAfterSolving':  return (
+      case 'succumbed':  return (
         <input
           className={'answer ' + (this.state.isAnswered ? 'success' : 'failure')}
           type="text"
@@ -57,7 +57,7 @@ class InputForAnswer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  statusOfSolvingCurrentProblem: state.page_courses_id_review.statusOfSolvingCurrentProblem
+  statusOfSolvingCurrentProblem: state.pages.Page_courses_id_review.statusOfSolvingCurrentProblem
 });
 
 import { connect } from 'react-redux';

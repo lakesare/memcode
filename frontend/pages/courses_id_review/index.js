@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { browserHistory } from 'react-router';
-
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
-
+import { CourseActions } from '~/components/CourseActions';
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
+import { WhatNext } from './components/WhatNext';
 
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 import { commonFetch } from '~/api/commonFetch';
-
+import { calculateScore, amountOfAnswerInputsInProblem } from './service';
 
 import css from './index.css';
 
@@ -32,7 +31,8 @@ class Page_courses_id_review extends React.Component {
     }).isRequired,
     succumb: React.PropTypes.func.isRequired,
     solve:   React.PropTypes.func.isRequired,
-    statusOfSolvingCurrentProblem: React.PropTypes.oneOf(['solving', 'succumbedAfterSolving']).isRequired
+    statusOfSolvingCurrentProblem: React.PropTypes.oneOf(['solving', 'succumbed']).isRequired,
+    changeAmountOfProblemsToReviewBy: React.PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -60,23 +60,13 @@ class Page_courses_id_review extends React.Component {
 
   onEnter = (event) => {
     if (event.keyCode !== 13) return;
+    this.nextOrSuccumb();
+  }
 
-    const wanted = this.amountOfAnswerInputsInProblem(this.currentProblem());
-    const given = this.state.amountOfRightAnswersGivenForCurrentProblem;
-
-    // not all answers are given! render answered problem.
-    if (given < wanted) {
-      // if already succumbed and looked through the answers
-      if (this.props.statusOfSolvingCurrentProblem === 'succumbedAfterSolving') {
-        this.recordScore(given, wanted);
-        this.goToNextProblem();
-      } else {
-        this.props.succumb();
-      }
-    } else {
-      this.recordScore(given, wanted);
-      this.goToNextProblem();
-    }
+  nextOrSuccumb = () => {
+    return this.ifOnEnterNextProblem() ?
+      this.goToNextProblem() :
+      this.props.succumb()
   }
 
   onRightAnswerGivenFn = () => {
@@ -85,79 +75,97 @@ class Page_courses_id_review extends React.Component {
     });
   }
 
+  currentScore = () => {
+    const wanted = amountOfAnswerInputsInProblem(this.currentProblem());
+    const given = this.state.amountOfRightAnswersGivenForCurrentProblem;
+    return calculateScore(given, wanted);
+  }
+
+  ifOnEnterNextProblem = () => {
+    if (!this.currentProblem()) return false;
+
+    const ifAnsweredAll = this.currentScore() === 5;
+    const ifSuccumbed = this.props.statusOfSolvingCurrentProblem === 'succumbed';
+
+    return ifSuccumbed || ifAnsweredAll;
+  }
+
   // given: amount of answers that were properly given
   // wanted: amount of all problems
-  recordScore = (given, wanted) => {
+  recordScore = () => {
     CourseUserIsLearningApi.reviewProblem(
       () => {},
       this.state.speGetPage.payload.courseUserIsLearning.id,
       this.currentProblem().id,
-      this.calculateScore(given, wanted)
+      this.currentScore()
     );
   }
 
   goToNextProblem = () => {
+    this.recordScore();
+    this.props.changeAmountOfProblemsToReviewBy(-1);
+
     const nextProblemIndex = this.state.currentProblemIndex + 1;
     const isThereNextProblem = !!this.state.speGetPage.payload.problems[nextProblemIndex];
 
     if (isThereNextProblem) {
-      this.props.solve();
-      this.setState({
-        currentProblemIndex: nextProblemIndex,
-        amountOfRightAnswersGivenForCurrentProblem: 0
-      });
+      this.clearCurrentProblem(nextProblemIndex);
     } else {
-      browserHistory.push('/courses');
+      this.setState({ currentProblemIndex: -1 });
     }
+  }
+
+  clearCurrentProblem = (nextProblemIndex) => {
+    this.props.solve();
+    this.setState({
+      currentProblemIndex: nextProblemIndex,
+      amountOfRightAnswersGivenForCurrentProblem: 0
+    });
   }
 
   currentProblem = () =>
     this.state.speGetPage.payload.problems[this.state.currentProblemIndex]
 
-  // to problem model?
-  calculateScore = (given, wanted) => {
-    if (given === wanted) {
-      return 5;
-    } else { // given < wanted
-      return (given / wanted) * 5; // 0..5
-    }
-  }
-
-  // to problem model?
-  amountOfAnswerInputsInProblem = (problem) => {
-    const entities = problem.content.entityMap;
-    const answerEntities = Object.keys(entities)
-      .filter((key) => entities[key].type === 'answer');
-    return answerEntities.length;
-  }
-
   render = () =>
     <main className={css.main}>
       <Header/>
 
-      <div className="container">
-        <Loading spe={this.state.speGetPage}>{({ course }) =>
-          <div>
-            <h1 className="course-title">{course.title}</h1>
+      <Loading spe={this.state.speGetPage}>{({ problems }) =>
+        <div className="container">
+          <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
 
-            <ProblemBeingSolved
-              key={this.state.currentProblemIndex} // is needed, otherwise Editor will just stay the same
-              mode={this.state.statusOfSolvingCurrentProblem}
-              problem={this.currentProblem()}
-              onRightAnswerGivenFn={this.onRightAnswerGivenFn}
-            />
-          </div>
-        }</Loading>
-      </div>
+          {
+            problems[this.state.currentProblemIndex] === undefined ?
+              <WhatNext/> :
+              <ProblemBeingSolved
+                key={this.state.currentProblemIndex} // is needed, otherwise Editor will just stay the same
+                mode={this.state.statusOfSolvingCurrentProblem}
+                problem={this.currentProblem()}
+                onRightAnswerGivenFn={this.onRightAnswerGivenFn}
+              />
+          }
+
+          {
+            this.ifOnEnterNextProblem() &&
+            <a className="button next" onClick={this.nextOrSuccumb}>
+              NEXT
+            </a>
+          }
+        </div>
+      }</Loading>
     </main>
 }
 
+const mapStateToProps = (state) => ({
+  statusOfSolvingCurrentProblem: state.pages.Page_courses_id_review.statusOfSolvingCurrentProblem
+});
 const mapDispatchToProps = dispatch => ({
   succumb: () => dispatch({ type: 'SUCCUMB' }),
-  solve:   () => dispatch({ type: 'SOLVE' })
-});
-const mapStateToProps = (state) => ({
-  statusOfSolvingCurrentProblem: state.page_courses_id_review.statusOfSolvingCurrentProblem
+  solve:   () => dispatch({ type: 'SOLVE' }),
+  changeAmountOfProblemsToReviewBy: (by) => dispatch({
+    type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
+    payload: by
+  })
 });
 
 import { connect } from 'react-redux';

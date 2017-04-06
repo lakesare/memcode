@@ -3,7 +3,7 @@ import React from 'react';
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
 
-import { Actions } from '~/components/Actions';
+import { CourseActions } from '~/components/CourseActions';
 import { Problem } from '~/components/Problem';
 
 import * as ProblemApi from '~/api/Problem';
@@ -36,7 +36,7 @@ class Page_courses_id extends React.Component {
       <Header/>
 
       <div className="container">
-        <Actions courseId={this.props.params.id}/>
+        <CourseActions courseId={this.props.params.id}/>
 
         <Loading spe={this.state.speGetProblems}>{(problems) =>
           <div className="problems">

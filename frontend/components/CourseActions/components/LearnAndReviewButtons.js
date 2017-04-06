@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import css from './index.css';
-
 class LearnAndReviewButtons extends React.Component {
   static propTypes = {
     courseUserIsLearning: React.PropTypes.object,
@@ -23,7 +21,7 @@ class LearnAndReviewButtons extends React.Component {
 
   render = () =>
     this.ifCourseIsLearnedAndActive() &&
-    <div className={css['learn-and-review-buttons']}>
+    <div className="learn-and-review-buttons">
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/learn`}
         className={`learn ${this.props.amountOfProblemsToLearn === 0 ? '-disabled' : ''}`}

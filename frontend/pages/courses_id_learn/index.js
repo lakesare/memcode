@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
-import { Link } from 'react-router';
+import { CourseActions } from '~/components/CourseActions';
 import { ListOfProblems } from './components/ListOfProblems';
 
 import { commonFetch } from '~/api/commonFetch';
@@ -32,15 +32,9 @@ class Page_courses_id_learn extends React.Component {
     <main className={css.main}>
       <Header/>
 
-      <Loading spe={this.state.speGetPage}>{({ problems, course, courseUserIsLearning }) =>
+      <Loading spe={this.state.speGetPage}>{({ problems, courseUserIsLearning }) =>
         <div className="container">
-          <section className="actions">
-            <h1>{course.title}</h1>
-            <Link className="view" to={`/courses/${course.id}`}>
-              <i className="fa fa-eye"/>
-            </Link>
-          </section>
-
+          <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
           <ListOfProblems problems={problems} courseUserIsLearningId={courseUserIsLearning.id}/>
         </div>
       }</Loading>
