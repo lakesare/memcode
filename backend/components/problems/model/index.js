@@ -2,10 +2,9 @@ import { db } from '~/db/init.js';
 
 const update = (problem, problemId) =>
   db.one(
-    "UPDATE problem SET content=${content}, explanation=${explanation} WHERE id=${id} RETURNING *",
+    "UPDATE problem SET content=${content} WHERE id=${id} RETURNING *",
     {
       content: problem.content,
-      explanation: problem.explanation,
       id: problemId
     }
   );

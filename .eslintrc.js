@@ -82,7 +82,7 @@ module.exports = {
     // db.one('select * from courses where id = ${courseId}'
     "no-template-curly-in-string": "off",
 
-    // for "INSERT INTO problems (content, explanation, course_id, created_at) VALUES (${content}, ${explanation}, ${courseId}, ${created_at}) RETURNING *",
+    // for "INSERT INTO problems (content, course_id, created_at) VALUES (${content}, ${courseId}, ${created_at}) RETURNING *",
     "quotes": "off",
 
     "no-plusplus": "off",

@@ -45,8 +45,7 @@ class Page_courses_id extends React.Component {
                 <Problem
                   key={problem.id}
                   mode="viewing"
-                  initialContentEditorState={problem.content}
-                  initialExplanationEditorState={problem.explanation}
+                  problemContent={problem.content}
                 />
               )
             }

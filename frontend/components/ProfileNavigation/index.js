@@ -35,7 +35,7 @@ class ProfileNavigation extends React.Component {
     </nav>
 }
 
-import AuthenticationActions from '~/reducers/Authentication';
+import { AuthenticationActions } from '~/reducers/Authentication';
 const mapDispatchToProps = (dispatch) => ({
   signOut: () => AuthenticationActions.signOut(dispatch)
 });

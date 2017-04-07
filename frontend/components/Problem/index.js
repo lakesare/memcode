@@ -18,39 +18,37 @@ class Problem extends React.Component {
     destroyFn:            React.PropTypes.func,
     onRightAnswerGivenFn: React.PropTypes.func,
 
-    initialContentEditorState:     React.PropTypes.object,
-    initialExplanationEditorState: React.PropTypes.object,
+    problemContent: React.PropTypes.object,
   }
 
   static defaultProps = {
     saveFn: null,
     destroyFn: null,
     onRightAnswerGivenFn: null,
-    initialContentEditorState: null,
-    initialExplanationEditorState: null
+    problemContent: { content: null, explanation: null }
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      contentEditorState: createEditorState(this.props.initialContentEditorState),
-      explanationEditorState: createEditorState(this.props.initialExplanationEditorState),
+      contentEditorState: createEditorState(this.props.problemContent.content),
+      explanationEditorState: createEditorState(this.props.problemContent.explanation),
     };
   }
 
   onBlur = () => {
-    const isNewProblem = this.props.initialContentEditorState === null;
+    const isNewProblem = this.props.problemContent.content === null;
     if (!isNewProblem) {
       this.save();
     }
   }
 
   save = () =>
-    this.props.saveFn(
-      convertToRaw(this.state.    contentEditorState.getCurrentContent()),
-      convertToRaw(this.state.explanationEditorState.getCurrentContent())
-    )
+    this.props.saveFn({
+      content:     convertToRaw(this.state.contentEditorState    .getCurrentContent()),
+      explanation: convertToRaw(this.state.explanationEditorState.getCurrentContent())
+    })
 
   isReadonly = (mode) =>
     mode === 'solving' ||

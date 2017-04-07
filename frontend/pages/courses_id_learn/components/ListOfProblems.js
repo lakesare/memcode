@@ -40,8 +40,7 @@ class ListOfProblems extends React.Component {
   renderProblem = (problem) =>
     <Problem
       mode="viewing"
-      initialContentEditorState={problem.content}
-      initialExplanationEditorState={problem.explanation}
+      problemContent={problem.content}
     />
 
   renderProblemWrapper = (problem) => {

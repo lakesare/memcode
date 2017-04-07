@@ -18,10 +18,10 @@ class NewProblem extends React.Component {
     };
   }
 
-  save = (content, explanation) =>
+  save = (content) =>
     ProblemApi.create(
       (spe) => this.setState({ speCreateProblem: spe }),
-      { content, explanation, courseId: this.props.courseId }
+      { content, type: 'inlinedAnswers', courseId: this.props.courseId }
     )
       .then((createdProblem) => {
         this.props.addNewProblem(createdProblem);

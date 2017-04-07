@@ -17,8 +17,7 @@ class ProblemBeingSolved extends React.Component {
     <Problem
       mode="solving"
       onRightAnswerGivenFn={this.props.onRightAnswerGivenFn}
-      initialContentEditorState={this.props.problem.content}
-      initialExplanationEditorState={this.props.problem.explanation}
+      problemContent={this.props.problem.content}
     />
 }
 

@@ -27,13 +27,13 @@ CREATE TABLE course (
 
 CREATE TABLE problem (
   id SERIAL PRIMARY KEY,
-  type VARCHAR,
 
-  explanation JSON,
+  type VARCHAR NOT NULL,
+  -- inlinedAnswers
+  -- separateAnswer
   content JSON,
 
   created_at TIMESTAMP NOT NULL,
-
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL
 );
 

@@ -24,7 +24,6 @@ const RawFactory = {
   problem: ({ courseId }) =>
     Problem.insert.create({
       content: {},
-      explanation: {},
       courseId
     }),
 

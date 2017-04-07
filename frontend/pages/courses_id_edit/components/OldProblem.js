@@ -20,11 +20,11 @@ class OldProblem extends React.Component {
     };
   }
 
-  save = (content, explanation) =>
+  save = (content) =>
     ProblemApi.update(
       (spe) => this.setState({ speUpdateProblem: spe }),
       this.props.problem.id,
-      { content, explanation }
+      { content }
     )
       .then((updatedProblem) => {
         this.props.updateOldProblem(updatedProblem);
@@ -45,8 +45,7 @@ class OldProblem extends React.Component {
       mode="editing"
       saveFn={this.save}
       destroyFn={this.destroy}
-      initialContentEditorState={this.props.problem.content}
-      initialExplanationEditorState={this.props.problem.explanation}
+      problemContent={this.props.problem.content}
     />
 }
 
