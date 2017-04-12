@@ -41,6 +41,7 @@ class ListOfProblems extends React.Component {
     <Problem
       mode="viewing"
       problemContent={problem.content}
+      problemType={problem.type}
     />
 
   renderProblemWrapper = (problem) => {

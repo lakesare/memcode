@@ -1,10 +1,22 @@
-:local(section.problem){
-  display: flex;
-  margin-bottom: 20px;
-  .content, .explanation{
-    width: 50%;
-    background: white;
-    &.content{ margin-right: 10px; }
-    &.explanation{ margin-left: 10px; }
+:local(.problem-wrapper){
+  section.problem{
+    display: flex;
+    margin-bottom: 20px;
+    .first-column, .second-column{
+      width: 50%;
+      &.first-column{ margin-right: 10px; }
+      &.second-column{ margin-left: 10px; }
+    }
+
+    &.-withSeparateAnswer{
+      > .content.first-column{
+      }
+      > .answer.second-column{
+        .DraftEditor-root{
+          background: #adffb9;
+          opacity: 0.99;
+        }
+      }
+    }
   }
 }

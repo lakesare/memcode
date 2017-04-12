@@ -14,14 +14,19 @@ class NewProblem extends React.Component {
     super(props);
     this.state = {
       speCreateProblem: {},
-      key: this.randomKey()
+      key: this.randomKey(),
+      currentProblemType: 'inlinedAnswers' // 'separateAnswer'
     };
   }
 
   save = (content) =>
     ProblemApi.create(
       (spe) => this.setState({ speCreateProblem: spe }),
-      { content, type: 'inlinedAnswers', courseId: this.props.courseId }
+      {
+        content,
+        type: this.state.currentProblemType,
+        courseId: this.props.courseId
+      }
     )
       .then((createdProblem) => {
         this.props.addNewProblem(createdProblem);
@@ -32,8 +37,35 @@ class NewProblem extends React.Component {
   // alternative would be to keep state in this component, but I'm expicitly avoiding this.
   randomKey = () => Math.random(1) * 10000
 
+  renderTypeButton = (type, typeInHuman) => {
+    if (this.state.currentProblemType === type) {
+      return <div className="button -black -active">
+        {typeInHuman}
+      </div>;
+    } else {
+      return <div
+        className="button -black"
+        onClick={() => this.setState({ currentProblemType: type })}
+      >
+        {typeInHuman}
+      </div>;
+    }
+  }
+
   render = () =>
-    <Problem key={this.state.key} mode="editing" saveFn={this.save}/>
+    <div className="new-problem">
+      <Problem
+        key={this.state.key}
+        mode="editingNew"
+        problemType={this.state.currentProblemType}
+        saveFn={this.save}
+      />
+
+      <section className="choose-type">
+        {this.renderTypeButton('inlinedAnswers', 'inlined answers')}
+        {this.renderTypeButton('separateAnswer', 'separate answer')}
+      </section>
+    </div>
 }
 
 export { NewProblem };

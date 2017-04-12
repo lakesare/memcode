@@ -31,7 +31,10 @@ class Page_courses_id_review extends React.Component {
     }).isRequired,
     succumb: React.PropTypes.func.isRequired,
     solve:   React.PropTypes.func.isRequired,
-    statusOfSolvingCurrentProblem: React.PropTypes.oneOf(['solving', 'succumbed']).isRequired,
+    statusOfSolvingCurrentProblem: React.PropTypes.oneOf([
+      'solving', 'succumbed',
+      'solving', 'checkedAnswer'
+    ]).isRequired,
     changeAmountOfProblemsToReviewBy: React.PropTypes.func.isRequired
   }
 
@@ -40,7 +43,8 @@ class Page_courses_id_review extends React.Component {
     this.state = {
       speGetPage: {},
       currentProblemIndex: 0,
-      amountOfRightAnswersGivenForCurrentProblem: 0
+      amountOfRightAnswersGivenForCurrentProblem: 0,
+      selfRating: 5
     };
   }
 
@@ -63,31 +67,44 @@ class Page_courses_id_review extends React.Component {
     this.nextOrSuccumb();
   }
 
-  nextOrSuccumb = () => {
-    return this.ifOnEnterNextProblem() ?
-      this.goToNextProblem() :
-      this.props.succumb()
-  }
-
   onRightAnswerGivenFn = () => {
     this.setState({
       amountOfRightAnswersGivenForCurrentProblem: this.state.amountOfRightAnswersGivenForCurrentProblem + 1
     });
   }
 
+  nextOrSuccumb = () => {
+    this.ifOnEnterNextProblem() ?
+      this.goToNextProblem() :
+      this.props.succumb();
+  }
+
   currentScore = () => {
-    const wanted = amountOfAnswerInputsInProblem(this.currentProblem());
-    const given = this.state.amountOfRightAnswersGivenForCurrentProblem;
-    return calculateScore(given, wanted);
+    switch (this.currentProblem().type) {
+      case 'inlinedAnswer': {
+        const wanted = amountOfAnswerInputsInProblem(this.currentProblem());
+        const given = this.state.amountOfRightAnswersGivenForCurrentProblem;
+        return calculateScore(given, wanted);
+      }
+      case 'separateAnswer': return this.state.selfRating;
+    }
   }
 
   ifOnEnterNextProblem = () => {
     if (!this.currentProblem()) return false;
 
-    const ifAnsweredAll = this.currentScore() === 5;
-    const ifSuccumbed = this.props.statusOfSolvingCurrentProblem === 'succumbed';
+    switch (this.currentProblem().type) {
+      case 'inlinedAnswer': {
+        const ifAnsweredAll = this.currentScore() === 5;
+        const ifSuccumbed = this.props.statusOfSolvingCurrentProblem === 'succumbed';
 
-    return ifSuccumbed || ifAnsweredAll;
+        return ifSuccumbed || ifAnsweredAll;
+      }
+      case 'separateAnswer': {
+        const ifCheckedTheRightAnswer = false;
+        return ifCheckedTheRightAnswer;
+      }
+    }
   }
 
   // given: amount of answers that were properly given
@@ -143,6 +160,14 @@ class Page_courses_id_review extends React.Component {
                 problem={this.currentProblem()}
                 onRightAnswerGivenFn={this.onRightAnswerGivenFn}
               />
+          }
+
+          {
+            this.state.ifCheckedTheRightAnswer &&
+            <section>
+              Rate yourself! (0 - 5)
+              {this.state.selfRating}
+            </section>
           }
 
           {

@@ -58,6 +58,8 @@ module.exports = {
     "react/jsx-tag-spacing": "off",
     "react/jsx-filename-extension": "off",
 
+    "react/require-default-props": "off",
+
     // RootPage = connect(() => ({}), mapDispatchToProps)(RootPage);
     "no-class-assign": "off",
 
@@ -168,7 +170,11 @@ module.exports = {
     // sometimes it's more readable without them!
     "react/jsx-wrap-multilines": "off",
 
-    "no-return-assign": "off"
+    "no-return-assign": "off",
+
+    // switch
+    // case
+    // "indent": [2, 2, { "SwitchCase": "" }]
   },
   "globals": {
     "fetch": true,

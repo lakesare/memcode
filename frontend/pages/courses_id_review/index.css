@@ -13,6 +13,7 @@
     .DraftEditor-root{
       border: none;
       max-height: none;
+      background: white;
     }
 
     input.answer{

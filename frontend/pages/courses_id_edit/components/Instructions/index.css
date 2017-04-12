@@ -2,8 +2,9 @@
 
 :local(section.instructions){
   > div.toggler{
-    position: absolute;
-    right: 15px; top: -6px;
+    text-align: right;
+    position: relative;
+    left: 17px;
 
     cursor: pointer;
     font-size: 20px;
@@ -24,6 +25,9 @@
         vertical-align: top;
         border: solid 1px $sims-green-color;
         padding: 3px 5px;
+      }
+      td:first-child{
+        font-weight: bold;
       }
     }
   }

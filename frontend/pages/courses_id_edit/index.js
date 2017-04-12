@@ -85,14 +85,12 @@ class Page_courses_id_edit extends React.Component {
         <Loading spe={this.state.speGetProblems}>{problems =>
           <section className="problems">
             <div className="thead">
-              <div className="content">Content</div>
-              <div className="explanation">Explanation</div>
               <Instructions/>
             </div>
             <div className="tbody">
               {this.renderListOfProblems(problems)}
+              <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
             </div>
-            <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
           </section>
         }</Loading>
       </div>

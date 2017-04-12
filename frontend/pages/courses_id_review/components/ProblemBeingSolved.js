@@ -18,6 +18,7 @@ class ProblemBeingSolved extends React.Component {
       mode="solving"
       onRightAnswerGivenFn={this.props.onRightAnswerGivenFn}
       problemContent={this.props.problem.content}
+      problemType={this.props.problem.type}
     />
 }
 

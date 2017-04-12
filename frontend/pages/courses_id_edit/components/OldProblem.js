@@ -41,12 +41,18 @@ class OldProblem extends React.Component {
   }
 
   render = () =>
-    <Problem
-      mode="editing"
-      saveFn={this.save}
-      destroyFn={this.destroy}
-      problemContent={this.props.problem.content}
-    />
+    <div className="old-problem">
+      <Problem
+        mode="editingOld"
+        saveFn={this.save}
+        problemContent={this.props.problem.content}
+        problemType={this.props.problem.type}
+      />
+
+      <a className="remove" onClick={this.destroy}>
+        <i className="fa fa-trash-o"/>
+      </a>
+    </div>
 }
 
 export { OldProblem };

@@ -46,6 +46,7 @@ class Page_courses_id extends React.Component {
                   key={problem.id}
                   mode="viewing"
                   problemContent={problem.content}
+                  problemType={problem.type}
                 />
               )
             }

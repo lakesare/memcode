@@ -1,27 +1,61 @@
 :local(main.main){
   section.problems{
     > .thead{
-      display: flex;
       position: relative;
       padding-bottom: 6px;
-      .explanation, .content{
-        width: 50%;
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 12px;
-        &.content{ margin-right: 10px; }
-        &.explanation{ margin-left: 10px; }
-      }
     }
     > .tbody{
-      > section.problem{
-        margin-bottom: 10px;
+      // to avoid editing problem at the bottom of the screen
+      margin-bottom: 500px;
+
+      > .new-problem, .old-problem{
+        .DraftEditor-root{
+          position: relative;
+          // for draftjs placeholder to work
+          .public-DraftEditorPlaceholder-root{
+            position: absolute;
+            color: #aba6a6;
+            z-index: -1;
+          }
+        }
+      }
+
+      > .old-problem{
         position: relative;
+        margin-bottom: 10px;
+        // for placeholder to not take a lot of space
+        .DraftEditor-root{
+          overflow: hidden;
+        }
         > .remove{
           position: absolute;
-          right: -20px;
+          right: -20px; top: 0;
           i.fa-trash-o{
             cursor: pointer;
+          }
+        }
+      }
+      > .new-problem{
+        position: relative;
+        // for placeholders to fit
+        .DraftEditor-root{
+          min-height: 40px;
+        }
+        > .choose-type{
+          position: absolute;
+          right: -115px;
+          top: 0;
+          > .button{
+            font-size: 9px;
+            padding: 4px;
+            opacity: 0.5;
+            &.-active{
+              opacity: 1;
+              cursor: default;
+            }
+            &:not(.-active):hover{
+              opacity: 0.9;
+            }
           }
         }
       }

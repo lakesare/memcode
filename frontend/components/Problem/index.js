@@ -1,114 +1,46 @@
 import React from 'react';
 
-import { convertToRaw } from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
-
-// draftJs
-import { DraftJsPlugins } from '~/services/draftJs/plugins';
-import { DraftJsDecorators } from '~/services/draftJs/decorators';
-import { blockRenderMap } from '~/services/draftJs/blockRenderMap';
-import { createEditorState } from '~/services/draftJs/createEditorState';
+import { ProblemWithInlinedAnswers } from './components/ProblemWithInlinedAnswers';
+import { ProblemWithSeparateAnswer } from './components/ProblemWithSeparateAnswer';
 
 import css from './index.css';
 
 class Problem extends React.Component {
   static propTypes = {
-    mode: React.PropTypes.oneOf(['viewing', 'editing', 'solving', 'succumbed']).isRequired,
-    saveFn:               React.PropTypes.func,
-    destroyFn:            React.PropTypes.func,
-    onRightAnswerGivenFn: React.PropTypes.func,
+    mode: React.PropTypes.oneOf([
+      'viewing', 'editingOld', 'editingNew', 'solving', 'succumbed'
+    ]).isRequired,
+    problemType: React.PropTypes.string.isRequired,
 
     problemContent: React.PropTypes.object,
+    saveFn: React.PropTypes.func, // when 'editing'
+    onRightAnswerGivenFn: React.PropTypes.func, // when 'solving'
   }
 
-  static defaultProps = {
-    saveFn: null,
-    destroyFn: null,
-    onRightAnswerGivenFn: null,
-    problemContent: { content: null, explanation: null }
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      contentEditorState: createEditorState(this.props.problemContent.content),
-      explanationEditorState: createEditorState(this.props.problemContent.explanation),
-    };
-  }
-
-  onBlur = () => {
-    const isNewProblem = this.props.problemContent.content === null;
-    if (!isNewProblem) {
-      this.save();
+  renderProblem = (type) => {
+    switch (type) {
+    case 'inlinedAnswers':
+      return <ProblemWithInlinedAnswers
+        problemContent={this.props.problemContent}
+        mode={this.props.mode}
+        saveFn={this.props.saveFn}
+        onRightAnswerGivenFn={this.props.onRightAnswerGivenFn}
+      />;
+    case 'separateAnswer':
+      return <ProblemWithSeparateAnswer
+        problemContent={this.props.problemContent}
+        mode={this.props.mode}
+        saveFn={this.props.saveFn}
+      />;
+    default:
+      throw new Error(`Problem type '${type}' doesn't exist.`);
     }
   }
 
-  save = () =>
-    this.props.saveFn({
-      content:     convertToRaw(this.state.contentEditorState    .getCurrentContent()),
-      explanation: convertToRaw(this.state.explanationEditorState.getCurrentContent())
-    })
-
-  isReadonly = (mode) =>
-    mode === 'solving' ||
-    mode === 'succumbed' ||
-    mode === 'viewing'
-
   render = () =>
-    <section className={`problem ${css.problem}`}>
-      <div className="content">
-        <Editor
-          editorState={this.state.contentEditorState}
-          onChange={newState => this.setState({ contentEditorState: newState })}
-          onBlur={this.onBlur}
-          plugins={[
-            DraftJsPlugins.saveProblem(this.save),
-            DraftJsPlugins.richText(),
-            DraftJsPlugins.pasteImageFromClipboard(),
-            DraftJsPlugins.answerInput()
-          ]}
-          decorators={
-            ( // only initialized on mount
-              () => {
-                switch (this.props.mode) {
-                  case 'viewing':
-                  case 'editing':
-                    return [DraftJsDecorators.editableAnswer()];
-                  case 'solving':
-                    return [DraftJsDecorators.solvableAnswer(this.props.onRightAnswerGivenFn)];
-                }
-              }
-            )()
-          }
-          blockRenderMap={blockRenderMap()}
-          readOnly={this.isReadonly(this.props.mode)}
-        />
-      </div>
-
-      <div className="explanation">
-        <Editor
-          editorState={this.state.explanationEditorState}
-          onChange={newState => this.setState({ explanationEditorState: newState })}
-          onBlur={this.onBlur}
-          plugins={[
-            DraftJsPlugins.saveProblem(this.save),
-            DraftJsPlugins.richText(),
-            DraftJsPlugins.pasteImageFromClipboard()
-          ]}
-          blockRenderMap={blockRenderMap()}
-          readOnly={this.isReadonly(this.props.mode)}
-        />
-      </div>
-
-      {
-        this.props.mode === 'editing' &&
-        this.props.destroyFn &&
-        <a className="remove" onClick={this.props.destroyFn}>
-          <i className="fa fa-trash-o"/>
-        </a>
-      }
-    </section>
+    <div className={css['problem-wrapper']}>
+      {this.renderProblem(this.props.problemType)}
+    </div>
 }
 
 export { Problem };
