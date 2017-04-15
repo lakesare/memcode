@@ -2,7 +2,7 @@ import React from 'react';
 
 import { InputForAnswer } from '~/pages/courses_id_review/components/InputForAnswer';
 
-const solvableAnswer = (onRightAnswerGiven) => ({
+const solvableAnswer = () => ({
   strategy: (contentBlock, callback, contentState) => {
     contentBlock.findEntityRanges(
       (character) => {
@@ -14,18 +14,13 @@ const solvableAnswer = (onRightAnswerGiven) => ({
     );
   },
   component: (props) =>
-    <InputForAnswerContainer {...props} onRightAnswerGiven={onRightAnswerGiven}/>
+    <InputForAnswerContainer {...props}/>
 });
 
 class InputForAnswerContainer extends React.Component {
   static propTypes = {
     contentState: React.PropTypes.object.isRequired,
     entityKey: React.PropTypes.string.isRequired,
-    onRightAnswerGiven: React.PropTypes.func
-  }
-
-  static defaultProps = {
-    onRightAnswerGiven: null
   }
 
   getAnswer = () => {
@@ -35,7 +30,7 @@ class InputForAnswerContainer extends React.Component {
   }
 
   render = () =>
-    <InputForAnswer answer={this.getAnswer()} onRightAnswerGiven={this.props.onRightAnswerGiven}/>;
+    <InputForAnswer answer={this.getAnswer()}/>;
 }
 
 export { solvableAnswer };

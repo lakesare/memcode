@@ -6,10 +6,6 @@ import { CourseActions } from '~/components/CourseActions';
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
 import { WhatNext } from './components/WhatNext';
 
-import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
-import { commonFetch } from '~/api/commonFetch';
-import { calculateScore, amountOfAnswerInputsInProblem } from './service';
-
 import css from './index.css';
 
 // person pressed ENTER,
@@ -29,168 +25,50 @@ class Page_courses_id_review extends React.Component {
     params: React.PropTypes.shape({
       id: React.PropTypes.string
     }).isRequired,
-    succumb: React.PropTypes.func.isRequired,
-    solve:   React.PropTypes.func.isRequired,
-    statusOfSolvingCurrentProblem: React.PropTypes.oneOf([
-      'solving', 'succumbed',
-      'solving', 'checkedAnswer'
-    ]).isRequired,
-    changeAmountOfProblemsToReviewBy: React.PropTypes.func.isRequired
-  }
+    getPage: React.PropTypes.func.isRequired,
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetPage: {},
-      currentProblemIndex: 0,
-      amountOfRightAnswersGivenForCurrentProblem: 0,
-      selfRating: 5
-    };
+    speGetPage: React.PropTypes.object.isRequired,
+    currentProblem: React.PropTypes.object,
   }
 
   componentDidMount = () => {
-    commonFetch(
-      (spe) => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/${this.props.params.id}/review`
-    )
-      .then(() => {
-        document.addEventListener('keydown', this.onEnter, false);
-      });
+    this.props.getPage(this.props.params.id);
   }
-
-  componentWillUnmount = () => {
-    document.removeEventListener('keydown', this.onEnter);
-  }
-
-  onEnter = (event) => {
-    if (event.keyCode !== 13) return;
-    this.nextOrSuccumb();
-  }
-
-  onRightAnswerGivenFn = () => {
-    this.setState({
-      amountOfRightAnswersGivenForCurrentProblem: this.state.amountOfRightAnswersGivenForCurrentProblem + 1
-    });
-  }
-
-  nextOrSuccumb = () => {
-    this.ifOnEnterNextProblem() ?
-      this.goToNextProblem() :
-      this.props.succumb();
-  }
-
-  currentScore = () => {
-    switch (this.currentProblem().type) {
-      case 'inlinedAnswer': {
-        const wanted = amountOfAnswerInputsInProblem(this.currentProblem());
-        const given = this.state.amountOfRightAnswersGivenForCurrentProblem;
-        return calculateScore(given, wanted);
-      }
-      case 'separateAnswer': return this.state.selfRating;
-    }
-  }
-
-  ifOnEnterNextProblem = () => {
-    if (!this.currentProblem()) return false;
-
-    switch (this.currentProblem().type) {
-      case 'inlinedAnswer': {
-        const ifAnsweredAll = this.currentScore() === 5;
-        const ifSuccumbed = this.props.statusOfSolvingCurrentProblem === 'succumbed';
-
-        return ifSuccumbed || ifAnsweredAll;
-      }
-      case 'separateAnswer': {
-        const ifCheckedTheRightAnswer = false;
-        return ifCheckedTheRightAnswer;
-      }
-    }
-  }
-
-  // given: amount of answers that were properly given
-  // wanted: amount of all problems
-  recordScore = () => {
-    CourseUserIsLearningApi.reviewProblem(
-      () => {},
-      this.state.speGetPage.payload.courseUserIsLearning.id,
-      this.currentProblem().id,
-      this.currentScore()
-    );
-  }
-
-  goToNextProblem = () => {
-    this.recordScore();
-    this.props.changeAmountOfProblemsToReviewBy(-1);
-
-    const nextProblemIndex = this.state.currentProblemIndex + 1;
-    const isThereNextProblem = !!this.state.speGetPage.payload.problems[nextProblemIndex];
-
-    if (isThereNextProblem) {
-      this.clearCurrentProblem(nextProblemIndex);
-    } else {
-      this.setState({ currentProblemIndex: -1 });
-    }
-  }
-
-  clearCurrentProblem = (nextProblemIndex) => {
-    this.props.solve();
-    this.setState({
-      currentProblemIndex: nextProblemIndex,
-      amountOfRightAnswersGivenForCurrentProblem: 0
-    });
-  }
-
-  currentProblem = () =>
-    this.state.speGetPage.payload.problems[this.state.currentProblemIndex]
 
   render = () =>
     <main className={css.main}>
       <Header/>
 
-      <Loading spe={this.state.speGetPage}>{({ problems }) =>
+      <Loading spe={this.props.speGetPage}>{() =>
         <div className="container">
           <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
 
           {
-            problems[this.state.currentProblemIndex] === undefined ?
-              <WhatNext/> :
+            this.props.currentProblem ?
               <ProblemBeingSolved
-                key={this.state.currentProblemIndex} // is needed, otherwise Editor will just stay the same
-                mode={this.state.statusOfSolvingCurrentProblem}
-                problem={this.currentProblem()}
-                onRightAnswerGivenFn={this.onRightAnswerGivenFn}
-              />
+                key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
+                problem={this.props.currentProblem}
+              /> :
+              <WhatNext/>
           }
 
-          {
-            this.state.ifCheckedTheRightAnswer &&
-            <section>
-              Rate yourself! (0 - 5)
-              {this.state.selfRating}
-            </section>
-          }
-
-          {
-            this.ifOnEnterNextProblem() &&
-            <a className="button next" onClick={this.nextOrSuccumb}>
-              NEXT
-            </a>
-          }
         </div>
       }</Loading>
     </main>
 }
 
-const mapStateToProps = (state) => ({
-  statusOfSolvingCurrentProblem: state.pages.Page_courses_id_review.statusOfSolvingCurrentProblem
-});
-const mapDispatchToProps = dispatch => ({
-  succumb: () => dispatch({ type: 'SUCCUMB' }),
-  solve:   () => dispatch({ type: 'SOLVE' }),
-  changeAmountOfProblemsToReviewBy: (by) => dispatch({
-    type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
-    payload: by
-  })
+import { deriveCurrentProblem } from './selectors';
+const mapStateToProps = (state) => {
+  const pageState = state.pages.Page_courses_id_review;
+  return {
+    currentProblem: deriveCurrentProblem(pageState),
+    speGetPage: pageState.speGetPage,
+  };
+};
+import { Page_courses_id_review_Actions } from './reducer';
+const { getPage } = Page_courses_id_review_Actions;
+const mapDispatchToProps = (dispatch) => ({
+  getPage: (courseId) => dispatch(getPage(courseId))
 });
 
 import { connect } from 'react-redux';

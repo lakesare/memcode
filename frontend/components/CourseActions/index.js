@@ -35,7 +35,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.speGetCourse}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
+    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
       <section className={css.actions}>
         <CourseTitle course={course}/>
 

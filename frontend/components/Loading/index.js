@@ -22,13 +22,13 @@ const Loading = (props) => {
     case 'request':
       return (
         <div className={`${css.loading} request`}>
-          <i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw" />
+          {props.requestIcon}
         </div>
       );
     case 'success':
       switch (typeof props.children) {
-        case 'function':  return props.children(props.spe.payload);
-        default:          return props.children;
+        case 'function': return props.children(props.spe.payload);
+        default:         return props.children;
       }
     case 'failure':
       return <div className={`${css.loading} error`}>{props.spe.error}</div>;
@@ -38,12 +38,14 @@ const Loading = (props) => {
 };
 
 Loading.defaultProps = {
-  children: null
+  children: null,
+  requestIcon: <i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw" />
 };
 
 Loading.propTypes = {
   spe: customPropTypes.spe.isRequired,
-  children: React.PropTypes.any // can be null, or false, or element
+  children: React.PropTypes.any, // can be null, or false, or element
+  requestIcon: React.PropTypes.any
 };
 
 export { Loading };

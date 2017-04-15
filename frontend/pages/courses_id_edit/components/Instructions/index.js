@@ -24,11 +24,6 @@ class Instructions extends React.Component {
           <table onClick={this.toggle}>
             <tbody>
               <tr>
-                <td>ENTER</td>
-                <td>while some word is selected will make this word the one you'll have to recall when reviewing these memes.</td>
-              </tr>
-
-              <tr>
                 <td>CTRL+S</td>
                 <td>will save the new meme, it will also get saved automatically when you click from one meme to another.</td>
               </tr>

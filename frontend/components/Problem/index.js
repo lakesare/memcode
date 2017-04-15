@@ -8,13 +8,12 @@ import css from './index.css';
 class Problem extends React.Component {
   static propTypes = {
     mode: React.PropTypes.oneOf([
-      'viewing', 'editingOld', 'editingNew', 'solving', 'succumbed'
+      'viewing', 'editingOld', 'editingNew', 'solving'
     ]).isRequired,
     problemType: React.PropTypes.string.isRequired,
 
     problemContent: React.PropTypes.object,
     saveFn: React.PropTypes.func, // when 'editing'
-    onRightAnswerGivenFn: React.PropTypes.func, // when 'solving'
   }
 
   renderProblem = (type) => {
@@ -24,7 +23,6 @@ class Problem extends React.Component {
         problemContent={this.props.problemContent}
         mode={this.props.mode}
         saveFn={this.props.saveFn}
-        onRightAnswerGivenFn={this.props.onRightAnswerGivenFn}
       />;
     case 'separateAnswer':
       return <ProblemWithSeparateAnswer

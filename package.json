@@ -67,6 +67,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "redux": "^3.5.2",
+    "redux-thunk": "^2.2.0",
     "source-map-support": "^0.4.2"
   }
 }

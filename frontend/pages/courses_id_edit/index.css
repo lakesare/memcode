@@ -8,18 +8,6 @@
       // to avoid editing problem at the bottom of the screen
       margin-bottom: 500px;
 
-      > .new-problem, .old-problem{
-        .DraftEditor-root{
-          position: relative;
-          // for draftjs placeholder to work
-          .public-DraftEditorPlaceholder-root{
-            position: absolute;
-            color: #aba6a6;
-            z-index: -1;
-          }
-        }
-      }
-
       > .old-problem{
         position: relative;
         margin-bottom: 10px;

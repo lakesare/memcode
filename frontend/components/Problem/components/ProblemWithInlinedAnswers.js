@@ -16,8 +16,7 @@ class ProblemWithInlinedAnswers extends React.Component {
     mode: React.PropTypes.string.isRequired,
     problemContent: React.PropTypes.object,
 
-    saveFn:               React.PropTypes.func, // when 'editing'
-    onRightAnswerGivenFn: React.PropTypes.func // when 'solving'
+    saveFn: React.PropTypes.func, // when 'editing'
   }
 
   // only when undefined
@@ -62,12 +61,12 @@ class ProblemWithInlinedAnswers extends React.Component {
           decorators={// only initialized on mount
             (() => {
               switch (this.props.mode) {
-              case 'viewing':
-              case 'editingOld':
-              case 'editingNew':
-                return [DraftJsDecorators.editableAnswer()];
-              case 'solving':
-                return [DraftJsDecorators.solvableAnswer(this.props.onRightAnswerGivenFn)];
+                case 'viewing':
+                case 'editingOld':
+                case 'editingNew':
+                  return [DraftJsDecorators.editableAnswer()];
+                case 'solving':
+                  return [DraftJsDecorators.solvableAnswer()];
               }
             })()
           }
@@ -88,5 +87,14 @@ class ProblemWithInlinedAnswers extends React.Component {
       </div>
     </section>
 }
+
+
+const mapStateToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+  inlinedAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' })
+});
+
+import { connect } from 'react-redux';
+ProblemWithInlinedAnswers = connect(mapStateToProps, mapDispatchToProps)(ProblemWithInlinedAnswers);
 
 export { ProblemWithInlinedAnswers };

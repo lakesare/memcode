@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import { RootReducer } from './RootReducer.js';
 
-const store = createStore(RootReducer, window.devToolsExtension && window.devToolsExtension());
-// const store = createStore(RootReducer);
+const store = createStore(
+  RootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ?
+      window.devToolsExtension() :
+      f => f
+  )
+);
 
 import { Provider } from 'react-redux';
 

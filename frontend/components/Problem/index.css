@@ -11,10 +11,24 @@
     &.-withSeparateAnswer{
       > .content.first-column{
       }
-      > .answer.second-column{
-        .DraftEditor-root{
+      > .second-column{
+        > .see-answer{
+          cursor: pointer;
+          padding: 5px 10px;
           background: #adffb9;
-          opacity: 0.99;
+        }
+        > .answer{
+          .DraftEditor-root{
+            background: #adffb9;
+            opacity: 0.99;
+          }
+        }
+        > .draft-answer{
+          margin-top: 20px;
+          .DraftEditor-root{
+            background: white;
+            opacity: 0.99;
+          }
         }
       }
     }

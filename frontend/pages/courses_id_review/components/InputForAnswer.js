@@ -3,12 +3,8 @@ import React from 'react';
 class InputForAnswer extends React.Component {
   static propTypes = {
     answer: React.PropTypes.string.isRequired,
-    onRightAnswerGiven: React.PropTypes.func,
-    statusOfSolvingCurrentProblem: React.PropTypes.oneOf(['solving', 'succumbed']).isRequired
-  }
-
-  static defaultProps = {
-    onRightAnswerGiven: null
+    onRightAnswerGiven: React.PropTypes.func.isRequired,
+    status: React.PropTypes.oneOf(['solving', 'seeingAnswer']).isRequired
   }
 
   constructor(props) {
@@ -33,8 +29,7 @@ class InputForAnswer extends React.Component {
   }
 
   render = () => {
-    console.log(this.props.answer + ': ' + this.state.isAnswered);
-    switch (this.props.statusOfSolvingCurrentProblem) {
+    switch (this.props.status) {
       case 'solving': return (
         <input
           className={'answer ' + (this.state.isAnswered ? 'success' : 'waiting')}
@@ -44,7 +39,7 @@ class InputForAnswer extends React.Component {
           value={this.state.currentGuess}
         />
       );
-      case 'succumbed':  return (
+      case 'seeingAnswer':  return (
         <input
           className={'answer ' + (this.state.isAnswered ? 'success' : 'failure')}
           type="text"
@@ -57,10 +52,13 @@ class InputForAnswer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  statusOfSolvingCurrentProblem: state.pages.Page_courses_id_review.statusOfSolvingCurrentProblem
+  status: state.pages.Page_courses_id_review.statusOfSolving.status
+});
+const mapDispatchToProps = (dispatch) => ({
+  onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' })
 });
 
 import { connect } from 'react-redux';
-InputForAnswer = connect(mapStateToProps, () => ({}))(InputForAnswer);
+InputForAnswer = connect(mapStateToProps, mapDispatchToProps)(InputForAnswer);
 
 export { InputForAnswer };

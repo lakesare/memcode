@@ -57,3 +57,14 @@ a.remove i{
 div.space{
   margin-top: 35px;
 }
+
+
+.DraftEditor-root{
+  position: relative;
+  // for draftjs placeholder to work
+  .public-DraftEditorPlaceholder-root{
+    position: absolute;
+    color: #aba6a6;
+    z-index: -1;
+  }
+}

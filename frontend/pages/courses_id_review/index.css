@@ -68,3 +68,38 @@
 }
 // rgb(185, 49, 49) red
 // rgba(115, 232, 61, 0.79) green
+
+
+section.self-score{
+  width: 652px;
+  margin: 0 auto;
+  > label.rate-yourself, > .stars{
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  > label.rate-yourself{
+    color: white;
+    padding-bottom: 6px;
+    font-size: 13px;
+  }
+  > .stars{
+    > .star{
+      display: inline-block;
+      cursor: pointer;
+      padding: 50px 0;
+      > div{
+        padding-right: 3px; padding-left: 3px;
+        width: 100px; height: 10px;
+        border-right: 1px solid #737272;
+        &.grey{
+          background: rgba(109, 107, 107, 0.63);
+        }
+        &.yellow{
+          background: rgb(78, 251, 95);
+        }
+      }
+    }
+  }
+
+}

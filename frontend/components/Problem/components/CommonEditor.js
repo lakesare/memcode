@@ -13,7 +13,7 @@ class CommonEditor extends React.Component {
     mode: React.PropTypes.string.isRequired,
     editorState: React.PropTypes.object.isRequired,
     onChange: React.PropTypes.func.isRequired,
-    save: React.PropTypes.func.isRequired,
+    save: React.PropTypes.func,
     placeholder: React.PropTypes.object
   }
 
