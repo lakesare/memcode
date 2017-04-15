@@ -64,12 +64,6 @@ main{
   // border: 10px solid rgb(123, 255, 66);
 }
 
-@import 'css/variables';
-.fieldset{
-  padding: 10px;
-  border: 2px $sims-green-color solid;
-}
-
 input[type="text"]{
   padding: 4px 10px;
   border: solid 2px rgba(88, 90, 86, 0.65);

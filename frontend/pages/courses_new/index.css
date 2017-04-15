@@ -1,36 +1,16 @@
-:local(main.main){
-  form{
-    text-align: center;
-    h2{ margin: 20px 0; }
+@import 'css/variables';
 
+:local(main.main){
+  h2{
+    margin: 20px 0;
+    text-align: center;
+  }
+  form{
     .fieldset{
       max-width: 500px;
       margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      > .label, > .input, > .error{
-        width: 50%;
-      }
-      > .error{
-        color: #19d422;
-        text-align: left;
-        font-size: 12px;
-      }
-      > .label{
-        text-align: right;
-        label{
-          padding-right: 40px;
-        }
-      }
-      > .input{
-        text-align: left
-      }
-    }
-
-    button{
-      margin: 20px auto;
+      padding: 10px;
+      border: 2px $sims-green-color solid;
     }
   }
 }

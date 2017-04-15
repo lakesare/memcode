@@ -8,6 +8,8 @@ import { catchAsync } from '~/services/catchAsync';
 import { authenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
+import * as Course from '~/components/courses/model';
+import * as Problem from '~/components/problems/model';
 
 router.get('/courses/:id/learn', authenticateMiddleware, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
@@ -25,6 +27,15 @@ router.get('/courses/:id/review', authenticateMiddleware, catchAsync(async (requ
   const problems = await CourseUserIsLearning.select.problemsToReview(courseUserIsLearning.id);
 
   response.status(200).json({ courseUserIsLearning, problems });
+}));
+
+router.get('/courses/:id/edit', authenticateMiddleware, catchAsync(async (request, response) => {
+  const courseId = request.params['id'];
+
+  const course = await Course.select.oneById(courseId);
+  const problems = await Problem.select.allByCourseId(courseId);
+
+  response.status(200).json({ course, problems });
 }));
 
 export { router };

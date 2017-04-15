@@ -14,7 +14,7 @@ class Instructions extends React.Component {
     this.setState({ ifShown: !this.state.ifShown })
 
   render = () =>
-    <section className={css.instructions}>
+    <section className={`instructions ${css.instructions}`}>
       <div className="toggler" onClick={this.toggle}>
         ?
       </div>

@@ -40,7 +40,7 @@ router.post('/', authenticateMiddleware, catchAsync(async (request, response) =>
 }));
 
 router.put('/:id', catchAsync(async (request, response) => {
-  await Course.update.update(request.body['course']);
+  await Course.update.update(request.params.id, request.body['course']);
   response.status(200).json({});
 }));
 

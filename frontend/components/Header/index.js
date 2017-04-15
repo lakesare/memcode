@@ -34,10 +34,10 @@ class Header extends React.Component {
           <Link to="/profile/courses-learned-by-me">
             <h1>MemCode</h1>
           </Link>
-          <div className="memorizing-is-hard-caption">
+          {/* <div className="memorizing-is-hard-caption">
             Memorizing is hard.<br/>
             Let's get started.
-          </div>
+          </div>*/}
         </section>
         {this.renderNavigation()}
       </div>

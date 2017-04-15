@@ -71,8 +71,9 @@
 
 
 section.self-score{
-  width: 652px;
+  width: 684px;
   margin: 0 auto;
+  margin-top: 30px;
   > label.rate-yourself, > .stars{
     display: inline-block;
     vertical-align: middle;
@@ -80,14 +81,17 @@ section.self-score{
 
   > label.rate-yourself{
     color: white;
-    padding-bottom: 6px;
     font-size: 13px;
+    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-right: 20px;
   }
   > .stars{
     > .star{
       display: inline-block;
       cursor: pointer;
-      padding: 50px 0;
+      padding-bottom: 50px;
+      padding-top: 20px;
       > div{
         padding-right: 3px; padding-left: 3px;
         width: 100px; height: 10px;

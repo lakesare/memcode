@@ -1,7 +1,6 @@
 :local(.problem-wrapper){
   section.problem{
     display: flex;
-    margin-bottom: 20px;
     .first-column, .second-column{
       width: 50%;
       &.first-column{ margin-right: 10px; }

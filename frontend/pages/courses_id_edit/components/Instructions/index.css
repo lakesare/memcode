@@ -2,10 +2,6 @@
 
 :local(section.instructions){
   > div.toggler{
-    text-align: right;
-    position: relative;
-    left: 17px;
-
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
