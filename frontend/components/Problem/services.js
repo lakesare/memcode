@@ -2,7 +2,6 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 
 const isReadonly = (mode) =>
   mode === 'solving' ||
-  mode === 'succumbed' ||
   mode === 'viewing';
 
 const toApi = (state) =>

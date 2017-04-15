@@ -35,7 +35,7 @@ class CommonEditor extends React.Component {
       ]}
       blockRenderMap={blockRenderMap()}
       readOnly={isReadonly(this.props.mode)}
-      placeholder={this.props.placeholder}
+      placeholder={isReadonly(this.props.mode) ? null : this.props.placeholder}
     />
 }
 

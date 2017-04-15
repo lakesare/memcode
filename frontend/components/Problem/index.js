@@ -8,7 +8,7 @@ import css from './index.css';
 class Problem extends React.Component {
   static propTypes = {
     mode: React.PropTypes.oneOf([
-      'viewing', 'editingOld', 'editingNew', 'solving'
+      'viewing', 'solving', 'editingOld', 'editingNew'
     ]).isRequired,
     problemType: React.PropTypes.string.isRequired,
 
@@ -18,20 +18,20 @@ class Problem extends React.Component {
 
   renderProblem = (type) => {
     switch (type) {
-    case 'inlinedAnswers':
-      return <ProblemWithInlinedAnswers
-        problemContent={this.props.problemContent}
-        mode={this.props.mode}
-        saveFn={this.props.saveFn}
-      />;
-    case 'separateAnswer':
-      return <ProblemWithSeparateAnswer
-        problemContent={this.props.problemContent}
-        mode={this.props.mode}
-        saveFn={this.props.saveFn}
-      />;
-    default:
-      throw new Error(`Problem type '${type}' doesn't exist.`);
+      case 'inlinedAnswers':
+        return <ProblemWithInlinedAnswers
+          problemContent={this.props.problemContent}
+          mode={this.props.mode}
+          saveFn={this.props.saveFn}
+        />;
+      case 'separateAnswer':
+        return <ProblemWithSeparateAnswer
+          problemContent={this.props.problemContent}
+          mode={this.props.mode}
+          saveFn={this.props.saveFn}
+        />;
+      default:
+        throw new Error(`Problem type '${type}' doesn't exist.`);
     }
   }
 

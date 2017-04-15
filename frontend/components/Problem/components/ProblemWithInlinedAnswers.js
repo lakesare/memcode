@@ -72,7 +72,7 @@ class ProblemWithInlinedAnswers extends React.Component {
           }
           blockRenderMap={blockRenderMap()}
           readOnly={isReadonly(this.props.mode)}
-          placeholder={<div>Enter a short sentence you'll have to fill in.<br/> (Mark answers by pressing ENTER)</div>}
+          placeholder={isReadonly(this.props.mode) ? null : <div>Enter a short sentence you'll have to fill in.<br/> (Mark answers by pressing ENTER)</div>}
         />
       </div>
 
@@ -82,7 +82,7 @@ class ProblemWithInlinedAnswers extends React.Component {
           editorState={this.state.explanationEditorState}
           onChange={newState => this.setState({ explanationEditorState: newState })}
           save={this.save}
-          placeholder={<div>Enter a more elaborate expanation <br/> or a few examples</div>}
+          placeholder={isReadonly(this.props.mode) ? null : <div>Enter a more elaborate expanation <br/> or a few examples</div>}
         />
       </div>
     </section>
