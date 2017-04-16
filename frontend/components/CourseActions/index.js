@@ -13,7 +13,7 @@ import * as CourseApi from '~/api/Course';
 class CourseActions extends React.Component {
   static propTypes = {
     courseId: React.PropTypes.string.isRequired,
-    currentUser: React.PropTypes.object.isRequired,
+    currentUser: React.PropTypes.object,
 
     speGetCourse: React.PropTypes.object.isRequired,
     speCourseUserIsLearning: React.PropTypes.object.isRequired,
@@ -24,35 +24,45 @@ class CourseActions extends React.Component {
   }
 
   static defaultProps = {
-    ifCuilActivityButtonsAreDisplayed: true
+    ifCuilActivityButtonsAreDisplayed: true,
+    currentUser: null
   }
 
   componentDidMount = () => {
+    this.props.currentUser &&
     CourseApi.show(
       spe => this.props.seedSpeGetCourse(spe),
       this.props.courseId
     );
   }
 
-  render = () =>
-    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
-      <section className={css.actions}>
-        <CourseTitle course={course}/>
+  renderSignIn = () =>
+    <section className={css.actions}>
+      <h4>Sign in to start learning this course</h4>
+    </section>
 
-        {
-          this.props.ifCuilActivityButtonsAreDisplayed &&
-          <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={course.id}/>
-        }
+  render = () => {
+    return this.props.currentUser ?
+      <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
+        <section className={css.actions}>
+          <CourseTitle course={course}/>
 
-        <LearnAndReviewButtons
-          courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
-          amountOfProblemsToLearn={amountOfProblemsToLearn}
-          amountOfProblemsToReview={amountOfProblemsToReview}
-        />
+          {
+            this.props.ifCuilActivityButtonsAreDisplayed &&
+            <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={course.id}/>
+          }
 
-        <EditButton course={course} currentUserId={this.props.currentUser.id}/>
-      </section>
-    }</Loading>
+          <LearnAndReviewButtons
+            courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
+            amountOfProblemsToLearn={amountOfProblemsToLearn}
+            amountOfProblemsToReview={amountOfProblemsToReview}
+          />
+
+          <EditButton course={course} currentUserId={this.props.currentUser.id}/>
+        </section>
+      }</Loading> :
+      this.renderSignIn();
+  }
 }
 
 import { connect } from 'react-redux';

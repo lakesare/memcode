@@ -45,7 +45,7 @@ a{
   color: #292b2c;
   cursor: pointer;
 }
-h1, h2, h3{
+h1, h2, h3, h4, h5{
   margin-top: 0; margin-bottom: 0;
   font-weight: normal;
   font-family: $heading-font;
@@ -54,6 +54,7 @@ h1, h2, h3{
 h1{ font-size: 25px; }
 h2{ font-size: 22px; }
 h3{ font-size: 19px; }
+h4{ font-size: 15px; }
 
 table{
   border-collapse: collapse;
