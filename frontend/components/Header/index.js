@@ -18,12 +18,12 @@ class Header extends React.Component {
         to="/courses"
         activeClassName="active"
         className="link"
-      >all courses</Link>
+      >courses</Link>
       <Link
         to="/courses/new"
         activeClassName="active"
         className="link"
-      >create own course!</Link>
+      >create</Link>
       <CurrentUser currentUser={this.props.currentUser}/>
     </nav>
 

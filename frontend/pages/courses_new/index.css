@@ -1,5 +1,3 @@
-@import 'css/variables';
-
 :local(main.main){
   h2{
     margin: 20px 0;
@@ -7,10 +5,9 @@
   }
   form{
     .fieldset{
-      max-width: 500px;
       margin: 0 auto;
       padding: 10px;
-      border: 2px $sims-green-color solid;
+      border: 2px #5a5d5a solid;
     }
   }
 }
