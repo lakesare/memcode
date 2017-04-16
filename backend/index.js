@@ -45,7 +45,10 @@ app.get('*', (request, response) =>
     <head>
       <title>Memcode</title>
       <link rel="stylesheet" href="/styles.css">
-      <link href="/index.css" rel="stylesheet"></head>
+      <link href="/index.css" rel="stylesheet">
+      <!-- to verify google webmasters -->
+      <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E" />
+    </head>
     <body>
       <div id="root"></div>
       <script>

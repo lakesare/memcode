@@ -35,7 +35,13 @@ const update = {
   review: async (courseUserIsLearningId, problemId, performanceRating) => {
     const me = await select.findByCuilIdAndProblemId(courseUserIsLearningId, problemId);
 
+    // was easiness was NAN once?
+    console.log('________________________')
+    console.log({me})
+    console.log('__________________________')
     const nextScore = getNextScore(me.easiness, me.consecutiveCorrectAnswers, performanceRating);
+    console.log({nextScore})
+    console.log('__________________')
 
     return db.one(
       `
