@@ -1,10 +1,5 @@
 import { commonFetch } from './commonFetch';
 
-const getAllByCourseId = (dispatch, courseId) =>
-  commonFetch(dispatch,
-    'GET', `/api/problems/allByCourseId/${courseId}`
-  );
-
 const create = (dispatch, values) =>
   commonFetch(dispatch,
     'POST', '/api/problems',
@@ -23,4 +18,4 @@ const destroy = (dispatch, problemId) =>
   );
 
 // import * as ProblemApi from '~/api/Problem';
-export { getAllByCourseId, create, update, destroy };
+export { create, update, destroy };

@@ -21,6 +21,8 @@ CREATE TABLE "user" (
 CREATE TABLE course (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL CHECK (char_length(title) >= 2),
+  description TEXT,
+  if_public BOOLEAN DEFAULT TRUE,
 
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );

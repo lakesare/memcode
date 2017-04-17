@@ -2,6 +2,7 @@
   text-align: center;
 
   .fieldset{
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -22,10 +23,31 @@
     }
     > .input{
       text-align: left;
-      input{
+      input, textarea{
         width: 100%;
-        max-width: 200px;
         box-sizing: border-box;
+      }
+      input{
+        max-width: 200px;
+      }
+      textarea{
+        max-width: 300px;
+        height: 100px;
+      }
+      .ifPublic{
+        font-size: 11px;
+        padding: 3px 7px;
+        width: 62px;
+        text-align: center;
+        border: 1px solid #1d1d56;
+        cursor: pointer;
+        &.-true{
+          background: #1d1d56;
+          color: white;
+        }
+        &.-false{
+          color: rgba(58, 56, 56, 0.36);
+        }
       }
     }
   }

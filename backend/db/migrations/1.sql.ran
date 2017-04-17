@@ -1,0 +1,5 @@
+\c :database;
+
+ALTER TABLE course
+  ADD COLUMN description TEXT,
+  ADD COLUMN if_public BOOLEAN DEFAULT TRUE;

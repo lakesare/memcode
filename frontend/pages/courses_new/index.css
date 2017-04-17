@@ -4,10 +4,10 @@
     text-align: center;
   }
   form{
+    border: 2px #5a5d5a solid;
     .fieldset{
       margin: 0 auto;
       padding: 10px;
-      border: 2px #5a5d5a solid;
     }
   }
 }

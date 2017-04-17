@@ -24,6 +24,12 @@ class Course extends React.Component {
         <h3 className="title">{this.props.course.title}</h3>
       </section>
 
+      {/*
+        this.props.course.description &&
+        this.props.course.description.length > 0 &&
+        <section className="description" dangerouslySetInnerHTML={{ __html: this.props.course.description }}/>
+      */}
+
       <section className="total-amount-of-mems">
         {this.props.amountOfProblems} mems
       </section>

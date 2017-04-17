@@ -6,7 +6,7 @@ import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { Problem } from '~/components/Problem';
 
-import * as ProblemApi from '~/api/Problem';
+import { commonFetch } from '~/api/commonFetch';
 
 import css from './index.css';
 
@@ -20,16 +20,15 @@ class Page_courses_id extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      speGetProblems: {}
+      speGetPage: {}
     };
   }
 
-  componentDidMount = () => {
-    ProblemApi.getAllByCourseId(
-      spe => this.setState({ speGetProblems: spe }),
-      this.props.params.id
-    );
-  }
+  componentDidMount = () =>
+      commonFetch(
+        spe => this.setState({ speGetPage: spe }),
+        'GET', `/api/pages/courses/${this.props.params.id}`
+      );
 
   render = () =>
     <main className={css.main}>
@@ -38,18 +37,25 @@ class Page_courses_id extends React.Component {
       <div className="container">
         <CourseActions courseId={this.props.params.id}/>
 
-        <Loading spe={this.state.speGetProblems}>{(problems) =>
-          <div className="problems">
+        <Loading spe={this.state.speGetPage}>{({ problems, course }) =>
+          <div className="description-and-problems">
             {
-              problems.map((problem) =>
-                <Problem
-                  key={problem.id}
-                  mode="viewing"
-                  problemContent={problem.content}
-                  problemType={problem.type}
-                />
-              )
+              course.description &&
+              course.description.length > 0 &&
+              <section className="description" dangerouslySetInnerHTML={{ __html: course.description }}/>
             }
+            <section className="problems">
+              {
+                problems.map((problem) =>
+                  <Problem
+                    key={problem.id}
+                    mode="viewing"
+                    problemContent={problem.content}
+                    problemType={problem.type}
+                  />
+                )
+              }
+            </section>
           </div>
         }</Loading>
       </div>

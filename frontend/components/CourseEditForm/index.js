@@ -18,28 +18,33 @@ class CourseEditForm extends React.Component {
   constructor(props) {
     super(props);
 
+    const { title, ifPublic, description } = props.initialValues;
     this.state = {
       validationErrors: {},
+
       formValues: {
-        title: props.initialValues.title || ''
+        title:       title || '',
+        ifPublic:    (ifPublic === undefined) ? true : ifPublic,
+        description: description || ''
       }
     };
   }
 
-  updateFormValues = (event, inputTitle) => {
+  updateFormValues = (event, inputTitle) =>
     this.setState({
       formValues: {
         ...this.state.formValues,
         [inputTitle]: event.target.value
       }
     });
-  }
 
   validateAndSubmit = (e) => {
     e.preventDefault();
     if (this.validate()) {
       this.props.save({
-        title: this.state.formValues.title
+        title: this.state.formValues.title,
+        description: this.state.formValues.description,
+        ifPublic: this.state.formValues.ifPublic
       });
     }
   }
@@ -69,6 +74,31 @@ class CourseEditForm extends React.Component {
             {this.state.validationErrors.title}
           </div>
         }
+      </div>
+
+      <div className="fieldset">
+        <div className="label">
+          <label htmlFor="description">Description:</label>
+        </div>
+        <div className="input">
+          <textarea
+            onChange={(e) => this.updateFormValues(e, 'description')}
+            value={this.state.formValues.description}
+            placeholder="HTML is okay."
+          />
+        </div>
+      </div>
+
+      <div className="fieldset">
+        <div className="label">
+          <label>Is course listed in /courses:</label>
+        </div>
+        <div className="input">
+          <div
+            className={`ifPublic ${this.state.formValues.ifPublic ? '-true' : '-false'}`}
+            onClick={() => this.updateFormValues({ target: { value: !this.state.formValues.ifPublic } }, 'ifPublic')}
+          >PUBLIC</div>
+        </div>
       </div>
 
       <button

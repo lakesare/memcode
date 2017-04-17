@@ -20,6 +20,7 @@ const select = {
         COUNT(problem.id)     AS amount_of_problems
       FROM course
       LEFT OUTER JOIN problem ON problem.course_id = course.id
+      WHERE if_public = true
       GROUP BY course.id
       `,
     )
