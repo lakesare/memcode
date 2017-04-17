@@ -1,0 +1,183 @@
+@import 'css/variables';
+
+:local(main.main){
+  .article-formatting{
+    padding-bottom: 200px;
+    line-height: 30px;
+    font-family: Sintony;
+    font-size: 15px;
+    .container.-left-border{
+      border-left: 2px solid #6d6d6d;
+    }
+    a{
+      color: $sims-green-color;
+    }
+    section.article-headings{
+      margin-bottom: 20px;
+    }
+    section.article-section{
+      border-top: 1px solid #cecccc;
+      padding-top: 20px; padding-bottom: 20px;
+
+      // tilted line
+      // &:before{
+      //   content: "";
+      //   position: absolute;
+      //   border-top: 1px solid #464646;
+      //   width: 800px;
+      //   transform: rotate(2deg);
+      // }
+    }
+    h2.section-heading{
+      color: #424242;
+      font-weight: bold;
+      margin-bottom: 20px;
+      i{
+        padding-right: 10px;
+        color: $sims-green-color;
+      }
+    }
+    ol{
+      li{ margin-bottom: 20px; }
+    }
+  }
+
+  section.problem{
+    background: #383131;
+    box-shadow: 1px 3px 9px rgba(54, 56, 53, 0.39);
+    margin-top: 10px;
+
+    line-height: 18px;
+    font-family: 'Amethysta';
+
+    display: flex;
+    justify-content: space-between;
+    // for normal height
+    align-items: flex-start;
+
+    .first-column, .second-column{
+      width: 50%;
+      margin: 5px;
+    }
+  }
+
+  // used for both fake and real problem
+  section.problem.-withInlinedAnswers{
+    > .first-column, > .second-column{
+      background: white;
+      padding: 5px 10px;
+    }
+    input.answer{
+      width: 100px;
+      display: inline-block;
+      padding: 0 10px;
+      border: none;
+      font-size: 16px;
+      text-align: center;
+      &:focus{ outline: none; }
+      &.success{
+        border: 2px solid $sims-green-color;
+        background: $sims-green-color;
+      }
+      &.failure{
+        border: 2px solid #f9637d;
+      }
+      &.waiting{
+        border: 2px solid #FFEB3B;
+      }
+    }
+  }
+
+  section.problem.-withSeparateAnswer{
+    > .first-column, > .second-column > .answer{
+      background: white;
+      padding: 5px 10px;
+    }
+    > .second-column{
+      > .see-answer{
+        cursor: pointer;
+        padding: 5px 10px;
+        background: #adffb9;
+      }
+      > .answer{
+        pre{
+          background: #3e4e4c;
+          margin-bottom: 0; margin-top: 0;
+          padding: 10px;
+          color: white;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  section.article-section.why-us{
+    padding-bottom: 0;
+    &.-continuation{
+      border-top: none;
+    }
+    ul{
+      li{
+        padding: 3px 26px;
+        box-sizing: border-box;
+        line-height: 20px;
+        font-family: $body-font;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  h3.table-caption{
+    font-weight: bold;
+    color: #424242;
+  }
+  table{
+    width: 100%;
+    max-width: 1250px;
+    margin: 0 auto;
+    margin-top: 20px;
+
+    line-height: 18px;
+    font-size: 12px;
+    background: #383131;
+    color: white;
+
+    box-shadow: 1px 3px 20px 3px rgba(54, 56, 53, 0.81);
+    tr{
+      border-bottom: 1px solid #444444;
+    }
+    td, th{
+      border-right: 1px solid #444444;
+      padding: 5px 10px;
+      vertical-align: top;
+    }
+    thead a{
+      color: #00ff1d;
+      font-size: 14px;
+      font-family: $heading-font;
+    }
+    tbody th{
+      color: #909090;
+    }
+    margin-bottom: 20px;
+
+    td{
+      width: 20%;
+    }
+  }
+
+  footer{
+    border-top: 3px solid #111111;
+    background: #333333;
+    background: $black-gradient;
+    color: white;
+    text-align: right;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 7px 0;
+    i{
+      padding-left: 10px;
+      font-size: 12px;
+    }
+  }
+}

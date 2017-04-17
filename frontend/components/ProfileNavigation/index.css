@@ -1,6 +1,7 @@
 @import 'css/variables';
 
 :local(nav.nav){
+  background: #333333;
   background: $black-gradient;
   padding: 3px 10px 4px 10px;
   border-bottom: 2px black solid;
@@ -42,6 +43,7 @@
         text-align: center;
         right: 0px;
 
+        background: #333333;
         background: $black-gradient;
         a{
           padding: 2px 10px;

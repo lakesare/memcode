@@ -2,6 +2,7 @@
 
 :local(header.header){
   border-bottom: 3px solid rgb(17, 17, 17);
+  background: #333333;
   background: $black-gradient;
 
   .container{

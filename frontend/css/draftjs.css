@@ -1,0 +1,34 @@
+
+// place overrides of libraries somewhere else
+.DraftEditor-root{
+  position: relative;
+  // for draftjs placeholder to work
+  .public-DraftEditorPlaceholder-root{
+    position: absolute;
+    color: #aba6a6;
+    z-index: -1;
+  }
+}
+.DraftEditor-root{
+  // max-height: 200px;
+  overflow-y: auto;
+
+  padding: 2px 10px;
+
+  border: 1px solid grey;
+  img{ max-width: 200px; max-height: 200px; }
+
+  .editableAnswer{
+    background: #adffb9;
+  }
+
+  pre{
+    background: #3e4e4c;
+    margin-bottom: 0;
+    padding: 10px;
+    color: white;
+    span.editableAnswer{
+      color: black;
+    }
+  }
+}

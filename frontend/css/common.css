@@ -51,20 +51,8 @@ a.remove i{
       opacity: 1;
     }
   }
-
 }
 
 div.space{
   margin-top: 35px;
-}
-
-
-.DraftEditor-root{
-  position: relative;
-  // for draftjs placeholder to work
-  .public-DraftEditorPlaceholder-root{
-    position: absolute;
-    color: #aba6a6;
-    z-index: -1;
-  }
 }

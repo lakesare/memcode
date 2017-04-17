@@ -28,7 +28,7 @@ import { Page_courses_id_edit } from './pages/courses_id_edit';
 import { Page_profile_coursesLearnedByMe } from './pages/profile_coursesLearnedByMe';
 import { Page_profile_coursesCreatedByMe } from './pages/profile_coursesCreatedByMe';
 // import { ProfilePage } from './pages/profile';
-import { RootPage } from './pages/root';
+import { HomePage } from './pages/home';
 import { Page_test } from './pages/test';
 import { Page_pleaseSignIn } from './pages/pleaseSignIn';
 
@@ -59,7 +59,7 @@ ReactDOM.render(
 
       <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route path="/test" component={Page_test}/>
-      <Route path="/" component={RootPage}/>
+      <Route path="/" component={HomePage}/>
     </Router>
   </Provider>
   ,
