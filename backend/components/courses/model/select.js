@@ -5,13 +5,18 @@ import { fetchCoursesAndTheirStats } from '~/model/select';
 
 const select = {
   allCreated: (userId) =>
-    fetchCoursesAndTheirStats(`WHERE course.user_id = \${userId}`, userId),
+    fetchCoursesAndTheirStats(`WHERE course.user_id = \${userId}`, '', userId),
 
   // for /profile. returns all courses userId is currently learning.
   // only active,
   // filtered by amount of due problems (TODO)
   allLearned: (userId) =>
-    fetchCoursesAndTheirStats(`WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true`, userId),
+    fetchCoursesAndTheirStats(`
+      WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true
+      `,
+      'ORDER BY amount_of_problems_to_review DESC',
+      userId
+    ),
 
   all: () =>
     db.any(
@@ -27,7 +32,7 @@ const select = {
       .then(array => camelizeDbColumns(array, ['course', 'courseUserIsLearning'])),
 
   oneForActions: (id, userId) =>
-    fetchCoursesAndTheirStats(`WHERE course.id = ${id}`, userId)
+    fetchCoursesAndTheirStats(`WHERE course.id = ${id}`, '', userId)
       .then((array) => array[0]),
 
   oneById: (id) =>

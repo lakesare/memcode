@@ -4,10 +4,10 @@ import { Link } from 'react-router';
 const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview }) =>
   <div className="review-and-learn">
     <div className="amount-of-mems-to-review-and-learn">
-      <div className="to-review">
+      <div className={amountOfProblemsToReview === 0 ? `to-review` : `to-review -colored`}>
         {amountOfProblemsToReview} to review
       </div>
-      <div className="to-learn">
+      <div className={amountOfProblemsToReview === 0 ? `to-learn` : `to-learn -colored`}>
         {amountOfProblemsToLearn} to learn
       </div>
     </div>

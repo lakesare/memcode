@@ -15,7 +15,7 @@ import { integerizeDbColumns } from '~/services/integerizeDbColumns';
 //   amountOfProblemsToReview: 3,
 //   amountOfProblemsToLearn: 2,
 // }]
-const fetchCoursesAndTheirStats = (where, userId) =>
+const fetchCoursesAndTheirStats = (where, orderBy, userId) =>
   db.any(
     `SELECT
       row_to_json(course.*)                  AS course,
@@ -51,6 +51,8 @@ const fetchCoursesAndTheirStats = (where, userId) =>
     ${where}
 
     GROUP BY course_user_is_learning.id, course.id
+    
+    ${orderBy}
     `,
     { userId }
   )

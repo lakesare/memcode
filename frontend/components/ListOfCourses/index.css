@@ -97,9 +97,15 @@
         }
         > .amount-of-mems-to-review-and-learn{
           display: flex;
+          > .to-review.-colored{
+            background: $review-button-color;
+          }
+          > .to-learn.-colored{
+            background: $learn-button-color;
+          }
           > .to-review, > .to-learn{
             width: 50%;
-            background: rgba(0, 0, 0, 0.5);
+            // background: rgba(0, 0, 0, 0.5);
             color: white;
             z-index: 100;
             padding-top: 3px;

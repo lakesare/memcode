@@ -47,6 +47,20 @@
       }
       section.current-user{
         a.avatar{
+          // .amount-of-mems-to-review
+          // font-size: 9px;
+          // display: inline-block;
+          // background: #9c0c0c;
+          // height: 14px;
+          // line-height: 12px;
+          // position: absolute;
+          // padding: 3px;
+          // right: 24px;
+          // border-radius: 50%;
+          // width: 12px;
+          // height: 12px;
+          // font-weight: bold;
+          // top: -3px;
           display: block;
           line-height: 0;
           border-bottom: 2px solid rgba(0, 0, 0, 0);

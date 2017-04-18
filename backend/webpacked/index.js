@@ -482,14 +482,14 @@ var _select = __webpack_require__(16);
 
 var select = {
   allCreated: function allCreated(userId) {
-    return (0, _select.fetchCoursesAndTheirStats)('WHERE course.user_id = ${userId}', userId);
+    return (0, _select.fetchCoursesAndTheirStats)('WHERE course.user_id = ${userId}', '', userId);
   },
 
   // for /profile. returns all courses userId is currently learning.
   // only active,
   // filtered by amount of due problems (TODO)
   allLearned: function allLearned(userId) {
-    return (0, _select.fetchCoursesAndTheirStats)('WHERE course_user_is_learning.user_id = ${userId} AND course_user_is_learning.active = true', userId);
+    return (0, _select.fetchCoursesAndTheirStats)('\n      WHERE course_user_is_learning.user_id = ${userId} AND course_user_is_learning.active = true\n      ', 'ORDER BY amount_of_problems_to_review DESC', userId);
   },
 
   all: function all() {
@@ -499,7 +499,7 @@ var select = {
   },
 
   oneForActions: function oneForActions(id, userId) {
-    return (0, _select.fetchCoursesAndTheirStats)('WHERE course.id = ' + id, userId).then(function (array) {
+    return (0, _select.fetchCoursesAndTheirStats)('WHERE course.id = ' + id, '', userId).then(function (array) {
       return array[0];
     });
   },
@@ -608,8 +608,8 @@ var _integerizeDbColumns = __webpack_require__(17);
 //   amountOfProblemsToReview: 3,
 //   amountOfProblemsToLearn: 2,
 // }]
-var fetchCoursesAndTheirStats = function fetchCoursesAndTheirStats(where, userId) {
-  return _init.db.any('SELECT\n      row_to_json(course.*)                  AS course,\n      row_to_json(course_user_is_learning.*) AS course_user_is_learning,\n      COUNT(distinct problem_user_is_learning.id) AS amount_of_problems_to_review,\n      (\n        (SELECT COUNT(problem.*) FROM problem WHERE problem.course_id = course.id) -\n        (SELECT COUNT(problem_user_is_learning.*) FROM problem_user_is_learning WHERE problem_user_is_learning.course_user_is_learning_id = course_user_is_learning.id)\n      )                                      AS amount_of_problems_to_learn,\n      COUNT(distinct problem.id)             AS amount_of_problems\n\n    FROM course\n\n    -- course_user_is_learning\n    LEFT OUTER JOIN course_user_is_learning\n      ON (\n        course_user_is_learning.course_id = course.id\n        AND\n        course_user_is_learning.user_id = ${userId}\n      )\n\n    -- amount_of_problems_to_review\n    LEFT OUTER JOIN problem_user_is_learning\n      ON (\n        course_user_is_learning.id = problem_user_is_learning.course_user_is_learning_id\n        AND\n        problem_user_is_learning.next_due_date < timezone(\'UTC\', now())\n      )\n\n    -- amount_of_problems\n    LEFT OUTER JOIN problem ON problem.course_id = course.id\n\n    ' + where + '\n\n    GROUP BY course_user_is_learning.id, course.id\n    ', { userId: userId }).then(function (array) {
+var fetchCoursesAndTheirStats = function fetchCoursesAndTheirStats(where, orderBy, userId) {
+  return _init.db.any('SELECT\n      row_to_json(course.*)                  AS course,\n      row_to_json(course_user_is_learning.*) AS course_user_is_learning,\n      COUNT(distinct problem_user_is_learning.id) AS amount_of_problems_to_review,\n      (\n        (SELECT COUNT(problem.*) FROM problem WHERE problem.course_id = course.id) -\n        (SELECT COUNT(problem_user_is_learning.*) FROM problem_user_is_learning WHERE problem_user_is_learning.course_user_is_learning_id = course_user_is_learning.id)\n      )                                      AS amount_of_problems_to_learn,\n      COUNT(distinct problem.id)             AS amount_of_problems\n\n    FROM course\n\n    -- course_user_is_learning\n    LEFT OUTER JOIN course_user_is_learning\n      ON (\n        course_user_is_learning.course_id = course.id\n        AND\n        course_user_is_learning.user_id = ${userId}\n      )\n\n    -- amount_of_problems_to_review\n    LEFT OUTER JOIN problem_user_is_learning\n      ON (\n        course_user_is_learning.id = problem_user_is_learning.course_user_is_learning_id\n        AND\n        problem_user_is_learning.next_due_date < timezone(\'UTC\', now())\n      )\n\n    -- amount_of_problems\n    LEFT OUTER JOIN problem ON problem.course_id = course.id\n\n    ' + where + '\n\n    GROUP BY course_user_is_learning.id, course.id\n    \n    ' + orderBy + '\n    ', { userId: userId }).then(function (array) {
     return (0, _camelizeDbColumns.camelizeDbColumns)(array, ['course', 'courseUserIsLearning']);
   }).then(function (array) {
     return (0, _integerizeDbColumns.integerizeDbColumns)(array, ['amountOfProblemsToReview', 'amountOfProblemsToLearn', 'amountOfProblems']);
