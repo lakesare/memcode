@@ -3,6 +3,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import { ReviewAndLearn } from './ReviewAndLearn';
 
+import { stripTags } from '~/services/stripTags';
+
 class Course extends React.Component {
   static propTypes = {
     course: React.PropTypes.object.isRequired,
@@ -48,6 +50,8 @@ class Course extends React.Component {
 
       <section className="main">
         <h3 className="title">{this.props.course.title}</h3>
+
+        <article className="description">{stripTags(this.props.course.description)}</article>
 
         {
           this.ifCanLearnAndReview() &&

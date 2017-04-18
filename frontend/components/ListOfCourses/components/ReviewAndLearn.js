@@ -11,7 +11,7 @@ const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToR
         {amountOfProblemsToLearn} to learn
       </div>
     </div>
-    <div className="review-and-learn-more">
+    <div className="review-and-learn-links">
       <Link style={amountOfProblemsToReview === 0 ? { visibility: 'hidden' } : {}} className="review" to={`/courses/${courseId}/review`} >
         REVIEW
       </Link>

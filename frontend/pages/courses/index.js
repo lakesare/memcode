@@ -23,7 +23,7 @@ class Page_courses extends React.Component {
 
   renderLayoutDivs = () =>
     // eslint-disable-next-line react/no-array-index-key
-    [...Array(10)].map((_, i) => <div key={i} style={{ width: 150 }}/>)
+    [...Array(10)].map((_, i) => <div key={i} className="layout-div"/>)
 
   render = () =>
     <main className={css.main}>

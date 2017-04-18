@@ -1,5 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
+import { stripTags } from '~/services/stripTags';
 
 class Course extends React.Component {
   static propTypes = {
@@ -22,13 +23,9 @@ class Course extends React.Component {
 
       <section className="main">
         <h3 className="title">{this.props.course.title}</h3>
-      </section>
 
-      {/*
-        this.props.course.description &&
-        this.props.course.description.length > 0 &&
-        <section className="description" dangerouslySetInnerHTML={{ __html: this.props.course.description }}/>
-      */}
+        <article className="description">{stripTags(this.props.course.description)}</article>
+      </section>
 
       <section className="total-amount-of-mems">
         {this.props.amountOfProblems} mems
