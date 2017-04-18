@@ -36,6 +36,7 @@ const update = {
     const me = await select.findByCuilIdAndProblemId(courseUserIsLearningId, problemId);
 
     // was easiness was NAN once?
+    console.log({ performanceRating })
     console.log('________________________')
     console.log({me})
     console.log('__________________________')

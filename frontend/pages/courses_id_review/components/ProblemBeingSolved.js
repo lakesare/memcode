@@ -23,11 +23,13 @@ class ProblemBeingSolved extends React.Component {
   onEnter = (event) => {
     if (event.key !== 'Enter') return;
 
-    const achievesOnEnterSomeOtherWay =
+    // are we in the answer draft (where we may want to press enter)?
+    const weAreInDraftAnswer = (
       this.props.problem.type === 'separateAnswer' &&
-      this.props.statusOfSolving.status === 'solving';
+      document.activeElement.className === 'public-DraftEditor-content'
+    );
 
-    if (!achievesOnEnterSomeOtherWay) {
+    if (!weAreInDraftAnswer) {
       this.props.enterPressed();
     }
   }
