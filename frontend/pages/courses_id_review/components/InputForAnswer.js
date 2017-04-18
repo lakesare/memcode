@@ -1,9 +1,13 @@
 import React from 'react';
 
+const focusOnTheFirstAnswer = () => {
+  const answers = document.getElementsByClassName('answer');
+  answers[0].focus();
+};
+
 class InputForAnswer extends React.Component {
   static propTypes = {
     answer: React.PropTypes.string.isRequired,
-    ifFirst: React.PropTypes.bool.isRequired,
     onRightAnswerGiven: React.PropTypes.func.isRequired,
     status: React.PropTypes.oneOf(['solving', 'seeingAnswer']).isRequired
   }
@@ -15,6 +19,9 @@ class InputForAnswer extends React.Component {
       currentGuess: ''
     };
   }
+
+  componentDidMount = () =>
+    focusOnTheFirstAnswer();
 
   onChange = (event) => {
     const newGuess = event.target.value;
@@ -38,7 +45,6 @@ class InputForAnswer extends React.Component {
           readOnly={this.state.isAnswered}
           onChange={this.onChange}
           value={this.state.currentGuess}
-          autoFocus={this.props.ifFirst}
         />
       );
       case 'seeingAnswer':  return (
