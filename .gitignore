@@ -1,8 +1,8 @@
 /node_modules
 
-/frontend/webpacked
-/backend/webpacked/favicon.ico
-/frontend/webpacked/favicon-16x16.png
-/frontend/webpacked/favicon-32x32.png
+/frontend/webpacked/*
+!/frontend/webpacked/favicon.ico
+!/frontend/webpacked/favicon-16x16.png
+!/frontend/webpacked/favicon-32x32.png
 
 /env.js
