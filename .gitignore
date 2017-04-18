@@ -1,6 +1,7 @@
 /node_modules
 
 /frontend/webpacked/*
+/backend/webpacked/*
 !/frontend/webpacked/favicon.ico
 !/frontend/webpacked/favicon-16x16.png
 !/frontend/webpacked/favicon-32x32.png
