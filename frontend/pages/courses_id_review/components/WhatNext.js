@@ -5,9 +5,9 @@ import { ListOfCourses } from '~/components/ListOfCourses';
 
 import * as CourseApi from '~/api/Course';
 
-
 class WhatNext extends React.Component {
   static propTypes = {
+    courseId: React.PropTypes.number.isRequired
   }
 
   constructor(props) {
@@ -17,7 +17,14 @@ class WhatNext extends React.Component {
 
   componentDidMount() {
     CourseApi.selectAllLearned(
-      spe => this.setState({ speGetCourses: spe }),
+      spe => {
+        // for fast UI. last problem we reviews has probably not reached server yet.
+        if (spe.status === 'success') {
+          const ourCourse = spe.payload.find((course) => course.course.id === this.props.courseId);
+          ourCourse.amountOfProblemsToReview = 0;
+        }
+        this.setState({ speGetCourses: spe });
+      }
     );
   }
 

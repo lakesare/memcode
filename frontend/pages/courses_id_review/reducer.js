@@ -79,15 +79,11 @@ const Page_courses_id_review_Reducer = (state = initialState, action) => {
       const spe = action.payload;
       if (action.payload.status === 'success') {
         const firstProblem = spe.payload.problems[0];
-        if (firstProblem) {
-          return {
-            ...state,
-            speGetPage: spe,
-            statusOfSolving: freshStatusOfSolving(firstProblem, 0)
-          };
-        } else {
-          // no problems
-        }
+        return {
+          ...state,
+          speGetPage: spe,
+          statusOfSolving: freshStatusOfSolving(firstProblem, 0)
+        };
       } else {
         return { ...state, speGetPage: spe };
       }

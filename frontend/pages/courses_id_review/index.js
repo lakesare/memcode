@@ -31,8 +31,16 @@ class Page_courses_id_review extends React.Component {
     currentProblem: React.PropTypes.object,
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.props.getPage(this.props.params.id);
+  }
+
+  // https://github.com/ReactTraining/react-router/issues/1487
+  // because router doesn't remount components if only properties (params.id) changed.
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.params.id !== this.props.params.id) {
+      this.props.getPage(nextProps.params.id);
+    }
   }
 
   render = () =>
@@ -49,7 +57,7 @@ class Page_courses_id_review extends React.Component {
                 key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
                 problem={this.props.currentProblem}
               /> :
-              <WhatNext/>
+              <WhatNext courseId={parseInt(this.props.params.id)}/>
           }
 
         </div>
