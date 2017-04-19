@@ -38,7 +38,7 @@ router.get('/courses/:id/edit', authenticateMiddleware, catchAsync(async (reques
   response.status(200).json({ course, problems });
 }));
 
-router.get('/courses/:id', authenticateMiddleware, catchAsync(async (request, response) => {
+router.get('/courses/:id', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
   const course = await Course.select.oneById(courseId);
