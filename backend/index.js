@@ -47,9 +47,12 @@ app.get('*', (request, response) =>
       <link rel="stylesheet" href="/styles.css">
       <link href="/index.css" rel="stylesheet">
       <!-- to verify google webmasters -->
-      <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E" />
-      <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
-      <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+      <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>
+
+      <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32"/>
+      <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16"/>
+
+      <meta name="description" content="Create your own course to memorize anything you want. Flashcard-based, with formatting and images, with multiple flashcard types."/>
     </head>
     <body>
       <div id="root"></div>

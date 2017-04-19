@@ -25,7 +25,11 @@ class Instructions extends React.Component {
             <tbody>
               <tr>
                 <td>CTRL+S</td>
-                <td>will save the new meme, it will also get saved automatically when you click from one meme to another.</td>
+                <td>will save the new meme, or update the existing one. Existing memes will also get saved automatically when you remove the focus away from them.</td>
+              </tr>
+              <tr>
+                <td>insert image</td>
+                <td>to insert image - CTRL+C one from somewhere, and CTRL+V into the editor.</td>
               </tr>
               <tr>
                 <td>CTRL+B</td>
@@ -34,10 +38,6 @@ class Instructions extends React.Component {
               <tr>
                 <td>CTRL+K</td>
                 <td>code block</td>
-              </tr>
-              <tr>
-                <td>CTRL+ENTER</td>
-                <td>soft newline inside of the code block</td>
               </tr>
             </tbody>
           </table>
