@@ -49,7 +49,7 @@ const getNextScore = (prevEasiness, prevConsecutiveCorrectAnswers, performanceRa
     isAnswerCorrect(performanceRating) ?
     // 6 * (nextEasiness ** (nextConsecutiveCorrectAnswers - 1)) :
     0.2 + (0.2 * ((nextEasiness ** 2.2) * ((nextConsecutiveCorrectAnswers - 1) ** 2.2))) :
-    1
+    0.2 // otherwise review it in 4 hours
   );
 
   return {

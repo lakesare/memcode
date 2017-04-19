@@ -7,7 +7,7 @@ const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToR
       <div className={amountOfProblemsToReview === 0 ? `to-review` : `to-review -colored`}>
         {amountOfProblemsToReview} to review
       </div>
-      <div className={amountOfProblemsToReview === 0 ? `to-learn` : `to-learn -colored`}>
+      <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -colored`}>
         {amountOfProblemsToLearn} to learn
       </div>
     </div>
