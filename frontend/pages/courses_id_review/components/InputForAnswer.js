@@ -30,7 +30,7 @@ class InputForAnswer extends React.Component {
   }
 
   checkAnswer = (inputedAnswer) => {
-    if (inputedAnswer === this.props.answer) {
+    if (inputedAnswer.toLocaleLowerCase() === this.props.answer.toLocaleLowerCase()) {
       this.setState({ isAnswered: true });
       this.props.onRightAnswerGiven();
     }

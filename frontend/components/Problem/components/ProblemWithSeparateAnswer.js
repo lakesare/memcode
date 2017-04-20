@@ -93,7 +93,7 @@ class ProblemWithSeparateAnswer extends React.Component {
               mode="editing"
               editorState={this.state.answerDraftEditorState}
               onChange={newState => this.setState({ answerDraftEditorState: newState })}
-              placeholder={<div>You can draft you answer here</div>}
+              placeholder={<div>You can draft your answer here</div>}
             />
           </div>
         }
