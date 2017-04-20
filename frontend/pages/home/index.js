@@ -40,7 +40,7 @@ class HomePage extends React.Component {
             <h1>Welcome to Memcode.</h1>
 
             <h3>
-              A site for memorizing programming-related information.
+              Comprehension needs retaining too.
             </h3>
           </section>
 

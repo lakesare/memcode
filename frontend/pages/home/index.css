@@ -2,7 +2,7 @@
 
 :local(main.main){
   .article-formatting{
-    padding-bottom: 200px;
+    padding-bottom: 20px;
     line-height: 30px;
     font-family: Sintony;
     font-size: 15px;
@@ -18,15 +18,6 @@
     section.article-section{
       border-top: 1px solid #cecccc;
       padding-top: 20px; padding-bottom: 20px;
-
-      // tilted line
-      // &:before{
-      //   content: "";
-      //   position: absolute;
-      //   border-top: 1px solid #464646;
-      //   width: 800px;
-      //   transform: rotate(2deg);
-      // }
     }
     h2.section-heading{
       color: #424242;
@@ -61,12 +52,14 @@
     }
   }
 
-  // used for both fake and real problem
+  section.problem.-withInlinedAnswers .first-column,
+  section.problem.-withInlinedAnswers .second-column,
+  section.problem.-withSeparateAnswer .first-column{
+    background: white;
+    padding: 5px 10px;
+    box-sizing: border-box;
+  }
   section.problem.-withInlinedAnswers{
-    > .first-column, > .second-column{
-      background: white;
-      padding: 5px 10px;
-    }
     input.answer{
       width: 100px;
       display: inline-block;
@@ -89,10 +82,6 @@
   }
 
   section.problem.-withSeparateAnswer{
-    > .first-column, > .second-column > .answer{
-      background: white;
-      padding: 5px 10px;
-    }
     > .second-column{
       > .see-answer{
         cursor: pointer;
@@ -100,6 +89,8 @@
         background: #adffb9;
       }
       > .answer{
+        background: white;
+        padding: 5px 10px;
         pre{
           background: #3e4e4c;
           margin-bottom: 0; margin-top: 0;

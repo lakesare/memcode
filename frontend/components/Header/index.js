@@ -17,13 +17,13 @@ class Header extends React.Component {
       <Link
         to="/courses"
         activeClassName="active"
-        className="link"
+        className="link courses"
       >courses</Link>
       <Link
         to="/courses/new"
         activeClassName="active"
-        className="link"
-      >create</Link>
+        className="link create"
+      ><i className="fa fa-plus"/>create</Link>
       <CurrentUser currentUser={this.props.currentUser}/>
     </nav>
 
@@ -35,9 +35,9 @@ class Header extends React.Component {
             <h1>MemCode</h1>
           </Link>
           {/* <div className="memorizing-is-hard-caption">
-            Memorizing is hard.<br/>
-            Let's get started.
-          </div>*/}
+            Understanding is not enough.<br/>
+            You must retain the understanding.
+          </div> */}
         </section>
         {this.renderNavigation()}
       </div>
