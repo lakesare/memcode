@@ -15,7 +15,12 @@ import { stopPropagationForAssets } from './middlewares/stopPropagationForAssets
 app.use(stopPropagationForAssets);
 
 import bodyParser from 'body-parser';
-app.use(bodyParser.json()); // to support JSON-encoded bodies
+app.use(bodyParser.json({ limit: '50mb' })); // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({
+  limit: '50mb', // otherwise will complain about images
+  extended: true,
+  parameterLimit: 50000
+}));
 
 import { staticAssets } from './middlewares/static';
 app.use(staticAssets);
@@ -66,6 +71,8 @@ app.get('*', (request, response) =>
     `
   )
 );
+
+
 
 // because express needs to see there are 4 arguments to treat :error as error.
 // this middleware should also come last.
