@@ -82,7 +82,12 @@
         .DraftEditor-root{
           min-height: 40px;
         }
-        > .choose-type{
+        > section.how-to-create{
+          color: #adadad;
+          text-align: right;
+          font-size: 12px;
+        }
+        > section.choose-type{
           position: absolute;
           right: -66px;
           top: 0;

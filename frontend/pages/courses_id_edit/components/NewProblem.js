@@ -61,6 +61,10 @@ class NewProblem extends React.Component {
         saveFn={this.save}
       />
 
+      <section className="how-to-create">
+        CTRL+S to save a new problem
+      </section>
+
       <section className="choose-type">
         {this.renderTypeButton('inlinedAnswers', 'inlined answers')}
         {this.renderTypeButton('separateAnswer', 'separate answer')}

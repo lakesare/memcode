@@ -9,7 +9,7 @@ const Table = () =>
         <th><a href="http://www.memrise.com">Memrise</a></th>
         <th><a href="http://www.codequizzes.com/">CodeQuizzes</a></th>
         <th><a href="https://quizlet.com">Quizlet</a></th>
-        <th><a href="brainscape.com">Brainscape</a></th>
+        <th><a href="https://www.brainscape.com/">Brainscape</a></th>
       </tr>
     </thead>
     <tbody>
