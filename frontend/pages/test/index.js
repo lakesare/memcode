@@ -85,7 +85,7 @@ class Page_test extends React.Component {
       {
         <Problem
           mode="viewing"
-          problemContent={problems[0]}
+          problemContent={problems[0].content}
           problemType={problems[0].type}
         />
       }
