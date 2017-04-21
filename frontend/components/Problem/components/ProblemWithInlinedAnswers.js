@@ -6,6 +6,7 @@ import Editor from 'draft-js-plugins-editor';
 import { DraftJsPlugins } from '~/services/draftJs/plugins';
 import { DraftJsDecorators } from '~/services/draftJs/decorators';
 import { blockRenderMap } from '~/services/draftJs/blockRenderMap';
+import { customStyleMap } from '~/services/draftJs/customStyleMap';
 
 import { isReadonly, toApi, fromApi } from '../services';
 
@@ -34,6 +35,7 @@ class ProblemWithInlinedAnswers extends React.Component {
   }
 
   onBlur = () => {
+    console.log(this.state.contentEditorState.toJS().currentContent);
     if (this.props.mode === 'editingOld') {
       this.save();
     }
@@ -71,6 +73,7 @@ class ProblemWithInlinedAnswers extends React.Component {
             })()
           }
           blockRenderMap={blockRenderMap()}
+          customStyleMap={customStyleMap}
           readOnly={isReadonly(this.props.mode)}
           placeholder={isReadonly(this.props.mode) ? null : <div>Enter a short sentence you'll have to fill in.<br/> (Mark answers by pressing ENTER)</div>}
         />

@@ -20,11 +20,15 @@
 
   .editableAnswer{
     background: #adffb9;
+    span{ // any inline styles, eg 'CODE'
+      background: transparent !important;
+      color: black;
+    }
   }
 
   pre{
     background: #3e4e4c;
-    margin-bottom: 0;
+    margin-bottom: 0; margin-top: 0;
     padding: 10px;
     color: white;
     span.editableAnswer{

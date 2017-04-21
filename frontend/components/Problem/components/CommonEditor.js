@@ -5,6 +5,7 @@ import Editor from 'draft-js-plugins-editor';
 // draftJs
 import { DraftJsPlugins } from '~/services/draftJs/plugins';
 import { blockRenderMap } from '~/services/draftJs/blockRenderMap';
+import { customStyleMap } from '~/services/draftJs/customStyleMap';
 
 import { isReadonly } from '../services';
 
@@ -36,6 +37,7 @@ class CommonEditor extends React.Component {
       blockRenderMap={blockRenderMap()}
       readOnly={isReadonly(this.props.mode)}
       placeholder={isReadonly(this.props.mode) ? null : this.props.placeholder}
+      customStyleMap={customStyleMap}
     />
 }
 

@@ -83,7 +83,6 @@ class ProblemWithSeparateAnswer extends React.Component {
       </div>
 
       <div className="second-column">
-
         {this.renderAnswer()}
 
         { // when 'solving' always have draft answer editor available
