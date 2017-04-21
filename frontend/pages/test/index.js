@@ -1,6 +1,7 @@
 import React from 'react';
 
 // import { Draft } from './components/Draft';
+import { Problem } from '~/components/Problem';
 
 import { commonFetch } from '~/api/commonFetch';
 
@@ -29,8 +30,13 @@ class Page_test extends React.Component {
     return <div className="container">
       <h1>{course.title}</h1>
       {
-        problems.map((p) =>
-          <div key={p.id}>{p.type}</div>
+        problems.map((problem) =>
+          <Problem
+            key={problem.id}
+            mode="viewing"
+            problemContent={problem.content}
+            problemType={problem.type}
+          />
         )
       }
     </div>;
