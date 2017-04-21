@@ -45,37 +45,6 @@ const auth = {
   }
 };
 
-import { commonFetch } from '~/api/commonFetch';
-
-class Page_test_2 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetPage: { status: 'initial' }
-    };
-  }
-
-  componentDidMount() {
-    commonFetch(
-      spe => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/5`
-    );
-  }
-
-  render = () => {
-    const spe = this.state.speGetPage;
-    if (spe.status === 'request') return <div>request</div>;
-    if (spe.status === 'failure') return <div>{spe.error}</div>;
-    if (spe.status === 'initial') return <div>initial</div>;
-
-    const { problems, course } = spe.payload;
-    return <div className="container">
-      <h1>{course.title}</h1>
-    </div>;
-  }
-}
-
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -90,7 +59,6 @@ ReactDOM.render(
 
       <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route path="/test" component={Page_test}/>
-      <Route path="/test_2" component={Page_test_2}/>
       <Route path="/" component={HomePage}/>
     </Router>
   </Provider>

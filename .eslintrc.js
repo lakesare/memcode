@@ -189,6 +189,7 @@ module.exports = {
     "Headers": true,
     "FileReader": true,
     "location": true,
+    "navigator": true,
 
     // in our tests
     "describe": true,

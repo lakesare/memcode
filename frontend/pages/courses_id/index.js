@@ -2,11 +2,12 @@ import React from 'react';
 
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
-
 import { CourseActions } from '~/components/CourseActions';
 import { Problem } from '~/components/Problem';
 
 import { commonFetch } from '~/api/commonFetch';
+import { ifUserAgentIsABot } from '~/services/ifUserAgentIsABot';
+import { fromApi } from '~/components/Problem/services';
 
 import css from './index.css';
 
@@ -25,10 +26,27 @@ class Page_courses_id extends React.Component {
   }
 
   componentDidMount = () =>
-      commonFetch(
-        spe => this.setState({ speGetPage: spe }),
-        'GET', `/api/pages/courses/${this.props.params.id}`
-      );
+    commonFetch(
+      spe => this.setState({ speGetPage: spe }),
+      'GET', `/api/pages/courses/${this.props.params.id}`
+    );
+
+  renderProblemForBot = (problem) => {
+    const toHtml = (data) =>
+      fromApi(data).getCurrentContent().getPlainText();
+    switch (problem.type) {
+      case 'inlinedAnswers':
+        return <div key={problem.id}>
+          {toHtml(problem.content.content)}
+          {toHtml(problem.content.explanation)}
+        </div>;
+      case 'separateAnswer':
+        return <div key={problem.id}>
+          {toHtml(problem.content.content)}
+          {toHtml(problem.content.answer)}
+        </div>;
+    }
+  }
 
   render = () =>
     <main className={css.main}>
@@ -47,6 +65,8 @@ class Page_courses_id extends React.Component {
             <section className="problems">
               {
                 problems.map((problem) =>
+                  ifUserAgentIsABot() ?
+                  this.renderProblemForBot(problem) :
                   <Problem
                     key={problem.id}
                     mode="viewing"
