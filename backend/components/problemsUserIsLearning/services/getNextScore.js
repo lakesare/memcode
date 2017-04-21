@@ -28,7 +28,8 @@
 //   PostgresInterval { days: 41, hours: 5, minutes: 54, seconds: 14 },
 //   PostgresInterval { days: 50, hours: 11, minutes: 34, seconds: 4 },
 //   PostgresInterval { days: 60, hours: 18 } ]
-
+//
+// http://making.duolingo.com/how-we-learn-how-you-learn - what duolingo uses, may be interesting.
 
 // performanceRating: on a scale from 0-5 (0=worst, 5=best)
 // 0.28
