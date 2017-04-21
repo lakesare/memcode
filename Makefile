@@ -14,6 +14,8 @@ frontend-webpack:
 	cd frontend; ../node_modules/.bin/webpack -w
 
 # database
+db-drop:
+	psql -U postgres -c 'DROP DATABASE IF EXISTS memcode'
 db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
@@ -60,3 +62,7 @@ heroku-db-migrate:
 	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/migrations/1.sql
 heroku-db-console:
 	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy
+
+heroku-db-pull:
+	make db-drop
+	PGUSER=postgres heroku pg:pull DATABASE_URL memcode

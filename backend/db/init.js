@@ -30,7 +30,7 @@ const getConnectionString = () => {
     case 'development':
       return {
         host: 'localhost', // 'localhost' is the default;
-        port: 5432, // 5432 is the default;
+        port: 5433, // 5433 is the default;
         database: 'memcode',
         user: 'postgres',
         password: '`1`1`1'
@@ -38,7 +38,7 @@ const getConnectionString = () => {
     case 'test':
       return {
         host: 'localhost', // 'localhost' is the default;
-        port: 5432, // 5432 is the default;
+        port: 5433, // 5433 is the default;
         database: 'memcode_test',
         user: 'postgres',
         password: '`1`1`1'

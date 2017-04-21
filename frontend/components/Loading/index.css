@@ -2,6 +2,7 @@
   &.request{
     text-align: center;
     padding: 20px;
+    img{ width: 40px; }
   }
   &.error{
     text-align: center;

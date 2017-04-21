@@ -39,7 +39,8 @@ const Loading = (props) => {
 
 Loading.defaultProps = {
   children: null,
-  requestIcon: <i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw" />
+  requestIcon: <img src="/loading-icon.svg"/>
+  // <i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw"/>
 };
 
 Loading.propTypes = {

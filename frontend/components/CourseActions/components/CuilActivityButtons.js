@@ -46,7 +46,7 @@ class CuilActivityButtons extends React.Component {
 
   render = () =>
     <a className="add-to-learned">
-      <Loading spe={this.props.speCourseUserIsLearning}>{(cuil) => {
+      <Loading spe={this.props.speCourseUserIsLearning} requestIcon={<i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw"/>}>{(cuil) => {
         if (cuil === null) {
           return this.renderStartLearningButton();
         } else if (cuil.active) {

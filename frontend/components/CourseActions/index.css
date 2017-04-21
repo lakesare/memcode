@@ -28,6 +28,8 @@
       }
     }
     &.add-to-learned{
+      min-width: 130px;
+      text-align: center;
       border: 1px solid #989494;
       padding: 2px 10px;
       i.fa-plus{
@@ -37,7 +39,7 @@
       }
       .request{
         padding: 0;
-        font-size: 6px;
+        font-size: 7px;
       }
     }
   }
