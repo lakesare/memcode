@@ -9,3 +9,5 @@ ___can google see site content?
   // draft + problems = some error, left undisplayed. likely because google bot has old browser and our polyfills don't work.
 
   I decided to check if user agent is google bot and return plain text then.
+  It failed, because couldn't convert json problem content to plain text with DraftJs, old googlebot's browser failed with it too.
+  After all it makes sense to just do server rendering I suppose.

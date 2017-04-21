@@ -14,6 +14,9 @@
     }
     section.article-headings{
       margin-bottom: 20px;
+      h3{
+        margin-top: 13px;
+      }
     }
     section.article-section{
       border-top: 1px solid #cecccc;
