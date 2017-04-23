@@ -62,7 +62,7 @@ class NewProblem extends React.Component {
       />
 
       <section className="how-to-create">
-        CTRL+S to save a new problem
+        CTRL+S to save a new task
       </section>
 
       <section className="choose-type">
