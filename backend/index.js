@@ -1,19 +1,3 @@
-import 'es5-shim';
-import 'es6-shim';
-
-// if (!String.prototype.startsWith) {
-    String.prototype.startsWith = function(searchString, position){
-      position = position || 0;
-      return this.substr(position, searchString.length) === searchString;
-  };
-// }
-
-
-
-
-
-
-
 import 'source-map-support/register';
 import express from 'express';
 
@@ -21,39 +5,7 @@ import express from 'express';
 import '../env.js';
 console.log('node env: ' + process.env.NODE_ENV);
 
-
 const app = express();
-
-
-
-
-
-
-
-
-app.use(
-  require('prerender-node')
-  .set('prerenderToken', process.env.PRERENDER_TOKEN)
-  .set('prerenderServiceUrl', 'http://localhost:3001/')
-);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 import { allowCrossDomain } from './middlewares/allowCrossDomain';
 app.use(allowCrossDomain);

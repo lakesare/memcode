@@ -4,8 +4,6 @@ import { Problem } from '~/components/Problem';
 import { Loading } from '~/components/Loading';
 import { commonFetch } from '~/api/commonFetch';
 
-
-
 class Page_test extends React.Component {
   constructor(props) {
     super(props);
