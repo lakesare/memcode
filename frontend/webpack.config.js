@@ -15,7 +15,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules\/(?!(draft-js|draft-js-plugins-editor)\/).*/,
+        exclude: /(node_modules)/,
         use: [
           {
             loader: 'babel-loader',
