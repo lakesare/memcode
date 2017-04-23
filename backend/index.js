@@ -1,7 +1,12 @@
 import 'es5-shim';
 import 'es6-shim';
 
-
+// if (!String.prototype.startsWith) {
+    String.prototype.startsWith = function(searchString, position){
+      position = position || 0;
+      return this.substr(position, searchString.length) === searchString;
+  };
+// }
 
 
 
@@ -29,6 +34,7 @@ const app = express();
 app.use(
   require('prerender-node')
   .set('prerenderToken', process.env.PRERENDER_TOKEN)
+  .set('prerenderServiceUrl', 'http://localhost:3001/')
 );
 
 
@@ -90,7 +96,6 @@ app.get('*', (request, response) =>
     <html lang="en">
     <head>
       <title>Memcode</title>
-      <link rel="stylesheet" href="/styles.css">
       <link href="/index.css" rel="stylesheet">
       <!-- to verify google webmasters -->
       <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>
