@@ -8,6 +8,35 @@ console.log('node env: ' + process.env.NODE_ENV);
 const app = express();
 
 
+
+
+
+
+
+
+app.use(
+  require('prerender-node')
+  .set('prerenderToken', process.env.PRERENDER_TOKEN)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { allowCrossDomain } from './middlewares/allowCrossDomain';
 app.use(allowCrossDomain);
 
@@ -53,6 +82,8 @@ app.get('*', (request, response) =>
       <link href="/index.css" rel="stylesheet">
       <!-- to verify google webmasters -->
       <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>
+      <!-- prerender.io -->
+      <meta name="fragment" content="!">
 
       <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32"/>
       <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16"/>
