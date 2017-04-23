@@ -47,4 +47,14 @@ router.get('/courses/:id', catchAsync(async (request, response) => {
   response.status(200).json({ course, problems });
 }));
 
+router.get('/courseActions/:courseId/authenticated', authenticateMiddleware, catchAsync(async (request, response) => {
+  const course = await Course.select.oneForActions(request.params.courseId, request.currentUser.id);
+  response.status(200).json(course);
+}));
+
+router.get('/courseActions/:courseId/unauthenticated', catchAsync(async (request, response) => {
+  const course = await Course.select.oneById(request.params.courseId);
+  response.status(200).json({ course });
+}));
+
 export { router };

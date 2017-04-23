@@ -72,8 +72,6 @@ app.get('*', (request, response) =>
   )
 );
 
-
-
 // because express needs to see there are 4 arguments to treat :error as error.
 // this middleware should also come last.
 // eslint-disable-next-line no-unused-vars

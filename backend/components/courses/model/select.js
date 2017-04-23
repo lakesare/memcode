@@ -14,7 +14,7 @@ const select = {
     fetchCoursesAndTheirStats(`
       WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true
       `,
-      'ORDER BY amount_of_problems_to_review DESC',
+      'ORDER BY amount_of_problems_to_review DESC, amount_of_problems_to_learn DESC',
       userId
     ),
 
@@ -27,6 +27,7 @@ const select = {
       LEFT OUTER JOIN problem ON problem.course_id = course.id
       WHERE if_public = true
       GROUP BY course.id
+      ORDER BY amount_of_problems DESC
       `,
     )
       .then(array => camelizeDbColumns(array, ['course', 'courseUserIsLearning'])),

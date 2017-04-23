@@ -27,30 +27,7 @@ import * as User from '~/components/users/model';
 
 // async Essentially wraps the return value of the function in a promise
 
-
-
-
-
-// pg-promise transaction syntax
-// ```
-// return db.tx((transaction) => {
-//   const queries = [
-//     transaction.none('delete from courses where id=${course_Id}', { course_Id }),
-//     transaction.none('delete from problems where course_Id=${course_Id}', { course_Id })
-//   ];
-//   return transaction.batch(queries);
-// }).then(() => { return { data: 'deleted' }
-// }).catch((error) => { return { error } 
-// })
-// ```
-
-// UPDATE problems SET title = ${title} WHERE id = ${id}
-
-
-
-// async await tutorial
-
-// event loop looks at the stack, and, if there is nothing left, pushes the first thing into it. 
+// event loop looks at the stack, and, if there is nothing left, pushes the first thing into it.
 
 
 
@@ -71,21 +48,8 @@ import * as User from '~/components/users/model';
 
 
 
-// javac is used for .java files into binary
-// eclipse uses javac behind the scenes to run the program
-// for every java class, you get one binary file.
-
-
-
-
 
 // ___WEBPACK
-// The url-loader works like the file-loader, but can return a Data URL if the file is smaller than a byte limit.
-
-// part of css-loader functionality is seeing background: url('../pics/hi.png')
-// this functionality can be turned off, but we may want to use it because eg image-loader allows us to compress images.
-
-
 
 // http://supermemopedia.com/wiki/We_should_have_two_independent_measures_of_difficulty!
 //

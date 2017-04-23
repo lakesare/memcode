@@ -27,12 +27,6 @@ router.get('/allCreated', authenticateMiddleware, catchAsync(async (request, res
   response.status(200).json(res);
 }));
 
-// move to /pages
-router.get('/:id', authenticateMiddleware, catchAsync(async (request, response) => {
-  const course = await Course.select.oneForActions(request.params.id, request.currentUser.id);
-  response.status(200).json(course);
-}));
-
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
   const course = await Course.insert.create(request.body['course'], request.currentUser.id);
 

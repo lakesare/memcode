@@ -15,11 +15,6 @@ const selectAllCreated = (dispatch) =>
     'GET', '/api/courses/allCreated'
   );
 
-const show = (dispatch, courseId) =>
-  commonFetch(dispatch,
-    'GET', `/api/courses/${courseId}`
-  );
-
 const create = (dispatch, values) =>
   commonFetch(dispatch,
     'POST', '/api/courses',
@@ -38,6 +33,6 @@ const destroy = (dispatch, courseId) =>
   );
 
 export {
-  index, show, create, update, destroy,
+  index, create, update, destroy,
   selectAllLearned, selectAllCreated
 };

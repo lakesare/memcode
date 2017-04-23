@@ -9,6 +9,7 @@ import { EditButton } from './components/EditButton';
 import css from './index.css';
 
 import * as CourseApi from '~/api/Course';
+import { commonFetch } from '~/api/commonFetch';
 
 class CourseActions extends React.Component {
   static propTypes = {
@@ -29,40 +30,43 @@ class CourseActions extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.currentUser &&
-    CourseApi.show(
-      spe => this.props.seedSpeGetCourse(spe),
-      this.props.courseId
-    );
+    this.props.currentUser ?
+      commonFetch(
+        (spe) => this.props.seedSpeGetCourse(spe),
+        'GET', `/api/pages/courseActions/${this.props.courseId}/authenticated`
+      )
+      :
+      commonFetch(
+        (spe) => this.props.seedSpeGetCourse(spe),
+        'GET', `/api/pages/courseActions/${this.props.courseId}/unauthenticated`
+      );
   }
 
-  renderSignIn = () =>
-    <section className={css.actions}>
-      <h4>Sign in to start learning this course</h4>
-    </section>
+  render = () =>
+    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
+      <section className={css.actions}>
+        <CourseTitle course={course}/>
 
-  render = () => {
-    return this.props.currentUser ?
-      <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
-        <section className={css.actions}>
-          <CourseTitle course={course}/>
+        {
+          this.props.currentUser ?
+          <div className="buttons">
+            {
+              this.props.ifCuilActivityButtonsAreDisplayed &&
+              <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={course.id}/>
+            }
 
-          {
-            this.props.ifCuilActivityButtonsAreDisplayed &&
-            <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={course.id}/>
-          }
+            <LearnAndReviewButtons
+              courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
+              amountOfProblemsToLearn={amountOfProblemsToLearn}
+              amountOfProblemsToReview={amountOfProblemsToReview}
+            />
 
-          <LearnAndReviewButtons
-            courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
-            amountOfProblemsToLearn={amountOfProblemsToLearn}
-            amountOfProblemsToReview={amountOfProblemsToReview}
-          />
-
-          <EditButton course={course} currentUserId={this.props.currentUser.id}/>
-        </section>
-      }</Loading> :
-      this.renderSignIn();
-  }
+            <EditButton course={course} currentUserId={this.props.currentUser.id}/>
+          </div> :
+          <h4>Sign in to start learning this course</h4>
+        }
+      </section>
+    }</Loading>
 }
 
 import { connect } from 'react-redux';
