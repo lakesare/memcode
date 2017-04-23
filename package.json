@@ -55,6 +55,7 @@
     "dotenv": "^4.0.0",
     "draft-js": "^0.10.0",
     "draft-js-plugins-editor": "^2.0.0-beta1",
+    "es6-shim": "^0.35.3",
     "express": "^4.14.0",
     "form-data": "^2.1.2",
     "immutable": "^3.8.1",

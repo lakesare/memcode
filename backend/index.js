@@ -5,6 +5,8 @@ import express from 'express';
 import '../env.js';
 console.log('node env: ' + process.env.NODE_ENV);
 
+import 'es6-shim';
+
 const app = express();
 
 
