@@ -15,7 +15,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: [/(node_modules)/],
+        exclude: /node_modules\/(?!(draft-js|draft-js-plugins-editor)\/).*/,
         use: [
           {
             loader: 'babel-loader',
@@ -54,7 +54,7 @@ module.exports = {
   // import '~/services'
   // idea from http://stackoverflow.com/questions/27502608/resolving-require-paths-with-webpack#comment60353452_35047907
   resolve: {
-    alias: { '~': path.resolve(__dirnamez) }
+    alias: { '~': path.resolve(__dirname) }
   },
 
   plugins: [
