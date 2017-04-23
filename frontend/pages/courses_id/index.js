@@ -25,10 +25,10 @@ class Page_courses_id extends React.Component {
   }
 
   componentDidMount = () =>
-      commonFetch(
-        spe => this.setState({ speGetPage: spe }),
-        'GET', `/api/pages/courses/${this.props.params.id}`
-      );
+    commonFetch(
+      spe => this.setState({ speGetPage: spe }),
+      'GET', `/api/pages/courses/${this.props.params.id}`
+    );
 
   render = () =>
     <main className={css.main}>
