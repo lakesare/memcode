@@ -1,71 +1,82 @@
 @import 'css/variables';
 
 :local(section.actions){
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  > section.title-and-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  border-bottom: 2px $sims-green-color solid;
-  padding: 10px; padding-right: 0;
+    border-bottom: 2px $sims-green-color solid;
+    padding: 10px; padding-right: 0;
 
-  margin-bottom: 20px;
-  > .buttons{
-    > a{
+    margin-bottom: 20px;
+    > .buttons{
+      > a{
+        display: inline-block;
+        margin-left: 12px;
+        vertical-align: middle;
+        cursor: pointer;
+        font-size: 12px;
+        &.edit{
+          i.fa-pencil-square-o{
+            padding-top: 3px;
+          }
+        }
+        &.remove{
+          i.fa-trash-o{
+            padding-top: 1px;
+          }
+        }
+        &.add-to-learned{
+          min-width: 130px;
+          text-align: center;
+          border: 1px solid #989494;
+          padding: 2px 10px;
+          i.fa-plus{
+            font-size: 14px;
+            padding-right: 4px;
+            color: $sims-green-color;
+          }
+          .request{
+            padding: 0;
+            font-size: 7px;
+          }
+        }
+      } 
+    }
+
+    .learn-and-review-buttons{
       display: inline-block;
-      margin-left: 12px;
       vertical-align: middle;
-      cursor: pointer;
-      font-size: 12px;
-      &.edit{
-        i.fa-pencil-square-o{
-          padding-top: 3px;
-        }
-      }
-      &.remove{
-        i.fa-trash-o{
-          padding-top: 1px;
-        }
-      }
-      &.add-to-learned{
-        min-width: 130px;
-        text-align: center;
-        border: 1px solid #989494;
+      a{
+        display: inline-block;
+        margin-left: 10px;
+
         padding: 2px 10px;
-        i.fa-plus{
-          font-size: 14px;
-          padding-right: 4px;
-          color: $sims-green-color;
+        color: white;
+        font-size: 12px;
+        text-decoration: none;
+        border: 1px solid black;
+        &.-disabled{
+          pointer-events: none;
+          opacity: 0.1;
         }
-        .request{
-          padding: 0;
-          font-size: 7px;
+        &.review{
+          background: $review-button-color;
+        }
+        &.learn{
+          background: $learn-button-color;
         }
       }
-    } 
+    }
   }
-
-  .learn-and-review-buttons{
-    display: inline-block;
-    vertical-align: middle;
+  > section.course-description{
+    font-size: 13px;
+    padding-left: 20px; padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #424141;
     a{
-      display: inline-block;
-      margin-left: 10px;
-
-      padding: 2px 10px;
-      color: white;
-      font-size: 12px;
-      text-decoration: none;
-      border: 1px solid black;
-      &.-disabled{
-        pointer-events: none;
-        opacity: 0.1;
-      }
-      &.review{
-        background: $review-button-color;
-      }
-      &.learn{
-        background: $learn-button-color;
-      }
+      color: $sims-green-color;
     }
   }
 }

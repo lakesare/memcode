@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Helmet } from 'react-helmet';
+
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { Course } from './components/Course';
@@ -41,6 +43,11 @@ class Page_courses extends React.Component {
           </section>
         }</Loading>
       </div>
+
+      <Helmet>
+        <title>Memcode | All courses</title>
+        <meta name="description" content="Learn existing courses on programming, maths and physics, or create your own."/> :
+      </Helmet>
     </main>
 }
 

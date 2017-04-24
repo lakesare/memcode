@@ -41,10 +41,9 @@ router.get('/courses/:id/edit', authenticateMiddleware, catchAsync(async (reques
 router.get('/courses/:id', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
-  const course = await Course.select.oneById(courseId);
   const problems = await Problem.select.allByCourseId(courseId);
 
-  response.status(200).json({ course, problems });
+  response.status(200).json(problems);
 }));
 
 router.get('/courseActions/:courseId/authenticated', authenticateMiddleware, catchAsync(async (request, response) => {

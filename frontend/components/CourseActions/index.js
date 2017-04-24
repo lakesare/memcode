@@ -5,10 +5,10 @@ import { CourseTitle } from './components/CourseTitle';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
 import { EditButton } from './components/EditButton';
+import { MetaTags } from './components/MetaTags';
 
 import css from './index.css';
 
-import * as CourseApi from '~/api/Course';
 import { commonFetch } from '~/api/commonFetch';
 
 class CourseActions extends React.Component {
@@ -21,12 +21,14 @@ class CourseActions extends React.Component {
 
     seedSpeGetCourse: React.PropTypes.func.isRequired,
 
-    ifCuilActivityButtonsAreDisplayed: React.PropTypes.bool
+    ifCuilActivityButtonsAreDisplayed: React.PropTypes.bool,
+    ifCourseDescriptionIsDisplayed: React.PropTypes.bool
   }
 
   static defaultProps = {
+    currentUser: null,
     ifCuilActivityButtonsAreDisplayed: true,
-    currentUser: null
+    ifCourseDescriptionIsDisplayed: false
   }
 
   componentDidMount = () => {
@@ -45,26 +47,40 @@ class CourseActions extends React.Component {
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
       <section className={css.actions}>
-        <CourseTitle course={course}/>
+        <section className="title-and-buttons">
+          <CourseTitle course={course}/>
+
+          {
+            this.props.currentUser ?
+              <div className="buttons">
+                {
+                  this.props.ifCuilActivityButtonsAreDisplayed &&
+                  <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={course.id}/>
+                }
+
+                <LearnAndReviewButtons
+                  courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
+                  amountOfProblemsToLearn={amountOfProblemsToLearn}
+                  amountOfProblemsToReview={amountOfProblemsToReview}
+                />
+
+                <EditButton course={course} currentUserId={this.props.currentUser.id}/>
+              </div> :
+              <h4>Sign in to start learning this course</h4>
+          }
+        </section>
 
         {
-          this.props.currentUser ?
-          <div className="buttons">
-            {
-              this.props.ifCuilActivityButtonsAreDisplayed &&
-              <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={course.id}/>
-            }
-
-            <LearnAndReviewButtons
-              courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
-              amountOfProblemsToLearn={amountOfProblemsToLearn}
-              amountOfProblemsToReview={amountOfProblemsToReview}
-            />
-
-            <EditButton course={course} currentUserId={this.props.currentUser.id}/>
-          </div> :
-          <h4>Sign in to start learning this course</h4>
+          this.props.ifCourseDescriptionIsDisplayed &&
+          course.description &&
+          course.description.length > 0 &&
+          <section
+            className="course-description"
+            dangerouslySetInnerHTML={{ __html: course.description }}
+          />
         }
+
+        <MetaTags title={course.title} description={course.description}/>
       </section>
     }</Loading>
 }

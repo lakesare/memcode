@@ -1,18 +1,7 @@
 @import 'css/variables';
 
 :local(main.main){
-  .description-and-problems{
-    > section.description{
-      font-size: 13px;
-      padding-left: 20px; padding-bottom: 20px;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #424141;
-      a{
-        color: $sims-green-color;
-      }
-    }
-    > section.problems{
-      section.problem{  margin-bottom: 20px; }
-    }
+  section.problems{
+    section.problem{ margin-bottom: 20px; }
   }
 }

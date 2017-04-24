@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
-
 import { CourseActions } from '~/components/CourseActions';
 import { Problem } from '~/components/Problem';
 
@@ -35,28 +34,21 @@ class Page_courses_id extends React.Component {
       <Header/>
 
       <div className="container">
-        <CourseActions courseId={this.props.params.id}/>
+        <CourseActions courseId={this.props.params.id} ifCourseDescriptionIsDisplayed/>
 
-        <Loading spe={this.state.speGetPage}>{({ problems, course }) =>
-          <div className="description-and-problems">
+        <Loading spe={this.state.speGetPage}>{(problems) =>
+          <section className="problems">
             {
-              course.description &&
-              course.description.length > 0 &&
-              <section className="description" dangerouslySetInnerHTML={{ __html: course.description }}/>
+              problems.map((problem) =>
+                <Problem
+                  key={problem.id}
+                  mode="viewing"
+                  problemContent={problem.content}
+                  problemType={problem.type}
+                />
+              )
             }
-            <section className="problems">
-              {
-                problems.map((problem) =>
-                  <Problem
-                    key={problem.id}
-                    mode="viewing"
-                    problemContent={problem.content}
-                    problemType={problem.type}
-                  />
-                )
-              }
-            </section>
-          </div>
+          </section>
         }</Loading>
       </div>
     </main>
