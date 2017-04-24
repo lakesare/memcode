@@ -1,5 +1,5 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import { stripTags } from '~/services/stripTags';
 
 class Course extends React.Component {
@@ -8,17 +8,12 @@ class Course extends React.Component {
     amountOfProblems: React.PropTypes.string.isRequired
   }
 
-  // because <Link> will change layout some, don't want to adjust css
-  onClick = () => {
-    browserHistory.push(`/courses/${this.props.course.id}`);
-  }
-
   render = () =>
-    <div className="course" onClick={this.onClick}>
+    <Link to={`/courses/${this.props.course.id}`} className="course">
       <section className="actions">
-        <a className="view">
+        <div className="action -view">
           <i className="fa fa-eye"/>
-        </a>
+        </div>
       </section>
 
       <section className="main">
@@ -30,7 +25,7 @@ class Course extends React.Component {
       <section className="total-amount-of-mems">
         {this.props.amountOfProblems} mems
       </section>
-    </div>
+    </Link>
 }
 
 export { Course };

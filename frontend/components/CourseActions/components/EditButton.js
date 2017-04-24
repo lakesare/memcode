@@ -13,7 +13,7 @@ class EditButton extends React.Component {
 
   render = () =>
     this.ifCanEdit() &&
-    <Link className="edit" to={`/courses/${this.props.course.id}/edit`}>
+    <Link className="action -edit" to={`/courses/${this.props.course.id}/edit`}>
       <i className="fa fa-pencil-square-o"/>
     </Link>
 }

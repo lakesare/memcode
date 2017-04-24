@@ -68,7 +68,7 @@
         .DraftEditor-root{
           overflow: hidden;
         }
-        > .remove{
+        > .action.-remove{
           position: absolute;
           right: -20px; top: 0;
           i.fa-trash-o{

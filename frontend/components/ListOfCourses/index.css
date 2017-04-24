@@ -46,7 +46,7 @@
     > section.actions{
       padding-top: 4px;
       text-align: right;
-      > a{
+      > .action{
         cursor: pointer;
         padding-right: 10px;
         &:hover{

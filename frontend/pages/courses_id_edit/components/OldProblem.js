@@ -49,7 +49,7 @@ class OldProblem extends React.Component {
         problemType={this.props.problem.type}
       />
 
-      <a className="remove" onClick={this.destroy}>
+      <a className="action -remove" onClick={this.destroy}>
         <i className="fa fa-trash-o"/>
       </a>
     </div>

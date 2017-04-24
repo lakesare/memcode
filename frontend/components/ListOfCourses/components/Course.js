@@ -31,13 +31,13 @@ class Course extends React.Component {
     <section className="actions">
       {
         this.ifCanEdit() &&
-        <Link className="edit" to={`/courses/${course.id}/edit`}>
+        <Link className="action -edit" to={`/courses/${course.id}/edit`}>
           <i className="fa fa-pencil-square-o"/>
         </Link>
       }
 
       <Link
-        className="view"
+        className="action -view"
         to={`/courses/${course.id}`}
       >
         <i className="fa fa-eye"/>
