@@ -1,41 +1,6 @@
 @import 'css/variables';
 
 :local(main.main){
-  .article-formatting{
-    padding-bottom: 20px;
-    line-height: 30px;
-    font-family: Sintony;
-    font-size: 15px;
-    .container.-left-border{
-      border-left: 2px solid #6d6d6d;
-    }
-    a{
-      color: $sims-green-color;
-    }
-    section.article-headings{
-      margin-bottom: 20px;
-      h3{
-        margin-top: 13px;
-      }
-    }
-    section.article-section{
-      border-top: 1px solid #cecccc;
-      padding-top: 20px; padding-bottom: 20px;
-    }
-    h2.section-heading{
-      color: #424242;
-      font-weight: bold;
-      margin-bottom: 20px;
-      i{
-        padding-right: 10px;
-        color: $sims-green-color;
-      }
-    }
-    ol{
-      li{ margin-bottom: 20px; }
-    }
-  }
-
   section.problem{
     background: #383131;
     box-shadow: 1px 3px 9px rgba(54, 56, 53, 0.39);
@@ -156,22 +121,6 @@
 
     td{
       width: 20%;
-    }
-  }
-
-  footer{
-    border-top: 3px solid #111111;
-    background: #333333;
-    background: $black-gradient;
-    color: white;
-    text-align: right;
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 7px 0;
-    i{
-      padding-left: 10px;
-      font-size: 12px;
     }
   }
 }

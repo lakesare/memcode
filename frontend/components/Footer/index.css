@@ -1,0 +1,17 @@
+@import 'css/variables';
+
+:local(footer.footer){
+  border-top: 3px solid #111111;
+  background: #333333;
+  background: $black-gradient;
+  color: white;
+  text-align: right;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 7px 0;
+  i{
+    padding-left: 10px;
+    font-size: 12px;
+  }
+}

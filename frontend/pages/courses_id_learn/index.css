@@ -1,7 +1,6 @@
 @import 'css/variables';
 
 :local(main.main){
-
   section.problems{
     > .problem-wrapper{
       cursor: pointer;
@@ -13,6 +12,8 @@
       > .problem{
         margin-bottom: 0;
       }
+      .DraftEditor-root{ background: white; }
     }
+    margin-bottom: 40px;
   }
 }

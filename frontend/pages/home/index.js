@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Header } from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { FakeProblemWithInlinedAnswers } from './components/FakeProblemWithInlinedAnswers';
 import { FakeProblemWithSeparateAnswer } from './components/FakeProblemWithSeparateAnswer';
 import { Table } from './components/Table';
@@ -112,12 +113,7 @@ class HomePage extends React.Component {
         </div>
       </article>
 
-      <footer>
-        <div className="container">
-          contact@memcode.com
-          <i className="fa fa-envelope"/>
-        </div>
-      </footer>
+      <Footer/>
     </main>
 }
 

@@ -31,10 +31,12 @@ import { Page_courses_id_learn } from './pages/courses_id_learn';
 import { Page_courses_id_edit } from './pages/courses_id_edit';
 import { Page_profile_coursesLearnedByMe } from './pages/profile_coursesLearnedByMe';
 import { Page_profile_coursesCreatedByMe } from './pages/profile_coursesCreatedByMe';
-// import { ProfilePage } from './pages/profile';
-import { HomePage } from './pages/home';
+
+// static pages
 import { Page_test } from './pages/test';
 import { Page_pleaseSignIn } from './pages/pleaseSignIn';
+import { HomePage } from './pages/home';
+import { Page_articles_comparison } from './pages/articles_comparison';
 
 // common css
 import './index.css';
@@ -64,6 +66,7 @@ ReactDOM.render(
       <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route path="/test" component={Page_test}/>
       <Route path="/" component={HomePage}/>
+      <Route path="/articles/comparison" component={Page_articles_comparison}/>
     </Router>
   </Provider>
   ,

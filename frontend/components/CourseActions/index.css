@@ -17,15 +17,11 @@
         vertical-align: middle;
         cursor: pointer;
         font-size: 12px;
-        &.edit{
-          i.fa-pencil-square-o{
-            padding-top: 3px;
-          }
-        }
-        &.remove{
-          i.fa-trash-o{
-            padding-top: 1px;
-          }
+        &.-edit{
+          background: white;
+          padding-left: 3px; padding-right: 1px;
+          padding-top: 2px;
+          border-radius: 2px;
         }
         &.add-to-learned{
           min-width: 130px;
