@@ -19,4 +19,12 @@ router.delete('/:id', catchAsync(async (request, response) => {
   response.status(200).json({});
 }));
 
+router.post('/moveToCourse', catchAsync(async (request, response) => {
+  await Problem.insert.moveToCourse(
+    request.body['problemId'],
+    request.body['courseId']
+  );
+  response.status(200).json({});
+}));
+
 export { router };

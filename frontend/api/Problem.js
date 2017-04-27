@@ -17,5 +17,11 @@ const destroy = (dispatch, problemId) =>
     'DELETE', `/api/problems/${problemId}`
   );
 
+const moveToCourse = (dispatch, problemId, courseId) =>
+  commonFetch(dispatch,
+    'POST', `/api/problems/moveToCourse`,
+    { problemId, courseId }
+  );
+
 // import * as ProblemApi from '~/api/Problem';
-export { create, update, destroy };
+export { create, update, destroy, moveToCourse };

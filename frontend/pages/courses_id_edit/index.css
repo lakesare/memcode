@@ -60,22 +60,6 @@
     > .tbody{
       // to avoid editing problem at the bottom of the screen
       margin-bottom: 500px;
-
-      > .old-problem{
-        position: relative;
-        margin-bottom: 10px;
-        // for placeholder to not take a lot of space
-        .DraftEditor-root{
-          overflow: hidden;
-        }
-        > .action.-remove{
-          position: absolute;
-          right: -20px; top: 0;
-          i.fa-trash-o{
-            cursor: pointer;
-          }
-        }
-      }
       > .new-problem{
         position: relative;
         // for placeholders to fit

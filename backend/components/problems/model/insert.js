@@ -11,7 +11,17 @@ const insert = {
         courseId: problem.courseId,
         created_at: new Date()
       }
-    )
+    ),
+
+  moveToCourse: async (problemId, courseId) => {
+    const problem = await db.one('SELECT * FROM problem WHERE id = ${problemId}', { problemId });
+    await insert.create({
+      type: problem.type,
+      content: problem.content,
+      courseId
+    });
+    await db.none('delete from problem where id=${problemId}', { problemId });
+  }
 };
 
 export { insert };

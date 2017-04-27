@@ -85,7 +85,7 @@ class ProblemWithInlinedAnswers extends React.Component {
           editorState={this.state.explanationEditorState}
           onChange={newState => this.setState({ explanationEditorState: newState })}
           save={this.save}
-          placeholder={isReadonly(this.props.mode) ? null : <div>Enter a more elaborate expanation <br/> or a few examples</div>}
+          placeholder={isReadonly(this.props.mode) ? null : <div>Enter a more elaborate explanation <br/> or a few examples</div>}
         />
       </div>
     </section>
