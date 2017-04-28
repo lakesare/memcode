@@ -7,12 +7,17 @@ const renderAmountToReview = (amountOfProblemsToReview, nextDueDateIn) => {
       {amountOfProblemsToReview} to review
     </div>;
   } else {
-    const biggestMeasureKey = Object.keys(nextDueDateIn)[0];
-    const nextReviewIn = 'in ' + nextDueDateIn[biggestMeasureKey] + ' ' + biggestMeasureKey;
+    // { days: 3, hours: 5 }
+    const biggestMeasure = Object.keys(nextDueDateIn)[0];
+    const amount = nextDueDateIn[biggestMeasure];
 
-    return <div className="to-review -zero">
-      {nextReviewIn}
-    </div>;
+    if (amount < 0) {
+      return <div className="to-review"/>
+    } else {
+      return <div className="to-review -zero">
+        {`in ${amount} ${biggestMeasure}`}
+      </div>;
+    }
   }
 };
 
