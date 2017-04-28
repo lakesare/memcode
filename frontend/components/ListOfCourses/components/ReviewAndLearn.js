@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const renderAmountToReview = (amountOfProblemsToReview, nextDueDateIn) => {
+  if (!nextDueDateIn) { return null; }
   if (amountOfProblemsToReview > 0) {
     return <div className="to-review -nonzero">
       {amountOfProblemsToReview} to review
@@ -44,7 +45,11 @@ ReviewAndLearn.propTypes = {
   courseId: React.PropTypes.number.isRequired,
   amountOfProblemsToLearn: React.PropTypes.number.isRequired,
   amountOfProblemsToReview: React.PropTypes.number.isRequired,
-  nextDueDateIn: React.PropTypes.object.isRequired
+  nextDueDateIn: React.PropTypes.object
+};
+
+ReviewAndLearn.defaultPropTypes = {
+  nextDueDateIn: null // can be null if we haven't learned any problems yet
 };
 
 export { ReviewAndLearn };
