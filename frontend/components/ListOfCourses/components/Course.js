@@ -10,10 +10,10 @@ class Course extends React.Component {
     course: React.PropTypes.object.isRequired,
     currentUser: React.PropTypes.object.isRequired,
 
-    courseUserIsLearning: React.PropTypes.object,
     amountOfProblemsToLearn: React.PropTypes.number.isRequired,
     amountOfProblemsToReview: React.PropTypes.number.isRequired,
     amountOfProblems: React.PropTypes.number.isRequired,
+    courseUserIsLearning: React.PropTypes.object,
     nextDueDateIn: React.PropTypes.object
   }
 
@@ -59,7 +59,6 @@ class Course extends React.Component {
           this.ifCanLearnAndReview() &&
           <ReviewAndLearn
             courseId={this.props.course.id}
-            courseUserIsLearning={this.props.courseUserIsLearning}
             amountOfProblemsToReview={this.props.amountOfProblemsToReview}
             amountOfProblemsToLearn={this.props.amountOfProblemsToLearn}
             nextDueDateIn={this.props.nextDueDateIn}

@@ -21,9 +21,8 @@ const renderAmountToReview = (amountOfProblemsToReview, nextDueDateIn) => {
   }
 };
 
-const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn, courseUserIsLearning }) => {
-  if (!courseUserIsLearning) { return null; }
-  return <div className="review-and-learn">
+const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn }) =>
+  <div className="review-and-learn">
     <div className="amount-of-mems-to-review-and-learn">
       {renderAmountToReview(amountOfProblemsToReview, nextDueDateIn)}
       <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -nonzero`}>
@@ -40,19 +39,12 @@ const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToR
       </Link>
     </div>
   </div>;
-};
 
 ReviewAndLearn.propTypes = {
   courseId: React.PropTypes.number.isRequired,
   amountOfProblemsToLearn: React.PropTypes.number.isRequired,
   amountOfProblemsToReview: React.PropTypes.number.isRequired,
-  nextDueDateIn: React.PropTypes.object,
-  courseUserIsLearning: React.PropTypes.object
-};
-
-ReviewAndLearn.defaultProps = {
-  courseUserIsLearning: null,
-  nextDueDateIn: null // because courseUserIsLearning can be null
+  nextDueDateIn: React.PropTypes.object.isRequired
 };
 
 export { ReviewAndLearn };
