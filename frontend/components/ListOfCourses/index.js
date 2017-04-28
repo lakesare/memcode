@@ -16,7 +16,7 @@ class ListOfCourses extends React.Component {
   render = () =>
     <section className={css['list-of-courses']}>
       {
-        this.props.coursesData.map(({ course, courseUserIsLearning, amountOfProblems, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
+        this.props.coursesData.map(({ course, courseUserIsLearning, amountOfProblems, amountOfProblemsToReview, amountOfProblemsToLearn, nextDueDateIn }) =>
           <Course
             key={course.id}
             course={course}
@@ -24,6 +24,7 @@ class ListOfCourses extends React.Component {
             amountOfProblems={amountOfProblems}
             amountOfProblemsToReview={amountOfProblemsToReview}
             amountOfProblemsToLearn={amountOfProblemsToLearn}
+            nextDueDateIn={nextDueDateIn}
           />
         )
       }

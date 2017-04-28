@@ -1,16 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview }) =>
+const renderAmountToReview = (amountOfProblemsToReview, nextDueDateIn) => {
+  if (amountOfProblemsToReview > 0) {
+    return <div className="to-review -nonzero">
+      {amountOfProblemsToReview} to review
+    </div>;
+  } else {
+    const biggestMeasureKey = Object.keys(nextDueDateIn)[0];
+    const nextReviewIn = 'in ' + nextDueDateIn[biggestMeasureKey] + ' ' + biggestMeasureKey;
+
+    return <div className="to-review -zero">
+      {nextReviewIn}
+    </div>;
+  }
+};
+
+const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn }) =>
   <div className="review-and-learn">
     <div className="amount-of-mems-to-review-and-learn">
-      <div className={amountOfProblemsToReview === 0 ? `to-review` : `to-review -colored`}>
-        {amountOfProblemsToReview} to review
-      </div>
-      <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -colored`}>
+      {renderAmountToReview(amountOfProblemsToReview, nextDueDateIn)}
+      <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -nonzero`}>
         {amountOfProblemsToLearn} to learn
       </div>
     </div>
+
     <div className="review-and-learn-links">
       <Link style={amountOfProblemsToReview === 0 ? { visibility: 'hidden' } : {}} className="review" to={`/courses/${courseId}/review`} >
         REVIEW
@@ -24,7 +38,8 @@ const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToR
 ReviewAndLearn.propTypes = {
   courseId: React.PropTypes.number.isRequired,
   amountOfProblemsToLearn: React.PropTypes.number.isRequired,
-  amountOfProblemsToReview: React.PropTypes.number.isRequired
+  amountOfProblemsToReview: React.PropTypes.number.isRequired,
+  nextDueDateIn: React.PropTypes.object.isRequired
 };
 
 export { ReviewAndLearn };
