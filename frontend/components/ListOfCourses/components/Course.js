@@ -14,11 +14,12 @@ class Course extends React.Component {
     amountOfProblemsToLearn: React.PropTypes.number.isRequired,
     amountOfProblemsToReview: React.PropTypes.number.isRequired,
     amountOfProblems: React.PropTypes.number.isRequired,
-    nextDueDateIn: React.PropTypes.object.isRequired
+    nextDueDateIn: React.PropTypes.object
   }
 
   static defaultProps = {
-    courseUserIsLearning: null
+    courseUserIsLearning: null,
+    nextDueDateIn: null // because courseUserIsLearning can be null
   }
 
   ifCanEdit = () =>
@@ -58,6 +59,7 @@ class Course extends React.Component {
           this.ifCanLearnAndReview() &&
           <ReviewAndLearn
             courseId={this.props.course.id}
+            courseUserIsLearning={this.props.courseUserIsLearning}
             amountOfProblemsToReview={this.props.amountOfProblemsToReview}
             amountOfProblemsToLearn={this.props.amountOfProblemsToLearn}
             nextDueDateIn={this.props.nextDueDateIn}
