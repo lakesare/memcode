@@ -11,10 +11,16 @@ const select = {
   // only active,
   // filtered by amount of due problems (TODO)
   allLearned: (userId) =>
-    fetchCoursesAndTheirStats(`
-      WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true
+    fetchCoursesAndTheirStats(
+      `
+        WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true
       `,
-      'ORDER BY amount_of_problems_to_review DESC, amount_of_problems_to_learn DESC',
+      `
+        ORDER BY
+          amount_of_problems_to_review DESC,
+          amount_of_problems_to_learn DESC,
+          next_due_date_in ASC
+      `,
       userId
     ),
 

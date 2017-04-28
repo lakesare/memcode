@@ -11,8 +11,8 @@ const renderAmountToReview = (amountOfProblemsToReview, nextDueDateIn) => {
     const biggestMeasure = Object.keys(nextDueDateIn)[0];
     const amount = nextDueDateIn[biggestMeasure];
 
-    if (amount < 0) {
-      return <div className="to-review"/>
+    if (amount < 0) { // it means we set amountOfProblemsToReview to 0 artificially after the review
+      return <div className="to-review"/>;
     } else {
       return <div className="to-review -zero">
         {`in ${amount} ${biggestMeasure}`}
