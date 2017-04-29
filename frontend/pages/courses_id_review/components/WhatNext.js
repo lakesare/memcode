@@ -20,8 +20,8 @@ class WhatNext extends React.Component {
       spe => {
         // for fast UI. last problem we reviews has probably not reached server yet.
         if (spe.status === 'success') {
-          const ourCourse = spe.payload.find((course) => course.course.id === this.props.courseId);
-          ourCourse.amountOfProblemsToReview = 0;
+          const datasWithoutJustReviewedOne = spe.payload.filter((data) => data.course.id !== this.props.courseId);
+          spe.payload = datasWithoutJustReviewedOne;
         }
         this.setState({ speGetCourses: spe });
       }

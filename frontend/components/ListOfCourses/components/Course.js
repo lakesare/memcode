@@ -25,9 +25,9 @@ class Course extends React.Component {
   ifCanEdit = () =>
     this.props.currentUser.id === this.props.course.userId
 
-  // because only active are returned
   ifCanLearnAndReview = () =>
-    this.props.courseUserIsLearning
+    this.props.courseUserIsLearning &&
+    this.props.courseUserIsLearning.active === true
 
   renderActions = (course) =>
     <section className="actions">

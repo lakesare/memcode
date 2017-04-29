@@ -1,31 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router';
-
-const renderAmountToReview = (amountOfProblemsToReview, nextDueDateIn) => {
-  if (!nextDueDateIn) { return null; }
-  if (amountOfProblemsToReview > 0) {
-    return <div className="to-review -nonzero">
-      {amountOfProblemsToReview} to review
-    </div>;
-  } else {
-    // { days: 3, hours: 5 }
-    const biggestMeasure = Object.keys(nextDueDateIn)[0];
-    const amount = nextDueDateIn[biggestMeasure];
-
-    if (amount < 0) { // it means we set amountOfProblemsToReview to 0 artificially after the review
-      return <div className="to-review"/>;
-    } else {
-      return <div className="to-review -zero">
-        {`in ${amount} ${biggestMeasure}`}
-      </div>;
-    }
-  }
-};
+import { AmountOfProblemsToReview } from './AmountOfProblemsToReview';
 
 const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn }) =>
   <div className="review-and-learn">
     <div className="amount-of-mems-to-review-and-learn">
-      {renderAmountToReview(amountOfProblemsToReview, nextDueDateIn)}
+      <AmountOfProblemsToReview
+        amountOfProblemsToReview={amountOfProblemsToReview}
+        nextDueDateIn={nextDueDateIn}
+      />
       <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -nonzero`}>
         {amountOfProblemsToLearn} to learn
       </div>
