@@ -50,6 +50,15 @@ const auth = {
   }
 };
 
+const homeRedirect = {
+  onEnter: (nextState, transition, callback) => {
+    if (store.getState().global.Authentication.currentUser) {
+      transition({ pathname: '/profile/courses-learned-by-me' });
+    }
+    callback();
+  }
+};
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -64,7 +73,7 @@ ReactDOM.render(
 
       <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route path="/test" component={Page_test}/>
-      <Route path="/" component={HomePage}/>
+      <Route path="/" component={HomePage} {...homeRedirect}/>
       <Route path="/articles/comparison" component={Page_articles_comparison}/>
     </Router>
   </Provider>
