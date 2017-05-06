@@ -41,6 +41,14 @@ app.use('/api/pages', pagesRouter);
 import { router as authRouter } from './components/auth/routes';
 app.use('/api/auth', authRouter);
 
+router.post('/api/hi', (request, response) => {
+  console.log()
+  console.log()
+  console.log()
+  console.log(request.body)
+  response.status(200).json();
+});
+
 app.get('*', (request, response) =>
   response.send(
     `
