@@ -41,7 +41,7 @@ app.use('/api/pages', pagesRouter);
 import { router as authRouter } from './components/auth/routes';
 app.use('/api/auth', authRouter);
 
-router.post('/api/hi', (request, response) => {
+app.post('/api/hi', (request, response) => {
   console.log()
   console.log()
   console.log()
