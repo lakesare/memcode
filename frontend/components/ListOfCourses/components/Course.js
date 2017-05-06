@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Link } from 'react-router';
 import { ReviewAndLearn } from './ReviewAndLearn';
 
@@ -7,14 +5,14 @@ import { stripTags } from '~/services/stripTags';
 
 class Course extends React.Component {
   static propTypes = {
-    course: React.PropTypes.object.isRequired,
-    currentUser: React.PropTypes.object.isRequired,
+    course: PropTypes.object.isRequired,
+    currentUser: PropTypes.object.isRequired,
 
-    amountOfProblemsToLearn: React.PropTypes.number.isRequired,
-    amountOfProblemsToReview: React.PropTypes.number.isRequired,
-    amountOfProblems: React.PropTypes.number.isRequired,
-    courseUserIsLearning: React.PropTypes.object,
-    nextDueDateIn: React.PropTypes.object
+    amountOfProblemsToLearn: PropTypes.number.isRequired,
+    amountOfProblemsToReview: PropTypes.number.isRequired,
+    amountOfProblems: PropTypes.number.isRequired,
+    courseUserIsLearning: PropTypes.object,
+    nextDueDateIn: PropTypes.object
   }
 
   static defaultProps = {

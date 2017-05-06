@@ -1,14 +1,12 @@
-import React from 'react';
-
 import { Loading } from '~/components/Loading';
 
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 
 class CuilActivityButtons extends React.Component {
   static propTypes = {
-    courseId: React.PropTypes.number.isRequired,
-    speCourseUserIsLearning: React.PropTypes.object.isRequired,
-    seedSpeCourseUserIsLearning: React.PropTypes.func.isRequired
+    courseId: PropTypes.number.isRequired,
+    speCourseUserIsLearning: PropTypes.object.isRequired,
+    seedSpeCourseUserIsLearning: PropTypes.func.isRequired
   }
 
   apiStartLearning = () =>

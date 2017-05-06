@@ -12,7 +12,6 @@
 //   <h3>{payload.firstName}</h3>
 // }</Loading>
 
-import React from 'react';
 
 import * as customPropTypes from '~/services/customPropTypes';
 import css from './index.css';
@@ -45,8 +44,8 @@ Loading.defaultProps = {
 
 Loading.propTypes = {
   spe: customPropTypes.spe.isRequired,
-  children: React.PropTypes.any, // can be null, or false, or element
-  requestIcon: React.PropTypes.any
+  children: PropTypes.any, // can be null, or false, or element
+  requestIcon: PropTypes.any
 };
 
 export { Loading };

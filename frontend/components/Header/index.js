@@ -1,11 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router';
 import { CurrentUser } from './components/CurrentUser';
 import css from './index.css';
 
 class Header extends React.Component {
   static propTypes = {
-    currentUser: React.PropTypes.object
+    currentUser: PropTypes.object
   }
 
   static defaultProps = {

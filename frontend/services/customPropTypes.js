@@ -1,9 +1,7 @@
-import React from 'react';
-
-const spe = React.PropTypes.shape({
-  status:  React.PropTypes.string,
-  payload: React.PropTypes.any,
-  error:   React.PropTypes.string
+const spe = PropTypes.shape({
+  status:  PropTypes.string,
+  payload: PropTypes.any,
+  error:   PropTypes.string
 });
 
 export { spe };

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { InputForAnswer } from '~/pages/courses_id_review/components/InputForAnswer';
 
 const solvableAnswer = () => ({
@@ -19,8 +17,8 @@ const solvableAnswer = () => ({
 
 class InputForAnswerContainer extends React.Component {
   static propTypes = {
-    contentState: React.PropTypes.object.isRequired,
-    entityKey: React.PropTypes.string.isRequired,
+    contentState: PropTypes.object.isRequired,
+    entityKey: PropTypes.string.isRequired,
   }
 
   getAnswer = () => {

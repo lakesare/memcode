@@ -1,15 +1,13 @@
-import React from 'react';
-
 import { Problem } from '~/components/Problem';
 import { SeparateAnswerSelfScore } from './SeparateAnswerSelfScore';
 
 class ProblemBeingSolved extends React.Component {
   static propTypes = {
-    problem: React.PropTypes.object.isRequired,
-    statusOfSolving: React.PropTypes.object.isRequired,
+    problem: PropTypes.object.isRequired,
+    statusOfSolving: PropTypes.object.isRequired,
 
-    enterPressed: React.PropTypes.func.isRequired,
-    separateAnswerSelfScoreGiven: React.PropTypes.func.isRequired
+    enterPressed: PropTypes.func.isRequired,
+    separateAnswerSelfScoreGiven: PropTypes.func.isRequired
   }
 
   componentDidMount = () => {

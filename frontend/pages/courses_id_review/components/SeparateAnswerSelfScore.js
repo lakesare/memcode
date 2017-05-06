@@ -1,9 +1,7 @@
-import React from 'react';
-
 class SeparateAnswerSelfScore extends React.Component {
   static propTypes = {
-    giveScore: React.PropTypes.func.isRequired,
-    score: React.PropTypes.number.isRequired
+    giveScore: PropTypes.func.isRequired,
+    score: PropTypes.number.isRequired
   }
 
   renderStar = (value) =>

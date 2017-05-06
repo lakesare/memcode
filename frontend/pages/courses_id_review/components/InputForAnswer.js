@@ -1,5 +1,3 @@
-import React from 'react';
-
 const focusOnTheFirstAnswer = () => {
   const answers = document.getElementsByClassName('answer');
   answers[0].focus();
@@ -7,9 +5,9 @@ const focusOnTheFirstAnswer = () => {
 
 class InputForAnswer extends React.Component {
   static propTypes = {
-    answer: React.PropTypes.string.isRequired,
-    onRightAnswerGiven: React.PropTypes.func.isRequired,
-    status: React.PropTypes.oneOf(['solving', 'seeingAnswer']).isRequired
+    answer: PropTypes.string.isRequired,
+    onRightAnswerGiven: PropTypes.func.isRequired,
+    status: PropTypes.oneOf(['solving', 'seeingAnswer']).isRequired
   }
 
   constructor(props) {

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
@@ -16,10 +14,10 @@ import css from './index.css';
 
 class Page_courses_id_edit extends React.Component {
   static propTypes = {
-    params: React.PropTypes.shape({
-      id: React.PropTypes.string
+    params: PropTypes.shape({
+      id: PropTypes.string
     }).isRequired,
-    changeAmountOfProblemsToLearnBy: React.PropTypes.func.isRequired
+    changeAmountOfProblemsToLearnBy: PropTypes.func.isRequired
   }
 
   constructor(props) {

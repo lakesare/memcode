@@ -1,4 +1,3 @@
-import React from 'react';
 
 class FakeProblemWithSeparateAnswer extends React.Component {
   constructor(props) {

@@ -1,10 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router';
 import css from './index.css';
 
 class ProfileNavigation extends React.Component {
   static propTypes = {
-    signOut: React.PropTypes.func.isRequired,
+    signOut: PropTypes.func.isRequired,
   }
 
   render = () =>

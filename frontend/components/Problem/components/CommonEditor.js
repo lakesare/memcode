@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Editor from 'draft-js-plugins-editor';
 
 // draftJs
@@ -11,11 +9,11 @@ import { isReadonly } from '../services';
 
 class CommonEditor extends React.Component {
   static propTypes = {
-    mode: React.PropTypes.string.isRequired,
-    editorState: React.PropTypes.object.isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    save: React.PropTypes.func,
-    placeholder: React.PropTypes.object
+    mode: PropTypes.string.isRequired,
+    editorState: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired,
+    save: PropTypes.func,
+    placeholder: PropTypes.object
   }
 
   onBlur = () => {

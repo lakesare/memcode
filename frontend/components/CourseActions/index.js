@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Loading } from '~/components/Loading';
 import { CourseTitle } from './components/CourseTitle';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
@@ -13,16 +11,16 @@ import { commonFetch } from '~/api/commonFetch';
 
 class CourseActions extends React.Component {
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    currentUser: React.PropTypes.object,
+    courseId: PropTypes.string.isRequired,
+    currentUser: PropTypes.object,
 
-    speGetCourse: React.PropTypes.object.isRequired,
-    speCourseUserIsLearning: React.PropTypes.object.isRequired,
+    speGetCourse: PropTypes.object.isRequired,
+    speCourseUserIsLearning: PropTypes.object.isRequired,
 
-    seedSpeGetCourse: React.PropTypes.func.isRequired,
+    seedSpeGetCourse: PropTypes.func.isRequired,
 
-    ifCuilActivityButtonsAreDisplayed: React.PropTypes.bool,
-    ifCourseDescriptionIsDisplayed: React.PropTypes.bool
+    ifCuilActivityButtonsAreDisplayed: PropTypes.bool,
+    ifCourseDescriptionIsDisplayed: PropTypes.bool
   }
 
   static defaultProps = {

@@ -1,9 +1,6 @@
-import React from 'react';
-
 import { CommonEditor } from './CommonEditor';
 
 import { toApi, fromApi } from '../services';
-
 
 // user sees the question,
 // types in answer in the decorative lower editor on the right,
@@ -17,15 +14,15 @@ import { toApi, fromApi } from '../services';
 //   give self rating
 class ProblemWithSeparateAnswer extends React.Component {
   static propTypes = {
-    mode: React.PropTypes.string.isRequired,
-    problemContent: React.PropTypes.object, // always except for when 'editing' new
+    mode: PropTypes.string.isRequired,
+    problemContent: PropTypes.object, // always except for when 'editing' new
 
-    statusOfSolving: React.PropTypes.oneOf([
+    statusOfSolving: PropTypes.oneOf([
       'solving', 'seeingAnswer'
     ]), // when 'solving'
-    enterPressed: React.PropTypes.func,
+    enterPressed: PropTypes.func,
 
-    saveFn: React.PropTypes.func // when 'editing'
+    saveFn: PropTypes.func // when 'editing'
   }
 
   static defaultProps = {

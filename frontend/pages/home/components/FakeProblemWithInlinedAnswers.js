@@ -1,8 +1,6 @@
-import React from 'react';
-
 class Answer extends React.Component {
   static propTypes = {
-    answer: React.PropTypes.string.isRequired
+    answer: PropTypes.string.isRequired
   }
 
   constructor(props) {

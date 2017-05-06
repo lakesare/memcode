@@ -1,15 +1,13 @@
-import React from 'react';
-
 import { Problem } from '~/components/Problem';
 
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 
 class ListOfProblems extends React.Component {
   static propTypes = {
-    problems: React.PropTypes.array.isRequired,
-    courseUserIsLearningId: React.PropTypes.number.isRequired,
-    changeAmountOfProblemsToLearnBy: React.PropTypes.func.isRequired,
-    changeAmountOfProblemsToReviewBy: React.PropTypes.func.isRequired,
+    problems: PropTypes.array.isRequired,
+    courseUserIsLearningId: PropTypes.number.isRequired,
+    changeAmountOfProblemsToLearnBy: PropTypes.func.isRequired,
+    changeAmountOfProblemsToReviewBy: PropTypes.func.isRequired,
   }
 
   constructor(props) {

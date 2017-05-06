@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
 import { FakeProblemWithInlinedAnswers } from './components/FakeProblemWithInlinedAnswers';
@@ -12,7 +10,7 @@ import css from './index.css';
 
 class HomePage extends React.Component {
   static propTypes = {
-    signIn: React.PropTypes.func.isRequired
+    signIn: PropTypes.func.isRequired
   }
 
   componentDidMount = () => {

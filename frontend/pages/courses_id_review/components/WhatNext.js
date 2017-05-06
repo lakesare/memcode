@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 
@@ -7,7 +5,7 @@ import * as CourseApi from '~/api/Course';
 
 class WhatNext extends React.Component {
   static propTypes = {
-    courseId: React.PropTypes.number.isRequired
+    courseId: PropTypes.number.isRequired
   }
 
   constructor(props) {

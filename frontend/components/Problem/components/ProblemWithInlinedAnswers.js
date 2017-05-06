@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Editor from 'draft-js-plugins-editor';
 
 // draftJs
@@ -14,10 +12,10 @@ import { CommonEditor } from './CommonEditor';
 
 class ProblemWithInlinedAnswers extends React.Component {
   static propTypes = {
-    mode: React.PropTypes.string.isRequired,
-    problemContent: React.PropTypes.object,
+    mode: PropTypes.string.isRequired,
+    problemContent: PropTypes.object,
 
-    saveFn: React.PropTypes.func, // when 'editing'
+    saveFn: PropTypes.func, // when 'editing'
   }
 
   // only when undefined

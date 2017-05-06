@@ -1,5 +1,3 @@
-import React from 'react';
-
 import * as ProblemApi from '~/api/Problem';
 
 import { Problem } from '~/components/Problem';
@@ -9,9 +7,9 @@ import css from './index.css';
 
 class OldProblem extends React.Component {
   static propTypes = {
-    problem: React.PropTypes.object.isRequired,
-    updateOldProblem: React.PropTypes.func.isRequired,
-    removeOldProblem: React.PropTypes.func.isRequired
+    problem: PropTypes.object.isRequired,
+    updateOldProblem: PropTypes.func.isRequired,
+    removeOldProblem: PropTypes.func.isRequired
   }
 
   constructor(props) {

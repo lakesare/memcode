@@ -1,9 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router';
 
 class CurrentUser extends React.Component {
   static propTypes = {
-    currentUser: React.PropTypes.object
+    currentUser: PropTypes.object
   }
 
   static defaultProps = {

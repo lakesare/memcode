@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Loading } from '~/components/Loading';
 import { CourseEditForm } from '~/components/CourseEditForm';
 
@@ -8,7 +6,7 @@ import * as CourseApi from '~/api/Course';
 
 class CourseDetails extends React.Component {
   static propTypes = {
-    course: React.PropTypes.object.isRequired
+    course: PropTypes.object.isRequired
   }
 
   constructor(props) {

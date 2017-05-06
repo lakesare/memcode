@@ -1,13 +1,11 @@
-import React from 'react';
-
 import { Problem } from '~/components/Problem';
 
 import * as ProblemApi from '~/api/Problem';
 
 class NewProblem extends React.Component {
   static propTypes = {
-    courseId: React.PropTypes.string.isRequired,
-    addNewProblem: React.PropTypes.func.isRequired
+    courseId: PropTypes.string.isRequired,
+    addNewProblem: PropTypes.func.isRequired
   }
 
   constructor(props) {

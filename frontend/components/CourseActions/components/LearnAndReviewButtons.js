@@ -1,11 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router';
 
 class LearnAndReviewButtons extends React.Component {
   static propTypes = {
-    courseUserIsLearning: React.PropTypes.object,
-    amountOfProblemsToLearn: React.PropTypes.number,
-    amountOfProblemsToReview: React.PropTypes.number
+    courseUserIsLearning: PropTypes.object,
+    amountOfProblemsToLearn: PropTypes.number,
+    amountOfProblemsToReview: PropTypes.number
   }
 
   static defaultProps = {

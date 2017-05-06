@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AmountOfProblemsToReview = ({ amountOfProblemsToReview, nextDueDateIn }) => {
   // user will have to review some problems soon
   if (amountOfProblemsToReview === 0 && nextDueDateIn) {
@@ -21,8 +19,8 @@ const AmountOfProblemsToReview = ({ amountOfProblemsToReview, nextDueDateIn }) =
 };
 
 AmountOfProblemsToReview.propTypes = {
-  amountOfProblemsToReview: React.PropTypes.number.isRequired,
-  nextDueDateIn: React.PropTypes.object // postgresql interval (eg { days: 3, hours: 5 })
+  amountOfProblemsToReview: PropTypes.number.isRequired,
+  nextDueDateIn: PropTypes.object // postgresql interval (eg { days: 3, hours: 5 })
 };
 
 AmountOfProblemsToReview.defaultPropTypes = {

@@ -1,7 +1,4 @@
-import React from 'react';
-
 import { Helmet } from 'react-helmet';
-
 import { stripTags } from '~/services/stripTags';
 
 const getDescription = (title, description) => {
@@ -14,8 +11,8 @@ const getDescription = (title, description) => {
 
 class MetaTags extends React.Component {
   static propTypes = {
-    title: React.PropTypes.string.isRequired,
-    description: React.PropTypes.string
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string
   }
 
   static defaultProps = {

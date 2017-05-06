@@ -1,12 +1,9 @@
-import React from 'react';
-
 import { Course } from './components/Course';
-
 import css from './index.css';
 
 class ListOfCourses extends React.Component {
   static propTypes = {
-    coursesData: React.PropTypes.array.isRequired,
+    coursesData: PropTypes.array.isRequired,
   }
 
   renderLayoutDivs = () =>

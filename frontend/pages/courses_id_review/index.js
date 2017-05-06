@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
@@ -22,13 +20,13 @@ import css from './index.css';
 //     -> we accept problem and move to the next problem
 class Page_courses_id_review extends React.Component {
   static propTypes = {
-    params: React.PropTypes.shape({
-      id: React.PropTypes.string
+    params: PropTypes.shape({
+      id: PropTypes.string
     }).isRequired,
-    getPage: React.PropTypes.func.isRequired,
+    getPage: PropTypes.func.isRequired,
 
-    speGetPage: React.PropTypes.object.isRequired,
-    currentProblem: React.PropTypes.object,
+    speGetPage: PropTypes.object.isRequired,
+    currentProblem: PropTypes.object,
   }
 
   componentDidMount() {

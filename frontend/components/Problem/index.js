@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ProblemWithInlinedAnswers } from './components/ProblemWithInlinedAnswers';
 import { ProblemWithSeparateAnswer } from './components/ProblemWithSeparateAnswer';
 
@@ -7,13 +5,13 @@ import css from './index.css';
 
 class Problem extends React.Component {
   static propTypes = {
-    mode: React.PropTypes.oneOf([
+    mode: PropTypes.oneOf([
       'viewing', 'solving', 'editingOld', 'editingNew'
     ]).isRequired,
-    problemType: React.PropTypes.string.isRequired,
+    problemType: PropTypes.string.isRequired,
 
-    problemContent: React.PropTypes.object,
-    saveFn: React.PropTypes.func, // when 'editing'
+    problemContent: PropTypes.object,
+    saveFn: PropTypes.func, // when 'editing'
   }
 
   renderProblem = (type) => {

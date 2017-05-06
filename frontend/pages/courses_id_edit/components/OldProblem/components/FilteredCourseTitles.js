@@ -1,5 +1,3 @@
-import React from 'react';
-
 import * as fuzzy from 'fuzzy';
 
 const FilteredCourseTitles = (props) => {
@@ -26,9 +24,9 @@ const FilteredCourseTitles = (props) => {
 };
 
 FilteredCourseTitles.propTypes = {
-  courses: React.PropTypes.array.isRequired,
-  searchString: React.PropTypes.string.isRequired,
-  apiMoveProblemToCourse: React.PropTypes.func.isRequired
+  courses: PropTypes.array.isRequired,
+  searchString: PropTypes.string.isRequired,
+  apiMoveProblemToCourse: PropTypes.func.isRequired
 };
 
 export { FilteredCourseTitles };

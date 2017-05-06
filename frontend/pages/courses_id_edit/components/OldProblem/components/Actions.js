@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Loading } from '~/components/Loading';
 import { FilteredCourseTitles } from './FilteredCourseTitles';
 
@@ -8,8 +6,8 @@ import * as CourseApi from '~/api/Course';
 
 class Actions extends React.Component {
   static propTypes = {
-    problemId: React.PropTypes.number.isRequired,
-    removeOldProblem: React.PropTypes.func.isRequired
+    problemId: PropTypes.number.isRequired,
+    removeOldProblem: PropTypes.func.isRequired
   }
 
   constructor(props) {

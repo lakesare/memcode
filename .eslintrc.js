@@ -194,6 +194,10 @@ module.exports = {
     // in our tests
     "describe": true,
     "expect": true,
-    "beforeEach": true
+    "beforeEach": true,
+
+    // things I make global with ProvidePlugin
+    "React": true,
+    "PropTypes": true
   }
 }

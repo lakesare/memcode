@@ -1,11 +1,10 @@
-import React from 'react';
 import { Link } from 'react-router';
 import { stripTags } from '~/services/stripTags';
 
 class Course extends React.Component {
   static propTypes = {
-    course: React.PropTypes.object.isRequired,
-    amountOfProblems: React.PropTypes.string.isRequired
+    course: PropTypes.object.isRequired,
+    amountOfProblems: PropTypes.string.isRequired
   }
 
   render = () =>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { DefaultDraftBlockRenderMap } from 'draft-js';
 import Immutable from 'immutable';
 
@@ -14,7 +12,7 @@ const blockRenderMap = () =>
 
 class CodeBlock extends React.Component {
   static propTypes = {
-    children: React.PropTypes.array // content of a code block
+    children: PropTypes.array // content of a code block
   }
   static defaultProps = {
     children: null

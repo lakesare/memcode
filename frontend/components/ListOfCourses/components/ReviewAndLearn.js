@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router';
 import { AmountOfProblemsToReview } from './AmountOfProblemsToReview';
 
@@ -25,10 +24,10 @@ const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToR
   </div>;
 
 ReviewAndLearn.propTypes = {
-  courseId: React.PropTypes.number.isRequired,
-  amountOfProblemsToLearn: React.PropTypes.number.isRequired,
-  amountOfProblemsToReview: React.PropTypes.number.isRequired,
-  nextDueDateIn: React.PropTypes.object
+  courseId: PropTypes.number.isRequired,
+  amountOfProblemsToLearn: PropTypes.number.isRequired,
+  amountOfProblemsToReview: PropTypes.number.isRequired,
+  nextDueDateIn: PropTypes.object
 };
 
 ReviewAndLearn.defaultPropTypes = {

@@ -1,11 +1,9 @@
-import React from 'react';
-
 import { Link } from 'react-router';
 
 class EditButton extends React.Component {
   static propTypes = {
-    course: React.PropTypes.object.isRequired,
-    currentUserId: React.PropTypes.number.isRequired
+    course: PropTypes.object.isRequired,
+    currentUserId: PropTypes.number.isRequired
   }
 
   ifCanEdit = () =>

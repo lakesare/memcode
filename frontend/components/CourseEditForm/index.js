@@ -1,14 +1,12 @@
-import React from 'react';
-
 import { Loading } from '~/components/Loading';
 import css from './index.css';
 
 class CourseEditForm extends React.Component {
   static propTypes = {
-    save: React.PropTypes.func.isRequired,
-    speSave: React.PropTypes.object.isRequired,
-    initialValues: React.PropTypes.object,
-    buttonText: React.PropTypes.string.isRequired
+    save: PropTypes.func.isRequired,
+    speSave: PropTypes.object.isRequired,
+    initialValues: PropTypes.object,
+    buttonText: PropTypes.string.isRequired
   }
 
   static defaultProps = {
