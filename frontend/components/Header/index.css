@@ -35,7 +35,7 @@
       display: flex;
       align-items: center;
       position: relative; top: 3px;
-      a.link{
+      .link{
         padding: 8px; padding-top: 11px;
         text-transform: uppercase;
         font-size: 11px;
@@ -54,6 +54,9 @@
           padding-right: 7px;
           font-size: 12px;
         }
+      }
+      .link.articles-dropdown{
+        margin-right: 30px;
       }
       section.current-user{
         a.avatar{
@@ -96,6 +99,45 @@
           }
           &:hover{
             opacity: 0.8;
+          }
+        }
+      }
+      .articles-dropdown{
+        position: relative;
+        .toggler{
+          i{
+            padding-left: 3px;
+            color: $sims-green-color;
+          }
+        }
+        .modal{
+          display: none;
+          position: absolute;
+          z-index: 10;
+          background: #333333;
+          padding: 10px;
+          padding-top: 5px;
+          top: 100%;
+          right: 0;
+          width: 190px;
+          text-transform: none;
+          border: 2px solid rgba(28, 218, 21, 0.82);
+          a{
+            display: block;
+            font-size: 11px;
+            padding-bottom: 5px;
+            padding-top: 5px;
+            border-bottom: 1px solid rgba(28, 218, 21, 0.23);
+            &:hover{ color: $sims-green-color; }
+            &:last-child{
+              border-bottom: none;
+              padding-bottom: 0;
+            }
+          }
+        }
+        &:hover{
+          .modal{
+            display: block;
           }
         }
       }

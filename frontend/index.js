@@ -34,8 +34,8 @@ import { Page_profile_coursesCreatedByMe } from './pages/profile_coursesCreatedB
 // static pages
 import { Page_test } from './pages/test';
 import { Page_pleaseSignIn } from './pages/pleaseSignIn';
-import { HomePage } from './pages/home';
 import { Page_articles_comparison } from './pages/articles_comparison';
+import { Page_articles_welcome } from './pages/articles_welcome';
 
 // common css
 import './index.css';
@@ -50,7 +50,7 @@ const auth = {
   }
 };
 
-const homeRedirect = {
+const rootRedirect = {
   onEnter: (nextState, transition, callback) => {
     if (store.getState().global.Authentication.currentUser) {
       transition({ pathname: '/profile/courses-learned-by-me' });
@@ -73,8 +73,9 @@ ReactDOM.render(
 
       <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route path="/test" component={Page_test}/>
-      <Route path="/" component={HomePage} {...homeRedirect}/>
+      <Route path="/" component={Page_articles_welcome} {...rootRedirect}/>
       <Route path="/articles/comparison" component={Page_articles_comparison}/>
+      <Route path="/articles/welcome" component={Page_articles_welcome}/>
     </Router>
   </Provider>
   ,

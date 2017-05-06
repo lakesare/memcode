@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
@@ -30,6 +31,10 @@ class Page_profile_coursesCreatedByMe extends React.Component {
           <ListOfCourses coursesData={coursesData}/>
         }</Loading>
       </div>
+
+      <Helmet>
+        <title>Profile | Created Courses</title>
+      </Helmet>
     </main>
 }
 

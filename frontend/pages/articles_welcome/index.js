@@ -8,7 +8,7 @@ import { browserHistory } from 'react-router';
 
 import css from './index.css';
 
-class HomePage extends React.Component {
+class Page_articles_welcome extends React.Component {
   static propTypes = {
     signIn: PropTypes.func.isRequired
   }
@@ -121,6 +121,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 import { connect } from 'react-redux';
-HomePage = connect(() => ({}), mapDispatchToProps)(HomePage);
+Page_articles_welcome = connect(() => ({}), mapDispatchToProps)(Page_articles_welcome);
 
-export { HomePage };
+export { Page_articles_welcome };

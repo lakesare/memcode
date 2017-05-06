@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import { CurrentUser } from './components/CurrentUser';
+import { ArticlesDropdown } from './components/ArticlesDropdown';
 import css from './index.css';
 
 class Header extends React.Component {
@@ -13,6 +14,7 @@ class Header extends React.Component {
 
   renderNavigation = () =>
     <nav>
+      <ArticlesDropdown/>
       <Link
         to="/courses"
         activeClassName="active"

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 
 import { Header } from '~/components/Header';
 import { CourseEditForm } from '~/components/CourseEditForm';
@@ -30,6 +31,11 @@ class Page_courses_new extends React.Component {
         <h2>Create a course</h2>
         <CourseEditForm save={this.apiCreateCourse} speSave={this.state.speSave} buttonText="Create!"/>
       </div>
+
+      <Helmet>
+        <title>New Course</title>
+        <meta name="description" content="Create and memorize your personal flashcards."/> :
+      </Helmet>
     </main>
 }
 

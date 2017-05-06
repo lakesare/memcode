@@ -1,0 +1,95 @@
+@import 'css/variables';
+
+:local(main.main){
+  .sites{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    h3{
+      padding: 5px;
+      padding-left: 10px;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .site{
+      width: 100%;
+      h3{
+        color: $sims-green-color;
+        span{
+          color: #731b05;
+          font-size: 15px;
+          font-weight: bold;
+        }
+      }
+    }
+    .conclusion{
+      width: 100%;
+      h3{
+        background: $sims-green-color;
+        color: white;
+      }
+    }
+  }
+
+  section.article-section.types-of-tasks{
+    ul{
+      display: flex;
+      flex-wrap: wrap;
+      padding-left: 0;
+      list-style-type: none;
+      li{
+        width: 50%;
+        padding: 10px;
+        box-sizing: border-box;
+        box-shadow: -1px 0px 9px 2px #0f1835;
+        font-weight: bold;
+      }
+    }
+    img{
+      max-width: 400px;
+      max-height: 360px;
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid #c6cbea;
+    }
+    .site.brainscape{
+      li{
+        text-align: center;
+        img{
+          max-height: 200px;
+          max-width: 246px;
+        }
+      }
+    }
+  }
+
+  // overrides
+  .article-formatting{
+    .article-headings{
+      mark{ color: $sims-green-color; }
+    }
+    line-height: 20px;
+    mark{
+      background: none;
+      color: #016501;
+      font-weight: bold;
+    }
+    h2.section-heading{
+      margin-bottom: 0;
+      margin-top: 20px;
+      background: #303030;
+      color: white;
+      font-weight: normal;
+      padding: 5px;
+      padding-left: 31px;
+
+      position: relative;
+      right: 21px;
+      width: 50%;
+    }
+    section.article-section{
+      padding-top: 0;
+      border-top: none;
+    }
+  }
+}
