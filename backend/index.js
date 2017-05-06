@@ -41,11 +41,12 @@ app.use('/api/pages', pagesRouter);
 import { router as authRouter } from './components/auth/routes';
 app.use('/api/auth', authRouter);
 
+// temporary route for my poor broken files
 app.post('/api/hi', (request, response) => {
-  console.log()
-  console.log()
-  console.log()
-  console.log(request.body)
+  console.log();
+  console.log();
+  console.log();
+  console.log(request.body);
   response.status(200).json();
 });
 

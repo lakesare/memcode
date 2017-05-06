@@ -4,8 +4,9 @@ run:
 		--tab -e 'make backend-webpack' \
 		--tab -e 'make frontend-webpack'
 
+# $(npm bin)/nodemon doesn't work, npm bin is '' then.
 start:
-	NODE_ENV=development nodemon --inspect --watch backend backend/webpacked/index.js
+	NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/webpacked/index.js
 
 # build and watch
 backend-webpack:
