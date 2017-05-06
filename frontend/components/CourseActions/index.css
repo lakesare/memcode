@@ -76,3 +76,29 @@
     }
   }
 }
+
+@media(max-width: 500px) {
+  :local(section.actions){
+    section.title-and-buttons{
+      padding: 10px 0;
+      text-align: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      > h3.course-title{
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      > .buttons{
+        > a.add-to-learned{
+          margin-left: 0;
+          margin-right: 10px;
+          min-width: initial;
+        }
+        > .learn-and-review-buttons{
+          .learn{ margin-left: 0; }
+        }
+        > a.action.-edit{ display: none; }
+      }
+    }
+  }
+}

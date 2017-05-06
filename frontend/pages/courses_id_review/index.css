@@ -108,5 +108,43 @@ section.self-score{
       }
     }
   }
+}
 
+@media(max-width: 500px) {
+  :local(main.main){
+    section.problem{
+      margin-top: 0px;
+      flex-wrap: wrap;
+      .first-column, .second-column{
+        width: 100%;
+      }
+      .first-column{
+        margin-right: 0 !important;
+      }
+      .second-column{
+        margin-top: 20px;
+        margin-left: 0px !important;
+      }
+      &.-withSeparateAnswer{
+        .draft-answer{ display: none; }
+      }
+    }
+    section.self-score{
+      width: auto;
+      > label.rate-yourself{
+        display: block;
+        padding-bottom: 0;
+      }
+      > .stars{
+        display: block;
+        > .star{
+          width: 20%;
+          > div{ width: auto; }
+        }
+      }
+    }
+    a.button.next{
+      margin-top: 20px;
+    }
+  }
 }

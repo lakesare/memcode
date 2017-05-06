@@ -102,3 +102,9 @@
     }
   }
 }
+
+@media(max-width: 500px) {
+  :local(header.header){
+    a.link.create{ display: none; }
+  }
+}
