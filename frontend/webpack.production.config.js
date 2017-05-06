@@ -1,67 +1,40 @@
-const path = require('path');
-
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const config = require('./webpack.config.js');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    './index.js'
-  ],
+  entry: config.entry,
 
   module: {
     rules: [
-      {
-        test: /\.json$/,
-        use: ['json-loader']
-      },
+      ...config.module.rules.filter(
+        (rule) => String(rule.test) !== String(/\.js$/)
+      ),
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: ['es2015', 'react', 'stage-0']
-            }
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'react', 'stage-0']
           }
-        ]
+        }]
       },
-      {
-        test: /\.(css|scss)$/,
-        exclude: /(node_modules)/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'css-loader',
-            'sass-loader'
-          ]
-        })
-      },
-      { // the file-loader emits files.
-        test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader']
-      }
-    ],
+    ]
   },
 
-  // allows to import from the deep nested folders:
-  // instead of: import '../../../../../services',
-  // import '~/services'
-  // idea from http://stackoverflow.com/questions/27502608/resolving-require-paths-with-webpack#comment60353452_35047907
-  resolve: {
-    alias: { '~': path.resolve(__dirname) }
-  },
+  resolve: config.resolve,
 
   plugins: [
-    new ExtractTextPlugin('/index.css'),
-    new webpack.ProvidePlugin({
-      React: 'react',
-      PropTypes: 'prop-types'
+    ...config.plugins,
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
     })
   ],
 
-  output: {
-    filename: 'index.js',
-    path: path.join(__dirname, '/webpacked')
-  }
+  output: config.output
 };
