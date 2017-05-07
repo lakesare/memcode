@@ -88,7 +88,6 @@ div.space{
 nav.article-navigation{
   background: #333333;
   width: 100%;
-  padding: 5px 0;
   font-family: $heading-font;
   font-size: 14px;
   z-index: 100;
@@ -99,8 +98,10 @@ nav.article-navigation{
   .container{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     a{
       color: white;
+      padding: 5px 0;
       &:hover{
         color: $sims-green-color;
       }

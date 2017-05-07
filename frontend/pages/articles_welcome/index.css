@@ -124,3 +124,12 @@
     }
   }
 }
+
+@media(max-width: 600px){
+  :local(main.main){
+    .table-caption,
+    table{
+      display: none;
+    }
+  }
+}

@@ -5,11 +5,14 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    h3{
-      padding: 5px;
-      padding-left: 10px;
-      margin-bottom: 10px;
-      margin-top: 20px;
+    .site, .conclusion{
+      h3{
+        padding-left: 10px;
+        margin-top: 10px;
+      }
+      .description{
+        margin-top: 5px;
+      }
     }
     .site{
       width: 100%;
@@ -27,6 +30,8 @@
       h3{
         background: $sims-green-color;
         color: white;
+        padding: 5px;
+        padding-left: 10px;
       }
     }
   }
@@ -74,22 +79,43 @@
       color: #016501;
       font-weight: bold;
     }
-    h2.section-heading{
-      margin-bottom: 0;
-      margin-top: 20px;
-      background: #303030;
-      color: white;
-      font-weight: normal;
-      padding: 5px;
-      padding-left: 31px;
-
-      position: relative;
-      right: 21px;
-      width: 50%;
-    }
     section.article-section{
-      padding-top: 0;
+      padding-top: 20px;
+      padding-bottom: 0;
       border-top: none;
+      h2.section-heading{
+        margin-bottom: 5px;
+        background: #303030;
+        color: white;
+        font-weight: normal;
+        padding: 5px;
+        padding-left: 31px;
+
+        position: relative;
+        right: 21px;
+        width: 50%;
+      }
+    }
+  }
+}
+
+@media(max-width: 600px){
+  :local(main.main){
+    h2.section-heading{
+      width: auto !important;
+    }
+    nav.article-navigation{
+      a{
+        width: 50%;
+        text-align: center;
+        border-bottom: 1px solid #10ff00;
+        padding: 4px;
+        box-sizing: border-box;
+      }
+    }
+    // for navigation
+    section.article-section{
+      padding-top: 80px !important;
     }
   }
 }
