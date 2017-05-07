@@ -71,6 +71,7 @@
   // overrides
   .article-formatting{
     .article-headings{
+      margin-bottom: 0;
       mark{ color: $sims-green-color; }
     }
     line-height: 20px;
@@ -80,7 +81,8 @@
       font-weight: bold;
     }
     section.article-section{
-      padding-top: 20px;
+      padding-top: 40px;
+      margin-top: -20px;
       padding-bottom: 0;
       border-top: none;
       h2.section-heading{
@@ -116,6 +118,7 @@
     // for navigation
     section.article-section{
       padding-top: 80px !important;
+      margin-top: -40px !important;
     }
   }
 }
