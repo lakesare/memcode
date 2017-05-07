@@ -52,6 +52,14 @@ class Page_articles_comparison extends React.Component {
             </h3>
           </section>
 
+          <section className="article-section">
+            I've been using <mark>Memrise</mark> for many years now.<br/>
+            I've started using it to learn languages, and then proceeded to use it for maths and programming.<br/>
+            Knowledge retention rates has been uncomparable to classical study methods, so it's been a great experience overall.<br/>
+            I was having a few critical issues with <mark>Memrise</mark> though, which led me to try and find some more <b>spaced-repetition based learning</b> sites, and consequently create my own.<br/>
+            Here I'm describing my experience with most popular of them - <mark>Memrise</mark>, <mark>Quizlet</mark> and <mark>Brainscape</mark>.
+          </section>
+
           <QualityOfCourses/>
           <TypesOfTasks/>
           <LearningAlgorithm/>

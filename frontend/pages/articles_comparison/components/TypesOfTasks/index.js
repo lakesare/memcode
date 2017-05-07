@@ -21,14 +21,14 @@ const TypesOfTasks = () =>
         <h3>Memrise: <span>4</span></h3>
 
         <div className="description">
-          <mark>Memrise</mark> randomly suggests two types of tasks, and requires you to complete them in about 10 seconds:
+          <mark>Memrise</mark> randomly suggests two types of tasks (for the same flashcard), and requires you to complete them in about 10-30 seconds (depending on task dificulty):
           <ul>
             <li>
-              Multiple choice questions:
+              Multiple choice questions
               <img src={`/${memrise_1}`}/>
             </li>
             <li>
-              And typed-in answer that gets autochecked:
+              Typed-in answer that gets autochecked
               <img src={`/${memrise_2}`}/>
             </li>
           </ul>
@@ -42,11 +42,11 @@ const TypesOfTasks = () =>
           <mark>Quizlet</mark> lets you choose what types of tasks you want to exercise your memories with.
           <ul>
             <li>
-              Typed-in answer that gets autochecked:
+              Typed-in answer that gets autochecked
               <img src={`/${quizlet_1}`}/>
             </li>
             <li>
-              Classic flashcard:
+              Classic flashcard
               <img src={`/${quizlet_2}`}/>
             </li>
             <li>
@@ -100,7 +100,7 @@ const TypesOfTasks = () =>
         <h3>Conclusion</h3>
         <div className="description">
           <mark>Memrise</mark> and <mark>Memcode</mark> are suitable for fast learning, their interface is slick, they can be manipulated using keyboard.<br/>
-          <mark>Quizlet</mark> on the other hand clearly attempts to gamify the learning process. It's refreshing to be able to switch the task types, but there is too much going on to be able to parse through your items at a good rate.<br/>
+          <mark>Quizlet</mark> on the other hand clearly attempts to gamify the learning process. It's refreshing to be able to switch the task types, but there is too much going on to be able to parse through your items at a fast pace.<br/>
           <mark>Brainscape</mark> is the only clear loser here. Process is both nonfun and slow with it.
         </div>
       </section>

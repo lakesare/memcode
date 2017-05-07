@@ -9,6 +9,10 @@
       h3{
         padding-left: 10px;
         margin-top: 10px;
+        border-left: 21px solid #303030;
+        font-weight: bold;
+        position: relative;
+        right: 21px;
       }
       .description{
         margin-top: 5px;
@@ -18,10 +22,18 @@
       width: 100%;
       h3{
         color: $sims-green-color;
+        width: 138px;
         span{
-          color: #731b05;
           font-size: 15px;
-          font-weight: bold;
+          display: inline-block;
+          width: 23px; height: 21px;
+          border-radius: 50%;
+          padding-top: 2px;
+          float: right;
+
+          text-align: center;
+          background: #303030;
+          color: white;
         }
       }
     }
@@ -36,7 +48,7 @@
     }
   }
 
-  section.article-section.types-of-tasks{
+  section.article-section#types-of-tasks{
     ul{
       display: flex;
       flex-wrap: wrap;
@@ -64,6 +76,18 @@
           max-height: 200px;
           max-width: 246px;
         }
+      }
+    }
+  }
+
+  section.article-section#when-to-use-each{
+    .site h3{
+      width: auto;
+      span{
+        width: auto; height: auto;
+        background: none;
+        color: #303030;
+        float: none;
       }
     }
   }

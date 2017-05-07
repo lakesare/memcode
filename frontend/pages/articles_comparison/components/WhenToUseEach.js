@@ -10,7 +10,7 @@ const WhenToUseEach = () =>
 
         <div className="description">
           <mark>Memrise</mark> was created with this in mind, hence is the inability to format tasks or limits on their length.<br/>
-          I had a great experience using the 'meme' feature (you and other users create images that help them remember the word) feature when I was learning finnish. It will be beneficial for any cryptic syntaxis, but not so much for fields such as programming or physics, where memories mostly form by connecting the known concepts rather than by memorizing some particular syntax.
+          I had a great experience using the 'meme' feature (you and other users create images that help them remember the word) when I was learning finnish. It will be beneficial for any cryptic syntaxis, but not so much for fields such as programming or physics, where memories mostly form by connecting the known concepts rather than by memorizing some particular syntax.
         </div>
       </section>
 
@@ -19,9 +19,9 @@ const WhenToUseEach = () =>
 
         <div className="description">
           <mark>Quizlet</mark> was created with this in mind.<br/>
-          It's not meant to be used for a long period of time, that's why they didn't introduce any learning algorithm. It's meant to be 'learn now' app. And it's great in what it does!<br/>
+          It's not meant to be used for a long period of time, that's why they didn't introduce any learning algorithm. It's meant to be the 'learn now' app. And it's great in what it does!<br/>
           You will not get lost on a real test after you try to revoke your newly-fledged memories using 6 different types of tasks.<br/>
-          Another use case for this app is a unique automatic voiceover feature. You may want to use it to train your listening skills in some language, or to learn with your eyes closed :-).<br/>
+          Another use case for this app is a unique automatic voiceover feature. You may want to use it to train your listening skills in some language, or to study with your eyes closed :-).<br/>
           One more thing <mark>Quizlet</mark> excells in is gamification. <mark>Quizlet</mark> took it to its logical end, you will hardly get bored by learning anything there.
         </div>
       </section>
