@@ -93,6 +93,7 @@
           }
           > a.review{
             background: $review-button-color;
+            &.simulated{ background: #b1b0b0; }
           }
           > a.learn-more{
             background: $learn-button-color;

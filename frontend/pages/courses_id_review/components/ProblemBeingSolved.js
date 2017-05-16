@@ -5,9 +5,12 @@ class ProblemBeingSolved extends React.Component {
   static propTypes = {
     problem: PropTypes.object.isRequired,
     statusOfSolving: PropTypes.object.isRequired,
+    amountOfProblems: PropTypes.number.isRequired,
 
     enterPressed: PropTypes.func.isRequired,
-    separateAnswerSelfScoreGiven: PropTypes.func.isRequired
+    separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
+
+    ifReviewIsSimulated: PropTypes.bool.isRequired
   }
 
   componentDidMount = () => {
@@ -34,6 +37,21 @@ class ProblemBeingSolved extends React.Component {
 
   render = () =>
     <div>
+      {
+        this.props.ifReviewIsSimulated &&
+        <section className="simulated-header">
+          <h4 className="announcement desktop">
+            We are in a simulated review. Results will not be recorded.
+          </h4>
+          <h4 className="announcement mobile hidden">
+            Simulated review.
+          </h4>
+          <h4 className="amount-of-problems-left">
+            {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
+          </h4>
+        </section>
+      }
+
       <Problem
         mode="solving"
         problemContent={this.props.problem.content}
@@ -41,6 +59,7 @@ class ProblemBeingSolved extends React.Component {
       />
 
       {
+        !this.props.ifReviewIsSimulated &&
         this.props.statusOfSolving.status === 'seeingAnswer' &&
         this.props.problem.type === 'separateAnswer' &&
         <SeparateAnswerSelfScore
@@ -61,13 +80,18 @@ class ProblemBeingSolved extends React.Component {
 const mapStateToProps = (state) => {
   const pageState = state.pages.Page_courses_id_review;
   return {
-    statusOfSolving: pageState.statusOfSolving
+    statusOfSolving: pageState.statusOfSolving,
+    amountOfProblems: pageState.speGetPage.payload.problems.length
   };
 };
 import { Page_courses_id_review_Actions } from '../reducer';
-const { enterPressed } = Page_courses_id_review_Actions;
-const mapDispatchToProps = (dispatch) => ({
-  enterPressed: () => dispatch(enterPressed()),
+const { enterPressed, enterPressedInSimulatedReview } = Page_courses_id_review_Actions;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  enterPressed: () => {
+    ownProps.ifReviewIsSimulated ?
+      dispatch(enterPressedInSimulatedReview()) :
+      dispatch(enterPressed());
+  },
   separateAnswerSelfScoreGiven: (selfScore) =>
     dispatch({
       type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',

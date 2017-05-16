@@ -23,6 +23,9 @@ class Page_courses_id_review extends React.Component {
     params: PropTypes.shape({
       id: PropTypes.string
     }).isRequired,
+    route: PropTypes.shape({
+      simulated: PropTypes.bool
+    }).isRequired,
     getPage: PropTypes.func.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
@@ -54,6 +57,7 @@ class Page_courses_id_review extends React.Component {
               <ProblemBeingSolved
                 key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
                 problem={this.props.currentProblem}
+                ifReviewIsSimulated={this.props.route.simulated}
               /> :
               <WhatNext courseId={parseInt(this.props.params.id)}/>
           }
@@ -73,8 +77,10 @@ const mapStateToProps = (state) => {
 };
 import { Page_courses_id_review_Actions } from './reducer';
 const { getPage } = Page_courses_id_review_Actions;
-const mapDispatchToProps = (dispatch) => ({
-  getPage: (courseId) => dispatch(getPage(courseId))
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getPage: (courseId) => dispatch(
+    getPage(courseId, ownProps.route.simulated)
+  )
 });
 
 import { connect } from 'react-redux';

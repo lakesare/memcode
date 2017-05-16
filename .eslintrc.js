@@ -172,6 +172,8 @@ module.exports = {
 
     "no-return-assign": "off",
 
+    "radix": "off"
+
     // switch
     // case
     // "indent": [2, 2, { "SwitchCase": "" }]

@@ -68,6 +68,18 @@
       .layout-div{ display: none; }
     }
   }
+
+  .simulated-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: -40px;
+
+    color: rgba(255, 255, 255, 0.65);
+    > h4.announcement{
+      font-size: 15px;
+    }
+  }
 }
 // rgb(185, 49, 49) red
 // rgba(115, 232, 61, 0.79) green
@@ -112,6 +124,13 @@ section.self-score{
 
 @media(max-width: 500px) {
   :local(main.main){
+    .simulated-header{
+      margin-bottom: 20px;
+      h4.announcement{
+        &.mobile{ display: block; }
+        &.desktop{ display: none; }
+      }
+    }
     section.problem{
       margin-top: 0px;
       flex-wrap: wrap;

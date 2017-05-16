@@ -28,12 +28,17 @@ class LearnAndReviewButtons extends React.Component {
         LEARN ({this.props.amountOfProblemsToLearn})
       </Link>
 
-      <Link
-        to={`/courses/${this.props.courseUserIsLearning.courseId}/review`}
-        className={`review ${this.props.amountOfProblemsToReview === 0 ? '-disabled' : ''}`}
-      >
-        REVIEW ({this.props.amountOfProblemsToReview})
-      </Link>
+      {
+        this.props.amountOfProblemsToReview > 0 ?
+          <Link
+            to={`/courses/${this.props.courseUserIsLearning.courseId}/review`}
+            className="review"
+          >REVIEW ({this.props.amountOfProblemsToReview})</Link> :
+          <Link
+            to={`/courses/${this.props.courseUserIsLearning.courseId}/review/simulated`}
+            className="review -disabled"
+          >REVIEW (0)</Link>
+      }
     </div>
 }
 

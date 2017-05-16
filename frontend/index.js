@@ -67,7 +67,8 @@ ReactDOM.render(
       <Route path="courses/:id"        component={Page_courses_id}/>
       <Route path="courses/:id/edit"   component={Page_courses_id_edit} {...auth}/>
       <Route path="courses/:id/learn"  component={Page_courses_id_learn} {...auth}/>
-      <Route path="courses/:id/review" component={Page_courses_id_review} {...auth}/>
+      <Route path="courses/:id/review" component={Page_courses_id_review} simulated={false} {...auth}/>
+      <Route path="courses/:id/review/simulated" component={Page_courses_id_review} simulated {...auth}/>
       <Route path="profile/courses-learned-by-me" component={Page_profile_coursesLearnedByMe} {...auth}/>
       <Route path="profile/courses-created-by-me" component={Page_profile_coursesCreatedByMe} {...auth}/>
 

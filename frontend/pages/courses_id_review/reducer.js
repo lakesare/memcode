@@ -123,11 +123,27 @@ const Page_courses_id_review_Actions = {
       }
     },
 
-  getPage: (courseId) =>
+  enterPressedInSimulatedReview: () =>
+    (dispatch, getState) => {
+      const state = getState().pages.Page_courses_id_review;
+      switch (state.statusOfSolving.status) {
+        case 'solving':
+          dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
+          break;
+        case 'seeingAnswer':
+          dispatch({
+            type: 'SET_NEXT_PROBLEM',
+            payload: state.statusOfSolving.index + 1
+          });
+          break;
+      }
+    },
+
+  getPage: (courseId, ifSimulated) =>
     (dispatch) =>
       commonFetch(
         (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe }),
-        'GET', `/api/pages/courses/${courseId}/review`
+        'GET', `/api/pages/courses/${courseId}/review?ifSimulated=${ifSimulated}`
       )
 };
 

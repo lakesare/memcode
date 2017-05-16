@@ -54,7 +54,6 @@
         text-decoration: none;
         border: 1px solid black;
         &.-disabled{
-          pointer-events: none;
           opacity: 0.1;
         }
         &.review{
@@ -62,6 +61,9 @@
         }
         &.learn{
           background: $learn-button-color;
+          &.-disabled{
+            pointer-events: none;
+          }
         }
       }
     }

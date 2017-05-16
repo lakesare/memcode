@@ -14,10 +14,16 @@ const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToR
     </div>
 
     <div className="review-and-learn-links">
-      <Link style={amountOfProblemsToReview === 0 ? { visibility: 'hidden' } : {}} className="review" to={`/courses/${courseId}/review`} >
-        REVIEW
-      </Link>
-      <Link style={amountOfProblemsToLearn === 0 ? { visibility: 'hidden' } : {}} className="learn-more" to={`/courses/${courseId}/learn`} >
+      {
+        amountOfProblemsToReview > 0 ?
+          <Link className="review" to={`/courses/${courseId}/review`}>
+            REVIEW
+          </Link> :
+          <Link className="review simulated" to={`/courses/${courseId}/review/simulated`}>
+            REVIEW without recording results
+          </Link>
+      }
+      <Link style={amountOfProblemsToLearn === 0 ? { visibility: 'hidden' } : {}} className="learn-more" to={`/courses/${courseId}/learn`}>
         LEARN
       </Link>
     </div>

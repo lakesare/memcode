@@ -22,9 +22,14 @@ router.get('/courses/:id/learn', authenticateMiddleware, catchAsync(async (reque
 
 router.get('/courses/:id/review', authenticateMiddleware, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
+  // we get 'true'/'false', and parse it into the actual true/false.
+  const ifSimulated = JSON.parse(request.query.ifSimulated);
 
   const courseUserIsLearning = await CourseUserIsLearning.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
-  const problems = await CourseUserIsLearning.select.problemsToReview(courseUserIsLearning.id);
+  const problems =
+    ifSimulated ?
+    await Problem.select.allByCourseId(courseUserIsLearning.courseId) :
+    await CourseUserIsLearning.select.problemsToReview(courseUserIsLearning.id);
 
   response.status(200).json({ courseUserIsLearning, problems });
 }));
