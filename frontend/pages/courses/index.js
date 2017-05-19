@@ -1,5 +1,6 @@
-
 import { Helmet } from 'react-helmet';
+
+import { commonFetch } from '~/api/commonFetch';
 
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
@@ -7,8 +8,6 @@ import { Course } from './components/Course';
 
 import listOfCoursesCss from '~/components/ListOfCourses/index.css';
 import css from './index.css';
-
-import * as CourseApi from '~/api/Course';
 
 class Page_courses extends React.Component {
   constructor(props) {
@@ -19,7 +18,10 @@ class Page_courses extends React.Component {
   }
 
   componentDidMount = () => {
-    CourseApi.index(spe => this.setState({ speGetCourses: spe }));
+    commonFetch(
+      spe => this.setState({ speGetCourses: spe }),
+      'GET', '/api/pages/courses'
+    );
   }
 
   renderLayoutDivs = () =>

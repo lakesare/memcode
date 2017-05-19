@@ -1,10 +1,5 @@
 import { commonFetch } from './commonFetch';
 
-const index = (dispatch) =>
-  commonFetch(dispatch,
-    'GET', '/api/courses'
-  );
-
 const selectAllLearned = (dispatch) =>
   commonFetch(dispatch,
     'GET', '/api/courses/allLearned'
@@ -33,6 +28,6 @@ const destroy = (dispatch, courseId) =>
   );
 
 export {
-  index, create, update, destroy,
+  create, update, destroy,
   selectAllLearned, selectAllCreated
 };

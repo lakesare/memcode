@@ -24,19 +24,27 @@ const select = {
       userId
     ),
 
-  all: () =>
+  // all public courses with 2 or more problems
+  allPublic: () =>
     db.any(
-      `SELECT
-        row_to_json(course.*) AS course,
-        COUNT(problem.id)     AS amount_of_problems
-      FROM course
-      LEFT OUTER JOIN problem ON problem.course_id = course.id
-      WHERE if_public = true
-      GROUP BY course.id
-      ORDER BY amount_of_problems DESC
+      `
+        SELECT
+          row_to_json(course.*) AS course,
+          COUNT(problem.id)     AS amount_of_problems
+        FROM course
+        LEFT OUTER JOIN problem
+          ON problem.course_id = course.id
+        WHERE
+          if_public = true
+            AND
+          (
+            SELECT COUNT(problem.id) FROM problem WHERE problem.course_id = course.id
+          ) >= 2
+        GROUP BY course.id
+        ORDER BY amount_of_problems DESC
       `,
     )
-      .then(array => camelizeDbColumns(array, ['course', 'courseUserIsLearning'])),
+      .then(array => camelizeDbColumns(array, ['course'])),
 
   oneForActions: (id, userId) =>
     fetchCoursesAndTheirStats(`WHERE course.id = ${id}`, '', userId)

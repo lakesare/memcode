@@ -6,11 +6,6 @@ import { authenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as Course from './model';
 
-router.get('/', catchAsync(async (request, response) => {
-  const courses = await Course.select.all();
-  response.status(200).json(courses);
-}));
-
 // => [{
 //   course: {},
 //   courseUserIsLearning: {},

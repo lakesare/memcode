@@ -11,6 +11,11 @@ import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model'
 import * as Course from '~/components/courses/model';
 import * as Problem from '~/components/problems/model';
 
+router.get('/courses', catchAsync(async (request, response) => {
+  const courses = await Course.select.allPublic();
+  response.status(200).json(courses);
+}));
+
 router.get('/courses/:id/learn', authenticateMiddleware, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
