@@ -3,6 +3,7 @@ import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
+import { Cheatsheet } from './components/Cheatsheet';
 import { Instructions } from './components/Instructions';
 import { CourseDetails } from './components/CourseDetails';
 
@@ -84,12 +85,14 @@ class Page_courses_id_edit extends React.Component {
           <section className="problems">
             <div className="thead">
               <CourseDetails course={course}/>
-              <Instructions/>
+              <Cheatsheet/>
             </div>
             <div className="tbody">
               {this.renderListOfProblems(problems)}
               <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
             </div>
+
+            <Instructions/>
           </section>
         }</Loading>
       </div>

@@ -1,29 +1,47 @@
 @import 'css/variables';
 
 :local(section.instructions){
-  > div.toggler{
-    cursor: pointer;
-    font-size: 20px;
+  > h3.there-are-two-types{
     font-weight: bold;
   }
-  > div.modal{
-    max-width: 500px;
-    position: fixed;
-    bottom: 20px; right: 20px;
-
-    background: white;
-    z-index: 100;
-    border: 1px solid black;
-    font-size: 12px;
-    table{
-      cursor: pointer;
-      td{
-        vertical-align: top;
-        border: solid 1px $sims-green-color;
-        padding: 3px 5px;
+  > ol.two-types{
+    padding-left: 17px;
+    list-style-type: none;
+    padding-left: 0;
+    
+    > li{
+      border-top: 1px solid $sims-green-color;
+      padding-top: 10px;
+      > .how-to-create-and-gif{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding-bottom: 20px;
+        padding-top: 10px;
+        ol.how-to-create{
+          b{ color: #102494; }
+        }
       }
-      td:first-child{
+      > h3{
+        text-align: center;
+        font-size: 14px;
         font-weight: bold;
+        > div.type{
+          width: 54px;
+          margin: 0 auto;
+          margin-bottom: 5px;
+
+          background: #333030;
+          color: white;
+          letter-spacing: 1px;
+          line-height: 1.3;
+
+          font-family: $body-font;
+          font-weight: bold;
+          font-size: 9px;
+          padding: 4px;
+          text-align: center;
+        }
       }
     }
   }

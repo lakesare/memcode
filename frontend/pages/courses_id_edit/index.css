@@ -7,7 +7,7 @@
       display: flex;
       justify-content: space-between;
       margin-top: -4px;
-      > section.instructions{
+      > section.cheatsheet{
       }
       > section.edit-course{
         > .toggler{
@@ -59,7 +59,7 @@
     }
     > .tbody{
       // to avoid editing problem at the bottom of the screen
-      margin-bottom: 500px;
+      margin-bottom: 40px;
       > .new-problem{
         position: relative;
         // for placeholders to fit
