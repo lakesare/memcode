@@ -2,6 +2,7 @@ import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { ListOfProblems } from './components/ListOfProblems';
+import { Instructions } from './components/Instructions';
 
 import { commonFetch } from '~/api/commonFetch';
 
@@ -33,6 +34,7 @@ class Page_courses_id_learn extends React.Component {
       <Loading spe={this.state.speGetPage}>{({ problems, courseUserIsLearning }) =>
         <div className="container">
           <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
+          <Instructions/>
           <ListOfProblems problems={problems} courseUserIsLearningId={courseUserIsLearning.id}/>
         </div>
       }</Loading>
