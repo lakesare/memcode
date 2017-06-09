@@ -1,6 +1,13 @@
 @import 'css/variables';
 
 :local(main.main){
+  .how-did-I-choose-sites-for-comparison{
+    h4{
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  }
   .sites{
     display: flex;
     justify-content: space-between;

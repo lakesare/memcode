@@ -103,10 +103,7 @@ class Page_articles_welcome extends React.Component {
 
         <div className="container -left-border">
           <section className="article-section why-us -continuation">
-            In general, you may want to use:<br/>
-            <a href="http://www.memrise.com">Memrise</a> - for learning languages,<br/>
-            <a href="http://www.codequizzes.com/">CodeQuizzes</a> - for learning code based on their limited collection,<br/>
-            and <a href="http://www.memcode.com">Memcode</a> - for learning anything other than languages, if you like the types of tasks we provide, formatting ability and slick UI.
+            Here is a more detailed comparison of Memcode, Memrise, Braincode and Quizlet: <a href="http://www.memcode.com/articles/comparison">memcode.com/articles/comparison</a>.
           </section>
         </div>
       </article>
