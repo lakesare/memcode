@@ -23,7 +23,7 @@ class Cheatsheet extends React.Component {
             <tbody>
               <tr>
                 <td>CTRL+S</td>
-                <td>will save the new meme, or update the existing one. Existing memes will also get saved automatically when you remove the focus away from them.</td>
+                <td>will save the new flashcard, or update the existing one. Existing flashcards will also get saved automatically when you remove the focus away from them.</td>
               </tr>
               <tr>
                 <td>insert image</td>
