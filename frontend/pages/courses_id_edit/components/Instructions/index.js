@@ -7,43 +7,58 @@ class Instructions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ifShown: false
+      currentType: 'INLINED ANSWERS'
     };
   }
 
-  toggle = () =>
-    this.setState({ ifShown: !this.state.ifShown })
+  renderNavItem = (type) =>
+    <div
+      className={`type ${this.state.currentType === type ? 'selected' : ''}`}
+      onClick={() => this.setState({ currentType: type })}
+    >
+      <div className="title">{type}</div>
+    </div>
 
   render = () =>
     <section className={`instructions ${css.instructions}`}>
       <h3 className="there-are-two-types">There are 2 types of flashcards you can create:</h3>
-      <ol className="two-types">
-        <li>
-          <h3><div className="type">INLINED ANSWERS</div> insert answer inline flashcard</h3>
+      <nav>
+        {this.renderNavItem('INLINED ANSWERS')}
+        {this.renderNavItem('SEPARATE ANSWER')}
+      </nav>
 
-          <div className="how-to-create-and-gif">
+      <div className="current-type">
+        {
+          this.state.currentType === 'INLINED ANSWERS' &&
+          <div className="gif-and-text">
             <img src={`/${memcode_1}`}/>
-            <ol className="how-to-create">
-              <li><b>In the first column, type in some phrase with words you'd have to fill in eventually</b> (eg, to learn the word 'turmoil': 'The country has been in turmoil for the past 10 years.')</li>
-              <li>We'd like to memorize the word turmoil.<b> Select 'turmoil' with your mouse, and press ENTER.</b></li>
-              <li>In the second column, type in some additional information if needed (eg definition of the word 'turmoil': 'Сondition of extreme confusion, agitation.')</li>
-              <li><b>Press CTRL+S to save</b> the new flashcard.</li>
-            </ol>
+            <div className="text">
+              <p className="description">This is an <b>insert answer inline flashcard</b>.</p>
+              <ol>
+                <li><b>In the first column, type in some phrase with words you'd have to fill in eventually</b> (eg, to learn the word 'turmoil': 'The country has been in turmoil for the past 10 years.')</li>
+                <li>We'd like to memorize the word turmoil.<b> Select 'turmoil' with your mouse, and press ENTER.</b></li>
+                <li>In the second column, type in some additional information if needed (eg definition of the word 'turmoil': 'Сondition of extreme confusion, agitation.')</li>
+                <li><b>Press CTRL+S to save</b> the new flashcard.</li>
+              </ol>
+            </div>
           </div>
-        </li>
-        <li>
-          <h3><div className="type">SEPARATE ANSWER</div> classical flashcard</h3>
+        }
 
-          <div className="how-to-create-and-gif">
+        {
+          this.state.currentType === 'SEPARATE ANSWER' &&
+          <div className="gif-and-text">
             <img src={`/${memcode_2}`}/>
-            <ol className="how-to-create">
-              <li><b>In the first column, type in your question</b> (eg: 'Why is Pluto no longer considered a planet?')</li>
-              <li><b>In the second column, type in your answer</b> (eg: 'Because there were discovered many celestial objects of comparable size next to Pluto.')</li>
-              <li><b>Press CTRL+S to save</b> the new flashcard.</li>
-            </ol>
+            <div className="text">
+              <p className="description">This is a <b>classic flashcard</b>.</p>
+              <ol>
+                <li><b>In the first column, type in your question</b> (eg: 'Why is Pluto no longer considered a planet?')</li>
+                <li><b>In the second column, type in your answer</b> (eg: 'Because there were discovered many celestial objects of comparable size next to Pluto.')</li>
+                <li><b>Press CTRL+S to save</b> the new flashcard.</li>
+              </ol>
+            </div>
           </div>
-        </li>
-      </ol>
+        }
+      </div>
 
       <p>
         Press <b>CTRL+S</b> to save the new flashcard. When you edit already created flashcards, they are saved automatically.
