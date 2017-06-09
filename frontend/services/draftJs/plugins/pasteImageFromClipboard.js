@@ -1,4 +1,3 @@
-
 import {
   EditorState,
   AtomicBlockUtils
@@ -8,19 +7,27 @@ const pasteImageFromClipboard = () => ({
   blockRendererFn: (contentBlock, pluginFunctions) => {
     const type = contentBlock.getType();
     if (type === 'atomic') {
-      const entity = pluginFunctions.getEditorState().getCurrentContent().getEntity(
-        contentBlock.getEntityAt(0)
-      );
-
-      const metaData = entity.getData();
-      switch (entity.getType()) {
-        case 'immmage':
-          return {
-            component: Image,
-            editable: false,
-            props: { src: metaData.src } // accessible via props.blockProps
-          };
-        default: return null;
+      try {
+        const entity = pluginFunctions.getEditorState().getCurrentContent().getEntity(
+          contentBlock.getEntityAt(0)
+        );
+        const metaData = entity.getData();
+        switch (entity.getType()) {
+          case 'immmage':
+            return {
+              component: Image,
+              editable: false,
+              props: { src: metaData.src } // accessible via props.blockProps
+            };
+          default: return null;
+        }
+      } catch (e) { // this error will be catched in ~/api/handleErrors
+        // no idea what causes this
+        // Error: Unknown DraftEntity key.
+        // but it tends to appear on image parsing.
+        //
+        // catching this error will at least help course
+        // (and problem apart from one image) to be displayed
       }
     }
     return null;

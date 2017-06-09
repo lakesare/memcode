@@ -4,7 +4,10 @@ const handleErrors = (response) => {
     return response.json();
   } else {
     return response.json()
-      .then(error => Promise.reject(error));
+      .then((error) => {
+        console.log(error);
+        return Promise.reject(error)
+      });
   }
 };
 

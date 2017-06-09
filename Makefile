@@ -64,7 +64,7 @@ heroku-db-migrate:
 heroku-db-console:
 	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy
 
-# when they ask for password - they ask for the local one. 
+# when they ask for password - they ask for the local one (yes, 4 times)
 heroku-db-pull:
 	make db-drop
 	PGUSER=postgres heroku pg:pull DATABASE_URL memcode
