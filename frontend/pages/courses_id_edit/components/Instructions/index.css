@@ -2,25 +2,41 @@
 
 :local(section.instructions){
   margin-bottom: 40px;
+  > div.nav-item{
+    background: #303030;
+    color: white;
+    text-align: center;
+    padding: 2px; padding-right: 20px;
+    cursor: pointer;
+    border: 2px solid $sims-green-color;
+    &:first-child{ border-bottom: none; }
+    i{ float: right; }
+  }
+
   > .how-to-create{
-    > h3{ font-weight: bold; }
+    // border
     > nav{
-      margin-top: 20px;
+      border: 2px solid black;
+      > div.type:first-child{ border-right: 2px solid black; }
+    }
+    > div.current-type{ border: 2px solid black; border-top: none; }
+
+    > nav{
       display: flex;
       > div.type{
         padding: 10px;
         width: 50%;
         cursor: pointer;
+
+        // background
         background: #333030;
-        opacity: 0.6;
-        &.selected{
-          opacity: 1;
-        }
+        &:not(.selected){ background: #b5b5b5; }
+        &:hover:not(.selected){ background: #545353; }
+
         > div.title{
           width: 54px;
           margin: 0 auto;
 
-          background: #333030;
           color: white;
           letter-spacing: 1px;
           line-height: 1.3;
@@ -34,22 +50,28 @@
       }
     }
     > div.current-type{
+      padding-left: 5px;
       > .gif-and-text{
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        padding-bottom: 20px;
-        padding-top: 10px;
+        padding-bottom: 5px;
+        padding-top: 5px;
         > .text{
-          > p.description{ padding-left: 20px; }
-          > ol{ b{ color: #102494; } }
+          > p.description{
+            padding-left: 20px;
+            color: #303030;
+          }
+          > ol{
+            color: #8a8585;
+            b{ color: #102494; }
+          }
         }
       }
     }
   }
 
   > .what-to-do-next{
-    > h3{ font-weight: bold; }
     > ul{
       img{ vertical-align: middle; }
     }

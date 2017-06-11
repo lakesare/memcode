@@ -13,7 +13,7 @@ class NewProblem extends React.Component {
     this.state = {
       speCreateProblem: {},
       key: this.randomKey(),
-      currentProblemType: 'inlinedAnswers' // 'separateAnswer'
+      currentProblemType: 'separateAnswer' // 'separateAnswer'
     };
   }
 
@@ -64,8 +64,8 @@ class NewProblem extends React.Component {
       </section>
 
       <section className="choose-type">
-        {this.renderTypeButton('inlinedAnswers', 'inlined answers')}
         {this.renderTypeButton('separateAnswer', 'separate answer')}
+        {this.renderTypeButton('inlinedAnswers', 'inlined answers')}
       </section>
     </div>
 }

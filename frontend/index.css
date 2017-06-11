@@ -55,3 +55,15 @@ input[type="text"]:focus, textarea:focus{
 textarea {
   resize: none;
 }
+
+// for gifs
+// .rate-yourself{
+//   padding-top: 0px !important;
+// }
+// section.self-score > .stars > .star{
+//   padding-bottom: 10px !important;
+//   padding-top: 10px !important;
+// }
+// a.button.next{
+//   margin-top: 5px !important;
+// }

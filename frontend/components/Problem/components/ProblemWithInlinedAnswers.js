@@ -73,7 +73,7 @@ class ProblemWithInlinedAnswers extends React.Component {
           blockRenderMap={blockRenderMap()}
           customStyleMap={customStyleMap}
           readOnly={isReadonly(this.props.mode)}
-          placeholder={isReadonly(this.props.mode) ? null : <div>Enter a short sentence you'll have to fill in.<br/> (Mark answers by pressing ENTER)</div>}
+          placeholder={isReadonly(this.props.mode) ? null : <div>Enter a short sentence you'll have to fill in.<br/> (To mark answer: SELECT it and press ENTER)</div>}
         />
       </div>
 
