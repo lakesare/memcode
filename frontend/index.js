@@ -1,6 +1,8 @@
 // for googlebot and other browsers not to choke on draftjs
 import 'es5-shim';
 import 'es6-shim';
+// `fetch` polyfill for safari
+import 'whatwg-fetch'
 
 import ReactDOM from 'react-dom';
 
