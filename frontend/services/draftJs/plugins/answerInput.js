@@ -12,9 +12,8 @@ const answerInput = () => ({
     }
   },
 
-  handleKeyCommand: (command, pluginFunctions) => {
+  handleKeyCommand: (command, editorState, pluginFunctions) => {
     if (command === 'markAsAnswer') {
-      const editorState = pluginFunctions.getEditorState();
       const contentState = editorState.getCurrentContent();
 
       const contentStateWithEntity = contentState.createEntity(

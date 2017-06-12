@@ -55,7 +55,7 @@
     "buffer": "^5.0.2",
     "dotenv": "^4.0.0",
     "draft-js": "^0.10.0",
-    "draft-js-plugins-editor": "^2.0.0-beta1",
+    "draft-js-plugins-editor": "^2.0.0-rc2",
     "es5-shim": "^4.5.9",
     "es6-shim": "^0.35.3",
     "express": "^4.14.0",

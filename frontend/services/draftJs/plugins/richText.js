@@ -12,18 +12,18 @@ const richText = () => ({
     }
   },
 
-  handleKeyCommand: (command, pluginFunctions) => {
+  handleKeyCommand: (command, editorState, pluginFunctions) => {
     let newState;
 
     switch (command) {
       case 'bold':
-        newState = RichUtils.toggleInlineStyle(pluginFunctions.getEditorState(), 'BOLD');
+        newState = RichUtils.toggleInlineStyle(editorState, 'BOLD');
         break;
       case 'code':
-        newState = RichUtils.toggleCode(pluginFunctions.getEditorState());
+        newState = RichUtils.toggleCode(editorState);
         break;
       // case 'softNewline':
-      //   newState = RichUtils.insertSoftNewline(pluginFunctions.getEditorState());
+      //   newState = RichUtils.insertSoftNewline(editorState);
       //   break;
       default:
         return 'not-handled';
