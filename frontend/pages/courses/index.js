@@ -4,9 +4,8 @@ import { commonFetch } from '~/api/commonFetch';
 
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
-import { Course } from './components/Course';
+import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 
-import listOfCoursesCss from '~/components/ListOfCourses/index.css';
 import css from './index.css';
 
 class Page_courses extends React.Component {
@@ -24,24 +23,13 @@ class Page_courses extends React.Component {
     );
   }
 
-  renderLayoutDivs = () =>
-    // eslint-disable-next-line react/no-array-index-key
-    [...Array(10)].map((_, i) => <div key={i} className="layout-div"/>)
-
   render = () =>
     <main className={css.main}>
       <Header/>
       <div className="container">
         <div className="space"/>
-        <Loading spe={this.state.speGetCourses}>{courses =>
-          <section className={listOfCoursesCss['list-of-courses']}>
-            {
-              courses.map(({ course, amountOfProblems }) =>
-                <Course key={course.id} course={course} amountOfProblems={amountOfProblems}/>
-              )
-            }
-            {this.renderLayoutDivs()}
-          </section>
+        <Loading spe={this.state.speGetCourses}>{coursesData =>
+          <ListOfSimpleCourses coursesData={coursesData}/>
         }</Loading>
       </div>
 

@@ -1,0 +1,9 @@
+:local(main.main){
+  article{
+    text-align: center;
+    h3{
+      border-top: 2px solid #42f93f;
+      padding-top: 10px;
+    }
+  }
+}

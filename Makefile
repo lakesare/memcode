@@ -1,4 +1,4 @@
-run:
+all:
 	gnome-terminal \
 		--tab -e 'make start' \
 		--tab -e 'make backend-webpack' \

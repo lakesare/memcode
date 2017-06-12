@@ -15,7 +15,7 @@ class SeparateAnswerSelfScore extends React.Component {
   render = () =>
     <section className="self-score">
       <label className="rate-yourself">
-        Rate yourself! (1 - 5)
+        Rate your answer! (1 - 5)
       </label>
       <div className="stars">
         {this.renderStar(1)}
