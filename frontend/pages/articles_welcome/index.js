@@ -21,7 +21,7 @@ class Page_articles_welcome extends React.Component {
     const token = window.location.href.split('?token=')[1];
     if (token) {
       this.props.signIn(token);
-      browserHistory.push('/profile/courses-learned-by-me'); // needed?
+      browserHistory.push('/profile/learning'); // needed?
     }
   }
 

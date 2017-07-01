@@ -11,7 +11,7 @@ import * as CourseApi from '~/api/Course';
 
 import css from './index.css';
 
-class Page_profile_coursesLearnedByMe extends React.Component {
+class Page_profile_learning extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,4 +44,4 @@ class Page_profile_coursesLearnedByMe extends React.Component {
     </main>
 }
 
-export { Page_profile_coursesLearnedByMe };
+export { Page_profile_learning };

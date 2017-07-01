@@ -7,7 +7,7 @@ import { ProfileNavigation } from '~/components/ProfileNavigation';
 
 import * as CourseApi from '~/api/Course';
 
-class Page_profile_coursesCreatedByMe extends React.Component {
+class Page_profile_created extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,4 +38,4 @@ class Page_profile_coursesCreatedByMe extends React.Component {
     </main>
 }
 
-export { Page_profile_coursesCreatedByMe };
+export { Page_profile_created };
