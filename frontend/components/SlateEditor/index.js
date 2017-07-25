@@ -5,9 +5,7 @@ import { EditAnswerPlugin } from '~/services/slatePlugins/EditAnswerPlugin';
 import { CodePlugin } from '~/services/slatePlugins/CodePlugin';
 import { RichTextPlugin } from '~/services/slatePlugins/RichTextPlugin';
 
-import EditCode from 'slate-edit-code';
-
-const editCode = EditCode({ containerType: 'codeBlock' });
+const editCode = CodePlugin();
 
 const schema = {
 };
@@ -45,13 +43,13 @@ class SlateEditor extends React.Component {
   render = () =>
     <section>
 
-      <div onClick={this.onToggleCode}>
+      <button onClick={this.onToggleCode}>
         {
           editCode.utils.isInCodeBlock(this.props.editorState) ?
-            <i style={{ color: 'grey' }} className="fa fa-code"/> :
-            <i style={{ color: 'blue' }} className="fa fa-code"/>
+            <i style={{ color: 'red' }} className="fa fa-code"/> :
+            <i style={{ color: 'grey' }} className="fa fa-code"/>
         }
-      </div>
+      </button>
 
 
       <Editor
@@ -60,7 +58,7 @@ class SlateEditor extends React.Component {
         state={this.props.editorState}
         onChange={this.props.updateEditorState}
 
-        plugins={[EditAnswerPlugin(), CodePlugin(), RichTextPlugin()]}
+        plugins={[EditAnswerPlugin(), editCode, RichTextPlugin()]}
 
         placeholder={this.props.placeholder}
         readOnly={this.props.readOnly}
