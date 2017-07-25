@@ -1,11 +1,11 @@
-import { Problem } from '~/components/Problem';
+import { ProblemWithSeparateAnswer_review } from '~/components/ProblemWithSeparateAnswer/Review';
 import { SeparateAnswerSelfScore } from './SeparateAnswerSelfScore';
 
 class ProblemBeingSolved extends React.Component {
   static propTypes = {
     problem: PropTypes.object.isRequired,
     statusOfSolving: PropTypes.object.isRequired,
-    amountOfProblems: PropTypes.number.isRequired,
+    amountOfProblems: PropTypes.number,
 
     enterPressed: PropTypes.func.isRequired,
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
@@ -52,10 +52,10 @@ class ProblemBeingSolved extends React.Component {
         </section>
       }
 
-      <Problem
-        mode="solving"
-        problemContent={this.props.problem.content}
-        problemType={this.props.problem.type}
+      <ProblemWithSeparateAnswer_review
+        problemContent={problemFromApiToEditor(this.props.problem).content}
+        mode={this.props.statusOfSolving.status}
+        enterPressed={this.props.enterPressed}
       />
 
       {
@@ -76,30 +76,5 @@ class ProblemBeingSolved extends React.Component {
       }
     </div>
 }
-
-const mapStateToProps = (state) => {
-  const pageState = state.pages.Page_courses_id_review;
-  return {
-    statusOfSolving: pageState.statusOfSolving,
-    amountOfProblems: pageState.speGetPage.payload.problems.length
-  };
-};
-import { Page_courses_id_review_Actions } from '../reducer';
-const { enterPressed, enterPressedInSimulatedReview } = Page_courses_id_review_Actions;
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  enterPressed: () => {
-    ownProps.ifReviewIsSimulated ?
-      dispatch(enterPressedInSimulatedReview()) :
-      dispatch(enterPressed());
-  },
-  separateAnswerSelfScoreGiven: (selfScore) =>
-    dispatch({
-      type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
-      payload: selfScore
-    })
-});
-
-import { connect } from 'react-redux';
-ProblemBeingSolved = connect(mapStateToProps, mapDispatchToProps)(ProblemBeingSolved);
 
 export { ProblemBeingSolved };

@@ -6,28 +6,25 @@ import css from './index.css';
 class Problem extends React.Component {
   static propTypes = {
     mode: PropTypes.oneOf([
-      'viewing', 'solving', 'editingOld', 'editingNew'
+      'viewing', 'solving', 'editing'
     ]).isRequired,
     problemType: PropTypes.string.isRequired,
 
     problemContent: PropTypes.object,
-    saveFn: PropTypes.func, // when 'editing'
+    updateProblemContent: PropTypes.func.isRequired
   }
 
   renderProblem = (type) => {
+    const props = {
+      problemContent: this.props.problemContent,
+      updateProblemContent: this.props.updateProblemContent,
+      mode: this.props.mode
+    };
     switch (type) {
       case 'inlinedAnswers':
-        return <ProblemWithInlinedAnswers
-          problemContent={this.props.problemContent}
-          mode={this.props.mode}
-          saveFn={this.props.saveFn}
-        />;
+        return <ProblemWithInlinedAnswers {...props}/>;
       case 'separateAnswer':
-        return <ProblemWithSeparateAnswer
-          problemContent={this.props.problemContent}
-          mode={this.props.mode}
-          saveFn={this.props.saveFn}
-        />;
+        return <ProblemWithSeparateAnswer {...props}/>;
       default:
         throw new Error(`Problem type '${type}' doesn't exist.`);
     }

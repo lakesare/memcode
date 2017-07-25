@@ -56,6 +56,10 @@ textarea {
   resize: none;
 }
 
+pre{
+  margin: 0;
+}
+
 // for gifs
 // .rate-yourself{
 //   padding-top: 0px !important;
@@ -67,3 +71,75 @@ textarea {
 // a.button.next{
 //   margin-top: 5px !important;
 // }
+
+
+
+.hi{
+  background: #c76161;
+  color: white;
+  padding: 20px;
+  min-height: 30px;
+  code{
+    background: #2e3831;
+    display: block;
+  }
+
+  code {
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;
+  
+ 
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px 10px;
+
+    border-radius: 3px;
+  }
+}
+
+
+pre#log{
+  outline: 1px solid #ccc; padding: 5px; margin: 5px;
+  .string { color: green; }
+  .number { color: darkorange; }
+  .boolean { color: blue; }
+  .null { color: magenta; }
+  .key { color: red; }
+}
+
+
+  section.problem{
+    display: flex;
+    .first-column, .second-column{
+      width: 50%;
+      &.first-column{ margin-right: 10px; }
+      &.second-column{ margin-left: 10px; }
+    }
+
+    &.-withSeparateAnswer{
+      > .content.first-column{
+      }
+      > .second-column{
+        > .see-answer{
+          cursor: pointer;
+          padding: 5px 10px;
+          background: #adffb9;
+        }
+        > .answer{
+          .DraftEditor-root{
+            background: #adffb9;
+            opacity: 0.99;
+          }
+        }
+        > .draft-answer{
+          margin-top: 20px;
+          .DraftEditor-root{
+            background: white;
+            opacity: 0.99;
+          }
+        }
+      }
+    }
+  }

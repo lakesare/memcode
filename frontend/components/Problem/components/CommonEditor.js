@@ -12,23 +12,14 @@ class CommonEditor extends React.Component {
     mode: PropTypes.string.isRequired,
     editorState: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
-    save: PropTypes.func,
     placeholder: PropTypes.object
-  }
-
-  onBlur = () => {
-    if (this.props.mode === 'editingOld') {
-      this.props.save();
-    }
   }
 
   render = () =>
     <Editor
       editorState={this.props.editorState}
       onChange={this.props.onChange}
-      onBlur={this.onBlur}
       plugins={[
-        DraftJsPlugins.saveProblem(this.props.save),
         DraftJsPlugins.richText(),
         DraftJsPlugins.pasteImageFromClipboard()
       ]}

@@ -15,17 +15,13 @@ class Page_courses_id_learn extends React.Component {
     }).isRequired
   }
 
-  constructor(props) {
-    super(props);
-    this.state = { speGetPage: {} };
-  }
+  state = { speGetPage: {} }
 
-  componentDidMount = () => {
+  componentDidMount = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
       'GET', `/api/pages/courses/${this.props.params.id}/learn`
-    );
-  }
+    )
 
   render = () =>
     <main className={css.main}>
@@ -35,7 +31,7 @@ class Page_courses_id_learn extends React.Component {
         <div className="container">
           <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
           <Instructions/>
-          <ListOfProblems problems={problems} courseUserIsLearningId={courseUserIsLearning.id}/>
+          <ListOfProblems problems={problemsFromApiToEditor(problems)} courseUserIsLearningId={courseUserIsLearning.id}/>
         </div>
       }</Loading>
     </main>

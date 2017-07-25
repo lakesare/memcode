@@ -1,6 +1,4 @@
-import { CommonEditor } from './CommonEditor';
-
-import { toApi, fromApi } from '../services';
+import { SlateEditor } from '~/components/SlateEditor';
 
 // user sees the question,
 // types in answer in the decorative lower editor on the right,
@@ -15,84 +13,37 @@ import { toApi, fromApi } from '../services';
 class ProblemWithSeparateAnswer extends React.Component {
   static propTypes = {
     mode: PropTypes.string.isRequired,
-    problemContent: PropTypes.object, // always except for when 'editing' new
+
+    problemContent: PropTypes.object.isRequired,
+    updateProblemContent: PropTypes.func.isRequired,
 
     statusOfSolving: PropTypes.oneOf([
       'solving', 'seeingAnswer'
     ]), // when 'solving'
-    enterPressed: PropTypes.func,
-
-    saveFn: PropTypes.func // when 'editing'
   }
 
-  static defaultProps = {
-    problemContent: { content: null, answer: null }
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      contentEditorState: fromApi(this.props.problemContent.content),
-      answerEditorState: fromApi(this.props.problemContent.answer),
-      answerDraftEditorState: fromApi(null)
-    };
-  }
-
-  save = () =>
-    this.props.saveFn({
-      content: toApi(this.state.contentEditorState),
-      answer: toApi(this.state.answerEditorState)
+  updateProblemContent = (editorName, newEditorState) =>
+    this.props.updateProblemContent({
+      ...this.props.problemContent,
+      [editorName]: newEditorState
     })
-
-  renderAnswer = () => {
-    if (
-      this.props.mode === 'solving' &&
-      this.props.statusOfSolving === 'solving'
-    ) {
-      return <div
-        className="see-answer"
-        onClick={this.props.enterPressed}
-      >See answer</div>;
-    } else {
-      return <div className="answer">
-        <CommonEditor
-          mode={this.props.mode}
-          editorState={this.state.answerEditorState}
-          onChange={newState => this.setState({ answerEditorState: newState })}
-          save={this.save}
-          placeholder={<div>Enter an answer</div>}
-        />
-      </div>;
-    }
-  }
 
   render = () =>
     <section className="problem -withSeparateAnswer">
-      <div className="content first-column">
-        <CommonEditor
-          mode={this.props.mode}
-          editorState={this.state.contentEditorState}
-          onChange={newState => this.setState({ contentEditorState: newState })}
-          save={this.save}
-          placeholder={<div>Enter a question</div>}
+      <div className="first-column">
+        <SlateEditor
+          editorState={this.props.problemContent.content}
+          updateEditorState={newState => this.updateProblemContent('content', newState)}
+          placeholder={<h1>Hello</h1>}
         />
       </div>
 
       <div className="second-column">
-        {this.renderAnswer()}
-
-        { // when 'solving' always have draft answer editor available
-          this.props.mode === 'solving' &&
-          <div className="draft-answer">
-            <CommonEditor
-              mode="editing"
-              editorState={this.state.answerDraftEditorState}
-              onChange={newState => this.setState({ answerDraftEditorState: newState })}
-              placeholder={<div>You can draft your answer here</div>}
-            />
-          </div>
-        }
+        <SlateEditor
+          editorState={this.props.problemContent.answer}
+          updateEditorState={newState => this.updateProblemContent('answer', newState)}
+          placeholder={<h1>Answer</h1>}
+        />
       </div>
     </section>
 }

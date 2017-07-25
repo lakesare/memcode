@@ -1,3 +1,88 @@
+
+
+
+
+
+
+function output(inp) {
+  console.log(document.getElementById('log'));
+  document.getElementById('log').innerHTML = inp;
+}
+
+function syntaxHighlight(json) {
+  json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+      var cls = 'number';
+      if (/^"/.test(match)) {
+          if (/:$/.test(match)) {
+              cls = 'key';
+          } else {
+              cls = 'string';
+          }
+      } else if (/true|false/.test(match)) {
+          cls = 'boolean';
+      } else if (/null/.test(match)) {
+          cls = 'null';
+      }
+      return '<span class="' + cls + '">' + match + '</span>';
+  });
+}
+
+
+window.log = (object) => {
+  var str = JSON.stringify(object, undefined, 2);
+  console.log('hm');
+  output(syntaxHighlight(str));
+}
+
+
+
+
+
+
+
+import { Plain, Raw } from 'slate';
+
+window.toApi = (problemContent, type) => {
+  switch (type) {
+    case 'separateAnswer': {
+      return {
+        content: Raw.serialize(problemContent.content),
+        answer: Raw.serialize(problemContent.answer)
+      };
+    }
+  }
+};
+
+window.fromApi = (problemContent, type) => {
+  switch (type) {
+    case 'separateAnswer': {
+      return {
+        content: Raw.deserialize(problemContent.content),
+        answer: Raw.deserialize(problemContent.answer)
+      };
+    }
+  }
+};
+
+window.createEmptyEditorState = (type) => {
+  switch (type) {
+    case 'separateAnswer': {
+      return { content: Plain.deserialize(''), answer: Plain.deserialize('') };
+    }
+  }
+};
+
+window.problemFromApiToEditor = (problem) => ({
+  ...problem,
+  content: fromApi(problem.content, problem.type)
+});
+
+
+window.problemsFromApiToEditor = (problems) =>
+  problems.map(problemFromApiToEditor);
+
+
 // for googlebot and other browsers not to choke on draftjs
 import 'es5-shim';
 import 'es6-shim';

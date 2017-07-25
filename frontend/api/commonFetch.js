@@ -38,6 +38,7 @@ const commonFetch = (dispatch, method, url, body = undefined) => {
       return Promise.resolve(response);
     })
     .catch((error) => { // { error: error }
+      console.log(error);
       dispatch(spe.failure(error.error));
       return Promise.reject(error);
     });

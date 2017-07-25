@@ -1,4 +1,4 @@
-import { Problem } from '~/components/Problem';
+import { ProblemWithSeparateAnswer_show } from '~/components/ProblemWithSeparateAnswer/Show';
 
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 
@@ -10,11 +10,8 @@ class ListOfProblems extends React.Component {
     changeAmountOfProblemsToReviewBy: PropTypes.func.isRequired,
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      idsOfLearnedProblems: []
-    };
+  state = {
+    idsOfLearnedProblems: []
   }
 
   apiLearn = (problemId) => {
@@ -36,10 +33,8 @@ class ListOfProblems extends React.Component {
     this.state.idsOfLearnedProblems.includes(problemId)
 
   renderProblem = (problem) =>
-    <Problem
-      mode="viewing"
+    <ProblemWithSeparateAnswer_show
       problemContent={problem.content}
-      problemType={problem.type}
     />
 
   renderProblemWrapper = (problem) => {

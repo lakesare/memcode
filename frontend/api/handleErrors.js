@@ -6,7 +6,7 @@ const handleErrors = (response) => {
     return response.json()
       .then((error) => {
         console.log(error);
-        return Promise.reject(error)
+        return Promise.reject(error);
       });
   }
 };

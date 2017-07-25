@@ -1,3 +1,5 @@
+import { update } from 'lodash';
+
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
@@ -9,9 +11,8 @@ import { CourseDetails } from './components/CourseDetails';
 
 import { commonFetch } from '~/api/commonFetch';
 
-import Immutable from 'immutable';
-
 import css from './index.css';
+
 
 class Page_courses_id_edit extends React.Component {
   static propTypes = {
@@ -21,59 +22,56 @@ class Page_courses_id_edit extends React.Component {
     changeAmountOfProblemsToLearnBy: PropTypes.func.isRequired
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetPage: {}
-    };
+  state = {
+    speGetPage: {}
   }
 
   componentDidMount = () =>
     commonFetch(
-      spe => this.setState({ speGetPage: spe }),
+      (spe) => {
+        console.log(spe);
+        if (spe.status === 'success') {
+          this.setState({
+            speGetPage:
+            update(spe, `payload.problems`,
+              () => problemsFromApiToEditor(spe.payload.problems)
+            )
+          });
+        } else {
+          this.setState({ speGetPage: spe });
+        }
+      },
       'GET', `/api/pages/courses/${this.props.params.id}/edit`
-    );
+    )
 
   addNewProblem = (createdProblem) => {
-    const spe = Immutable.fromJS(this.state.speGetPage);
-    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.push(createdProblem));
-    this.setState({ speGetPage: newSpe.toJS() });
-
+    this.setState({
+      speGetPage:
+      update(this.state.speGetPage, `payload.problems`,
+        (problems) => [...problems, problemFromApiToEditor(createdProblem)]
+      )
+    });
     this.props.changeAmountOfProblemsToLearnBy(1);
   }
 
   updateOldProblem = (updatedProblem) => {
-    const spe = Immutable.fromJS(this.state.speGetPage);
-
-    const index = spe.getIn(['payload', 'problems']).findIndex(
-      (problem) => problem.get('id') === updatedProblem.id
-    );
-    const newSpe = spe.setIn(['payload', 'problems', index], updatedProblem);
-
-    this.setState({ speGetPage: newSpe.toJS() });
-  }
-
-  removeOldProblem = (problemId) => {
-    const spe = Immutable.fromJS(this.state.speGetPage);
-
-    const index = spe.getIn(['payload', 'problems']).findIndex(
-      (problem) => problem.get('id') === problemId
+    const index = this.state.speGetPage.payload.problems.findIndex(
+      (problem) => problem.id === updatedProblem.id
     );
 
-    const newSpe = spe.updateIn(['payload', 'problems'], problems => problems.delete(index));
-
-    this.setState({ speGetPage: newSpe.toJS() });
+    this.setState({
+      speGetPage:
+      update(this.state.speGetPage, `payload.problems[${index}]`, () => updatedProblem)
+    });
   }
 
-  renderListOfProblems = problems =>
-    problems.map((problem) =>
-      <OldProblem
-        key={problem.id}
-        problem={problem}
-        updateOldProblem={this.updateOldProblem}
-        removeOldProblem={this.removeOldProblem}
-      />
-    )
+  removeOldProblem = (problemId) =>
+    this.setState({
+      speGetPage:
+      update(this.state.speGetPage, `payload.problems`,
+        (problems) => problems.filter((problem) => problem.id !== problemId)
+      )
+    })
 
   render = () =>
     <main className={css.main}>
@@ -88,7 +86,14 @@ class Page_courses_id_edit extends React.Component {
               <Cheatsheet/>
             </div>
             <div className="tbody">
-              {this.renderListOfProblems(problems)}
+              {problems.map((problem) =>
+                <OldProblem
+                  key={problem.id}
+                  problem={problem}
+                  updateOldProblem={this.updateOldProblem}
+                  removeOldProblem={this.removeOldProblem}
+                />
+              )}
               <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
             </div>
 

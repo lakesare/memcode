@@ -21,6 +21,8 @@ const freshStatusOfSolving = (problem, index) => {
         status: 'solving',
         typeSpecific: { selfScore: 5 }
       };
+    default:
+      throw Error(`Problem.type is ${problem.type}, we don't know it`);
   }
 };
 

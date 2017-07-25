@@ -1,5 +1,6 @@
 const editableAnswer = () => ({
   strategy: (contentBlock, callback, contentState) => {
+    console.log(contentBlock.toJS());
     contentBlock.findEntityRanges(
       (character) => {
         const entityKey = character.getEntity();

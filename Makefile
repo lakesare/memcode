@@ -1,3 +1,6 @@
+# eveything needed for development
+# I don't know how to make them not close an entire tab on CTRL+Z
+# docs: https://www.systutorials.com/docs/linux/man/1-gnome-terminal/
 all:
 	gnome-terminal \
 		--tab -e 'make start' \

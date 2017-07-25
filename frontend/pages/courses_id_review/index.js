@@ -29,7 +29,11 @@ class Page_courses_id_review extends React.Component {
     getPage: PropTypes.func.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
+
     currentProblem: PropTypes.object,
+    statusOfSolving: PropTypes.object,
+    enterPressed: PropTypes.func.isRequired,
+    amountOfProblems: PropTypes.number
   }
 
   componentDidMount() {
@@ -58,29 +62,51 @@ class Page_courses_id_review extends React.Component {
                 key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
                 problem={this.props.currentProblem}
                 ifReviewIsSimulated={this.props.route.simulated}
+                statusOfSolving={this.props.statusOfSolving}
+                enterPressed={this.props.enterPressed}
+
+                separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
+
               /> :
               <WhatNext courseId={parseInt(this.props.params.id)}/>
           }
-
         </div>
       }</Loading>
     </main>
 }
 
+// state
 import { deriveCurrentProblem } from './selectors';
 const mapStateToProps = (state) => {
   const pageState = state.pages.Page_courses_id_review;
   return {
     currentProblem: deriveCurrentProblem(pageState),
-    speGetPage: pageState.speGetPage,
+    speGetPage:       pageState.speGetPage,
+
+    ...pageState.speGetPage.status === 'success' &&
+      {
+        statusOfSolving:  pageState.statusOfSolving,
+        amountOfProblems: pageState.speGetPage.payload.problems.length
+      }
   };
 };
-import { Page_courses_id_review_Actions } from './reducer';
-const { getPage } = Page_courses_id_review_Actions;
+
+// dispatch
+import { Page_courses_id_review_Actions as pageActions } from './reducer';
 const mapDispatchToProps = (dispatch, ownProps) => ({
   getPage: (courseId) => dispatch(
-    getPage(courseId, ownProps.route.simulated)
-  )
+    pageActions.getPage(courseId, ownProps.route.simulated)
+  ),
+  enterPressed: () => {
+    ownProps.ifReviewIsSimulated ?
+      dispatch(pageActions.enterPressedInSimulatedReview()) :
+      dispatch(pageActions.enterPressed());
+  },
+  separateAnswerSelfScoreGiven: (selfScore) =>
+    dispatch({
+      type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
+      payload: selfScore
+    })
 });
 
 import { connect } from 'react-redux';

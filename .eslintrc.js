@@ -172,7 +172,9 @@ module.exports = {
 
     "no-return-assign": "off",
 
-    "radix": "off"
+    "radix": "off",
+
+    "array-callback-return": "off"
 
     // switch
     // case
