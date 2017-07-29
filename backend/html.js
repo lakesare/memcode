@@ -23,6 +23,7 @@ const html = `
       };
     </script>
     <script type="text/javascript" src="/index.js"></script>
+    <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
   </html>
 `;
 

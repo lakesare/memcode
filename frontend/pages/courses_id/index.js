@@ -1,7 +1,7 @@
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
-import { Problem } from '~/components/Problem';
+import { ProblemWithSeparateAnswer_show } from '~/components/ProblemWithSeparateAnswer/Show';
 
 import { commonFetch } from '~/api/commonFetch';
 
@@ -14,18 +14,15 @@ class Page_courses_id extends React.Component {
     }).isRequired
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetPage: {}
-    };
+  state = {
+    speGetPage: {}
   }
 
   componentDidMount = () =>
     commonFetch(
       spe => this.setState({ speGetPage: spe }),
       'GET', `/api/pages/courses/${this.props.params.id}`
-    );
+    )
 
   render = () =>
     <main className={css.main}>
@@ -38,11 +35,10 @@ class Page_courses_id extends React.Component {
           <section className="problems">
             {
               problems.map((problem) =>
-                <Problem
+                <ProblemWithSeparateAnswer_show
                   key={problem.id}
                   mode="viewing"
                   problemContent={problem.content}
-                  problemType={problem.type}
                 />
               )
             }

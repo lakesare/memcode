@@ -31,7 +31,7 @@ class Page_courses_id_learn extends React.Component {
         <div className="container">
           <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
           <Instructions/>
-          <ListOfProblems problems={problemsFromApiToEditor(problems)} courseUserIsLearningId={courseUserIsLearning.id}/>
+          <ListOfProblems problems={problems} courseUserIsLearningId={courseUserIsLearning.id}/>
         </div>
       }</Loading>
     </main>

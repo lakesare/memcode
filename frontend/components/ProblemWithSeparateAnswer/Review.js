@@ -1,5 +1,5 @@
-import { Plain } from 'slate';
-import { SlateEditor } from '~/components/SlateEditor';
+import { Editor } from '~/components/Editor';
+import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 class ProblemWithSeparateAnswer_review extends React.Component {
   static propTypes = {
@@ -12,44 +12,31 @@ class ProblemWithSeparateAnswer_review extends React.Component {
   }
 
   state = {
-    draft: Plain.deserialize('')
+    draft: ''
   }
 
   render = () =>
     <section className="problem -withSeparateAnswer">
-      <div className="first-column">
-        <SlateEditor
-          editorState={this.props.problemContent.content}
-          placeholder={<h1>1</h1>}
-          readOnly
-        />
-      </div>
+      <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
 
-      <div className="second-column">
-        {
-          this.props.mode === 'solving' ?
+      {
+        this.props.mode === 'seeingAnswer' ?
+          <ReadonlyEditor className="second-column" html={this.props.problemContent.answer}/> :
+          <div className="second-column">
             <div
               className="see-answer"
               onClick={this.props.enterPressed}
-            >See answer</div> :
-            <SlateEditor
-              editorState={this.props.problemContent.answer}
-              placeholder={<h1>2</h1>}
-              readOnly
-            />
-        }
+            >See answer</div>
 
-        { // when 'solving' always have draft answer editor available
-          this.props.mode === 'solving' &&
-          <div className="draft-answer">
-            <SlateEditor
-              editorState={this.state.draft}
-              updateEditorState={draft => this.setState({ draft })}
-              placeholder={<div>You can draft your answer here</div>}
-            />
+            <div className="draft-answer">
+              <Editor
+                editorState={this.state.draft}
+                updateEditorState={draft => this.setState({ draft })}
+                placeholder={<div>You can draft your answer here</div>}
+              />
+            </div>
           </div>
-        }
-      </div>
+      }
     </section>
 }
 

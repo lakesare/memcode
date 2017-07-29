@@ -1,47 +1,6 @@
 import { Raw } from 'slate';
-import { SlateEditor } from '~/components/SlateEditor';
+import { Editor } from '~/components/Editor';
 
-const initialState = {
-  nodes: [
-    {
-      kind: 'block',
-      type: 'paragraph',
-      nodes: [
-        // {
-        //   kind: 'inline',
-        //   type: 'answer',
-        //   data: { answer: 'hi!' },
-        //   nodes: [
-        //     {
-        //       kind: 'text',
-        //       text: ' '
-        //     }
-        //   ]
-        // },
-        {
-          kind: 'text',
-          ranges: [
-            {
-
-              text: 'hello'
-            },
-            {
-              "text": "rich",
-              "marks": [
-                {
-                  "type": "bold"
-                }
-              ]
-            },
-          ],
-
-
-        },
-        
-      ]
-    }
-  ]
-};
 
 class Slate extends React.Component {
 
@@ -51,11 +10,10 @@ class Slate extends React.Component {
 
   render = () =>
     <div>
-      <SlateEditor
+      <Editor
         editorState={this.state.editorState}
         updateEditorState={(editorState) => this.setState({ editorState })}
       />
-      
     </div>
 }
 

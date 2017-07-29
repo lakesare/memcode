@@ -174,11 +174,13 @@ module.exports = {
 
     "radix": "off",
 
-    "array-callback-return": "off"
+    "array-callback-return": "off",
 
     // switch
     // case
     // "indent": [2, 2, { "SwitchCase": "" }]
+
+    "react/jsx-pascal-case": "off"
   },
   "globals": {
     "fetch": true,

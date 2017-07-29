@@ -28,19 +28,7 @@ class Page_courses_id_edit extends React.Component {
 
   componentDidMount = () =>
     commonFetch(
-      (spe) => {
-        console.log(spe);
-        if (spe.status === 'success') {
-          this.setState({
-            speGetPage:
-            update(spe, `payload.problems`,
-              () => problemsFromApiToEditor(spe.payload.problems)
-            )
-          });
-        } else {
-          this.setState({ speGetPage: spe });
-        }
-      },
+      (spe) => this.setState({ speGetPage: spe }),
       'GET', `/api/pages/courses/${this.props.params.id}/edit`
     )
 
@@ -48,7 +36,7 @@ class Page_courses_id_edit extends React.Component {
     this.setState({
       speGetPage:
       update(this.state.speGetPage, `payload.problems`,
-        (problems) => [...problems, problemFromApiToEditor(createdProblem)]
+        (problems) => [...problems, createdProblem]
       )
     });
     this.props.changeAmountOfProblemsToLearnBy(1);

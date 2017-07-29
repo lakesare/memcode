@@ -1,4 +1,4 @@
-import { SlateEditor } from '~/components/SlateEditor';
+import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 class ProblemWithSeparateAnswer_show extends React.Component {
   static propTypes = {
@@ -6,20 +6,9 @@ class ProblemWithSeparateAnswer_show extends React.Component {
   }
 
   render = () =>
-    <section className="problem -withSeparateAnswer">
-      <div className="first-column">
-        <SlateEditor
-          editorState={this.props.problemContent.content}
-          placeholder={<h1>1</h1>}
-        />
-      </div>
-
-      <div className="second-column">
-        <SlateEditor
-          editorState={this.props.problemContent.answer}
-          placeholder={<h1>2</h1>}
-        />
-      </div>
+    <section className="problem -withSeparateAnswer ql-snow">
+      <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
+      <ReadonlyEditor className="second-column" html={this.props.problemContent.answer}/>
     </section>
 }
 

@@ -1,6 +1,4 @@
-import * as ProblemApi from '~/api/Problem';
-
-import { ProblemWithSeparateAnswer_edit } from '~/components/ProblemWithSeparateAnswer/Edit';
+import { Problem } from '~/components/Problem';
 import { Actions } from './components/Actions';
 
 import css from './index.css';
@@ -12,20 +10,6 @@ class OldProblem extends React.Component {
     removeOldProblem: PropTypes.func.isRequired
   }
 
-  state = {
-    speUpdateProblem: {},
-    speDestroyProblem: {},
-  }
-
-  apiUpdate = () =>
-    ProblemApi.update(
-      (spe) => this.setState({ speUpdateProblem: spe }),
-      this.props.problem.id,
-      {
-        content: toApi(this.props.problem.content, this.props.problem.type)
-      }
-    ).then(this.props.updateOldProblem)
-
   updateProblemContent = (problemContent) =>
     this.props.updateOldProblem({
       ...this.props.problem, content: problemContent
@@ -33,9 +17,11 @@ class OldProblem extends React.Component {
 
   render = () =>
     <div className={css['old-problem']}>
-      <ProblemWithSeparateAnswer_edit
+      <Problem
+        mode="edit"
         problemContent={this.props.problem.content}
         updateProblemContent={this.updateProblemContent}
+        problemType={this.props.problem.type}
       />
 
       <Actions removeOldProblem={this.props.removeOldProblem} problemId={this.props.problem.id}/>

@@ -53,7 +53,7 @@ class ProblemBeingSolved extends React.Component {
       }
 
       <ProblemWithSeparateAnswer_review
-        problemContent={problemFromApiToEditor(this.props.problem).content}
+        problemContent={this.props.problem.content}
         mode={this.props.statusOfSolving.status}
         enterPressed={this.props.enterPressed}
       />

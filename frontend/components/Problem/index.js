@@ -1,39 +1,27 @@
-import { ProblemWithInlinedAnswers } from './components/ProblemWithInlinedAnswers';
-import { ProblemWithSeparateAnswer } from './components/ProblemWithSeparateAnswer';
-
-import css from './index.css';
+import { ProblemWithSeparateAnswer_edit } from '~/components/ProblemWithSeparateAnswer/Edit';
+import { ProblemWithSeparateAnswer_show } from '~/components/ProblemWithSeparateAnswer/Show';
+import { ProblemWithSeparateAnswer_review } from '~/components/ProblemWithSeparateAnswer/Review';
 
 class Problem extends React.Component {
   static propTypes = {
-    mode: PropTypes.oneOf([
-      'viewing', 'solving', 'editing'
-    ]).isRequired,
     problemType: PropTypes.string.isRequired,
-
-    problemContent: PropTypes.object,
-    updateProblemContent: PropTypes.func.isRequired
+    mode: PropTypes.string.isRequired
   }
 
-  renderProblem = (type) => {
-    const props = {
-      problemContent: this.props.problemContent,
-      updateProblemContent: this.props.updateProblemContent,
-      mode: this.props.mode
-    };
-    switch (type) {
-      case 'inlinedAnswers':
-        return <ProblemWithInlinedAnswers {...props}/>;
+  render = () => {
+    switch (this.props.problemType) {
       case 'separateAnswer':
-        return <ProblemWithSeparateAnswer {...props}/>;
+        switch (this.props.mode) {
+          case 'show': return <ProblemWithSeparateAnswer_show {...this.props}/>;
+          case 'edit': return <ProblemWithSeparateAnswer_edit {...this.props}/>;
+          case 'review': return <ProblemWithSeparateAnswer_review {...this.props}/>;
+          default:
+            throw new Error(`mode can't be '${this.props.mode}'`);
+        }
       default:
-        throw new Error(`Problem type '${type}' doesn't exist.`);
+        throw new Error(`problem.type can't be '${this.props.problemType}'`);
     }
   }
-
-  render = () =>
-    <div className={css['problem-wrapper']}>
-      {this.renderProblem(this.props.problemType)}
-    </div>
 }
 
 export { Problem };

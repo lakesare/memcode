@@ -1,7 +1,13 @@
-import { ProblemWithSeparateAnswer_edit } from '~/components/ProblemWithSeparateAnswer/Edit';
-
 import * as ProblemApi from '~/api/Problem';
+import { Problem } from '~/components/Problem';
 
+const createEmptyEditorState = (type) => {
+  switch (type) {
+    case 'separateAnswer': {
+      return { content: '', answer: '' };
+    }
+  }
+};
 
 class NewProblem extends React.Component {
   static propTypes = {
@@ -21,13 +27,12 @@ class NewProblem extends React.Component {
     ProblemApi.create(
       (spe) => this.setState({ speCreateProblem: spe }),
       {
-        content: toApi(this.state.problemContent, type),
+        content: this.state.problemContent,
         type,
         courseId: this.props.courseId
       }
     )
       .then((createdProblem) => {
-        console.log('then');
         this.props.addNewProblem(createdProblem);
         this.setState({
           problemContent: createEmptyEditorState('separateAnswer')
@@ -61,9 +66,11 @@ class NewProblem extends React.Component {
 
   render = () =>
     <div className="new-problem">
-      <ProblemWithSeparateAnswer_edit
+      <Problem
+        mode="edit"
         problemContent={this.state.problemContent}
         updateProblemContent={this.updateProblemContent}
+        problemType={this.state.currentProblemType}
       />
 
       <section className="how-to-create">
