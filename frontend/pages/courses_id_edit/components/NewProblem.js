@@ -6,6 +6,9 @@ const createEmptyEditorState = (type) => {
     case 'separateAnswer': {
       return { content: '', answer: '' };
     }
+    case 'inlinedAnswers': {
+      return { content: '', explanation: '' };
+    }
   }
 };
 
@@ -35,21 +38,19 @@ class NewProblem extends React.Component {
       .then((createdProblem) => {
         this.props.addNewProblem(createdProblem);
         this.setState({
-          problemContent: createEmptyEditorState('separateAnswer')
+          problemContent: createEmptyEditorState(this.state.currentProblemType)
         });
       });
   }
 
-  updateProblemContent = (problemContent) => {
-    this.setState({ problemContent });
-  }
+  updateProblemContent = (problemContent) =>
+    this.setState({ problemContent })
 
-  updateType = (type) => {
+  updateType = (type) =>
     this.setState({
       currentProblemType: type,
-      problemContent: undefined
-    });
-  }
+      problemContent: createEmptyEditorState(type)
+    })
 
   renderTypeButton = (type, typeInHuman) => {
     if (this.state.currentProblemType === type) {
@@ -71,6 +72,7 @@ class NewProblem extends React.Component {
         problemContent={this.state.problemContent}
         updateProblemContent={this.updateProblemContent}
         problemType={this.state.currentProblemType}
+        ifNewProblem
       />
 
       <section className="how-to-create">

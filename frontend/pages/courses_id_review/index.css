@@ -16,27 +16,21 @@
     box-shadow: 1px 3px 9px rgba(187, 208, 183, 0.39);
     padding: 5px;
 
-    .DraftEditor-root{
-      border: none;
-      background: white;
-    }
-
     input.answer{
       width: 100px;
       display: inline-block;
       padding: 0 10px;
-      border: none;
       font-size: 16px;
       text-align: center;
       &:focus{ outline: none; }
-      &.success{
+      &[data-answered='right']{
         border: 2px solid $sims-green-color;
         background: $sims-green-color;
       }
-      &.failure{
+      &[data-answered='wrong']{
         border: 2px solid #f9637d;
       }
-      &.waiting{
+      &[data-answered='waiting']{
         border: 2px solid #FFEB3B;
       }
     }

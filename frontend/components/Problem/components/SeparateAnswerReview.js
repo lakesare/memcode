@@ -1,13 +1,15 @@
 import { Editor } from '~/components/Editor';
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
-class ProblemWithSeparateAnswer_review extends React.Component {
+class SeparateAnswerReview extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired,
 
-    mode: PropTypes.oneOf([
-      'solving', 'seeingAnswer'
-    ]).isRequired,
+    statusOfSolving: PropTypes.shape({
+      status: PropTypes.oneOf([
+        'solving', 'seeingAnswer'
+      ])
+    }).isRequired,
     enterPressed: PropTypes.func.isRequired
   }
 
@@ -20,7 +22,7 @@ class ProblemWithSeparateAnswer_review extends React.Component {
       <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
 
       {
-        this.props.mode === 'seeingAnswer' ?
+        this.props.statusOfSolving.status === 'seeingAnswer' ?
           <ReadonlyEditor className="second-column" html={this.props.problemContent.answer}/> :
           <div className="second-column">
             <div
@@ -40,4 +42,4 @@ class ProblemWithSeparateAnswer_review extends React.Component {
     </section>
 }
 
-export { ProblemWithSeparateAnswer_review };
+export { SeparateAnswerReview };

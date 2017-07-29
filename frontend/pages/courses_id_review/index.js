@@ -66,7 +66,7 @@ class Page_courses_id_review extends React.Component {
                 enterPressed={this.props.enterPressed}
 
                 separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
-
+                onRightAnswerGiven={this.props.onRightAnswerGiven}
               /> :
               <WhatNext courseId={parseInt(this.props.params.id)}/>
           }
@@ -106,7 +106,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch({
       type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
       payload: selfScore
-    })
+    }),
+  onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' })
 });
 
 import { connect } from 'react-redux';

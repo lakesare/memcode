@@ -73,47 +73,8 @@ pre{
 // }
 
 
-
-.hi{
-  background: #c76161;
-  color: white;
-  padding: 20px;
-  min-height: 30px;
-  code{
-    background: #2e3831;
-    display: block;
-  }
-
-  code {
-    background-color: #23241f;
-    color: #f8f8f2;
-    overflow: visible;
-  
- 
-    white-space: pre-wrap;
-    margin-bottom: 5px;
-    margin-top: 5px;
-    padding: 5px 10px;
-
-    border-radius: 3px;
-  }
-}
-
-
-
 section.problem{
   display: flex;
-  .ql-container{
-    border-top: 1px solid #ccc !important;
-    background: white;
-  }
-  .ql-toolbar{
-    border-bottom: none;
-    background: white;
-    padding: 2px 10px;
-  }
-  &.-not-focused .ql-toolbar{ opacity: 0; }
-  &.-focused .ql-toolbar{ opacity: 1; }
   .first-column, .second-column{
     width: 50%;
     &.first-column{ margin-right: 10px; }
@@ -129,18 +90,13 @@ section.problem{
         padding: 5px 10px;
         background: #adffb9;
       }
-      > .answer{
-        .DraftEditor-root{
-          background: #adffb9;
-          opacity: 0.99;
+      > .quill{
+        .ql-container{
+          background: #3cfd3c;
         }
       }
       > .draft-answer{
         margin-top: 20px;
-        .DraftEditor-root{
-          background: white;
-          opacity: 0.99;
-        }
       }
     }
   }

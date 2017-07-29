@@ -1,6 +1,10 @@
-import { ProblemWithSeparateAnswer_edit } from '~/components/ProblemWithSeparateAnswer/Edit';
-import { ProblemWithSeparateAnswer_show } from '~/components/ProblemWithSeparateAnswer/Show';
-import { ProblemWithSeparateAnswer_review } from '~/components/ProblemWithSeparateAnswer/Review';
+import { SeparateAnswerShow } from './components/SeparateAnswerShow';
+import { SeparateAnswerEdit } from './components/SeparateAnswerEdit';
+import { SeparateAnswerReview } from './components/SeparateAnswerReview';
+
+import { InlinedAnswersShow } from './components/InlinedAnswersShow';
+import { InlinedAnswersEdit } from './components/InlinedAnswersEdit';
+import { InlinedAnswersReview } from './components/InlinedAnswersReview';
 
 class Problem extends React.Component {
   static propTypes = {
@@ -12,9 +16,17 @@ class Problem extends React.Component {
     switch (this.props.problemType) {
       case 'separateAnswer':
         switch (this.props.mode) {
-          case 'show': return <ProblemWithSeparateAnswer_show {...this.props}/>;
-          case 'edit': return <ProblemWithSeparateAnswer_edit {...this.props}/>;
-          case 'review': return <ProblemWithSeparateAnswer_review {...this.props}/>;
+          case 'show': return <SeparateAnswerShow {...this.props}/>;
+          case 'edit': return <SeparateAnswerEdit {...this.props}/>;
+          case 'review': return <SeparateAnswerReview {...this.props}/>;
+          default:
+            throw new Error(`mode can't be '${this.props.mode}'`);
+        }
+      case 'inlinedAnswers':
+        switch (this.props.mode) {
+          case 'show': return <InlinedAnswersShow {...this.props}/>;
+          case 'edit': return <InlinedAnswersEdit {...this.props}/>;
+          case 'review': return <InlinedAnswersReview {...this.props}/>;
           default:
             throw new Error(`mode can't be '${this.props.mode}'`);
         }

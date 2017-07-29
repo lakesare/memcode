@@ -60,12 +60,51 @@
     > .tbody{
       // to avoid editing problem at the bottom of the screen
       margin-bottom: 40px;
+
+
+      section.problem{
+
+        .quill{
+          position: relative;
+          .ql-toolbar{
+            box-shadow: 0px -3px 5px 4px #ffffff;
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            left: 0;
+          }
+
+          .ql-container{
+            border-top: 1px solid #ccc !important;
+            background: white;
+          }
+          .ql-toolbar{
+            border-bottom: none;
+            background: white;
+            padding: 2px 10px;
+          }
+        }
+
+        &.-not-focused .ql-toolbar{ display: none; }
+        &.-focused .ql-toolbar{ }
+
+
+
+
+      }
+
+
+
+
+
+
+
+
+
+
       > .new-problem{
         position: relative;
-        // for placeholders to fit
-        .DraftEditor-root{
-          min-height: 40px;
-        }
+        margin-top: 40px;
         > section.how-to-create{
           color: #adadad;
           text-align: right;

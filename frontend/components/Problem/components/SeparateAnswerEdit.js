@@ -1,9 +1,14 @@
 import { Editor } from '~/components/Editor';
 
-class ProblemWithSeparateAnswer_edit extends React.Component {
+class SeparateAnswerEdit extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired,
-    updateProblemContent: PropTypes.func.isRequired
+    updateProblemContent: PropTypes.func.isRequired,
+    ifNewProblem: PropTypes.bool
+  };
+
+  static defaultProps = {
+    ifNewProblem: false
   }
 
   state = {
@@ -28,28 +33,32 @@ class ProblemWithSeparateAnswer_edit extends React.Component {
     })
 
   ifFocused = () =>
-    this.state.focus.firstColumn || this.state.focus.secondColumn
+    this.props.ifNewProblem ||
+    (
+      this.state.focus.firstColumn ||
+      this.state.focus.secondColumn
+    )
 
   render = () =>
     <section className={`problem -withSeparateAnswer ${this.ifFocused() ? '-focused' : '-not-focused'}`}>
       <div className="first-column">
         <Editor
+          placeholder="Enter a question"
           editorState={this.props.problemContent.content}
           updateEditorState={newState => this.updateProblemContent('content', newState)}
-          placeholder={<h1>1</h1>}
           onFocusChange={(value) => this.updateFocus('firstColumn', value)}
         />
       </div>
 
       <div className="second-column">
         <Editor
+          placeholder="Enter an answer"
           editorState={this.props.problemContent.answer}
           updateEditorState={newState => this.updateProblemContent('answer', newState)}
-          placeholder={<h1>2</h1>}
           onFocusChange={(value) => this.updateFocus('secondColumn', value)}
         />
       </div>
     </section>
 }
 
-export { ProblemWithSeparateAnswer_edit };
+export { SeparateAnswerEdit };

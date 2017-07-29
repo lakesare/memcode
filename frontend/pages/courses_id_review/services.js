@@ -7,12 +7,9 @@ const calculateScore = (given, wanted) => {
   }
 };
 
-// to problem model?
 const amountOfAnswerInputsInProblem = (problem) => {
-  const entities = problem.content.content.entityMap;
-  const answerEntities = Object.keys(entities)
-    .filter((key) => entities[key].type === 'answer');
-  return answerEntities.length;
+  const amount = problem.content.content.search(/\|(.*?)\|/);
+  return amount;
 };
 
 export { calculateScore, amountOfAnswerInputsInProblem };

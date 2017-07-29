@@ -46,6 +46,7 @@ class Editor extends React.Component {
       }}
 
       onChangeSelection={this.onChangeSelection}
+      placeholder={this.props.placeholder}
     />
 }
 

@@ -1,4 +1,4 @@
-import { ProblemWithSeparateAnswer_review } from '~/components/ProblemWithSeparateAnswer/Review';
+import { Problem } from '~/components/Problem';
 import { SeparateAnswerSelfScore } from './SeparateAnswerSelfScore';
 
 class ProblemBeingSolved extends React.Component {
@@ -10,7 +10,8 @@ class ProblemBeingSolved extends React.Component {
     enterPressed: PropTypes.func.isRequired,
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
 
-    ifReviewIsSimulated: PropTypes.bool.isRequired
+    ifReviewIsSimulated: PropTypes.bool.isRequired,
+    onRightAnswerGiven: PropTypes.func.isRequired
   }
 
   componentDidMount = () => {
@@ -38,24 +39,32 @@ class ProblemBeingSolved extends React.Component {
   render = () =>
     <div>
       {
-        this.props.ifReviewIsSimulated &&
-        <section className="simulated-header">
-          <h4 className="announcement desktop">
-            We are in a simulated review. Results will not be recorded.
-          </h4>
-          <h4 className="announcement mobile hidden">
-            Simulated review.
-          </h4>
-          <h4 className="amount-of-problems-left">
-            {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
-          </h4>
-        </section>
+        this.props.ifReviewIsSimulated ?
+          <section className="simulated-header">
+            <h4 className="announcement desktop">
+              We are in a simulated review. Results will not be recorded.
+            </h4>
+            <h4 className="announcement mobile hidden">
+              Simulated review.
+            </h4>
+            <h4 className="amount-of-problems-left">
+              {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
+            </h4>
+          </section> :
+          <section className="simulated-header">
+            <h4 className="announcement desktop">
+              Press ENTER fo reveal answers
+            </h4>
+          </section>
       }
 
-      <ProblemWithSeparateAnswer_review
+      <Problem
+        mode="review"
         problemContent={this.props.problem.content}
-        mode={this.props.statusOfSolving.status}
+        problemType={this.props.problem.type}
+        statusOfSolving={this.props.statusOfSolving}
         enterPressed={this.props.enterPressed}
+        onRightAnswerGiven={this.props.onRightAnswerGiven}
       />
 
       {

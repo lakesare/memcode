@@ -1,6 +1,6 @@
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
-class ProblemWithSeparateAnswer_show extends React.Component {
+class InlinedAnswerShow extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired
   }
@@ -8,8 +8,8 @@ class ProblemWithSeparateAnswer_show extends React.Component {
   render = () =>
     <section className="problem -withSeparateAnswer ql-snow">
       <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
-      <ReadonlyEditor className="second-column" html={this.props.problemContent.answer}/>
+      <ReadonlyEditor className="second-column" html={this.props.problemContent.explanation}/>
     </section>
 }
 
-export { ProblemWithSeparateAnswer_show };
+export { InlinedAnswerShow };
