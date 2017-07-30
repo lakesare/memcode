@@ -20,7 +20,7 @@ const Loading = (props) => {
   switch (props.spe.status) {
     case 'request':
       return (
-        <div className={`${css.loading} request`}>
+        <div className={`${css.loading} loading request`}>
           {props.requestIcon}
         </div>
       );
@@ -30,7 +30,7 @@ const Loading = (props) => {
         default:         return props.children;
       }
     case 'failure':
-      return <div className={`${css.loading} error`}>{props.spe.error}</div>;
+      return <div className={`${css.loading} loading error`}>{props.spe.error}</div>;
     default: // spe is {}, request was not yet initiated
       return null;
   }

@@ -1,24 +1,22 @@
-import { Loading } from '~/components/Loading';
-import { FilteredCourseTitles } from './FilteredCourseTitles';
-
 import * as ProblemApi from '~/api/Problem';
 import * as CourseApi from '~/api/Course';
 
+import onClickOutside from 'react-onclickoutside';
+import { Loading } from '~/components/Loading';
+import { FilteredCourseTitles } from './FilteredCourseTitles';
+
+@onClickOutside
 class Actions extends React.Component {
   static propTypes = {
     problemId: PropTypes.number.isRequired,
     removeOldProblem: PropTypes.func.isRequired
   }
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      speDestroyProblem: { status: 'success' },
-      speCourses: {},
-      ifModalIsShown: false,
-      searchString: ''
-    };
+  state = {
+    speDestroyProblem: { status: 'success' },
+    speCourses: {},
+    ifModalIsShown: false,
+    searchString: ''
   }
 
   onRemove = (spe) => this.setState({ speDestroyProblem: spe })
@@ -34,19 +32,25 @@ class Actions extends React.Component {
   selectAllCreated = () =>
     CourseApi.selectAllCreated(
       (spe) => this.setState({ speCourses: spe })
-    );
+    )
 
   toggleModal = () => {
     if (this.state.ifModalIsShown) {
-      this.setState({ ifModalIsShown: false });
+      this.closeModal();
     } else {
       this.selectAllCreated();
       this.setState({ ifModalIsShown: true });
     }
   }
 
+  closeModal = () =>
+    this.setState({ ifModalIsShown: false })
+
+  handleClickOutside = () =>
+    this.closeModal()
+
   updateSearchString = (event) =>
-    this.setState({ searchString: event.target.value });
+    this.setState({ searchString: event.target.value })
 
   render = () =>
     <Loading spe={this.state.speDestroyProblem}>{() =>

@@ -4,17 +4,31 @@ class SeparateAnswerEdit extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired,
     updateProblemContent: PropTypes.func.isRequired,
-    ifNewProblem: PropTypes.bool
+    ifNewProblem: PropTypes.bool,
+    apiSave: PropTypes.func
   };
 
   static defaultProps = {
-    ifNewProblem: false
+    ifNewProblem: false,
+    apiSave: () => {}
   }
 
   state = {
     focus: {
       firstColumn: false,
       secondColumn: false
+    }
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const ifWasFocused =
+      prevState.focus.firstColumn ||
+      prevState.focus.secondColumn;
+
+    const ifIsFocused = this.ifFocused();
+
+    if (ifWasFocused && !ifIsFocused) {
+      this.props.apiSave();
     }
   }
 

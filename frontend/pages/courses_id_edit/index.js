@@ -13,7 +13,6 @@ import { commonFetch } from '~/api/commonFetch';
 
 import css from './index.css';
 
-
 class Page_courses_id_edit extends React.Component {
   static propTypes = {
     params: PropTypes.shape({
@@ -71,7 +70,7 @@ class Page_courses_id_edit extends React.Component {
           <section className="problems">
             <div className="thead">
               <CourseDetails course={course}/>
-              <Cheatsheet/>
+              {false && <Cheatsheet/>}
             </div>
             <div className="tbody">
               {problems.map((problem) =>

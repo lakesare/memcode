@@ -1,6 +1,6 @@
-import { ProblemWithSeparateAnswer_show } from '~/components/ProblemWithSeparateAnswer/Show';
-
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
+
+import { Problem } from '~/components/Problem';
 
 class ListOfProblems extends React.Component {
   static propTypes = {
@@ -33,8 +33,10 @@ class ListOfProblems extends React.Component {
     this.state.idsOfLearnedProblems.includes(problemId)
 
   renderProblem = (problem) =>
-    <ProblemWithSeparateAnswer_show
+    <Problem
+      mode="show"
       problemContent={problem.content}
+      problemType={problem.type}
     />
 
   renderProblemWrapper = (problem) => {

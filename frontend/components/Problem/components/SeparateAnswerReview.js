@@ -14,7 +14,8 @@ class SeparateAnswerReview extends React.Component {
   }
 
   state = {
-    draft: ''
+    draft: '',
+    ifDraftIsFocused: false
   }
 
   render = () =>
@@ -30,11 +31,12 @@ class SeparateAnswerReview extends React.Component {
               onClick={this.props.enterPressed}
             >See answer</div>
 
-            <div className="draft-answer">
+            <div className={`draft-answer ${this.state.ifDraftIsFocused ? '-focused' : '-not-focused'}`}>
               <Editor
+                placeholder="You can draft your answer here"
                 editorState={this.state.draft}
                 updateEditorState={draft => this.setState({ draft })}
-                placeholder={<div>You can draft your answer here</div>}
+                onFocusChange={(value) => this.setState({ ifDraftIsFocused: value })}
               />
             </div>
           </div>

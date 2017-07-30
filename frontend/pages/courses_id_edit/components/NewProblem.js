@@ -1,3 +1,4 @@
+import $ from "jquery";
 import * as ProblemApi from '~/api/Problem';
 import { Problem } from '~/components/Problem';
 
@@ -24,6 +25,21 @@ class NewProblem extends React.Component {
     problemContent: createEmptyEditorState('separateAnswer')
   }
 
+  componentDidMount = () => {
+    $(document).on('keydown', this.saveOnCTRLS);
+  }
+
+  componentWillUnmount = () => {
+    $(document).off('keydown', this.saveOnCTRLS);
+  }
+
+  saveOnCTRLS = (event) => {
+    if (event.ctrlKey && event.keyCode === 83) { // CTRL+S
+      event.preventDefault();
+      this.save();
+    }
+  }
+
   save = () => {
     const type = this.state.currentProblemType;
 
@@ -46,11 +62,27 @@ class NewProblem extends React.Component {
   updateProblemContent = (problemContent) =>
     this.setState({ problemContent })
 
-  updateType = (type) =>
+  updateType = (newType) => {
+    const oldContent = this.state.problemContent;
+    let newContent;
+
+    if (newType === 'separateAnswer') {
+      newContent = {
+        content: oldContent.content,
+        answer: oldContent.explanation
+      };
+    } else if (newType === 'inlinedAnswers') {
+      newContent = {
+        content: oldContent.content,
+        explanation: oldContent.answer
+      };
+    }
+
     this.setState({
-      currentProblemType: type,
-      problemContent: createEmptyEditorState(type)
-    })
+      currentProblemType: newType,
+      problemContent: newContent
+    });
+  }
 
   renderTypeButton = (type, typeInHuman) => {
     if (this.state.currentProblemType === type) {
@@ -76,8 +108,8 @@ class NewProblem extends React.Component {
       />
 
       <section className="how-to-create">
-        <button onClick={this.save}>SAVVE</button>
-        CTRL+S to save a new task
+        <span>CTRL+S to save a new flashcard</span>
+        <button className="button -orange" onClick={this.save}>SAVE</button>
       </section>
 
       <section className="choose-type">

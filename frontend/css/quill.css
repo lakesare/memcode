@@ -1,0 +1,33 @@
+.quill{
+  position: relative;
+  > .ql-toolbar{
+    box-shadow: 0px -3px 5px 4px rgba(255, 255, 255, 0.36);
+    border-bottom: none;
+    background: white;
+    padding: 2px 10px !important;
+    button:hover, button.ql-active{
+      .ql-stroke{
+        stroke: $sims-green-color !important;
+      }
+      .ql-fill{
+        fill: $sims-green-color !important;
+      }
+    }
+  }
+  > .ql-container{
+    border-top: 1px solid #ccc !important;
+    background: white;
+    > .ql-editor{
+      min-height: 50px;
+      pre.ql-syntax, code{
+        background: #3e4e4c !important;
+        color: white;
+      }
+      // placeholder!
+      &.ql-blank::before{
+        // color: rgba(0, 0, 0, 0.77);
+        font-style: normal;
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@
 :local(main.main){
   section.problems{
     > .problem-wrapper{
-      cursor: pointer;
+      * { cursor: pointer; }
       padding: 10px;
       &.-learned{
         outline: $sims-green-color 3px solid;
@@ -12,7 +12,6 @@
       > .problem{
         margin-bottom: 0;
       }
-      .DraftEditor-root{ background: white; }
     }
     margin-bottom: 40px;
   }

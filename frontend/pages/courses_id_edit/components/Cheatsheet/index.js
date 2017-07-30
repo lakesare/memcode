@@ -23,11 +23,7 @@ class Cheatsheet extends React.Component {
             <tbody>
               <tr>
                 <td>CTRL+S</td>
-                <td>will save the new flashcard, or update the existing one. Existing flashcards will also get saved automatically when you remove the focus away from them.</td>
-              </tr>
-              <tr>
-                <td>insert image</td>
-                <td>to insert image - CTRL+C one from somewhere, and CTRL+V into the editor.</td>
+                <td>will save the new flashcard. Existing flashcards will also get saved automatically when you remove the focus away from them.</td>
               </tr>
               <tr>
                 <td>CTRL+B</td>

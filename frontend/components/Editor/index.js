@@ -1,3 +1,4 @@
+import { standardToolbarContainer } from '~/services/quill/standardToolbarContainer';
 import ReactQuill from 'react-quill';
 
 class Editor extends React.Component {
@@ -11,14 +12,19 @@ class Editor extends React.Component {
       PropTypes.element
     ]),
 
-    onFocusChange: PropTypes.func
+    onFocusChange: PropTypes.func,
+    toolbarContainer: PropTypes.array,
+    toolbarHandlers: PropTypes.object
   };
 
   static defaultProps = {
     readOnly: false,
     placeholder: '',
     updateEditorState: (a) => a,
-    onFocusChange: () => {}
+    onFocusChange: () => {},
+
+    toolbarContainer: standardToolbarContainer,
+    toolbarHandlers: {}
   }
 
   // range: Range {index: 5, length: 0} OR null
@@ -28,21 +34,17 @@ class Editor extends React.Component {
 
   render = () =>
     <ReactQuill
-      className=""
       value={this.props.editorState}
       onChange={this.props.updateEditorState}
       readOnly={this.props.readOnly}
 
       modules={{
-        syntax: false,              // Include syntax module
+        syntax: false, // Include syntax module
 
-        toolbar: [
-          ['bold', 'italic'],
-          ['blockquote', 'code-block'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          [{ script: 'sub' }, { script: 'super' }],
-          ['link', 'image']
-        ],
+        toolbar: {
+          container: this.props.toolbarContainer,
+          handlers: this.props.toolbarHandlers
+        }
       }}
 
       onChangeSelection={this.onChangeSelection}

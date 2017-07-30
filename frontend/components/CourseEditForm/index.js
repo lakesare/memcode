@@ -34,7 +34,7 @@ class CourseEditForm extends React.Component {
         ...this.state.formValues,
         [inputTitle]: event.target.value
       }
-    });
+    })
 
   validateAndSubmit = (e) => {
     e.preventDefault();
@@ -103,6 +103,7 @@ class CourseEditForm extends React.Component {
         className="button -black"
         onClick={this.validateAndSubmit}
         disabled={this.props.speSave.status === 'request'}
+        type="button"
       >
         {this.props.buttonText}
       </button>

@@ -1,0 +1,6 @@
+.action{
+  i{ font-size: 17px; }
+  &.-view i{ color: #e23131; }
+  &.-edit i{ color: #2410af; }
+  &.-remove i{ color: #f93333; }
+}

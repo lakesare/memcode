@@ -4,9 +4,16 @@
   position: relative;
   margin-bottom: 10px;
 
+  > .loading.request{
+    position: absolute;
+    right: -28px;
+    top: 55px;
+    padding: 0;
+    img{ width: 27px; }
+  }
   > section.actions{
     position: absolute;
-    right: -20px; top: 0;
+    right: -20px; top: 30px;
     > .toggler{
       cursor: pointer;
     }
@@ -60,7 +67,6 @@
           b{ color: $sims-green-color; }
         }
       }
-
-    }// .modal
+    }
   }
 }

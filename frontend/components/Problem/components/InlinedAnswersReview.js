@@ -63,8 +63,9 @@ class InlinedAnswersReview extends React.Component {
   }
 
   render = () => {
+    // '<mark class="answer">' => '</mark>'
     const content = this.props.problemContent.content
-      .replace(/\|(.*?)\|/g,
+      .replace(/<mark class="answer">(.*?)<\/mark>/g,
         `<input
           class="answer"
           data-answer="$1"

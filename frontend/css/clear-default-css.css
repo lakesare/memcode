@@ -1,0 +1,53 @@
+// so that background-color is colored everywhere from top to bottom
+html, body, div#root, main{
+  height: 100%;
+}
+
+.container{
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+body{
+  font-family: $body-font, serif;
+  margin: 0;
+  color: #292b2c;
+}
+a{
+  text-decoration: none;
+  color: #292b2c;
+  cursor: pointer;
+}
+h1, h2, h3, h4, h5{
+  margin-top: 0; margin-bottom: 0;
+  font-weight: normal;
+  font-family: $heading-font;
+}
+// only use these
+h1{ font-size: 25px; }
+h2{ font-size: 22px; }
+h3{ font-size: 19px; }
+h4{ font-size: 15px; }
+
+table{
+  border-collapse: collapse;
+}
+
+// fun green border
+main{
+  // border: 10px solid rgb(123, 255, 66);
+  // background: #4e4b4b;
+}
+
+input[type="text"], textarea{
+  padding: 4px 10px;
+  border: solid 2px rgba(88, 90, 86, 0.65);
+  font-family: $body-font;
+}
+input[type="text"]:focus, textarea:focus{
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}

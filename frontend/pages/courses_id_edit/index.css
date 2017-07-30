@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 :local(main.main){
   section.problems{
     > .thead{
@@ -7,108 +9,59 @@
       display: flex;
       justify-content: space-between;
       margin-top: -4px;
-      > section.cheatsheet{
-      }
-      > section.edit-course{
-        > .toggler{
-          font-size: 12px;
-          cursor: pointer;
-          &:hover{
-            i{ color: red; }
-          }
-          i{ padding-left: 5px; }
-        }
-        > .modal{
-          padding: 10px;
-          position: absolute;
-          z-index: 100;
-          background: white;
-          border: 2px solid #715d5d;
-          width: 100%;
-          box-sizing: border-box;
-          form{
-            .button.-black{
-              margin-left: 0;
-              margin-bottom: 0;
-              display: inline-block;
-            }
-            .request{
-              font-size: 9px;
-              padding: 0;
-              display: inline-block;
-              vertical-align: middle;
-              padding-left: 10px;
-            }
-          }
-          > .delete-course{
-            font-size: 10px;
-            color: red;
-            border: 1px solid grey;
-            max-width: 100px;
-            padding: 5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            position: absolute;
-            top: 0; right: 0;
-            .request{
-              font-size: 10px;
-            }
-          }
-        }
-      }
     }
     > .tbody{
       // to avoid editing problem at the bottom of the screen
       margin-bottom: 40px;
 
-
       section.problem{
+        &.-not-focused .ql-toolbar{ opacity: 0; }
+        &.-focused .ql-toolbar{ opacity: 1; }
 
-        .quill{
-          position: relative;
-          .ql-toolbar{
-            box-shadow: 0px -3px 5px 4px #ffffff;
-            position: absolute;
-            bottom: 100%;
-            right: 0;
-            left: 0;
-          }
+        &.-withInlinedAnswers{
+          > .first-column{
+            .ql-toolbar{
+              padding-right: 0;
+              button.ql-answer{
+                font-size: 10px;
+                width: 43px !important;
+                padding: 0;
 
-          .ql-container{
-            border-top: 1px solid #ccc !important;
-            background: white;
-          }
-          .ql-toolbar{
-            border-bottom: none;
-            background: white;
-            padding: 2px 10px;
+                text-align: center;
+                font-weight: bold;
+
+                color: #9baf9e;
+                border-radius: 2px;
+                &.ql-active, &:hover{
+                  color: $sims-green-color;
+                }
+                &::after{ 
+                  content: "Mark As Answer";
+                }
+              }
+              .ql-formats{
+                margin-right: 9px;
+                &:last-child{
+                  margin-right: 0;
+                }
+              }
+            }
           }
         }
-
-        &.-not-focused .ql-toolbar{ display: none; }
-        &.-focused .ql-toolbar{ }
-
-
-
-
       }
-
-
-
-
-
-
-
-
-
 
       > .new-problem{
         position: relative;
         margin-top: 40px;
         > section.how-to-create{
+          margin-top: 10px;
           color: #adadad;
           text-align: right;
           font-size: 12px;
+          button.button{
+            display: inline-block;
+            margin-left: 10px;
+          }
         }
         > section.choose-type{
           position: absolute;

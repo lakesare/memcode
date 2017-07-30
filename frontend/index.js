@@ -4,6 +4,8 @@ import 'es6-shim';
 // `fetch` polyfill for safari
 import 'whatwg-fetch';
 
+import '~/services/quill/registeredBlots';
+
 import ReactDOM from 'react-dom';
 
 import { createStore, applyMiddleware, compose } from 'redux';

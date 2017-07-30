@@ -1,9 +1,9 @@
+import { commonFetch } from '~/api/commonFetch';
+
 import { Header } from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
-import { ProblemWithSeparateAnswer_show } from '~/components/ProblemWithSeparateAnswer/Show';
-
-import { commonFetch } from '~/api/commonFetch';
+import { Problem } from '~/components/Problem';
 
 import css from './index.css';
 
@@ -33,15 +33,13 @@ class Page_courses_id extends React.Component {
 
         <Loading spe={this.state.speGetPage}>{(problems) =>
           <section className="problems">
-            {
-              problems.map((problem) =>
-                <ProblemWithSeparateAnswer_show
-                  key={problem.id}
-                  mode="viewing"
-                  problemContent={problem.content}
-                />
-              )
-            }
+            {problems.map((problem) =>
+              <Problem
+                mode="show"
+                problemContent={problem.content}
+                problemType={problem.type}
+              />
+            )}
           </section>
         }</Loading>
       </div>

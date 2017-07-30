@@ -1,22 +1,26 @@
-import { Loading } from '~/components/Loading';
-import { CourseEditForm } from '~/components/CourseEditForm';
-
 import { browserHistory } from 'react-router';
 import * as CourseApi from '~/api/Course';
 
+import onClickOutside from 'react-onclickoutside';
+import { Loading } from '~/components/Loading';
+import { CourseEditForm } from '~/components/CourseEditForm';
+
+import css from './index.css';
+
+@onClickOutside
 class CourseDetails extends React.Component {
   static propTypes = {
     course: PropTypes.object.isRequired
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      ifShown: false,
-      speSave: {},
-      speDelete: { status: 'success' }
-    };
+  state = {
+    ifShown: false,
+    speSave: {},
+    speDelete: { status: 'success' }
   }
+
+  handleClickOutside = () =>
+    this.setState({ ifShown: false })
 
   toggle = () =>
     this.setState({ ifShown: !this.state.ifShown })
@@ -38,7 +42,7 @@ class CourseDetails extends React.Component {
       })
 
   render = () =>
-    <section className="edit-course">
+    <section className={css['course-details']}>
       <div className="toggler" onClick={this.toggle}>
         <section className="edit-course">
           COURSE DETAILS

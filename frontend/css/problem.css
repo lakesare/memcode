@@ -1,0 +1,34 @@
+section.problem{
+  display: flex;
+  .first-column, .second-column{
+    width: 50%;
+    &.first-column{ margin-right: 10px; }
+    &.second-column{ margin-left: 10px; }
+  }
+
+  $answer-background: rgba(45, 245, 83, 0.9);
+  &.-withInlinedAnswers{
+    mark.answer{
+      background: $answer-background;
+      padding: 1px 2px;
+      border-radius: 2px;
+    }
+  }
+  &.-withSeparateAnswer{
+    > .first-column{
+      mark{ background: white; }
+    }
+    > .second-column{
+      > .see-answer{
+        cursor: pointer;
+        padding: 5px 10px;
+        background: $answer-background;
+      }
+      .quill{
+        .ql-editor{
+          background: $answer-background;
+        }
+      }
+    }
+  }
+}
