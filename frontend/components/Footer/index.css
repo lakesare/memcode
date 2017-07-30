@@ -1,5 +1,17 @@
 @import 'css/variables';
 
+// here and global because footer positioning depends on it
+html{ height: 100%; }
+body{
+  position: relative;
+  min-height: 100%;
+}
+footer{
+  position: absolute;
+  right: 0; left: 0;
+  bottom: 0;
+}
+
 :local(footer.footer){
   border-top: 3px solid #111111;
   background: #333333;

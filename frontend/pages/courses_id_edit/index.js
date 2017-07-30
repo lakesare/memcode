@@ -1,6 +1,7 @@
 import { update } from 'lodash';
 
 import { Header }  from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { OldProblem } from './components/OldProblem';
@@ -88,6 +89,8 @@ class Page_courses_id_edit extends React.Component {
           </section>
         }</Loading>
       </div>
+
+      <Footer/>
     </main>
 }
 

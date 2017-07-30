@@ -1,6 +1,7 @@
 import { commonFetch } from '~/api/commonFetch';
 
 import { Header } from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { Problem } from '~/components/Problem';
@@ -43,6 +44,8 @@ class Page_courses_id extends React.Component {
           </section>
         }</Loading>
       </div>
+
+      <Footer/>
     </main>
 }
 

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet';
 
 import { Header }  from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
@@ -12,18 +13,14 @@ import * as CourseApi from '~/api/Course';
 import css from './index.css';
 
 class Page_profile_coursesLearnedByMe extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetCourses: {}
-    };
+  state = {
+    speGetCourses: {}
   }
 
-  componentDidMount = () => {
+  componentDidMount = () =>
     CourseApi.selectAllLearned(
       spe => this.setState({ speGetCourses: spe }),
-    );
-  }
+    )
 
   render = () =>
     <main className={css.main}>
@@ -37,6 +34,8 @@ class Page_profile_coursesLearnedByMe extends React.Component {
             <ListOfCourses coursesData={coursesData}/>
         }</Loading>
       </div>
+
+      <Footer/>
 
       <Helmet>
         <title>Profile | Learned Courses</title>

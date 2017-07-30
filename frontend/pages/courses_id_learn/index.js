@@ -1,4 +1,6 @@
 import { Header } from '~/components/Header';
+import { Footer } from '~/components/Footer';
+
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { ListOfProblems } from './components/ListOfProblems';
@@ -34,6 +36,8 @@ class Page_courses_id_learn extends React.Component {
           <ListOfProblems problems={problems} courseUserIsLearningId={courseUserIsLearning.id}/>
         </div>
       }</Loading>
+
+      <Footer/>
     </main>
 }
 

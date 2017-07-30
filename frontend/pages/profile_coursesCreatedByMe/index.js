@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet';
 
 import { Header }  from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
@@ -8,11 +9,8 @@ import { ProfileNavigation } from '~/components/ProfileNavigation';
 import * as CourseApi from '~/api/Course';
 
 class Page_profile_coursesCreatedByMe extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetCourses: {}
-    };
+  state = {
+    speGetCourses: {}
   }
 
   componentDidMount = () => {
@@ -31,6 +29,8 @@ class Page_profile_coursesCreatedByMe extends React.Component {
           <ListOfCourses coursesData={coursesData}/>
         }</Loading>
       </div>
+
+      <Footer/>
 
       <Helmet>
         <title>Profile | Created Courses</title>

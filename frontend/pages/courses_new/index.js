@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet';
 
 import { Header } from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { CourseEditForm } from '~/components/CourseEditForm';
 
 import { browserHistory } from 'react-router';
@@ -9,10 +10,7 @@ import * as CourseApi from '~/api/Course';
 import css from './index.css';
 
 class Page_courses_new extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { speSave: {} };
-  }
+  state = { speSave: {} }
 
   apiCreateCourse = (formValues) =>
     CourseApi.create(
@@ -31,6 +29,8 @@ class Page_courses_new extends React.Component {
         <h2>Create a course</h2>
         <CourseEditForm save={this.apiCreateCourse} speSave={this.state.speSave} buttonText="Create!"/>
       </div>
+
+      <Footer/>
 
       <Helmet>
         <title>New Course</title>

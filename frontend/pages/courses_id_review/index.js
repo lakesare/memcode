@@ -1,4 +1,5 @@
 import { Header }  from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
@@ -38,6 +39,8 @@ class Page_courses_id_review extends React.Component {
 
   componentDidMount() {
     this.props.getPage(this.props.params.id);
+
+    document.body.style.background = '#383131';
   }
 
   // https://github.com/ReactTraining/react-router/issues/1487
@@ -46,6 +49,10 @@ class Page_courses_id_review extends React.Component {
     if (nextProps.params.id !== this.props.params.id) {
       this.props.getPage(nextProps.params.id);
     }
+  }
+
+  componentWillUnmount() {
+    document.body.style.background = '';
   }
 
   render = () =>
@@ -72,6 +79,8 @@ class Page_courses_id_review extends React.Component {
           }
         </div>
       }</Loading>
+
+      <Footer/>
     </main>
 }
 

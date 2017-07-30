@@ -1,8 +1,8 @@
-import { Helmet } from 'react-helmet';
-
 import { commonFetch } from '~/api/commonFetch';
 
+import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
+import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 
@@ -32,6 +32,7 @@ class Page_courses extends React.Component {
           <ListOfSimpleCourses coursesData={coursesData}/>
         }</Loading>
       </div>
+      <Footer/>
 
       <Helmet>
         <title>Memcode | All courses</title>

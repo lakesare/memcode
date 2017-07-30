@@ -1,5 +1,7 @@
 import React from 'react';
 import { Header } from '~/components/Header';
+import { Footer } from '~/components/Footer';
+
 import css from './index.css';
 
 class Page_pleaseSignIn extends React.Component {
@@ -19,6 +21,8 @@ class Page_pleaseSignIn extends React.Component {
           </a>
         </article>
       </div>
+
+      <Footer/>
     </main>
 }
 

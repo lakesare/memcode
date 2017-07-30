@@ -57,7 +57,7 @@ class CourseEditForm extends React.Component {
   }
 
   render = () =>
-    <form className={css.form}>
+    <form className={`${css.form} standard-form`}>
       {/* not real fieldset because it can't be flexbox */}
       <div className="fieldset">
         <div className="label">

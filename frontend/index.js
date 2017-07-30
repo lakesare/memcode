@@ -40,6 +40,7 @@ import { Page_test } from './pages/test';
 import { Page_pleaseSignIn } from './pages/pleaseSignIn';
 import { Page_articles_comparison } from './pages/articles_comparison';
 import { Page_articles_welcome } from './pages/articles_welcome';
+import { Page_contact } from './pages/contact';
 
 // common css
 import './index.css';
@@ -78,6 +79,7 @@ ReactDOM.render(
 
       <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route path="/test" component={Page_test}/>
+      <Route path="/contact" component={Page_contact}/>
       <Route path="/" component={Page_articles_welcome} {...rootRedirect}/>
       <Route path="/articles/comparison" component={Page_articles_comparison}/>
       <Route path="/articles/welcome" component={Page_articles_welcome}/>
