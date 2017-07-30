@@ -16,7 +16,7 @@ class Course extends React.Component {
       </section>
 
       <section className="main">
-        <h3 className="title">{this.props.course.title}</h3>
+        <h3 className="title" dangerouslySetInnerHTML={{ __html: this.props.course.title }}/>
 
         <article className="description">{stripTags(this.props.course.description)}</article>
       </section>

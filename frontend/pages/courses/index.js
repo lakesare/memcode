@@ -1,3 +1,4 @@
+import * as fuzzy from 'fuzzy';
 import { commonFetch } from '~/api/commonFetch';
 
 import { Helmet } from 'react-helmet';
@@ -9,18 +10,38 @@ import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 import css from './index.css';
 
 class Page_courses extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetCourses: {}
-    };
+  state = {
+    speGetCourses: {},
+    searchString: ''
   }
 
-  componentDidMount = () => {
+  componentDidMount = () =>
     commonFetch(
       spe => this.setState({ speGetCourses: spe }),
       'GET', '/api/pages/courses'
-    );
+    )
+
+  updateSearchString = (event) => {
+    const newSearchString = event.target.value;
+    this.setState({ searchString: newSearchString });
+  }
+
+  filter = (coursesData) => {
+    const options = {
+      pre: '<b>',
+      post: '</b>',
+      extract: (courseData) => courseData.course.title // filter by what?
+    };
+    const fuzzyCoursesData = fuzzy.filter(this.state.searchString, coursesData, options);
+
+    // [{ original, string ('Engli<b>sh</b>') }]
+    return fuzzyCoursesData.map((fuzzyCourseData) => ({
+      course: {
+        ...fuzzyCourseData.original.course,
+        title: fuzzyCourseData.string
+      },
+      amountOfProblems: fuzzyCourseData.original.amountOfProblems
+    }));
   }
 
   render = () =>
@@ -28,8 +49,19 @@ class Page_courses extends React.Component {
       <Header/>
       <div className="container">
         <div className="space"/>
+
+        <section className="search">
+          <i className="fa fa-search"/>
+          <input
+            placeholder="Search For Some Course To Learn"
+            onChange={this.updateSearchString}
+            value={this.state.searchString}
+            type="text"
+          />
+        </section>
+
         <Loading spe={this.state.speGetCourses}>{coursesData =>
-          <ListOfSimpleCourses coursesData={coursesData}/>
+          <ListOfSimpleCourses coursesData={this.filter(coursesData)}/>
         }</Loading>
       </div>
       <Footer/>
