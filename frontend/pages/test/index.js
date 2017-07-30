@@ -1,34 +1,17 @@
-import ReactQuill from 'react-quill';
-
-function answerHandler() {
-  const range = this.quill.getSelection();
-  if (range) {
-    this.quill.formatText(
-      range.index, range.length, // from start to end of selection
-      "answer",
-      !this.quill.getFormat(range).answer
-    );
-  }
-}
+import { commonFetch } from '~/api/commonFetch';
 
 class Page_test extends React.Component {
   state = { html: 'I know what you mean' }
 
+  migrate = () => {
+    commonFetch(() => {},
+      'PUT', '/api/admin/migrate-to-quill'
+    );
+  }
+
   render = () =>
     <div className="container">
-      <ReactQuill
-        value={this.state.html}
-        onChange={(html) => this.setState({ html })}
-
-        modules={{
-          toolbar: {
-            container: ['bold', 'italic', 'answer'],
-            handlers: {
-              answer: answerHandler
-            }
-          }
-        }}
-      />
+      <button className="button black" onClick={this.migrate}>Migrate to quill</button>
     </div>
 }
 

@@ -5,7 +5,9 @@ const select = {
     db.any(
       'SELECT * FROM problem WHERE course_id = ${courseId} ORDER BY created_at',
       { courseId }
-    )
+    ),
+  all: () =>
+    db.any('SELECT * FROM problem')
 };
 
 export { select };

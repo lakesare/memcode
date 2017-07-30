@@ -40,7 +40,6 @@ class Editor extends React.Component {
 
       modules={{
         syntax: false, // Include syntax module
-
         toolbar: {
           container: this.props.toolbarContainer,
           handlers: this.props.toolbarHandlers

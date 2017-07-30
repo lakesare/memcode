@@ -24,7 +24,7 @@ db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U postgres -f backend/db/migrations/1.sql
+	psql -v database=memcode -U postgres -f backend/db/migrations/2.sql
 
 # dump and restore data
 db-dump:
@@ -63,7 +63,7 @@ heroku-db-reset:
 
 # manually input migration you want to run (eg 1.sql)
 heroku-db-migrate:
-	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/migrations/1.sql
+	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/migrations/2.sql
 heroku-db-console:
 	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy
 
@@ -71,3 +71,8 @@ heroku-db-console:
 heroku-db-pull:
 	make db-drop
 	PGUSER=postgres heroku pg:pull DATABASE_URL memcode
+
+# when they ask for password - they ask for the local one (yes, 4 times)
+heroku-pg-push:
+	PGUSER=postgres heroku pg:reset DATABASE_URL
+	PGUSER=postgres heroku pg:push memcode DATABASE_URL --app memcode

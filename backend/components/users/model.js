@@ -5,25 +5,45 @@ const select = {
   // => user
   oneByOauth: (oauthProvider, oauthId) =>
     db.oneOrNone(
-      'SELECT * FROM "user" where oauth_provider=${oauthProvider} and oauth_id=${oauthId}',
+      'SELECT * FROM "user" WHERE oauth_provider=${oauthProvider} and oauth_id=${oauthId}',
       {
         oauthProvider,
         oauthId: oauthId.toString()
       }
+    ),
+
+  one: (id) =>
+    db.one(
+      `SELECT * FROM "user" WHERE id = \${id}`,
+      { id }
+    )
+};
+
+const update = {
+  update: async (id, email) =>
+    db.one(
+      `
+        UPDATE "user"
+        SET email = \${email}
+        WHERE id = \${id}
+        RETURNING *
+      `,
+      { id, email }
     )
 };
 
 const insert = {
   createFromGithub: (profile) =>
     db.one(
-      'INSERT INTO "user" (oauth_provider, oauth_id, username, avatar_url) VALUES (${oauthProvider}, ${oauthId}, ${username}, ${avatarUrl}) RETURNING *',
+      'INSERT INTO "user" (oauth_provider, oauth_id, username, avatar_url) VALUES (${oauthProvider}, ${oauthId}, ${username}, ${avatarUrl}, ${email}) RETURNING *',
       {
         oauthProvider: 'github',
         oauthId: profile.id.toString(),
         username: profile.login,
-        avatarUrl: profile.avatar_url
+        avatarUrl: profile.avatar_url,
+        email: profile.email
       }
     )
 };
 
-export { select, insert };
+export { select, insert, update };
