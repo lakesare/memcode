@@ -5,6 +5,7 @@ import { catchAsync } from '~/services/catchAsync';
 import { authenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as Course from './model';
+import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
 
 // => [{
 //   course: {},
@@ -24,6 +25,9 @@ router.get('/allCreated', authenticateMiddleware, catchAsync(async (request, res
 
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
   const course = await Course.insert.create(request.body['course'], request.currentUser.id);
+
+  // add to learned courses immediately
+  await CourseUserIsLearning.insert.create(course.id, request.currentUser.id);
 
   response.status(200).json(course);
 }));

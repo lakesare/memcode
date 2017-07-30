@@ -180,7 +180,9 @@ module.exports = {
     // case
     // "indent": [2, 2, { "SwitchCase": "" }]
 
-    "react/jsx-pascal-case": "off"
+    "react/jsx-pascal-case": "off",
+
+    "no-confusing-arrow": "off"
   },
   "globals": {
     "fetch": true,

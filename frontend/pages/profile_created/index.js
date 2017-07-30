@@ -6,41 +6,36 @@ import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
 
-import { ForBeginners } from './components/ForBeginners';
-
 import * as CourseApi from '~/api/Course';
 
-import css from './index.css';
-
-class Page_profile_coursesLearnedByMe extends React.Component {
+class Page_profile_created extends React.Component {
   state = {
     speGetCourses: {}
   }
 
-  componentDidMount = () =>
-    CourseApi.selectAllLearned(
+  componentDidMount = () => {
+    CourseApi.selectAllCreated(
       spe => this.setState({ speGetCourses: spe }),
-    )
+    );
+  }
 
   render = () =>
-    <main className={css.main}>
+    <main>
       <Header/>
       <ProfileNavigation/>
       <div className="container">
         <div className="space"/>
-        <Loading spe={this.state.speGetCourses}>{(coursesData) =>
-          coursesData.length === 0 ?
-            <ForBeginners/> :
-            <ListOfCourses coursesData={coursesData}/>
+        <Loading spe={this.state.speGetCourses}>{coursesData =>
+          <ListOfCourses coursesData={coursesData}/>
         }</Loading>
       </div>
 
       <Footer/>
 
       <Helmet>
-        <title>Profile | Learned Courses</title>
+        <title>Profile | Created Courses</title>
       </Helmet>
     </main>
 }
 
-export { Page_profile_coursesLearnedByMe };
+export { Page_profile_created };

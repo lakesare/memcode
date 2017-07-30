@@ -48,12 +48,15 @@
         margin-right: 36px;
       }
       a.link.create{
-        margin-right: 46px;
+        margin-right: 36px;
         i{
           color: $sims-green-color;
           padding-right: 7px;
           font-size: 12px;
         }
+      }
+      a.link.contact{
+        margin-right: 46px;
       }
       .link.articles-dropdown{
         margin-right: 30px;

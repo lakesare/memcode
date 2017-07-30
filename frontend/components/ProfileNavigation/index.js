@@ -11,13 +11,13 @@ class ProfileNavigation extends React.Component {
       <div className="container">
         <section className="links">
           <Link
-            to="/profile/courses-learned-by-me"
+            to="/profile/learning"
             activeClassName="active"
           >
             I'm learning
           </Link>
           <Link
-            to="/profile/courses-created-by-me"
+            to="/profile/created"
             activeClassName="active"
           >
             I created

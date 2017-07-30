@@ -10,7 +10,7 @@ class CurrentUser extends React.Component {
   }
 
   renderSignedInUser = (currentUser) =>
-    <Link className="avatar" to="/profile/courses-learned-by-me" activeClassName="active">
+    <Link className="avatar" to="/profile/learning" activeClassName="active">
       <img src={currentUser.avatarUrl}/>
     </Link>
 

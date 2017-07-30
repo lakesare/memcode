@@ -38,7 +38,7 @@ class CourseDetails extends React.Component {
       this.props.course.id
     )
       .then(() => {
-        browserHistory.push('profile/courses-created-by-me');
+        browserHistory.push('profile/created');
       })
 
   render = () =>

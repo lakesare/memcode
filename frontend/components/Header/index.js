@@ -28,7 +28,7 @@ class Header extends React.Component {
       <Link
         to="/contact"
         activeClassName="active"
-        className="link create"
+        className="link contact"
       >contact</Link>
       <CurrentUser currentUser={this.props.currentUser}/>
     </nav>
