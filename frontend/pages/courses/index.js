@@ -6,6 +6,7 @@ import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
+import { ProfileNavigation } from '~/components/ProfileNavigation';
 
 import css from './index.css';
 
@@ -47,9 +48,8 @@ class Page_courses extends React.Component {
   render = () =>
     <main className={css.main}>
       <Header/>
+      <ProfileNavigation/>
       <div className="container">
-        <div className="space"/>
-
         <section className="search">
           <i className="fa fa-search"/>
           <input

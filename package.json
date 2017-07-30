@@ -55,9 +55,6 @@
     "body-parser": "^1.16.0",
     "buffer": "^5.0.2",
     "dotenv": "^4.0.0",
-    "draft-js": "^0.10.0",
-    "draft-js-export-html": "^0.6.0",
-    "draft-js-plugins-editor": "^2.0.0-rc2",
     "es5-shim": "^4.5.9",
     "es6-shim": "^0.35.3",
     "express": "^4.14.0",
@@ -81,8 +78,6 @@
     "react-router": "^2.5.2",
     "redux": "^3.5.2",
     "redux-thunk": "^2.2.0",
-    "slate": "^0.20.4",
-    "slate-edit-code": "^0.10.3",
     "source-map-support": "^0.4.2",
     "whatwg-fetch": "^2.0.3"
   }

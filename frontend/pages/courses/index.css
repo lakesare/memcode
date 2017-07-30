@@ -16,7 +16,7 @@
     }
 
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 20px; margin-top: 20px;
     padding-left: 10px;
 
     border: 2px solid $sims-green-color;

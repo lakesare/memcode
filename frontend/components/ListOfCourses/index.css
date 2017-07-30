@@ -10,6 +10,7 @@
     height: 200px;
     width: 150px;
 
+    border: 2px solid #444242;
     margin-right: 10px; margin-left: 10px;
     margin-bottom: 20px;
     background: white;
@@ -22,7 +23,7 @@
     }
 
     > section.main{
-      height: 140px;
+      height: 138px;
       position: relative;
       h3.title{
         font-size: 18px;
@@ -127,6 +128,9 @@
     > section.total-amount-of-mems, .amount-of-mems-to-review-and-learn{
       font-size: 11px;
       font-weight: bold;
+    }
+    > section.total-amount-of-mems{
+      padding-bottom: 2px;
     }
   }
   > .layout-div{
