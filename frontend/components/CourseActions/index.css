@@ -79,7 +79,7 @@
   }
 }
 
-@media(max-width: 500px) {
+@media(max-width: 600px) {
   :local(section.actions){
     section.title-and-buttons{
       padding: 10px 0;

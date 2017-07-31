@@ -85,3 +85,19 @@
     }
   }
 }
+
+:local(main.main){
+  @media(min-width: 627px){
+    // to allow editing on ipads,
+    // prevents horizontal scroll
+    .container{ padding: 0 73px; }
+  }
+  @media(max-width: 627px){
+    section.problems{
+      .ql-editor{ padding: 4px 3px; }
+      .new-problem{ display: none; }
+      .actions{ display: none; }
+      .ql-toolbar{ display: none; }
+    }
+  }
+}
