@@ -109,7 +109,7 @@ class NewProblem extends React.Component {
 
       <section className="how-to-create">
         <span>CTRL+S to save a new flashcard</span>
-        <button className="button -orange" onClick={this.save}>SAVE</button>
+        <button className="button -blue" onClick={this.save}>SAVE</button>
       </section>
 
       <section className="choose-type">

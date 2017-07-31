@@ -4,16 +4,19 @@ import { AmountOfProblemsToReview } from './AmountOfProblemsToReview';
 const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn }) =>
   <div className="review-and-learn">
     <div className="amount-of-mems-to-review-and-learn">
+      <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -nonzero`}>
+        {amountOfProblemsToLearn} to learn
+      </div>
       <AmountOfProblemsToReview
         amountOfProblemsToReview={amountOfProblemsToReview}
         nextDueDateIn={nextDueDateIn}
       />
-      <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -nonzero`}>
-        {amountOfProblemsToLearn} to learn
-      </div>
     </div>
 
     <div className="review-and-learn-links">
+      <Link style={amountOfProblemsToLearn === 0 ? { visibility: 'hidden' } : {}} className="learn-more" to={`/courses/${courseId}/learn`}>
+        LEARN
+      </Link>
       {
         amountOfProblemsToReview > 0 ?
           <Link className="review" to={`/courses/${courseId}/review`}>
@@ -23,9 +26,6 @@ const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToR
             REVIEW without recording results
           </Link>
       }
-      <Link style={amountOfProblemsToLearn === 0 ? { visibility: 'hidden' } : {}} className="learn-more" to={`/courses/${courseId}/learn`}>
-        LEARN
-      </Link>
     </div>
   </div>;
 

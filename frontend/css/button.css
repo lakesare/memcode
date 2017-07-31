@@ -19,9 +19,9 @@
     color: white;
     background: #333030;
   }
-  &.-orange{
+  &.-blue{
     color: white;
-    background: #FF7800;
+    background: #1C263C;
   }
 
   &.-fade-out-on-hover{

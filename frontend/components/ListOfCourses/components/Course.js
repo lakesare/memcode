@@ -3,6 +3,10 @@ import { ReviewAndLearn } from './ReviewAndLearn';
 
 import { stripTags } from '~/services/stripTags';
 
+import { connect } from 'react-redux';
+@connect((state) => ({
+  currentUser: state.global.Authentication.currentUser
+}))
 class Course extends React.Component {
   static propTypes = {
     course: PropTypes.object.isRequired,
@@ -27,26 +31,19 @@ class Course extends React.Component {
     this.props.courseUserIsLearning &&
     this.props.courseUserIsLearning.active === true
 
-  renderActions = (course) =>
-    <section className="actions">
-      {
-        this.ifCanEdit() &&
-        <Link className="action -edit" to={`/courses/${course.id}/edit`}>
-          <i className="fa fa-pencil-square-o"/>
-        </Link>
+  renderGo = (course) =>
+    <Link
+      className="actions"
+      to={
+        this.ifCanEdit() ?
+        `/courses/${course.id}/edit` :
+        `/courses/${course.id}`
       }
-
-      <Link
-        className="action -view"
-        to={`/courses/${course.id}`}
-      >
-        <i className="fa fa-eye"/>
-      </Link>
-    </section>
+    ><i className="fa fa-long-arrow-right"/></Link>
 
   render = () =>
     <div className="course">
-      {this.renderActions(this.props.course)}
+      {this.renderGo(this.props.course)}
 
       <section className="main">
         <h3 className="title">{this.props.course.title}</h3>
@@ -65,17 +62,9 @@ class Course extends React.Component {
       </section>
 
       <section className="total-amount-of-mems">
-        {this.props.amountOfProblems} mems
+        {this.props.amountOfProblems} flashcards
       </section>
     </div>
 }
-
-import { connect } from 'react-redux';
-Course = connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser
-  }),
-  () => ({})
-)(Course);
 
 export { Course };

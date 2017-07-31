@@ -1,7 +1,7 @@
 @import 'css/variables';
 :local(main.main){
   section.search{
-    width: 300px;
+    max-width: 300px;
     display: flex;
     align-items: center;
     i{

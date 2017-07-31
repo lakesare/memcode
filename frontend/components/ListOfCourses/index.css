@@ -7,26 +7,33 @@
   margin: 0 -10px;
   > .course{
     // layout
+    position: relative;
     height: 200px;
     width: 150px;
 
-    border: 2px solid #444242;
     margin-right: 10px; margin-left: 10px;
     margin-bottom: 20px;
-    background: white;
-
-    position: relative;
     > section.total-amount-of-mems{
       position: absolute;
       bottom: 0;
       width: 100%;
+
+      padding-bottom: 2px;
+      padding-top: 2px;
+      border-top: 1px solid #ded5d5;
+      background: #e8e6e6;
+
+      background: rgb(54, 210, 19);
+      color: white;
+      border-top: 1px solid #424141;
     }
 
     > section.main{
-      height: 138px;
+      height: 145px;
       position: relative;
       h3.title{
         font-size: 18px;
+        font-weight: bold;
       }
       .review-and-learn{
         position: absolute;
@@ -44,23 +51,30 @@
     }
 
     // pretty
+    border: 2px solid #444242;
+    background: white;
     box-shadow: 0 2px 1px #777;
     text-align: center;
 
-    > section.actions{
-      padding-top: 4px;
+    // div or a
+    > .actions{
+      width: 100%;
+      display: block;
+      padding-right: 10px;
+      box-sizing: border-box;
       text-align: right;
-      > .action{
+
+      border-bottom: 1px solid #ded5d5;
+      background: rgba(232, 230, 230, 0.27);
+      i{ opacity: 0.6; }
+      &:hover{
         cursor: pointer;
-        padding-right: 10px;
-        &:hover{
-          opacity: 0.8;
-        }
+        i{ opacity: 1; }
       }
     }
 
     > section.main{
-      padding-top: 20px;
+      padding-top: 15px;
       > article.description{
         height: 76px;
         font-size: 12px;
@@ -131,6 +145,9 @@
     }
     > section.total-amount-of-mems{
       padding-bottom: 2px;
+      // font-family: $heading-font;
+      // text-transform: uppercase;
+      // font-size: 11px;
     }
   }
   > .layout-div{
