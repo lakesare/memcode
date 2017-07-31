@@ -28,7 +28,7 @@ class ProblemBeingSolved extends React.Component {
     // are we in the answer draft (where we may want to press enter)?
     const weAreInDraftAnswer = (
       this.props.problem.type === 'separateAnswer' &&
-      document.activeElement.className === 'public-DraftEditor-content'
+      document.activeElement.className === 'ql-editor'
     );
 
     if (!weAreInDraftAnswer) {

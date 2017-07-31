@@ -148,17 +148,24 @@
   }
 }
 
-@media(max-width: 560px) {
-  :local(header.header){
+:local(header.header){
+  @media(max-width: 670px){
+    .link{
+      margin-right: 10px !important;
+      padding-right: 2px !important;
+      padding-left: 2px !important;
+    }
+  }
+  @media(max-width: 560px){
     section.logo h1{
       font-size: 18px !important;
     }
     a.link.create{ display: none; }
     .link{
-      margin-right: 10px !important;
-      padding-right: 2px !important;
-      padding-left: 2px !important;
       i{ display: none; }
     }
+  }
+  @media(max-width: 400px){
+    a.link.contact{ display: none; }
   }
 }
