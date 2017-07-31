@@ -108,7 +108,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     pageActions.getPage(courseId, ownProps.route.simulated)
   ),
   enterPressed: () => {
-    ownProps.ifReviewIsSimulated ?
+    ownProps.route.simulated ?
       dispatch(pageActions.enterPressedInSimulatedReview()) :
       dispatch(pageActions.enterPressed());
   },
