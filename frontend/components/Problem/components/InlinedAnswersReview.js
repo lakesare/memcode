@@ -2,7 +2,10 @@ import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 const focusOnTheFirstAnswer = () => {
   const answers = document.getElementsByClassName('answer');
-  answers[0].focus();
+  const firstAnswer = answers[0];
+  if (firstAnswer) {
+    firstAnswer.focus();
+  }
 };
 
 const succumb = () => {

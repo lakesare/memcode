@@ -74,6 +74,7 @@ class Page_courses_id_review extends React.Component {
 
                 separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
                 onRightAnswerGiven={this.props.onRightAnswerGiven}
+                amountOfProblems={this.props.amountOfProblems}
               /> :
               <WhatNext courseId={parseInt(this.props.params.id)}/>
           }

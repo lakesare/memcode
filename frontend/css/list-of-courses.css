@@ -1,0 +1,109 @@
+.list-of-courses{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 -10px;
+  > .course{
+    // layout
+    position: relative;
+    height: 200px;
+    width: 150px;
+
+    margin-right: 10px; margin-left: 10px;
+    margin-bottom: 20px;
+    > section.total-amount-of-mems{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+
+      padding-bottom: 2px;
+      padding-top: 2px;
+      border-top: 1px solid #ded5d5;
+      background: #e8e6e6;
+
+      background: rgb(54, 210, 19);
+      color: white;
+      border-top: 1px solid #424141;
+    }
+
+    > section.main{
+      height: 145px;
+      position: relative;
+      h3.title{
+        font-size: 18px;
+        font-weight: bold;
+        mark{
+          background: none;
+          color: $review-button-color;
+        }
+      }
+    }
+
+    // pretty
+    border: 2px solid #444242;
+    background: white;
+    box-shadow: 0 2px 1px #777;
+    text-align: center;
+
+    // div or a
+    > .actions{
+      width: 100%;
+      display: block;
+      padding-right: 10px;
+      box-sizing: border-box;
+      text-align: right;
+
+      border-bottom: 1px solid #ded5d5;
+      background: rgba(232, 230, 230, 0.27);
+      i{ opacity: 0.6; }
+      &:hover{
+        cursor: pointer;
+        i{ opacity: 1; }
+      }
+    }
+
+    > section.main{
+      padding-top: 15px;
+      > article.description{
+        height: 76px;
+        font-size: 12px;
+        overflow: hidden;
+        // so that long links break
+        word-wrap: break-word;
+
+        padding-top: 12px;
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+    }
+
+    > section.total-amount-of-mems, .amount-of-mems-to-review-and-learn{
+      font-size: 11px;
+      font-weight: bold;
+    }
+    > section.total-amount-of-mems{
+      padding-bottom: 2px;
+      // font-family: $heading-font;
+      // text-transform: uppercase;
+      // font-size: 11px;
+    }
+  }
+  > .layout-div{
+    width: 150px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+.list-of-courses{
+  @media(max-width: 560px){
+    justify-content: space-around;
+  }
+  @media(max-width: 390px){
+    > .course{
+      width: 100%;
+      height: 88px;
+      padding-bottom: 19px;
+    }
+  }
+}

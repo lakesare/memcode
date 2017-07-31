@@ -8,8 +8,10 @@
 @import 'css/article-navigation';
 @import 'css/button';
 @import 'css/action';
-@import 'css/problem';
 @import 'css/standard-form';
+
+@import 'css/problem';
+@import 'css/list-of-courses';
 
 // for gifs
 // .rate-yourself{

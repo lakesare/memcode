@@ -34,6 +34,7 @@ const update = {
   // performanceRating: 0-5
   review: async (courseUserIsLearningId, problemId, performanceRating) => {
     const me = await select.findByCuilIdAndProblemId(courseUserIsLearningId, problemId);
+    const nextScore = getNextScore(me.easiness, me.consecutiveCorrectAnswers, performanceRating);
 
     return db.one(
       `

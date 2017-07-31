@@ -9,3 +9,18 @@
     }
   }
 }
+
+:local(.list-of-courses){
+  @media(max-width: 390px){
+    > .course{
+      > section.main{
+        height: auto !important;
+        padding-top: 4px !important;
+      }
+      article.description{
+        padding-top: 4px !important;
+        height: 32px !important;
+      }
+    }
+  }
+}

@@ -29,8 +29,8 @@ class Page_courses extends React.Component {
 
   filter = (coursesData) => {
     const options = {
-      pre: '<b>',
-      post: '</b>',
+      pre: '<mark>',
+      post: '</mark>',
       extract: (courseData) => courseData.course.title // filter by what?
     };
     const fuzzyCoursesData = fuzzy.filter(this.state.searchString, coursesData, options);
