@@ -9,24 +9,27 @@ section.problem{
   $answer-background: rgba(45, 245, 83, 0.9);
   &.-withInlinedAnswers{
     mark.answer{
-      background: $answer-background;
+      border: 5px solid $answer-background;
       padding: 1px 2px;
       border-radius: 2px;
     }
   }
   &.-withSeparateAnswer{
-    > .first-column{
-      mark{ background: white; }
-    }
     > .second-column{
       > .see-answer{
         cursor: pointer;
-        padding: 5px 10px;
-        background: $answer-background;
+        font-family: 'Mukta Vaani';
+        background: rgb(106, 243, 132);
+        box-shadow: 0px -1px 6px 1px rgba(74, 241, 42, 0.39);
+        border: 2px solid $sims-green-color;
+        padding: 6px 0;
+        font-size: 16px;
+        color: #232425;
+        text-shadow: 0px 0px 9px white;
       }
-      .quill{
+      > .quill{
         .ql-editor{
-          background: $answer-background;
+          border: 5px solid $answer-background;
         }
       }
     }

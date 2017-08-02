@@ -1,5 +1,4 @@
 import { Header }  from '~/components/Header';
-import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
@@ -80,8 +79,6 @@ class Page_courses_id_review extends React.Component {
           }
         </div>
       }</Loading>
-
-      <Footer/>
     </main>
 }
 

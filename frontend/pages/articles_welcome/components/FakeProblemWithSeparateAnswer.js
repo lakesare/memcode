@@ -16,7 +16,7 @@ class FakeProblemWithSeparateAnswer extends React.Component {
         {
           this.state.mode === 'solving' ?
             <div
-              className="see-answer"
+              className="see-answer button"
               onClick={() => this.setState({ mode: 'seeingAnswer' })}
             >See answer</div> :
             <div className="answer">

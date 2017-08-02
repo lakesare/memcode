@@ -48,3 +48,7 @@ input[type="text"]:focus, textarea:focus{
 textarea {
   resize: none;
 }
+
+mark{
+  background: none;
+}

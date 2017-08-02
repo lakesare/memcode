@@ -27,7 +27,7 @@ class SeparateAnswerReview extends React.Component {
           <ReadonlyEditor className="second-column" html={this.props.problemContent.answer}/> :
           <div className="second-column">
             <div
-              className="see-answer"
+              className="see-answer button"
               onClick={this.props.enterPressed}
             >See answer</div>
 

@@ -4,24 +4,20 @@
   section.problems{
     > .thead{
       position: relative;
-      padding-bottom: 6px;
 
       display: flex;
       justify-content: space-between;
-      margin-top: -4px;
+      margin-bottom: 20px;
     }
     > .tbody{
       // to avoid editing problem at the bottom of the screen
       margin-bottom: 40px;
-
       section.problem{
-        &.-not-focused .ql-toolbar{ opacity: 0; }
-        &.-focused .ql-toolbar{ opacity: 1; }
-
         &.-withInlinedAnswers{
           > .first-column{
             .ql-toolbar{
               padding-right: 0;
+
               button.ql-answer{
                 font-size: 10px;
                 width: 43px !important;

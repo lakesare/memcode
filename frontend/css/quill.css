@@ -1,3 +1,4 @@
+@import 'css/variables';
 .quill{
   position: relative;
   > .ql-toolbar{
@@ -19,9 +20,12 @@
     background: white;
     > .ql-editor{
       min-height: 50px;
+      font-family: $body-font;
+      font-size: 15px;
       pre.ql-syntax, code{
         background: #3e4e4c !important;
         color: white;
+        font-size: 13px;
       }
       // placeholder!
       &.ql-blank::before{
