@@ -44,9 +44,8 @@ class Editor extends React.Component {
           container: this.props.toolbarContainer,
           handlers: this.props.toolbarHandlers
         },
-        clipboard: {
-          matchVisual: false,
-        }
+        // https://github.com/zenoamaro/react-quill/issues/250
+        clipboard: { matchVisual: false }
       }}
 
       onChangeSelection={this.onChangeSelection}
