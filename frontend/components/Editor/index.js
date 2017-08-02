@@ -43,6 +43,9 @@ class Editor extends React.Component {
         toolbar: {
           container: this.props.toolbarContainer,
           handlers: this.props.toolbarHandlers
+        },
+        clipboard: {
+          matchVisual: false,
         }
       }}
 
