@@ -41,7 +41,6 @@ import { Page_pleaseSignIn } from './pages/pleaseSignIn';
 import { Page_articles_comparison } from './pages/articles_comparison';
 import { Page_articles_welcome } from './pages/articles_welcome';
 import { Page_contact } from './pages/contact';
-
 // common css
 import './index.css';
 import './fonts/font-awesome/scss/font-awesome.scss';
@@ -76,7 +75,6 @@ ReactDOM.render(
       <Route path="courses/:id/review/simulated" component={Page_courses_id_review} simulated {...auth}/>
       <Route path="profile/learning" component={Page_profile_learning} {...auth}/>
       <Route path="profile/created" component={Page_profile_created} {...auth}/>
-
       <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route path="/test" component={Page_test}/>
       <Route path="/contact" component={Page_contact}/>
