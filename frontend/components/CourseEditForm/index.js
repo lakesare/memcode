@@ -86,7 +86,6 @@ class CourseEditForm extends React.Component {
           />
         </div>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: this.state.formValues.description }} />
       <div className="fieldset">
         <div className="label">
           <label>Is course listed in /courses:</label>
