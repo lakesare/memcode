@@ -19,19 +19,6 @@ const select = {
     )
 };
 
-const update = {
-  update: async (id, email) =>
-    db.one(
-      `
-        UPDATE "user"
-        SET email = \${email}
-        WHERE id = \${id}
-        RETURNING *
-      `,
-      { id, email }
-    )
-};
-
 const insert = {
   createFromGithub: (profile) =>
     db.one(
@@ -46,4 +33,4 @@ const insert = {
     )
 };
 
-export { select, insert, update };
+export { select, insert };
