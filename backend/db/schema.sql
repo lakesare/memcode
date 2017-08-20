@@ -15,6 +15,7 @@ CREATE TABLE "user" (
   oauth_id VARCHAR NOT NULL,
   username VARCHAR NOT NULL,
   avatar_url VARCHAR,
+  email TEXT,
   unique (oauth_provider, oauth_id)
 );
 
