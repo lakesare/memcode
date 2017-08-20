@@ -1,4 +1,3 @@
-import $ from "jquery";
 import * as ProblemApi from '~/api/Problem';
 import { Problem } from '~/components/Problem';
 
@@ -26,11 +25,11 @@ class NewProblem extends React.Component {
   }
 
   componentDidMount = () => {
-    $(document).on('keydown', this.saveOnCTRLS);
+    document.addEventListener('keydown', this.saveOnCTRLS, false);
   }
 
   componentWillUnmount = () => {
-    $(document).off('keydown', this.saveOnCTRLS);
+    document.removeEventListener('keydown', this.saveOnCTRLS, false);
   }
 
   saveOnCTRLS = (event) => {
