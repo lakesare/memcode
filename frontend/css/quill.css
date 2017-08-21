@@ -32,6 +32,13 @@
         // color: rgba(0, 0, 0, 0.77);
         font-style: normal;
       }
+      ul, ol{
+        padding-left: 0;
+      }
+      strong{
+        font-family: "Helvetica Neue";
+        font-size: 16px;
+      }
     }
   }
 }

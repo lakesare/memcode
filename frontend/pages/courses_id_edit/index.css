@@ -89,8 +89,13 @@
     .container{ padding: 0 73px; }
   }
   @media(max-width: 627px){
+    > .container{ padding: 0 3px; }
     section.problems{
-      .ql-editor{ padding: 4px 3px; }
+      .problem{
+        > .first-column{ margin-right: 3px; }
+        > .second-column{ margin-left: 3px; }
+        .ql-editor{ padding: 4px 3px; }
+      }
       .new-problem{ display: none; }
       .actions{ display: none; }
       .ql-toolbar{ display: none; }

@@ -67,23 +67,15 @@
         box-sizing: border-box;
         box-shadow: -1px 0px 9px 2px #0f1835;
         font-weight: bold;
+        text-align: center;
       }
     }
     img{
-      max-width: 400px;
-      max-height: 360px;
-      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      display: block;
       margin-top: 10px;
       border: 1px solid #c6cbea;
-    }
-    .site.brainscape{
-      li{
-        text-align: center;
-        img{
-          max-height: 200px;
-          max-width: 246px;
-        }
-      }
     }
   }
 

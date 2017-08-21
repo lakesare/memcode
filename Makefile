@@ -28,7 +28,7 @@ db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=$(db) -d $(db) -U $(user) -f backend/db/schema.sql
 db-migrate:
-	psql -v database=$(db) -d $(db) -U $(user) -f backend/db/migrations/2.sql
+	psql -v database=$(db) -d $(db) -U $(user) -f backend/db/migrations/2.sql.ran
 
 # dump and restore data
 db-dump:

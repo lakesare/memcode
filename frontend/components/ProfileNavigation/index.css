@@ -4,7 +4,7 @@
   background: #333333;
   background: $black-gradient;
   padding: 3px 0px 4px 0px;
-  border-bottom: 2px black solid;
+  border-bottom: 3px black solid;
   font-family: $heading-font;
 
   .container{
@@ -17,10 +17,9 @@
         font-size: 11px;
 
         padding: 5px;
-        padding-top: 7px; padding-bottom: 6px;
+        padding-top: 7px; padding-bottom: 7px;
 
         margin-right: 37px;
-
         &:hover, &.active{
           border-bottom: $green-nav-border;
         }
@@ -45,6 +44,7 @@
 
         background: #333333;
         background: $black-gradient;
+        border: 2px solid rgba(28, 218, 21, 0.82);
         a{
           padding: 2px 10px;
           color: white;
