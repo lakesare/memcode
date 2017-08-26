@@ -62,7 +62,7 @@ class InlinedAnswersEdit extends React.Component {
         <Editor
           placeholder="Enter a sentence, and mark words you'd like to learn As Answers"
           editorState={this.props.problemContent.content}
-          updateEditorState={newState => this.updateProblemContent('content', newState)}
+          updateEditorState={(newState) => this.updateProblemContent('content', newState)}
           onFocusChange={(value) => this.updateFocus('firstColumn', value)}
 
           toolbarContainer={[['answer'], ...standardToolbarContainer]}
