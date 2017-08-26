@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+// because there is no alternative to el.readOnly
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 const focusOnTheFirstAnswer = () => {

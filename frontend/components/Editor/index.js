@@ -45,7 +45,10 @@ class Editor extends React.Component {
           handlers: this.props.toolbarHandlers
         },
         // https://github.com/zenoamaro/react-quill/issues/250
-        clipboard: { matchVisual: false }
+        clipboard: { matchVisual: false },
+        imageResize: {
+          modules: ['Resize']
+        }
       }}
 
       onChangeSelection={this.onChangeSelection}

@@ -182,7 +182,12 @@ module.exports = {
 
     "react/jsx-pascal-case": "off",
 
-    "no-confusing-arrow": "off"
+    "no-confusing-arrow": "off",
+
+    "jsx-a11y/label-has-for": "off",
+
+    // yeah it's just faster sometimes
+    "react/no-string-refs": "off"
   },
   "globals": {
     "fetch": true,

@@ -4,7 +4,9 @@ import 'es6-shim';
 // `fetch` polyfill for safari
 import 'whatwg-fetch';
 
-import '~/services/quill/registeredBlots';
+// globally setting up quill text editor
+import '~/services/quill/registerBlots';
+import '~/services/quill/registerModules';
 
 import ReactDOM from 'react-dom';
 

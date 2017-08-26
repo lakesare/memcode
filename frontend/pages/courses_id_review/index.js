@@ -33,7 +33,10 @@ class Page_courses_id_review extends React.Component {
     currentProblem: PropTypes.object,
     statusOfSolving: PropTypes.object,
     enterPressed: PropTypes.func.isRequired,
-    amountOfProblems: PropTypes.number
+    amountOfProblems: PropTypes.number,
+
+    separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
+    onRightAnswerGiven: PropTypes.func.isRequired
   }
 
   componentDidMount() {

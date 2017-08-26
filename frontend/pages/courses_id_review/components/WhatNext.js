@@ -15,13 +15,15 @@ class WhatNext extends React.Component {
 
   componentDidMount() {
     CourseApi.selectAllLearned(
-      spe => {
+      (spe) => {
         // for fast UI. last problem we reviews has probably not reached server yet.
         if (spe.status === 'success') {
           const datasWithoutJustReviewedOne = spe.payload.filter((data) => data.course.id !== this.props.courseId);
-          spe.payload = datasWithoutJustReviewedOne;
+          const modifiedSpe = { ...spe, payload: datasWithoutJustReviewedOne };
+          this.setState({ speGetCourses: modifiedSpe });
+        } else {
+          this.setState({ speGetCourses: spe });
         }
-        this.setState({ speGetCourses: spe });
       }
     );
   }

@@ -16,7 +16,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
+        // image-drop is not needed, but just in case if we need it
+        exclude: /node_modules(?!\/quill-image-drop-module|quill-image-resize-module)/,
         use: [
           {
             loader: 'babel-loader',
@@ -67,7 +68,8 @@ module.exports = {
     new ExtractTextPlugin('/index.css'),
     new webpack.ProvidePlugin({
       React: 'react',
-      PropTypes: 'prop-types'
+      PropTypes: 'prop-types',
+      'window.Quill': 'quill'
     })
   ],
 

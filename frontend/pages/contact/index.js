@@ -47,7 +47,7 @@ class Page_contact extends React.Component {
       commonFetch((spe) => this.setState({ speSend: spe }),
         'POST', '//formspree.io/lakesare@gmail.com',
         this.state.formValues
-      ).then(() => this.setState({ ifJustSent: true }))
+      ).then(() => this.setState({ ifJustSent: true }));
     }
   }
 

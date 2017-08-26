@@ -14,6 +14,9 @@ const FilteredCourseTitles = (props) => {
         <div
           className="course-title"
           key={course.original.id}
+          // yes, 'PropType is defined but prop is never used' is a linting error
+          // https://github.com/yannickcr/eslint-plugin-react/issues/885
+          /* eslint-disable */ 
           onClick={() => props.apiMoveProblemToCourse(course.original.id)}
         >
           <div dangerouslySetInnerHTML={{ __html: course.string }}/>
