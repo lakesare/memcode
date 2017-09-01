@@ -44,21 +44,21 @@ class Page_articles_welcome extends React.Component {
           </section>
 
           <section className="article-section">
-            {this.renderHeading('How do I use it?')}
+            {this.renderHeading('How do I use Memcode?')}
 
             <p>
-              You create a course with flashcards for some topic you want to learn.<br/>
-              Then we ask you to review (give answers to) the flashcards we think you started forgetting.<br/>
+              Create a course with flashcards for a subject you’re interested in.<br/>
+              To keep it in your long term memory, we ask you to review the flashcards you’re starting to forget.
             </p>
 
-            <b>There are two types of flashcards, and that's how they look when you review them:</b>
+            <b>Two types of flashcards:</b>
             <ol>
               <li>
-                You see a question, you give an answer and rate yourself according to your performance after seeing the actual answer:
+                Type in an answer and rate yourself according to your memory recall
                 <FakeProblemWithSeparateAnswer/>
               </li>
               <li>
-                You fill in missed words:
+                Fill in the blank
                 <FakeProblemWithInlinedAnswers/>
               </li>
             </ol>
