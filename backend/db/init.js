@@ -32,16 +32,16 @@ const getConnectionString = () => {
         host: 'localhost', // 'localhost' is the default;
         port: 5432, // 5432 is the default;
         database: 'memcode',
-        user: 'postgres',
-        password: '`1`1`1'
+        user: process.env['DB_USER'],
+        password: process.env['DB_PASSWORD']
       };
     case 'test':
       return {
         host: 'localhost', // 'localhost' is the default;
         port: 5432, // 5432 is the default;
         database: 'memcode_test',
-        user: 'postgres',
-        password: '`1`1`1'
+        user: process.env['DB_USER'],
+        password: process.env['DB_PASSWORD']
       };
     case 'production':
       // this variable is set automatically after we do heroku addons:create heroku-postgresql:hobby-dev

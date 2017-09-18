@@ -33,8 +33,8 @@ router.post('/', authenticateMiddleware, catchAsync(async (request, response) =>
 }));
 
 router.put('/:id', catchAsync(async (request, response) => {
-  await Course.update.update(request.params.id, request.body['course']);
-  response.status(200).json({});
+  const updatedCourse = await Course.update.update(request.params.id, request.body['course']);
+  response.status(200).json(updatedCourse);
 }));
 
 router.delete('/:id', catchAsync(async (request, response) => {

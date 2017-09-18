@@ -40,10 +40,13 @@ input[type="text"], textarea{
   padding: 4px 10px;
   font-family: $body-font;
 }
-input[type="text"]:focus, textarea:focus{
+input[type="text"]:focus, textarea:focus, button:focus{
   outline: none;
 }
-
+// because mac makes it tiny 11px
+input, textarea, select, button{
+  font-size: 14px;
+}
 textarea {
   resize: none;
 }

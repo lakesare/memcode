@@ -59,7 +59,7 @@ class CourseEditForm extends React.Component {
   }
 
   render = () =>
-    <form className={`${css.form} standard-form -bordered`}>
+    <form className={`${css.form} standard-form -bordered`} onSubmit={this.validateAndSubmit}>
       {/* not real fieldset because it can't be flexbox */}
       <div className="fieldset">
         <div className="label">
@@ -101,9 +101,8 @@ class CourseEditForm extends React.Component {
 
       <button
         className="button -black standard-submit-button"
-        onClick={this.validateAndSubmit}
         disabled={this.props.speSave.status === 'request'}
-        type="button"
+        type="submit"
       >{this.props.buttonText}</button>
 
       <Loading spe={this.props.speSave}/>

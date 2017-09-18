@@ -10,7 +10,8 @@ import css from './index.css';
 @onClickOutside
 class CourseDetails extends React.Component {
   static propTypes = {
-    course: PropTypes.object.isRequired
+    course: PropTypes.object.isRequired,
+    uiUpdateCourse: PropTypes.func.isRequired
   }
 
   state = {
@@ -31,6 +32,10 @@ class CourseDetails extends React.Component {
       this.props.course.id,
       formValues
     )
+    .then((course) => {
+      this.props.uiUpdateCourse(course);
+      this.setState({ ifShown: false });
+    })
 
   deleteCourse = () =>
     CourseApi.destroy(

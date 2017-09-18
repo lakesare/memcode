@@ -2,8 +2,8 @@
 .quill{
   position: relative;
   > .ql-toolbar{
-    box-shadow: 0px -3px 5px 4px rgba(255, 255, 255, 0.36);
-    border-bottom: none;
+    box-shadow: 0px -3px 5px 4px rgba(255, 255, 255, 0.81);
+    border-bottom: none !important;
     background: white;
     padding: 2px 10px !important;
     button:hover, button.ql-active{

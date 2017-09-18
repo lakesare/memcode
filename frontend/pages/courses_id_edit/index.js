@@ -32,6 +32,13 @@ class Page_courses_id_edit extends React.Component {
       'GET', `/api/pages/courses/${this.props.params.id}/edit`
     )
 
+  uiUpdateCourse = (updatedCourse) => {
+    this.setState({
+      speGetPage:
+      update(this.state.speGetPage, `payload.course`, () => updatedCourse)
+    });
+  }
+
   addNewProblem = (createdProblem) => {
     this.setState({
       speGetPage:
@@ -70,7 +77,7 @@ class Page_courses_id_edit extends React.Component {
         <Loading spe={this.state.speGetPage}>{({ problems, course }) =>
           <section className="problems">
             <div className="thead">
-              <CourseDetails course={course}/>
+              <CourseDetails course={course} uiUpdateCourse={this.uiUpdateCourse}/>
               {false && <Cheatsheet/>}
             </div>
             <div className="tbody">
