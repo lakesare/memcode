@@ -89,7 +89,7 @@ class CourseEditForm extends React.Component {
       </div>
       <div className="fieldset">
         <div className="label">
-          <label>Is course listed in /courses:</label>
+          <label>Public or private</label>
         </div>
         <div className="input">
           <div
