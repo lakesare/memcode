@@ -48,7 +48,7 @@
 
       > .new-problem{
         position: relative;
-        margin-top: 40px;
+        margin-top: 25px;
         > section.how-to-create{
           margin-top: 10px;
           color: #adadad;
@@ -61,13 +61,13 @@
         }
         > section.choose-type{
           position: absolute;
-          right: -66px;
+          right: -72px;
           top: 0;
           > .button{
             font-size: 9px;
             padding: 4px;
             opacity: 0.5;
-            width: 50px;
+            width: 57px;
             &.-active{
               opacity: 1;
               cursor: default;

@@ -19,7 +19,7 @@
     border-top: 1px solid #ccc !important;
     background: white;
     > .ql-editor{
-      min-height: 50px;
+      min-height: 58px;
       font-family: $body-font;
       font-size: 15px;
       pre.ql-syntax, code{

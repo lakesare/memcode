@@ -15,6 +15,9 @@
           display: flex;
           > a.review, > a.learn-more{
             opacity: 0.9;
+            // line in order to make this div proper width in chrome
+            // https://stackoverflow.com/a/16833496/3192470
+            -webkit-backface-visibility: hidden;
             width: 50%;
             color: white;
             font-size: 12px;

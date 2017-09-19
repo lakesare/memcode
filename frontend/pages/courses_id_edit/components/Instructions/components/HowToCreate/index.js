@@ -5,7 +5,7 @@ class HowToCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentType: 'SEPARATE ANSWER',
+      currentType: 'QUESTION ANSWER',
     };
   }
 
@@ -20,13 +20,13 @@ class HowToCreate extends React.Component {
   render = () =>
     <div className="how-to-create">
       <nav>
-        {this.renderNavItem('SEPARATE ANSWER')}
-        {this.renderNavItem('INLINED ANSWERS')}
+        {this.renderNavItem('QUESTION ANSWER')}
+        {this.renderNavItem('FILL-IN ANSWER')}
       </nav>
 
       <div className="current-type">
         {
-          this.state.currentType === 'INLINED ANSWERS' &&
+          this.state.currentType === 'FILL-IN ANSWER' &&
           <div className="gif-and-text">
             <img src={`/${memcode_1}`}/>
             <div className="text">
@@ -45,7 +45,7 @@ class HowToCreate extends React.Component {
         }
 
         {
-          this.state.currentType === 'SEPARATE ANSWER' &&
+          this.state.currentType === 'QUESTION ANSWER' &&
           <div className="gif-and-text">
             <img src={`/${memcode_2}`}/>
             <div className="text">
