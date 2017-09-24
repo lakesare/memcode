@@ -1,43 +1,52 @@
 import { Link } from 'react-router';
 import { AmountOfProblemsToReview } from './AmountOfProblemsToReview';
 
-const ReviewAndLearn = ({ courseId, amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn }) =>
-  <div className="review-and-learn">
-    <div className="amount-of-mems-to-review-and-learn">
-      <div className={amountOfProblemsToLearn === 0 ? `to-learn` : `to-learn -nonzero`}>
+class ReviewAndLearn extends React.Component {
+  static propTypes = {
+    courseId: PropTypes.number.isRequired,
+    amountOfProblemsToLearn: PropTypes.number.isRequired,
+    amountOfProblemsToReview: PropTypes.number.isRequired,
+    nextDueDateIn: PropTypes.object
+  }
+
+  static defaultProps = {
+    nextDueDateIn: null // can be null if we haven't learned any problems yet
+  }
+
+  renderAmountFooter = (amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn) =>
+    <section className="amount-footer">
+      <div className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}>
         {amountOfProblemsToLearn} to learn
       </div>
       <AmountOfProblemsToReview
         amountOfProblemsToReview={amountOfProblemsToReview}
         nextDueDateIn={nextDueDateIn}
       />
-    </div>
+    </section>
 
-    <div className="review-and-learn-links">
-      <Link style={amountOfProblemsToLearn === 0 ? { visibility: 'hidden' } : {}} className="learn-more" to={`/courses/${courseId}/learn`}>
-        LEARN
-      </Link>
+  renderLinks = (amountOfProblemsToLearn, amountOfProblemsToReview, courseId) =>
+    <section className="links">
+      <Link
+        className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
+        to={`/courses/${courseId}/learn`}
+      >LEARN</Link>
+
       {
         amountOfProblemsToReview > 0 ?
           <Link className="review" to={`/courses/${courseId}/review`}>
             REVIEW
           </Link> :
-          <Link className="review simulated" to={`/courses/${courseId}/review/simulated`}>
+          <Link className="review -simulated" to={`/courses/${courseId}/review/simulated`}>
             REVIEW without recording results
           </Link>
       }
+    </section>
+
+  render = () =>
+    <div className="review-and-learn">
+      {this.renderLinks(this.props.amountOfProblemsToLearn, this.props.amountOfProblemsToReview, this.props.courseId)}
+      {this.renderAmountFooter(this.props.amountOfProblemsToLearn, this.props.amountOfProblemsToReview, this.props.nextDueDateIn)}
     </div>
-  </div>;
-
-ReviewAndLearn.propTypes = {
-  courseId: PropTypes.number.isRequired,
-  amountOfProblemsToLearn: PropTypes.number.isRequired,
-  amountOfProblemsToReview: PropTypes.number.isRequired,
-  nextDueDateIn: PropTypes.object
-};
-
-ReviewAndLearn.defaultPropTypes = {
-  nextDueDateIn: null // can be null if we haven't learned any problems yet
-};
+}
 
 export { ReviewAndLearn };

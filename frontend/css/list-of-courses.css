@@ -79,15 +79,12 @@
       }
     }
 
-    > section.total-amount-of-mems, .amount-of-mems-to-review-and-learn{
+    > section.total-amount-of-mems, section.amount-footer{
       font-size: 11px;
       font-weight: bold;
     }
     > section.total-amount-of-mems{
       padding-bottom: 2px;
-      // font-family: $heading-font;
-      // text-transform: uppercase;
-      // font-size: 11px;
     }
   }
   > .layout-div{

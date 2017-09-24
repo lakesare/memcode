@@ -4,15 +4,15 @@ const AmountOfProblemsToReview = ({ amountOfProblemsToReview, nextDueDateIn }) =
     const biggestMeasure = Object.keys(nextDueDateIn)[0];
     const amount = nextDueDateIn[biggestMeasure];
 
-    return <div className="to-review -zero">
+    return <div className="review -zero">
       {`in ${amount} ${biggestMeasure}`}
     </div>;
   // user hasn't learned anything from this course yet
   } else if (amountOfProblemsToReview === 0 && !nextDueDateIn) {
-    return <div className="to-review"/>;
+    return <div className="review"/>;
   // user has problems to review
   } else if (amountOfProblemsToReview > 0) {
-    return <div className="to-review -nonzero">
+    return <div className="review -nonzero">
       {amountOfProblemsToReview} to review
     </div>;
   }

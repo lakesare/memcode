@@ -3,17 +3,19 @@
 :local(.list-of-courses){
   > .course{
     > section.main{
+      section.links{ visibility: hidden; }
+      &:hover{
+        section.links{ visibility: visible; }
+      }
       > .review-and-learn{
         position: absolute;
         top: 0; bottom: 0;
         width: 100%;
 
-        > .review-and-learn-links{
+        > section.links{
           height: 100%;
-         
-          visibility: hidden;
           display: flex;
-          > a.review, > a.learn-more{
+          > a.review, > a.learn{
             opacity: 0.9;
             // line in order to make this div proper width in chrome
             // https://stackoverflow.com/a/16833496/3192470
@@ -34,37 +36,34 @@
           }
           > a.review{
             background: $review-button-color;
-            &.simulated{ background: #b1b0b0; }
+            &.-simulated{ background: #b1b0b0; }
           }
-          > a.learn-more{
+          > a.learn{
             background: $learn-button-color;
+            &.-zero{ visibility: hidden; }
           }
         }
-        > .amount-of-mems-to-review-and-learn{
+        > section.amount-footer{
           position: absolute;
           bottom: 0;
           width: 100%;
           display: flex;
-          > .to-review.-nonzero{
-            background: $review-button-color;
-          }
-          > .to-learn.-nonzero{
-            background: $learn-button-color;
-          }
-          > .to-review.-zero{
-            background: #b1b0b0;
-          }
-          > .to-review, > .to-learn{
+          > .review, > .learn{
             width: 50%;
             color: white;
             z-index: 100;
             padding-top: 3px;
             padding-bottom: 3px;
           }
+          > .review{
+            &.-nonzero{ background: $review-button-color; }
+            &.-zero{ background: #b1b0b0; }
+          }
+          > .learn{
+            &.-nonzero{ background: $learn-button-color; }
+            &.-zero{ visibility: hidden; }
+          }
         }
-      }
-      &:hover{
-        .review-and-learn-links{ visibility: visible; }
       }
     }
   }
