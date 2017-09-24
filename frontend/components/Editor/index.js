@@ -48,7 +48,8 @@ class Editor extends React.Component {
         clipboard: { matchVisual: false },
         imageResize: {
           modules: ['Resize']
-        }
+        },
+        imageDrop: true
       }}
 
       onChangeSelection={this.onChangeSelection}
