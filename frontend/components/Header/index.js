@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { CurrentUser } from './components/CurrentUser';
 import { ArticlesDropdown } from './components/ArticlesDropdown';
+import { Search } from './components/Search';
 import css from './index.css';
 
 class Header extends React.Component {
@@ -41,10 +42,12 @@ class Header extends React.Component {
             <h1>MemCode</h1>
           </Link>
           {/* <div className="memorizing-is-hard-caption">
-            Understanding is not enough.<br/>
-            You must retain the understanding.
+            Retain the understanding.
           </div> */}
         </section>
+
+        <Search/>
+
         {this.renderNavigation()}
       </div>
     </header>
