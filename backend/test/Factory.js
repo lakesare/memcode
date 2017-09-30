@@ -17,7 +17,7 @@ const RawFactory = {
 
   course: ({ userId }) =>
     Course.insert.create(
-      { title: 'React' },
+      { title: 'React', description: 'Js framework' },
       userId
     ),
 
@@ -42,6 +42,11 @@ const Factory = {
     const problem = await RawFactory.problem({ courseId: course.id });
     const puil    = await RawFactory.problemUserIsLearning({ problemId: problem.id, courseUserIsLearningId: cuil.id });
     return puil;
+  },
+  course: async () => {
+    const user = await RawFactory.user();
+    const course = await RawFactory.course({ userId: user.id });
+    return course;
   }
 };
 

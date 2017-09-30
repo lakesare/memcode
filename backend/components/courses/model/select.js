@@ -58,6 +58,18 @@ const select = {
       WHERE course.id = \${id}
       `,
       { id }
+    ),
+
+  search: (userId, searchString) =>
+    db.any(
+      `
+      SELECT *
+      FROM course
+      WHERE levenshtein(title, \${searchString}) <= 3
+      ORDER BY levenshtein(title, \${searchString})
+      LIMIT 10
+      `,
+      { searchString }
     )
 };
 

@@ -23,6 +23,11 @@ router.get('/allCreated', authenticateMiddleware, catchAsync(async (request, res
   response.status(200).json(res);
 }));
 
+router.get('/search', authenticateMiddleware, catchAsync(async (request, response) => {
+  const res = await Course.select.search(request.currentUser.id, request.query.searchString);
+  response.status(200).json(res);
+}));
+
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
   const course = await Course.insert.create(request.body['course'], request.currentUser.id);
 

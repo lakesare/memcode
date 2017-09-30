@@ -33,4 +33,17 @@ const insert = {
     )
 };
 
-export { select, insert };
+const update = {
+  update: async (id, email) =>
+    db.one(
+      `
+        UPDATE "user"
+        SET email = \${email}
+        WHERE id = \${id}
+        RETURNING *
+      `,
+      { id, email }
+    )
+};
+
+export { select, insert, update };

@@ -24,7 +24,7 @@ db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U postgres -f backend/db/migrations/3.sql.ran
+	psql -v database=memcode -U postgres -f backend/db/migrations/3.sql
 
 # dump and restore data
 db-dump:
@@ -36,9 +36,9 @@ db-restore:
 test-db-reset:
 	psql -v database=memcode_test -U postgres -f backend/db/schema.sql
 test-backend:
-	cd backend; NODE_ENV=test mocha --recursive ./webpacked/test --require babel-polyfill --watch
+	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./webpacked/test --require babel-polyfill --watch
 test-frontend:
-	cd frontend; NODE_ENV=test karma start
+	cd frontend; NODE_ENV=test ../node_modules/.bin/karma start
 
 # production
 heroku-postbuild:

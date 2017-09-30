@@ -187,7 +187,9 @@ module.exports = {
     "jsx-a11y/label-has-for": "off",
 
     // yeah it's just faster sometimes
-    "react/no-string-refs": "off"
+    "react/no-string-refs": "off",
+
+    "no-param-reassign": "off"
   },
   "globals": {
     "fetch": true,

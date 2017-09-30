@@ -1,4 +1,4 @@
-var webpackConfig = require('./webpack.config');
+const webpackConfig = require('./webpack.config');
 module.exports = function (config) {
   config.set({
     plugins: [
@@ -23,11 +23,11 @@ module.exports = function (config) {
         'cheerio': 'window',
         'react/addons': true, // important!!
         'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true, 
+        'react/lib/ReactContext': true,
       },
     },
     webpackServer: {
-      noInfo: true //please don't spam the console when running in karma!
+      noInfo: true // please don't spam the console when running in karma!
     },
     reporters: ['mocha'],
     port: 9876,
@@ -37,5 +37,5 @@ module.exports = function (config) {
     singleRun: false,
     concurrency: Infinity,
     browsers: ['jsdom']
-  })
-}
+  });
+};
