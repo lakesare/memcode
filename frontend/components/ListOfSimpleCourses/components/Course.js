@@ -32,7 +32,7 @@ class Course extends React.Component {
       <div className="actions"><i className="fa fa-long-arrow-right"/></div>
 
       <section className="main">
-        <h3 className="title" dangerouslySetInnerHTML={{ __html: this.props.course.title }}/>
+        <h3 className="title">{this.props.course.title}</h3>
 
         <article className="description">{stripTags(this.props.course.description)}</article>
       </section>

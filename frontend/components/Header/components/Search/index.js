@@ -1,13 +1,13 @@
-import * as Course from '~/api/Course';
+import * as CourseApi from '~/api/Course';
 
-import { Link } from 'react-router';
 import { Loading } from '~/components/Loading';
+import { Course } from './components/Course';
 
 import css from './index.css';
 
 class Search extends React.Component {
   static propTypes = {
-    // currentUser: PropTypes.object
+    currentUser: PropTypes.object
   }
 
   state = {
@@ -16,7 +16,7 @@ class Search extends React.Component {
   }
 
   apiSearch = (searchString) =>
-    Course.selectSearch(
+    CourseApi.selectSearch(
       (spe) => this.setState({ speSearch: spe }),
       searchString
     )
@@ -30,21 +30,6 @@ class Search extends React.Component {
     } else {
       this.apiSearch(searchString);
     }
-  }
-
-  bolden = (title, searchString) => {
-    // "hello", "ll" => 2
-    const beginsToMatchAt = title.toLowerCase().indexOf(
-      searchString.toLowerCase()
-    );
-    const endsToMatchAt = beginsToMatchAt + searchString.length;
-    const boldenedString =
-      title.slice(0, beginsToMatchAt) +
-      '<b>' +
-      title.slice(beginsToMatchAt, endsToMatchAt) +
-      '</b>' +
-      title.slice(endsToMatchAt);
-    return <div dangerouslySetInnerHTML={{ __html: boldenedString }}/>;
   }
 
   render = () =>
@@ -64,14 +49,15 @@ class Search extends React.Component {
       </div>
 
       <div className="standard-dropdown">
-        <Loading spe={this.state.speSearch}>{(results) =>
+        <Loading spe={this.state.speSearch}>{(courseDatas) =>
           <ul>
-            {results.map(({ course }) =>
-              <li key={course.id}>
-                <Link to={`/courses/${course.id}`}>
-                  {this.bolden(course.title, this.state.searchString)}
-                </Link>
-              </li>
+            {courseDatas.map((courseData) =>
+              <Course
+                key={courseData.course.id}
+                courseData={courseData}
+                currentUser={this.props.currentUser}
+                searchString={this.state.searchString}
+              />
             )}
           </ul>
         }</Loading>

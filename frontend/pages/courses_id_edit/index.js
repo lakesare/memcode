@@ -69,7 +69,7 @@ class Page_courses_id_edit extends React.Component {
     })
 
   render = () =>
-    <main className={css.main}>
+    <main className={css.main} key={this.props.params.id}>
       <Header/>
 
       <div className="container">

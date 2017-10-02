@@ -10,7 +10,6 @@ const authenticateMiddleware = (request, response, next) => {
       if (error) {
         response.status(401).json({ error });
       } else {
-        // eslint-disable-next-line
         request.currentUser = user;
         next();
       }
@@ -25,9 +24,11 @@ const optionalAuthenticateMiddleware = (request, response, next) => {
     const token = request.headers['authorization'].split('Bearer ')[1];
     jwt.verify(token, process.env['JWT_SECRET'], (error, user) => {
       if (!error) request.currentUser = user;
+      next();
     });
+  } else {
+    next();
   }
-  next();
 };
 
 export { authenticateMiddleware, optionalAuthenticateMiddleware };

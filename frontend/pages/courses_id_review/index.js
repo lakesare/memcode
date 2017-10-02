@@ -42,7 +42,7 @@ class Page_courses_id_review extends React.Component {
   componentDidMount() {
     this.props.getPage(this.props.params.id);
 
-    document.body.style.background = '#383131';
+    document.body.style.background = 'rgb(37, 37, 39)';
   }
 
   // https://github.com/ReactTraining/react-router/issues/1487
@@ -58,7 +58,7 @@ class Page_courses_id_review extends React.Component {
   }
 
   render = () =>
-    <main className={css.main}>
+    <main className={css.main} key={this.props.params.id}>
       <Header/>
 
       <Loading spe={this.props.speGetPage}>{() =>

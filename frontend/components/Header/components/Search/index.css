@@ -46,8 +46,22 @@
     }
   }
   > div.standard-dropdown{
-    b{
-      color: $sims-green-color;
+    li a{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      > div.title{
+        mark{ // mark matching searchString in title
+          color: $sims-green-color;
+        }
+      }
+      > div.status{
+        font-size: 12px;
+        font-weight: bold;
+        opacity: 0.6;
+        position: relative;
+        right: -4px;
+      }
     }
   }
 }

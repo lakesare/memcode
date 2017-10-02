@@ -26,7 +26,7 @@ class Page_courses_id_learn extends React.Component {
     )
 
   render = () =>
-    <main className={css.main}>
+    <main className={css.main} key={this.props.params.id}>
       <Header/>
 
       <Loading spe={this.state.speGetPage}>{({ problems, courseUserIsLearning }) =>
