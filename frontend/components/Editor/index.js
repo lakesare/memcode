@@ -39,11 +39,23 @@ class Editor extends React.Component {
       readOnly={this.props.readOnly}
 
       modules={{
-        syntax: false, // Include syntax module
+         // maybe include syntax module sometime
+        // syntax: false,
         toolbar: {
           container: this.props.toolbarContainer,
           handlers: this.props.toolbarHandlers
         },
+        // keyboard: {
+        //   bindings: {
+        //     'code-block': {
+        //       key: 'K',
+        //       shiftKey: true,
+        //       // handler: function() {return false}
+        //       //   return true;
+        //       // }
+        //     }
+        //   }
+        // },
         // https://github.com/zenoamaro/react-quill/issues/250
         clipboard: { matchVisual: false },
         imageResize: {

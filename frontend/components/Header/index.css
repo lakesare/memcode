@@ -149,6 +149,9 @@
 }
 
 :local(header.header){
+  @media(max-width: 930px){
+    .search{ display: none; }
+  }
   @media(max-width: 670px){
     .link{
       margin-right: 10px !important;
