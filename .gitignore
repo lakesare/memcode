@@ -6,8 +6,6 @@
 !/frontend/webpacked/favicon.ico
 !/frontend/webpacked/favicon-16x16.png
 !/frontend/webpacked/favicon-32x32.png
-# icons
-!/frontend/webpacked/loading-icon.svg
 
 /env.js
 

@@ -14,6 +14,7 @@
 
 
 import * as customPropTypes from '~/services/customPropTypes';
+import requestIcon from './requestIcon.svg';
 import css from './index.css';
 
 const Loading = (props) => {
@@ -38,8 +39,7 @@ const Loading = (props) => {
 
 Loading.defaultProps = {
   children: null,
-  requestIcon: <img src="/loading-icon.svg"/>
-  // <i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw"/>
+  requestIcon: <img src={`/${requestIcon}`}/>
 };
 
 Loading.propTypes = {

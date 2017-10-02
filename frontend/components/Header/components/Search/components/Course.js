@@ -55,7 +55,6 @@ class Course extends React.Component {
     const cuil = this.props.courseData.courseUserIsLearning;
     const course = this.props.courseData.course;
     const currentUser = this.props.currentUser;
-    console.log(cuil)
     let status;
     if (currentUser) {
       if (cuil && cuil.active === true) {

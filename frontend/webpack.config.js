@@ -45,11 +45,11 @@ module.exports = {
           ]
         })
       },
-      { // the file-loader emits files.
-        test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      { // for fonts
+        test: /\.(ttf|eot|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: ['file-loader']
       },
-      {
+      { // for images
         test: /\.(jpg|png|svg|gif)$/,
         use: ['file-loader']
       }

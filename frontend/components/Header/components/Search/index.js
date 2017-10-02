@@ -1,10 +1,12 @@
 import * as CourseApi from '~/api/Course';
 
+import onClickOutside from 'react-onclickoutside';
 import { Loading } from '~/components/Loading';
 import { Course } from './components/Course';
 
 import css from './index.css';
 
+@onClickOutside
 class Search extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object
@@ -14,6 +16,9 @@ class Search extends React.Component {
     searchString: '',
     speSearch: {}
   }
+
+  handleClickOutside = () =>
+    this.clearAndCloseDropdown()
 
   apiSearch = (searchString) =>
     CourseApi.selectSearch(
@@ -25,12 +30,14 @@ class Search extends React.Component {
     const searchString = event.target.value;
     this.setState({ searchString });
     if (searchString.length === 0) {
-      // hide the dropdown, reset the found results
-      this.setState({ speSearch: {} });
+      this.clearAndCloseDropdown();
     } else {
       this.apiSearch(searchString);
     }
   }
+
+  clearAndCloseDropdown = () =>
+    this.setState({ speSearch: {} })
 
   render = () =>
     <section className={`${css.search} search`}>
