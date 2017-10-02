@@ -1,4 +1,3 @@
-import * as fuzzy from 'fuzzy';
 import { commonFetch } from '~/api/commonFetch';
 
 import { Helmet } from 'react-helmet';
@@ -22,48 +21,19 @@ class Page_courses extends React.Component {
       'GET', '/api/pages/courses'
     )
 
-  updateSearchString = (event) => {
-    const newSearchString = event.target.value;
-    this.setState({ searchString: newSearchString });
-  }
-
-  filter = (coursesData) => {
-    const options = {
-      pre: '<mark>',
-      post: '</mark>',
-      extract: (courseData) => courseData.course.title // filter by what?
-    };
-    const fuzzyCoursesData = fuzzy.filter(this.state.searchString, coursesData, options);
-
-    // [{ original, string ('Engli<b>sh</b>') }]
-    return fuzzyCoursesData.map((fuzzyCourseData) => ({
-      course: {
-        ...fuzzyCourseData.original.course,
-        title: fuzzyCourseData.string
-      },
-      amountOfProblems: fuzzyCourseData.original.amountOfProblems
-    }));
-  }
-
   render = () =>
     <main className={css.main}>
       <Header/>
       <ProfileNavigation/>
-      <div className="container">
-        <section className="search">
-          <i className="fa fa-search"/>
-          <input
-            placeholder="Search For Some Course To Learn"
-            onChange={this.updateSearchString}
-            value={this.state.searchString}
-            type="text"
-          />
-        </section>
 
-        <Loading spe={this.state.speGetCourses}>{coursesData =>
-          <ListOfSimpleCourses coursesData={this.filter(coursesData)}/>
+      <div className="space"/>
+
+      <div className="container">
+        <Loading spe={this.state.speGetCourses}>{(coursesData) =>
+          <ListOfSimpleCourses coursesData={coursesData}/>
         }</Loading>
       </div>
+
       <Footer/>
 
       <Helmet>

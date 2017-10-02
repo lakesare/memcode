@@ -3,6 +3,14 @@ import { camelizeDbColumns } from '~/services/camelizeDbColumns';
 
 import { fetchCoursesAndTheirStats } from '~/model/select';
 
+const wherePublic = `
+  if_public = true
+    AND
+  (
+    SELECT COUNT(problem.id) FROM problem WHERE problem.course_id = course.id
+  ) >= 2
+`;
+
 const select = {
   allCreated: (userId) =>
     fetchCoursesAndTheirStats(`WHERE course.user_id = \${userId}`, '', userId),
@@ -34,12 +42,7 @@ const select = {
         FROM course
         LEFT OUTER JOIN problem
           ON problem.course_id = course.id
-        WHERE
-          if_public = true
-            AND
-          (
-            SELECT COUNT(problem.id) FROM problem WHERE problem.course_id = course.id
-          ) >= 2
+        WHERE ${wherePublic}
         GROUP BY course.id
         ORDER BY amount_of_problems DESC
       `,
@@ -61,16 +64,37 @@ const select = {
     ),
 
   search: (userId, searchString) =>
-    db.any(
+    fetchCoursesAndTheirStats(
       `
-      SELECT *
-      FROM course
-      WHERE levenshtein(title, \${searchString}) <= 3
-      ORDER BY levenshtein(title, \${searchString})
-      LIMIT 10
+        WHERE
+          title ILIKE '%${searchString}%'
+            AND
+          ( -- either public or created by me
+            course.user_id = \${userId} OR
+            ${wherePublic}
+          )
       `,
-      { searchString }
-    )
+      `
+        ORDER BY
+          CASE
+            WHEN course_user_is_learning.active = true
+            THEN 1 ELSE 0
+          END DESC,
+          CASE
+            WHEN course_user_is_learning.user_id = \${userId}
+            THEN 1 ELSE 0
+          END DESC,
+          CASE
+            WHEN course.user_id = \${userId}
+            THEN 1 ELSE 0
+          END DESC,
+          amount_of_problems_to_review DESC,
+          amount_of_problems_to_learn DESC,
+          next_due_date_in ASC
+        LIMIT 10
+      `,
+      userId
+    ),
 };
 
 export { select };

@@ -46,7 +46,7 @@ class Header extends React.Component {
           </div> */}
         </section>
 
-        {/* <Search/> */}
+        <Search/>
 
         {this.renderNavigation()}
       </div>

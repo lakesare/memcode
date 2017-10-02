@@ -7,10 +7,10 @@
     // layout
     position: relative;
     height: 200px;
-    width: 150px;
+    width: 156px;
 
     margin-right: 10px; margin-left: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     > section.total-amount-of-mems{
       position: absolute;
       bottom: 0;

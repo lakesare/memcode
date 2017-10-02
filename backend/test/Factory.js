@@ -17,14 +17,15 @@ const RawFactory = {
 
   course: ({ userId }) =>
     Course.insert.create(
-      { title: 'React', description: 'Js framework' },
+      { title: 'React', description: 'Js framework', ifPublic: true },
       userId
     ),
 
   problem: ({ courseId }) =>
     Problem.insert.create({
       content: {},
-      courseId
+      courseId,
+      type: 'inlinedAnswers'
     }),
 
   courseUserIsLearning: ({ courseId, userId }) =>
@@ -46,6 +47,12 @@ const Factory = {
   course: async () => {
     const user = await RawFactory.user();
     const course = await RawFactory.course({ userId: user.id });
+    return course;
+  },
+  publicCourse: async () => {
+    const course  = await Factory.course();
+    await RawFactory.problem({ courseId: course.id });
+    await RawFactory.problem({ courseId: course.id });
     return course;
   }
 };

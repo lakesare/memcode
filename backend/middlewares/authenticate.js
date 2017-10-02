@@ -20,4 +20,14 @@ const authenticateMiddleware = (request, response, next) => {
   }
 };
 
-export { authenticateMiddleware };
+const optionalAuthenticateMiddleware = (request, response, next) => {
+  if (request.headers['authorization']) {
+    const token = request.headers['authorization'].split('Bearer ')[1];
+    jwt.verify(token, process.env['JWT_SECRET'], (error, user) => {
+      if (!error) request.currentUser = user;
+    });
+  }
+  next();
+};
+
+export { authenticateMiddleware, optionalAuthenticateMiddleware };

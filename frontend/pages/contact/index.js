@@ -10,8 +10,10 @@ import css from './index.css';
 
 @connect((state) => ({
   email:
-    state.global.Authentication.currentUser &&
-    state.global.Authentication.currentUser.email
+    (
+      state.global.Authentication.currentUser &&
+      state.global.Authentication.currentUser.email
+    ) || ''
 }))
 class Page_contact extends React.Component {
   static propTypes = {

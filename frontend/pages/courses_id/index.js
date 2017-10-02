@@ -36,6 +36,7 @@ class Page_courses_id extends React.Component {
           <section className="problems">
             {problems.map((problem) =>
               <Problem
+                key={problem.id}
                 mode="show"
                 problemContent={problem.content}
                 problemType={problem.type}

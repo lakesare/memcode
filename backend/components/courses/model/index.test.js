@@ -6,7 +6,7 @@ import { Factory } from '~/test/Factory';
 import * as Course from './index';
 
 const createCourse = async (title) => {
-  const course = await Factory.course();
+  const course = await Factory.publicCourse();
   return db.one(
     `
       UPDATE course
@@ -19,16 +19,21 @@ const createCourse = async (title) => {
 };
 
 describe('course model', () => {
-  beforeEach('truncating db', () => db.none('DELETE FROM "user"'));
+  describe('select', () => {
+    describe('search', () => {
+      beforeEach('truncating db', () =>
+        db.none('TRUNCATE TABLE problem, course, "user" RESTART IDENTITY CASCADE')
+      );
 
-  it('deleteCourseWithProblems', async () => {
-    const course_1 = await createCourse('Hello interesting');
-    const course_2 = await createCourse('Right');
-    const course_3 = await createCourse('Super man');
+      it('case-insensitive', async () => {
+        await createCourse('Hello w');
+        const course_2 = await createCourse('Right');
+        const course_3 = await createCourse('Riper man');
 
-
-    const results = await Course.select.search(1, "a");
-    console.log(results);
-    expect().to.equal(1);
+        const courses = await Course.select.search(1, "ri");
+        expect(courses.map((c) => c.course.title)).to.have.members([course_2.title, course_3.title]);
+        expect(courses.length).to.equal(2);
+      });
+    });
   });
 });
