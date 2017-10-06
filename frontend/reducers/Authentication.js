@@ -20,10 +20,10 @@ const AuthenticationActions = {
     dispatch({ type: 'SET_CURRENT_USER', payload: jwtToUserObject(token) });
   },
 
-  signOut: (dispatch) => {
+  signOut: () => {
     localStorage.removeItem('jwt');
-    dispatch({ type: 'SET_CURRENT_USER', payload: null });
-    // temporary hack
+    // will issue a silly reflow
+    // dispatch({ type: 'SET_CURRENT_USER', payload: null });
     location.reload();
   }
 };

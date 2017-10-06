@@ -1,16 +1,14 @@
+import { orFalse } from '~/services/orFalse';
 import { Link } from 'react-router';
 
 class LearnAndReviewButtons extends React.Component {
   static propTypes = {
     courseUserIsLearning: PropTypes.object,
-    amountOfProblemsToLearn: PropTypes.number,
-    amountOfProblemsToReview: PropTypes.number
+    amountOfProblems: orFalse(PropTypes.object).isRequired,
   }
 
   static defaultProps = {
-    courseUserIsLearning: null,
-    amountOfProblemsToLearn: null,
-    amountOfProblemsToReview: null
+    courseUserIsLearning: null
   }
 
   ifCourseIsLearnedAndActive = () => {
@@ -20,20 +18,19 @@ class LearnAndReviewButtons extends React.Component {
 
   render = () =>
     this.ifCourseIsLearnedAndActive() &&
+    this.props.amountOfProblems && // and therefore ToReview is ready too
     <div className="learn-and-review-buttons">
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/learn`}
-        className={`learn ${this.props.amountOfProblemsToLearn === 0 ? '-disabled' : ''}`}
-      >
-        LEARN ({this.props.amountOfProblemsToLearn})
-      </Link>
+        className={`learn ${this.props.amountOfProblems.toLearn === 0 ? '-disabled' : ''}`}
+      >LEARN ({this.props.amountOfProblems.toLearn})</Link>
 
       {
-        this.props.amountOfProblemsToReview > 0 ?
+        this.props.amountOfProblems.toReview > 0 ?
           <Link
             to={`/courses/${this.props.courseUserIsLearning.courseId}/review`}
             className="review"
-          >REVIEW ({this.props.amountOfProblemsToReview})</Link> :
+          >REVIEW ({this.props.amountOfProblems.toReview})</Link> :
           <Link
             to={`/courses/${this.props.courseUserIsLearning.courseId}/review/simulated`}
             className="review -disabled"

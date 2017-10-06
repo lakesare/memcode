@@ -33,7 +33,7 @@ class ForBeginners extends React.Component {
       </article>
 
       <Loading spe={this.state.speGetCourses}>{(coursesData) =>
-        <ListOfSimpleCourses coursesData={coursesData.slice(0, 8)}/>
+        <ListOfSimpleCourses coursesData={coursesData.slice(0, 10)}/>
       }</Loading>
     </section>
 }

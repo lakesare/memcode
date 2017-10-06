@@ -1,12 +1,13 @@
+process.noDeprecation = true;
 const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    './index.js'
-  ],
+  entry: {
+    index: ['babel-polyfill', './index'],
+  },
 
   module: {
     rules: [
@@ -69,7 +70,8 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: 'react',
       PropTypes: 'prop-types',
-      'window.Quill': 'quill'
+      'window.Quill': 'quill',
+      connect: ['react-redux', 'connect']
     })
   ],
 

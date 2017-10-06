@@ -8,6 +8,13 @@ import { browserHistory } from 'react-router';
 
 import css from './index.css';
 
+import { AuthenticationActions } from '~/reducers/Authentication';
+@connect(
+  () => ({}),
+  (dispatch) => ({
+    signIn: (token) => AuthenticationActions.signIn(dispatch, token)
+  })
+)
 class Page_articles_welcome extends React.Component {
   static propTypes = {
     signIn: PropTypes.func.isRequired
@@ -111,13 +118,5 @@ class Page_articles_welcome extends React.Component {
       <Footer/>
     </main>
 }
-
-import { AuthenticationActions } from '~/reducers/Authentication';
-const mapDispatchToProps = dispatch => ({
-  signIn: (token) => AuthenticationActions.signIn(dispatch, token)
-});
-
-import { connect } from 'react-redux';
-Page_articles_welcome = connect(() => ({}), mapDispatchToProps)(Page_articles_welcome);
 
 export { Page_articles_welcome };

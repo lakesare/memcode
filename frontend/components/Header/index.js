@@ -1,8 +1,8 @@
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { CurrentUser } from './components/CurrentUser';
 import { ArticlesDropdown } from './components/ArticlesDropdown';
 import { Search } from './components/Search';
+import { LearnReviewLinks } from './components/LearnReviewLinks';
 import css from './index.css';
 
 @connect((state) => ({
@@ -16,6 +16,16 @@ class Header extends React.Component {
   static defaultProps = {
     currentUser: null
   }
+
+  renderLogo = () =>
+    <section className="logo">
+      <Link to="/">
+        <h1>MemCode</h1>
+      </Link>
+      {/* <div className="memorizing-is-hard-caption">
+        Retain the understanding.
+      </div> */}
+    </section>
 
   renderNavigation = () =>
     <nav>
@@ -35,20 +45,14 @@ class Header extends React.Component {
         activeClassName="active"
         className="link contact"
       >contact</Link>
+      <LearnReviewLinks currentUser={this.props.currentUser}/>
       <CurrentUser currentUser={this.props.currentUser}/>
     </nav>
 
   render = () =>
     <header className={css.header}>
       <div className="container">
-        <section className="logo">
-          <Link to="/">
-            <h1>MemCode</h1>
-          </Link>
-          {/* <div className="memorizing-is-hard-caption">
-            Retain the understanding.
-          </div> */}
-        </section>
+        {this.renderLogo()}
 
         <Search currentUser={this.props.currentUser}/>
 

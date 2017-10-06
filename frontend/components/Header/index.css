@@ -34,7 +34,6 @@
       font-family: $heading-font;
       display: flex;
       align-items: center;
-      position: relative; top: 3px;
       .link{
         padding: 8px; padding-top: 11px;
         text-transform: uppercase;
@@ -44,47 +43,25 @@
           border-bottom: $green-nav-border;
         }
       }
-      a.link.courses{
-        margin-right: 36px;
-      }
+      a.link.courses{ margin-right: 20px; }
+      a.link.create{ margin-right: 20px; }
+      a.link.contact{ margin-right: 23px; }
+      div.link.articles-dropdown{ margin-right: 14px; }
+
       a.link.create{
-        margin-right: 36px;
         i{
           color: $sims-green-color;
           padding-right: 7px;
           font-size: 12px;
         }
       }
-      a.link.contact{
-        margin-right: 39px;
-      }
-      .link.articles-dropdown{
-        margin-right: 30px;
-      }
       section.current-user{
         a.avatar{
-          // .amount-of-mems-to-review
-          // font-size: 9px;
-          // display: inline-block;
-          // background: #9c0c0c;
-          // height: 14px;
-          // line-height: 12px;
-          // position: absolute;
-          // padding: 3px;
-          // right: 24px;
-          // border-radius: 50%;
-          // width: 12px;
-          // height: 12px;
-          // font-weight: bold;
-          // top: -3px;
           display: block;
           line-height: 0;
-          border-bottom: 2px solid rgba(0, 0, 0, 0);
-          &.active, &:hover{ border-bottom: $green-nav-border; }
           img{
             max-width: 30px;
             max-height: 30px;
-            padding-bottom: 2px;
           }
         }
         a.sign-in{
@@ -100,12 +77,10 @@
             top: 2px;
             padding-left: 3px;
           }
-          &:hover{
-            opacity: 0.8;
-          }
+          &:hover{ opacity: 0.8; }
         }
       }
-      .articles-dropdown{
+      div.link.articles-dropdown{
         position: relative;
         .toggler{
           i{

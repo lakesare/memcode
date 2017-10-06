@@ -1,6 +1,3 @@
-// we are putting all per-page get routes here, because they don't really tend to belong to certain components.
-// for the single page we may want to fetch may things, for example: course, courseUserIsLearning, and problems.
-// we will only want GET routes here, as deletes and updates tend to only concern one component at a time.
 import express from 'express';
 const router = express.Router();
 
@@ -11,6 +8,7 @@ import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model'
 import * as Course from '~/components/courses/model';
 import * as Problem from '~/components/problems/model';
 
+// ___per-page routes (/api/pages/page-url)
 router.get('/courses', catchAsync(async (request, response) => {
   const courses = await Course.select.allPublic();
   response.status(200).json(courses);
@@ -56,6 +54,7 @@ router.get('/courses/:id', catchAsync(async (request, response) => {
   response.status(200).json(problems);
 }));
 
+// per-component routes (/api/pages/componentName/...)
 router.get('/courseActions/:courseId/authenticated', authenticateMiddleware, catchAsync(async (request, response) => {
   const course = await Course.select.oneForActions(request.params.courseId, request.currentUser.id);
   response.status(200).json(course);
@@ -64,6 +63,12 @@ router.get('/courseActions/:courseId/authenticated', authenticateMiddleware, cat
 router.get('/courseActions/:courseId/unauthenticated', catchAsync(async (request, response) => {
   const course = await Course.select.oneById(request.params.courseId);
   response.status(200).json({ course });
+}));
+
+// global state (?)
+router.get('/idsOfProblemsToLearnAndReviewPerCourse', authenticateMiddleware, catchAsync(async (request, response) => {
+  const idsOfProblemsToLearnAndReviewPerCourse = await CourseUserIsLearning.select.idsOfProblemsToLearnAndReviewPerCourse(request.currentUser.id);
+  response.status(200).json(idsOfProblemsToLearnAndReviewPerCourse);
 }));
 
 export { router };

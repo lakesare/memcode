@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { commonFetch } from '~/api/commonFetch';
 
 import { Helmet } from 'react-helmet';

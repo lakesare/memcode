@@ -20,6 +20,15 @@ class Page_courses_id extends React.Component {
   }
 
   componentDidMount = () =>
+    this.apiGetPage()
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.params.id !== this.props.params.id) {
+      this.apiGetPage();
+    }
+  }
+
+  apiGetPage = () =>
     commonFetch(
       spe => this.setState({ speGetPage: spe }),
       'GET', `/api/pages/courses/${this.props.params.id}`

@@ -29,10 +29,14 @@ router.get('/search', optionalAuthenticateMiddleware, catchAsync(async (request,
 }));
 
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
-  const course = await Course.insert.create(request.body['course'], request.currentUser.id);
+  const course = await Course.insert.create({ ...request.body['course'], userId: request.currentUser.id });
 
   // add to learned courses immediately
-  await CourseUserIsLearning.insert.create(course.id, request.currentUser.id);
+  await CourseUserIsLearning.insert.create({
+    courseId: course.id,
+    userId: request.currentUser.id,
+    active: true
+  });
 
   response.status(200).json(course);
 }));

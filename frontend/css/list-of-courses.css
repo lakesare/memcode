@@ -1,3 +1,4 @@
+@import 'css/variables';
 .list-of-courses{
   display: flex;
   flex-wrap: wrap;
@@ -19,8 +20,8 @@
       padding-bottom: 2px;
       padding-top: 2px;
       border-top: 1px solid #ded5d5;
-      background: #e8e6e6;
 
+      // slightly darker sims
       background: rgb(54, 210, 19);
       color: white;
       border-top: 1px solid #424141;
@@ -33,7 +34,7 @@
         font-size: 18px;
         font-weight: bold;
         padding: 0 6px;
-        word-break: break-word; 
+        word-break: break-word;
         mark{
           background: none;
           color: $review-button-color;
@@ -88,7 +89,7 @@
     }
   }
   > .layout-div{
-    width: 150px;
+    width: 160px;
     margin-right: 10px;
     margin-left: 10px;
   }

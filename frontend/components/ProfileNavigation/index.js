@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { AuthenticationActions } from '~/reducers/Authentication';
 
 import { Link } from 'react-router';

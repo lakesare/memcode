@@ -3,7 +3,6 @@ import { ReviewAndLearn } from './ReviewAndLearn';
 
 import { stripTags } from '~/services/stripTags';
 
-import { connect } from 'react-redux';
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser
 }))

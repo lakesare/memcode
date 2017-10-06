@@ -39,20 +39,20 @@ class Editor extends React.Component {
       readOnly={this.props.readOnly}
 
       modules={{
-         // maybe include syntax module sometime
+        // maybe include syntax module sometime
         // syntax: false,
         toolbar: {
           container: this.props.toolbarContainer,
           handlers: this.props.toolbarHandlers
         },
+        // just cycles forever :|
         // keyboard: {
         //   bindings: {
-        //     'code-block': {
-        //       key: 'K',
-        //       shiftKey: true,
-        //       // handler: function() {return false}
-        //       //   return true;
-        //       // }
+        //     'indent code-block': {
+        //       key: 'O',
+        //       shiftKey: false,
+        //       format: {'code-block': true },
+        //       handler: function(range) {}
         //     }
         //   }
         // },

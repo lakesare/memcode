@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { surroundSelectionWithString } from './surroundSelectionWithString';
 
-
-const Textarea = <textarea defaultValue="hello hi"></textarea>;
+const Textarea = <textarea defaultValue="hello hi"/>;
 
 describe('surroundSelectionWithString', () => {
-
   describe('no text selected', () => {
     it('cursor in the middle', () => {
       const wrapper = mount(Textarea);
@@ -18,7 +16,7 @@ describe('surroundSelectionWithString', () => {
       surroundSelectionWithString(domTextarea, '<answer>', '</answer>');
 
       expect(domTextarea.value).to.equal('hello<answer></answer> hi');
-      expect(domTextarea.selectionStart).to.equal(13)
+      expect(domTextarea.selectionStart).to.equal(13);
     });
 
     it('cursor in the beginning', () => {
@@ -29,7 +27,7 @@ describe('surroundSelectionWithString', () => {
       surroundSelectionWithString(domTextarea, '<answer>', '</answer>');
 
       expect(domTextarea.value).to.equal('<answer></answer>hello hi');
-      expect(domTextarea.selectionStart).to.equal(8)
+      expect(domTextarea.selectionStart).to.equal(8);
     });
   });
 
@@ -43,9 +41,7 @@ describe('surroundSelectionWithString', () => {
       surroundSelectionWithString(domTextarea, '<answer>', '</answer>');
 
       expect(domTextarea.value).to.equal('hello<answer> h</answer>i');
-      expect(domTextarea.selectionStart).to.equal(13)
+      expect(domTextarea.selectionStart).to.equal(13);
     });
   });
-
-
 });

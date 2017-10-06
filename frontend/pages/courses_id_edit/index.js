@@ -14,12 +14,26 @@ import { commonFetch } from '~/api/commonFetch';
 
 import css from './index.css';
 
+import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
+@connect(
+  () => ({}),
+  (dispatch) => ({
+    IdsOfProblemsToLearnAndReviewPerCourseActions: {
+      createProblem: (courseId, problemId) => IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(dispatch, courseId, problemId),
+      deleteProblem: (problemId) =>
+        IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, problemId)
+    }
+  })
+)
 class Page_courses_id_edit extends React.Component {
   static propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string
     }).isRequired,
-    changeAmountOfProblemsToLearnBy: PropTypes.func.isRequired
+    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.shape({
+      createProblem: PropTypes.func.isRequired,
+      deleteProblem: PropTypes.func.isRequired
+    }).isRequired
   }
 
   state = {
@@ -27,6 +41,15 @@ class Page_courses_id_edit extends React.Component {
   }
 
   componentDidMount = () =>
+    this.apiGetPage()
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.params.id !== this.props.params.id) {
+      this.apiGetPage();
+    }
+  }
+
+  apiGetPage = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
       'GET', `/api/pages/courses/${this.props.params.id}/edit`
@@ -46,7 +69,7 @@ class Page_courses_id_edit extends React.Component {
         (problems) => [...problems, createdProblem]
       )
     });
-    this.props.changeAmountOfProblemsToLearnBy(1);
+    this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.params.id, createdProblem.id);
   }
 
   updateOldProblem = (updatedProblem) => {
@@ -60,13 +83,15 @@ class Page_courses_id_edit extends React.Component {
     });
   }
 
-  removeOldProblem = (problemId) =>
+  removeOldProblem = (problemId) => {
     this.setState({
       speGetPage:
       update(this.state.speGetPage, `payload.problems`,
         (problems) => problems.filter((problem) => problem.id !== problemId)
       )
-    })
+    });
+    this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(problemId);
+  }
 
   render = () =>
     <main className={css.main} key={this.props.params.id}>
@@ -100,16 +125,5 @@ class Page_courses_id_edit extends React.Component {
       <Footer/>
     </main>
 }
-
-import { connect } from 'react-redux';
-Page_courses_id_edit = connect(
-  () => ({}),
-  (dispatch) => ({
-    changeAmountOfProblemsToLearnBy: (by) => dispatch({
-      type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_LEARN_BY',
-      payload: by
-    })
-  })
-)(Page_courses_id_edit);
 
 export { Page_courses_id_edit };

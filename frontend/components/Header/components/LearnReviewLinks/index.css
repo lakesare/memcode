@@ -1,0 +1,26 @@
+@import 'css/variables';
+:local(section.section){
+  max-width: 85px;
+  margin-right: 5px;
+  border-right: 2px solid rgba(236, 242, 255, 0.37);
+  // compensating for nav
+  > a{
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2px 8px;
+    font-family: $body-font;
+    font-size: 10px;
+
+    &.-to-learn{ background: $learn-button-color; }
+    &.-to-review{ background: $review-button-color; }
+    &.-nonzero{
+      opacity: 0.9;
+      &:hover{ opacity: 1; }
+    }
+    &.-zero{
+      cursor: default;
+      opacity: 0.1;
+    }
+  }
+}

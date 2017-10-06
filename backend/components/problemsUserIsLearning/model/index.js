@@ -1,27 +1,10 @@
-// CREATE TABLE problem_user_is_learning (
-//   id SERIAL PRIMARY KEY,
-//
-//   is_learned BOOLEAN,
-//
-//   easiness SMALLINT, [A number ≥ 1.3 representing how easy the item is, with 1.3 being the hardest.  Defaults to 2.5]
-//
-//   consecutive_correct_answers SMALLINT, [How many times in a row the user has correctly answered this item]
-//
-//   nextDueDate TIMESTAMP, [The next time this item needs to be reviewed]
-//
-//   problem_id INTEGER REFERENCES problem (id) ON DELETE CASCADE,
-//   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE,
-//   unique (problem_id, user_id)
-// );
-
-
 import { db } from '~/db/init.js';
-
+import { requireKeys } from '~/services/requireKeys';
 import { initialScore } from '../services/initialScore';
 import { getNextScore } from '../services/getNextScore';
 
 const select = {
-  findByCuilIdAndProblemId: async (cuilId, problemId) =>
+  findByCuilIdAndProblemId: (cuilId, problemId) =>
     db.one(
       `SELECT * FROM problem_user_is_learning
       WHERE course_user_is_learning_id = \${cuilId} AND problem_id = \${problemId}`,
@@ -55,21 +38,22 @@ const update = {
 };
 
 const insert = {
-  create: (courseUserIsLearningId, problemId) =>
-    db.one(
-      `
-      INSERT INTO problem_user_is_learning
-      (easiness, consecutive_correct_answers, next_due_date, course_user_is_learning_id, problem_id) VALUES
-      (\${easiness}, \${consecutiveCorrectAnswers}, timezone('UTC', now()), \${courseUserIsLearningId}, \${problemId})
-      RETURNING *
-      `,
-      {
-        easiness: initialScore().easiness,
-        consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers,
-        courseUserIsLearningId,
-        problemId
-      }
-    )
+  create: requireKeys(['courseUserIsLearningId', 'problemId'],
+    (puilFields) =>
+      db.one(
+        `
+        INSERT INTO problem_user_is_learning
+        (easiness, consecutive_correct_answers, next_due_date, course_user_is_learning_id, problem_id) VALUES
+        (\${easiness}, \${consecutiveCorrectAnswers}, timezone('UTC', now()), \${courseUserIsLearningId}, \${problemId})
+        RETURNING *
+        `,
+        {
+          easiness: initialScore().easiness,
+          consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers,
+          ...puilFields
+        }
+      )
+  )
 };
 
 export { insert, update };
