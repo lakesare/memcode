@@ -19,7 +19,7 @@ const html = `
     <div id="root"></div>
     <script>
       window.env = {
-        githubSignInLink: 'https://github.com/login/oauth/authorize?client_id=${process.env['GITHUB_OAUTH_ID']}'
+        githubSignInLink: 'https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env['GITHUB_OAUTH_ID']}'
       };
     </script>
     <script type="text/javascript" src="/index.js"></script>

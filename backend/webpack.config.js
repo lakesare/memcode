@@ -10,7 +10,6 @@ fs.readdirSync('../node_modules')
     nodeModules[mod] = 'commonjs ' + mod;
   });
 
-
 const glob = require('glob');
 const testFiles = glob.sync('./**/*.test.js', { ignore: './webpacked/**' });
 

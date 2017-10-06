@@ -17,16 +17,21 @@ const camelizeColumns = (data) => {
 
 const pgOptions = {
   query: (e) => {
-    const cyan = "\x1b[36m%s\x1b[0m";
-    console.log(cyan, e.query); // log the query being executed
+    // const cyan = "\x1b[36m%s\x1b[0m";
+    // console.log(cyan, e.query); // log the query being executed
   },
+  // https://coderwall.com/p/irklcq
   receive: (data) => {
     camelizeColumns(data);
-  } // https://coderwall.com/p/irklcq
+  },
+  // disable warnings for tests,
+  // because it was complaining a lot about duplicated connection
+  noWarnings: process.env.NODE_ENV === 'test'
 };
 
 const getConnectionString = () => {
   switch (process.env.NODE_ENV) {
+    // pgweb: postgres://postgres:§1§1§1@localhost:5432/memcode
     case 'development':
       return {
         host: 'localhost', // 'localhost' is the default;

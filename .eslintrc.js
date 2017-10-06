@@ -194,7 +194,7 @@ module.exports = {
     "react/no-find-dom-node": "off",
 
     // maybe it's useful, but I don't get it
-    "no-prototype-builtins": "off"
+    "no-prototype-builtins": "off",
   },
   "globals": {
     "fetch": true,
