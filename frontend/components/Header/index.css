@@ -142,6 +142,7 @@
     .link{
       i{ display: none; }
     }
+    section.learn-review-links{ display: none; }
   }
   @media(max-width: 400px){
     a.link.contact{ display: none; }

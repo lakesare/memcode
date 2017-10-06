@@ -90,7 +90,7 @@ class LearnReviewLinks extends React.Component {
 
   render = () => (
     this.props.idsOfProblemsToLearnAndReviewPerCourse ?
-      <section className={`${css.section}`}>
+      <section className={`${css.section} learn-review-links`}>
         {this.renderToLearnLink()}
         {this.renderToReviewLink()}
       </section> :
