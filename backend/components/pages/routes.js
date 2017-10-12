@@ -5,6 +5,7 @@ import { catchAsync } from '~/services/catchAsync';
 import { authenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
+import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';
 import * as Course from '~/components/courses/model';
 import * as Problem from '~/components/problems/model';
 
@@ -14,11 +15,35 @@ router.get('/courses', catchAsync(async (request, response) => {
   response.status(200).json(courses);
 }));
 
+// {
+//   courseUserIsLearning: {...},
+//   problems: [
+//     {coursesUserIsLearning
+//       problem, problemUserIsLearning
+//     },
+//     {
+//       problem
+//     }
+//   ]
+// }
 router.get('/courses/:id/learn', authenticateMiddleware, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
+  // find cuil
   const courseUserIsLearning = await CourseUserIsLearning.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
-  const problems = await CourseUserIsLearning.select.problemsToLearn(courseUserIsLearning.id);
+
+  // find problems
+  const virginProblems = await Problem.select.allByCourseId(courseId);
+  const problemsUserIsLearning = await ProblemUserIsLearning.select.allByCuilId(courseUserIsLearning.id);
+
+  // for every problem, return corresponding puil
+  const problems = virginProblems.map((virginProblem) => {
+    const correspondingPuil = problemsUserIsLearning.find((puil) => puil.problemId === virginProblem.id);
+    return {
+      problem: virginProblem,
+      problemUserIsLearning: correspondingPuil || null
+    };
+  });
 
   response.status(200).json({ courseUserIsLearning, problems });
 }));

@@ -1,30 +1,24 @@
-
-import { Loading } from '~/components/Loading';
-
-
 import { commonFetch } from '~/api/commonFetch';
+import { Loading } from '~/components/Loading';
+import { NotLearnedProblems } from './components/NotLearnedProblems';
 
-import css from './index.css';
-
-class Page_courses_id_learn extends React.Component {
+class Tabs extends React.Component {
   static propTypes = {
-    params: PropTypes.shape({
-      id: PropTypes.string
-    }).isRequired
+    courseId: PropTypes.string.isRequired
   }
 
   state = {
-    speGetPage: {},
-    currentTab: 'toLearn'
+    currentTab: 'notLearned',
+    speGetPage: {}
   }
 
   componentDidMount = () =>
-    this.apiGetPage()
+    this.apiGetProblems()
 
-  apiGetPage = () =>
+  apiGetProblems = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/${this.props.params.id}/learn`
+      'GET', `/api/pages/courses/${this.props.courseId}/learn`
     )
 
   renderTabLink = (tabId, caption) =>
@@ -40,17 +34,26 @@ class Page_courses_id_learn extends React.Component {
       {this.renderTabLink('learned', "Learned flashcards (you're reviewing them)")}
     </ul>
 
+  renderTab = (currentTab, courseUserIsLearning, problems) => {
+    switch (currentTab) {
+      case 'notLearned':
+        return <NotLearnedProblems courseId={this.props.courseId} cuilId={courseUserIsLearning.id} problemResponses={problems}/>;
+      case 'ignored':
+        return null;
+      case 'learned':
+        return null;
+      default:
+        throw new Error(`No such tab name: ${currentTab}.`);
+    }
+  }
+
   render = () =>
     <div>
       {this.renderTabNavigation()}
-
-
-      <Loading spe={this.state.speGetPage}>{({ problems, courseUserIsLearning }) =>
-        <ListOfProblems/>
+      <Loading spe={this.state.speGetPage}>{({ courseUserIsLearning, problems }) =>
+        this.renderTab(this.state.currentTab, courseUserIsLearning, problems)
       }</Loading>
-
-      <Footer/>
     </div>
 }
 
-export { Page_courses_id_learn };
+export { Tabs };
