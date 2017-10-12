@@ -12,7 +12,6 @@
 //   <h3>{payload.firstName}</h3>
 // }</Loading>
 
-
 import * as customPropTypes from '~/services/customPropTypes';
 import requestIcon from './requestIcon.svg';
 import css from './index.css';

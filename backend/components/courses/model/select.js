@@ -4,7 +4,7 @@ import { camelizeDbColumns } from '~/services/camelizeDbColumns';
 import { fetchCoursesAndTheirStats } from '~/model/select';
 
 const wherePublic = `
-  if_public = true
+  course.if_public = true
     AND
   (
     SELECT COUNT(problem.id) FROM problem WHERE problem.course_id = course.id
@@ -32,22 +32,34 @@ const select = {
       userId
     ),
 
-  // all public courses with 2 or more problems
+  // all public courses with 2 or more problems,
+  // sorted by amount of learners
   allPublic: () =>
     db.any(
       `
-        SELECT
-          row_to_json(course.*) AS course,
-          COUNT(problem.id)     AS amount_of_problems
-        FROM course
-        LEFT OUTER JOIN problem
-          ON problem.course_id = course.id
-        WHERE ${wherePublic}
-        GROUP BY course.id
-        ORDER BY amount_of_problems DESC
-      `,
+      SELECT
+        row_to_json(course.*) AS course,
+        COUNT(distinct "user".id) AS amount_of_users_learning_this_course,
+        COUNT(distinct problem.id) AS amount_of_problems
+      FROM course
+      LEFT OUTER JOIN course_user_is_learning
+        ON (
+          course_user_is_learning.active = true
+          AND
+          course.id = course_user_is_learning.course_id
+        )
+      INNER JOIN problem
+        ON problem.course_id = course.id
+      INNER JOIN "user"
+        ON "user".id = course_user_is_learning.user_id
+      WHERE ${wherePublic}
+      GROUP BY course.id
+      ORDER BY
+        amount_of_users_learning_this_course DESC,
+        amount_of_problems DESC
+      `
     )
-      .then(array => camelizeDbColumns(array, ['course'])),
+      .then((array) => camelizeDbColumns(array, ['course'])),
 
   oneForActions: (id, userId) =>
     fetchCoursesAndTheirStats(`WHERE course.id = ${id}`, '', userId)

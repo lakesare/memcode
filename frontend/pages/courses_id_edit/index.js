@@ -46,12 +46,6 @@ class Page_courses_id_edit extends React.Component {
   componentDidMount = () =>
     this.apiGetPage()
 
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.params.id !== this.props.params.id) {
-      this.apiGetPage();
-    }
-  }
-
   apiGetPage = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
@@ -127,7 +121,7 @@ class Page_courses_id_edit extends React.Component {
     </section>
 
   render = () =>
-    <main className={css.main} key={this.props.params.id}>
+    <main className={css.main}>
       <Header/>
 
       <div className="container">
