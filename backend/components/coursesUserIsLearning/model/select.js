@@ -94,7 +94,7 @@ const select = {
       `
       SELECT
         course.id AS id,
-        json_agg(DISTINCT problem.id) AS to_learn
+        COALESCE(json_agg(DISTINCT problem.id) FILTER (WHERE problem.id IS NOT NULL), '[]') AS to_learn
 
       FROM course_user_is_learning
 
