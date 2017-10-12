@@ -6,7 +6,7 @@ const UI = () =>
 
     <div className="sites">
       <section className="site">
-        <h3>Memrise: <span>4</span></h3>
+        <h3>Memrise: <span className="rating">4</span></h3>
         <div className="description">
           <b>Course creation:</b> fast and simple, however there are a few irritating moments which <mark>Memrise</mark> is not planning on fixing (yes, I wrote them a few emails). Intrusive autosuggest makes the process slower, and definitions longer than about 20 symbols can't be seen in their entirety.<br/>
           <b>Course learning:</b> fast and simple, but gets uncomfortable if it's something other than word-definition task due to the absence of formatting.
@@ -14,7 +14,7 @@ const UI = () =>
       </section>
 
       <section className="site">
-        <h3>Quizlet: <span>4</span></h3>
+        <h3>Quizlet: <span className="rating">4</span></h3>
 
         <div className="description">
           <b>Course creation:</b> fast and simple. No formatting available, but newlines get respected.<br/>
@@ -23,7 +23,7 @@ const UI = () =>
       </section>
 
       <section className="site">
-        <h3>Brainscape: <span>2</span></h3>
+        <h3>Brainscape: <span className="rating">2</span></h3>
 
         <div className="description">
           <b>Course creation:</b> a headache, not very intuitive.<br/>
@@ -32,7 +32,7 @@ const UI = () =>
       </section>
 
       <section className="site">
-        <h3>Memcode: <span>5</span></h3>
+        <h3>Memcode: <span className="rating">5</span></h3>
 
         <div className="description">
           <b>Course creation:</b> fast and simple. <mark>Memcode</mark> is made with comfortable course creation in mind. Design is minimalistic, and everything is supposed to be done throuhg keystrokes, including formatting.<br/>

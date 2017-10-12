@@ -8,7 +8,7 @@
     text-align: center;
     padding: 2px; padding-right: 20px;
     cursor: pointer;
-    border: 2px solid $sims-green-color;
+    border: 2px solid #0d0e0d;
     &:first-child{ border-bottom: none; }
     i{ float: right; }
   }
@@ -57,7 +57,9 @@
         align-items: flex-start;
         padding-bottom: 5px;
         padding-top: 5px;
+        img{ max-width: 260px; }
         > .text{
+          padding-left: 40px;
           > p.description{
             padding-left: 20px;
             color: #303030;
@@ -71,9 +73,15 @@
     }
   }
 
-  > .what-to-do-next{
+  > .how-to-learn{
+    margin-top: 20px;
+    padding: 0 20px;
     > ul{
+      li{ margin-top: 10px; }
       img{ vertical-align: middle; }
+      li.add-to-learned img{ width: 170px; }
+      li.learn img{ width: 90px; }
+      li.review img{ width: 90px; }
     }
   }
 }
