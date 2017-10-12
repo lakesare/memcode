@@ -62,5 +62,23 @@ describe('coursesUserIsLearning:model:select', () => {
       const result = await Course.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
       expect(result).to.deep.equal({ [course.id]: { toLearn: [problem_2.id], toReview: [problem_1.id] } });
     });
+
+    it('=> toLearn: [] for course with no problems', async () => {
+      // create user
+      const user = await RawFactory.user({});
+
+      // create course without problems
+      const course = await Factory.course({});
+
+      // make user learn this course
+      await RawFactory.courseUserIsLearning({
+        courseId: course.id,
+        userId: user.id,
+        active: true
+      });
+
+      const result = await Course.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
+      expect(result).to.deep.equal({ [course.id]: { toLearn: [], toReview: [] } });
+    });
   });
 });
