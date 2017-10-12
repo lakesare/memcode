@@ -37,28 +37,24 @@ class ListOfProblems extends React.Component {
   ifProblemIsLearned = (problemId) =>
     this.state.idsOfLearnedProblems.includes(problemId)
 
-  renderProblem = (problem) =>
-    <Problem
-      mode="show"
-      problemContent={problem.content}
-      problemType={problem.type}
-    />
-
-  renderProblemWrapper = (problem) => {
-    if (this.ifProblemIsLearned(problem.id)) {
-      return <div key={problem.id} className="problem-wrapper -learned">
-        {this.renderProblem(problem)}
-      </div>;
-    } else {
-      return <div key={problem.id} className="problem-wrapper" onClick={() => this.apiLearn(problem.id)}>
-        {this.renderProblem(problem)}
-      </div>;
-    }
+  renderProblem = (problem) => {
+    const ifLearned = this.ifProblemIsLearned(problem.id);
+    return <div
+      key={problem.id}
+      className={"problem-wrapper " + ifLearned ? "-learned" : ""}
+      onClick={() => ifLearned && this.apiLearn(problem.id)}
+    >
+      <Problem
+        mode="show"
+        problemContent={problem.content}
+        problemType={problem.type}
+      />
+    </div>;
   }
 
   render = () =>
     <section className="problems">
-      {this.props.problems.map(this.renderProblemWrapper)}
+      {this.props.problems.map(this.renderProblem)}
     </section>
 }
 

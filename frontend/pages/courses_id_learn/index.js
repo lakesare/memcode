@@ -1,12 +1,9 @@
 import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
 
-import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
-import { ListOfProblems } from './components/ListOfProblems';
+import { Tabs } from './components/Tabs';
 import { Instructions } from './components/Instructions';
-
-import { commonFetch } from '~/api/commonFetch';
 
 import css from './index.css';
 
@@ -17,34 +14,15 @@ class Page_courses_id_learn extends React.Component {
     }).isRequired
   }
 
-  state = { speGetPage: {} }
-
-  componentDidMount = () =>
-    this.apiGetPage()
-
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.params.id !== this.props.params.id) {
-      this.apiGetPage();
-    }
-  }
-
-  apiGetPage = () =>
-    commonFetch(
-      (spe) => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/${this.props.params.id}/learn`
-    )
-
   render = () =>
-    <main className={css.main} key={this.props.params.id}>
+    <main className={css.main}>
       <Header/>
 
-      <Loading spe={this.state.speGetPage}>{({ problems, courseUserIsLearning }) =>
-        <div className="container">
-          <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
-          <Instructions/>
-          <ListOfProblems problems={problems} courseUserIsLearningId={courseUserIsLearning.id}/>
-        </div>
-      }</Loading>
+      <div className="container">
+        <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
+        <Instructions/>
+        <Tabs courseId={this.props.params.id}/>
+      </div>
 
       <Footer/>
     </main>
