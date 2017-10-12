@@ -1,14 +1,16 @@
 import { update } from 'lodash';
 
+import { StickyContainer, Sticky } from 'react-sticky';
 import { Header }  from '~/components/Header';
 import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
-import { Cheatsheet } from './components/Cheatsheet';
+// import { Cheatsheet } from './components/Cheatsheet';
 import { Instructions } from './components/Instructions';
-import { CourseDetails } from './components/CourseDetails';
+// import { CourseDetails } from './components/CourseDetails';
+import { ActionsForCheckedProblems } from './components/ActionsForCheckedProblems';
 
 import { commonFetch } from '~/api/commonFetch';
 
@@ -37,7 +39,8 @@ class Page_courses_id_edit extends React.Component {
   }
 
   state = {
-    speGetPage: {}
+    speGetPage: {},
+    idsOfCheckedProblems: []
   }
 
   componentDidMount = () =>
@@ -54,13 +57,6 @@ class Page_courses_id_edit extends React.Component {
       (spe) => this.setState({ speGetPage: spe }),
       'GET', `/api/pages/courses/${this.props.params.id}/edit`
     )
-
-  uiUpdateCourse = (updatedCourse) => {
-    this.setState({
-      speGetPage:
-      update(this.state.speGetPage, `payload.course`, () => updatedCourse)
-    });
-  }
 
   addNewProblem = (createdProblem) => {
     this.setState({
@@ -88,10 +84,47 @@ class Page_courses_id_edit extends React.Component {
       speGetPage:
       update(this.state.speGetPage, `payload.problems`,
         (problems) => problems.filter((problem) => problem.id !== problemId)
-      )
+      ),
+      idsOfCheckedProblems: this.state.idsOfCheckedProblems.filter((id) => id !== problemId)
     });
     this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(problemId);
   }
+
+  // TODO is performance ok, are we not dying?
+  uiRemoveOldProblems = (problemIds) =>
+    problemIds.forEach(this.removeOldProblem)
+
+  renderActionsForCheckedProblems = () => (
+    <div style={{ marginBottom: 20, marginTop: 20 }}>
+      {
+        this.state.idsOfCheckedProblems.length > 0 ?
+          <Sticky>{({ isSticky }) =>
+            <ActionsForCheckedProblems
+              idsOfCheckedProblems={this.state.idsOfCheckedProblems}
+              uiRemoveOldProblems={this.uiRemoveOldProblems}
+              isSticky={isSticky}
+            />
+          }</Sticky> :
+          null
+      }
+    </div>
+  )
+
+  renderProblems = (problems) =>
+    <section className="problems">
+      {problems.map((problem, index) =>
+        <OldProblem
+          key={problem.id}
+          problem={problem}
+          index={index}
+          updateOldProblem={this.updateOldProblem}
+          removeOldProblem={this.removeOldProblem}
+          idsOfCheckedProblems={this.state.idsOfCheckedProblems}
+          updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
+        />
+      )}
+      <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
+    </section>
 
   render = () =>
     <main className={css.main} key={this.props.params.id}>
@@ -99,26 +132,13 @@ class Page_courses_id_edit extends React.Component {
 
       <div className="container">
         <CourseActions courseId={this.props.params.id}/>
-        <Loading spe={this.state.speGetPage}>{({ problems, course }) =>
-          <section className="problems">
-            <div className="thead">
-              <CourseDetails course={course} uiUpdateCourse={this.uiUpdateCourse}/>
-              {false && <Cheatsheet/>}
-            </div>
-            <div className="tbody">
-              {problems.map((problem) =>
-                <OldProblem
-                  key={problem.id}
-                  problem={problem}
-                  updateOldProblem={this.updateOldProblem}
-                  removeOldProblem={this.removeOldProblem}
-                />
-              )}
-              <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
-            </div>
 
+        <Loading spe={this.state.speGetPage}>{({ problems }) =>
+          <StickyContainer>
+            {this.renderActionsForCheckedProblems()}
+            {this.renderProblems(problems)}
             <Instructions/>
-          </section>
+          </StickyContainer>
         }</Loading>
       </div>
 

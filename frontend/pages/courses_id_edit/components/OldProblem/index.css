@@ -15,69 +15,38 @@
     }
   }
 
-  > .loading.request{
+  > section.checkbox{
     position: absolute;
-    right: -28px;
-    top: 25px;
-    padding: 0;
-    img{ width: 27px; }
-  }
-  > section.actions{
-    position: absolute;
-    right: -20px; top: 0;
-    > .toggler{
-      cursor: pointer;
-    }
-    > .modal{
-      z-index: 10;
-      position: absolute;
-      top: 25px; right: 0;
-      width: 200px;
-      color: #bbb9b9;
-      background: rgb(11, 8, 14);
-
+    left: -40px;
+    top: 0; bottom: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    > div{
+      border: 2px solid rgba(216, 216, 216, 0.11);
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 12px;
-      padding: 5px;
-      border: 1px solid grey;
-      .search-input-and-remove{
-        display: flex;
-        justify-content: space-between;
-        .search-input{
-          max-width: 80%;
-          position: relative;
-          input.search{
-            padding-left: 10px;
-            background: rgba(255, 255, 255, 0);
-            border: none;
-            border-bottom: 1px solid white;
-            color: white;
-          }
-          .fa-exchange{
-            position: absolute;
-            top: 5px; right: -7px;
-            font-size: 15px;
-            color: #6e89f5;
-          }
-        }
-        .action.-remove{
-          padding-top: 3px;
-          i.fa-trash-o{
-            cursor: pointer;
-          }
-        }
-      }
-      .course-titles{
-        > .course-title{
-          border-bottom: 1px solid rgba(173, 170, 170, 0.3);
-          padding: 4px 9px;
-          cursor: pointer;
-          font-size: 13px;
-          &:hover{
-            color: $sims-green-color;
-          }
-          b{ color: $sims-green-color; }
-        }
+      border-radius: 4px;
+      background: rgba(236, 234, 234, 0.11);
+      font-weight: bold;
+      color: #6b6767;
+      .mark{
+        position: absolute;
+        top: 4px; left: 6px;
+        font-size: 17px;
+        line-height: 0;
+        color: #6f716e;
       }
     }
+
+    > div.-hovering.-not-checked{
+      > .mark{
+        opacity: 0.2;
+      }
+    }
+
   }
 }

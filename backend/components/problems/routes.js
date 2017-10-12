@@ -14,14 +14,14 @@ router.put('/:id', catchAsync(async (request, response) => {
   response.status(200).json(updatedProblem);
 }));
 
-router.delete('/:id', catchAsync(async (request, response) => {
-  await Problem.destroy(request.params['id']);
+router.delete('/deleteMany', catchAsync(async (request, response) => {
+  await Problem.ddelete.deleteMany(request.body['problemIds']);
   response.status(200).json({});
 }));
 
-router.post('/moveToCourse', catchAsync(async (request, response) => {
-  await Problem.insert.moveToCourse(
-    request.body['problemId'],
+router.post('/moveToCourseMany', catchAsync(async (request, response) => {
+  await Problem.insert.moveToCourseMany(
+    request.body['problemIds'],
     request.body['courseId']
   );
   response.status(200).json({});

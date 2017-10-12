@@ -38,6 +38,7 @@ main{
 
 input[type="text"], textarea{
   padding: 4px 10px;
+  border: none;
   font-family: $body-font;
 }
 input[type="text"]:focus, textarea:focus, button:focus{
@@ -61,3 +62,12 @@ ul, ol{
   margin-top: 0;
   margin-bottom: 0;
 }
+
+// has big up/down margin by default
+p{
+  margin: 7px 0;
+}
+
+// *{
+//   box-sizing: border-box;
+// }

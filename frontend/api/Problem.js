@@ -12,16 +12,17 @@ const update = (dispatch, problemId, values) =>
     { problem: values }
   );
 
-const destroy = (dispatch, problemId) =>
+const deleteMany = (dispatch, problemIds) =>
   commonFetch(dispatch,
-    'DELETE', `/api/problems/${problemId}`
+    'DELETE', '/api/problems/deleteMany',
+    { problemIds }
   );
 
-const moveToCourse = (dispatch, problemId, courseId) =>
+const moveToCourseMany = (dispatch, problemIds, courseId) =>
   commonFetch(dispatch,
-    'POST', `/api/problems/moveToCourse`,
-    { problemId, courseId }
+    'POST', `/api/problems/moveToCourseMany`,
+    { problemIds, courseId }
   );
 
 // import * as ProblemApi from '~/api/Problem';
-export { create, update, destroy, moveToCourse };
+export { create, update, deleteMany, moveToCourseMany };

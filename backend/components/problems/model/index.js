@@ -9,10 +9,8 @@ const update = (problem, problemId) =>
     }
   );
 
-const destroy = (id) =>
-  db.none('delete from problem where id=${id}', { id });
-
 import { insert } from './insert';
 import { select } from './select';
+import { ddelete } from './ddelete';
 
-export { insert, select, update, destroy };
+export { insert, select, update, ddelete };

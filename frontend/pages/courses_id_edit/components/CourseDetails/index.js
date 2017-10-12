@@ -50,7 +50,7 @@ class CourseDetails extends React.Component {
     <section className={css['course-details']}>
       <div className="toggler" onClick={this.toggle}>
         <section className="edit-course">
-          COURSE DETAILS
+          EDIT COURSE DETAILS
           {
             this.state.ifShown ?
               <i className="fa fa-angle-up"/> :
