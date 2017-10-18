@@ -33,22 +33,25 @@ class ProblemWrapper extends React.Component {
   }
 
   state = {
-    puil: this.props.puil
+    puil: this.props.puil,
+    speLearn: {},
+    speIgnore: {},
+    speDelete: {}
   }
 
   apiLearn = () =>
-    ProblemUserIsLearningApi.create(false, this.props.problem.id)
+    ProblemUserIsLearningApi.create(
+      (spe) => this.setState({ speLearn: spe }),
+      this.props.problem.id
+    )
       .then((puil) => this.setState({ puil }))
       .then(() => this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.learnProblem(this.props.problem.id))
 
   apiIgnore = async () => {
-    let ignoredPuil;
-    if (this.state.puil) {
-      ignoredPuil = await ProblemUserIsLearningApi.ignore(false, this.state.puil.id);
-    } else if (this.state.puil === false) {
-      const puil = await ProblemUserIsLearningApi.create(false, this.props.problem.id);
-      ignoredPuil = await ProblemUserIsLearningApi.ignore(false, puil.id);
-    }
+    this.setState({ speIgnore: { status: 'request' } });
+    const puil = await ProblemUserIsLearningApi.create(false, this.props.problem.id);
+    const ignoredPuil = await ProblemUserIsLearningApi.ignore(false, puil.id);
+    this.setState({ speIgnore: { status: 'success' } });
 
     this.setState({ puil: ignoredPuil });
     this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(this.props.problem.id);
@@ -56,7 +59,10 @@ class ProblemWrapper extends React.Component {
 
   // == unignore, unlearn
   apiDelete = () =>
-    ProblemUserIsLearningApi.ddelete(false, this.state.puil.id)
+    ProblemUserIsLearningApi.ddelete(
+      (spe) => this.setState({ speDelete: spe }),
+      this.state.puil.id
+    )
       .then(() => this.setState({ puil: false }))
       .then(this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync)
 
@@ -82,8 +88,36 @@ class ProblemWrapper extends React.Component {
     </div>
 
   render = () => {
+    // pretend that request is already received right after we send it
+    if (this.state.speLearn.status === 'request') {
+      return <div className="problem-wrapper -learned">
+        {this.renderButton('-unlearn', null, 'UNLEARN', { disabled: true })}
+        {this.renderProblem()}
+        {this.renderButton('-ignore', null, 'IGNORE', { disabled: true })}
+      </div>;
+    } else if (this.state.speIgnore.status === 'request') {
+      return <div className="problem-wrapper -ignored">
+        {this.renderButton('-learn', null, 'LEARN', { disabled: true })}
+        {this.renderProblem()}
+        {this.renderButton('-unignore', null, 'UNIGNORE', { disabled: true })}
+      </div>;
+    } else if (this.state.speDelete.status === 'request') {
+      return <div className="problem-wrapper -yet-to-learn">
+        {this.renderButton('-learn', null, 'LEARN', { disabled: true })}
+        {this.renderProblem()}
+        {this.renderButton('-ignore', null, 'IGNORE', { disabled: true })}
+      </div>;
+    }
+
+    // render an actual response
     const puil = this.state.puil;
-    if (puil && puil.ifIgnored === true) {
+    if (puil === false) {
+      return <div className="problem-wrapper -yet-to-learn">
+        {this.renderButton('-learn', this.apiLearn, 'LEARN')}
+        {this.renderProblem()}
+        {this.renderButton('-ignore', this.apiIgnore, 'IGNORE')}
+      </div>;
+    } else if (puil && puil.ifIgnored === true) {
       return <div className="problem-wrapper -ignored">
         {this.renderButton('-learn', this.apiLearn, 'LEARN', { disabled: true })}
         {this.renderProblem()}
@@ -94,12 +128,6 @@ class ProblemWrapper extends React.Component {
         {this.renderButton('-unlearn', this.apiDelete, 'UNLEARN')}
         {this.renderProblem()}
         {this.renderButton('-ignore', this.apiIgnore, 'IGNORE', { disabled: true })}
-      </div>;
-    } else if (puil === false) {
-      return <div className="problem-wrapper -yet-to-learn">
-        {this.renderButton('-learn', this.apiLearn, 'LEARN')}
-        {this.renderProblem()}
-        {this.renderButton('-ignore', this.apiIgnore, 'IGNORE')}
       </div>;
     }
   }
