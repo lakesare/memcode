@@ -1,5 +1,6 @@
 import { update } from 'lodash';
 
+import { Link } from 'react-router';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { Header }  from '~/components/Header';
 import { Footer } from '~/components/Footer';
@@ -124,7 +125,12 @@ class Page_courses_id_edit extends React.Component {
     <main className={css.main}>
       <Header/>
 
+      <article className="contact-us">
+        Confused? Missing any features? <Link to="/contact">Contact us</Link>.
+      </article>
+
       <div className="container">
+
         <CourseActions courseId={this.props.params.id}/>
 
         <Loading spe={this.state.speGetPage}>{({ problems }) =>

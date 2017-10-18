@@ -1,6 +1,15 @@
 @import 'css/variables';
 
 :local(main.main){
+  article.contact-us{
+    padding: 3px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+    background: #f7f7f7;
+    color: #565353;
+    a{ color: #e20f6d; }
+  }
   section.problems{
     // to avoid editing problem at the bottom of the screen
     margin-bottom: 40px;
