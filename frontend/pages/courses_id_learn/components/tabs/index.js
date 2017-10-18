@@ -3,6 +3,7 @@ import { Loading } from '~/components/Loading';
 import { TabNavigation } from './components/TabNavigation';
 import { TabContent } from './components/TabContent';
 
+// what's going on, does it change
 class Tabs extends React.Component {
   static propTypes = {
     courseId: PropTypes.string.isRequired
