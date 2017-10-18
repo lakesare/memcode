@@ -3,6 +3,10 @@ import { Loading } from '~/components/Loading';
 import { TabNavigation } from './components/TabNavigation';
 import { TabContent } from './components/TabContent';
 
+// ___why is there a /tabs/index.js folder in git! but not in a working directory!
+//   okay, so there is some weird ios VS git folder capitalization shit going on.
+//   happens when we change capitalization of a folder.
+//   https://stackoverflow.com/questions/6899582/i-change-the-capitalization-of-a-directory-and-git-doesnt-seem-to-pick-up-on-it
 class Tabs extends React.Component {
   static propTypes = {
     courseId: PropTypes.string.isRequired
