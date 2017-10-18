@@ -18,13 +18,21 @@ class Dropdown extends React.Component {
   }
 
   render = () =>
-    <ul className="standard-dropdown">{
-      this.deriveFilteredCourses().map((course) =>
-        <li key={course.original.id} onClick={() => this.props.uiSelectCourse(course.original)}>
-          <div dangerouslySetInnerHTML={{ __html: course.string }}/>
-        </li>
-      )
-    }</ul>
+    <ul className="dropdown">
+      {
+        this.props.courses.length === 0 ?
+          <li className="no-courses">You have not created any other courses yet, create one in order to move flashcards to it.</li> :
+          this.deriveFilteredCourses().map((course) =>
+            <li
+              key={course.original.id}
+              onClick={() => this.props.uiSelectCourse(course.original)}
+              className="course-title"
+            >
+              <div dangerouslySetInnerHTML={{ __html: course.string }}/>
+            </li>
+          )
+      }
+    </ul>
 }
 
 export { Dropdown };

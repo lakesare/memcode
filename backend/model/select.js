@@ -47,6 +47,8 @@ const fetchCoursesAndTheirStats = (where, orderBy, userId) =>
         course_user_is_learning.id = problem_user_is_learning.course_user_is_learning_id
         AND
         problem_user_is_learning.next_due_date < timezone('UTC', now())
+        AND
+        problem_user_is_learning.if_ignored = false
       )
 
     -- amount_of_problems
@@ -55,7 +57,7 @@ const fetchCoursesAndTheirStats = (where, orderBy, userId) =>
     ${where}
 
     GROUP BY course_user_is_learning.id, course.id
-    
+
     ${orderBy}
     `,
     { userId }

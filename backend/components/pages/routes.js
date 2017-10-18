@@ -33,19 +33,10 @@ router.get('/courses/:id/learn', authenticateMiddleware, catchAsync(async (reque
   const courseUserIsLearning = await CourseUserIsLearning.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
 
   // find problems
-  const virginProblems = await Problem.select.allByCourseId(courseId);
-  const problemsUserIsLearning = await ProblemUserIsLearning.select.allByCuilId(courseUserIsLearning.id);
+  const problems = await Problem.select.allByCourseId(courseId);
+  const problemUserIsLearnings = await ProblemUserIsLearning.select.allByCuilId(courseUserIsLearning.id);
 
-  // for every problem, return corresponding puil
-  const problems = virginProblems.map((virginProblem) => {
-    const correspondingPuil = problemsUserIsLearning.find((puil) => puil.problemId === virginProblem.id);
-    return {
-      problem: virginProblem,
-      problemUserIsLearning: correspondingPuil || null
-    };
-  });
-
-  response.status(200).json({ courseUserIsLearning, problems });
+  response.status(200).json({ courseUserIsLearning, problems, problemUserIsLearnings });
 }));
 
 router.get('/courses/:id/review', authenticateMiddleware, catchAsync(async (request, response) => {

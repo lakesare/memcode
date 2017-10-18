@@ -111,7 +111,7 @@ const actions = {
       ),
   // ___edit actions. We will do nothing if we call them while not learning this course.
   //
-  // === reviewProblem,
+  // === reviewProblem, ignoreProblem
   deleteProblem: (dispatch, problemId) =>
     dispatch({
       type: `${namespace}.DELETE_PROBLEM`,

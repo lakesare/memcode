@@ -68,6 +68,12 @@ p{
   margin: 7px 0;
 }
 
+// mac's chrome rounds all corners by default
+button{
+  border-radius: 0;
+  border: none;
+}
+
 // *{
 //   box-sizing: border-box;
 // }

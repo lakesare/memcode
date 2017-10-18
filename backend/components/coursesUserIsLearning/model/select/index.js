@@ -20,9 +20,11 @@ const select = {
         SELECT problem_user_is_learning.problem_id
         FROM problem_user_is_learning
         WHERE (
-          problem_user_is_learning.course_user_is_learning_id = \${id}
+            problem_user_is_learning.course_user_is_learning_id = \${id}
           AND
-          problem_user_is_learning.next_due_date < timezone('UTC', now())
+            problem_user_is_learning.next_due_date < timezone('UTC', now())
+          AND
+            problem_user_is_learning.if_ignored = false
         )
       )
       `,
@@ -55,9 +57,11 @@ const select = {
 
       LEFT JOIN problem_user_is_learning
         ON (
-          problem_user_is_learning.course_user_is_learning_id = course_user_is_learning.id
+            problem_user_is_learning.course_user_is_learning_id = course_user_is_learning.id
           AND
-          problem_user_is_learning.next_due_date < timezone('UTC', now())
+            problem_user_is_learning.next_due_date < timezone('UTC', now())
+          AND
+            problem_user_is_learning.if_ignored = false
         )
 
       WHERE
@@ -75,7 +79,7 @@ const select = {
       `
       SELECT
         course.id AS id,
-        json_agg(DISTINCT problem.id) AS to_learn
+        COALESCE(json_agg(problem.id) FILTER (WHERE problem.id IS NOT NULL), '[]') AS to_learn
 
       FROM course_user_is_learning
 

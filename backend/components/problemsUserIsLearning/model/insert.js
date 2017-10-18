@@ -4,18 +4,20 @@ import { initialScore } from '../services/initialScore';
 
 const insert = {
   create: requireKeys(['courseUserIsLearningId', 'problemId'],
-    (puilFields) =>
+    ({ courseUserIsLearningId, problemId, ifIgnored }) =>
       db.one(
         `
         INSERT INTO problem_user_is_learning
-        (easiness, consecutive_correct_answers, next_due_date, course_user_is_learning_id, problem_id) VALUES
-        (\${easiness}, \${consecutiveCorrectAnswers}, timezone('UTC', now()), \${courseUserIsLearningId}, \${problemId})
+        (easiness, consecutive_correct_answers, next_due_date, course_user_is_learning_id, problem_id, if_ignored) VALUES
+        (\${easiness}, \${consecutiveCorrectAnswers}, timezone('UTC', now()), \${courseUserIsLearningId}, \${problemId}, \${ifIgnored})
         RETURNING *
         `,
         {
           easiness: initialScore().easiness,
           consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers,
-          ...puilFields
+          ifIgnored: ifIgnored || false,
+          courseUserIsLearningId,
+          problemId
         }
       )
   )

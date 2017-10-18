@@ -25,7 +25,7 @@ CREATE TABLE course (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL CHECK (char_length(title) >= 2),
   description TEXT,
-  if_public BOOLEAN DEFAULT TRUE,
+  if_public BOOLEAN DEFAULT true,
 
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );
@@ -59,6 +59,7 @@ CREATE TABLE problem_user_is_learning (
   easiness REAL NOT NULL,
   consecutive_correct_answers SMALLINT NOT NULL,
   next_due_date TIMESTAMP NOT NULL,
+  if_ignored BOOLEAN DEFAULT false,
 
   problem_id INTEGER REFERENCES problem (id) ON DELETE CASCADE NOT NULL,
   course_user_is_learning_id INTEGER REFERENCES "course_user_is_learning" (id) ON DELETE CASCADE NOT NULL,

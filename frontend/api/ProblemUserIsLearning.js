@@ -1,15 +1,21 @@
 import { commonFetch } from './commonFetch';
 
-const learn = (dispatch, problemId) =>
+const create = (dispatch, problemId) =>
   commonFetch(dispatch,
-    'POST', `/api/problemUserIsLearning/learn/${problemId}`
+    'POST', `/api/problemsUserIsLearning`,
+    { problemId }
   );
 
-const ignore = (dispatch, problemId) =>
+const ddelete = (dispatch, id) =>
   commonFetch(dispatch,
-    'PUT', `/api/problemUserIsLearning/ignore/${problemId}`
+    'DELETE', `/api/problemsUserIsLearning/${id}`
+  );
+
+const ignore = (dispatch, id) =>
+  commonFetch(dispatch,
+    'PUT', `/api/problemsUserIsLearning/${id}/ignore`
   );
 
 export {
-  learn, ignore
+  create, ddelete, ignore
 };

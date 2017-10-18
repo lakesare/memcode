@@ -10,7 +10,7 @@ const requireKeys = (requiredKeys, functionBeingValidated) =>
   (realArgs) => {
     requiredKeys.forEach((key) => {
       if (realArgs[key] === undefined) {
-        throw new Error(`${key} is required in ${functionBeingValidated}`);
+        throw new Error(`${key} is required in function, but is undefined`);
       }
     });
 

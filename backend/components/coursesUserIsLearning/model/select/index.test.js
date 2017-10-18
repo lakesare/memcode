@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { db } from '~/db/init';
 import { Factory, RawFactory } from '~/test/Factory';
 
-import * as Course from '../index';
+import * as CourseUserIsLearning from '../index';
 import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';
 
 describe('coursesUserIsLearning:model:select', () => {
@@ -14,7 +14,7 @@ describe('coursesUserIsLearning:model:select', () => {
 
     it('=> {} for new users', async () => {
       const user = await RawFactory.user({});
-      const result = Course.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
+      const result = CourseUserIsLearning.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
       expect(result).to.deep.equal({});
     });
 
@@ -33,7 +33,7 @@ describe('coursesUserIsLearning:model:select', () => {
         active: true
       });
 
-      const result = await Course.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
+      const result = await CourseUserIsLearning.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
       expect(result).to.deep.equal({ [course.id]: { toLearn: [problem.id], toReview: [] } });
     });
 
@@ -59,7 +59,7 @@ describe('coursesUserIsLearning:model:select', () => {
         problemId: problem_1.id
       });
 
-      const result = await Course.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
+      const result = await CourseUserIsLearning.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
       expect(result).to.deep.equal({ [course.id]: { toLearn: [problem_2.id], toReview: [problem_1.id] } });
     });
 
@@ -77,8 +77,35 @@ describe('coursesUserIsLearning:model:select', () => {
         active: true
       });
 
-      const result = await Course.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
+      const result = await CourseUserIsLearning.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
       expect(result).to.deep.equal({ [course.id]: { toLearn: [], toReview: [] } });
+    });
+
+    it('=> toReview, toLearn: [no ignored problemId] if user ignores a problem', async () => {
+      // // create user
+      const user = await RawFactory.user({});
+
+      // // create course with 2 problems
+      const course = await Factory.course({});
+      const problem_1 = await RawFactory.problem({ courseId: course.id });
+      const problem_2 = await RawFactory.problem({ courseId: course.id });
+      const problem_3 = await RawFactory.problem({ courseId: course.id });
+
+      // make user learn this course
+      const cuil = await RawFactory.courseUserIsLearning({
+        courseId: course.id,
+        userId: user.id,
+        active: true
+      });
+
+      // ignore problem_1
+      await RawFactory.problemUserIsLearning({ courseUserIsLearningId: cuil.id, problemId: problem_1.id, ifIgnored: true });
+      // learn problem_2
+      await RawFactory.problemUserIsLearning({ courseUserIsLearningId: cuil.id, problemId: problem_2.id });
+      // leave problem_3 alone
+
+      const result = await CourseUserIsLearning.select.idsOfProblemsToLearnAndReviewPerCourse(user.id);
+      expect(result).to.deep.equal({ [course.id]: { toLearn: [problem_3.id], toReview: [problem_2.id] } });
     });
   });
 });

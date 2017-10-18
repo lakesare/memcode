@@ -71,15 +71,28 @@ $blue-color: #375598;
           }
         }
 
-        > ul.standard-dropdown{
+        > ul.dropdown{
+          position: absolute;
+          width: 100%;
+          z-index: 1000;
           max-height: 250px;
           overflow-y: auto;
 
-          background: #f5f5f5;
-          font-size: 14px;
           > li{
+            padding: 4px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.49);
+            background: #f5f5f5;
+            font-size: 14px;
             color: #191818;
-            &:hover{ background: rgba(178, 179, 181, 0.27); }
+          }
+          > li.no-courses{
+            cursor: default;
+          }
+          > li.course-title{
+            &:hover{
+              cursor: pointer;
+              background: rgb(226, 228, 228);
+            }
             mark{ color: $blue-color; }
           }
         }

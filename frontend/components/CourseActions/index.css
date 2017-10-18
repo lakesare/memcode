@@ -61,9 +61,6 @@
         }
         &.learn{
           background: $learn-button-color;
-          &.-disabled{
-            pointer-events: none;
-          }
         }
       }
     }

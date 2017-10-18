@@ -1,6 +1,7 @@
 import { commonFetch } from '~/api/commonFetch';
 import { Loading } from '~/components/Loading';
-import { NotLearnedProblems } from './components/NotLearnedProblems';
+import { TabNavigation } from './components/TabNavigation';
+import { TabContent } from './components/TabContent';
 
 class Tabs extends React.Component {
   static propTypes = {
@@ -21,37 +22,17 @@ class Tabs extends React.Component {
       'GET', `/api/pages/courses/${this.props.courseId}/learn`
     )
 
-  renderTabLink = (tabId, caption) =>
-    <li
-      onClick={() => this.setState({ currentTab: tabId })}
-      className={this.state.currentTab === tabId ? '-active' : '-not-active'}
-    >{caption}</li>
-
-  renderTabNavigation = () =>
-    <ul className="tab-navigation">
-      {this.renderTabLink('notLearned', 'Flashcards to learn')}
-      {this.renderTabLink('ignored', 'Ignored flashcards')}
-      {this.renderTabLink('learned', "Learned flashcards (you're reviewing them)")}
-    </ul>
-
-  renderTab = (currentTab, courseUserIsLearning, problems) => {
-    switch (currentTab) {
-      case 'notLearned':
-        return <NotLearnedProblems courseId={this.props.courseId} cuilId={courseUserIsLearning.id} problemResponses={problems}/>;
-      case 'ignored':
-        return null;
-      case 'learned':
-        return null;
-      default:
-        throw new Error(`No such tab name: ${currentTab}.`);
-    }
+  updateCurrentTab = (tabId) => {
+    this.apiGetProblems();
+    this.setState({ currentTab: tabId });
   }
 
   render = () =>
-    <div>
-      {this.renderTabNavigation()}
-      <Loading spe={this.state.speGetPage}>{({ courseUserIsLearning, problems }) =>
-        this.renderTab(this.state.currentTab, courseUserIsLearning, problems)
+    <div className="tabs">
+      <TabNavigation currentTab={this.state.currentTab} updateCurrentTab={this.updateCurrentTab}/>
+
+      <Loading spe={this.state.speGetPage}>{({ problems, problemUserIsLearnings }) =>
+        <TabContent currentTab={this.state.currentTab} problems={problems} puils={problemUserIsLearnings}/>
       }</Loading>
     </div>
 }
