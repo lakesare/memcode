@@ -130,7 +130,6 @@ class Page_courses_id_edit extends React.Component {
       </article>
 
       <div className="container">
-
         <CourseActions courseId={this.props.params.id}/>
 
         <Loading spe={this.state.speGetPage}>{({ problems }) =>

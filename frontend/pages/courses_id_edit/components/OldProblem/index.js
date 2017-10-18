@@ -1,6 +1,5 @@
 import * as ProblemApi from '~/api/Problem';
 
-import { Loading } from '~/components/Loading';
 import { Problem } from '~/components/Problem';
 import { Checkbox } from './components/Checkbox';
 
@@ -16,7 +15,7 @@ class OldProblem extends React.Component {
     updateIdsOfCheckedProblems: PropTypes.func.isRequired
   }
 
-  state = { speSave: {} }
+  state = { speSave: { status: 'success' } }
 
   save = () =>
     ProblemApi.update(
@@ -37,6 +36,7 @@ class OldProblem extends React.Component {
         index={this.props.index}
         idsOfCheckedProblems={this.props.idsOfCheckedProblems}
         updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
+        speSave={this.state.speSave}
       />
 
       <Problem
@@ -46,8 +46,6 @@ class OldProblem extends React.Component {
         problemType={this.props.problem.type}
         apiSave={this.save}
       />
-
-      <Loading spe={this.state.speSave}/>
     </div>
 }
 
