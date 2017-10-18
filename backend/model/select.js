@@ -27,7 +27,17 @@ const fetchCoursesAndTheirStats = (where, orderBy, userId) =>
       )                                      AS amount_of_problems_to_learn,
       COUNT(distinct problem.id)             AS amount_of_problems,
       (
-        (SELECT MIN(problem_user_is_learning.next_due_date) FROM problem_user_is_learning WHERE problem_user_is_learning.course_user_is_learning_id = course_user_is_learning.id) -
+        (
+          SELECT MIN(problem_user_is_learning.next_due_date)
+          FROM problem_user_is_learning
+          WHERE
+            (
+              problem_user_is_learning.course_user_is_learning_id = course_user_is_learning.id
+                AND
+              problem_user_is_learning.if_ignored = false
+            )
+        )
+          -
         timezone('UTC', now())
       )                                      AS next_due_date_in
 
