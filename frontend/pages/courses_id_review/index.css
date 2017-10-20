@@ -14,9 +14,9 @@
 
     &.-withInlinedAnswers{
       input.answer{
-        width: 100px;
+        width: 120px;
         display: inline-block;
-        padding: 0 10px;
+        // padding: 0 10px;
         font-size: 16px;
         text-align: center;
         &:focus{ outline: none; }

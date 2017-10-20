@@ -21,25 +21,41 @@ const succumb = () => {
       el.value = el.getAttribute('data-answer');
       el.setAttribute('data-answered', 'wrong');
       el.readOnly = true;
+
+      adjustWidthToInput(el);
     }
   });
+};
+
+const adjustWidthToInput = (el) => {
+  const nextLength = (el.value.length + 1) * 9;
+  if (nextLength > 120) {
+    el.style.width = nextLength + 'px';
+  } else {
+    el.style.width = '120px';
+  }
+};
+
+const checkAnswer = (el, onRightAnswerGiven) => {
+  const answer = el.getAttribute('data-answer');
+  const currentValue = el.value;
+
+  const ifCanMarkAsRight =
+    currentValue.toLocaleLowerCase() === answer.toLocaleLowerCase();
+
+  if (ifCanMarkAsRight) {
+    el.setAttribute('value', answer);
+    el.setAttribute('data-answered', 'right');
+    el.readOnly = true;
+    onRightAnswerGiven();
+  }
 };
 
 const attachKeyup = (onRightAnswerGiven) => {
   Array.from(document.getElementsByClassName('answer')).forEach((el) => {
     el.addEventListener('input', () => {
-      const answer = el.getAttribute('data-answer');
-      const currentValue = el.value;
-
-      const ifCanMarkAsRight =
-        currentValue.toLocaleLowerCase() === answer.toLocaleLowerCase();
-
-      if (ifCanMarkAsRight) {
-        el.setAttribute('value', answer);
-        el.setAttribute('data-answered', 'right');
-        el.readOnly = true;
-        onRightAnswerGiven();
-      }
+      adjustWidthToInput(el);
+      checkAnswer(el, onRightAnswerGiven);
     });
   });
 };
