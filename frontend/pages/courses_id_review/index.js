@@ -33,20 +33,21 @@ class Page_courses_id_review extends React.Component {
     currentProblem: PropTypes.object,
     statusOfSolving: PropTypes.object,
     enterPressed: PropTypes.func.isRequired,
-    amountOfProblems: PropTypes.number
+    amountOfProblems: PropTypes.number,
+
+    separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
+    onRightAnswerGiven: PropTypes.func.isRequired
   }
 
   componentDidMount() {
     this.props.getPage(this.props.params.id);
 
-    document.body.style.background = '#383131';
+    document.body.style.background = 'rgb(37, 37, 39)';
   }
 
-  // https://github.com/ReactTraining/react-router/issues/1487
-  // because router doesn't remount components if only properties (params.id) changed.
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.params.id !== this.props.params.id) {
-      this.props.getPage(nextProps.params.id);
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.params.id !== this.props.params.id) {
+      this.props.getPage(this.props.params.id);
     }
   }
 
@@ -55,7 +56,7 @@ class Page_courses_id_review extends React.Component {
   }
 
   render = () =>
-    <main className={css.main}>
+    <main className={css.main} key={this.props.params.id}>
       <Header/>
 
       <Loading spe={this.props.speGetPage}>{() =>
@@ -117,7 +118,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' })
 });
 
-import { connect } from 'react-redux';
 Page_courses_id_review = connect(mapStateToProps, mapDispatchToProps)(Page_courses_id_review);
 
 export { Page_courses_id_review };

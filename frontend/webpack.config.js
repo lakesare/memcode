@@ -1,12 +1,13 @@
+process.noDeprecation = true;
 const path = require('path');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    './index.js'
-  ],
+  entry: {
+    index: ['babel-polyfill', './index'],
+  },
 
   module: {
     rules: [
@@ -16,7 +17,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
+        // image-drop is not needed, but just in case if we need it
+        exclude: /node_modules(?!\/quill-image-drop-module|quill-image-resize-module)/,
         use: [
           {
             loader: 'babel-loader',
@@ -44,11 +46,11 @@ module.exports = {
           ]
         })
       },
-      { // the file-loader emits files.
-        test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      { // for fonts
+        test: /\.(ttf|eot|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: ['file-loader']
       },
-      {
+      { // for images
         test: /\.(jpg|png|svg|gif)$/,
         use: ['file-loader']
       }
@@ -67,7 +69,9 @@ module.exports = {
     new ExtractTextPlugin('/index.css'),
     new webpack.ProvidePlugin({
       React: 'react',
-      PropTypes: 'prop-types'
+      PropTypes: 'prop-types',
+      'window.Quill': 'quill',
+      connect: ['react-redux', 'connect']
     })
   ],
 

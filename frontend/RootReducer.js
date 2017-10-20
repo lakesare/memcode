@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 // global state
 import { AuthenticationReducer } from '~/reducers/Authentication';
+import { IdsOfProblemsToLearnAndReviewPerCourseReducer } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 
 // per-component state
 // [named like: component name + Reducer]
@@ -16,16 +17,17 @@ const RootReducer = combineReducers({
   // global state
   global: combineReducers({
     Authentication: AuthenticationReducer,
+    IdsOfProblemsToLearnAndReviewPerCourse: IdsOfProblemsToLearnAndReviewPerCourseReducer
   }),
 
   // per-component state
   components: combineReducers({
-    CourseActions: CourseActionsReducer,
+    CourseActions: CourseActionsReducer
   }),
 
   // per-page state
   pages: combineReducers({
-    Page_courses_id_review: Page_courses_id_review_Reducer,
+    Page_courses_id_review: Page_courses_id_review_Reducer
   })
 });
 

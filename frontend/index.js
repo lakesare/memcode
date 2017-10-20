@@ -4,7 +4,9 @@ import 'es6-shim';
 // `fetch` polyfill for safari
 import 'whatwg-fetch';
 
-import '~/services/quill/registeredBlots';
+// globally setting up quill text editor
+import '~/services/quill/registerBlots';
+import '~/services/quill/registerModules';
 
 import ReactDOM from 'react-dom';
 
@@ -63,9 +65,17 @@ const rootRedirect = {
   }
 };
 
+// ___why?
+//    I want every page to remount when route changes, even when only :dynamic-segment chenges.
+// ___where is this solution taken from?
+//    https://stackoverflow.com/a/32961482/3192470
+const createElement = (Component, props) =>
+  // eslint-disable-next-line react/prop-types
+  <Component key={props.params.id} {...props}/>;
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={browserHistory} createElement={createElement}>
       <Route path="courses"            component={Page_courses}/>
       <Route path="courses/new"        component={Page_courses_new} {...auth}/>
       <Route path="courses/:id"        component={Page_courses_id}/>

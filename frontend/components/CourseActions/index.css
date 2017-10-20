@@ -38,7 +38,7 @@
             font-size: 7px;
           }
         }
-      } 
+      }
     }
 
     .learn-and-review-buttons{
@@ -61,16 +61,13 @@
         }
         &.learn{
           background: $learn-button-color;
-          &.-disabled{
-            pointer-events: none;
-          }
         }
       }
     }
   }
   > section.course-description{
     font-size: 13px;
-    padding-left: 20px; padding-bottom: 20px;
+    padding-left: 20px; padding-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: 2px solid #424141;
     a{

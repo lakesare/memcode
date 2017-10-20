@@ -1,3 +1,4 @@
+@import 'css/variables';
 .list-of-courses{
   display: flex;
   flex-wrap: wrap;
@@ -7,10 +8,10 @@
     // layout
     position: relative;
     height: 200px;
-    width: 150px;
+    width: 156px;
 
     margin-right: 10px; margin-left: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     > section.total-amount-of-mems{
       position: absolute;
       bottom: 0;
@@ -19,8 +20,8 @@
       padding-bottom: 2px;
       padding-top: 2px;
       border-top: 1px solid #ded5d5;
-      background: #e8e6e6;
 
+      // slightly darker sims
       background: rgb(54, 210, 19);
       color: white;
       border-top: 1px solid #424141;
@@ -32,6 +33,8 @@
       h3.title{
         font-size: 18px;
         font-weight: bold;
+        padding: 0 6px;
+        word-break: break-word;
         mark{
           background: none;
           color: $review-button-color;
@@ -77,19 +80,16 @@
       }
     }
 
-    > section.total-amount-of-mems, .amount-of-mems-to-review-and-learn{
+    > section.total-amount-of-mems, section.amount-footer{
       font-size: 11px;
       font-weight: bold;
     }
     > section.total-amount-of-mems{
       padding-bottom: 2px;
-      // font-family: $heading-font;
-      // text-transform: uppercase;
-      // font-size: 11px;
     }
   }
   > .layout-div{
-    width: 150px;
+    width: 160px;
     margin-right: 10px;
     margin-left: 10px;
   }

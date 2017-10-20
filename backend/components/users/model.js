@@ -20,17 +20,39 @@ const select = {
 };
 
 const insert = {
-  createFromGithub: (profile) =>
+  createFromGithub: (githubProfile) =>
+    insert.create({
+      oauthProvider: 'github',
+      oauthId: githubProfile.id.toString(),
+      username: githubProfile.login,
+      avatarUrl: githubProfile.avatar_url,
+      email: githubProfile.email
+    }),
+
+  create: (user) =>
     db.one(
       'INSERT INTO "user" (oauth_provider, oauth_id, username, avatar_url, email) VALUES (${oauthProvider}, ${oauthId}, ${username}, ${avatarUrl}, ${email}) RETURNING *',
       {
-        oauthProvider: 'github',
-        oauthId: profile.id.toString(),
-        username: profile.login,
-        avatarUrl: profile.avatar_url,
-        email: profile.email
+        oauthProvider: user.oauthProvider,
+        oauthId: user.oauthId,
+        username: user.username,
+        avatarUrl: user.avatarUrl,
+        email: user.email
       }
     )
 };
 
-export { select, insert };
+const update = {
+  update: async (id, email) =>
+    db.one(
+      `
+        UPDATE "user"
+        SET email = \${email}
+        WHERE id = \${id}
+        RETURNING *
+      `,
+      { id, email }
+    )
+};
+
+export { select, insert, update };

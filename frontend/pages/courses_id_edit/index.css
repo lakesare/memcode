@@ -1,80 +1,80 @@
 @import 'css/variables';
 
 :local(main.main){
+  article.contact-us{
+    padding: 3px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: bold;
+    background: #f7f7f7;
+    color: #565353;
+    a{ color: #e20f6d; }
+  }
   section.problems{
-    > .thead{
-      position: relative;
+    // to avoid editing problem at the bottom of the screen
+    margin-bottom: 40px;
+    section.problem{
+      &.-withInlinedAnswers{
+        > .first-column{
+          .ql-toolbar{
+            padding-right: 0;
 
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    > .tbody{
-      // to avoid editing problem at the bottom of the screen
-      margin-bottom: 40px;
-      section.problem{
-        &.-withInlinedAnswers{
-          > .first-column{
-            .ql-toolbar{
-              padding-right: 0;
+            button.ql-answer{
+              font-size: 10px;
+              width: 43px !important;
+              padding: 0;
 
-              button.ql-answer{
-                font-size: 10px;
-                width: 43px !important;
-                padding: 0;
+              text-align: center;
+              font-weight: bold;
 
-                text-align: center;
-                font-weight: bold;
-
-                color: #9baf9e;
-                border-radius: 2px;
-                &.ql-active, &:hover{
-                  color: $sims-green-color;
-                }
-                &::after{ 
-                  content: "Mark As Answer";
-                }
+              color: #9baf9e;
+              border-radius: 2px;
+              &.ql-active, &:hover{
+                color: $sims-green-color;
               }
-              .ql-formats{
-                margin-right: 9px;
-                &:last-child{
-                  margin-right: 0;
-                }
+              &::after{
+                content: "Mark As Answer";
+              }
+            }
+            .ql-formats{
+              margin-right: 9px;
+              &:last-child{
+                margin-right: 0;
               }
             }
           }
         }
       }
+    }
 
-      > .new-problem{
-        position: relative;
-        margin-top: 40px;
-        > section.how-to-create{
-          margin-top: 10px;
-          color: #adadad;
-          text-align: right;
-          font-size: 12px;
-          button.button{
-            display: inline-block;
-            margin-left: 10px;
-          }
+    > .new-problem{
+      position: relative;
+      margin-top: 25px;
+      > section.how-to-create{
+        margin-top: 10px;
+        color: #adadad;
+        text-align: right;
+        font-size: 12px;
+        button.button{
+          display: inline-block;
+          margin-left: 10px;
         }
-        > section.choose-type{
-          position: absolute;
-          right: -66px;
-          top: 0;
-          > .button{
-            font-size: 9px;
-            padding: 4px;
-            opacity: 0.5;
-            width: 50px;
-            &.-active{
-              opacity: 1;
-              cursor: default;
-            }
-            &:not(.-active):hover{
-              opacity: 0.9;
-            }
+      }
+      > section.choose-type{
+        position: absolute;
+        right: -72px;
+        top: 0;
+        > .button{
+          font-size: 9px;
+          padding: 4px;
+          opacity: 0.5;
+          width: 57px;
+          &.-active{
+            opacity: 1;
+            cursor: default;
+          }
+          &:not(.-active):hover{
+            opacity: 0.9;
           }
         }
       }

@@ -11,7 +11,7 @@ module.exports = {
     "jsx-a11y/no-static-element-interactions": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-no-bind": "off",
-    
+
     // because it doesn't understand import `~/hi/hello`
     "import/no-unresolved": "off",
     "import/extensions": "off",
@@ -37,7 +37,7 @@ module.exports = {
     // lakesare: because I don't see why comments can't be long, doesn't everyone have wrapping in their text editors?
     "max-len": "off",
 
-    // lakesare: because I feel like 
+    // lakesare: because I feel like
     // if { return } else { return }
     // is more clear than
     // if { return }; return
@@ -121,7 +121,7 @@ module.exports = {
     // lakesare: because I don't see why comments can't be long, doesn't everyone have wrapping in their text editors?
     "max-len": "off",
 
-    // lakesare: because I feel like 
+    // lakesare: because I feel like
     // if { return } else { return }
     // is more clear than
     // if { return }; return
@@ -182,7 +182,19 @@ module.exports = {
 
     "react/jsx-pascal-case": "off",
 
-    "no-confusing-arrow": "off"
+    "no-confusing-arrow": "off",
+
+    "jsx-a11y/label-has-for": "off",
+
+    // yeah it's just faster sometimes
+    "react/no-string-refs": "off",
+
+    "no-param-reassign": "off",
+
+    "react/no-find-dom-node": "off",
+
+    // maybe it's useful, but I don't get it
+    "no-prototype-builtins": "off",
   },
   "globals": {
     "fetch": true,
@@ -206,6 +218,7 @@ module.exports = {
 
     // things I make global with ProvidePlugin
     "React": true,
-    "PropTypes": true
+    "PropTypes": true,
+    "connect": true
   }
 }

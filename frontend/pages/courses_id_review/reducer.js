@@ -95,6 +95,7 @@ const Page_courses_id_review_Reducer = (state = initialState, action) => {
   }
 };
 
+import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 import { commonFetch } from '~/api/commonFetch';
 
@@ -106,11 +107,12 @@ const Page_courses_id_review_Actions = {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
           break;
-        case 'seeingAnswer':
+        case 'seeingAnswer': {
+          const problemId = deriveCurrentProblem(state).id;
           CourseUserIsLearningApi.reviewProblem(
-            () => {},
+            false,
             state.speGetPage.payload.courseUserIsLearning.id,
-            deriveCurrentProblem(state).id,
+            problemId,
             deriveScore(state)
           );
           dispatch({
@@ -121,7 +123,9 @@ const Page_courses_id_review_Actions = {
             type: 'SET_NEXT_PROBLEM',
             payload: state.statusOfSolving.index + 1
           });
+          IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, problemId);
           break;
+        }
       }
     },
 

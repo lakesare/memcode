@@ -1,24 +1,101 @@
 @import 'css/variables';
 
 :local(main.main){
-  section.problems{
-    > .problem-wrapper{
-      * { cursor: pointer; }
-      padding: 10px;
-      &.-learned{
-        outline: $sims-green-color 3px solid;
-        background: #a1f5a1;
+  > .container > div.tabs{
+    > nav{
+      > ul.tab-links{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 800px;
+        margin: 0 auto;
+        > li{
+          margin: 0 10px;
+          padding: 5px 10px;
+          font-size: 13px;
+          cursor: pointer;
+          &.-active{
+            color: white;
+            background: #355B74;
+          }
+          &.-not-active{
+            color: black;
+            background: #ececec78;
+          }
+        }
       }
-      > .problem{
-        margin-bottom: 0;
+      > section.instructions{
+        margin-top: 20px;
+        font-size: 12px;
+        text-align: center;
+        color: #a09f9f;
+        b.review{ color: $review-button-color; }
+        b.learn{ color: $learn-button-color; }
       }
     }
-    margin-bottom: 40px;
-  }
-  section.instructions{
-    font-size: 14px;
-    text-align: center;
-    margin-bottom: 10px;
+
+    > section.tab-content{
+      padding-top: 22px;
+      padding-bottom: 30px;
+      div.problem-wrapper{
+        padding: 5px;
+        .ql-editor{ cursor: default; }
+        &.-ignored{
+          background: #e6e6e6;
+          .ql-container{ background: #ffffff2b; }
+        }
+        &.-learned{
+          background: #1341a7;
+        }
+        &.-yet-to-learn{
+          background: white;
+
+          &.button-wrapper.-learn:hover{
+            background: rgba(34, 76, 249, 0.678);
+          }
+        }
+
+        position: relative;
+        .button-wrapper{
+          position: absolute;
+          top: 5px; bottom: 0;
+          right: 0;
+          &.-disabled{ opacity: 0.1; cursor: default; button{ cursor: default; } }
+          // overlay with -learn wrapper so that whole problem is clickable
+          &.-learn{
+            width: 100%;
+            cursor: pointer;
+            z-index: 1001;
+          }
+          button{
+            position: absolute;
+            font-weight: bold;
+            font-size: 11px;
+            padding: 3px 10px;
+            cursor: pointer;
+            left: calc(100% + 5px);
+            &.-ignore, &.-unignore{
+              top: 24px;
+            }
+
+            // color of buttons
+            &.-ignore, &.-unlearn, &.-unignore{
+              background: #d8d6d6;
+              color: white;
+            }
+            &.-learn{
+              background: #1341a7;
+              color: white;
+            }
+
+            // for the undo icon
+            display: flex;
+            align-items: center;
+            > i.fa-undo{ padding-right: 5px; }
+          }
+        }
+      }
+    }
   }
 }
 

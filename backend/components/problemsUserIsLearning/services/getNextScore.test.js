@@ -1,9 +1,6 @@
-/* eslint-disable no-param-reassign */
-import 'source-map-support/register';
 import { expect } from 'chai';
 import { getNextScore } from './getNextScore';
 import { initialScore } from './initialScore';
-
 
 describe('getNextScore', () => {
   it('all 5 rating', () => {
@@ -24,7 +21,7 @@ describe('getNextScore', () => {
     const score = initialScore();
     const intervals = generateNReviews(score, 0, 10);
 
-    expect(intervals).to.deep.equal([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+    expect(intervals).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
   });
 
   it('different ratings', () => {
@@ -34,7 +31,7 @@ describe('getNextScore', () => {
     intervals.push(...generateNReviews(score, 3.0, 3));
     intervals.push(...generateNReviews(score, 4.0, 5));
 
-    expect(intervals).to.deep.equal([0, 1, 9, 23, 47, 1, 1, 1, 0, 1, 7, 18, 34]);
+    expect(intervals).to.deep.equal([0, 1, 9, 23, 47, 0, 0, 0, 0, 1, 7, 18, 34]);
   });
 });
 

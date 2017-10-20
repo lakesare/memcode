@@ -6,7 +6,7 @@ const LearningAlgorithm = () =>
 
     <div className="sites">
       <section className="site">
-        <h3>Memrise: <span>5</span></h3>
+        <h3>Memrise: <span className="rating">5</span></h3>
 
         <div className="description">
           SM2, approximate frequency of review with all the answers given right:<br/>
@@ -15,7 +15,7 @@ const LearningAlgorithm = () =>
       </section>
 
       <section className="site">
-        <h3>Quizlet: <span>0</span></h3>
+        <h3>Quizlet: <span className="rating">0</span></h3>
 
         <div className="description">
           Basic: either know or don't know.
@@ -23,7 +23,7 @@ const LearningAlgorithm = () =>
       </section>
 
       <section className="site">
-        <h3>Brainscape: <span>5</span></h3>
+        <h3>Brainscape: <span className="rating">5</span></h3>
 
         <div className="description">
           SM2
@@ -31,7 +31,7 @@ const LearningAlgorithm = () =>
       </section>
 
       <section className="site">
-        <h3>Memcode: <span>5</span></h3>
+        <h3>Memcode: <span className="rating">5</span></h3>
 
         <div className="description">
           SM2, approximate frequency of review with all the answers given right:<br/>
@@ -40,7 +40,7 @@ const LearningAlgorithm = () =>
       </section>
 
       <section className="conclusion">
-        <h3>Conclusio<span>n</span></h3>
+        <h3>Conclusio<span className="rating">n</span></h3>
 
         <div className="description">
           Everyone here uses some variation of SM2 (an algorithm that calculates the increase of repetition intervals depending on how well you know the item. It's ultimate goal is to make you repeat the flashcard as soon as you start forgetting it), except for <mark>Quizlet</mark>. Which essentially makes <mark>Quizlet</mark> unsuitable for any kind of long-term learning.

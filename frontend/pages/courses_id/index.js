@@ -20,13 +20,22 @@ class Page_courses_id extends React.Component {
   }
 
   componentDidMount = () =>
+    this.apiGetPage()
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.params.id !== this.props.params.id) {
+      this.apiGetPage();
+    }
+  }
+
+  apiGetPage = () =>
     commonFetch(
       spe => this.setState({ speGetPage: spe }),
       'GET', `/api/pages/courses/${this.props.params.id}`
     )
 
   render = () =>
-    <main className={css.main}>
+    <main className={css.main} key={this.props.params.id}>
       <Header/>
 
       <div className="container">
@@ -36,6 +45,7 @@ class Page_courses_id extends React.Component {
           <section className="problems">
             {problems.map((problem) =>
               <Problem
+                key={problem.id}
                 mode="show"
                 problemContent={problem.content}
                 problemType={problem.type}

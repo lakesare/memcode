@@ -1,5 +1,5 @@
 .container{
-  max-width: 905px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -38,13 +38,16 @@ main{
 
 input[type="text"], textarea{
   padding: 4px 10px;
-  border: solid 2px rgba(88, 90, 86, 0.65);
+  border: none;
   font-family: $body-font;
 }
-input[type="text"]:focus, textarea:focus{
+input[type="text"]:focus, textarea:focus, button:focus{
   outline: none;
 }
-
+// because mac makes it tiny 11px
+input, textarea, select, button{
+  font-size: 14px;
+}
 textarea {
   resize: none;
 }
@@ -52,3 +55,25 @@ textarea {
 mark{
   background: none;
 }
+
+ul, ol{
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+// has big up/down margin by default
+p{
+  margin: 7px 0;
+}
+
+// mac's chrome rounds all corners by default
+button{
+  border-radius: 0;
+  border: none;
+}
+
+// *{
+//   box-sizing: border-box;
+// }

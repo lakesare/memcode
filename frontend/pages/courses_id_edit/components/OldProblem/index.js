@@ -1,19 +1,21 @@
 import * as ProblemApi from '~/api/Problem';
 
-import { Loading } from '~/components/Loading';
 import { Problem } from '~/components/Problem';
-import { Actions } from './components/Actions';
+import { Checkbox } from './components/Checkbox';
 
 import css from './index.css';
 
 class OldProblem extends React.Component {
   static propTypes = {
     problem: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
     updateOldProblem: PropTypes.func.isRequired,
-    removeOldProblem: PropTypes.func.isRequired
+    // removeOldProblem: PropTypes.func.isRequired,
+    idsOfCheckedProblems: PropTypes.array.isRequired,
+    updateIdsOfCheckedProblems: PropTypes.func.isRequired
   }
 
-  state = { speSave: {} }
+  state = { speSave: { status: 'success' } }
 
   save = () =>
     ProblemApi.update(
@@ -29,6 +31,14 @@ class OldProblem extends React.Component {
 
   render = () =>
     <div className={css['old-problem']}>
+      <Checkbox
+        id={this.props.problem.id}
+        index={this.props.index}
+        idsOfCheckedProblems={this.props.idsOfCheckedProblems}
+        updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
+        speSave={this.state.speSave}
+      />
+
       <Problem
         mode="edit"
         problemContent={this.props.problem.content}
@@ -36,10 +46,6 @@ class OldProblem extends React.Component {
         problemType={this.props.problem.type}
         apiSave={this.save}
       />
-
-      <Actions speSave={this.state.speSave} removeOldProblem={this.props.removeOldProblem} problemId={this.props.problem.id}/>
-
-      <Loading spe={this.state.speSave}/>
     </div>
 }
 

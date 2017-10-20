@@ -1,3 +1,5 @@
+import { orFalse } from '~/services/orFalse';
+
 import { Loading } from '~/components/Loading';
 import { CourseTitle } from './components/CourseTitle';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
@@ -9,10 +11,34 @@ import css from './index.css';
 
 import { commonFetch } from '~/api/commonFetch';
 
+@connect(
+  (state, ownProps) => ({
+    currentUser: state.global.Authentication.currentUser,
+    speGetCourse: state.components.CourseActions.speGetCourse,
+    speCourseUserIsLearning: state.components.CourseActions.speCourseUserIsLearning,
+    amountOfProblems:
+      (
+        state.global.IdsOfProblemsToLearnAndReviewPerCourse &&
+        state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId]
+      ) ?
+      {
+        toLearn: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toLearn.length,
+        toReview: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toReview.length
+      } :
+      false
+  }),
+  (dispatch) => ({
+    seedSpeGetCourse: (spe) => dispatch({
+      type: 'SEED_SPE_GET_COURSE',
+      payload: spe
+    })
+  })
+)
 class CourseActions extends React.Component {
   static propTypes = {
     courseId: PropTypes.string.isRequired,
     currentUser: PropTypes.object,
+    amountOfProblems: orFalse(PropTypes.object).isRequired,
 
     speGetCourse: PropTypes.object.isRequired,
     speCourseUserIsLearning: PropTypes.object.isRequired,
@@ -43,7 +69,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblemsToReview, amountOfProblemsToLearn }) =>
+    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course }) =>
       <section className={css.actions}>
         <section className="title-and-buttons">
           <CourseTitle course={course}/>
@@ -58,8 +84,7 @@ class CourseActions extends React.Component {
 
                 <LearnAndReviewButtons
                   courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
-                  amountOfProblemsToLearn={amountOfProblemsToLearn}
-                  amountOfProblemsToReview={amountOfProblemsToReview}
+                  amountOfProblems={this.props.amountOfProblems}
                 />
 
                 <EditButton course={course} currentUserId={this.props.currentUser.id}/>
@@ -82,20 +107,5 @@ class CourseActions extends React.Component {
       </section>
     }</Loading>
 }
-
-import { connect } from 'react-redux';
-CourseActions = connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser,
-    speGetCourse: state.components.CourseActions.speGetCourse,
-    speCourseUserIsLearning: state.components.CourseActions.speCourseUserIsLearning
-  }),
-  (dispatch) => ({
-    seedSpeGetCourse: (spe) => dispatch({
-      type: 'SEED_SPE_GET_COURSE',
-      payload: spe
-    })
-  })
-)(CourseActions);
 
 export { CourseActions };

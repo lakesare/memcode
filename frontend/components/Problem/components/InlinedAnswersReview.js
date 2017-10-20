@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+// because there is no alternative to el.readOnly
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 const focusOnTheFirstAnswer = () => {
@@ -11,7 +13,12 @@ const focusOnTheFirstAnswer = () => {
 const succumb = () => {
   Array.from(document.getElementsByClassName('answer')).forEach((el) => {
     if (el.getAttribute('data-answered') !== 'right') {
-      el.setAttribute('value', el.getAttribute('data-answer'));
+      // ___why el.value instead of el.setAttribute('value')?
+      //   we are modifying element's value propery rather than attribute
+      //   because in HTML (unlike in react)
+      //   value attribute is just the default value
+      //   https://stackoverflow.com/a/29929977/3192470
+      el.value = el.getAttribute('data-answer');
       el.setAttribute('data-answered', 'wrong');
       el.readOnly = true;
     }

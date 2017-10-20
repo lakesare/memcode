@@ -8,7 +8,11 @@ import * as CourseUserIsLearning from './model';
 import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';
 
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
-  const courseUserIsLearning = await CourseUserIsLearning.insert.create(request.body['courseId'], request.currentUser.id);
+  const courseUserIsLearning = await CourseUserIsLearning.insert.create({
+    courseId: request.body['courseId'],
+    userId: request.currentUser.id,
+    active: true
+  });
   response.status(200).json(courseUserIsLearning);
 }));
 
@@ -31,13 +35,12 @@ router.put('/:id/problems/:problemId/review', authenticateMiddleware, catchAsync
   response.status(200).json({});
 }));
 
-// needs courseUserIsLearningId, problemId
 router.post('/:id/problems/:problemId/learn', authenticateMiddleware, catchAsync(async (request, response) => {
-  await ProblemUserIsLearning.insert.create(
-    request.params['id'],
-    request.params['problemId']
-  );
-  response.status(200).json({});
+  const puil = await ProblemUserIsLearning.insert.create({
+    courseUserIsLearningId: request.params['id'],
+    problemId: request.params['problemId']
+  });
+  response.status(200).json(puil);
 }));
 
 export { router };

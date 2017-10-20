@@ -23,7 +23,7 @@ import { handleErrors } from './handleErrors';
 //
 // if it's a GET request - just omit the body argument.
 const commonFetch = (dispatch, method, url, body = undefined) => {
-  dispatch(spe.request());
+  if (dispatch) dispatch(spe.request());
   return fetch(url, {
     method,
     headers: new Headers({
@@ -34,12 +34,12 @@ const commonFetch = (dispatch, method, url, body = undefined) => {
   })
     .then(handleErrors)
     .then((response) => {
-      dispatch(spe.success(response));
+      if (dispatch) dispatch(spe.success(response));
       return Promise.resolve(response);
     })
     .catch((error) => { // { error: error }
       console.log(error);
-      dispatch(spe.failure(error.error));
+      if (dispatch) dispatch(spe.failure(error.error));
       return Promise.reject(error);
     });
 };

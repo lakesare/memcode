@@ -3,4 +3,8 @@
     margin: 20px 0;
     text-align: center;
   }
+  button{
+  	margin: 0 auto;
+  	margin-bottom: 20px;
+  }
 }

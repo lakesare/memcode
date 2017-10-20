@@ -11,7 +11,7 @@ module.exports = {
       ),
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
+        exclude: /node_modules(?!\/quill-image-drop-module|quill-image-resize-module)/,
         use: [{
           loader: 'babel-loader',
           options: {

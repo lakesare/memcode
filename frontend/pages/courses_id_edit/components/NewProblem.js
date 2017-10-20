@@ -112,8 +112,8 @@ class NewProblem extends React.Component {
       </section>
 
       <section className="choose-type">
-        {this.renderTypeButton('separateAnswer', 'separate answer')}
-        {this.renderTypeButton('inlinedAnswers', 'inlined answers')}
+        {this.renderTypeButton('separateAnswer', 'question answer')}
+        {this.renderTypeButton('inlinedAnswers', 'fill-in answer')}
       </section>
     </div>
 }

@@ -6,7 +6,7 @@ const WhenToUseEach = () =>
 
     <div className="sites">
       <section className="site">
-        <h3>Memrise: <span>When you want to learn some language.</span></h3>
+        <h3>Memrise: <span className="answer">When you want to learn some language.</span></h3>
 
         <div className="description">
           <mark>Memrise</mark> was created with this in mind, hence is the inability to format tasks or limits on their length.<br/>
@@ -15,7 +15,7 @@ const WhenToUseEach = () =>
       </section>
 
       <section className="site">
-        <h3>Quizlet: <span>When you want to cram for a test.</span></h3>
+        <h3>Quizlet: <span className="answer">When you want to cram for a test.</span></h3>
 
         <div className="description">
           <mark>Quizlet</mark> was created with this in mind.<br/>
@@ -27,7 +27,7 @@ const WhenToUseEach = () =>
       </section>
 
       <section className="site">
-        <h3>Brainscape: <span>Never?</span></h3>
+        <h3>Brainscape: <span className="answer">Never?</span></h3>
 
         <div className="description">
           Probably if you want to prepare for a particular expert-approved course (SAT, IELTS).
@@ -36,7 +36,7 @@ const WhenToUseEach = () =>
       </section>
 
       <section className="site">
-        <h3>Memcode: <span>Any long-term learning of self-created data.</span></h3>
+        <h3>Memcode: <span className="answer">Any long-term learning of self-created data.</span></h3>
 
         <div className="description">
           If you mostly create courses yourself, if you need formatting or image insertion, and if you enjoy minimalistic fast thought-through interfaces.

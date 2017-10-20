@@ -1,6 +1,8 @@
 @import 'css/variables';
 
 :local(main.main){
+  ul{ padding-top: 20px; li{ padding-bottom: 10px; } }
+  h1{ font-size: 30px; }
   .how-did-I-choose-sites-for-comparison{
     h4{
       font-weight: bold;
@@ -8,6 +10,7 @@
       margin-bottom: 10px;
     }
   }
+  // shared among children
   .sites{
     display: flex;
     justify-content: space-between;
@@ -15,14 +18,14 @@
     .site, .conclusion{
       h3{
         padding-left: 10px;
-        margin-top: 10px;
+        margin-top: 30px;
         border-left: 21px solid #303030;
         font-weight: bold;
         position: relative;
         right: 21px;
       }
       .description{
-        margin-top: 5px;
+        margin-top: 20px;
       }
     }
     .site{
@@ -30,17 +33,20 @@
       h3{
         color: $sims-green-color;
         width: 138px;
-        span{
+        > span.rating{
           font-size: 15px;
-          display: inline-block;
           width: 23px; height: 21px;
           border-radius: 50%;
           padding-top: 2px;
           float: right;
 
-          text-align: center;
           background: #303030;
           color: white;
+
+          // center a number
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
@@ -55,6 +61,7 @@
     }
   }
 
+  // child-specific
   section.article-section#types-of-tasks{
     ul{
       display: flex;
@@ -71,7 +78,9 @@
       }
     }
     img{
-      max-width: 100%;
+      width: 100%;
+      max-width: 325px;
+
       margin: 0 auto;
       display: block;
       margin-top: 10px;
@@ -82,11 +91,9 @@
   section.article-section#when-to-use-each{
     .site h3{
       width: auto;
-      span{
-        width: auto; height: auto;
-        background: none;
-        color: #303030;
-        float: none;
+      > span.answer{
+        color: black;
+        font-size: 16px;
       }
     }
   }
@@ -97,7 +104,6 @@
       margin-bottom: 0;
       mark{ color: $sims-green-color; }
     }
-    line-height: 20px;
     mark{
       background: none;
       color: #016501;

@@ -39,13 +39,29 @@ class Editor extends React.Component {
       readOnly={this.props.readOnly}
 
       modules={{
-        syntax: false, // Include syntax module
+        // maybe include syntax module sometime
+        // syntax: false,
         toolbar: {
           container: this.props.toolbarContainer,
           handlers: this.props.toolbarHandlers
         },
+        // just cycles forever :|
+        // keyboard: {
+        //   bindings: {
+        //     'indent code-block': {
+        //       key: 'O',
+        //       shiftKey: false,
+        //       format: {'code-block': true },
+        //       handler: function(range) {}
+        //     }
+        //   }
+        // },
         // https://github.com/zenoamaro/react-quill/issues/250
-        clipboard: { matchVisual: false }
+        clipboard: { matchVisual: false },
+        imageResize: {
+          modules: ['Resize']
+        },
+        imageDrop: true
       }}
 
       onChangeSelection={this.onChangeSelection}

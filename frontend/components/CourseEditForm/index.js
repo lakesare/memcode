@@ -1,4 +1,6 @@
 import { Loading } from '~/components/Loading';
+import { Editor } from '~/components/Editor';
+
 import css from './index.css';
 
 class CourseEditForm extends React.Component {
@@ -28,11 +30,11 @@ class CourseEditForm extends React.Component {
     };
   }
 
-  updateFormValues = (event, inputTitle) =>
+  updateFormValues = (hash) =>
     this.setState({
       formValues: {
         ...this.state.formValues,
-        [inputTitle]: event.target.value
+        ...hash
       }
     })
 
@@ -57,14 +59,14 @@ class CourseEditForm extends React.Component {
   }
 
   render = () =>
-    <form className={`${css.form} standard-form -bordered`}>
+    <form className={`${css.form} standard-form -bordered`} onSubmit={this.validateAndSubmit}>
       {/* not real fieldset because it can't be flexbox */}
       <div className="fieldset">
         <div className="label">
           <label htmlFor="title">Title:</label>
         </div>
         <div className="input">
-          <input type="text" onChange={(e) => this.updateFormValues(e, 'title')} value={this.state.formValues.title}/>
+          <input type="text" onChange={(e) => this.updateFormValues({ title: e.target.value })} value={this.state.formValues.title}/>
         </div>
         {
           this.state.validationErrors.title &&
@@ -79,33 +81,30 @@ class CourseEditForm extends React.Component {
           <label htmlFor="description">Description:</label>
         </div>
         <div className="input">
-          <textarea
-            onChange={(e) => this.updateFormValues(e, 'description')}
-            value={this.state.formValues.description}
-            placeholder="HTML is okay."
+          <Editor
+            editorState={this.state.formValues.description}
+            updateEditorState={(newHtml) => this.updateFormValues({ description: newHtml })}
           />
         </div>
       </div>
       <div className="fieldset">
         <div className="label">
-          <label>Is course listed in /courses:</label>
+          <label>Public or private:</label>
         </div>
         <div className="input">
           <div
             className={`ifPublic ${this.state.formValues.ifPublic ? '-true' : '-false'}`}
-            onClick={() => this.updateFormValues({ target: { value: !this.state.formValues.ifPublic } }, 'ifPublic')}
+            onClick={() => this.updateFormValues({ ifPublic: !this.state.formValues.ifPublic })}
           >PUBLIC</div>
         </div>
       </div>
 
       <button
-        className="button -black"
-        onClick={this.validateAndSubmit}
+        className="button -black standard-submit-button"
         disabled={this.props.speSave.status === 'request'}
-        type="button"
-      >
-        {this.props.buttonText}
-      </button>
+        type="submit"
+      >{this.props.buttonText}</button>
+
       <Loading spe={this.props.speSave}/>
     </form>
 }

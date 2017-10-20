@@ -5,7 +5,7 @@ class HowToCreate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentType: 'SEPARATE ANSWER',
+      currentType: 'QUESTION ANSWER',
     };
   }
 
@@ -20,37 +20,40 @@ class HowToCreate extends React.Component {
   render = () =>
     <div className="how-to-create">
       <nav>
-        {this.renderNavItem('SEPARATE ANSWER')}
-        {this.renderNavItem('INLINED ANSWERS')}
+        {this.renderNavItem('QUESTION ANSWER')}
+        {this.renderNavItem('FILL-IN ANSWER')}
       </nav>
 
       <div className="current-type">
         {
-          this.state.currentType === 'INLINED ANSWERS' &&
+          this.state.currentType === 'FILL-IN ANSWER' &&
           <div className="gif-and-text">
             <img src={`/${memcode_1}`}/>
             <div className="text">
               <p className="description">This is an <b>insert answer inline flashcard</b>.</p>
               <ol>
-                <li><b>1st column: type in some phrase with words you'd have to fill in eventually</b> (eg, to learn the word 'turmoil': 'The country has been in turmoil for the past 10 years.')</li>
+                <li>
+                  <b>1st column: Type in a sentence</b> (e.g. 'The country has been in turmoil for the past 10 years.')<br/>
+                  <b>Select</b> the word you want to memorize <b>and click "Mark As Answer"</b>
+                </li>
                 <li>We'd like to memorize the word turmoil.<b> Select 'turmoil' with your mouse, and press ENTER.</b></li>
-                <li>2nd column: type in some additional information if needed (eg definition of the word 'turmoil': 'Сondition of extreme confusion, agitation.')</li>
-                <li><b>Press CTRL+S to save</b> the new flashcard.</li>
+                <li>2nd column: Type in hint if needed (e.g. definition of the word 'turmoil': 'Сondition of extreme confusion, agitation.')</li>
+                <li><b>Press CTRL+S to save</b> your flashcard.</li>
               </ol>
             </div>
           </div>
         }
 
         {
-          this.state.currentType === 'SEPARATE ANSWER' &&
+          this.state.currentType === 'QUESTION ANSWER' &&
           <div className="gif-and-text">
             <img src={`/${memcode_2}`}/>
             <div className="text">
               <p className="description">This is a <b>classic flashcard</b>.</p>
               <ol>
-                <li><b>1st column: type in your question</b> (eg: 'Why is Pluto no longer considered a planet?')</li>
-                <li><b>2nd column: type in your answer</b> (eg: 'Because there were discovered many celestial objects of comparable size next to Pluto.')</li>
-                <li><b>Press CTRL+S to save</b> the new flashcard.</li>
+                <li><b>1st column: Type in your question</b> (eg: 'Why is Pluto no longer considered a planet?')</li>
+                <li><b>2nd column: Type in your answer</b> (eg: ' Because many celestial objects of comparable size were discovered near Pluto')</li>
+                <li><b>Press CTRL+S to save</b> your flashcard.</li>
               </ol>
             </div>
           </div>

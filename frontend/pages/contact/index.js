@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { commonFetch } from '~/api/commonFetch';
 
 import { Helmet } from 'react-helmet';
@@ -10,8 +9,10 @@ import css from './index.css';
 
 @connect((state) => ({
   email:
-    state.global.Authentication.currentUser &&
-    state.global.Authentication.currentUser.email
+    (
+      state.global.Authentication.currentUser &&
+      state.global.Authentication.currentUser.email
+    ) || ''
 }))
 class Page_contact extends React.Component {
   static propTypes = {
@@ -47,7 +48,7 @@ class Page_contact extends React.Component {
       commonFetch((spe) => this.setState({ speSend: spe }),
         'POST', '//formspree.io/lakesare@gmail.com',
         this.state.formValues
-      ).then(() => this.setState({ ifJustSent: true }))
+      ).then(() => this.setState({ ifJustSent: true }));
     }
   }
 

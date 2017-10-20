@@ -17,32 +17,28 @@ backend-webpack:
 frontend-webpack:
 	cd frontend; ../node_modules/.bin/webpack -w
 
-user = kirill
-db = memcode
 # database
-db-setup:
-	createdb $(db)
 db-drop:
-	psql -U $(user) -c 'DROP DATABASE IF EXISTS $(db)'
+	psql -U postgres -c 'DROP DATABASE IF EXISTS memcode'
 db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
-	psql -v database=$(db) -d $(db) -U $(user) -f backend/db/schema.sql
+	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=$(db) -d $(db) -U $(user) -f backend/db/migrations/2.sql.ran
+	psql -v database=memcode -U postgres -f backend/db/migrations/3.sql
 
 # dump and restore data
 db-dump:
-	pg_dump -o $(db) -U $(user) > backend/db/dump.sql
+	pg_dump -o memcode -U postgres > backend/db/dump.sql
 db-restore:
-	psql -d $(db) -U $(user) < backend/db/dump.sql
+	psql -d memcode -U postgres < backend/db/dump.sql
 
 # test
 test-db-reset:
-	psql -v database=memcode_test -U $(user) -f backend/db/schema.sql
+	psql -v database=memcode_test -U postgres -f backend/db/schema.sql
 test-backend:
-	cd backend; NODE_ENV=test mocha --recursive ./webpacked/test --require babel-polyfill --watch
+	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./webpacked/test --require babel-polyfill --require source-map-support/register --watch
 test-frontend:
-	cd frontend; NODE_ENV=test karma start
+	cd frontend; NODE_ENV=test ../node_modules/.bin/karma start
 
 # production
 heroku-postbuild:
@@ -67,7 +63,7 @@ heroku-db-reset:
 
 # manually input migration you want to run (eg 1.sql)
 heroku-db-migrate:
-	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/migrations/2.sql
+	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/migrations/3.sql
 heroku-db-console:
 	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy
 
