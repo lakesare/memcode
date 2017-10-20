@@ -98,12 +98,14 @@
 
 :local(main.main){
   @media(max-width: 627px){
+    ul.tab-links li{ font-size: 12px !important; }
     > .container{ padding: 0 3px; }
-    section.problems{
-      .problem{
-        > .first-column{ margin-right: 3px; }
-        > .second-column{ margin-left: 3px; }
-        .ql-editor{ padding: 4px 3px; }
+    section.problem{
+      > .first-column{ margin-right: 3px; }
+      > .second-column{ margin-left: 3px; }
+      .ql-editor{
+        padding: 4px 3px;
+        font-size: 14px !important;
       }
     }
   }

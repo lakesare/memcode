@@ -59,11 +59,6 @@
       display: flex;
       align-items: flex-start;
       color: white;
-      // &:hover{
-      //   button{
-      //     color: $sims-green-color !important;
-      //   }
-      // }
       > button.edit-button{
         i{ padding-left: 3px; }
         font-size: 10px;
@@ -85,14 +80,16 @@
   }
 }
 
-@media(max-width: 600px) {
-  :local(section.actions){
+:local(section.actions){
+  @media(max-width: 600px) {
     section.title-and-buttons{
       padding: 10px 0;
       text-align: center;
       justify-content: center;
       flex-wrap: wrap;
-      > h3.course-title{
+      > section.course-title-and-edit-form{
+        display: flex;
+        justify-content: center;
         width: 100%;
         margin-bottom: 10px;
       }

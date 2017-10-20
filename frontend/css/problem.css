@@ -2,9 +2,9 @@ section.problem{
   display: flex;
   .first-column, .second-column{
     width: 50%;
-    &.first-column{ margin-right: 10px; }
-    &.second-column{ margin-left: 10px; }
   }
+  .first-column{ margin-right: 10px; }
+  .second-column{ margin-left: 10px; }
 
   $answer-background: rgba(45, 245, 83, 0.9);
   &.-withInlinedAnswers{
