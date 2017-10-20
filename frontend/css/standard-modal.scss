@@ -1,0 +1,29 @@
+.standard-modal{
+  overflow-y: auto;
+  position: fixed;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  z-index: 2000;
+
+  background: rgba(255, 255, 255, 0.8);
+  > button.close-button{
+    position: absolute;
+    right: 10px; top: 10px;
+    z-index: 2001;
+
+    border: 1px solid #efefef;;
+    border-radius: 50%;
+
+    width: 35px; height: 35px;
+    transform: rotate(45deg);
+    color: #969595;
+    background: white;
+    // centering text
+    line-height: 0;
+    font-size: 29px;
+    padding-left: 8px;
+    padding-bottom: 3px;
+
+    cursor: pointer;
+  }
+}

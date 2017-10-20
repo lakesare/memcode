@@ -39,6 +39,9 @@
         text-transform: uppercase;
         font-size: 11px;
         border-bottom: 2px solid rgba(0, 0, 0, 0);
+        // compensating for the border
+        position: relative;
+        top: 2px;
         &.active, &:hover{
           border-bottom: $green-nav-border;
         }

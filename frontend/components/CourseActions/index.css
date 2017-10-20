@@ -17,51 +17,60 @@
         vertical-align: middle;
         cursor: pointer;
         font-size: 12px;
-        &.-edit{
-          background: white;
-          padding-left: 3px; padding-right: 1px;
-          padding-top: 2px;
-          border-radius: 2px;
+      }
+
+      > a.add-to-learned{
+        min-width: 130px;
+        text-align: center;
+        border: 1px solid #989494;
+        padding: 2px 10px;
+        i.fa-plus{
+          font-size: 14px;
+          padding-right: 4px;
+          color: $sims-green-color;
         }
-        &.add-to-learned{
-          min-width: 130px;
-          text-align: center;
-          border: 1px solid #989494;
+        .request{
+          padding: 0;
+          font-size: 7px;
+        }
+      }
+      > .learn-and-review-buttons{
+        display: inline-block;
+        a{
+          margin-left: 10px;
           padding: 2px 10px;
-          i.fa-plus{
-            font-size: 14px;
-            padding-right: 4px;
-            color: $sims-green-color;
+          color: white;
+          font-size: 12px;
+          border: 1px solid black;
+          &.-disabled{
+            opacity: 0.1;
           }
-          .request{
-            padding: 0;
-            font-size: 7px;
+          &.review{
+            background: $review-button-color;
+          }
+          &.learn{
+            background: $learn-button-color;
           }
         }
       }
     }
 
-    .learn-and-review-buttons{
-      display: inline-block;
-      vertical-align: middle;
-      a{
-        display: inline-block;
-        margin-left: 10px;
-
-        padding: 2px 10px;
-        color: white;
-        font-size: 12px;
-        text-decoration: none;
-        border: 1px solid black;
-        &.-disabled{
-          opacity: 0.1;
-        }
-        &.review{
-          background: $review-button-color;
-        }
-        &.learn{
-          background: $learn-button-color;
-        }
+    > section.course-title-and-edit-form{
+      display: flex;
+      align-items: flex-start;
+      color: white;
+      // &:hover{
+      //   button{
+      //     color: $sims-green-color !important;
+      //   }
+      // }
+      > button.edit-button{
+        i{ padding-left: 3px; }
+        font-size: 10px;
+        padding-left: 4px;
+        color: rgba(40, 41, 43, 0.84);
+        font-family: $heading-font;
+        font-weight: bold;
       }
     }
   }
@@ -96,7 +105,6 @@
         > .learn-and-review-buttons{
           .learn{ margin-left: 0; }
         }
-        > a.action.-edit{ display: none; }
       }
     }
   }

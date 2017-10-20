@@ -1,0 +1,6 @@
+:local(.modal-insides){
+  margin-top: 40px !important;
+  > .standard-form{
+    background: white;
+  }
+}

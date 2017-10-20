@@ -1,0 +1,24 @@
+.standard-input{
+  &.-TextInput{
+    input{
+      width: 100%;
+      max-width: 200px;
+      box-sizing: border-box;
+      border: solid 2px rgba(88, 90, 86, 0.65);
+    }
+  }
+  &.-EditorTextarea{
+    .quill{
+      max-width: 400px;
+      .ql-toolbar{
+        border-bottom: none;
+      }
+      .ql-container{
+        border: solid 2px rgba(88, 90, 86, 0.65) !important;
+      }
+      .ql-editor{
+        min-height: 70px;
+      }
+    }
+  }
+}

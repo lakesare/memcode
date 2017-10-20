@@ -4,7 +4,7 @@
   // so that 'next' button has some space in bottom
   padding-bottom: 20px;
   box-sizing: border-box;
-  h3.course-title{
+  .course-title-and-edit-form h3.title{
     a{ color: white; }
   }
   section.problem{

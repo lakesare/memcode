@@ -36,17 +36,21 @@ main{
   // background: #4e4b4b;
 }
 
-input[type="text"], textarea{
+input[type="text"], input[type="email"], textarea{
   padding: 4px 10px;
   border: none;
-  font-family: $body-font;
 }
+
 input[type="text"]:focus, textarea:focus, button:focus{
   outline: none;
 }
-// because mac makes it tiny 11px
 input, textarea, select, button{
+  // because mac makes it tity 11px
   font-size: 14px;
+  // because font defaults to system despite body style
+  font-family: $body-font;
+
+  background: none;
 }
 textarea {
   resize: none;

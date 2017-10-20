@@ -1,5 +1,5 @@
-:local(form.form){
-  > .fieldset > .input .ifPublic{
+:local(.course-form){
+  .ifPublic{
     font-size: 11px;
     padding: 3px 7px;
     width: 62px;
@@ -13,14 +13,5 @@
     &.-false{
       color: rgba(58, 56, 56, 0.36);
     }
-  }
-
-  > .button.-black{
-    margin-left: 0;
-    margin-bottom: 20px;
-    display: inline-block;
-  }
-  > .loading.request{
-    display: block;
   }
 }

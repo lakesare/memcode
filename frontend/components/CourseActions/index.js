@@ -1,10 +1,9 @@
 import { orFalse } from '~/services/orFalse';
 
 import { Loading } from '~/components/Loading';
-import { CourseTitle } from './components/CourseTitle';
+import { CourseTitleAndEditForm } from './components/CourseTitleAndEditForm';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
-import { EditButton } from './components/EditButton';
 import { MetaTags } from './components/MetaTags';
 
 import css from './index.css';
@@ -13,7 +12,7 @@ import { commonFetch } from '~/api/commonFetch';
 
 @connect(
   (state, ownProps) => ({
-    currentUser: state.global.Authentication.currentUser,
+    currentUser: state.global.Authentication.currentUser || false,
     speGetCourse: state.components.CourseActions.speGetCourse,
     speCourseUserIsLearning: state.components.CourseActions.speCourseUserIsLearning,
     amountOfProblems:
@@ -37,7 +36,7 @@ import { commonFetch } from '~/api/commonFetch';
 class CourseActions extends React.Component {
   static propTypes = {
     courseId: PropTypes.string.isRequired,
-    currentUser: PropTypes.object,
+    currentUser: orFalse(PropTypes.object).isRequired,
     amountOfProblems: orFalse(PropTypes.object).isRequired,
 
     speGetCourse: PropTypes.object.isRequired,
@@ -46,13 +45,15 @@ class CourseActions extends React.Component {
     seedSpeGetCourse: PropTypes.func.isRequired,
 
     ifCuilActivityButtonsAreDisplayed: PropTypes.bool,
-    ifCourseDescriptionIsDisplayed: PropTypes.bool
+    ifCourseDescriptionIsDisplayed: PropTypes.bool,
+    ifEditCourseModalTogglerIsDisplayed: PropTypes.bool
   }
 
   static defaultProps = {
-    currentUser: null,
+    currentUser: false,
     ifCuilActivityButtonsAreDisplayed: true,
-    ifCourseDescriptionIsDisplayed: false
+    ifCourseDescriptionIsDisplayed: false,
+    ifEditCourseModalTogglerIsDisplayed: false
   }
 
   componentDidMount = () => {
@@ -68,11 +69,21 @@ class CourseActions extends React.Component {
       );
   }
 
+  uiUpdateCourse = (course) => {
+    const spe = this.props.speGetCourse;
+    this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
+  }
+
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course }) =>
       <section className={css.actions}>
         <section className="title-and-buttons">
-          <CourseTitle course={course}/>
+          <CourseTitleAndEditForm
+            course={course}
+            uiUpdateCourse={this.uiUpdateCourse}
+            currentUser={this.props.currentUser}
+            ifEditCourseModalTogglerIsDisplayed={this.props.ifEditCourseModalTogglerIsDisplayed}
+          />
 
           {
             this.props.currentUser ?
@@ -86,8 +97,6 @@ class CourseActions extends React.Component {
                   courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
                   amountOfProblems={this.props.amountOfProblems}
                 />
-
-                <EditButton course={course} currentUserId={this.props.currentUser.id}/>
               </div> :
               <h4>Sign in to start learning this course</h4>
           }
