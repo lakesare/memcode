@@ -31,6 +31,9 @@
       &.ql-blank::before{
         // color: rgba(0, 0, 0, 0.77);
         font-style: normal;
+        padding-right: 10px;
+        line-height: 20px;
+        color: #b5b5b9;
       }
       ul, ol{
         padding-left: 0;
