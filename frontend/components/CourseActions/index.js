@@ -1,14 +1,15 @@
 import { orFalse } from '~/services/orFalse';
+import { commonFetch } from '~/api/commonFetch';
 
 import { Loading } from '~/components/Loading';
 import { CourseTitleAndEditForm } from './components/CourseTitleAndEditForm';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
 import { MetaTags } from './components/MetaTags';
+import { Link } from 'react-router';
+
 
 import css from './index.css';
-
-import { commonFetch } from '~/api/commonFetch';
 
 @connect(
   (state, ownProps) => ({
@@ -75,7 +76,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course }) =>
+    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblems }) =>
       <section className={css.actions}>
         <section className="title-and-buttons">
           <CourseTitleAndEditForm
@@ -98,7 +99,14 @@ class CourseActions extends React.Component {
                   amountOfProblems={this.props.amountOfProblems}
                 />
               </div> :
-              <h4>Sign in to start learning this course</h4>
+              <div className="please-sign-in_and_simulated-review-button">
+                <h4 className="please-sign-in">Sign in to start recording results</h4>
+
+                <Link
+                  to={`/courses/${this.props.courseId}/review/simulated`}
+                  className="simulated-review-button"
+                >REVIEW ({amountOfProblems})</Link>
+              </div>
           }
         </section>
 

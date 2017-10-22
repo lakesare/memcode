@@ -24,11 +24,12 @@ import { handleErrors } from './handleErrors';
 // if it's a GET request - just omit the body argument.
 const commonFetch = (dispatch, method, url, body = undefined) => {
   if (dispatch) dispatch(spe.request());
+  const jwt = localStorage.getItem('jwt');
   return fetch(url, {
     method,
     headers: new Headers({
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + localStorage.getItem('jwt')
+      ...(jwt ? { Authorization: `Bearer ${jwt}` } : {})
     }),
     body: JSON.stringify(body)
   })
@@ -38,7 +39,6 @@ const commonFetch = (dispatch, method, url, body = undefined) => {
       return Promise.resolve(response);
     })
     .catch((error) => { // { error: error }
-      console.log(error);
       if (dispatch) dispatch(spe.failure(error.error));
       return Promise.reject(error);
     });

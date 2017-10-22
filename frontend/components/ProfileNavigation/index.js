@@ -1,11 +1,12 @@
 import { AuthenticationActions } from '~/reducers/Authentication';
+import { orFalse } from '~/services/orFalse';
 
 import { Link } from 'react-router';
 import css from './index.css';
 
 @connect(
   (state) => ({
-    currentUser: state.global.Authentication.currentUser || undefined
+    currentUser: state.global.Authentication.currentUser || false
   }),
   (dispatch) => ({
     signOut: () => AuthenticationActions.signOut(dispatch)
@@ -14,33 +15,28 @@ import css from './index.css';
 class ProfileNavigation extends React.Component {
   static propTypes = {
     signOut: PropTypes.func.isRequired,
-    currentUser: PropTypes.object
-  };
-
-  static defaultProps = {
-    currentUser: null
+    currentUser: orFalse(PropTypes.object).isRequired
   }
 
-  render = () =>
-    <nav className={css.nav}>
-      <div className="container">
-        <section className="links">
-          <Link
-            to="/courses"
-            activeClassName="active"
-          >All courses</Link>
-          <Link
-            to="/profile/learning"
-            activeClassName="active"
-          >I'm learning</Link>
-          <Link
-            to="/profile/created"
-            activeClassName="active"
-          >I created</Link>
-        </section>
+  render = () => (
+    this.props.currentUser ?
+      <nav className={css.nav}>
+        <div className="container">
+          <section className="links">
+            <Link
+              to="/courses"
+              activeClassName="active"
+            >All courses</Link>
+            <Link
+              to="/profile/learning"
+              activeClassName="active"
+            >I'm learning</Link>
+            <Link
+              to="/profile/created"
+              activeClassName="active"
+            >I created</Link>
+          </section>
 
-        {
-          this.props.currentUser &&
           <section className="settings">
             <i className="fa fa-cog"/>
 
@@ -48,9 +44,10 @@ class ProfileNavigation extends React.Component {
               <a onClick={this.props.signOut}>Sign Out</a>
             </div>
           </section>
-        }
-      </div>
-    </nav>
+        </div>
+      </nav> :
+      null
+  )
 }
 
 export { ProfileNavigation };

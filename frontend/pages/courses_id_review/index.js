@@ -1,3 +1,5 @@
+import { orFalse } from '~/services/orFalse';
+
 import { Header }  from '~/components/Header';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
@@ -18,6 +20,40 @@ import css from './index.css';
 
 //   if there are no answers in problem:
 //     -> we accept problem and move to the next problem
+import { deriveCurrentProblem } from './selectors';
+import { Page_courses_id_review_Actions as pageActions } from './reducer';
+@connect(
+  (state) => {
+    const pageState = state.pages.Page_courses_id_review;
+    return {
+      currentUser: state.global.Authentication.currentUser || false,
+      currentProblem: deriveCurrentProblem(pageState),
+      speGetPage: pageState.speGetPage,
+
+      ...pageState.speGetPage.status === 'success' &&
+        {
+          statusOfSolving:  pageState.statusOfSolving,
+          amountOfProblems: pageState.speGetPage.payload.problems.length
+        }
+    };
+  },
+  (dispatch, ownProps) => ({
+    getPage: (courseId) => dispatch(
+      pageActions.getPage(courseId, ownProps.route.simulated)
+    ),
+    enterPressed: () => {
+      ownProps.route.simulated ?
+        dispatch(pageActions.enterPressedInSimulatedReview()) :
+        dispatch(pageActions.enterPressed());
+    },
+    separateAnswerSelfScoreGiven: (selfScore) =>
+      dispatch({
+        type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
+        payload: selfScore
+      }),
+    onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' })
+  })
+)
 class Page_courses_id_review extends React.Component {
   static propTypes = {
     params: PropTypes.shape({
@@ -30,6 +66,7 @@ class Page_courses_id_review extends React.Component {
 
     speGetPage: PropTypes.object.isRequired,
 
+    currentUser: orFalse(PropTypes.object).isRequired,
     currentProblem: PropTypes.object,
     statusOfSolving: PropTypes.object,
     enterPressed: PropTypes.func.isRequired,
@@ -76,48 +113,11 @@ class Page_courses_id_review extends React.Component {
                 onRightAnswerGiven={this.props.onRightAnswerGiven}
                 amountOfProblems={this.props.amountOfProblems}
               /> :
-              <WhatNext courseId={parseInt(this.props.params.id)}/>
+              <WhatNext courseId={parseInt(this.props.params.id)} currentUser={this.props.currentUser}/>
           }
         </div>
       }</Loading>
     </main>
 }
-
-// state
-import { deriveCurrentProblem } from './selectors';
-const mapStateToProps = (state) => {
-  const pageState = state.pages.Page_courses_id_review;
-  return {
-    currentProblem: deriveCurrentProblem(pageState),
-    speGetPage:       pageState.speGetPage,
-
-    ...pageState.speGetPage.status === 'success' &&
-      {
-        statusOfSolving:  pageState.statusOfSolving,
-        amountOfProblems: pageState.speGetPage.payload.problems.length
-      }
-  };
-};
-
-// dispatch
-import { Page_courses_id_review_Actions as pageActions } from './reducer';
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  getPage: (courseId) => dispatch(
-    pageActions.getPage(courseId, ownProps.route.simulated)
-  ),
-  enterPressed: () => {
-    ownProps.route.simulated ?
-      dispatch(pageActions.enterPressedInSimulatedReview()) :
-      dispatch(pageActions.enterPressed());
-  },
-  separateAnswerSelfScoreGiven: (selfScore) =>
-    dispatch({
-      type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
-      payload: selfScore
-    }),
-  onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' })
-});
-
-Page_courses_id_review = connect(mapStateToProps, mapDispatchToProps)(Page_courses_id_review);
 
 export { Page_courses_id_review };

@@ -55,6 +55,23 @@
       }
     }
 
+    > .please-sign-in_and_simulated-review-button{
+      > h4.please-sign-in{
+        display: inline-block;
+        color: rgb(187, 188, 189);
+        font-size: 14px
+      }
+      > a.simulated-review-button{
+        display: inline-block;
+        margin-left: 10px;
+        padding: 2px 10px;
+        color: white;
+        font-size: 12px;
+        border: 1px solid black;
+        background: $review-button-color;
+      }
+    }
+
     > section.course-title-and-edit-form{
       display: flex;
       align-items: flex-start;

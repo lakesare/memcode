@@ -149,7 +149,8 @@ const Page_courses_id_review_Actions = {
     (dispatch) =>
       commonFetch(
         (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe }),
-        'GET', `/api/pages/courses/${courseId}/review?ifSimulated=${ifSimulated}`
+        'GET',
+        ifSimulated ? `/api/pages/courses/${courseId}/review/simulated` : `/api/pages/courses/${courseId}/review`
       )
 };
 

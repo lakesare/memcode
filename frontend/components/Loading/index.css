@@ -7,5 +7,6 @@
   &.error{
     text-align: center;
     padding: 30px;
+    background: #a2a2a2;
   }
 }
