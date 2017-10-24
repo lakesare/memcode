@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import { catchAsync } from '~/services/catchAsync';
-import { authenticateMiddleware } from '~/middlewares/authenticate';
+import { authenticateMiddleware, optionalAuthenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
 import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';
@@ -41,16 +41,16 @@ router.get('/courses/:id/learn', authenticateMiddleware, catchAsync(async (reque
 
 router.get('/courses/:id/review', authenticateMiddleware, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
-  // we get 'true'/'false', and parse it into the actual true/false.
-  const ifSimulated = JSON.parse(request.query.ifSimulated);
 
   const courseUserIsLearning = await CourseUserIsLearning.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
-  const problems =
-    ifSimulated ?
-    await Problem.select.allByCourseId(courseUserIsLearning.courseId) :
-    await CourseUserIsLearning.select.problemsToReview(courseUserIsLearning.id);
-
+  const problems = await CourseUserIsLearning.select.problemsToReview(courseUserIsLearning.id);
   response.status(200).json({ courseUserIsLearning, problems });
+}));
+
+router.get('/courses/:id/review/simulated', catchAsync(async (request, response) => {
+  const courseId = request.params['id'];
+  const problems = await Problem.select.allByCourseId(courseId);
+  response.status(200).json({ courseUserIsLearning: null, problems });
 }));
 
 router.get('/courses/:id/edit', authenticateMiddleware, catchAsync(async (request, response) => {
@@ -77,8 +77,8 @@ router.get('/courseActions/:courseId/authenticated', authenticateMiddleware, cat
 }));
 
 router.get('/courseActions/:courseId/unauthenticated', catchAsync(async (request, response) => {
-  const course = await Course.select.oneById(request.params.courseId);
-  response.status(200).json({ course });
+  const course = await Course.select.oneForActions(request.params.courseId, null);
+  response.status(200).json(course);
 }));
 
 // global state (?)

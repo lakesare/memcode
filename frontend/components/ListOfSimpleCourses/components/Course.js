@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import { stripTags } from '~/services/stripTags';
-
+import { url } from '~/services/url';
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser || undefined
 }))
@@ -15,17 +15,9 @@ class Course extends React.Component {
     currentUser: null
   }
 
-  ifCanEdit = () =>
-    this.props.currentUser &&
-    this.props.currentUser.id === this.props.course.userId
-
   render = () =>
     <Link
-      to={
-        this.ifCanEdit() ?
-        `/courses/${this.props.course.id}/edit` :
-        `/courses/${this.props.course.id}`
-      }
+      to={url.courseEditOrShow(this.props.currentUser, this.props.course)}
       className="course"
     >
       <div className="actions"><i className="fa fa-long-arrow-right"/></div>

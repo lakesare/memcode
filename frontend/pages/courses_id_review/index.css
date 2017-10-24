@@ -4,7 +4,7 @@
   // so that 'next' button has some space in bottom
   padding-bottom: 20px;
   box-sizing: border-box;
-  h3.course-title{
+  .course-title-and-edit-form h3.title{
     a{ color: white; }
   }
   section.problem{
@@ -14,9 +14,9 @@
 
     &.-withInlinedAnswers{
       input.answer{
-        width: 100px;
+        width: 120px;
         display: inline-block;
-        padding: 0 10px;
+        // padding: 0 10px;
         font-size: 16px;
         text-align: center;
         &:focus{ outline: none; }

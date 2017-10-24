@@ -10,7 +10,6 @@ import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
 import { Instructions } from './components/Instructions';
-// import { CourseDetails } from './components/CourseDetails';
 import { ActionsForCheckedProblems } from './components/ActionsForCheckedProblems';
 
 import { commonFetch } from '~/api/commonFetch';
@@ -130,7 +129,7 @@ class Page_courses_id_edit extends React.Component {
       </article>
 
       <div className="container">
-        <CourseActions courseId={this.props.params.id}/>
+        <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed/>
 
         <Loading spe={this.state.speGetPage}>{({ problems }) =>
           <StickyContainer>

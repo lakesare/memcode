@@ -2,7 +2,8 @@ import { Helmet } from 'react-helmet';
 
 import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
-import { CourseEditForm } from '~/components/CourseEditForm';
+import { Loading } from '~/components/Loading';
+import { CourseForm, validate } from '~/appComponents/CourseForm';
 
 import { browserHistory } from 'react-router';
 import * as CourseApi from '~/api/Course';
@@ -10,16 +11,29 @@ import * as CourseApi from '~/api/Course';
 import css from './index.css';
 
 class Page_courses_new extends React.Component {
-  state = { speSave: {} }
+  state = {
+    speSave: { status: 'success' },
+    formState: {
+      title: '',
+      description: '',
+      ifPublic: true
+    },
+    formValidation: {}
+  }
 
-  apiCreateCourse = (formValues) =>
-    CourseApi.create(
-      spe => this.setState({ speSave: spe }),
-      formValues
-    )
-      .then((course) => {
-        browserHistory.push(`/courses/${course.id}/edit`);
-      })
+  apiCreateCourse = (event) => {
+    event.preventDefault();
+    const formValidation = validate(this.state.formState);
+    if (formValidation === true) {
+      CourseApi.create(
+        spe => this.setState({ speSave: spe }),
+        this.state.formState
+      )
+        .then((course) => browserHistory.push(`/courses/${course.id}/edit`));
+    } else {
+      this.setState({ formValidation });
+    }
+  }
 
   render = () =>
     <main className={css.main}>
@@ -27,7 +41,21 @@ class Page_courses_new extends React.Component {
 
       <div className="container">
         <h2>Create a course</h2>
-        <CourseEditForm save={this.apiCreateCourse} speSave={this.state.speSave} buttonText="Create!"/>
+
+        <form className="standard-form -bordered" onSubmit={this.apiCreateCourse}>
+          <CourseForm
+            formState={this.state.formState}
+            updateFormState={(formState) => this.setState({ formState })}
+            formValidation={this.state.formValidation}
+          />
+
+          <Loading spe={this.state.speSave}>
+            <button
+              className="button -black standard-submit-button"
+              type="submit"
+            >Create!</button>
+          </Loading>
+        </form>
       </div>
 
       <Footer/>

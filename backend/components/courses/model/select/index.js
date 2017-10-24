@@ -39,7 +39,7 @@ const select = {
       `
       SELECT
         row_to_json(course.*) AS course,
-        COUNT(distinct "user".id) AS amount_of_users_learning_this_course,
+        COUNT(distinct course_user_is_learning.user_id) AS amount_of_users_learning_this_course,
         COUNT(distinct problem.id) AS amount_of_problems
       FROM course
       LEFT OUTER JOIN course_user_is_learning
@@ -50,8 +50,6 @@ const select = {
         )
       INNER JOIN problem
         ON problem.course_id = course.id
-      INNER JOIN "user"
-        ON "user".id = course_user_is_learning.user_id
       WHERE ${wherePublic}
       GROUP BY course.id
       ORDER BY

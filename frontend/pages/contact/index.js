@@ -4,6 +4,8 @@ import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
+import { TextInput, EditorTextarea } from '~/components/_standardForm';
+
 
 import css from './index.css';
 
@@ -25,41 +27,38 @@ class Page_contact extends React.Component {
 
   state = {
     speSend: { status: 'success' },
-    formValues: {
+    formState: {
       email: this.props.email,
       message: ''
     },
-    validationErrors: {},
+    formValidation: {},
 
     ifJustSent: false
   }
 
-  updateFormValues = (event, inputTitle) =>
-    this.setState({
-      formValues: {
-        ...this.state.formValues,
-        [inputTitle]: event.target.value
-      }
-    })
-
-  validateAndSubmit = (e) => {
+  apiSend = (e) => {
     e.preventDefault();
-    if (this.validate()) {
+    if (this.validate() === true) {
       commonFetch((spe) => this.setState({ speSend: spe }),
         'POST', '//formspree.io/lakesare@gmail.com',
-        this.state.formValues
+        this.state.formState
       ).then(() => this.setState({ ifJustSent: true }));
     }
   }
 
   validate = () => {
-    if (this.state.formValues.message.length < 5) {
-      this.setState({ validationErrors: { message: 'Please enter your message' } });
-      return false;
+    if (this.state.formState.message.length < 5) {
+      this.setState({ formValidation: { message: 'Please enter your message' } });
     } else {
       return true;
     }
   }
+
+  inputProps = () => ({
+    updateFormState: (state) => this.setState({ formState: state }),
+    formState: this.state.formState,
+    formValidation: this.state.formValidation
+  })
 
   render = () =>
     <main className={css.main}>
@@ -68,33 +67,13 @@ class Page_contact extends React.Component {
         <div className="space"/>
 
         <h2>Send us a message</h2>
-        <form className="standard-form -bordered">
-          <div className="fieldset">
-            <div className="label">
-              <label htmlFor="email">Email:</label>
-            </div>
-            <div className="input">
-              <input type="text" onChange={(e) => this.updateFormValues(e, 'email')} value={this.state.formValues.email}/>
-            </div>
-          </div>
 
-          <div className="fieldset">
-            <div className="label">
-              <label htmlFor="message">Message:</label>
-            </div>
-            <div className="input">
-              <textarea type="text" onChange={(e) => this.updateFormValues(e, 'message')} value={this.state.formValues.message}/>
-            </div>
-            {
-              this.state.validationErrors.message &&
-              <div className="error">
-                {this.state.validationErrors.message}
-              </div>
-            }
-          </div>
+        <form className="standard-form -bordered" onSubmit={this.apiSend}>
+          <TextInput {...this.inputProps()} type="email" label="Email:" name="email"/>
+          <EditorTextarea {...this.inputProps()} label="Message:" name="message"/>
 
           <Loading spe={this.state.speSend}>
-            <button type="button" className="button -black -fade-out-on-hover" onClick={this.validateAndSubmit}>
+            <button type="submit" className="button -black -fade-out-on-hover standard-submit-button">
               SEND
             </button>
           </Loading>
@@ -102,8 +81,7 @@ class Page_contact extends React.Component {
           {
             this.state.ifJustSent &&
             <div className="just-sent">
-              <h3>Message successfully sent! We will answer shortly.</h3>
-              <div className="space"/>
+              <h3>Message was successfully sent! We will answer shortly.</h3>
             </div>
           }
         </form>

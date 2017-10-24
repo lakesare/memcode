@@ -49,9 +49,11 @@
         }
         &.-yet-to-learn{
           background: white;
-
-          &.button-wrapper.-learn:hover{
-            background: rgba(34, 76, 249, 0.678);
+          .button-wrapper.-learn{
+            // overlay with -learn wrapper so that whole problem is clickable
+            width: 100%;
+            cursor: pointer;
+            z-index: 1001;
           }
         }
 
@@ -61,12 +63,7 @@
           top: 5px; bottom: 0;
           right: 0;
           &.-disabled{ opacity: 0.1; cursor: default; button{ cursor: default; } }
-          // overlay with -learn wrapper so that whole problem is clickable
-          &.-learn{
-            width: 100%;
-            cursor: pointer;
-            z-index: 1001;
-          }
+
           button{
             position: absolute;
             font-weight: bold;
@@ -101,12 +98,14 @@
 
 :local(main.main){
   @media(max-width: 627px){
+    ul.tab-links li{ font-size: 12px !important; }
     > .container{ padding: 0 3px; }
-    section.problems{
-      .problem{
-        > .first-column{ margin-right: 3px; }
-        > .second-column{ margin-left: 3px; }
-        .ql-editor{ padding: 4px 3px; }
+    section.problem{
+      > .first-column{ margin-right: 3px; }
+      > .second-column{ margin-left: 3px; }
+      .ql-editor{
+        padding: 4px 3px;
+        font-size: 14px !important;
       }
     }
   }
