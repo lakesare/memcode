@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 
+import { handleErrors } from './handleErrors';
+
 // make request.currentUser available
 // request.currentUser.oauthId,
 // request.currentUser.oauthProvider
@@ -8,14 +10,14 @@ const authenticateMiddleware = (request, response, next) => {
     const token = request.headers['authorization'].split('Bearer ')[1];
     jwt.verify(token, process.env['JWT_SECRET'], (error, user) => {
       if (error) {
-        response.status(401).json({ error });
+        handleErrors(error, request, response);
       } else {
         request.currentUser = user;
         next();
       }
     });
   } else {
-    response.status(401).json({ error: "No authorization header provided" });
+    handleErrors(new Error("No authorization header provided"), request, response);
   }
 };
 

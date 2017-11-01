@@ -49,6 +49,7 @@ const handleErrors = (error, request, response, next) => {
   }
 
   // interestingly if error.message is undefined, express will return {}
+  // it must _always_ be a string. I'm not sure if it is.
   response.status(500).json({ error: error.message || error || '' });
 };
 

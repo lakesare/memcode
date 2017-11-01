@@ -78,6 +78,7 @@ router.get('/courseActions/:courseId/authenticated', authenticateMiddleware, cat
 
 router.get('/courseActions/:courseId/unauthenticated', catchAsync(async (request, response) => {
   const course = await Course.select.oneForActions(request.params.courseId, null);
+  if (!course) throw new Error("Sorry, course with this id has not yet been created.");
   response.status(200).json(course);
 }));
 

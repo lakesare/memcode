@@ -5,8 +5,10 @@
     img{ width: 40px; }
   }
   &.error{
+    padding: 20px;
+    margin-top: 10px;
     text-align: center;
-    padding: 30px;
     background: #a2a2a2;
+    color: white;
   }
 }
