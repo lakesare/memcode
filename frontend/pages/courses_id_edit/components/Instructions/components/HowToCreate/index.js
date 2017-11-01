@@ -36,7 +36,7 @@ class HowToCreate extends React.Component {
                   <b>1st column: Type in a sentence</b> (e.g. 'The country has been in turmoil for the past 10 years.')<br/>
                   <b>Select</b> the word you want to memorize <b>and click "Mark As Answer"</b>
                 </li>
-                <li>We'd like to memorize the word turmoil.<b> Select 'turmoil' with your mouse, and press ENTER.</b></li>
+                <li>We'd like to memorize the word turmoil.<b> Select 'turmoil' with your mouse, and click 'Mark As Answer'.</b></li>
                 <li>2nd column: Type in hint if needed (e.g. definition of the word 'turmoil': 'Сondition of extreme confusion, agitation.')</li>
                 <li><b>Press CTRL+S to save</b> your flashcard.</li>
               </ol>
