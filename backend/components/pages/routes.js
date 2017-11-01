@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import { catchAsync } from '~/services/catchAsync';
-import { authenticateMiddleware, optionalAuthenticateMiddleware } from '~/middlewares/authenticate';
+import { authenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
 import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';

@@ -1,3 +1,5 @@
+import { escape } from 'querystring';
+
 const html = `
   <!DOCTYPE html>
   <html lang="en">
@@ -19,7 +21,8 @@ const html = `
     <div id="root"></div>
     <script>
       window.env = {
-        githubSignInLink: 'https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env['GITHUB_OAUTH_ID']}'
+        githubSignInLink: 'https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env['GITHUB_OAUTH_ID']}',
+        googleSignInLink: 'https://accounts.google.com/o/oauth2/v2/auth?scope=profile%20email&redirect_uri=${escape(process.env['GOOGLE_CALLBACK'])}&response_type=code&client_id=${process.env['GOOGLE_OAUTH_ID']}'
       };
     </script>
     <script type="text/javascript" src="/index.js"></script>

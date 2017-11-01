@@ -8,6 +8,6 @@
 !/frontend/webpacked/favicon-32x32.png
 
 /env.js
-
+Makefile
 npm-debug.log
 .DS_Store

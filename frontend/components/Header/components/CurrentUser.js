@@ -15,10 +15,14 @@ class CurrentUser extends React.Component {
     </Link>
 
   renderSignInLink = () =>
-    <a className="sign-in" href={window.env.githubSignInLink}>
-      Sign in <i className="fa fa-github"/>
-    </a>
-
+    <div>
+      <a className="sign-in" href={window.env.githubSignInLink}>
+        Sign in <i className="fa fa-github"/>
+      </a>
+      <a className="sign-in" href={window.env.googleSignInLink}>
+        Sign in <i className="fa fa-google"/>
+      </a>
+    </div>
   render = () =>
     <section className="current-user">
       {
