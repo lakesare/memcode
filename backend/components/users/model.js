@@ -20,14 +20,27 @@ const select = {
 };
 
 const insert = {
-  createFromGithub: (githubProfile) =>
-    insert.create({
-      oauthProvider: 'github',
-      oauthId: githubProfile.id.toString(),
-      username: githubProfile.login,
-      avatarUrl: githubProfile.avatar_url,
-      email: githubProfile.email
-    }),
+  createFrom: (oauthProvider, oauthProfile) => {
+    switch (oauthProvider) {
+      case 'github':
+        insert.create({
+          oauthProvider: 'github',
+          oauthId: oauthProfile.id.toString(),
+          username: oauthProfile.login,
+          avatarUrl: oauthProfile.avatar_url,
+          email: oauthProfile.email
+        });
+        break;
+      case 'google':
+        insert.create({
+          oauthProvider: 'google',
+          oauthId: oauthProfile.id.toString(),
+          username: oauthProfile.name,
+          avatarUrl: oauthProfile.picture,
+          email: oauthProfile.email
+        });
+    }
+  },
 
   create: (user) =>
     db.one(
