@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { db } from '~/db/init';
-import { Factory, RawFactory } from '~/test/Factory';
+import { Factory, RawFactory } from '~/test/services/Factory';
 
 import * as CourseUserIsLearning from '../index';
 import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';

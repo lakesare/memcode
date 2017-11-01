@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 import { db } from '~/db/init';
-import { Factory } from '~/test/Factory';
+import { Factory } from '~/test/services/Factory';
 
 import * as Course from '../index';
 

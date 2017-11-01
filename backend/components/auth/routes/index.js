@@ -42,6 +42,8 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   response.redirect('/?token=' + token);
 };
 
+// after user goes to github.com/login/oauth/authorize?client_id=OUR_ID, she is redirected here
+// docs: https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/about-authorization-options-for-oauth-apps
 router.get('/github/callback', catchAsync(async (request, response) => {
   createOauthCallbackRoute('github', request.query.code, response);
 }));
@@ -50,21 +52,4 @@ router.get('/google/callback', catchAsync(async (request, response) => {
   createOauthCallbackRoute('google', request.query.code, response);
 }));
 
-
-// after user goes to github.com/login/oauth/authorize?client_id=OUR_ID, she is redirected here
-// docs: https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/about-authorization-options-for-oauth-apps
-/* router.get('/github/callback', catchAsync(async (request, response) => {
-  const accessToken = await githubFetchAccessToken(process.env['GITHUB_OAUTH_ID'], process.env['GITHUB_OAUTH_SECRET'], request.query.code);
-
-  const accountFromGithub = await githubFetchAuthorizedAccount(accessToken);
-
-  let user = await User.select.oneByOauth('github', accountFromGithub.id);
-  if (!user) {
-    user = await User.insert.createFromGithub(accountFromGithub);
-  }
-
-  const token = jwt.sign(user, process.env['JWT_SECRET']);
-  response.redirect('/?token=' + token);
-}));
-*/
 export { router };

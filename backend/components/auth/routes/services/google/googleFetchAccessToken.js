@@ -7,7 +7,7 @@ const googleFetchAccessToken = async (oauthId, oauthSecret, code) => {
   data.append('client_id', oauthId);
   data.append('client_secret', oauthSecret);
   data.append('code', code);
-  data.append('redirect_uri', process.env['GOOGLE_CALLBACK']);
+  data.append('redirect_uri', process.env['GOOGLE_OAUTH_CALLBACK']);
   data.append('grant_type', 'authorization_code');
 
   const stringWithAccessToken = await

@@ -42,10 +42,14 @@ prettyError.appendStyle({
 // because express needs to see there are 4 arguments to treat :error as error.
 // this middleware should also come last.
 // eslint-disable-next-line no-unused-vars
-const handleErrors = (error, req, res, next) => {
-  const renderedError = prettyError.render(error);
-  console.log(renderedError);
-  res.status(500).json({ error: error.message });
+const handleErrors = (error, request, response, next) => {
+  if (process.env.NODE_ENV !== 'test') {
+    const renderedError = prettyError.render(error);
+    console.log(renderedError);
+  }
+
+  // interestingly if error.message is undefined, express will return {}
+  response.status(500).json({ error: error.message || error || '' });
 };
 
 export { handleErrors };

@@ -23,22 +23,23 @@ const insert = {
   createFrom: (oauthProvider, oauthProfile) => {
     switch (oauthProvider) {
       case 'github':
-        insert.create({
+        return insert.create({
           oauthProvider: 'github',
           oauthId: oauthProfile.id.toString(),
           username: oauthProfile.login,
           avatarUrl: oauthProfile.avatar_url,
           email: oauthProfile.email
         });
-        break;
       case 'google':
-        insert.create({
+        return insert.create({
           oauthProvider: 'google',
           oauthId: oauthProfile.id.toString(),
           username: oauthProfile.name,
           avatarUrl: oauthProfile.picture,
           email: oauthProfile.email
         });
+      default:
+        throw new Error(`No such oauthProvider as '${oauthProvider}'.`);
     }
   },
 
