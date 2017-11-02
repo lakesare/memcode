@@ -42,29 +42,29 @@ describe('/api/auth', () => {
       });
   });
 
-  // it('/github/callback - signed in as old user', (done) => {
-  //   const dbUser = RawFactory.user({
-  //     username: 'octocat',
-  //     email: 'octocat@github.com',
-  //     oauthProvider: 'github',
-  //     oauthId: '1',
-  //     avatarUrl: 'https://github.com/images/error/octocat_happy.gif'
-  //   });
-  //   supertest(routes)
-  //     .get('/api/auth/github/callback')
-  //     .query({
-  //       code: '74832748932748923789'
-  //     })
-  //     .expect(302)
-  //     .end((error, response) => {
-  //       const redirectLink = response.header['location'];
-  //       expect(redirectLink).to.include('/?token=');
-
-  //       const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
-  //       expect(redirectLink.split('/?token=')[1]).to.equal(token);
-
-  //       error ? done(error) : done();
+  // ___NOTHING WORKS, async and done don't work together, nock can't find a route if it's used multiple times, utter chaos
+  // it('/github/callback - sign in as old user', (done) => {
+  //   mochaAsync(done, async () => {
+  //     const dbUser = await RawFactory.user({
+  //       username: 'octocat',
+  //       email: 'octocat@github.com',
+  //       oauthProvider: 'github',
+  //       oauthId: '1',
+  //       avatarUrl: 'https://github.com/images/error/octocat_happy.gif'
   //     });
+  //     const response = await supertest(routes)
+  //       .get('/api/auth/github/callback')
+  //       .query({
+  //         code: '74832748932748923789'
+  //       })
+  //       .expect(302);
+
+  //     const redirectLink = response.header['location'];
+  //     expect(redirectLink).to.include('/?token=');
+
+  //     const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
+  //     expect(redirectLink.split('/?token=')[1]).to.equal(token);
+  //   });
   // });
 
   it('/google/callback - created a new user', (done) => {
