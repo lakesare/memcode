@@ -6,7 +6,10 @@
     "type": "git",
     "url": "https://github.com/lakesare/memcode.git"
   },
-  "main": "Memrise. For code.",
+  "engines": {
+    "node": "8.4.0"
+  },
+  "main": "Memcode. For memorizing things.",
   "scripts": {
     "heroku-postbuild": "make heroku-postbuild"
   },
