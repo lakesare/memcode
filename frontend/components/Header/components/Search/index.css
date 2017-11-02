@@ -50,6 +50,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: white;
       > div.title{
         mark{ // mark matching searchString in title
           color: $sims-green-color;

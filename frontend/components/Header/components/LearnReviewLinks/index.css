@@ -11,6 +11,7 @@
     padding: 2px 8px;
     font-family: $body-font;
     font-size: 10px;
+    color: white;
 
     &.-to-learn{ background: $learn-button-color; }
     &.-to-review{ background: $review-button-color; }

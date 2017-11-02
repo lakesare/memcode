@@ -1,35 +1,20 @@
 import { Link } from 'react-router';
+import { LearnReviewLinks } from './LearnReviewLinks';
 
 class CurrentUser extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object.isRequired
   }
 
-  static defaultProps = {
-    currentUser: null
-  }
-
-  renderSignedInUser = (currentUser) =>
+  renderAvatar = () =>
     <Link className="avatar" to="/profile/learning" activeClassName="active">
-      <img src={currentUser.avatarUrl}/>
+      <img src={this.props.currentUser.avatarUrl}/>
     </Link>
 
-  renderSignInLink = () =>
-    <div>
-      <a className="sign-in" href={window.env.githubSignInLink}>
-        Sign in <i className="fa fa-github"/>
-      </a>
-      <a className="sign-in" href={window.env.googleSignInLink}>
-        Sign in <i className="fa fa-google"/>
-      </a>
-    </div>
   render = () =>
     <section className="current-user">
-      {
-        this.props.currentUser ?
-        this.renderSignedInUser(this.props.currentUser) :
-        this.renderSignInLink()
-      }
+      <LearnReviewLinks currentUser={this.props.currentUser}/>
+      {this.renderAvatar()}
     </section>
 }
 

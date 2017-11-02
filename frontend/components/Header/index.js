@@ -1,8 +1,8 @@
 import { Link } from 'react-router';
-import { CurrentUser } from './components/CurrentUser';
 import { ArticlesDropdown } from './components/ArticlesDropdown';
 import { Search } from './components/Search';
-import { LearnReviewLinks } from './components/LearnReviewLinks';
+import { CurrentUser } from './components/CurrentUser';
+import { SignInLinks } from './components/SignInLinks';
 import css from './index.css';
 
 @connect((state) => ({
@@ -45,18 +45,19 @@ class Header extends React.Component {
         activeClassName="active"
         className="link contact"
       >contact</Link>
-      <LearnReviewLinks currentUser={this.props.currentUser}/>
-      <CurrentUser currentUser={this.props.currentUser}/>
     </nav>
 
   render = () =>
     <header className={css.header}>
       <div className="container">
         {this.renderLogo()}
-
         <Search currentUser={this.props.currentUser}/>
-
         {this.renderNavigation()}
+        {
+          this.props.currentUser ?
+            <CurrentUser currentUser={this.props.currentUser}/> :
+            <SignInLinks/>
+        }
       </div>
     </header>
 }

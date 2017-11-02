@@ -1,7 +1,6 @@
 @import 'css/variables';
 
 :local(header.header){
-  border-bottom: 3px solid rgb(17, 17, 17);
   background: #333333;
   background: $black-gradient;
 
@@ -10,7 +9,6 @@
     justify-content: space-between;
     align-items: center;
 
-    a{ color: white; }
     > section.logo{
       display: flex;
       align-items: center;
@@ -39,6 +37,7 @@
         text-transform: uppercase;
         font-size: 11px;
         border-bottom: 2px solid rgba(0, 0, 0, 0);
+        color: white;
         &.active, &:hover{
           border-bottom: $green-nav-border;
         }
@@ -55,34 +54,10 @@
           font-size: 12px;
         }
       }
-      section.current-user{
-        a.avatar{
-          display: block;
-          line-height: 0;
-          img{
-            max-width: 30px;
-            max-height: 30px;
-          }
-        }
-        a.sign-in{
-          font-size: 11px;
-          font-family: $heading-font;
-          color: $sims-green-color;
-          text-transform: uppercase;
-          padding-bottom: 5px;
-          display: block;
-          i{
-            font-size: 20px;
-            position: relative;
-            top: 2px;
-            padding-left: 3px;
-          }
-          &:hover{ opacity: 0.8; }
-        }
-      }
       div.link.articles-dropdown{
         position: relative;
-        .toggler{
+        a.toggler{
+          color: white;
           i{
             padding-left: 3px;
             color: $sims-green-color;
@@ -102,6 +77,7 @@
           border: 2px solid rgba(28, 218, 21, 0.82);
           a{
             display: block;
+            color: white;
             font-size: 11px;
             padding-bottom: 5px;
             padding-top: 5px;
@@ -116,6 +92,72 @@
         &:hover{
           .modal{
             display: block;
+          }
+        }
+      }
+    }
+
+    > section.current-user{
+      display: flex;
+      align-items: center;
+      > a.avatar{
+        display: block;
+        line-height: 0;
+        img{
+          max-width: 30px;
+          max-height: 30px;
+        }
+      }
+    }
+
+    > section.sign-in-links{
+      border-left: 2px solid rgba(236, 242, 255, 0.37);
+      padding: 6px;
+      padding-left: 10px;
+      display: flex;
+      > h6.soliciting{
+        font-size: 11px;
+        color: white;
+        opacity: 0.9;
+        padding-right: 10px;
+        display: flex;
+        align-items: center;
+      }
+      > div.links{
+        line-height: 0;
+        > a{
+          // common
+          > span.name{
+            font-size: 11px;
+            color: rgba(234, 234, 234, 0.9);
+            padding-right: 5px;
+            display: none;
+          }
+
+          > i{
+            opacity: 0.9;
+          }
+          &:hover{
+            > i{
+              opacity: 1;
+            }
+          }
+
+          // specific
+          &.gmail{
+            padding-right: 7px;
+            border-right: 1px solid rgba(255, 255, 255, 0.25);
+            > i{
+              color: #fbbc05;
+              font-size: 20px;
+            }
+          }
+          &.github{
+            padding-left: 7px;
+            > i{
+              color: #c49bf9;
+              font-size: 23px;
+            }
           }
         }
       }
