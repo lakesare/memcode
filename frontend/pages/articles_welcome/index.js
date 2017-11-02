@@ -25,7 +25,7 @@ class Page_articles_welcome extends React.Component {
   }
 
   tryToFindToken = () => {
-    const token = window.location.href.split('?token=')[1];
+    const token = window.location.search.split('?token=')[1];
     if (token) {
       this.props.signIn(token);
       browserHistory.push('/profile/learning'); // needed?
