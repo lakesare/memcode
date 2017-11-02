@@ -2,13 +2,19 @@
 
 ___
 
-## For both development server and tests:
+## Initial one-time steps for both development and testing:
 
 ### Create a database postgres user with a password.
 1. Install postgresql.
 2. Go to postgres console: `psql postgres`.
 3. Create a `postgres` user with password: CREATE ROLE postgres WITH LOGIN PASSWORD 'your password here'.
 4. Give them a permission to create dbs, own all extensions etc.: `ALTER ROLE postgres with superuser;`.
+
+### Copypaste environment variables.
+1. Ask someone for `env.js` file, put it n the root (next to package.json). Change local DB_USER and DB_PASSWORD to relevant value.
+
+### Install needed libraries.
+1. Install npm.
 
 ___
 
@@ -18,9 +24,8 @@ ___
 1. Create a new development database 'memcode': `make db-reset`.
 
 ### Start code compilers and server.
-1. Ask someone for `env.js` file, put it n the root (next to package.json). Change local DB_USER and DB_PASSWORD to relevant value.
-3. Install npm, run `npm install`.
-4. `make start`, `make backend-webpack`, `make frontend-webpack`
+1. Run `npm install`.
+2. `make start`, `make backend-webpack`, `make frontend-webpack`
 
 ### Optionally: populate database.
 1. Install heroku cli.
@@ -36,4 +41,5 @@ ___
 1. Create a new test database 'memcode_test': `make test-db-reset`.
 
 ### Start test-runners
-1. `make test-backend` for backend, and `make test-frontend`. Both will be automatically compiling code in the runtime, so you don't need to bother with code compilers. Both run code in `**/*/... .test.js` file inside of, respectively, backend and frontend folders.
+1. Run `npm install`.
+2. `make test-backend` for backend, and `make test-frontend`. Both will be automatically compiling code in the runtime, so you don't need to bother with code compilers. Both run code in `**/*/... .test.js` file inside of, respectively, backend and frontend folders.
