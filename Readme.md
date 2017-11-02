@@ -1,6 +1,8 @@
 [Memcode.com](http://www.memcode.com/)
 
-## How to set this up locally?
+___
+
+## How to set site up locally?
 
 ### Set up database
 1. Install postgresql.
@@ -19,3 +21,14 @@
 2. `heroku login`.
 3. Make sure heroku knows about our app: `heroku git:remote -a memcode`.
 4. Pull courses from the database with `make heroku-db-pull`.
+
+___
+
+
+## How to run tests?
+
+### Set up database
+1. Create a new development database 'memcode_test': `make test-db-reset`.
+
+### Start test-runners
+1. `make test-backend` for backend, and `make test-frontend`. Both will be automatically compiling code in the runtime, so you don't need to bother with code compilers. Both run code in `**/*/... .test.js` file inside of, respectively, backend and frontend folders.
