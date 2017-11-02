@@ -19,24 +19,24 @@ frontend-webpack:
 
 # database
 db-drop:
-	psql -U kirill -c 'DROP DATABASE IF EXISTS memcode'
+	psql -U postgres -c 'DROP DATABASE IF EXISTS memcode'
 db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
-	psql -v database=memcode -U kirill -f backend/db/schema.sql
+	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U kirill -f backend/db/migrations/3.sql
+	psql -v database=memcode -U postgres -f backend/db/migrations/3.sql
 
 # dump and restore data
 db-dump:
-	pg_dump -o memcode -U kirill > backend/db/dump.sql
+	pg_dump -o memcode -U postgres > backend/db/dump.sql
 db-restore:
-	psql -d memcode -U kirill < backend/db/dump.sql
+	psql -d memcode -U postgres < backend/db/dump.sql
 
 # test
 test-db-reset:
-	psql -v database=memcode_test -U kirill -d memcode_test -f backend/db/schema.sql
+	psql -v database=memcode_test -U postgres -f backend/db/schema.sql
 test-backend:
-	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./webpacked/test --require babel-polyfill --require source-map-support/register
+	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./webpacked/test --require babel-polyfill --require source-map-support/register --watch
 test-frontend:
 	cd frontend; NODE_ENV=test ../node_modules/.bin/karma start
 

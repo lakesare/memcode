@@ -37,7 +37,6 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   const dbUser =
     await User.select.oneByOauth(oauthProviderName, oauthProfile.id) ||
     await User.insert.createFrom(oauthProviderName, oauthProfile);
-  console.log(dbUser);
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
   response.redirect('/?token=' + token);
 };
