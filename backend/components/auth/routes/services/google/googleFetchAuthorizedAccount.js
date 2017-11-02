@@ -7,13 +7,11 @@ const googleFetchAuthorizedAccount = (accessToken) =>
       Authorization: `Bearer ${accessToken}`,
       Accept: 'application/json'
     }
-  }).then((response) => {
-    if (response.ok) {
-      return response.json();
-    } else {
-      return response.json()
-        .then((res) => Promise.reject(res));
-    }
-  }).catch((err) => console.log(err));
+  }).then((response) => (
+    response.ok ?
+      response.json() :
+      response.json()
+        .then(Promise.reject)
+  ));
 
 export { googleFetchAuthorizedAccount };
