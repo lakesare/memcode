@@ -18,7 +18,7 @@ class Course extends React.Component {
   render = () =>
     <Link
       to={url.courseEditOrShow(this.props.currentUser, this.props.course)}
-      className="course"
+      className="course -simpleCourse"
     >
       <div className="actions"><i className="fa fa-long-arrow-right"/></div>
 

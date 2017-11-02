@@ -1,10 +1,11 @@
 import { orFalse } from '~/services/orFalse';
-import * as CourseApi from '~/api/Course';
+import * as createSpe from '~/services/spe';
 import { commonFetch } from '~/api/commonFetch';
+import * as CourseApi from '~/api/Course';
 
 import { Loading } from '~/components/Loading';
-import { ListOfCourses } from '~/components/ListOfCourses';
-import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
+import { Course as LearnReviewCourse } from '~/components/ListOfCourses/components/Course';
+import { Course as SimpleCourse } from '~/components/ListOfSimpleCourses/components/Course';
 
 class WhatNext extends React.Component {
   static propTypes = {
@@ -12,36 +13,50 @@ class WhatNext extends React.Component {
     currentUser: orFalse(PropTypes.object).isRequired
   }
 
-  state = { speGetCourses: {} }
+  state = { speCourses: {} }
 
   componentDidMount() {
-    if (this.props.currentUser) {
-      this.apiGetLearnedCourses();
-    } else {
-      this.apiGetPopularCourses();
-    }
+    this.apiGetCourses();
   }
 
-  onSuccessFilterFromJustReviewedCourse = (spe) => {
-    // for fast UI. last problem we reviews has probably not reached server yet.
-    if (spe.status === 'success') {
-      const datasWithoutJustReviewedOne = spe.payload.filter((data) => data.course.id !== this.props.courseId);
-      const modifiedSpe = { ...spe, payload: datasWithoutJustReviewedOne };
-      this.setState({ speGetCourses: modifiedSpe });
-    } else {
-      this.setState({ speGetCourses: spe });
-    }
+  apiGetCourses = () => {
+    this.setState({ speCourses: createSpe.request() });
+    Promise.all([
+      this.apiGetPopularCourses(),
+      (this.props.currentUser ? this.apiGetOwnCourses() : [])
+    ]).then(([popularCourses, ownCourses]) => {
+      const filteredOwnCourses = ownCourses.filter(({ course }) => course.id !== this.props.courseId);
+
+      let finalCourses = filteredOwnCourses
+        .slice(0, 4)
+        .map((courseData) => ({ ...courseData, _type: 'learnReviewCourse' }));
+
+      if (finalCourses.length < 4) {
+        const filteredPopularCourses = popularCourses
+          .filter(({ course }) =>
+            (course.id !== this.props.courseId) &&
+            // ignore those courses which are already in filteredOwnCourses
+            !filteredOwnCourses.find((ownCourseData) => ownCourseData.course.id === course.id)
+          );
+        const neededAmountOfCourses = 4 - finalCourses.length;
+        finalCourses = [
+          ...finalCourses,
+          ...filteredPopularCourses
+            .slice(0, neededAmountOfCourses)
+            .map((courseData) => ({ ...courseData, _type: 'simpleCourse' }))
+        ];
+      }
+      this.setState({ speCourses: createSpe.success(finalCourses) });
+    }).catch((error) => {
+      this.setState({ speCourses: createSpe.failure(error) });
+    });
   }
 
-  apiGetLearnedCourses = () =>
-    CourseApi.selectAllLearned(
-      (spe) => this.onSuccessFilterFromJustReviewedCourse(spe)
-    )
+  apiGetOwnCourses = () =>
+    CourseApi.selectAllLearned(false)
 
   apiGetPopularCourses = () =>
-    commonFetch((spe) => this.setState({ speGetCourses: spe }),
-      'GET', '/api/pages/courses'
-    )
+    commonFetch(false, 'GET', '/api/pages/courses')
 
   render = () =>
     <article className="what-next">
@@ -51,13 +66,15 @@ class WhatNext extends React.Component {
         <h3>What's next?</h3>
       </section>
 
-      <section className="offered-courses">
-        <Loading spe={this.state.speGetCourses}>{(coursesData) => (
-          this.props.currentUser ?
-            <ListOfCourses coursesData={coursesData.slice(0, 4)}/> :
-            <ListOfSimpleCourses coursesData={coursesData.slice(0, 8)}/>
-        )}</Loading>
-      </section>
+      <Loading spe={this.state.speCourses}>{(coursesData) => (
+        <section className="offered-courses list-of-courses">
+          {coursesData.map((courseData) => (
+            courseData._type === 'simpleCourse' ?
+              <SimpleCourse key={courseData.course.id} {...courseData}/> :
+              <LearnReviewCourse key={courseData.course.id} {...courseData}/>
+          ))}
+        </section>
+      )}</Loading>
     </article>
 }
 

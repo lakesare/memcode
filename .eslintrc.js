@@ -195,6 +195,8 @@ module.exports = {
 
     // maybe it's useful, but I don't get it
     "no-prototype-builtins": "off",
+
+    "no-underscore-dangle": "off"
   },
   "globals": {
     "fetch": true,

@@ -1,5 +1,4 @@
 import { Course } from './components/Course';
-import css from './index.css';
 
 class ListOfCourses extends React.Component {
   static propTypes = {
@@ -11,7 +10,7 @@ class ListOfCourses extends React.Component {
     [...Array(10)].map((_, i) => <div key={i} className="layout-div"/>)
 
   render = () =>
-    <section className={`list-of-courses ${css['list-of-courses']}`}>
+    <section className="list-of-courses">
       {
         this.props.coursesData.map(({ course, courseUserIsLearning, amountOfProblems, amountOfProblemsToReview, amountOfProblemsToLearn, nextDueDateIn }) =>
           <Course

@@ -87,6 +87,80 @@
     > section.total-amount-of-mems{
       padding-bottom: 2px;
     }
+
+    // specific subtypes
+    &.-simpleCourse{
+      cursor: pointer;
+      &:hover{
+        .actions i{ opacity: 1; }
+      }
+    }
+    &.-learnReviewCourse{
+      > section.main{
+        section.links{ visibility: hidden; }
+        &:hover{
+          section.links{ visibility: visible; }
+        }
+        > .review-and-learn{
+          position: absolute;
+          top: 0; bottom: 0;
+          width: 100%;
+
+          > section.links{
+            height: 100%;
+            display: flex;
+            > a.review, > a.learn{
+              opacity: 0.9;
+              // line in order to make this div proper width in chrome
+              // https://stackoverflow.com/a/16833496/3192470
+              -webkit-backface-visibility: hidden;
+              width: 50%;
+              color: white;
+              font-size: 12px;
+              font-weight: bold;
+
+              // center text
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              &:hover{
+                text-decoration: none;
+                opacity: 1;
+              }
+            }
+            > a.review{
+              background: $review-button-color;
+              &.-simulated{ background: #b1b0b0; }
+            }
+            > a.learn{
+              background: $learn-button-color;
+              &.-zero{ visibility: hidden; }
+            }
+          }
+          > section.amount-footer{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            > .review, > .learn{
+              width: 50%;
+              color: white;
+              z-index: 100;
+              padding-top: 3px;
+              padding-bottom: 3px;
+            }
+            > .review{
+              &.-nonzero{ background: $review-button-color; }
+              &.-zero{ background: #b1b0b0; }
+            }
+            > .learn{
+              &.-nonzero{ background: $learn-button-color; }
+              &.-zero{ visibility: hidden; }
+            }
+          }
+        }
+      }
+    }
   }
   > .layout-div{
     width: 160px;
@@ -104,6 +178,20 @@
       width: 100%;
       height: 88px;
       padding-bottom: 19px;
+      &.-simpleCourse{
+        > section.main{
+          height: auto !important;
+          padding-top: 4px !important;
+        }
+        article.description{
+          padding-top: 4px !important;
+          height: 32px !important;
+        }
+      }
+      &.-learnReviewCourse{
+        > section.main{ height: 52px !important; }
+        article.description{ display: none; }
+      }
     }
   }
 }

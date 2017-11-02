@@ -41,7 +41,7 @@ class Course extends React.Component {
     ><i className="fa fa-long-arrow-right"/></Link>
 
   render = () =>
-    <div className="course">
+    <div className="course -learnReviewCourse">
       {this.renderGo(this.props.course)}
 
       <section className="main">
