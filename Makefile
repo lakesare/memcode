@@ -34,9 +34,9 @@ db-restore:
 
 # test
 test-db-reset:
-	psql -v database=memcode_test -U kirill -f backend/db/schema.sql
+	psql -v database=memcode_test -U kirill -d memcode_test -f backend/db/schema.sql
 test-backend:
-	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./webpacked/test --require babel-polyfill --require source-map-support/register --watch
+	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./webpacked/test --require babel-polyfill --require source-map-support/register
 test-frontend:
 	cd frontend; NODE_ENV=test ../node_modules/.bin/karma start
 
