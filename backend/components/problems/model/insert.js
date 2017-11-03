@@ -6,9 +6,8 @@ const insert = {
   create: requireKeys(['type', 'content', 'courseId'],
     ({ type, content, courseId }) =>
       db.one(
-        "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, ${createdAt}) RETURNING *",
+        "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, timezone('UTC', now())) RETURNING *",
         {
-          createdAt: new Date(),
           type,
           content,
           courseId

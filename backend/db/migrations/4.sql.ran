@@ -1,0 +1,18 @@
+\c :database;
+
+ALTER TABLE "user"
+  ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT now();
+
+ALTER TABLE course
+  ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT now();
+
+ALTER TABLE course_user_is_learning
+  ADD COLUMN started_learning_at TIMESTAMP NOT NULL DEFAULT now();
+
+ALTER TABLE problem_user_is_learning
+  ADD COLUMN last_reviewed_at TIMESTAMP NOT NULL DEFAULT now();
+
+-- table problem has created_at
+
+ALTER TABLE problem
+  DROP COLUMN explanation;

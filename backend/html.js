@@ -1,5 +1,20 @@
 import { escape } from 'querystring';
 
+const googleAnalyticsScriptTag = process.env['NODE_ENV'] === 'production' ?
+  `
+    <!-- https://analytics.google.com/analytics/web/?authuser=0#management/Settings/a109178648w163012947p163935248/%3Fm.page%3DTrackingCode%26_r.ghFlowId%3D6324039/ -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="https://www.googletagmanager.com/gtag/js?id=UA-109178648-1" async></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-109178648-1');
+    </script>
+  ` :
+  '';
+
 const html = `
   <!DOCTYPE html>
   <html lang="en">
@@ -35,16 +50,7 @@ const html = `
     <!-- main js file -->
     <script type="text/javascript" src="/index.js" defer></script>
 
-    <!-- https://analytics.google.com/analytics/web/?authuser=0#management/Settings/a109178648w163012947p163935248/%3Fm.page%3DTrackingCode%26_r.ghFlowId%3D6324039/ -->
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script src="https://www.googletagmanager.com/gtag/js?id=UA-109178648-1" async></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-
-      gtag('config', 'UA-109178648-1');
-    </script>
+    ${googleAnalyticsScriptTag}
   </html>
 `;
 

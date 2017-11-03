@@ -14,7 +14,8 @@ const update = {
       UPDATE problem_user_is_learning
       SET easiness = \${easiness},
           consecutive_correct_answers = \${consecutiveCorrectAnswers},
-          next_due_date = timezone('UTC', (now() + '${nextScore.daysToNextReview} days'::INTERVAL))
+          next_due_date = timezone('UTC', (now() + '${nextScore.daysToNextReview} days'::INTERVAL)),
+          last_reviewed_at = timezone('UTC', now())
       WHERE id = \${id}
       RETURNING *
       `,

@@ -30,12 +30,13 @@
     > section.settings{
       position: relative;
       color: white;
-      &:hover{
-        .tooltip{
-          display: block;
-        }
+      &:hover .tooltip{ display: block; }
+      > .toggler{
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0.5;
       }
-      .tooltip{
+      > .tooltip{
         display: none;
         position: absolute;
         top: 20px;

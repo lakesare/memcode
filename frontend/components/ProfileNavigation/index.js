@@ -38,8 +38,9 @@ class ProfileNavigation extends React.Component {
           </section>
 
           <section className="settings">
-            <i className="fa fa-cog"/>
-
+            <span className="toggler">
+              <i className="fa fa-cog"/>
+            </span>
             <div className="tooltip">
               <a onClick={this.props.signOut}>Sign Out</a>
             </div>

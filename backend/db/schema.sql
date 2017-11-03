@@ -18,6 +18,7 @@ CREATE TABLE "user" (
   username VARCHAR NOT NULL,
   avatar_url VARCHAR,
   email TEXT,
+  created_at TIMESTAMP NOT NULL DEFAULT now(),
   unique (oauth_provider, oauth_id)
 );
 
@@ -26,6 +27,7 @@ CREATE TABLE course (
   title VARCHAR NOT NULL CHECK (char_length(title) >= 2),
   description TEXT,
   if_public BOOLEAN DEFAULT true,
+  created_at TIMESTAMP NOT NULL DEFAULT now(),
 
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );
@@ -46,6 +48,7 @@ CREATE TABLE course_user_is_learning (
   id SERIAL PRIMARY KEY,
 
   active BOOLEAN NOT NULL, -- whether it's shown in /profile/learning
+  started_learning_at TIMESTAMP NOT NULL DEFAULT now(),
 
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
@@ -60,6 +63,7 @@ CREATE TABLE problem_user_is_learning (
   consecutive_correct_answers SMALLINT NOT NULL,
   next_due_date TIMESTAMP NOT NULL,
   if_ignored BOOLEAN DEFAULT false,
+  last_reviewed_at TIMESTAMP NOT NULL DEFAULT now(),
 
   problem_id INTEGER REFERENCES problem (id) ON DELETE CASCADE NOT NULL,
   course_user_is_learning_id INTEGER REFERENCES "course_user_is_learning" (id) ON DELETE CASCADE NOT NULL,

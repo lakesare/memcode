@@ -29,7 +29,7 @@ describe('/api/auth', () => {
         expect(response.header['location']).to.include('/?token=');
 
         const createdUser = await User.select.one(1);
-        expect(createdUser).to.deep.equal({
+        expect(createdUser).to.deep.include({
           id: 1,
           username: 'octocat',
           email: 'octocat@github.com',
@@ -78,7 +78,7 @@ describe('/api/auth', () => {
         expect(response.header['location']).to.include('/?token=');
 
         const createdUser = await User.select.one(1);
-        expect(createdUser).to.deep.equal({
+        expect(createdUser).to.deep.include({
           id: 1,
           username: 'Kjrjll Prosvvrakv',
           email: 'kprosvvrakv@gmail.com',
