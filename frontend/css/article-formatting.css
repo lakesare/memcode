@@ -3,10 +3,17 @@
   line-height: 30px;
   font-family: Sintony;
   font-size: 15px;
+  a{ color: $readable-green-color; }
+  ol, ul{
+    list-style-type: initial;
+    margin-left: 20px;
+    li{ margin-bottom: 20px; }
+  }
+
+  // subclasses
   .container.-left-border{
     border-left: 2px solid #6d6d6d;
   }
-  a{ color: $sims-green-color; }
   section.article-headings{
     margin-bottom: 20px;
     h3{
@@ -25,8 +32,5 @@
       padding-right: 10px;
       color: $sims-green-color;
     }
-  }
-  ol{
-    li{ margin-bottom: 20px; }
   }
 }

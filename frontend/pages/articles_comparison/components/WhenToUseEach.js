@@ -39,7 +39,7 @@ const WhenToUseEach = () =>
         <h3>Memcode: <span className="answer">Any long-term learning of self-created data.</span></h3>
 
         <div className="description">
-          If you mostly create courses yourself, if you need formatting or image insertion, and if you enjoy minimalistic fast thought-through interfaces.
+          If you mostly create courses yourself, if you need formatting or image insertion, and if you enjoy minimalistic, fast, thought-through interfaces.
         </div>
       </section>
 

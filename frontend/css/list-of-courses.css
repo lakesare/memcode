@@ -19,7 +19,6 @@
 
       padding-bottom: 2px;
       padding-top: 2px;
-      border-top: 1px solid #ded5d5;
 
       // slightly darker sims
       background: rgb(54, 210, 19);
@@ -84,10 +83,6 @@
       font-size: 11px;
       font-weight: bold;
     }
-    > section.total-amount-of-mems{
-      padding-bottom: 2px;
-    }
-
     // specific subtypes
     &.-simpleCourse{
       cursor: pointer;

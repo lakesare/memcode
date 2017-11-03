@@ -1,8 +1,10 @@
 nav.article-navigation{
   background: #333333;
+  border-top: 1px black solid;
+  border-bottom: 2px black solid;
   width: 100%;
   font-family: $heading-font;
-  font-size: 14px;
+  font-size: 11px;
   z-index: 100;
   &.fixed{
     position: fixed;

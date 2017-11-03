@@ -9,6 +9,10 @@
       margin-top: 20px;
       margin-bottom: 10px;
     }
+    ul{
+      padding-top: 10px;
+      li{ padding-bottom: 0; }
+    }
   }
   // shared among children
   .sites{
@@ -31,7 +35,7 @@
     .site{
       width: 100%;
       h3{
-        color: $sims-green-color;
+        color: $readable-green-color;
         width: 138px;
         > span.rating{
           font-size: 15px;
@@ -53,7 +57,7 @@
     .conclusion{
       width: 100%;
       h3{
-        background: $sims-green-color;
+        background: $readable-green-color;
         color: white;
         padding: 5px;
         padding-left: 10px;
@@ -102,7 +106,7 @@
   .article-formatting{
     .article-headings{
       margin-bottom: 0;
-      mark{ color: $sims-green-color; }
+      mark{ color: $readable-green-color; }
     }
     mark{
       background: none;
@@ -116,6 +120,7 @@
       border-top: none;
       h2.section-heading{
         margin-bottom: 5px;
+        margin-top: 30px;
         background: #303030;
         color: white;
         font-weight: normal;
