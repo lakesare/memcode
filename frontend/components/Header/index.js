@@ -52,12 +52,15 @@ class Header extends React.Component {
       <div className="container">
         {this.renderLogo()}
         <Search currentUser={this.props.currentUser}/>
-        {this.renderNavigation()}
-        {
-          this.props.currentUser ?
-            <CurrentUser currentUser={this.props.currentUser}/> :
-            <SignInLinks/>
-        }
+
+        <div className="nav-and-current-user">
+          {this.renderNavigation()}
+          {
+            this.props.currentUser ?
+              <CurrentUser currentUser={this.props.currentUser}/> :
+              <SignInLinks/>
+          }
+        </div>
       </div>
     </header>
 }

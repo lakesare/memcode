@@ -6,6 +6,8 @@ CREATE DATABASE :database;
 
 CREATE EXTENSION fuzzystrmatch;
 
+-- default timestamp's now() should have been adjusted to the UTC timezone, but whatever now.
+
 -- always use "user" (double quotes) when you reference this table.
 -- because 'user' is a reserved word in postgres, and it will complain about user table.
 -- alternative are:

@@ -1,8 +1,9 @@
 @import 'css/variables';
 :local(section.search){
-  flex-grow: 1;
-  margin: 0 60px;
   position: relative;
+  flex-basis: 280px;
+  flex-shrink: 1;
+  flex-grow: 0;
   > div.toggler{
     // position
     display: flex;

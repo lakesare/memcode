@@ -11,11 +11,8 @@
 
     > section.logo{
       display: flex;
-      align-items: center;
-      padding-bottom: 2px; padding-top: 6px;
       h1{
-        position: relative; top: 2px;
-        margin-bottom: 0;
+        padding: 4px 0;
         font-size: 22px;
         color: white;
         font-family: 'Orbitron', sans-serif;
@@ -28,165 +25,185 @@
       }
     }
 
-    > nav{
-      font-family: $heading-font;
+    > div.nav-and-current-user{
       display: flex;
-      align-items: center;
-      .link{
-        padding: 8px; padding-top: 11px;
-        text-transform: uppercase;
-        font-size: 11px;
-        border-bottom: 2px solid rgba(0, 0, 0, 0);
-        color: white;
-        &.active, &:hover{
-          border-bottom: $green-nav-border;
-        }
-      }
-      a.link.courses{ margin-right: 20px; }
-      a.link.create{ margin-right: 20px; }
-      a.link.contact{ margin-right: 23px; }
-      div.link.articles-dropdown{ margin-right: 14px; }
-
-      a.link.create{
-        i{
-          color: $sims-green-color;
-          padding-right: 7px;
-          font-size: 12px;
-        }
-      }
-      div.link.articles-dropdown{
-        position: relative;
-        a.toggler{
-          color: white;
-          i{
-            padding-left: 3px;
-            color: $sims-green-color;
-          }
-        }
-        .modal{
-          display: none;
-          position: absolute;
-          z-index: 10;
-          background: #333333;
-          padding: 10px;
-          padding-top: 5px;
-          top: 100%;
-          right: 0;
-          width: 190px;
-          text-transform: none;
-          border: 2px solid rgba(28, 218, 21, 0.82);
-          a{
-            display: block;
-            color: white;
-            font-size: 11px;
-            padding-bottom: 5px;
-            padding-top: 5px;
-            border-bottom: 1px solid rgba(28, 218, 21, 0.23);
-            &:hover{ color: $sims-green-color; }
-            &:last-child{
-              border-bottom: none;
-              padding-bottom: 0;
-            }
-          }
-        }
-        &:hover{
-          .modal{
-            display: block;
-          }
-        }
-      }
-    }
-
-    > section.current-user{
-      display: flex;
-      align-items: center;
-      > a.avatar{
-        display: block;
-        line-height: 0;
-        img{
-          max-width: 30px;
-          max-height: 30px;
-        }
-      }
-    }
-
-    > section.sign-in-links{
-      border-left: 2px solid rgba(236, 242, 255, 0.37);
-      padding: 6px;
-      padding-left: 10px;
-      display: flex;
-      > h6.soliciting{
-        font-size: 11px;
-        color: white;
-        opacity: 0.9;
-        padding-right: 10px;
+      > nav{
+        font-family: $heading-font;
         display: flex;
         align-items: center;
-      }
-      > div.links{
-        line-height: 0;
-        > a{
-          // common
-          > span.name{
-            font-size: 11px;
-            color: rgba(234, 234, 234, 0.9);
-            padding-right: 5px;
-            display: none;
+        .link{
+          padding: 8px;
+          text-transform: uppercase;
+          font-size: 11px;
+          border-bottom: 2px solid rgba(0, 0, 0, 0);
+          color: white;
+          &.active, &:hover{
+            border-bottom: $green-nav-border;
           }
+        }
+        a.link.courses{ margin-right: 20px; }
+        a.link.create{ margin-right: 20px; }
+        a.link.contact{ margin-right: 23px; }
+        div.link.articles-dropdown{ margin-right: 14px; }
 
-          > i{
-            opacity: 0.9;
+        a.link.create{
+          i{
+            color: $sims-green-color;
+            padding-right: 7px;
+            font-size: 12px;
+          }
+        }
+        div.link.articles-dropdown{
+          position: relative;
+          a.toggler{
+            color: white;
+            i{
+              padding-left: 3px;
+              color: $sims-green-color;
+            }
+          }
+          .modal{
+            display: none;
+            position: absolute;
+            z-index: 10;
+            background: #333333;
+            padding: 10px;
+            padding-top: 5px;
+            top: 100%;
+            right: 0;
+            width: 190px;
+            text-transform: none;
+            border: 2px solid rgba(28, 218, 21, 0.82);
+            a{
+              display: block;
+              color: white;
+              font-size: 11px;
+              padding-bottom: 5px;
+              padding-top: 5px;
+              border-bottom: 1px solid rgba(28, 218, 21, 0.23);
+              &:hover{ color: $sims-green-color; }
+              &:last-child{
+                border-bottom: none;
+                padding-bottom: 0;
+              }
+            }
           }
           &:hover{
-            > i{
-              opacity: 1;
+            .modal{
+              display: block;
             }
           }
+        }
+      }
 
-          // specific
-          &.gmail{
-            padding-right: 7px;
-            border-right: 1px solid rgba(255, 255, 255, 0.25);
-            > i{
-              color: #fbbc05;
-              font-size: 20px;
-            }
+      > section.current-user{
+        display: flex;
+        align-items: center;
+        > a.avatar{
+          display: block;
+          line-height: 0;
+          img{
+            max-width: 30px;
+            max-height: 30px;
           }
-          &.github{
-            padding-left: 7px;
+        }
+      }
+      // or
+      > section.sign-in-links{
+        border-left: 2px solid rgba(236, 242, 255, 0.37);
+        padding: 6px;
+        padding-left: 10px;
+        display: flex;
+        > h6.soliciting{
+          font-size: 11px;
+          color: white;
+          opacity: 0.9;
+          padding-right: 10px;
+          display: flex;
+          align-items: center;
+        }
+        > div.links{
+          line-height: 0;
+          > a{
+            // common
+            > span.name{
+              font-size: 11px;
+              color: rgba(234, 234, 234, 0.9);
+              padding-right: 5px;
+              display: none;
+            }
+
             > i{
-              color: #c49bf9;
-              font-size: 23px;
+              opacity: 0.9;
+            }
+            &:hover{
+              > i{
+                opacity: 1;
+              }
+            }
+
+            // specific
+            &.gmail{
+              padding-right: 7px;
+              border-right: 1px solid rgba(255, 255, 255, 0.25);
+              > i{
+                color: #fbbc05;
+                font-size: 20px;
+              }
+            }
+            &.github{
+              padding-left: 7px;
+              > i{
+                color: #c49bf9;
+                font-size: 23px;
+              }
             }
           }
         }
       }
     }
+
   }
 }
 
 :local(header.header){
   @media(max-width: 930px){
-    .search{ display: none; }
-  }
-  @media(max-width: 670px){
     .link{
-      margin-right: 10px !important;
-      padding-right: 2px !important;
-      padding-left: 2px !important;
+      margin-right: 3px !important;
+      padding: 3px 5px 3px 6px !important;
     }
   }
-  @media(max-width: 560px){
-    section.logo h1{
-      font-size: 18px !important;
+  @media(max-width: 830px){
+    > .container{
+      flex-wrap: wrap;
+      padding-top: 3px;
+      section.sign-in-links{
+        padding-top: 0 !important; padding-bottom: 0 !important;
+      }
+      > section.search{
+        order: 2;
+        width: 100%;
+        margin: 10px auto;
+        > div.toggler{
+          background: rgba(88, 88, 88, 0.21);
+          border: 1px solid rgba(236, 242, 255, 0.04);
+          > input{
+            padding-top: 6px;
+            padding-bottom: 6px;
+          }
+        }
+      }
+    }
+  }
+  @media(max-width: 700px){
+  }
+  @media(max-width: 450px){
+    section.logo{
+      h1{ font-size: 20px; }
     }
     a.link.create{ display: none; }
-    .link{
-      i{ display: none; }
-    }
     section.learn-review-links{ display: none; }
-  }
-  @media(max-width: 400px){
+    div.link.articles-dropdown{ display: none; }
     a.link.contact{ display: none; }
   }
 }
