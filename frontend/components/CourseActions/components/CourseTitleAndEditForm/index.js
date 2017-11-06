@@ -7,6 +7,7 @@ import { url } from '~/services/url';
 import { Loading } from '~/components/Loading';
 import { TogglerAndModal } from '~/components/TogglerAndModal';
 import { CourseForm, validate } from '~/appComponents/CourseForm';
+import { DeleteCourseButton } from './components/DeleteCourseButton';
 
 import css from './index.css';
 
@@ -20,19 +21,9 @@ class CourseTitleAndEditForm extends React.Component {
 
   state = {
     speSave: { status: 'success' },
-    speDelete: {},
     formState: this.props.course,
     formValidation: {}
   }
-
-  // deleteCourse = () =>
-  //   CourseApi.destroy(
-  //     (spe) => this.setState({ speDelete: spe }),
-  //     this.props.course.id
-  //   )
-  //     .then(() => {
-  //       browserHistory.push('profile/created');
-  //     })
 
   apiUpdateCourse = (closeModal) => {
     const formValidation = validate(this.state.formState);
@@ -69,11 +60,7 @@ class CourseTitleAndEditForm extends React.Component {
         >{(closeModal) =>
           <div className={`${css['modal-insides']} container`}>
             <div className="standard-form -bordered">
-              <div className="delete-course" onClick={this.deleteCourse}>
-                <Loading spe={this.state.speDelete}>
-                  <div>Delete course</div>
-                </Loading>
-              </div>
+              <DeleteCourseButton course={this.props.course}/>
 
               <CourseForm
                 formState={this.state.formState}

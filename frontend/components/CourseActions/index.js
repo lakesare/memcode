@@ -8,7 +8,6 @@ import { CuilActivityButtons } from './components/CuilActivityButtons';
 import { MetaTags } from './components/MetaTags';
 import { Link } from 'react-router';
 
-
 import css from './index.css';
 
 @connect(
