@@ -1,4 +1,8 @@
 @import 'css/variables';
+.standard-dropdown-wrapper{
+  position: relative;
+  button.toggler{ cursor: pointer; }
+}
 .standard-dropdown{
   position: absolute;
   width: 100%;

@@ -34,7 +34,8 @@ const select = {
 
   // all public courses with 2 or more problems,
   // sorted by amount of learners
-  allPublic: () =>
+  // @sortBy = ['popular', 'new']
+  allPublic: ({ sortBy }) =>
     db.any(
       `
       SELECT
@@ -52,9 +53,16 @@ const select = {
         ON problem.course_id = course.id
       WHERE ${wherePublic}
       GROUP BY course.id
-      ORDER BY
-        amount_of_users_learning_this_course DESC,
-        amount_of_problems DESC
+      ${
+        sortBy === 'popular' ?
+          `
+          ORDER BY
+            amount_of_users_learning_this_course DESC,
+            amount_of_problems DESC
+          ` :
+          `ORDER BY course.created_at DESC`
+      }
+
       `
     )
       .then((array) => camelizeDbColumns(array, ['course'])),
