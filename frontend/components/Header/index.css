@@ -4,206 +4,194 @@
   background: #333333;
   background: $black-gradient;
 
-  .container{
+  section.logo{
+    display: flex;
+    h1{
+      padding: 4px 0;
+      font-size: 22px;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+    }
+    .memorizing-is-hard-caption{
+      padding-left: 10px;
+      color: white;
+      font-size: 11px;
+      line-height: 12px;
+    }
+  }
+
+  nav{
+    font-family: $heading-font;
+    display: flex;
+    align-items: center;
+    .link{
+      padding: 9px 8px;
+      text-transform: uppercase;
+      font-size: 11px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0);
+      color: white;
+      &.active, &:hover{
+        border-bottom: $green-nav-border;
+      }
+    }
+
+    a.link.create{
+      i{
+        color: $sims-green-color;
+        padding-right: 7px;
+        font-size: 12px;
+      }
+    }
+    div.link.articles{
+      > .toggler{
+        i{
+          padding-left: 3px;
+          color: $sims-green-color;
+        }
+      }
+      > .modal{
+        text-transform: none;
+      }
+    }
+  }
+
+  section.current-user{
+    display: flex;
+    align-items: center;
+    > a.avatar{
+      display: block;
+      line-height: 0;
+      img{
+        max-width: 30px;
+        max-height: 30px;
+      }
+    }
+  }
+  // or
+  section.sign-in-links{
+    border-left: 2px solid rgba(236, 242, 255, 0.37);
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    > h6.soliciting{
+      font-size: 11px;
+      color: white;
+      opacity: 0.9;
+      padding-right: 10px;
+      display: flex;
+      align-items: center;
+    }
+    > div.links{
+      line-height: 0;
+      > a{
+        // common
+        > span.name{
+          font-size: 11px;
+          color: rgba(234, 234, 234, 0.9);
+          padding-right: 5px;
+          display: none;
+        }
+
+        > i{
+          opacity: 0.9;
+        }
+        &:hover{
+          > i{
+            opacity: 1;
+          }
+        }
+
+        // specific
+        &.gmail{
+          padding-right: 7px;
+          border-right: 1px solid rgba(255, 255, 255, 0.25);
+          > i{
+            color: #fbbc05;
+            font-size: 20px;
+          }
+        }
+        &.github{
+          padding-left: 7px;
+          > i{
+            color: #c49bf9;
+            font-size: 23px;
+          }
+        }
+      }
+    }
+  }
+
+  .container.-desktop{
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    > section.logo{
-      display: flex;
-      h1{
-        padding: 4px 0;
-        font-size: 22px;
-        color: white;
-        font-family: 'Orbitron', sans-serif;
-      }
-      .memorizing-is-hard-caption{
-        padding-left: 10px;
-        color: white;
-        font-size: 11px;
-        line-height: 12px;
-      }
-    }
-
     > div.nav-and-current-user{
       display: flex;
-      > nav{
-        font-family: $heading-font;
-        display: flex;
-        align-items: center;
-        .link{
-          padding: 8px;
-          text-transform: uppercase;
-          font-size: 11px;
-          border-bottom: 2px solid rgba(0, 0, 0, 0);
-          color: white;
-          &.active, &:hover{
-            border-bottom: $green-nav-border;
-          }
-        }
-        a.link.courses{ margin-right: 20px; }
-        a.link.create{ margin-right: 20px; }
-        a.link.contact{ margin-right: 23px; }
-        div.link.articles-dropdown{ margin-right: 14px; }
+    }
 
-        a.link.create{
-          i{
-            color: $sims-green-color;
-            padding-right: 7px;
-            font-size: 12px;
-          }
-        }
-        div.link.articles-dropdown{
-          position: relative;
-          a.toggler{
-            color: white;
-            i{
-              padding-left: 3px;
-              color: $sims-green-color;
-            }
-          }
-          .modal{
-            display: none;
-            position: absolute;
-            z-index: 10;
-            background: #333333;
-            padding: 10px;
-            padding-top: 5px;
-            top: 100%;
-            right: 0;
-            width: 190px;
-            text-transform: none;
-            border: 2px solid rgba(28, 218, 21, 0.82);
-            a{
-              display: block;
-              color: white;
-              font-size: 11px;
-              padding-bottom: 5px;
-              padding-top: 5px;
-              border-bottom: 1px solid rgba(28, 218, 21, 0.23);
-              &:hover{ color: $sims-green-color; }
-              &:last-child{
-                border-bottom: none;
-                padding-bottom: 0;
-              }
-            }
-          }
-          &:hover{
-            .modal{
-              display: block;
-            }
-          }
-        }
-      }
-
-      > section.current-user{
-        display: flex;
-        align-items: center;
-        > a.avatar{
-          display: block;
-          line-height: 0;
-          img{
-            max-width: 30px;
-            max-height: 30px;
-          }
-        }
-      }
-      // or
-      > section.sign-in-links{
-        border-left: 2px solid rgba(236, 242, 255, 0.37);
-        padding: 6px;
-        padding-left: 10px;
-        display: flex;
-        > h6.soliciting{
-          font-size: 11px;
-          color: white;
-          opacity: 0.9;
-          padding-right: 10px;
-          display: flex;
-          align-items: center;
-        }
-        > div.links{
-          line-height: 0;
-          > a{
-            // common
-            > span.name{
-              font-size: 11px;
-              color: rgba(234, 234, 234, 0.9);
-              padding-right: 5px;
-              display: none;
-            }
-
-            > i{
-              opacity: 0.9;
-            }
-            &:hover{
-              > i{
-                opacity: 1;
-              }
-            }
-
-            // specific
-            &.gmail{
-              padding-right: 7px;
-              border-right: 1px solid rgba(255, 255, 255, 0.25);
-              > i{
-                color: #fbbc05;
-                font-size: 20px;
-              }
-            }
-            &.github{
-              padding-left: 7px;
-              > i{
-                color: #c49bf9;
-                font-size: 23px;
-              }
-            }
-          }
-        }
+    section.search{
+      flex-basis: 280px;
+      flex-shrink: 1;
+      flex-grow: 0;
+      > div.toggler{
+        border: 2px solid rgba(236, 242, 255, 0.37);
+        border-top: none;
+        border-bottom: none;
       }
     }
 
+    section.sign-in-links{
+      padding: 6px;
+    }
+
+    a.link.courses{ margin-right: 20px; }
+    a.link.create{ margin-right: 20px; }
+    a.link.contact{ margin-right: 23px; }
+    div.link.articles{ margin-right: 14px; }
+  }
+  .container.-mobile{
+    padding-top: 5px;
+    padding-bottom: 20px;
+    > div.logo-and-user{
+      display: flex;
+      justify-content: space-between;
+    }
+    > nav{
+      justify-content: space-between;
+      max-width: 337px;
+      margin: 0 auto;
+      margin-top: 10px;
+      border-bottom: 2px solid rgba(92, 140, 28, 0.65); // darker green
+      > .link{
+        position: relative;
+        top: 2px;
+      }
+    }
+    > section.search{
+      margin: 0 auto;
+      margin-top: 20px;
+      max-width: 370px;
+
+      padding: 1px 0;
+      background: rgba(88, 88, 88, 0.2);
+      border: 1px solid rgba(236, 242, 255, 0.04);
+    }
   }
 }
 
 :local(header.header){
-  @media(max-width: 930px){
-    .link{
-      margin-right: 3px !important;
-      padding: 3px 5px 3px 6px !important;
-    }
-  }
-  @media(max-width: 830px){
-    > .container{
-      flex-wrap: wrap;
-      padding-top: 3px;
-      section.sign-in-links{
-        padding-top: 0 !important; padding-bottom: 0 !important;
-      }
-      > section.search{
-        order: 2;
-        width: 100%;
-        margin: 10px auto;
-        > div.toggler{
-          background: rgba(88, 88, 88, 0.21);
-          border: 1px solid rgba(236, 242, 255, 0.04);
-          > input{
-            padding-top: 6px;
-            padding-bottom: 6px;
-          }
+  @media(max-width: 930px){ .container.-desktop{ display: none; } }
+  @media(min-width: 930px){ .container.-mobile{ display: none; } }
+  .container.-mobile{
+    @media(max-width: 400px){
+      nav{
+        .link{
+          margin-right: 3px;
+          padding: 3px 5px 3px 6px;
         }
+        a.link.create i{ display: none; }
       }
     }
-  }
-  @media(max-width: 700px){
-  }
-  @media(max-width: 450px){
-    section.logo{
-      h1{ font-size: 20px; }
-    }
-    a.link.create{ display: none; }
-    section.learn-review-links{ display: none; }
-    div.link.articles-dropdown{ display: none; }
-    a.link.contact{ display: none; }
   }
 }

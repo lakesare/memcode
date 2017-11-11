@@ -47,20 +47,32 @@ class Header extends React.Component {
       >contact</Link>
     </nav>
 
+  renderUser = () => (
+    this.props.currentUser ?
+      <CurrentUser currentUser={this.props.currentUser}/> :
+      <SignInLinks/>
+  )
+
   render = () =>
     <header className={css.header}>
-      <div className="container">
+      <div className="container -desktop">
         {this.renderLogo()}
         <Search currentUser={this.props.currentUser}/>
 
         <div className="nav-and-current-user">
           {this.renderNavigation()}
-          {
-            this.props.currentUser ?
-              <CurrentUser currentUser={this.props.currentUser}/> :
-              <SignInLinks/>
-          }
+          {this.renderUser()}
         </div>
+      </div>
+
+      <div className="container -mobile">
+        <div className="logo-and-user">
+          {this.renderLogo()}
+          {this.renderUser()}
+        </div>
+
+        {this.renderNavigation()}
+        <Search currentUser={this.props.currentUser}/>
       </div>
     </header>
 }

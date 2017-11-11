@@ -28,3 +28,30 @@
     margin-top: 50px;
   }
 }
+
+.standard-form{
+  @media(max-width: 800px){
+    .form-line{
+      > label{
+        width: 20%;
+      }
+      > div.input-and-validation-error{
+        width: 80%;
+      }
+    }
+  }
+  @media(max-width: 600px){
+    .form-line{
+      flex-wrap: wrap;
+      > label{
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: left;
+      }
+      > div.input-and-validation-error{
+        width: 100%;
+        .quill > .ql-toolbar{ display: none; }
+      }
+    }
+  }
+}

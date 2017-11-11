@@ -11,8 +11,6 @@ import * as Problem from '~/components/problems/model';
 
 // ___per-page routes (/api/pages/page-url)
 router.get('/courses', catchAsync(async (request, response) => {
-  console.log(request.query);
-  console.log('jhihihihi');
   const courses = await Course.select.allPublic({ sortBy: request.query.sortBy || 'popular' });
   response.status(200).json(courses);
 }));

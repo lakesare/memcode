@@ -1,9 +1,6 @@
 @import 'css/variables';
 :local(section.search){
   position: relative;
-  flex-basis: 280px;
-  flex-shrink: 1;
-  flex-grow: 0;
   > div.toggler{
     // position
     display: flex;
@@ -22,12 +19,8 @@
     }
 
     // looks
-    border: 2px solid rgba(236, 242, 255, 0.37);
-    border-top: none;
-    border-bottom: none;
     font-size: 13px;
     input{
-      border: none;
       background: transparent;
       color: white;
 

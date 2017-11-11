@@ -1,0 +1,33 @@
+@import 'css/variables';
+.standard-tooltip{
+  // position
+  position: relative;
+  &:hover{ > .modal{ display: block; } }
+  > .modal{
+    display: none;
+    position: absolute;
+    top: 100%; left: 0;
+  }
+  > .toggler{ cursor: pointer; }
+  > .modal{
+    z-index: 10;
+    background: #333333;
+    border: 1px solid rgba(121, 122, 125, 0.66);
+    color: white;
+    &.-standard-tooltip-list{
+      a{
+        display: block;
+        min-width: 200px;
+        box-sizing: border-box;
+        color: white;
+        font-size: 11px;
+        padding: 10px 5px;
+        // border-bottom: 1px solid rgba(28, 218, 21, 0.23);
+        &:hover{ opacity: 0.9; }
+        &:last-child{
+          // border-bottom: none;
+        }
+      }
+    }
+  }
+}
