@@ -186,10 +186,6 @@
   .container.-mobile{
     @media(max-width: 400px){
       nav{
-        .link{
-          margin-right: 3px;
-          padding: 3px 5px 3px 6px;
-        }
         a.link.create i{ display: none; }
       }
     }
