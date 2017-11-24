@@ -1,6 +1,11 @@
 @import 'css/variables';
 
 :local(main.main){
+  header > .container.-mobile{
+    section.search{ display: none; }
+    nav{ display: none; }
+  }
+
   > .container > div.tabs{
     > nav{
       > ul.tab-links{

@@ -5,19 +5,17 @@
   background: $black-gradient;
 
   section.logo{
-    display: flex;
     h1{
-      padding: 4px 0;
       font-size: 22px;
       color: white;
       font-family: 'Orbitron', sans-serif;
     }
-    .memorizing-is-hard-caption{
-      padding-left: 10px;
-      color: white;
-      font-size: 11px;
-      line-height: 12px;
-    }
+    // .memorizing-is-hard-caption{
+    //   padding-left: 10px;
+    //   color: white;
+    //   font-size: 11px;
+    //   line-height: 12px;
+    // }
   }
 
   nav{
@@ -151,26 +149,26 @@
     div.link.articles{ margin-right: 14px; }
   }
   .container.-mobile{
-    padding-top: 5px;
-    padding-bottom: 20px;
+    padding-top: 2px;
+    padding-bottom: 5px;
     > div.logo-and-user{
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
     > nav{
       justify-content: space-between;
       max-width: 337px;
       margin: 0 auto;
-      margin-top: 10px;
-      border-bottom: 2px solid rgba(92, 140, 28, 0.65); // darker green
       > .link{
-        position: relative;
-        top: 2px;
+        // a little snugglier
+        padding-bottom: 4px;
+        padding-top: 7px;
       }
     }
     > section.search{
       margin: 0 auto;
-      margin-top: 20px;
+      margin-top: 4px;
       max-width: 370px;
 
       padding: 1px 0;

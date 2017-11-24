@@ -141,18 +141,7 @@
       width: auto !important;
     }
     nav.article-navigation{
-      a{
-        width: 50%;
-        text-align: center;
-        border-bottom: 1px solid #10ff00;
-        padding: 4px;
-        box-sizing: border-box;
-      }
-    }
-    // for navigation
-    section.article-section{
-      padding-top: 80px !important;
-      margin-top: -40px !important;
+     display: none;
     }
   }
 }

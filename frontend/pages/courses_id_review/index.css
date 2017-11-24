@@ -1,6 +1,11 @@
 @import 'css/variables';
 
 :local(main.main){
+  header > .container.-mobile{
+    section.search{ display: none; }
+    nav{ display: none; }
+  }
+
   // so that 'next' button has some space in bottom
   padding-bottom: 20px;
   box-sizing: border-box;
