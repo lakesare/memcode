@@ -77,13 +77,13 @@ const select = {
         COUNT(distinct course_user_is_learning.user_id) AS amount_of_users_learning_this_course,
         COUNT(distinct problem.id) AS amount_of_problems
       FROM course
-      INNER JOIN course_user_is_learning
+      LEFT JOIN course_user_is_learning
         ON (
           course_user_is_learning.active = true
           AND
           course.id = course_user_is_learning.course_id
         )
-      INNER JOIN problem
+      LEFT JOIN problem
         ON problem.course_id = course.id
       WHERE course.id = \${id}
       GROUP BY course.id
