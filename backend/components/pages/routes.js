@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import { catchAsync } from '~/services/catchAsync';
-import { authenticateMiddleware } from '~/middlewares/authenticate';
+import { authenticateMiddleware, optionalAuthenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
 import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';
@@ -71,15 +71,12 @@ router.get('/courses/:id', catchAsync(async (request, response) => {
 }));
 
 // per-component routes (/api/pages/componentName/...)
-router.get('/courseActions/:courseId/authenticated', authenticateMiddleware, catchAsync(async (request, response) => {
-  const course = await Course.select.oneForActions(request.params.courseId, request.currentUser.id);
-  response.status(200).json(course);
-}));
-
-router.get('/courseActions/:courseId/unauthenticated', catchAsync(async (request, response) => {
-  const course = await Course.select.oneForActions(request.params.courseId, null);
+router.get('/courseActions/:courseId', optionalAuthenticateMiddleware, catchAsync(async (request, response) => {
+  const course = await Course.select.oneForActions(request.params.courseId, request.currentUser ? request.currentUser.id : null);
   if (!course) throw new Error("Sorry, course with this id has not yet been created.");
-  response.status(200).json(course);
+  const courseStats = await Course.select.getCourseStats(request.params.courseId);
+
+  response.status(200).json({ ...course, stats: courseStats });
 }));
 
 // global state (?)

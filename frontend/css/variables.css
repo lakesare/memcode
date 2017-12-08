@@ -11,7 +11,9 @@ $green-nav-border: 2px $sims-green-color solid;
 // for MEMCODE logo
 @import url('https://fonts.googleapis.com/css?family=Orbitron');
 
+// I should reconsider this font as a body font, because however pretty, it doesn't support boldness and nonlatin alphabet
 @import url('https://fonts.googleapis.com/css?family=Amethysta');
+
 @import url('https://fonts.googleapis.com/css?family=Sintony:400,700');
 @import url('https://fonts.googleapis.com/css?family=Mukta+Vaani:600');
 

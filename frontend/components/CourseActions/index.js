@@ -5,6 +5,7 @@ import { Loading } from '~/components/Loading';
 import { CourseTitleAndEditForm } from './components/CourseTitleAndEditForm';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
+import { CourseDescriptionAndStats } from './components/CourseDescriptionAndStats';
 import { MetaTags } from './components/MetaTags';
 import { Link } from 'react-router';
 
@@ -56,18 +57,11 @@ class CourseActions extends React.Component {
     ifEditCourseModalTogglerIsDisplayed: false
   }
 
-  componentDidMount = () => {
-    this.props.currentUser ?
-      commonFetch(
-        (spe) => this.props.seedSpeGetCourse(spe),
-        'GET', `/api/pages/courseActions/${this.props.courseId}/authenticated`
-      )
-      :
-      commonFetch(
-        (spe) => this.props.seedSpeGetCourse(spe),
-        'GET', `/api/pages/courseActions/${this.props.courseId}/unauthenticated`
-      );
-  }
+  componentDidMount = () =>
+    commonFetch(
+      (spe) => this.props.seedSpeGetCourse(spe),
+      'GET', `/api/pages/courseActions/${this.props.courseId}`
+    )
 
   uiUpdateCourse = (course) => {
     const spe = this.props.speGetCourse;
@@ -75,11 +69,11 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.speGetCourse} requestIcon={null}>{({ course, amountOfProblems }) =>
+    <Loading spe={this.props.speGetCourse} requestIcon={null}>{(courseDto) =>
       <section className={css.actions}>
         <section className="title-and-buttons">
           <CourseTitleAndEditForm
-            course={course}
+            course={courseDto.course}
             uiUpdateCourse={this.uiUpdateCourse}
             currentUser={this.props.currentUser}
             ifEditCourseModalTogglerIsDisplayed={this.props.ifEditCourseModalTogglerIsDisplayed}
@@ -90,7 +84,7 @@ class CourseActions extends React.Component {
               <div className="buttons">
                 {
                   this.props.ifCuilActivityButtonsAreDisplayed &&
-                  <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={course.id}/>
+                  <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={courseDto.course.id}/>
                 }
 
                 <LearnAndReviewButtons
@@ -104,22 +98,17 @@ class CourseActions extends React.Component {
                 <Link
                   to={`/courses/${this.props.courseId}/review/simulated`}
                   className="simulated-review-button"
-                >REVIEW ({amountOfProblems})</Link>
+                >REVIEW ({courseDto.amountOfProblems})</Link>
               </div>
           }
         </section>
 
         {
           this.props.ifCourseDescriptionIsDisplayed &&
-          course.description &&
-          course.description.length > 0 &&
-          <section
-            className="course-description"
-            dangerouslySetInnerHTML={{ __html: course.description }}
-          />
+          <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats}/>
         }
 
-        <MetaTags title={course.title} description={course.description}/>
+        <MetaTags title={courseDto.course.title} description={courseDto.course.description}/>
       </section>
     }</Loading>
 }

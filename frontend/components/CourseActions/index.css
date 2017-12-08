@@ -9,21 +9,21 @@
     border-bottom: 2px $sims-green-color solid;
     padding: 10px; padding-right: 0;
 
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     > .buttons{
-      > a{
-        display: inline-block;
-        margin-left: 12px;
-        vertical-align: middle;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      a{
         cursor: pointer;
         font-size: 12px;
+        padding: 2px 10px;
       }
 
       > a.add-to-learned{
         min-width: 130px;
         text-align: center;
         border: 1px solid #989494;
-        padding: 2px 10px;
         i.fa-plus{
           font-size: 14px;
           padding-right: 4px;
@@ -35,22 +35,15 @@
         }
       }
       > .learn-and-review-buttons{
-        display: inline-block;
+        display: flex;
+        align-items: flex-start;
         a{
           margin-left: 10px;
-          padding: 2px 10px;
           color: white;
-          font-size: 12px;
           border: 1px solid black;
-          &.-disabled{
-            opacity: 0.1;
-          }
-          &.review{
-            background: $review-button-color;
-          }
-          &.learn{
-            background: $learn-button-color;
-          }
+          &.-disabled{ opacity: 0.1; }
+          &.review{ background: $review-button-color; }
+          &.learn{ background: $learn-button-color; }
         }
       }
     }
@@ -86,14 +79,33 @@
       }
     }
   }
-  > section.course-description{
-    font-size: 13px;
+  > section.course-description-and-stats{
     padding-left: 20px; padding-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: 2px solid #424141;
-    a{
-      color: #c37c1e;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    > .course-description{
+      flex-basis: 100%;
+      .ql-snow.ql-container{
+        border: none !important;
+        > .ql-editor{
+          padding: 0;
+          font-size: 14px;
+          min-height: auto;
+        }
+      }
     }
+    > .course-stats{
+      flex-basis: 300px;
+      flex-grow: 0;
+      text-align: right;
+      font-size: 12px;
+      color: #4d4f50;
+    }
+
   }
 }
 
@@ -112,14 +124,10 @@
       }
       > .buttons{
         > a.add-to-learned{
-          margin-left: 0;
-          margin-right: 10px;
-          min-width: initial;
-        }
-        > .learn-and-review-buttons{
-          .learn{ margin-left: 0; }
+          min-width: auto;
         }
       }
     }
+    .course-stats{ display: none; }
   }
 }

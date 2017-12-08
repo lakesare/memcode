@@ -81,7 +81,6 @@
 
     > section.total-amount-of-mems, section.amount-footer{
       font-size: 11px;
-      font-weight: bold;
     }
     // specific subtypes
     &.-simpleCourse{

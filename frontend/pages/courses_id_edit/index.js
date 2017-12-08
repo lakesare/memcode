@@ -129,7 +129,7 @@ class Page_courses_id_edit extends React.Component {
       </article>
 
       <div className="container">
-        <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed/>
+        <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed/>
 
         <Loading spe={this.state.speGetPage}>{({ problems }) =>
           <StickyContainer>
