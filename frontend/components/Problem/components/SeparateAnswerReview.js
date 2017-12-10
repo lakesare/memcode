@@ -18,27 +18,34 @@ class SeparateAnswerReview extends React.Component {
     ifDraftIsFocused: false
   }
 
+  renderDraftAnswerEditor = () =>
+    <div className={`draft-answer ${this.state.ifDraftIsFocused ? '-focused' : '-not-focused'}`}>
+      <Editor
+        placeholder="You can draft your answer here"
+        editorState={this.state.draft}
+        updateEditorState={draft => this.setState({ draft })}
+        onFocusChange={(value) => this.setState({ ifDraftIsFocused: value })}
+      />
+    </div>
+
   render = () =>
     <section className="problem -withSeparateAnswer">
       <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
 
       {
         this.props.statusOfSolving.status === 'seeingAnswer' ?
-          <ReadonlyEditor className="second-column" html={this.props.problemContent.answer}/> :
+          <div className="second-column">
+            <ReadonlyEditor html={this.props.problemContent.answer}/>
+
+            {this.renderDraftAnswerEditor()}
+          </div> :
           <div className="second-column">
             <div
               className="see-answer button"
               onClick={this.props.enterPressed}
             >See answer</div>
 
-            <div className={`draft-answer ${this.state.ifDraftIsFocused ? '-focused' : '-not-focused'}`}>
-              <Editor
-                placeholder="You can draft your answer here"
-                editorState={this.state.draft}
-                updateEditorState={draft => this.setState({ draft })}
-                onFocusChange={(value) => this.setState({ ifDraftIsFocused: value })}
-              />
-            </div>
+            {this.renderDraftAnswerEditor()}
           </div>
       }
     </section>

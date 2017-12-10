@@ -38,9 +38,19 @@ class Page_contact extends React.Component {
 
   apiSend = (e) => {
     e.preventDefault();
-    if (this.validate() === true) {
+    if (this.validate()) {
+      // says confirmation email is sent, but I receive nothing.
       commonFetch((spe) => this.setState({ speSend: spe }),
-        'POST', '//formspree.io/lakesare@gmail.com',
+        // can't receive email from a webform advices to contact my web host (and it is google)
+        // https://support.google.com/a/answer/55299?hl=en
+        // disabled securite in memcode's GSuite synthetic record
+        //
+        // THIS: they are having some bug now with gmail, told on 8th they're trying to fix it. try sending a form when they fix it.
+        // https://admin.google.com/memcode.com/AdminHome?fral=1#Domains: Affected products: Gmail
+        // send a form from http://testformspree.com/ to check.
+        //
+        // gets successfully sent to lakesare@gmail.com, eugekrns@yandex.ru (here including confirmation email)
+        'POST', '//formspree.io/lakesare@gmail.com', // `//formspree.io/${window.env.contactEmail}`,
         this.state.formState
       ).then(() => this.setState({ ifJustSent: true }));
     }
@@ -49,6 +59,7 @@ class Page_contact extends React.Component {
   validate = () => {
     if (this.state.formState.message.length < 5) {
       this.setState({ formValidation: { message: 'Please enter your message' } });
+      return false;
     } else {
       return true;
     }
@@ -69,7 +80,7 @@ class Page_contact extends React.Component {
         <h2>Send us a message</h2>
 
         <form className="standard-form -bordered" onSubmit={this.apiSend}>
-          <TextInput {...this.inputProps()} type="email" label="Email:" name="email"/>
+          <TextInput      {...this.inputProps()} label="Email:"   name="email" type="email"/>
           <EditorTextarea {...this.inputProps()} label="Message:" name="message"/>
 
           <Loading spe={this.state.speSend}>
@@ -81,7 +92,7 @@ class Page_contact extends React.Component {
           {
             this.state.ifJustSent &&
             <div className="just-sent">
-              <h3>Message was successfully sent! We will answer shortly.</h3>
+              <h3>Message was successfully sent!<br/> We will answer shortly.</h3>
             </div>
           }
         </form>

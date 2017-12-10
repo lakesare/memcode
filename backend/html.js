@@ -43,7 +43,8 @@ const html = `
     <script>
       window.env = {
         githubSignInLink: 'https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env['GITHUB_OAUTH_ID']}',
-        googleSignInLink: 'https://accounts.google.com/o/oauth2/v2/auth?scope=profile%20email&redirect_uri=${escape(process.env['GOOGLE_OAUTH_CALLBACK'])}&response_type=code&client_id=${process.env['GOOGLE_OAUTH_ID']}'
+        googleSignInLink: 'https://accounts.google.com/o/oauth2/v2/auth?scope=profile%20email&redirect_uri=${escape(process.env['GOOGLE_OAUTH_CALLBACK'])}&response_type=code&client_id=${process.env['GOOGLE_OAUTH_ID']}',
+        contactEmail: 'contact@memcode.com'
       };
     </script>
 
