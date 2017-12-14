@@ -70,6 +70,7 @@ class Page_courses extends React.Component {
           <ListOfSimpleCourses coursesData={onePageOfCourses}/>
         }</Loading>
 
+        <Pagination className="-for-mobile" amountOfPages={this.state.amountOfPages} currentPage={this.state.currentPage} updateCurrentPage={this.updateCurrentPage}/>
       </div>
 
       <Footer/>

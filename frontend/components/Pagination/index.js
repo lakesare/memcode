@@ -7,7 +7,12 @@ class Pagination extends React.Component {
   static propTypes = {
     amountOfPages: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
-    updateCurrentPage: PropTypes.func.isRequired
+    updateCurrentPage: PropTypes.func.isRequired,
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    className: ''
   }
 
   updateCurrentPage = (pageN) => {
@@ -66,7 +71,7 @@ class Pagination extends React.Component {
       prevN = pageN;
     });
 
-    return <section className={`pagination ${css.pagination}`}>
+    return <section className={`pagination ${css.pagination} ${this.props.className}`}>
       <ul>
         {this.renderArrow(currentPage > 1, currentPage - 1, 'fa-caret-left')}
         {pageLinks}

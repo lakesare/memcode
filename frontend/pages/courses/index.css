@@ -31,10 +31,17 @@
         }
       }
     }
+  }
+  section.pagination.-for-mobile{ display: none; }
+}
 
-    > section.pagination{
-
+:local(main.main){
+  @media(max-width: 350px){
+    .sorting-options section.pagination{ display: none; }
+    section.pagination.-for-mobile{
+      display: flex;
+      justify-content: center;
+      padding-bottom: 80px; padding-top: 20px;
     }
-
   }
 }
