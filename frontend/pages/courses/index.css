@@ -1,31 +1,40 @@
 @import 'css/variables';
 :local(main.main){
-  section.sort-by{
-    margin-top: 15px;
-    margin-bottom: 20px;
+  .sorting-options{
     display: flex;
-    align-items: center;
-    font-family: $heading-font;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 20px 0;
+    > section.sort-by{
+      display: flex;
+      align-items: center;
+      font-family: $heading-font;
 
-    > label{
-      font-weight: bold;
-      font-size: 14px;
-      padding-right: 10px;
-    }
-    > .select-dropdown{
-      button.toggler{
-        i{ padding-left: 7px; color: #1563b9; }
-        border-bottom: 1px solid #d4d4d4;
-        text-transform: uppercase;
-        font-size: 11px;
-        padding: 2px;
-        min-width: 141px;
-        text-align: right;
+      > label{
+        font-weight: bold;
+        font-size: 14px;
+        padding-right: 10px;
       }
-      .standard-dropdown li{
-        font-size: 12px;
-        text-align: right;
+      > .select-dropdown{
+        button.toggler{
+          i{ padding-left: 7px; color: #1563b9; }
+          border-bottom: 1px solid #d4d4d4;
+          text-transform: uppercase;
+          font-size: 11px;
+          padding: 2px;
+          min-width: 141px;
+          text-align: right;
+        }
+        .standard-dropdown li{
+          font-size: 12px;
+          text-align: right;
+        }
       }
     }
+
+    > section.pagination{
+
+    }
+
   }
 }

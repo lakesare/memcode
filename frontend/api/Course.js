@@ -1,4 +1,11 @@
 import { commonFetch } from './commonFetch';
+import hashToQueryString from './services/hashToQueryString';
+
+// ?sortBy=${this.state.sortBy}&pageSize=${}&pageNumber=
+const selectPublic = (dispatch, options) =>
+  commonFetch(dispatch,
+    'GET', `/api/courses/public?${hashToQueryString(options)}`
+  );
 
 const selectAllLearned = (dispatch) =>
   commonFetch(dispatch,
@@ -32,7 +39,7 @@ const destroy = (dispatch, courseId) =>
   );
 
 export {
-  selectSearch,
+  selectSearch, selectPublic,
   selectAllLearned, selectAllCreated,
   create, update, destroy
 };

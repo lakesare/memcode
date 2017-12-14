@@ -7,6 +7,22 @@ import { authenticateMiddleware, optionalAuthenticateMiddleware } from '~/middle
 import * as Course from './model';
 import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
 
+router.get('/public', catchAsync(async (request, response) => {
+  const pageSize = request.query.pageSize;
+  const pageNumber = request.query.pageNumber;
+  const onePageOfCourses = await Course.select.allPublic({
+    sortBy: request.query.sortBy,
+    limit: pageSize,
+    offset: (pageNumber - 1) * pageSize
+  });
+  const amountOfAllCourses = await Course.select.countAllPublic();
+
+  response.status(200).json({
+    onePageOfCourses,
+    amountOfPages: Math.ceil(amountOfAllCourses / pageSize)
+  });
+}));
+
 // => [{
 //   course: {},
 //   courseUserIsLearning: {},

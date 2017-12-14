@@ -21,7 +21,7 @@
       padding-top: 2px;
 
       // slightly darker sims
-      background: rgb(54, 210, 19);
+      background: $readable-green-color;
       color: white;
       border-top: 1px solid #424141;
     }

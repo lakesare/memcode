@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router';
 
 class Course extends React.Component {
@@ -30,14 +29,21 @@ class Course extends React.Component {
       searchString.toLowerCase()
     );
     const endsToMatchAt = beginsToMatchAt + searchString.length;
-    const boldenedString =
+
+    // was match in a description instead of in a title?
+    // don't bolden anything, return the string as it is
+    if (beginsToMatchAt === -1) {
+      return title;
+    }
+
+    const boldenedTitle =
       title.slice(0, beginsToMatchAt) +
       '<mark>' +
       title.slice(beginsToMatchAt, endsToMatchAt) +
       '</mark>' +
       title.slice(endsToMatchAt);
 
-    return boldenedString;
+    return boldenedTitle;
   }
 
   renderTitle = () => {

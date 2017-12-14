@@ -35,7 +35,7 @@ const select = {
   // all public courses with 2 or more problems,
   // sorted by amount of learners
   // @sortBy = ['popular', 'new']
-  allPublic: ({ sortBy }) =>
+  allPublic: ({ sortBy, limit, offset }) =>
     db.any(
       `
       SELECT
@@ -62,9 +62,22 @@ const select = {
           ` :
           `ORDER BY course.created_at DESC`
       }
+      LIMIT ${limit}
+      OFFSET ${offset}
       `
     )
       .then((array) => camelizeDbColumns(array, ['course'])),
+
+  countAllPublic: () =>
+    db.one(
+      `
+      SELECT
+        COUNT(course.id) as amount_of_public_courses
+      FROM course
+      WHERE ${wherePublic}
+      `
+    )
+      .then((result) => result.amountOfPublicCourses),
 
   oneForActions: (id, userId) =>
     fetchCoursesAndTheirStats(`WHERE course.id = ${id}`, '', userId)
@@ -105,7 +118,10 @@ const select = {
     fetchCoursesAndTheirStats(
       `
         WHERE
-          title ILIKE '%${searchString}%'
+          (
+            course.title ILIKE '%${searchString}%' OR
+            course.description ILIKE '%${searchString}%'
+          )
             AND
           ( -- either public or created by me
             course.user_id = \${userId} OR
@@ -114,6 +130,11 @@ const select = {
       `,
       `
         ORDER BY
+          -- if matches by description instead of by title - place last
+          CASE
+            WHEN course.title ILIKE '%${searchString}%'
+            THEN 1 ELSE 0
+          END DESC,
           CASE
             WHEN course_user_is_learning.active = true
             THEN 1 ELSE 0
