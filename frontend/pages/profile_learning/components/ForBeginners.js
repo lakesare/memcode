@@ -1,21 +1,22 @@
+import * as CourseApi from '~/api/Course';
+
 import { Link } from 'react-router';
 import { Loading } from '~/components/Loading';
 import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 
-import { commonFetch } from '~/api/commonFetch';
-
 class ForBeginners extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      speGetCourses: {}
-    };
+  state = {
+    speGetCourses: {}
   }
 
   componentDidMount = () => {
-    commonFetch(
-      spe => this.setState({ speGetCourses: spe }),
-      'GET', '/api/pages/courses'
+    CourseApi.selectPublic(
+      (spe) => this.setState({ speGetCourses: spe }),
+      {
+        pageSize: 10,
+        pageNumber: 1,
+        sortBy: 'popular'
+      }
     );
   }
 
@@ -32,8 +33,8 @@ class ForBeginners extends React.Component {
         <h3>Meanwhile, here are the most popular courses:</h3>
       </article>
 
-      <Loading spe={this.state.speGetCourses}>{(coursesData) =>
-        <ListOfSimpleCourses coursesData={coursesData.slice(0, 10)}/>
+      <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
+        <ListOfSimpleCourses coursesData={onePageOfCourses}/>
       }</Loading>
     </section>
 }

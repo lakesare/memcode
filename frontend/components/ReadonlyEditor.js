@@ -1,7 +1,11 @@
 class ReadonlyEditor extends React.Component {
   static propTypes = {
     html: PropTypes.string.isRequired,
-    className: PropTypes.string.isRequired
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    className: ''
   }
 
   render = () =>

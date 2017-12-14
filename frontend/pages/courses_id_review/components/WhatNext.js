@@ -1,6 +1,5 @@
 import { orFalse } from '~/services/orFalse';
 import * as createSpe from '~/services/spe';
-import { commonFetch } from '~/api/commonFetch';
 import * as CourseApi from '~/api/Course';
 
 import { Loading } from '~/components/Loading';
@@ -33,6 +32,7 @@ class WhatNext extends React.Component {
 
       if (finalCourses.length < 4) {
         const filteredPopularCourses = popularCourses
+          .onePageOfCourses
           .filter(({ course }) =>
             (course.id !== this.props.courseId) &&
             // ignore those courses which are already in filteredOwnCourses
@@ -55,8 +55,16 @@ class WhatNext extends React.Component {
   apiGetOwnCourses = () =>
     CourseApi.selectAllLearned(false)
 
+    // commonFetch(false, 'GET', '/api/pages/courses')
   apiGetPopularCourses = () =>
-    commonFetch(false, 'GET', '/api/pages/courses')
+    CourseApi.selectPublic(
+      false,
+      {
+        pageSize: 8,
+        pageNumber: 1,
+        sortBy: 'popular'
+      }
+    )
 
   render = () =>
     <article className="what-next">
