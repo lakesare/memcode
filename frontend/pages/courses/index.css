@@ -45,3 +45,22 @@
     }
   }
 }
+
+// .courses-and-navigation{
+//   display: flex;
+//   .navigation{
+//     padding-right: 30px;
+//     font-size: 14px;
+//     font-weight: bold;
+//     li{
+//       padding: 10px 30px;
+//       padding-right: 70px;
+//       background: #f3f3f3;
+//       &:hover{
+//         cursor: pointer;
+//         background: #355B74;
+//         color: white;
+//       }
+//     }
+//   }
+// }

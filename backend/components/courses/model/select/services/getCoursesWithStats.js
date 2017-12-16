@@ -1,6 +1,6 @@
 import { db } from '~/db/init.js';
-import { camelizeDbColumns } from '~/services/camelizeDbColumns';
 import { integerizeDbColumns } from '~/services/integerizeDbColumns';
+import { camelizeDbColumns } from '~/services/camelizeDbColumns';
 
 // fetch course, courseUserAndLearning etc if it exists
 //
@@ -15,7 +15,7 @@ import { integerizeDbColumns } from '~/services/integerizeDbColumns';
 //   amountOfProblemsToReview: 3,
 //   amountOfProblemsToLearn: 2,
 // }]
-const fetchCoursesAndTheirStats = (where, orderBy, userId) =>
+const getCoursesWithStats = ({ where = '', orderBy = '', params = {} } = {}) =>
   db.any(
     `SELECT
       row_to_json(course.*)                  AS course,
@@ -70,9 +70,9 @@ const fetchCoursesAndTheirStats = (where, orderBy, userId) =>
 
     ${orderBy}
     `,
-    { userId }
+    params
   )
-    .then(array => camelizeDbColumns(array, ['course', 'courseUserIsLearning']))
-    .then(array => integerizeDbColumns(array, ['amountOfProblemsToReview', 'amountOfProblemsToLearn', 'amountOfProblems']));
+    .then((array) => camelizeDbColumns(array, ['course', 'courseUserIsLearning']))
+    .then((array) => integerizeDbColumns(array, ['amountOfProblemsToReview', 'amountOfProblemsToLearn', 'amountOfProblems']));
 
-export { fetchCoursesAndTheirStats };
+export default getCoursesWithStats;

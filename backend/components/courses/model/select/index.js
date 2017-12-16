@@ -1,36 +1,29 @@
 import { db } from '~/db/init.js';
 import { camelizeDbColumns } from '~/services/camelizeDbColumns';
-
-import { fetchCoursesAndTheirStats } from '~/model/select';
-
-const wherePublic = `
-  course.if_public = true
-    AND
-  (
-    SELECT COUNT(problem.id) FROM problem WHERE problem.course_id = course.id
-  ) >= 2
-`;
+import wherePublic from './services/wherePublic';
+import getCoursesWithStats from './services/getCoursesWithStats';
 
 const select = {
   allCreated: (userId) =>
-    fetchCoursesAndTheirStats(`WHERE course.user_id = \${userId}`, '', userId),
+    getCoursesWithStats({
+      where: `WHERE course.user_id = \${userId}`,
+      params: { userId }
+    }),
 
   // for /profile. returns all courses userId is currently learning.
   // only active,
   // filtered by amount of due problems (TODO)
   allLearned: (userId) =>
-    fetchCoursesAndTheirStats(
-      `
-        WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true
-      `,
-      `
+    getCoursesWithStats({
+      where: ` WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true`,
+      orderBy: `
         ORDER BY
           amount_of_problems_to_review DESC,
           amount_of_problems_to_learn DESC,
           next_due_date_in ASC
       `,
-      userId
-    ),
+      params: { userId }
+    }),
 
   // all public courses with 2 or more problems,
   // sorted by amount of learners
@@ -80,7 +73,10 @@ const select = {
       .then((result) => result.amountOfPublicCourses),
 
   oneForActions: (id, userId) =>
-    fetchCoursesAndTheirStats(`WHERE course.id = ${id}`, '', userId)
+    getCoursesWithStats({
+      where: 'WHERE course.id = ${courseId}',
+      params: { userId, courseId: id }
+    })
       .then((array) => array[0]),
 
   getCourseStats: (id) =>
@@ -115,12 +111,12 @@ const select = {
     ),
 
   search: (userId, searchString) =>
-    fetchCoursesAndTheirStats(
-      `
+    getCoursesWithStats({
+      where: `
         WHERE
           (
-            course.title ILIKE '%${searchString}%' OR
-            course.description ILIKE '%${searchString}%'
+            course.title ILIKE \${searchString} OR
+            course.description ILIKE \${searchString}
           )
             AND
           ( -- either public or created by me
@@ -128,11 +124,11 @@ const select = {
             ${wherePublic}
           )
       `,
-      `
+      orderBy: `
         ORDER BY
           -- if matches by description instead of by title - place last
           CASE
-            WHEN course.title ILIKE '%${searchString}%'
+            WHEN course.title ILIKE \${searchString}
             THEN 1 ELSE 0
           END DESC,
           CASE
@@ -152,8 +148,8 @@ const select = {
           next_due_date_in ASC
         LIMIT 10
       `,
-      userId
-    ),
+      params: { userId, searchString: `%${searchString}%` }
+    }),
 };
 
 export { select };

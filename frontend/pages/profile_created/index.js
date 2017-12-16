@@ -5,6 +5,8 @@ import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
+import { Link } from 'react-router';
+
 
 import * as CourseApi from '~/api/Course';
 
@@ -19,15 +21,27 @@ class Page_profile_created extends React.Component {
     );
   }
 
+  renderForBeginners = () =>
+    <article className="article-formatting" style={{ textAlign: 'center' }}>
+      <h1>Welcome!</h1>
+      <h2>You haven't created any courses yet.</h2>
+
+      <p>
+        You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.
+      </p>
+    </article>
+
   render = () =>
     <main>
       <Header/>
       <ProfileNavigation/>
       <div className="container">
         <div className="space"/>
-        <Loading spe={this.state.speGetCourses}>{coursesData =>
-          <ListOfCourses coursesData={coursesData}/>
-        }</Loading>
+        <Loading spe={this.state.speGetCourses}>{(coursesData) => (
+          coursesData.length === 0 ?
+            this.renderForBeginners() :
+            <ListOfCourses coursesData={coursesData}/>
+        )}</Loading>
       </div>
 
       <Footer/>

@@ -66,6 +66,17 @@ class Page_courses extends React.Component {
           <Pagination amountOfPages={this.state.amountOfPages} currentPage={this.state.currentPage} updateCurrentPage={this.updateCurrentPage}/>
         </div>
 
+        {/* trying out how categories would look
+        <div className="courses-and-navigation">
+          <section className="navigation">
+            <ul>
+              {['Biology', 'Mathematics', 'Programming', 'Languages', 'Medicine', 'Linguistics'].map((i) =>
+                <li>{i}</li>
+              )}
+            </ul>
+          </section>
+        */}
+
         <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
           <ListOfSimpleCourses coursesData={onePageOfCourses}/>
         }</Loading>
