@@ -12,35 +12,6 @@
 
     margin-right: 10px; margin-left: 10px;
     margin-bottom: 32px;
-    > section.total-amount-of-mems{
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-
-      padding-bottom: 2px;
-      padding-top: 2px;
-
-      // slightly darker sims
-      background: $readable-green-color;
-      color: white;
-      border-top: 1px solid #424141;
-    }
-
-    > section.main{
-      height: 145px;
-      position: relative;
-      h3.title{
-        font-size: 18px;
-        font-weight: bold;
-        padding: 0 6px;
-        word-break: break-word;
-        mark{
-          background: none;
-          color: $review-button-color;
-        }
-      }
-    }
-
     // pretty
     border: 2px solid #444242;
     background: white;
@@ -64,8 +35,35 @@
       }
     }
 
+    > section.total-amount-of-mems{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+
+      padding-bottom: 2px;
+      padding-top: 2px;
+
+      // slightly darker sims
+      background: $readable-green-color;
+      color: white;
+      border-top: 1px solid #424141;
+    }
+
     > section.main{
+      height: 145px;
       padding-top: 15px;
+      position: relative;
+      overflow: hidden;
+      h3.title{
+        font-size: 18px;
+        font-weight: bold;
+        padding: 0 6px;
+        word-break: break-word;
+        mark{
+          background: none;
+          color: $review-button-color;
+        }
+      }
       > article.description{
         height: 76px;
         font-size: 12px;
