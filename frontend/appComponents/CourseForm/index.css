@@ -1,17 +1,19 @@
 :local(.course-form){
-  .ifPublic{
-    font-size: 11px;
-    padding: 3px 7px;
-    width: 62px;
-    text-align: center;
-    border: 1px solid #1d1d56;
-    cursor: pointer;
-    &.-true{
+  .form-line.-ifPublic{
+    .standard-dropdown-wrapper{
+      position: relative;
+    }
+    button{
       background: #1d1d56;
       color: white;
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-bottom: none;
+      i{ display: none; }
     }
-    &.-false{
-      color: rgba(58, 56, 56, 0.36);
+    .standard-dropdown{
+      font-size: 12px;
     }
   }
 }

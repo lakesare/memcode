@@ -32,11 +32,11 @@ class DeleteCourseButton extends React.Component {
     <div className="delete-course-and-confirm-button">
       {
         this.state.ifAskingForConfirmation ?
-          <button type="button" className="button -confirm" onClick={this.deleteCourse}>
-            <Loading spe={this.state.speDelete}>
+          <Loading spe={this.state.speDelete}>
+            <button type="button" className="button -confirm" onClick={this.deleteCourse}>
               <span className="are-you-sure">Are you sure you want to delete this course?</span>
-            </Loading>
-          </button> :
+            </button>
+          </Loading> :
           <button type="button" className="button -delete" onClick={this.uiAskForConfirmation}>
             <span className="delete">Delete course</span>
           </button>

@@ -1,5 +1,4 @@
-import { TextInput, EditorTextarea } from '~/components/_standardForm';
-import { FormLineLayout } from '~/components/_standardForm/components/FormLineLayout';
+import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
 import css from './index.css';
 
 const validate = (formState) => {
@@ -22,12 +21,6 @@ class CourseForm extends React.Component {
     className: ""
   }
 
-  togglerIfPublic = () =>
-    this.props.updateFormState({
-      ...this.props.formState,
-      ifPublic: !this.props.formState.ifPublic
-    })
-
   render = () => {
     const inputProps = {
       updateFormState: this.props.updateFormState,
@@ -37,19 +30,7 @@ class CourseForm extends React.Component {
     return <section className={`${this.props.className} ${css['course-form']}`}>
       <TextInput {...inputProps} label="Title:" name="title"/>
       <EditorTextarea {...inputProps} label="Description:" name="description"/>
-
-      {FormLineLayout(
-        {
-          name: 'ifPublic',
-          label: 'Public or private:',
-          formValidation: this.props.formValidation
-        },
-        <div
-          className={`ifPublic ${this.props.formState.ifPublic ? '-true' : '-false'}`}
-          onClick={this.togglerIfPublic}
-        >PUBLIC</div>,
-        '-ifPublic'
-      )}
+      <Select {...inputProps} label="Public or private:" name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
     </section>;
   }
 }

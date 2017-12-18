@@ -1,3 +1,4 @@
 import { EditorTextarea } from './EditorTextarea';
 import { TextInput } from './TextInput';
-export { EditorTextarea, TextInput };
+import { Select } from './Select';
+export { EditorTextarea, TextInput, Select };

@@ -1,5 +1,5 @@
 const FormLineLayout = (props, inputElement, className) =>
-  <section className="form-line">
+  <section className={`form-line -${props.name}`}>
     <label htmlFor={props.name}>{props.label}</label>
 
     <div className="input-and-validation-error">

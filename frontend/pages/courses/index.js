@@ -53,7 +53,7 @@ class Page_courses extends React.Component {
             <label>Sort By:</label>
 
             <SelectDropdown
-              className="select-dropdown standard-dropdown-wrapper"
+              className="standard-dropdown-wrapper"
               value={this.state.sortBy}
               updateValue={this.updateSortBy}
               possibleValues={{

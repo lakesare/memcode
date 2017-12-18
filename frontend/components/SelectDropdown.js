@@ -55,8 +55,11 @@ class SelectDropdown extends React.Component {
       Array.isArray(this.props.possibleValues) ?
       this.arrayToMap(this.props.possibleValues) :
       this.props.possibleValues;
+
+    console.log(this.props);
     return <section
       className={`
+        select-dropdown
         ${this.props.className}
         ${(this.state.ifDropdownIsOpen ? 'open' : '')}
       `}
