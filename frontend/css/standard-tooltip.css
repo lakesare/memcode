@@ -15,9 +15,10 @@
     border: 1px solid rgba(121, 122, 125, 0.66);
     color: white;
     &.-standard-tooltip-list{
+      // to avoid a breaking
+      white-space: nowrap;
       a{
         display: block;
-        min-width: 200px;
         box-sizing: border-box;
         color: white;
         font-size: 11px;

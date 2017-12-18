@@ -3,6 +3,8 @@ import 'es5-shim';
 import 'es6-shim';
 // `fetch` polyfill for safari
 import 'whatwg-fetch';
+// `URLSearchParams` polyfill for parsing query params
+import 'url-search-params-polyfill';
 
 // globally setting up quill text editor
 import '~/services/quill/registerBlots';
@@ -79,18 +81,23 @@ ReactDOM.render(
     <Provider store={store}>
       <div>
         <Router history={browserHistory} createElement={createElement}>
-          <Route path="courses"            component={Page_courses}/>
-          <Route path="courses/new"        component={Page_courses_new} {...auth}/>
-          <Route path="courses/:id"        component={Page_courses_id}/>
-          <Route path="courses/:id/edit"   component={Page_courses_id_edit} {...auth}/>
-          <Route path="courses/:id/learn"  component={Page_courses_id_learn} {...auth}/>
-          <Route path="courses/:id/review" component={Page_courses_id_review} simulated={false} {...auth}/>
-          <Route path="courses/:id/review/simulated" component={Page_courses_id_review} simulated/>
-          <Route path="profile/learning" component={Page_profile_learning} {...auth}/>
-          <Route path="profile/created" component={Page_profile_created} {...auth}/>
+          <Route path="/courses"          component={Page_courses}/>
+          <Route path="/profile/learning" component={Page_profile_learning} {...auth}/>
+          <Route path="/profile/created"  component={Page_profile_created} {...auth}/>
+
+          <Route path="/courses/new"        component={Page_courses_new} {...auth}/>
+          <Route path="/courses/:id"        component={Page_courses_id}/>
+          <Route path="/courses/:id/edit"   component={Page_courses_id_edit} {...auth}/>
+          <Route path="/courses/:id/learn"  component={Page_courses_id_learn} {...auth}/>
+          <Route path="/courses/:id/review" component={Page_courses_id_review} simulated={false} {...auth}/>
+          <Route path="/courses/:id/review/simulated" component={Page_courses_id_review} simulated/>
+
+          {/* static pages */}
           <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
-          <Route path="/test" component={Page_test}/>
           <Route path="/contact" component={Page_contact}/>
+          <Route path="/test" component={Page_test}/>
+
+          {/* articles */}
           <Route path="/" component={Page_articles_welcome} {...rootRedirect}/>
           <Route path="/articles/comparison" component={Page_articles_comparison}/>
           <Route path="/articles/welcome" component={Page_articles_welcome}/>
@@ -98,7 +105,6 @@ ReactDOM.render(
         <GatewayDest name="main"/>
       </div>
     </Provider>
-  </GatewayProvider>
-  ,
+  </GatewayProvider>,
   document.getElementById('root')
 );

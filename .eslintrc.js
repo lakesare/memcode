@@ -196,7 +196,11 @@ module.exports = {
     // maybe it's useful, but I don't get it
     "no-prototype-builtins": "off",
 
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+
+    // to allow::: hi ? hi : 'else'
+    // it reads better.
+    "no-unneeded-ternary": "off"
   },
   "globals": {
     "fetch": true,
@@ -212,6 +216,8 @@ module.exports = {
     "FileReader": true,
     "location": true,
     "navigator": true,
+    "URLSearchParams": true, // we have a polyfill
+    "URL": true,
 
     // in our tests
     "describe": true,

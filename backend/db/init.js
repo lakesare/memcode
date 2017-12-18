@@ -17,8 +17,8 @@ const camelizeColumns = (data) => {
 
 const pgOptions = {
   query: (e) => {
-    const cyan = "\x1b[36m%s\x1b[0m";
-    console.log(cyan, e.query); // log the query being executed
+    // const cyan = "\x1b[36m%s\x1b[0m";
+    // console.log(cyan, e.query); // log the query being executed
   },
   // https://coderwall.com/p/irklcq
   receive: (data) => {

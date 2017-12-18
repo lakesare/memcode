@@ -22,7 +22,12 @@
     }
 
     > section.settings.standard-tooltip{
-      color: white;
+      line-height: 0;
+      padding-bottom: 5px;
+      > .toggler{
+        color: rgba(255, 255, 255, 0.34);
+        font-size: 14px;
+      }
       > .modal{ right: 0; left: auto; }
     }
   }

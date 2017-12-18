@@ -120,6 +120,7 @@
     "source-map-support": "^0.4.2",
     "trim-right": "^1.0.1",
     "undefsafe": "^2.0.1",
+    "url-search-params-polyfill": "^2.0.1",
     "whatwg-fetch": "^2.0.3"
   }
 }

@@ -8,6 +8,7 @@ import { browserHistory } from 'react-router';
 
 import css from './index.css';
 
+
 import { AuthenticationActions } from '~/reducers/Authentication';
 @connect(
   () => ({}),
@@ -25,15 +26,21 @@ class Page_articles_welcome extends React.Component {
   }
 
   tryToFindToken = () => {
-    const token = window.location.search.split('?token=')[1];
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-      browserHistory.push('/profile/learning'); // needed?
+
+      const referrerUrl = new URL(queryParams.get('referrerUrl'));
+      browserHistory.push(referrerUrl.pathname);
     }
   }
 
   renderHeading = (text) =>
-    <h2 className="section-heading"><i className="fa fa-superpowers"/>{text}</h2>
+    <h2 className="section-heading">
+      <i className="fa fa-superpowers"/>
+      {text}
+    </h2>
 
   render = () =>
     <main className={css.main}>
