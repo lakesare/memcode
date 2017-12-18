@@ -1,5 +1,5 @@
 .standard-input{
-  display: flex;
+  display: inline-block; // for natural width
   &.-TextInput{
     input{
       width: 100%;
@@ -9,13 +9,14 @@
     }
   }
   &.-EditorTextarea{
+    width: 100%;
+    max-width: 400px;
     .quill{
       .ql-toolbar{
         border-bottom: none;
       }
       .ql-container{
         border: solid 2px rgba(88, 90, 86, 0.65) !important;
-        height: auto;
       }
       .ql-editor{
         min-height: 70px;

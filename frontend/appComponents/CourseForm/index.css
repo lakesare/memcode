@@ -1,8 +1,5 @@
 :local(.course-form){
   .form-line.-ifPublic{
-    .standard-dropdown-wrapper{
-      position: relative;
-    }
     button{
       background: #1d1d56;
       color: white;
