@@ -35,7 +35,7 @@
 }
 
 :local(main.main){
-  @media(max-width: 350px){
+  @media(max-width: 400px){
     .sorting-options section.pagination{ display: none; }
     section.pagination.-for-mobile{
       display: flex;

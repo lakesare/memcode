@@ -50,7 +50,7 @@ import { Page_contact } from './pages/contact';
 import './index.css';
 import './fonts/font-awesome/scss/font-awesome.scss';
 
-const auth = {
+const authenticate = {
   onEnter: (nextState, transition, callback) => {
     if (!store.getState().global.Authentication.currentUser) {
       transition({ pathname: '/please-sign-in' });
@@ -82,14 +82,14 @@ ReactDOM.render(
       <div>
         <Router history={browserHistory} createElement={createElement}>
           <Route path="/courses"          component={Page_courses}/>
-          <Route path="/profile/learning" component={Page_profile_learning} {...auth}/>
-          <Route path="/profile/created"  component={Page_profile_created} {...auth}/>
+          <Route path="/profile/learning" component={Page_profile_learning} {...authenticate}/>
+          <Route path="/profile/created"  component={Page_profile_created} {...authenticate}/>
 
-          <Route path="/courses/new"        component={Page_courses_new} {...auth}/>
+          <Route path="/courses/new"        component={Page_courses_new} {...authenticate}/>
           <Route path="/courses/:id"        component={Page_courses_id}/>
-          <Route path="/courses/:id/edit"   component={Page_courses_id_edit} {...auth}/>
-          <Route path="/courses/:id/learn"  component={Page_courses_id_learn} {...auth}/>
-          <Route path="/courses/:id/review" component={Page_courses_id_review} simulated={false} {...auth}/>
+          <Route path="/courses/:id/edit"   component={Page_courses_id_edit} {...authenticate}/>
+          <Route path="/courses/:id/learn"  component={Page_courses_id_learn} {...authenticate}/>
+          <Route path="/courses/:id/review" component={Page_courses_id_review} simulated={false} {...authenticate}/>
           <Route path="/courses/:id/review/simulated" component={Page_courses_id_review} simulated/>
 
           {/* static pages */}

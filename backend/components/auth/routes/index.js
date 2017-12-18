@@ -31,7 +31,7 @@ const createOauthProvider = (oauthProviderName) => {
 };
 
 // @param referrerUrl - e.g. http://memcode.com/please-sign-in
-const createOauthCallbackRoute = async (oauthProviderName, code, response, referrerUrl) => {
+const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   const oauthProvider = createOauthProvider(oauthProviderName);
   const accessToken = await oauthProvider.fetchAccessToken(oauthProvider.oauthId, oauthProvider.oauthSecret, code);
   const oauthProfile = await oauthProvider.fetchProfile(accessToken);
@@ -40,18 +40,18 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response, refer
     await User.insert.createFrom(oauthProviderName, oauthProfile);
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
 
-  const redirectUrl = `/?token=${encodeURIComponent(token)}&referrerUrl=${encodeURIComponent(referrerUrl)}`;
+  const redirectUrl = `/?token=${encodeURIComponent(token)}`;
   response.redirect(redirectUrl);
 };
 
 // after user goes to github.com/login/oauth/authorize?client_id=OUR_ID, she is redirected here
 // docs: https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/about-authorization-options-for-oauth-apps
 router.get('/github/callback', catchAsync(async (request, response) => {
-  createOauthCallbackRoute('github', request.query.code, response, request.get('Referrer'));
+  createOauthCallbackRoute('github', request.query.code, response);
 }));
 
 router.get('/google/callback', catchAsync(async (request, response) => {
-  createOauthCallbackRoute('google', request.query.code, response, request.get('Referrer'));
+  createOauthCallbackRoute('google', request.query.code, response);
 }));
 
 export { router };

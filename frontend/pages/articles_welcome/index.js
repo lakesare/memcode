@@ -30,9 +30,7 @@ class Page_articles_welcome extends React.Component {
     const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-
-      const referrerUrl = new URL(queryParams.get('referrerUrl'));
-      browserHistory.push(referrerUrl.pathname);
+      browserHistory.push('/profile/learning');
     }
   }
 
