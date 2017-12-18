@@ -54,11 +54,23 @@
     max-width: 100px;
     margin: 0 auto;
     margin-top: 60px;
-    display: block;
     border-radius: 2px;
     &:hover{
-      opacity: 1;
       background: rgba(0, 255, 29, 0.77);;
+    }
+  }
+
+  .button.reveal{
+    color: rgba(255, 235, 59, 0.71);
+    background: rgba(245, 238, 238, 0.07);
+    font-size: 11px;
+
+    max-width: 150px;
+    margin: 0 auto;
+    margin-top: 60px;
+    border-radius: 2px;
+    &:hover{
+      color: rgb(255, 235, 59);
     }
   }
 
@@ -90,7 +102,7 @@
 
     color: rgba(255, 255, 255, 0.65);
     > h4.announcement{
-      font-size: 15px;
+      font-size: 14px;
     }
   }
 }

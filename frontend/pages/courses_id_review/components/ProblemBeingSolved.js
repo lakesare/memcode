@@ -78,10 +78,18 @@ class ProblemBeingSolved extends React.Component {
       }
 
       {
+        this.props.statusOfSolving.status === 'solving' &&
+        this.props.problem.type === 'inlinedAnswers' &&
+        <button type="button" className="button reveal" onClick={this.props.enterPressed}>
+          SEE ANSWER
+        </button>
+      }
+
+      {
         this.props.statusOfSolving.status === 'seeingAnswer' &&
-        <a className="button next" onClick={this.props.enterPressed}>
+        <button type="button" className="button next" onClick={this.props.enterPressed}>
           NEXT
-        </a>
+        </button>
       }
     </div>
 }

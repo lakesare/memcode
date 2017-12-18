@@ -127,6 +127,16 @@
           min-width: auto;
         }
       }
+
+      > .please-sign-in_and_simulated-review-button{
+        > h4.please-sign-in{
+          display: block;
+          margin-bottom: 10px;
+        }
+        > a.simulated-review-button{
+          display: block;
+        }
+      }
     }
     .course-stats{ display: none; }
   }

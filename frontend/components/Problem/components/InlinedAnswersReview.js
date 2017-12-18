@@ -102,7 +102,6 @@ class InlinedAnswersReview extends React.Component {
 
     return <section className="problem -withInlinedAnswers">
       <ReadonlyEditor className="first-column" html={content}/>
-
       <ReadonlyEditor className="second-column" html={this.props.problemContent.explanation}/>
     </section>;
   }
