@@ -26,15 +26,15 @@ class ProfileNavigation extends React.Component {
             <Link
               to="/courses"
               activeClassName="active"
-            >All courses</Link>
+            >All</Link>
             <Link
               to="/profile/learning"
               activeClassName="active"
-            >I'm learning</Link>
+            >Learning</Link>
             <Link
               to="/profile/created"
               activeClassName="active"
-            >I created</Link>
+            >Created</Link>
           </section>
 
           <section className="settings standard-tooltip">

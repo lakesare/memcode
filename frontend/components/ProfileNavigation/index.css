@@ -1,26 +1,20 @@
 @import 'css/variables';
-
 :local(nav.nav){
   background: #333333;
-  background: $black-gradient;
-  padding: 3px 0px 4px 0px;
-  border-top: 1px black solid;
-  border-bottom: 3px black solid;
-  font-family: $heading-font;
-
+  padding-top: 5px;
+  border-top: 2px solid rgba(0, 0, 0, 0.22);
   .container{
     display: flex;
     justify-content: space-between;
     > section.links{
+      display: flex;
       a{
+        display: flex;
+        margin-right: 37px;
+        font-family: $heading-font;
         color: white;
         text-transform: uppercase;
         font-size: 11px;
-
-        padding: 5px;
-        padding-top: 7px; padding-bottom: 7px;
-
-        margin-right: 37px;
         &:hover, &.active{
           border-bottom: $green-nav-border;
         }

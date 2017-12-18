@@ -48,6 +48,7 @@ router.get('/github/callback', catchAsync(async (request, response) => {
 }));
 
 router.get('/google/callback', catchAsync(async (request, response) => {
+  console.log(req.header('Referer'););
   createOauthCallbackRoute('google', request.query.code, response);
 }));
 
