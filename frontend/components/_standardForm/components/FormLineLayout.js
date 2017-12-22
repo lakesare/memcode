@@ -1,4 +1,4 @@
-const FormLineLayout = (props, inputElement, className) =>
+const FormLineLayout = (props, inputElement, className = '') =>
   <section className={`form-line -${props.name}`}>
     <label htmlFor={props.name}>{props.label}</label>
 

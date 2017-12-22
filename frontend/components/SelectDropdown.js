@@ -56,7 +56,6 @@ class SelectDropdown extends React.Component {
       this.arrayToMap(this.props.possibleValues) :
       this.props.possibleValues;
 
-    console.log(this.props);
     return <section
       className={`
         select-dropdown

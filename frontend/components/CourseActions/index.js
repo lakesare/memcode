@@ -1,13 +1,14 @@
 import { orFalse } from '~/services/orFalse';
 import { commonFetch } from '~/api/commonFetch';
 
+import { MetaTags } from './components/MetaTags';
+import { Link } from 'react-router';
 import { Loading } from '~/components/Loading';
+import Breadcrumbs from './components/Breadcrumbs';
 import { CourseTitleAndEditForm } from './components/CourseTitleAndEditForm';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
 import { CourseDescriptionAndStats } from './components/CourseDescriptionAndStats';
-import { MetaTags } from './components/MetaTags';
-import { Link } from 'react-router';
 
 import css from './index.css';
 
@@ -47,14 +48,16 @@ class CourseActions extends React.Component {
 
     ifCuilActivityButtonsAreDisplayed: PropTypes.bool,
     ifCourseDescriptionIsDisplayed: PropTypes.bool,
-    ifEditCourseModalTogglerIsDisplayed: PropTypes.bool
+    ifEditCourseModalTogglerIsDisplayed: PropTypes.bool,
+    ifBreadcrumbsAreDisplayed: PropTypes.bool
   }
 
   static defaultProps = {
     currentUser: false,
     ifCuilActivityButtonsAreDisplayed: true,
     ifCourseDescriptionIsDisplayed: false,
-    ifEditCourseModalTogglerIsDisplayed: false
+    ifEditCourseModalTogglerIsDisplayed: false,
+    ifBreadcrumbsAreDisplayed: false
   }
 
   componentDidMount = () =>
@@ -71,42 +74,49 @@ class CourseActions extends React.Component {
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={null}>{(courseDto) =>
       <section className={css.actions}>
-        <section className="title-and-buttons">
-          <CourseTitleAndEditForm
-            course={courseDto.course}
-            uiUpdateCourse={this.uiUpdateCourse}
-            currentUser={this.props.currentUser}
-            ifEditCourseModalTogglerIsDisplayed={this.props.ifEditCourseModalTogglerIsDisplayed}
-          />
+        {
+          this.props.ifBreadcrumbsAreDisplayed &&
+          <Breadcrumbs courseCategoryId={courseDto.course.courseCategoryId || false}/>
+        }
+
+        <div className="container">
+          <section className="title-and-buttons">
+            <CourseTitleAndEditForm
+              course={courseDto.course}
+              uiUpdateCourse={this.uiUpdateCourse}
+              currentUser={this.props.currentUser}
+              ifEditCourseModalTogglerIsDisplayed={this.props.ifEditCourseModalTogglerIsDisplayed}
+            />
+
+            {
+              this.props.currentUser ?
+                <div className="buttons">
+                  {
+                    this.props.ifCuilActivityButtonsAreDisplayed &&
+                    <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={courseDto.course.id}/>
+                  }
+
+                  <LearnAndReviewButtons
+                    courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
+                    amountOfProblems={this.props.amountOfProblems}
+                  />
+                </div> :
+                <div className="please-sign-in_and_simulated-review-button">
+                  <h4 className="please-sign-in">Sign in to start recording results</h4>
+
+                  <Link
+                    to={`/courses/${this.props.courseId}/review/simulated`}
+                    className="simulated-review-button"
+                  >REVIEW ({courseDto.amountOfProblems})</Link>
+                </div>
+            }
+          </section>
 
           {
-            this.props.currentUser ?
-              <div className="buttons">
-                {
-                  this.props.ifCuilActivityButtonsAreDisplayed &&
-                  <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={courseDto.course.id}/>
-                }
-
-                <LearnAndReviewButtons
-                  courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
-                  amountOfProblems={this.props.amountOfProblems}
-                />
-              </div> :
-              <div className="please-sign-in_and_simulated-review-button">
-                <h4 className="please-sign-in">Sign in to start recording results</h4>
-
-                <Link
-                  to={`/courses/${this.props.courseId}/review/simulated`}
-                  className="simulated-review-button"
-                >REVIEW ({courseDto.amountOfProblems})</Link>
-              </div>
+            this.props.ifCourseDescriptionIsDisplayed &&
+            <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats}/>
           }
-        </section>
-
-        {
-          this.props.ifCourseDescriptionIsDisplayed &&
-          <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats}/>
-        }
+        </div>
 
         <MetaTags title={courseDto.course.title} description={courseDto.course.description}/>
       </section>

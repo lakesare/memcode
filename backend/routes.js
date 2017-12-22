@@ -31,6 +31,9 @@ routes.use('/api/coursesUserIsLearning', coursesUserIsLearningRouter);
 import { router as problemsUserIsLearningRouter } from './components/problemsUserIsLearning/routes';
 routes.use('/api/problemsUserIsLearning', problemsUserIsLearningRouter);
 
+import CourseCategoryRouter from './components/courseCategories/routes';
+routes.use('/api/courseCategories', CourseCategoryRouter);
+
 import { router as authRouter } from './components/auth/routes';
 routes.use('/api/auth', authRouter);
 

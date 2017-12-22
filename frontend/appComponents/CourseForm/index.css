@@ -13,4 +13,21 @@
       font-size: 12px;
     }
   }
+  .form-line.-courseCategoryId{
+    .standard-dropdown-wrapper{
+      width: 220px;
+      > button.toggler{
+        background: rgb(243, 243, 243);
+      }
+      > .dropdown.standard-list-of-course-categories{
+        box-sizing: border-box;
+        position: absolute;
+        width: 100%;
+        z-index: 1000;
+        height: 250px;
+        overflow: scroll;
+        border-bottom: 2px solid rgba(68, 66, 66, 0.58);
+      }
+    }
+  }
 }

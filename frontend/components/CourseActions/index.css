@@ -1,7 +1,7 @@
 @import 'css/variables';
 
 :local(section.actions){
-  > section.title-and-buttons{
+  section.title-and-buttons{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,6 +10,10 @@
     padding: 10px; padding-right: 0;
 
     margin-bottom: 10px;
+    h3.title{
+      color: #292b2c;
+    }
+
     > .buttons{
       display: flex;
       justify-content: space-between;
@@ -79,7 +83,7 @@
       }
     }
   }
-  > section.course-description-and-stats{
+  section.course-description-and-stats{
     padding-left: 20px; padding-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: 2px solid #424141;
@@ -105,7 +109,30 @@
       font-size: 12px;
       color: #4d4f50;
     }
+  }
+  section.breadcrumbs{
+    font-size: 13px;
 
+    padding: 4px 0;
+    background: rgb(239, 240, 241);
+    color: rgb(136, 137, 138);
+    ul{
+      border-left: 2px solid rgba(212, 212, 212, 0.55);
+      padding-left: 10px;
+      li{
+        display: inline-block;
+        margin-right: 10px;
+        cursor: default;
+        a{
+          cursor: pointer;
+          font-weight: bold;
+          color: rgb(53, 91, 116);
+        }
+      }
+      li.arrow{
+        color: rgb(224, 224, 224);
+      }
+    }
   }
 }
 

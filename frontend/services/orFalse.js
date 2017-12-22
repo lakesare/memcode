@@ -10,4 +10,5 @@ import PropTypes from 'prop-types';
 const orFalse = (propType) =>
   PropTypes.oneOfType([PropTypes.oneOf([false]), propType]);
 
+export default orFalse;
 export { orFalse };

@@ -28,7 +28,7 @@ const select = {
   // all public courses with 2 or more problems,
   // sorted by amount of learners
   // @sortBy = ['popular', 'new']
-  allPublic: ({ sortBy, limit, offset }) =>
+  allPublic: ({ sortBy, limit, offset, courseCategoryId }) =>
     db.any(
       `
       SELECT
@@ -44,7 +44,9 @@ const select = {
         )
       INNER JOIN problem
         ON problem.course_id = course.id
-      WHERE ${wherePublic}
+      WHERE
+        ${wherePublic}
+        ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
       GROUP BY course.id
       ${
         sortBy === 'popular' ?
@@ -61,13 +63,15 @@ const select = {
     )
       .then((array) => camelizeDbColumns(array, ['course'])),
 
-  countAllPublic: () =>
+  countAllPublic: ({ courseCategoryId }) =>
     db.one(
       `
       SELECT
         COUNT(course.id) as amount_of_public_courses
       FROM course
-      WHERE ${wherePublic}
+      WHERE
+        ${wherePublic}
+        ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
       `
     )
       .then((result) => result.amountOfPublicCourses),

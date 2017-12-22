@@ -17,8 +17,8 @@ class Page_courses_id_learn extends React.Component {
     <main className={css.main}>
       <Header/>
 
+      <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
       <div className="container">
-        <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
         <Tabs courseId={this.props.params.id}/>
       </div>
 

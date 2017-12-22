@@ -1,0 +1,54 @@
+.standard-list-of-course-categories{
+  background: #f3f3f3;
+  border-left: 2px solid rgba(68, 66, 66, 0.58);
+  ul.groups > li.group{
+    margin-bottom: 10px;
+    > span.group-name{
+      display: block;
+      padding: 6px 10px;
+      margin-bottom: 5px;
+      font-size: 16px;
+      color: grey;
+      background: rgba(216, 216, 216, 0.25);
+      border-top: 2px solid rgba(68, 66, 66, 0.06);
+      cursor: default;
+    }
+    > ul.categories > li.category{
+      border-bottom: 1px solid rgba(68, 67, 67, 0.07);
+      &:last-child{ border-bottom: none; }
+      &:hover, &.-active{
+        cursor: pointer;
+        > .category-insides{
+          > span.category-name{
+            color: white;
+          }
+          > span.amount-of-courses{
+            color: white;
+            b{ opacity: 0.7; }
+          }
+        }
+      }
+      &:hover{ background: rgba(68, 66, 66, 0.5); }
+      &.-active{ background: rgba(68, 66, 66, 0.7); }
+      > .category-insides{
+        padding: 3px 10px;
+        padding-left: 20px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        > span.category-name{
+          color: rgb(78, 78, 78);
+          font-size: 14px;
+        }
+        > span.amount-of-courses{
+          color: rgb(195, 195, 195);
+          font-size: 12px;
+          font-weight: bold;
+          letter-spacing: 1px;
+          b{ opacity: 0.2; }
+        }
+      }
+    }
+  }
+}

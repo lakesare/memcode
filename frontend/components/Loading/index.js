@@ -17,6 +17,7 @@ import requestIcon from './requestIcon.svg';
 import css from './index.css';
 
 const Loading = (props) => {
+  if (!props.enabledStatuses.includes(props.spe.status)) return null;
   switch (props.spe.status) {
     case 'request':
       return (
@@ -39,14 +40,17 @@ const Loading = (props) => {
 Loading.defaultProps = {
   children: null,
   requestIcon: <img src={`/${requestIcon}`}/>,
-  className: ''
+  className: '',
+  enabledStatuses: ['request', 'success', 'failure']
 };
 
 Loading.propTypes = {
   spe: customPropTypes.spe.isRequired,
   children: PropTypes.any, // can be null, or false, or element
   requestIcon: PropTypes.any,
-  className: PropTypes.string
+  className: PropTypes.string,
+  enabledStatuses: PropTypes.array
 };
 
+export default Loading;
 export { Loading };

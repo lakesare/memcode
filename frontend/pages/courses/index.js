@@ -8,8 +8,14 @@ import Pagination from '~/components/Pagination';
 import { SelectDropdown } from '~/components/SelectDropdown';
 import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
+import CourseCategories from './components/CourseCategories';
 
 import css from './index.css';
+
+const getCategoryId = (props) => {
+  const categoryId = props.location.query.categoryId;
+  return categoryId ? parseInt(categoryId) : false;
+};
 
 class Page_courses extends React.Component {
   state = {
@@ -21,15 +27,26 @@ class Page_courses extends React.Component {
   }
 
   componentDidMount = () =>
-    this.apiGetCourses();
+    this.apiGetCourses()
+
+  componentDidUpdate = (prevProps) => {
+    if (getCategoryId(prevProps) !== getCategoryId(this.props)) {
+      this.setState({ currentPage: 1 }, this.apiGetCourses);
+    }
+  }
 
   apiGetCourses = () =>
     CourseApi.selectPublic(
       (spe) => this.setState({ speGetCourses: spe }),
       {
-        pageSize: 15,
+        pageSize: 16,
         pageNumber: this.state.currentPage,
-        sortBy: this.state.sortBy
+        sortBy: this.state.sortBy,
+        ...(
+          getCategoryId(this.props) ?
+          { courseCategoryId: getCategoryId(this.props) } :
+          {}
+        )
       }
     )
       .then(({ amountOfPages }) =>
@@ -41,6 +58,14 @@ class Page_courses extends React.Component {
 
   updateCurrentPage = (currentPage) =>
     this.setState({ currentPage }, this.apiGetCourses)
+
+  renderPagination = (className = '') =>
+    <Pagination
+      className={className}
+      amountOfPages={this.state.amountOfPages}
+      currentPage={this.state.currentPage}
+      updateCurrentPage={this.updateCurrentPage}
+    />
 
   render = () =>
     <main className={css.main}>
@@ -63,25 +88,20 @@ class Page_courses extends React.Component {
             />
           </section>
 
-          <Pagination amountOfPages={this.state.amountOfPages} currentPage={this.state.currentPage} updateCurrentPage={this.updateCurrentPage}/>
+          {this.renderPagination()}
         </div>
 
-        {/* trying out how categories would look
-        <div className="courses-and-navigation">
-          <section className="navigation">
-            <ul>
-              {['Biology', 'Mathematics', 'Programming', 'Languages', 'Medicine', 'Linguistics'].map((i) =>
-                <li>{i}</li>
-              )}
-            </ul>
-          </section>
-        */}
+        <div className="courses-and-nav">
+          <CourseCategories
+            courseCategoryId={getCategoryId(this.props)}
+          />
 
-        <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
-          <ListOfSimpleCourses coursesData={onePageOfCourses}/>
-        }</Loading>
+          <Loading className="loading-courses" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
+            <ListOfSimpleCourses coursesData={onePageOfCourses}/>
+          }</Loading>
+        </div>
 
-        <Pagination className="-for-mobile" amountOfPages={this.state.amountOfPages} currentPage={this.state.currentPage} updateCurrentPage={this.updateCurrentPage}/>
+        {this.renderPagination('-for-mobile')}
       </div>
 
       <Footer/>

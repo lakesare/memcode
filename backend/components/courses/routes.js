@@ -13,9 +13,12 @@ router.get('/public', catchAsync(async (request, response) => {
   const onePageOfCourses = await Course.select.allPublic({
     sortBy: request.query.sortBy,
     limit: pageSize,
-    offset: (pageNumber - 1) * pageSize
+    offset: (pageNumber - 1) * pageSize,
+    courseCategoryId: request.query.courseCategoryId
   });
-  const amountOfAllCourses = await Course.select.countAllPublic();
+  const amountOfAllCourses = await Course.select.countAllPublic({
+    courseCategoryId: request.query.courseCategoryId
+  });
 
   response.status(200).json({
     onePageOfCourses,

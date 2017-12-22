@@ -38,9 +38,8 @@ class Page_courses_id extends React.Component {
     <main className={css.main} key={this.props.params.id}>
       <Header/>
 
+      <CourseActions courseId={this.props.params.id} ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed/>
       <div className="container">
-        <CourseActions courseId={this.props.params.id} ifCourseDescriptionIsDisplayed/>
-
         <Loading spe={this.state.speGetPage}>{(problems) =>
           <section className="problems">
             {problems.map((problem) =>

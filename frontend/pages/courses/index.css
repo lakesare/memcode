@@ -32,9 +32,26 @@
     }
   }
   section.pagination.-for-mobile{ display: none; }
+  .courses-and-nav{
+    display: flex;
+    > nav.standard-list-of-course-categories{
+      width: 220px;
+      flex-grow: 0;
+      flex-shrink: 0;
+
+      margin-right: 20px;
+      margin-bottom: 30px;
+    }
+    > .loading.loading-courses{
+      margin: 0 auto;
+    }
+  }
 }
 
 :local(main.main){
+  @media(max-width: 630px){
+    .standard-list-of-course-categories{ display: none; }
+  }
   @media(max-width: 400px){
     .sorting-options section.pagination{ display: none; }
     section.pagination.-for-mobile{
@@ -44,22 +61,3 @@
     }
   }
 }
-
-// .courses-and-navigation{
-//   display: flex;
-//   .navigation{
-//     padding-right: 30px;
-//     font-size: 14px;
-//     font-weight: bold;
-//     li{
-//       padding: 10px 30px;
-//       padding-right: 70px;
-//       background: #f3f3f3;
-//       &:hover{
-//         cursor: pointer;
-//         background: #355B74;
-//         color: white;
-//       }
-//     }
-//   }
-// }

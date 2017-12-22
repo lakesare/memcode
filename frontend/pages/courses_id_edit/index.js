@@ -128,9 +128,8 @@ class Page_courses_id_edit extends React.Component {
         Confused? Missing any features? <Link to="/contact">Contact us</Link>.
       </article>
 
+      <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed/>
       <div className="container">
-        <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed/>
-
         <Loading spe={this.state.speGetPage}>{({ problems }) =>
           <StickyContainer>
             {this.renderActionsForCheckedProblems()}

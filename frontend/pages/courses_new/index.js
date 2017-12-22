@@ -16,6 +16,7 @@ class Page_courses_new extends React.Component {
     formState: {
       title: '',
       description: '',
+      courseCategoryId: 1,
       ifPublic: true
     },
     formValidation: {}

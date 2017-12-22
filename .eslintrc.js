@@ -200,7 +200,14 @@ module.exports = {
 
     // to allow::: hi ? hi : 'else'
     // it reads better.
-    "no-unneeded-ternary": "off"
+    "no-unneeded-ternary": "off",
+
+    // to allow
+    // export default {
+    //   sortByAmountOfCourses, sortByAlphabet,
+    //   deriveCategoriesPerGroup
+    // };
+    "object-property-newline": "off"
   },
   "globals": {
     "fetch": true,

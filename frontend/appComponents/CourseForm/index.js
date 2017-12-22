@@ -1,4 +1,5 @@
 import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
+import CourseCategoryFormLine from './components/CourseCategoryFormLine';
 import css from './index.css';
 
 const validate = (formState) => {
@@ -28,9 +29,10 @@ class CourseForm extends React.Component {
       formValidation: this.props.formValidation
     };
     return <section className={`${this.props.className} ${css['course-form']}`}>
-      <TextInput {...inputProps} label="Title:" name="title"/>
-      <EditorTextarea {...inputProps} label="Description:" name="description"/>
-      <Select {...inputProps} label="Public or private:" name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
+      <TextInput      {...inputProps} label="* Title:"            name="title"/>
+      <EditorTextarea {...inputProps} label="Description:"       name="description"/>
+      <CourseCategoryFormLine {...inputProps} label="Category:"  name="courseCategoryId"/>
+      <Select         {...inputProps} label="Public or private:" name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
     </section>;
   }
 }

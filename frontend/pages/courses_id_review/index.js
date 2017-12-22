@@ -96,10 +96,9 @@ class Page_courses_id_review extends React.Component {
     <main className={css.main} key={this.props.params.id}>
       <Header/>
 
+      <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
       <Loading spe={this.props.speGetPage}>{() =>
         <div className="container">
-          <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
-
           {
             this.props.currentProblem ?
               <ProblemBeingSolved

@@ -5,9 +5,11 @@ const update = {
     db.one(
       `
       UPDATE course
-      SET title = \${title},
-          description = \${description},
-          if_public = \${ifPublic}
+      SET
+        title = \${title},
+        description = \${description},
+        if_public = \${ifPublic},
+        course_category_id = \${courseCategoryId}
       WHERE id = \${id}
       RETURNING *
       `,

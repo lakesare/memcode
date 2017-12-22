@@ -1,5 +1,5 @@
 import * as spe from '~/services/spe.js';
-import { handleErrors } from './handleErrors';
+import { handleErrors } from './services/handleErrors';
 // ___how to use it?
 //
 // _in api/UserApi.js:
