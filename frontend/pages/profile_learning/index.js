@@ -38,7 +38,7 @@ class Page_profile_learning extends React.Component {
       <Footer/>
 
       <Helmet>
-        <title>Profile | Learned Courses</title>
+        <title>Memcode | Learned Courses</title>
       </Helmet>
     </main>
 }

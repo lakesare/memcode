@@ -107,7 +107,7 @@ class Page_courses extends React.Component {
       <Footer/>
 
       <Helmet>
-        <title>Memcode | All courses</title>
+        <title>Memcode | Courses</title>
         <meta name="description" content="Learn existing courses on programming, maths and physics, or create your own."/> :
       </Helmet>
     </main>

@@ -47,7 +47,7 @@ class Page_profile_created extends React.Component {
       <Footer/>
 
       <Helmet>
-        <title>Profile | Created Courses</title>
+        <title>Memcode | Created Courses</title>
       </Helmet>
     </main>
 }
