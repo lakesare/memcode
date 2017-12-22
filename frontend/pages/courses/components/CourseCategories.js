@@ -39,7 +39,7 @@ class CourseCategories extends React.Component {
 
   render = () =>
     <nav className="standard-list-of-course-categories">
-      <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+      <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
         <ul className="groups">
           {CourseCategoryGroupModel.sortByAmountOfCourses(courseCategoryGroups, courseCategories)
             .map((group) =>
