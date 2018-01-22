@@ -9,6 +9,7 @@ class ProblemBeingSolved extends React.Component {
 
     enterPressed: PropTypes.func.isRequired,
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
+    randomizeProblems: PropTypes.func.isRequired,
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired
@@ -40,21 +41,25 @@ class ProblemBeingSolved extends React.Component {
     <div>
       {
         this.props.ifReviewIsSimulated ?
-          <section className="simulated-header">
-            <h4 className="announcement desktop">
+          <section className="instructions -simulated">
+            <h4 className="where-we-are -desktop">
               We are in a simulated review. Results will not be recorded.
             </h4>
-            <h4 className="announcement mobile hidden">
+            <h4 className="where-we-are -mobile">
               Simulated review.
             </h4>
             <h4 className="amount-of-problems-left">
               {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
             </h4>
           </section> :
-          <section className="simulated-header">
-            <h4 className="announcement desktop">
+          <section className="instructions -real">
+            <h4 className="where-we-are -desktop">
               Press ENTER fo reveal answers
             </h4>
+
+            <button type="button" className="randomize" onClick={this.props.randomizeProblems}>
+              Randomize
+            </button>
           </section>
       }
 

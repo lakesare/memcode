@@ -94,15 +94,62 @@
     }
   }
 
-  .simulated-header{
+  section.instructions{
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: -40px;
-
     color: rgba(255, 255, 255, 0.65);
-    > h4.announcement{
+    h4.where-we-are{
       font-size: 14px;
+      &.-mobile{ display: none; }
+      &.-desktop{ display: block; }
+    }
+    &.-real{
+      button.randomize{
+        color: rgba(249, 249, 249, 0.67);
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 10px;
+        cursor: pointer;
+        background: rgba(224, 17, 185, 0.24);
+        padding: 3px 8px;
+      }
+    }
+  }
+
+  section.self-score{
+    width: 684px;
+    margin: 0 auto;
+    margin-top: 30px;
+    > label.rate-yourself, > .stars{
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    > label.rate-yourself{
+      color: white;
+      font-size: 13px;
+      padding-bottom: 50px;
+      padding-top: 20px;
+      padding-right: 20px;
+    }
+    > .stars{
+      > .star{
+        display: inline-block;
+        cursor: pointer;
+        padding-bottom: 45px;
+        padding-top: 20px;
+        > div{
+          padding-right: 3px; padding-left: 3px;
+          width: 90px; height: 10px;
+          border-right: 1px solid #737272;
+          &.grey{
+            background: rgba(109, 107, 107, 0.63);
+          }
+          &.yellow{
+            background: rgb(78, 251, 95);
+          }
+        }
+      }
     }
   }
 }
@@ -110,51 +157,16 @@
 // rgba(115, 232, 61, 0.79) green
 
 
-section.self-score{
-  width: 684px;
-  margin: 0 auto;
-  margin-top: 30px;
-  > label.rate-yourself, > .stars{
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  > label.rate-yourself{
-    color: white;
-    font-size: 13px;
-    padding-bottom: 50px;
-    padding-top: 20px;
-    padding-right: 20px;
-  }
-  > .stars{
-    > .star{
-      display: inline-block;
-      cursor: pointer;
-      padding-bottom: 45px;
-      padding-top: 20px;
-      > div{
-        padding-right: 3px; padding-left: 3px;
-        width: 90px; height: 10px;
-        border-right: 1px solid #737272;
-        &.grey{
-          background: rgba(109, 107, 107, 0.63);
-        }
-        &.yellow{
-          background: rgb(78, 251, 95);
-        }
-      }
-    }
-  }
-}
-
 @media(max-width: 500px) {
   :local(main.main){
-    .simulated-header{
+    section.instructions{
       margin-bottom: 20px;
-      h4.announcement{
-        &.mobile{ display: block; }
-        &.desktop{ display: none; }
+      h4.where-we-are{
+        &.-mobile{ display: block; }
+        &.-desktop{ display: none; }
       }
+      // move randomize button to the left
+      &.-real{ justify-content: flex-end; }
     }
     section.problem{
       margin-top: 0px;

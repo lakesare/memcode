@@ -1,3 +1,5 @@
+import { shuffle } from 'lodash';
+
 const initialState = {
   speGetPage: {},
   statusOfSolving: null,
@@ -90,6 +92,24 @@ const Page_courses_id_review_Reducer = (state = initialState, action) => {
         return { ...state, speGetPage: spe };
       }
     }
+
+    case 'RANDOMIZE_PROBLEMS': {
+      const problems = state.speGetPage.payload.problems;
+      const remainingProblems = problems.slice(state.statusOfSolving.index, problems.length);
+      const randomProblems = shuffle(remainingProblems);
+      return {
+        ...state,
+        speGetPage: {
+          ...state.speGetPage,
+          payload: {
+            ...state.speGetPage.payload,
+            problems: randomProblems
+          }
+        },
+        statusOfSolving: freshStatusOfSolving(randomProblems[0], 0)
+      };
+    }
+
     default:
       return state;
   }

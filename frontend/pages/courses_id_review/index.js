@@ -51,7 +51,8 @@ import { Page_courses_id_review_Actions as pageActions } from './reducer';
         type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
         payload: selfScore
       }),
-    onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' })
+    onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
+    randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' })
   })
 )
 class Page_courses_id_review extends React.Component {
@@ -73,7 +74,8 @@ class Page_courses_id_review extends React.Component {
     amountOfProblems: PropTypes.number,
 
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
-    onRightAnswerGiven: PropTypes.func.isRequired
+    onRightAnswerGiven: PropTypes.func.isRequired,
+    randomizeProblems: PropTypes.func.isRequired
   }
 
   componentDidMount() {
@@ -106,11 +108,12 @@ class Page_courses_id_review extends React.Component {
                 problem={this.props.currentProblem}
                 ifReviewIsSimulated={this.props.route.simulated}
                 statusOfSolving={this.props.statusOfSolving}
-                enterPressed={this.props.enterPressed}
+                amountOfProblems={this.props.amountOfProblems}
 
+                enterPressed={this.props.enterPressed}
                 separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
                 onRightAnswerGiven={this.props.onRightAnswerGiven}
-                amountOfProblems={this.props.amountOfProblems}
+                randomizeProblems={this.props.randomizeProblems}
               /> :
               <WhatNext courseId={parseInt(this.props.params.id)} currentUser={this.props.currentUser}/>
           }

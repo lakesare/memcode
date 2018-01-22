@@ -51,6 +51,7 @@ input, textarea, select, button{
   font-family: $body-font;
 
   background: none;
+  padding: 0;
 }
 textarea {
   resize: none;
