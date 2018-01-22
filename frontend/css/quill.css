@@ -23,10 +23,27 @@
       font-family: $body-font;
       font-size: 15px;
       pre.ql-syntax, code{
-        background: #3e4e4c !important;
-        color: white;
+        background: rgba(253, 123, 246, 0.17);
+        color: rgba(154, 41, 122, 0.7);
         font-size: 13px;
       }
+      sup, sub{
+        font-size: 13px;
+        strong{ font-size: inherit; }
+      }
+      ul, ol{
+        padding-left: 0;
+      }
+      strong{
+        font-family: "Helvetica Neue";
+      }
+      a{ color: #c37c1e; }
+      blockquote{
+        border-left: 4px solid rgb(165, 164, 165);
+        color: rgb(119, 116, 119);
+        font-size: 12px;
+      }
+
       // placeholder!
       &.ql-blank::before{
         // color: rgba(0, 0, 0, 0.77);
@@ -35,14 +52,6 @@
         line-height: 20px;
         color: #b5b5b9;
       }
-      ul, ol{
-        padding-left: 0;
-      }
-      strong{
-        font-family: "Helvetica Neue";
-        font-size: 16px;
-      }
-      a{ color: #c37c1e; }
     }
   }
 }
