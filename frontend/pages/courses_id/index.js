@@ -36,7 +36,7 @@ class Page_courses_id extends React.Component {
 
   render = () =>
     <main className={css.main} key={this.props.params.id}>
-      <Header/>
+      <Header dontLinkToLearnOrReview={this.props.params.id}/>
 
       <CourseActions courseId={this.props.params.id} ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed/>
       <div className="container">

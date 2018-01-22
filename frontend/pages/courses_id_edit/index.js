@@ -122,7 +122,7 @@ class Page_courses_id_edit extends React.Component {
 
   render = () =>
     <main className={css.main}>
-      <Header/>
+      <Header dontLinkToLearnOrReview={this.props.params.id}/>
 
       <article className="contact-us">
         Confused? Missing any features? <Link to="/contact">Contact us</Link>.

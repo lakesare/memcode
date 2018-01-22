@@ -1,6 +1,5 @@
 import { orFalse } from '~/services/orFalse';
-import { randomSample } from '~/services/randomSample';
-
+import { shuffle } from 'lodash';
 import { Link } from 'react-router';
 
 import css from './index.css';
@@ -23,7 +22,8 @@ class LearnReviewLinks extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object,
     idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
-    apiSync: PropTypes.func.isRequired
+    apiSync: PropTypes.func.isRequired,
+    dontLinkToLearnOrReview: PropTypes.string
   }
 
   static defaultProps = {
@@ -48,17 +48,25 @@ class LearnReviewLinks extends React.Component {
     const courseIds = Object.keys(response);
     const linkableCourseIds =
       courseIds.filter((courseId) =>
-        response[courseId][toLearnOrToReview].length > 0
+        response[courseId][toLearnOrToReview].length > 0 &&
+        courseId !== this.props.dontLinkToLearnOrReview
       );
-    const courseId = randomSample(linkableCourseIds);
 
-    switch (toLearnOrToReview) {
-      case 'toLearn':
-        return `/courses/${courseId}/learn`;
-      case 'toReview':
-        return `/courses/${courseId}/review`;
-      default:
-        throw new Error('Argument must be "toLearn" or "toReview"');
+    // if there are no other courser to learn/review except for the current one -
+    // pass undefined to props.to, so that we stay at the same page
+    if (linkableCourseIds.length === 0) {
+      return undefined;
+    } else {
+      const courseId = shuffle(linkableCourseIds)[0];
+
+      switch (toLearnOrToReview) {
+        case 'toLearn':
+          return `/courses/${courseId}/learn`;
+        case 'toReview':
+          return `/courses/${courseId}/review`;
+        default:
+          throw new Error('Argument must be "toLearn" or "toReview"');
+      }
     }
   }
 

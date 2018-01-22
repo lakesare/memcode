@@ -3,7 +3,8 @@ import { LearnReviewLinks } from './LearnReviewLinks';
 
 class CurrentUser extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object.isRequired
+    currentUser: PropTypes.object.isRequired,
+    dontLinkToLearnOrReview: PropTypes.string
   }
 
   renderAvatar = () =>
@@ -13,7 +14,7 @@ class CurrentUser extends React.Component {
 
   render = () =>
     <section className="current-user">
-      <LearnReviewLinks currentUser={this.props.currentUser}/>
+      <LearnReviewLinks currentUser={this.props.currentUser} dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
       {this.renderAvatar()}
     </section>
 }

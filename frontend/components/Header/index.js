@@ -10,7 +10,8 @@ import css from './index.css';
 }))
 class Header extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    dontLinkToLearnOrReview: PropTypes.string
   }
 
   static defaultProps = {
@@ -49,7 +50,7 @@ class Header extends React.Component {
 
   renderUser = () => (
     this.props.currentUser ?
-      <CurrentUser currentUser={this.props.currentUser}/> :
+      <CurrentUser currentUser={this.props.currentUser} dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/> :
       <SignInLinks/>
   )
 
