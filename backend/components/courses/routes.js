@@ -47,6 +47,11 @@ router.get('/search', optionalAuthenticateMiddleware, catchAsync(async (request,
   response.status(200).json(courses);
 }));
 
+router.get('/stats', optionalAuthenticateMiddleware, catchAsync(async (request, response) => {
+  const courseStats = await Course.select.getCourseStats(request.params.courseId);
+  response.status(200).json(courseStats);
+}));
+
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
   const course = await Course.insert.create({ ...request.body['course'], userId: request.currentUser.id });
 

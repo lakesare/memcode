@@ -1,4 +1,5 @@
 import { orFalse } from '~/services/orFalse';
+import { commonFetch } from '~/api/commonFetch';
 import * as createSpe from '~/services/spe';
 import * as CourseApi from '~/api/Course';
 
@@ -9,7 +10,8 @@ import { Course as SimpleCourse } from '~/components/ListOfSimpleCourses/compone
 class WhatNext extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
-    currentUser: orFalse(PropTypes.object).isRequired
+    currentUser: orFalse(PropTypes.object).isRequired,
+    speNextReviewIn: PropTypes.object.isRequired
   }
 
   state = { speCourses: {} }
@@ -55,7 +57,6 @@ class WhatNext extends React.Component {
   apiGetOwnCourses = () =>
     CourseApi.selectAllLearned(false)
 
-    // commonFetch(false, 'GET', '/api/pages/courses')
   apiGetPopularCourses = () =>
     CourseApi.selectPublic(
       false,
@@ -66,12 +67,26 @@ class WhatNext extends React.Component {
       }
     )
 
+  humanizeNextDueDateIn = (nextDueDateIn) => {
+    const biggestMeasure = Object.keys(nextDueDateIn)[0];
+    const amount = nextDueDateIn[biggestMeasure];
+    return `${amount} ${biggestMeasure}`;
+  }
+
   render = () =>
     <article className="what-next">
       <div className="space"/>
       <section className="congratulations">
         <h2>You successfully reviewed this course!</h2>
-        <h3>What's next?</h3>
+
+        {
+          this.props.currentUser &&
+          <Loading spe={this.props.speNextReviewIn}>{({ nextDueDateIn }) =>
+            <div className="next-review-time">Next review: in {this.humanizeNextDueDateIn(nextDueDateIn)}</div>
+          }</Loading>
+        }
+
+        <h3 className="whats-next">What's next?</h3>
       </section>
 
       <Loading spe={this.state.speCourses}>{(coursesData) => (

@@ -29,6 +29,7 @@ import { Page_courses_id_review_Actions as pageActions } from './reducer';
       currentUser: state.global.Authentication.currentUser || false,
       currentProblem: deriveCurrentProblem(pageState),
       speGetPage: pageState.speGetPage,
+      speNextReviewIn: pageState.speNextReviewIn,
 
       ...pageState.speGetPage.status === 'success' &&
         {
@@ -66,6 +67,7 @@ class Page_courses_id_review extends React.Component {
     getPage: PropTypes.func.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
+    speNextReviewIn: PropTypes.object.isRequired,
 
     currentUser: orFalse(PropTypes.object).isRequired,
     currentProblem: PropTypes.object,
@@ -115,7 +117,7 @@ class Page_courses_id_review extends React.Component {
                 onRightAnswerGiven={this.props.onRightAnswerGiven}
                 randomizeProblems={this.props.randomizeProblems}
               /> :
-              <WhatNext courseId={parseInt(this.props.params.id)} currentUser={this.props.currentUser}/>
+              <WhatNext courseId={parseInt(this.props.params.id)} currentUser={this.props.currentUser} speNextReviewIn={this.props.speNextReviewIn}/>
           }
         </div>
       }</Loading>

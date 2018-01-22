@@ -19,7 +19,8 @@ const selectAllCreated = (dispatch) =>
 
 const selectSearch = (dispatch, searchString) =>
   commonFetch(dispatch,
-    'GET', `/api/courses/search?searchString=${searchString}`);
+    'GET', `/api/courses/search?searchString=${searchString}`
+  );
 
 const create = (dispatch, values) =>
   commonFetch(dispatch,

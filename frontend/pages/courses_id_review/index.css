@@ -78,8 +78,12 @@
     > section.congratulations{
       color: white;
       text-align: center;
-      h2{ margin-bottom: 20px; }
-      h3{ margin-bottom: 30px; }
+      .next-review-time{
+        color: rgba(239, 234, 233, 0.5);
+        font-size: 14px;
+        margin-top: 8px;
+      }
+      h3.whats-next{ margin-top: 35px; margin-bottom: 30px; }
     }
     > section.offered-courses{
       max-width: 821px;

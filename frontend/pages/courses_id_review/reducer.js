@@ -3,6 +3,7 @@ import { shuffle } from 'lodash';
 const initialState = {
   speGetPage: {},
   statusOfSolving: null,
+  speNextReviewIn: {}
 };
 
 const freshStatusOfSolving = (problem, index) => {
@@ -93,6 +94,10 @@ const Page_courses_id_review_Reducer = (state = initialState, action) => {
       }
     }
 
+    case 'SET_SPE_NEXT_REVIEW_IN': {
+      return { ...state, speNextReviewIn: action.payload };
+    }
+
     case 'RANDOMIZE_PROBLEMS': {
       const problems = state.speGetPage.payload.problems;
       const remainingProblems = problems.slice(state.statusOfSolving.index, problems.length);
@@ -128,13 +133,24 @@ const Page_courses_id_review_Actions = {
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
           break;
         case 'seeingAnswer': {
-          const problemId = deriveCurrentProblem(state).id;
+          const currentProblem = deriveCurrentProblem(state);
           CourseUserIsLearningApi.reviewProblem(
             false,
             state.speGetPage.payload.courseUserIsLearning.id,
-            problemId,
+            currentProblem.id,
             deriveScore(state)
-          );
+          )
+            .then(() => {
+              const lastIndex = state.speGetPage.payload.problems.length - 1;
+              const currentIndex = state.statusOfSolving.index;
+              const itWasLastReviewedProblem = lastIndex === currentIndex;
+              if (itWasLastReviewedProblem) {
+                commonFetch(
+                  (spe) => dispatch({ type: 'SET_SPE_NEXT_REVIEW_IN', payload: spe }),
+                  'GET', `/api/pages/courseActions/${currentProblem.courseId}`
+                );
+              }
+            });
           dispatch({
             type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
             payload: -1
@@ -143,7 +159,7 @@ const Page_courses_id_review_Actions = {
             type: 'SET_NEXT_PROBLEM',
             payload: state.statusOfSolving.index + 1
           });
-          IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, problemId);
+          IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, currentProblem.id);
           break;
         }
       }
