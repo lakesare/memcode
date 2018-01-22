@@ -87,7 +87,9 @@ const Page_courses_id_review_Reducer = (state = initialState, action) => {
         return {
           ...state,
           speGetPage: spe,
-          statusOfSolving: freshStatusOfSolving(firstProblem, 0)
+          statusOfSolving: freshStatusOfSolving(firstProblem, 0),
+          // um because it won't get reloaded if we come from /:id/review to another /:id/review
+          speNextReviewIn: {}
         };
       } else {
         return { ...state, speGetPage: spe };

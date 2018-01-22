@@ -81,9 +81,12 @@ class WhatNext extends React.Component {
 
         {
           this.props.currentUser &&
-          <Loading spe={this.props.speNextReviewIn}>{({ nextDueDateIn }) =>
-            <div className="next-review-time">Next review: in {this.humanizeNextDueDateIn(nextDueDateIn)}</div>
-          }</Loading>
+          <div className="next-review-time">
+            Next review:
+            <Loading enabledStatuses={['success']} spe={this.props.speNextReviewIn}>{({ nextDueDateIn }) =>
+              <span> in {this.humanizeNextDueDateIn(nextDueDateIn)}</span>
+            }</Loading>
+          </div>
         }
 
         <h3 className="whats-next">What's next?</h3>
