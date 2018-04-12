@@ -1,3 +1,4 @@
+@import 'css/variables';
 :local(section.pagination){
   > ul{
     display: flex;
@@ -28,7 +29,7 @@
         font-size: 15px;
         &.active{
           cursor: pointer;
-          color: #1563b9;
+          color: $purple;
         }
         &.disabled{
           cursor: default;

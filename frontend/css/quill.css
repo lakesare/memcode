@@ -8,10 +8,10 @@
     padding: 2px 10px !important;
     button:hover, button.ql-active{
       .ql-stroke{
-        stroke: $sims-green-color !important;
+        stroke: $whale-blue !important;
       }
       .ql-fill{
-        fill: $sims-green-color !important;
+        fill: $whale-blue !important;
       }
     }
   }

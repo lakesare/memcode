@@ -11,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     i.fa-caret-down{
-      color: #1563b9;
+      color: $purple;
       padding-left: 10px;
     }
   }
@@ -30,7 +30,7 @@
     padding: 4px 10px;
     color: rgba(255, 255, 255, 0.77);
     border-bottom: 1px solid rgba(255, 255, 255, 0.49);
-    mark{ color: $sims-green-color; }
+    mark{ color: $whale-blue; }
     &:last-child{ border-bottom: none; }
     &:hover{
       opacity: 1;

@@ -33,7 +33,7 @@
     }
     i{
       font-size: 16px;
-      color: $sims-green-color;
+      color: $whale-blue;
       position: relative;
       bottom: 1px;
       padding-left: 20px;
@@ -47,7 +47,7 @@
       color: white;
       > div.title{
         mark{ // mark matching searchString in title
-          color: $sims-green-color;
+          color: $whale-blue;
         }
       }
       > div.status{

@@ -3,7 +3,7 @@
   line-height: 30px;
   font-family: Sintony;
   font-size: 15px;
-  a{ color: $readable-green-color; }
+  a{ color: $whale-blue; }
   ol, ul{
     list-style-type: initial;
     margin-left: 20px;
@@ -30,7 +30,7 @@
     margin-bottom: 20px;
     i{
       padding-right: 10px;
-      color: $sims-green-color;
+      color: $whale-blue;
     }
   }
 }

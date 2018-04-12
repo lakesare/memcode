@@ -6,7 +6,7 @@
     justify-content: space-between;
     align-items: center;
 
-    border-bottom: 2px $sims-green-color solid;
+    border-bottom: 2px $whale-blue solid;
     padding: 10px; padding-right: 0;
 
     margin-bottom: 10px;
@@ -31,7 +31,7 @@
         i.fa-plus{
           font-size: 14px;
           padding-right: 4px;
-          color: $sims-green-color;
+          color: $whale-blue;
         }
         .request{
           padding: 0;

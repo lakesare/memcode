@@ -43,8 +43,7 @@
       padding-bottom: 2px;
       padding-top: 2px;
 
-      // slightly darker sims
-      background: $readable-green-color;
+      background: $whale-tail-blue;
       color: white;
       border-top: 1px solid #424141;
     }

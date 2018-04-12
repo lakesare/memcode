@@ -11,7 +11,7 @@ ___
 4. Give them a permission to create dbs, own all extensions etc.: `ALTER ROLE postgres with superuser;`.
 
 ### Copypaste environment variables.
-1. Ask someone for `env.js` file, put it n the root (next to package.json). Change local DB_USER and DB_PASSWORD to relevant value.
+1. Ask someone for `env.js` file, put it in the root folder (next to package.json). Inside of `env.js`, change DB_USER and DB_PASSWORD to relevant values (your postgres's user and password).
 
 ### Install needed libraries.
 1. Install npm.

@@ -19,7 +19,7 @@
       cursor: pointer;
       td{
         vertical-align: top;
-        border: solid 1px $sims-green-color;
+        border: solid 1px $whale-blue;
         padding: 3px 5px;
       }
       td:first-child{

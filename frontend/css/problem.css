@@ -21,7 +21,7 @@ section.problem{
         font-family: 'Mukta Vaani';
         background: rgb(106, 243, 132);
         box-shadow: 0px -1px 6px 1px rgba(74, 241, 42, 0.39);
-        border: 2px solid $sims-green-color;
+        border: 2px solid $whale-green;
         padding: 6px 0;
         font-size: 16px;
         color: #232425;

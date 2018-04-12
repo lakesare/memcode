@@ -30,8 +30,8 @@ const html = `
     <!-- to make site look bigger on mobiles -->
     <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="/favicon-32x32.png?v=2" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/favicon-16x16.png?v=2" sizes="16x16"/>
 
     <!-- data-react-helmet="true" for react-helmet to supersede it instead of adding a new description tag -->
     <meta name="description" content="Create your own course to memorize anything you want. Flashcard-based, with formatting and images, with multiple flashcard types." data-react-helmet="true"/>

@@ -35,7 +35,7 @@
     .site{
       width: 100%;
       h3{
-        color: $readable-green-color;
+        color: $whale-blue;
         width: 138px;
         > span.rating{
           font-size: 15px;
@@ -57,7 +57,7 @@
     .conclusion{
       width: 100%;
       h3{
-        background: $readable-green-color;
+        background: $whale-blue;
         color: white;
         padding: 5px;
         padding-left: 10px;
@@ -106,7 +106,7 @@
   .article-formatting{
     .article-headings{
       margin-bottom: 0;
-      mark{ color: $readable-green-color; }
+      mark{ color: $whale-blue; }
     }
     mark{
       background: none;

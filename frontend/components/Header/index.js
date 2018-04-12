@@ -5,6 +5,8 @@ import { CurrentUser } from './components/CurrentUser';
 import { SignInLinks } from './components/SignInLinks';
 import css from './index.css';
 
+import memcodeLogo from './memcodeLogo.png';
+
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser
 }))
@@ -21,7 +23,7 @@ class Header extends React.Component {
   renderLogo = () =>
     <section className="logo">
       <Link to="/">
-        <h1>MemCode</h1>
+        <img src={`/${memcodeLogo}`}/>
       </Link>
       {/* <div className="memorizing-is-hard-caption">
         Retain the understanding.

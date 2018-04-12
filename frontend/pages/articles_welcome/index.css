@@ -37,7 +37,7 @@
       text-align: center;
       &:focus{ outline: none; }
       &.success{
-        border: 3px solid $sims-green-color;
+        border: 3px solid rgba(45, 245, 83, 0.9);
         background: rgba(0, 255, 29, 0.46);
         text-shadow: 0px 0px 14px white;
       }

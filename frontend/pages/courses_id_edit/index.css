@@ -30,7 +30,7 @@
               color: #9baf9e;
               border-radius: 2px;
               &.ql-active, &:hover{
-                color: $sims-green-color;
+                color: $whale-blue;
               }
               &::after{
                 content: "Mark As Answer";

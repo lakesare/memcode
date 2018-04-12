@@ -1,15 +1,11 @@
 @import 'css/variables';
 
 :local(header.header){
-  background: #333333;
-  background: $black-gradient;
+  background: $purple;
 
   section.logo{
-    h1{
-      font-size: 22px;
-      color: white;
-      font-family: 'Orbitron', sans-serif;
-    }
+    margin: 10px 0;
+    img{ width: 145px; }
     // .memorizing-is-hard-caption{
     //   padding-left: 10px;
     //   color: white;
@@ -35,7 +31,7 @@
 
     a.link.create{
       i{
-        color: $sims-green-color;
+        color: $whale-blue;
         padding-right: 7px;
         font-size: 12px;
       }
@@ -44,7 +40,7 @@
       > .toggler{
         i{
           padding-left: 3px;
-          color: $sims-green-color;
+          color: $whale-blue;
         }
       }
       > .modal{
