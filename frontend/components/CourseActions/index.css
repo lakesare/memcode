@@ -112,21 +112,24 @@
   }
   section.breadcrumbs{
     font-size: 13px;
-
     padding: 4px 0;
-    background: rgb(239, 240, 241);
-    color: rgb(136, 137, 138);
+
+    background: $deep-green;
+    border-top: 3px solid rgba(55, 102, 167, 0.21);
+    border-bottom: 2px solid rgb(49, 29, 39);
     ul{
-      border-left: 2px solid rgba(212, 212, 212, 0.55);
+      border-left: 2px solid $whale-blue;
       padding-left: 10px;
       li{
         display: inline-block;
         margin-right: 10px;
-        cursor: default;
+        color: white;
+        cursor: default; // not text selection one
+        font-size: 11px;
+        font-family: $heading-font;
         a{
           cursor: pointer;
-          font-weight: bold;
-          color: rgb(53, 91, 116);
+          color: rgb(250, 197, 253);
         }
       }
       li.arrow{

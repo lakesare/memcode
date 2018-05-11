@@ -124,11 +124,7 @@ class Page_courses_id_edit extends React.Component {
     <main className={css.main}>
       <Header dontLinkToLearnOrReview={this.props.params.id}/>
 
-      <article className="contact-us">
-        Confused? Missing any features? <Link to="/contact">Contact us</Link>.
-      </article>
-
-      <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed/>
+      <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused/>
       <div className="container">
         <Loading spe={this.state.speGetPage}>{({ problems }) =>
           <StickyContainer>

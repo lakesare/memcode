@@ -49,7 +49,8 @@ class CourseActions extends React.Component {
     ifCuilActivityButtonsAreDisplayed: PropTypes.bool,
     ifCourseDescriptionIsDisplayed: PropTypes.bool,
     ifEditCourseModalTogglerIsDisplayed: PropTypes.bool,
-    ifBreadcrumbsAreDisplayed: PropTypes.bool
+    ifBreadcrumbsAreDisplayed: PropTypes.bool,
+    ifConfused: PropTypes.bool
   }
 
   static defaultProps = {
@@ -57,7 +58,8 @@ class CourseActions extends React.Component {
     ifCuilActivityButtonsAreDisplayed: true,
     ifCourseDescriptionIsDisplayed: false,
     ifEditCourseModalTogglerIsDisplayed: false,
-    ifBreadcrumbsAreDisplayed: false
+    ifBreadcrumbsAreDisplayed: false,
+    ifConfused: false
   }
 
   componentDidMount = () =>
@@ -77,6 +79,13 @@ class CourseActions extends React.Component {
         {
           this.props.ifBreadcrumbsAreDisplayed &&
           <Breadcrumbs courseCategoryId={courseDto.course.courseCategoryId || false}/>
+        }
+
+        {
+          this.props.ifConfused &&
+          <article className="contact-us">
+            Confused? Missing any features? <Link to="/contact">Contact us</Link>.
+          </article>
         }
 
         <div className="container">

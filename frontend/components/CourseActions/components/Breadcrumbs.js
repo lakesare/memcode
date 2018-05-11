@@ -39,7 +39,7 @@ class Breadcrumbs extends React.Component {
 
   renderLinkToAllCourses = () =>
     <li>
-      <Link to="/courses">Courses</Link>
+      <Link to="/courses">All Courses</Link>
     </li>
 
   renderArrow = () =>

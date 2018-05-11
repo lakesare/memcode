@@ -42,7 +42,7 @@
         top: 2px; left: 4px;
         font-size: 17px;
         line-height: 0;
-        color: #6f716e;
+        color: $whale-blue;
       }
       &.-hovering.-not-checked{
         > .mark{

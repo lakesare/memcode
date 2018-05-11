@@ -14,6 +14,10 @@
     // to avoid editing problem at the bottom of the screen
     margin-bottom: 40px;
     section.problem{
+      background: rgb(255, 255, 255);
+      box-shadow: 1px 3px 9px rgba(54, 56, 53, 0.39);
+      padding: 4px;
+      border-radius: 5px;
       &.-withInlinedAnswers{
         > .first-column{
           .ql-toolbar{
