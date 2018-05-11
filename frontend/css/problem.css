@@ -28,6 +28,7 @@ section.problem{
         text-shadow: 0px 0px 9px white;
       }
       > .quill{
+        height: 100%;
         .ql-editor{
           border: 5px solid $answer-background;
         }

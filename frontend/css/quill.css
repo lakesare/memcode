@@ -3,7 +3,6 @@
   position: relative;
   > .ql-toolbar{
     box-shadow: 0px -3px 5px 4px rgba(255, 255, 255, 0.81);
-    border-bottom: none !important;
     background: white;
     padding: 2px 10px !important;
     button:hover, button.ql-active{
@@ -15,9 +14,11 @@
       }
     }
   }
+  > .ql-container.ql-snow{ border: none; }
   > .ql-container{
-    border-top: 1px solid #ccc !important;
+    border-top: none;
     background: white;
+    height: auto;
     > .ql-editor{
       min-height: 58px;
       font-family: $body-font;

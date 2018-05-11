@@ -14,27 +14,33 @@
     // to avoid editing problem at the bottom of the screen
     margin-bottom: 40px;
     section.problem{
-      background: rgb(255, 255, 255);
-      box-shadow: 1px 3px 9px rgba(54, 56, 53, 0.39);
       padding: 4px;
-      border-radius: 5px;
+      background: rgba(245, 245, 245, 0.5);
+      box-shadow: 0px 2px 3px rgba(189, 189, 189, 0.39);
+      border-left: 2px solid $purple;
+      // background: rgb(1, 23, 4);
       &.-withInlinedAnswers{
         > .first-column{
           .ql-toolbar{
             padding-right: 0;
-
             button.ql-answer{
               font-size: 10px;
-              width: 43px !important;
+              width: 50px !important;
               padding: 0;
 
               text-align: center;
               font-weight: bold;
 
-              color: #9baf9e;
               border-radius: 2px;
+              line-height: 10px;
+              font-family: 'Sintony';
+
+              border: 1px solid rgb(20, 214, 20);
+              background: rgba(40, 236, 77, 0.3);
+              color: rgba(90, 26, 10, 0.56);
               &.ql-active, &:hover{
-                color: $whale-blue;
+                background: rgba(40, 236, 77, 0.56);
+                color: $body-color;
               }
               &::after{
                 content: "Mark As Answer";
@@ -48,6 +54,11 @@
             }
           }
         }
+      }
+      .ql-toolbar{
+        border: none !important;
+        border-bottom: 1px solid rgb(216, 215, 215) !important;
+        box-shadow: 0px -3px 5px 4px rgba(247, 247, 247, 0.81);
       }
     }
 

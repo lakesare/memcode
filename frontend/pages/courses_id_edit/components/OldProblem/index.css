@@ -46,7 +46,10 @@
       }
       &.-hovering.-not-checked{
         > .mark{
-          opacity: 0.2;
+          opacity: 1;
+        }
+        > .index{
+          opacity: 0.3;
         }
       }
     }

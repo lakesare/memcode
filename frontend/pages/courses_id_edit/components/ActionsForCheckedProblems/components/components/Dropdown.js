@@ -18,7 +18,7 @@ class Dropdown extends React.Component {
   }
 
   render = () =>
-    <ul className="dropdown">
+    <ul className="standard-dropdown">
       {
         this.props.courses.length === 0 ?
           <li className="no-courses">You have not created any other courses yet, create one in order to move flashcards to it.</li> :

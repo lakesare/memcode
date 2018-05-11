@@ -3,8 +3,9 @@ const standardToolbarContainer = [
   ['blockquote', 'code-block'],
   [{ list: 'ordered' }, { list: 'bullet' }],
   ['link', 'image'],
+  // [{ 'size': ['small', false, 'large', 'huge'] }],
   // [{ 'color': [] }, { 'background': [] }],
-  // ['clean']
+  ['clean']
 ];
 
 export { standardToolbarContainer };
