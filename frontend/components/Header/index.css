@@ -41,6 +41,7 @@
     }
     div.link.articles{
       > .toggler{
+        cursor: default;
         i{
           padding-left: 3px;
           color: $whale-blue;

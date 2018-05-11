@@ -39,6 +39,7 @@ class Editor extends React.Component {
       readOnly={this.props.readOnly}
 
       modules={{
+        formula: true,          // Include formula module
         // maybe include syntax module sometime
         // syntax: false,
         toolbar: {

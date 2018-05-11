@@ -14,7 +14,7 @@
       }
     }
     .ql-formats{
-      margin-right: 9px;
+      // margin-right: 9px;
       &:last-child{
         margin-right: 0;
       }
@@ -55,7 +55,6 @@
         display: block;
         margin: 0 auto;
         border: 1px solid rgba(236, 236, 236, 0.72);
-        border-radius: 5px;
       }
 
       // placeholder!

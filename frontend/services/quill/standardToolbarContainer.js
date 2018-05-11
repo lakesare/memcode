@@ -5,7 +5,10 @@ const standardToolbarContainer = [
   ['link', 'image'],
   // [{ 'size': ['small', false, 'large', 'huge'] }],
   // [{ 'color': [] }, { 'background': [] }],
-  ['clean']
+
+  ['clean'],
+  // katex support, imported using cdn
+  ['formula']
 ];
 
 export { standardToolbarContainer };
