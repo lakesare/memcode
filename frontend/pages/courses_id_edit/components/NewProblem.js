@@ -33,13 +33,14 @@ class NewProblem extends React.Component {
   }
 
   saveOnCTRLS = (event) => {
-    if (event.ctrlKey && event.keyCode === 83) { // CTRL+S
+    // metaKey catches cmd in mac, ctrlKey catches ctrl in ubuntas
+    if ((event.ctrlKey || event.metaKey) && event.keyCode === 83) { // CTRL+S
       event.preventDefault();
-      this.save();
+      this.apiSave();
     }
   }
 
-  save = () => {
+  apiSave = () => {
     const type = this.state.currentProblemType;
 
     ProblemApi.create(
@@ -108,7 +109,7 @@ class NewProblem extends React.Component {
 
       <section className="how-to-create">
         <span>CTRL+S to save a new flashcard</span>
-        <button className="button -blue" onClick={this.save}>SAVE</button>
+        <button className="button -pink" onClick={this.apiSave}>SAVE</button>
       </section>
 
       <section className="choose-type">

@@ -22,6 +22,14 @@
     color: white;
     background: #1C263C;
   }
+  &.-purple{
+    color: white;
+    background: $purple;
+  }
+  &.-pink{
+    color: white;
+    background: $whale-blue;
+  }
 
   &.-fade-out-on-hover{
     transition: all 60ms ease-in-out;

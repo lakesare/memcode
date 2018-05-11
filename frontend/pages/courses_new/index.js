@@ -52,7 +52,7 @@ class Page_courses_new extends React.Component {
 
           <Loading spe={this.state.speSave}>
             <button
-              className="button -black standard-submit-button"
+              className="button -pink standard-submit-button"
               type="submit"
             >Create!</button>
           </Loading>
