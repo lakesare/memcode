@@ -6,6 +6,8 @@
 !/frontend/webpacked/favicon.ico
 !/frontend/webpacked/favicon-16x16.png
 !/frontend/webpacked/favicon-32x32.png
+!/frontend/webpacked/safari-pinned-tab.svg
+!/frontend/webpacked/apple-touch-icon.png
 
 /env.js
 /Makefile

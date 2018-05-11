@@ -30,8 +30,13 @@ const html = `
     <!-- to make site look bigger on mobiles -->
     <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <link rel="icon" type="image/png" href="/favicon-32x32.png?v=2" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="/favicon-16x16.png?v=2" sizes="16x16"/>
+    <!-- as per https://realfavicongenerator.net/favicon_result?file_id=p1cd8gt6qj1kvp121l103k18gh1u4c6#.WvYIatOuzhM -->
+    <link rel="icon" type="image/png" href="/favicon-32x32.png?v=3" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/favicon-16x16.png?v=3" sizes="16x16"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=3" color="#ba2490">
+    <meta name="msapplication-TileColor" content="#9f00a7">
+    <meta name="theme-color" content="#ffffff">
 
     <!-- data-react-helmet="true" for react-helmet to supersede it instead of adding a new description tag -->
     <meta name="description" content="Create your own course to memorize anything you want. Flashcard-based, with formatting and images, with multiple flashcard types." data-react-helmet="true"/>
