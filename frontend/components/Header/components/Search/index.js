@@ -14,7 +14,8 @@ class Search extends React.Component {
 
   state = {
     searchString: '',
-    speSearch: {}
+    speSearch: {},
+    ifDropdownIsOpen: false
   }
 
   handleClickOutside = () =>
@@ -22,7 +23,7 @@ class Search extends React.Component {
 
   apiSearch = (searchString) =>
     CourseApi.selectSearch(
-      (spe) => this.setState({ speSearch: spe }),
+      (spe) => this.setState({ speSearch: spe, ifDropdownIsOpen: true }),
       searchString
     )
 
@@ -37,7 +38,7 @@ class Search extends React.Component {
   }
 
   clearAndCloseDropdown = () =>
-    this.setState({ speSearch: {} })
+    this.setState({ speSearch: {}, ifDropdownIsOpen: false })
 
   render = () =>
     <section className={`${css.search} search`}>
@@ -55,20 +56,23 @@ class Search extends React.Component {
         />
       </div>
 
-      <div className="standard-dropdown">
-        <Loading spe={this.state.speSearch}>{(courseDatas) =>
-          <ul>
-            {courseDatas.map((courseData) =>
-              <Course
-                key={courseData.course.id}
-                courseData={courseData}
-                currentUser={this.props.currentUser}
-                searchString={this.state.searchString}
-              />
-            )}
-          </ul>
-        }</Loading>
-      </div>
+      {
+        this.state.ifDropdownIsOpen &&
+        <div className="standard-dropdown">
+          <Loading spe={this.state.speSearch}>{(courseDatas) =>
+            <ul>
+              {courseDatas.map((courseData) =>
+                <Course
+                  key={courseData.course.id}
+                  courseData={courseData}
+                  currentUser={this.props.currentUser}
+                  searchString={this.state.searchString}
+                />
+              )}
+            </ul>
+          }</Loading>
+        </div>
+      }
     </section>
 }
 
