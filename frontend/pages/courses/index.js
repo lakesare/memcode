@@ -1,4 +1,5 @@
 import * as CourseApi from '~/api/Course';
+import CourseCategoryApi from '~/api/CourseCategoryApi';
 
 import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
@@ -8,7 +9,7 @@ import Pagination from '~/components/Pagination';
 import { SelectDropdown } from '~/components/SelectDropdown';
 import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
-import CourseCategories from './components/CourseCategories';
+import CourseCategories from '~/appComponents/CourseCategories';
 
 import css from './index.css';
 
@@ -20,20 +21,28 @@ const getCategoryId = (props) => {
 class Page_courses extends React.Component {
   state = {
     speGetCourses: {},
+    speGetCategories: {},
     sortBy: 'popular',
     currentPage: 1,
     // to avoid blinking pagination
     amountOfPages: 1
   }
 
-  componentDidMount = () =>
-    this.apiGetCourses()
+  componentDidMount = () => {
+    this.apiGetCourses();
+    this.apiGetCategories();
+  }
 
   componentDidUpdate = (prevProps) => {
     if (getCategoryId(prevProps) !== getCategoryId(this.props)) {
       this.setState({ currentPage: 1 }, this.apiGetCourses);
     }
   }
+
+  apiGetCategories = () =>
+    CourseCategoryApi.selectWithGroups(
+      (spe) => this.setState({ speGetCategories: spe })
+    )
 
   apiGetCourses = () =>
     CourseApi.selectPublic(
@@ -92,9 +101,13 @@ class Page_courses extends React.Component {
         </div>
 
         <div className="courses-and-nav">
-          <CourseCategories
-            courseCategoryId={getCategoryId(this.props)}
-          />
+          <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+            <CourseCategories
+              courseCategoryId={getCategoryId(this.props)}
+              courseCategoryGroups={courseCategoryGroups}
+              courseCategories={courseCategories}
+            />
+          }</Loading>
 
           <Loading className="loading-courses" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
             <ListOfSimpleCourses coursesData={onePageOfCourses}/>

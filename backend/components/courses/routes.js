@@ -33,7 +33,12 @@ router.get('/public', catchAsync(async (request, response) => {
 //   amountOfProblemsToLearn: 1
 // }], active, filtered by amount of due problems
 router.get('/allLearned', authenticateMiddleware, catchAsync(async (request, response) => {
-  const courses = await Course.select.allLearned(request.currentUser.id);
+  const courseCategoryId = request.query.courseCategoryId;
+  let courses = await Course.select.allLearned(request.currentUser.id);
+
+  if (courseCategoryId) {
+    courses = courses.filter((course) => course.course.courseCategoryId.toString() === courseCategoryId.toString());
+  }
   response.status(200).json(courses);
 }));
 

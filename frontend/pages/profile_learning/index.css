@@ -6,4 +6,19 @@
       padding-top: 10px;
     }
   }
+
+  .courses-and-nav{
+    display: flex;
+    > nav.standard-list-of-course-categories{
+      width: 220px;
+      flex-grow: 0;
+      flex-shrink: 0;
+
+      margin-right: 20px;
+      margin-bottom: 30px;
+    }
+    > .loading.loading-courses{
+      margin: 0 auto;
+    }
+  }
 }

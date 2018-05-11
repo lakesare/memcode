@@ -7,9 +7,9 @@ const selectPublic = (dispatch, options) =>
     'GET', `/api/courses/public?${hashToQueryString(options)}`
   );
 
-const selectAllLearned = (dispatch) =>
+const selectAllLearned = (dispatch, options = {}) =>
   commonFetch(dispatch,
-    'GET', '/api/courses/allLearned'
+    'GET', `/api/courses/allLearned?${hashToQueryString(options)}`
   );
 
 const selectAllCreated = (dispatch) =>

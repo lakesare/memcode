@@ -207,7 +207,47 @@ module.exports = {
     //   sortByAmountOfCourses, sortByAlphabet,
     //   deriveCategoriesPerGroup
     // };
-    "object-property-newline": "off"
+    "object-property-newline": "off",
+
+    // airbnb makes me move around getters setter, ugh
+    // copypasted the default config instead.
+    "react/sort-comp": [1, {
+      order: [
+        'static-methods',
+        'lifecycle',
+        'everything-else',
+        'render'
+      ],
+      groups: {
+        lifecycle: [
+          'displayName',
+          'propTypes',
+          'contextTypes',
+          'childContextTypes',
+          'mixins',
+          'statics',
+          'defaultProps',
+          'constructor',
+          'getDefaultProps',
+          'state',
+          'getInitialState',
+          'getChildContext',
+          'getDerivedStateFromProps',
+          'componentWillMount',
+          'UNSAFE_componentWillMount',
+          'componentDidMount',
+          'componentWillReceiveProps',
+          'UNSAFE_componentWillReceiveProps',
+          'shouldComponentUpdate',
+          'componentWillUpdate',
+          'UNSAFE_componentWillUpdate',
+          'getSnapshotBeforeUpdate',
+          'componentDidUpdate',
+          'componentDidCatch',
+          'componentWillUnmount'
+        ]
+      }
+    }]
   },
   "globals": {
     "fetch": true,
