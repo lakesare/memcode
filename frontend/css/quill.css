@@ -13,6 +13,12 @@
         fill: $whale-blue !important;
       }
     }
+    .ql-formats{
+      margin-right: 9px;
+      &:last-child{
+        margin-right: 0;
+      }
+    }
   }
   > .ql-container.ql-snow{ border: none; }
   > .ql-container{

@@ -1,23 +1,25 @@
+@import 'css/variables';
 :local(.course-form){
   .form-line.-ifPublic{
     button{
-      background: #1d1d56;
-      color: white;
+      // background: $deep-green;
+      // color: white;
       font-size: 11px;
       text-transform: uppercase;
-      padding: 5px 10px;
-      border-bottom: none;
+      padding: 5px 22px;
+      border: 2px solid rgb(236, 96, 172);
       i{ display: none; }
     }
     .standard-dropdown{
       font-size: 12px;
+      text-transform: uppercase;
     }
   }
   .form-line.-courseCategoryId{
     .standard-dropdown-wrapper{
       width: 220px;
       > button.toggler{
-        background: rgb(243, 243, 243);
+        border-bottom: 2px solid rgb(236, 96, 172);
       }
       > .dropdown.standard-list-of-course-categories{
         box-sizing: border-box;
@@ -26,7 +28,7 @@
         z-index: 1000;
         height: 250px;
         overflow: scroll;
-        border-bottom: 2px solid rgba(68, 66, 66, 0.58);
+        border-bottom: 2px solid $deep-green;
       }
     }
   }

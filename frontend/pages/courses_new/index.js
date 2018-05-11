@@ -54,7 +54,7 @@ class Page_courses_new extends React.Component {
             <button
               className="button -pink standard-submit-button"
               type="submit"
-            >Create!</button>
+            >Create</button>
           </Loading>
         </form>
       </div>
