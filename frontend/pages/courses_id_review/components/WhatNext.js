@@ -80,6 +80,7 @@ class WhatNext extends React.Component {
 
         {
           this.props.currentUser &&
+          this.props.speNextReviewIn.status &&
           <div className="next-review-time">
             Next review:
             <Loading enabledStatuses={['success']} spe={this.props.speNextReviewIn}>{({ nextDueDateIn }) =>

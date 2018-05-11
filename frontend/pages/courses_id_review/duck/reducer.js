@@ -1,4 +1,4 @@
-import { shuffle } from 'lodash';
+import _ from 'lodash';
 
 const initialState = {
   speGetPage: {},
@@ -10,8 +10,17 @@ const initialState = {
   //     amountOfRightAnswersGiven: 0
   //   } // or { selfScore: 5 }
   // }
-  // a particular flashcard
-  statusOfSolving: null
+  // status of solving a particular flashcard
+  statusOfSolving: null,
+  // ___idea:
+  // statusOfReview: 'simulated', 'rereview', 'review', "what's next"
+  // ___but for now let's do:
+  // ifReviewingFailedProblems: {
+  //   status: true,
+  //   failedProblemIndexes: [3, 5, 6] // taken from speGetPage.payload.problems
+  // }
+  ifReviewingFailedProblems: false,
+  indexesOfFailedProblems: []
 };
 
 import amountOfAnswerInputsInProblem from './services/amountOfAnswerInputsInProblem';
@@ -58,11 +67,45 @@ const reducer = (state = initialState, action) => {
 
     case 'SET_NEXT_PROBLEM': { // (payload: problem index)
       const nextIndex = action.payload;
-      const nextApiProblem = state.speGetPage.payload.problems[nextIndex];
+      const nextProblem = state.speGetPage.payload.problems[nextIndex];
 
+      // JUST entering ifReviewingFailedProblems!
+      if (!nextProblem && state.indexesOfFailedProblems.length > 0) {
+        const firstFailedIndex = state.indexesOfFailedProblems[0];
+        const reReviewProblem = state.speGetPage.payload.problems[firstFailedIndex];
+        return {
+          ...state,
+          ifReviewingFailedProblems: true,
+          statusOfSolving: freshStatusOfSolving(reReviewProblem, firstFailedIndex)
+        };
+      } else {
+        return {
+          ...state,
+          statusOfSolving: freshStatusOfSolving(nextProblem, nextIndex)
+        };
+      }
+    }
+
+    case 'SET_NEXT_REREVIEW_PROBLEM': { // (action.payload: problem index relating to .indexesOfFailedProblems)
+      const nextProblemIndex = state.indexesOfFailedProblems[0];
+      const reReviewProblem = state.speGetPage.payload.problems[nextProblemIndex];
       return {
         ...state,
-        statusOfSolving: freshStatusOfSolving(nextApiProblem, nextIndex)
+        statusOfSolving: freshStatusOfSolving(reReviewProblem, nextProblemIndex)
+      };
+    }
+
+    case 'ADD_TO_FAILED_PROBLEMS': {
+      return {
+        ...state,
+        indexesOfFailedProblems: [...state.indexesOfFailedProblems, action.payload]
+      };
+    }
+
+    case 'DELETE_FROM_FAILED_PROBLEMS': {
+      return {
+        ...state,
+        indexesOfFailedProblems: state.indexesOfFailedProblems.filter((index) => index !== action.payload)
       };
     }
 
@@ -75,7 +118,9 @@ const reducer = (state = initialState, action) => {
           speGetPage: spe,
           statusOfSolving: freshStatusOfSolving(firstProblem, 0),
           // um because it won't get reloaded if we come from /:id/review to another /:id/review
-          speNextReviewIn: {}
+          speNextReviewIn: {},
+          ifReviewingFailedProblems: false,
+          indexesOfFailedProblems: []
         };
       } else {
         return { ...state, speGetPage: spe };
@@ -87,9 +132,22 @@ const reducer = (state = initialState, action) => {
     }
 
     case 'RANDOMIZE_PROBLEMS': {
+      // there are always > 2 problems if this function is called
       const problems = state.speGetPage.payload.problems;
-      const remainingProblems = problems.slice(state.statusOfSolving.index, problems.length);
-      const randomProblems = shuffle(remainingProblems);
+      const currentProblemIndex = state.statusOfSolving.index;
+
+      const remainingProblems = problems.slice(currentProblemIndex, problems.length);
+
+      let randomProblems;
+      let ifCurrentProblemDidntChange = true;
+      while (ifCurrentProblemDidntChange) {
+        randomProblems = [
+          ...problems.slice(0, currentProblemIndex),
+          ..._.shuffle(remainingProblems)
+        ];
+        ifCurrentProblemDidntChange = randomProblems[currentProblemIndex].id === problems[currentProblemIndex].id;
+      }
+
       return {
         ...state,
         speGetPage: {
@@ -99,7 +157,7 @@ const reducer = (state = initialState, action) => {
             problems: randomProblems
           }
         },
-        statusOfSolving: freshStatusOfSolving(randomProblems[0], 0)
+        statusOfSolving: freshStatusOfSolving(randomProblems[currentProblemIndex], currentProblemIndex)
       };
     }
 

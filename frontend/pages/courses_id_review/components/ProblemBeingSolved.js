@@ -12,6 +12,7 @@ class ProblemBeingSolved extends React.Component {
     randomizeProblems: PropTypes.func.isRequired,
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
+    ifReviewingFailedProblems: PropTypes.bool.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired
   }
 
@@ -40,7 +41,7 @@ class ProblemBeingSolved extends React.Component {
   render = () =>
     <div>
       {
-        this.props.ifReviewIsSimulated ?
+        this.props.ifReviewIsSimulated &&
           <section className="instructions -simulated">
             <h4 className="where-we-are -desktop">
               We are in a simulated review. Results will not be recorded.
@@ -51,20 +52,37 @@ class ProblemBeingSolved extends React.Component {
             <h4 className="amount-of-problems-left">
               {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
             </h4>
-          </section> :
-          <section className="instructions -real">
-            <h4 className="where-we-are -desktop">
-              Press ENTER fo reveal answers
-            </h4>
-
-            <button type="button" className="randomize" onClick={this.props.randomizeProblems}>
-              Randomize
-            </button>
           </section>
       }
 
       {
-        // this.props.statusOfSolving
+        !this.props.ifReviewIsSimulated &&
+        !this.props.ifReviewingFailedProblems &&
+        <section className="instructions -real">
+          <h4 className="where-we-are -desktop">
+            Press ENTER fo reveal answers
+          </h4>
+
+          {
+            // if it's not the last problem we're reviewing - randomize
+            this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
+            <button type="button" className="randomize" onClick={this.props.randomizeProblems}>
+              Randomize
+            </button>
+          }
+        </section>
+      }
+
+      {
+        this.props.ifReviewingFailedProblems &&
+          <section className="instructions -simulated">
+            <h4 className="where-we-are -desktop">
+              We are repeating failed flashcards. Results will not be recorded.
+            </h4>
+            <h4 className="where-we-are -mobile">
+              Repeating failed flashcards.
+            </h4>
+          </section>
       }
 
       <Problem

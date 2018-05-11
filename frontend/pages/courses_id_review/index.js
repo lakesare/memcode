@@ -30,6 +30,7 @@ import actions from './duck/actions';
       currentProblem: selectors.deriveCurrentProblem(pageState),
       speGetPage: pageState.speGetPage,
       speNextReviewIn: pageState.speNextReviewIn,
+      ifReviewingFailedProblems: pageState.ifReviewingFailedProblems,
 
       ...pageState.speGetPage.status === 'success' &&
         {
@@ -74,6 +75,7 @@ class Page_courses_id_review extends React.Component {
     statusOfSolving: PropTypes.object,
     enterPressed: PropTypes.func.isRequired,
     amountOfProblems: PropTypes.number,
+    ifReviewingFailedProblems: PropTypes.bool.isRequired,
 
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired,
@@ -109,6 +111,7 @@ class Page_courses_id_review extends React.Component {
                 key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
                 problem={this.props.currentProblem}
                 ifReviewIsSimulated={this.props.route.simulated}
+                ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
                 statusOfSolving={this.props.statusOfSolving}
                 amountOfProblems={this.props.amountOfProblems}
 

@@ -4,7 +4,8 @@ import amountOfAnswerInputsInProblem from './services/amountOfAnswerInputsInProb
 const deriveCurrentProblem = (state) => {
   const spe = state.speGetPage;
   if (spe.status === 'success') {
-    return spe.payload.problems[state.statusOfSolving.index];
+    const currentIndex = state.statusOfSolving.index;
+    return spe.payload.problems[currentIndex];
   } else {
     return null;
   }
