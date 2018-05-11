@@ -27,11 +27,13 @@ class WhatNext extends React.Component {
     ]).then(([popularCourses, ownCourses]) => {
       const filteredOwnCourses = ownCourses.filter(({ course }) => course.id !== this.props.courseId);
 
+      const amountOfCoursesToShow = 8;
+
       let finalCourses = filteredOwnCourses
-        .slice(0, 4)
+        .slice(0, amountOfCoursesToShow)
         .map((courseData) => ({ ...courseData, _type: 'learnReviewCourse' }));
 
-      if (finalCourses.length < 4) {
+      if (finalCourses.length < amountOfCoursesToShow) {
         const filteredPopularCourses = popularCourses
           .onePageOfCourses
           .filter(({ course }) =>
@@ -39,7 +41,7 @@ class WhatNext extends React.Component {
             // ignore those courses which are already in filteredOwnCourses
             !filteredOwnCourses.find((ownCourseData) => ownCourseData.course.id === course.id)
           );
-        const neededAmountOfCourses = 4 - finalCourses.length;
+        const neededAmountOfCourses = amountOfCoursesToShow - finalCourses.length;
         finalCourses = [
           ...finalCourses,
           ...filteredPopularCourses

@@ -15,7 +15,7 @@
     // pretty
     border: 2px solid #444242;
     background: white;
-    box-shadow: 0 2px 1px #777;
+    box-shadow: 0px 1px 2px 0px #f0a1fb;
     text-align: center;
 
     // div or a
@@ -43,7 +43,7 @@
       padding-bottom: 2px;
       padding-top: 2px;
 
-      background: $whale-tail-blue;
+      background: $purple;
       color: white;
       border-top: 1px solid #424141;
     }

@@ -1,8 +1,9 @@
 @import 'css/variables';
 :local(nav.nav){
-  background: #333333;
-  padding-top: 5px;
-  border-top: 2px solid rgba(0, 0, 0, 0.22);
+  background: $deep-green;
+  border-top: 3px solid rgba(55, 102, 167, 0.21);
+  border-bottom: 2px solid rgb(49, 29, 39);
+
   .container{
     display: flex;
     justify-content: space-between;
@@ -10,20 +11,22 @@
       display: flex;
       a{
         display: flex;
-        margin-right: 37px;
+        margin-right: 10px;
         font-family: $heading-font;
         color: white;
         text-transform: uppercase;
         font-size: 11px;
+        padding: 5px 20px;
         &:hover, &.active{
-          border-bottom: $green-nav-border;
+          background: rgb(236, 96, 172);
         }
       }
     }
 
     > section.settings.standard-tooltip{
-      line-height: 0;
-      padding-bottom: 5px;
+      display: flex;
+      align-items: center;
+
       > .toggler{
         color: rgba(255, 255, 255, 0.34);
         font-size: 14px;

@@ -83,7 +83,12 @@
         font-size: 14px;
         margin-top: 8px;
       }
-      h3.whats-next{ margin-top: 35px; margin-bottom: 30px; }
+      h3.whats-next{
+        width: 150px;
+        margin: 35px auto;
+        padding-bottom: 20px;
+        // border-bottom: 2px solid rgb(255, 192, 203);
+      }
     }
     > section.offered-courses{
       max-width: 821px;

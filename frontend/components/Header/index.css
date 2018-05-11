@@ -22,10 +22,13 @@
       padding: 9px 8px;
       text-transform: uppercase;
       font-size: 11px;
-      border-bottom: 2px solid rgba(0, 0, 0, 0);
       color: white;
+      height: 100%;
+      display: flex;
+      align-items: center;
       &.active, &:hover{
-        border-bottom: $green-nav-border;
+        background: rgb(236, 96, 172);
+        i{ color: white !important; }
       }
     }
 
