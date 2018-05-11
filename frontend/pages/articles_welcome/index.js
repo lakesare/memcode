@@ -30,7 +30,7 @@ class Page_articles_welcome extends React.Component {
     const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-      browserHistory.push('/profile/learning');
+      browserHistory.push('/courses/learning');
     }
   }
 

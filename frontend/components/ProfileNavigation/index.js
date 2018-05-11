@@ -28,11 +28,11 @@ class ProfileNavigation extends React.Component {
               activeClassName="active"
             >All</Link>
             <Link
-              to="/profile/learning"
+              to="/courses/learning"
               activeClassName="active"
             >Learning</Link>
             <Link
-              to="/profile/created"
+              to="/courses/created"
               activeClassName="active"
             >Created</Link>
           </section>

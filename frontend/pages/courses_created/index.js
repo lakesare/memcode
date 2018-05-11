@@ -10,7 +10,7 @@ import { Link } from 'react-router';
 
 import * as CourseApi from '~/api/Course';
 
-class Page_profile_created extends React.Component {
+class Page_courses_created extends React.Component {
   state = {
     speGetCourses: {}
   }
@@ -52,4 +52,4 @@ class Page_profile_created extends React.Component {
     </main>
 }
 
-export { Page_profile_created };
+export { Page_courses_created };

@@ -8,7 +8,7 @@ class CurrentUser extends React.Component {
   }
 
   renderAvatar = () =>
-    <Link className="avatar" to="/profile/learning" activeClassName="active">
+    <Link className="avatar" to="/courses/learning" activeClassName="active">
       <img src={this.props.currentUser.avatarUrl}/>
     </Link>
 

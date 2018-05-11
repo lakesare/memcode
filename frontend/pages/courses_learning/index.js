@@ -18,7 +18,7 @@ const getCategoryId = (props) => {
   return categoryId ? parseInt(categoryId) : false;
 };
 
-class Page_profile_learning extends React.Component {
+class Page_courses_learning extends React.Component {
   state = {
     speGetCourses: {},
     speGetCategories: {}
@@ -92,4 +92,4 @@ class Page_profile_learning extends React.Component {
     </main>
 }
 
-export { Page_profile_learning };
+export { Page_courses_learning };

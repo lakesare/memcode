@@ -34,7 +34,7 @@ class Header extends React.Component {
     <nav>
       <ArticlesDropdown/>
       <Link
-        to="/courses"
+        to={this.props.currentUser ? '/courses/learning' : '/courses'}
         activeClassName="active"
         className="link courses"
       >courses</Link>

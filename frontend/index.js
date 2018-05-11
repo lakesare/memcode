@@ -37,8 +37,8 @@ import { Page_courses_id } from './pages/courses_id';
 import { Page_courses_id_review } from './pages/courses_id_review';
 import { Page_courses_id_learn } from './pages/courses_id_learn';
 import { Page_courses_id_edit } from './pages/courses_id_edit';
-import { Page_profile_learning } from './pages/profile_learning';
-import { Page_profile_created } from './pages/profile_created';
+import { Page_courses_learning } from './pages/courses_learning';
+import { Page_courses_created } from './pages/courses_created';
 
 // static pages
 import { Page_test } from './pages/test';
@@ -62,7 +62,7 @@ const authenticate = {
 const rootRedirect = {
   onEnter: (nextState, transition, callback) => {
     if (store.getState().global.Authentication.currentUser) {
-      transition({ pathname: '/profile/learning' });
+      transition({ pathname: '/courses/learning' });
     }
     callback();
   }
@@ -82,8 +82,8 @@ ReactDOM.render(
       <div>
         <Router history={browserHistory} createElement={createElement}>
           <Route path="/courses"          component={Page_courses}/>
-          <Route path="/profile/learning" component={Page_profile_learning} {...authenticate}/>
-          <Route path="/profile/created"  component={Page_profile_created} {...authenticate}/>
+          <Route path="/courses/learning" component={Page_courses_learning} {...authenticate}/>
+          <Route path="/courses/created"  component={Page_courses_created} {...authenticate}/>
 
           <Route path="/courses/new"        component={Page_courses_new} {...authenticate}/>
           <Route path="/courses/:id"        component={Page_courses_id}/>
