@@ -1,5 +1,4 @@
 import { orFalse } from '~/services/orFalse';
-import { commonFetch } from '~/api/commonFetch';
 import * as createSpe from '~/services/spe';
 import * as CourseApi from '~/api/Course';
 

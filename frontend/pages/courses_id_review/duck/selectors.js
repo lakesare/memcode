@@ -1,4 +1,5 @@
-import { calculateScore, amountOfAnswerInputsInProblem } from './services';
+import calculateScore from './services/calculateScore';
+import amountOfAnswerInputsInProblem from './services/amountOfAnswerInputsInProblem';
 
 const deriveCurrentProblem = (state) => {
   const spe = state.speGetPage;
@@ -24,4 +25,4 @@ const deriveScore = (state) => {
   }
 };
 
-export { deriveCurrentProblem, deriveScore };
+export default { deriveCurrentProblem, deriveScore };

@@ -11,7 +11,7 @@ import { CourseActionsReducer } from '~/components/CourseActions/reducer';
 // per-page state
 // [named like: page component name + _Reducer]
 // logic of naming is that _courses_id_review_ in the middle originates from url, and should be left alone from our usual camelCase.
-import { Page_courses_id_review_Reducer } from '~/pages/courses_id_review/reducer';
+import Page_courses_id_review_Reducer from '~/pages/courses_id_review/duck/reducer';
 
 const RootReducer = combineReducers({
   // global state

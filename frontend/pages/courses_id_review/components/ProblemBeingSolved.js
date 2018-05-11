@@ -63,6 +63,10 @@ class ProblemBeingSolved extends React.Component {
           </section>
       }
 
+      {
+        // this.props.statusOfSolving
+      }
+
       <Problem
         mode="review"
         problemContent={this.props.problem.content}

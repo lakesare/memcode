@@ -5,7 +5,7 @@ import { CurrentUser } from './components/CurrentUser';
 import { SignInLinks } from './components/SignInLinks';
 import css from './index.css';
 
-import memcodeLogo from './memcodeLogo.png';
+import memcodeLogo from './memcodeLogo.svg';
 
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser

@@ -20,14 +20,14 @@ import css from './index.css';
 
 //   if there are no answers in problem:
 //     -> we accept problem and move to the next problem
-import { deriveCurrentProblem } from './selectors';
-import { Page_courses_id_review_Actions as pageActions } from './reducer';
+import selectors from './duck/selectors';
+import actions from './duck/actions';
 @connect(
   (state) => {
     const pageState = state.pages.Page_courses_id_review;
     return {
       currentUser: state.global.Authentication.currentUser || false,
-      currentProblem: deriveCurrentProblem(pageState),
+      currentProblem: selectors.deriveCurrentProblem(pageState),
       speGetPage: pageState.speGetPage,
       speNextReviewIn: pageState.speNextReviewIn,
 
@@ -40,12 +40,12 @@ import { Page_courses_id_review_Actions as pageActions } from './reducer';
   },
   (dispatch, ownProps) => ({
     getPage: (courseId) => dispatch(
-      pageActions.getPage(courseId, ownProps.route.simulated)
+      actions.getPage(courseId, ownProps.route.simulated)
     ),
     enterPressed: () => {
       ownProps.route.simulated ?
-        dispatch(pageActions.enterPressedInSimulatedReview()) :
-        dispatch(pageActions.enterPressed());
+        dispatch(actions.enterPressedInSimulatedReview()) :
+        dispatch(actions.enterPressed());
     },
     separateAnswerSelfScoreGiven: (selfScore) =>
       dispatch({
