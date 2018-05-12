@@ -22,6 +22,7 @@
       &.-withInlinedAnswers{
         > .first-column{
           .ql-toolbar{
+            .ql-formats:first-child{ margin-right: 2px; }
             padding-right: 0;
             button.ql-answer{
               font-size: 10px;

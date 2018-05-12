@@ -85,7 +85,7 @@ class Page_courses_id_review extends React.Component {
   componentDidMount() {
     this.props.getPage(this.props.params.id);
 
-    document.body.style.background = 'rgb(37, 37, 39)';
+    document.body.style.background = 'rgb(19, 2, 2)';
   }
 
   componentDidUpdate = (prevProps) => {
