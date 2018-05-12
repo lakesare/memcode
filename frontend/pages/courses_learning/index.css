@@ -10,7 +10,7 @@
   .courses-and-nav{
     display: flex;
     > nav.standard-list-of-course-categories{
-      width: 220px;
+      width: 227px;
       flex-grow: 0;
       flex-shrink: 0;
 
