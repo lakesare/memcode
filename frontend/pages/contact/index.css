@@ -5,6 +5,10 @@
     font-weight: bold;
   }
 
+  .standard-form{
+    margin-bottom: 20px;
+  }
+
   .just-sent{
     margin-top: 34px;
     h3{
