@@ -32,7 +32,7 @@
     padding: 6px 10px;
     border-bottom: 1px solid rgba(29, 241, 57, 0.17);
     color: white;
-    mark{ color: $whale-blue; }
+    mark{ color: $whale-pink; }
     &:last-child{ border-bottom: none; }
     &:hover{
       opacity: 1;

@@ -30,7 +30,7 @@ class HowToCreate extends React.Component {
           <div className="gif-and-text">
             <img src={`/${memcode_1}`}/>
             <div className="text">
-              <p className="description">This is an <b>insert answer inline flashcard</b>.</p>
+              <p className="description"><i className="fa fa-heart"/> This is an <b>insert answer inline flashcard</b>.</p>
               <ol>
                 <li>
                   <b>1st column: Type in a sentence</b> (e.g. 'The country has been in turmoil for the past 10 years.')<br/>
@@ -49,7 +49,7 @@ class HowToCreate extends React.Component {
           <div className="gif-and-text">
             <img src={`/${memcode_2}`}/>
             <div className="text">
-              <p className="description">This is a <b>classic flashcard</b>.</p>
+              <p className="description"><i className="fa fa-heart"/> This is a <b>classic flashcard</b>.</p>
               <ol>
                 <li><b>1st column: Type in your question</b> (eg: 'Why is Pluto no longer considered a planet?')</li>
                 <li><b>2nd column: Type in your answer</b> (eg: ' Because many celestial objects of comparable size were discovered near Pluto')</li>

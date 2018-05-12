@@ -18,7 +18,7 @@ nav.article-navigation{
       color: white;
       padding: 5px 0;
       &:hover{
-        color: $whale-blue;
+        color: $whale-pink;
       }
     }
   }

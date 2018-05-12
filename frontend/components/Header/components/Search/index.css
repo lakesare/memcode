@@ -33,7 +33,7 @@
     }
     i{
       font-size: 16px;
-      color: $whale-blue;
+      color: $whale-pink;
       position: relative;
       bottom: 1px;
       padding-left: 20px;
@@ -48,7 +48,7 @@
       font-size: 13px;
       > div.title{
         mark{ // mark matching searchString in title
-          color: $whale-blue;
+          color: $whale-pink;
         }
       }
       > div.status{

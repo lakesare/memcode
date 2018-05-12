@@ -1,4 +1,4 @@
-$whale-blue: rgb(236, 96, 172);
+$whale-pink: rgb(236, 96, 172);
 $whale-tail-blue: rgb(236, 96, 100);
 $whale-green: rgb(100, 215, 96);
 $whale-red: rgb(253, 95, 108);
@@ -18,7 +18,7 @@ $learn-button-color: rgb(28, 38, 60);
 $review-button-color: rgb(232, 92, 75);
 
 $black-gradient: -webkit-gradient(linear, 0% 100%, 0% 0%, from(rgb(51, 51, 51)), to(rgb(68, 68, 68)));
-$green-nav-border: 2px $whale-blue solid;
+$green-nav-border: 2px $whale-pink solid;
 
 // I should reconsider this font as a body font, because however pretty, it doesn't support boldness and nonlatin alphabet
 @import url('https://fonts.googleapis.com/css?family=Amethysta');

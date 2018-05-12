@@ -7,10 +7,10 @@
     padding: 2px 10px !important;
     button:hover, button.ql-active{
       .ql-stroke{
-        stroke: $whale-blue !important;
+        stroke: $whale-pink !important;
       }
       .ql-fill{
-        fill: $whale-blue !important;
+        fill: $whale-pink !important;
       }
     }
     .ql-formats{

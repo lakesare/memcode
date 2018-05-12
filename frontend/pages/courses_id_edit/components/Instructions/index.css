@@ -3,7 +3,7 @@
 :local(section.instructions){
   margin-bottom: 40px;
   > div.nav-item{
-    background: #303030;
+    background: $whale-pink;
     color: white;
     text-align: center;
     padding: 2px; padding-right: 20px;
@@ -60,13 +60,21 @@
         img{ max-width: 260px; }
         > .text{
           padding-left: 40px;
-          > p.description{
-            padding-left: 20px;
-            color: #303030;
+          > .description{
+            b{ color: $whale-pink; }
+            i{
+              color: $whale-tail-blue;
+              padding-right: 10px;
+              padding-left: 10px;
+            }
           }
           > ol{
-            color: #8a8585;
-            b{ color: #102494; }
+            list-style-type: decimal;
+            padding-left: 30px;
+            li{
+              padding-bottom: 5px;
+              b{ color: $whale-pink; }
+            }
           }
         }
       }
@@ -74,10 +82,13 @@
   }
 
   > .how-to-learn{
-    margin-top: 20px;
-    padding: 0 20px;
-    > ul{
-      li{ margin-top: 10px; }
+    border: 2px solid rgb(13, 14, 13);
+    border-top: none;
+    padding: 20px 20px;
+    > ol{
+      list-style-type: decimal;
+      padding-left: 30px;
+      li{ margin-bottom: 10px; }
       img{ vertical-align: middle; }
       li.add-to-learned img{ width: 170px; }
       li.learn img{ width: 90px; }

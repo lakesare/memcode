@@ -6,7 +6,7 @@
     justify-content: space-between;
     align-items: center;
 
-    border-bottom: 2px $whale-blue solid;
+    border-bottom: 2px $whale-pink solid;
     padding: 10px; padding-right: 0;
 
     margin-bottom: 10px;
@@ -31,7 +31,7 @@
         i.fa-plus{
           font-size: 14px;
           padding-right: 4px;
-          color: $whale-blue;
+          color: $whale-pink;
         }
         .request{
           padding: 0;
@@ -118,7 +118,7 @@
     border-top: 3px solid rgba(55, 102, 167, 0.21);
     border-bottom: 2px solid rgb(49, 29, 39);
     ul{
-      border-left: 2px solid $whale-blue;
+      border-left: 2px solid $whale-pink;
       padding-left: 10px;
       li{
         display: inline-block;

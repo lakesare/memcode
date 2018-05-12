@@ -27,13 +27,13 @@ body{
       text-transform: uppercase;
       letter-spacing: 2px;
       i{
-        color: $whale-blue;
+        color: $whale-pink;
       }
     }
     .faq{
       font-family: $heading-font;
       &:hover{
-        a{ color: $whale-blue; }
+        a{ color: $whale-pink; }
       }
       i{
         padding-right: 10px;

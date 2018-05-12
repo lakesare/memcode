@@ -34,7 +34,7 @@
 
     a.link.create{
       i{
-        color: $whale-blue;
+        color: $whale-pink;
         padding-right: 7px;
         font-size: 12px;
       }
@@ -44,7 +44,7 @@
         cursor: default;
         i{
           padding-left: 3px;
-          color: $whale-blue;
+          color: $whale-pink;
         }
       }
       > .modal{

@@ -28,7 +28,7 @@
   }
   &.-pink{
     color: white;
-    background: $whale-blue;
+    background: $whale-pink;
   }
 
   &.-fade-out-on-hover{

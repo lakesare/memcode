@@ -19,7 +19,7 @@
       cursor: pointer;
       td{
         vertical-align: top;
-        border: solid 1px $whale-blue;
+        border: solid 1px $whale-pink;
         padding: 3px 5px;
       }
       td:first-child{
