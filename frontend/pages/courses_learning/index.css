@@ -22,3 +22,9 @@
     }
   }
 }
+
+:local(main.main){
+  @media(max-width: 630px){
+    .standard-list-of-course-categories{ display: none; }
+  }
+}
