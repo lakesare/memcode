@@ -41,8 +41,8 @@ module.exports = {
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
-            'css-loader',
-            'sass-loader'
+            'css-loader?sourceMap',
+            'sass-loader?sourceMap=false'
           ]
         })
       },
@@ -56,6 +56,8 @@ module.exports = {
       }
     ],
   },
+
+  devtool: 'source-map',
 
   // allows to import from the deep nested folders:
   // instead of: import '../../../../../services',
