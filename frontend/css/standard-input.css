@@ -10,7 +10,7 @@
   }
   &.-EditorTextarea{
     width: 100%;
-    max-width: 400px;
+    max-width: 440px;
     .quill{
       .ql-container{
         border: solid 2px rgb(236, 96, 172) !important;

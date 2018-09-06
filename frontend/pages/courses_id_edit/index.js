@@ -112,6 +112,7 @@ class Page_courses_id_edit extends React.Component {
       )
     });
     this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.params.id, createdProblem.id);
+
     setTimeout(() => {
       this.setState({ joyrideHowToReviewProblemRun: true });
     }, 3000);
