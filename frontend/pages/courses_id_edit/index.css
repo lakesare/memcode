@@ -10,82 +10,81 @@
     color: #565353;
     a{ color: #e20f6d; }
   }
-  section.problems{
-    // to avoid editing problem at the bottom of the screen
-    margin-bottom: 40px;
-    section.problem{
-      padding: 4px;
-      background: rgba(245, 245, 245, 0.5);
-      box-shadow: 0px 2px 3px rgba(189, 189, 189, 0.39);
-      border-left: 2px solid $purple;
-      // background: rgb(1, 23, 4);
-      &.-withInlinedAnswers{
-        > .first-column{
-          .ql-toolbar{
-            .ql-formats:first-child{ margin-right: 2px; }
-            padding-right: 0;
-            button.ql-answer{
-              font-size: 10px;
-              width: 50px !important;
-              padding: 0;
+  section.problem{
+    padding: 4px;
+    background: rgba(245, 245, 245, 0.5);
+    box-shadow: 0px 2px 3px rgba(189, 189, 189, 0.39);
+    border-left: 2px solid $purple;
+    // background: rgb(1, 23, 4);
+    &.-withInlinedAnswers{
+      > .first-column{
+        .ql-toolbar{
+          .ql-formats:first-child{ margin-right: 2px; }
+          padding-right: 0;
+          button.ql-answer{
+            font-size: 10px;
+            width: 50px !important;
+            padding: 0;
 
-              text-align: center;
-              font-weight: bold;
+            text-align: center;
+            font-weight: bold;
 
-              border-radius: 2px;
-              line-height: 10px;
-              font-family: 'Sintony';
+            border-radius: 2px;
+            line-height: 10px;
+            font-family: 'Sintony';
 
-              border: 1px solid rgb(20, 214, 20);
-              background: rgba(40, 236, 77, 0.3);
-              color: rgba(90, 26, 10, 0.56);
-              &.ql-active, &:hover{
-                background: rgba(40, 236, 77, 0.56);
-                color: $body-color;
-              }
-              &::after{
-                content: "Mark As Answer";
-              }
+            border: 1px solid rgb(20, 214, 20);
+            background: rgba(40, 236, 77, 0.3);
+            color: rgba(90, 26, 10, 0.56);
+            &.ql-active, &:hover{
+              background: rgba(40, 236, 77, 0.56);
+              color: $body-color;
+            }
+            &::after{
+              content: "Mark As Answer";
             }
           }
         }
       }
-      .ql-toolbar{
-        border: none !important;
-        border-bottom: 1px solid rgb(216, 215, 215) !important;
-        box-shadow: 0px -3px 5px 4px rgba(247, 247, 247, 0.81);
+    }
+    .ql-toolbar{
+      border: none !important;
+      border-bottom: 1px solid rgb(216, 215, 215) !important;
+      box-shadow: 0px -3px 5px 4px rgba(247, 247, 247, 0.81);
+    }
+  }
+  .new-problem{
+    position: relative;
+    margin-top: 25px;
+    // to avoid editing problem at the bottom of the screen
+    margin-bottom: 40px;
+    > section.how-to-create{
+      margin-top: 10px;
+      color: #adadad;
+      text-align: right;
+      font-size: 12px;
+      button.button{
+        display: inline-block;
+        margin-left: 10px;
       }
     }
-
-    > .new-problem{
-      position: relative;
-      margin-top: 25px;
-      > section.how-to-create{
-        margin-top: 10px;
-        color: #adadad;
-        text-align: right;
-        font-size: 12px;
-        button.button{
-          display: inline-block;
-          margin-left: 10px;
+    > section.choose-type{
+      position: absolute;
+      right: -72px;
+      top: 0;
+      // for react-joyride
+      padding-bottom: 20px;
+      > .button{
+        font-size: 9px;
+        padding: 4px;
+        opacity: 0.5;
+        width: 57px;
+        &.-active{
+          opacity: 1;
+          cursor: default;
         }
-      }
-      > section.choose-type{
-        position: absolute;
-        right: -72px;
-        top: 0;
-        > .button{
-          font-size: 9px;
-          padding: 4px;
-          opacity: 0.5;
-          width: 57px;
-          &.-active{
-            opacity: 1;
-            cursor: default;
-          }
-          &:not(.-active):hover{
-            opacity: 0.9;
-          }
+        &:not(.-active):hover{
+          opacity: 0.9;
         }
       }
     }
@@ -100,15 +99,36 @@
   }
   @media(max-width: 627px){
     > .container{ padding: 0 3px; }
-    section.problems{
-      .problem{
-        > .first-column{ margin-right: 3px; }
-        > .second-column{ margin-left: 3px; }
-        .ql-editor{ padding: 4px 3px; }
+    .problem{
+      > .first-column{ margin-right: 3px; }
+      > .second-column{ margin-left: 3px; }
+      .ql-editor{ padding: 4px 3px; }
+    }
+    .new-problem{ display: none; }
+    .actions{ display: none; }
+    .ql-toolbar{ display: none; }
+  }
+}
+
+.__floater__body{
+  > div{
+    padding: 0 !important;
+    > div:nth-child(1){
+      font-size: 13px !important;
+      > button[title="Close"]{
+        visibility: hidden;
       }
-      .new-problem{ display: none; }
-      .actions{ display: none; }
-      .ql-toolbar{ display: none; }
+      > div{
+        color: rgb(140, 138, 138);
+      }
+    }
+    > div:nth-child(2){
+      display: none !important;
     }
   }
 }
+// to allow ESC on click, but to have no darkened bg
+.joyride-overlay{
+  opacity: 0;
+}
+

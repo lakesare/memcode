@@ -108,6 +108,7 @@
     "react-dom": "^15.2.1",
     "react-gateway": "^2.7.0",
     "react-helmet": "^5.0.3",
+    "react-joyride": "^2.0.0-14",
     "react-onclickoutside": "^6.4.0",
     "react-quill": "^1.1.0",
     "react-redux": "^4.4.5",
