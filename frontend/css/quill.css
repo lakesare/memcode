@@ -44,7 +44,7 @@
       strong{
         font-family: "Helvetica Neue";
       }
-      a{ color: #c37c1e; }
+      a{ color: $whale-pink; }
       blockquote{
         border-left: 4px solid rgb(165, 164, 165);
         color: rgb(119, 116, 119);

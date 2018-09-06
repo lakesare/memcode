@@ -123,7 +123,7 @@ class CourseActions extends React.Component {
 
           {
             this.props.ifCourseDescriptionIsDisplayed &&
-            <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats}/>
+            <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats} nextDueDateIn={courseDto.nextDueDateIn} amountOfProblemsToReview={courseDto.amountOfProblemsToReview} courseUserIsLearning={courseDto.courseUserIsLearning}/>
           }
         </div>
 
