@@ -67,13 +67,23 @@ class Page_courses_id_edit extends React.Component {
     joyrideHowToReviewProblemRun: false,
     joyrideHowToReviewProblemSteps: [
       {
+        target: 'section.problems section.checkbox .index-and-mark',
+        content: "Yay, flashcard got saved! Now you can delete it by clicking on its number.",
+        placement: 'bottom'
+      },
+      {
+        target: 'section.problems .problem .first-column',
+        content: "To edit it - just type something, and click somewhere else - it will save automatically!",
+        placement: 'bottom'
+      },
+      {
         target: 'section.title-and-buttons a.learn',
         content: "Learn the created flashcard!",
         placement: 'bottom'
       },
       {
         target: 'section.title-and-buttons a.review',
-        content: 'After you learn the flashcard - we will offer you to Review them from time to time!',
+        content: 'After you learn the flashcards - we will offer you to Review them from time to time!',
         placement: 'bottom'
       }
     ]
