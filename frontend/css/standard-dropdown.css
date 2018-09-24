@@ -19,11 +19,14 @@
 
 // can be separate
 .standard-dropdown{
+  background: rgb(42, 159, 216);
+
   position: absolute;
+  max-height: 200px;
+  overflow-y: scroll;
   width: 100%;
   z-index: 1000;
 
-  background: $purple;
   border: 4px solid rgb(1, 23, 4);
   box-sizing: border-box;
   opacity: 0.98;

@@ -1,24 +1,29 @@
 .standard-input{
-  display: inline-block; // for natural width
   &.-TextInput{
     input{
-      width: 100%;
-      max-width: 200px;
-      box-sizing: border-box;
-      border: solid 2px rgb(236, 96, 172);
+      background: white;
+      border: 1px solid rgb(195, 195, 195);
+      padding: 5px 10px;
+      color: rgb(107, 103, 103);
     }
   }
   &.-EditorTextarea{
-    width: 100%;
-    max-width: 440px;
+    max-width: 100%;
     .quill{
       .ql-container{
-        border: solid 2px rgb(236, 96, 172) !important;
+        border: 1px solid rgb(195, 195, 195) !important;
       }
       .ql-editor{
         min-height: 70px;
       }
     }
   }
-  &.-Select{}
+  &.-Select{
+    button.toggler{
+      background: white;
+      border: 1px solid rgb(195, 195, 195);
+      padding: 5px 10px;
+      color: rgb(107, 103, 103);
+    }
+  }
 }

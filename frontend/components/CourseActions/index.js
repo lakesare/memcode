@@ -1,11 +1,12 @@
 import { orFalse } from '~/services/orFalse';
 import { commonFetch } from '~/api/commonFetch';
+import { url } from '~/services/url';
 
 import { MetaTags } from './components/MetaTags';
 import { Link } from 'react-router';
 import { Loading } from '~/components/Loading';
 import Breadcrumbs from './components/Breadcrumbs';
-import { CourseTitleAndEditForm } from './components/CourseTitleAndEditForm';
+import CourseModal from './components/CourseModal';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
 import { CourseDescriptionAndStats } from './components/CourseDescriptionAndStats';
@@ -90,12 +91,28 @@ class CourseActions extends React.Component {
 
         <div className="container">
           <section className="title-and-buttons">
-            <CourseTitleAndEditForm
-              course={courseDto.course}
-              uiUpdateCourse={this.uiUpdateCourse}
-              currentUser={this.props.currentUser}
-              ifEditCourseModalTogglerIsDisplayed={this.props.ifEditCourseModalTogglerIsDisplayed}
-            />
+
+            <section className="course-title-and-edit-form">
+              <h3 className="title">
+                <Link to={url.courseEditOrShow(this.props.currentUser, courseDto.course)}>
+                  {courseDto.course.title}
+                </Link>
+              </h3>
+
+              {
+                this.props.ifEditCourseModalTogglerIsDisplayed &&
+                this.props.currentUser &&
+                <CourseModal
+                  toggler={
+                    <button className="edit-button" type="button">
+                      <i className="fa fa-hand-pointer-o"/> EDIT
+                    </button>
+                  }
+                  course={courseDto.course}
+                  uiUpdateCourse={this.uiUpdateCourse}
+                />
+              }
+            </section>
 
             {
               this.props.currentUser ?

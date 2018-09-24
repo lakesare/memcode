@@ -73,4 +73,5 @@ class TogglerAndModal extends React.Component {
     )
 }
 
+export default TogglerAndModal;
 export { TogglerAndModal };

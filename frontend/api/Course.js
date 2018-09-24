@@ -39,6 +39,12 @@ const destroy = (dispatch, courseId) =>
     'DELETE', `/api/courses/${courseId}`
   );
 
+export default {
+  selectSearch, selectPublic,
+  selectAllLearned, selectAllCreated,
+  create, update, destroy
+};
+
 export {
   selectSearch, selectPublic,
   selectAllLearned, selectAllCreated,

@@ -1,8 +1,9 @@
 process.noDeprecation = true;
 const path = require('path');
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WebpackNotifierPlugin = require('webpack-notifier');
 
 module.exports = {
   entry: {
@@ -25,12 +26,6 @@ module.exports = {
             options: {
               presets: ['es2015', 'react', 'stage-0'],
               plugins: ['transform-decorators-legacy']
-            }
-          },
-          {
-            loader: 'eslint-loader',
-            options: {
-              configFile: '../.eslintrc.js'
             }
           }
         ]
@@ -74,7 +69,8 @@ module.exports = {
       PropTypes: 'prop-types',
       'window.Quill': 'quill',
       connect: ['react-redux', 'connect']
-    })
+    }),
+    new WebpackNotifierPlugin({ alwaysNotify: true, excludeWarnings: true })
   ],
 
   output: {

@@ -25,7 +25,8 @@ class CourseCategoryFormLine extends React.Component {
       <CourseCategorySelect
         courseCategoryId={this.props.formState[this.props.name] || false}
         updateCourseCategoryId={this.updateFormState}
-      />
+      />,
+      '-Select'
     )
 }
 

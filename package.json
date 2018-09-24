@@ -56,7 +56,8 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "supertest": "^3.0.0",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "webpack-notifier": "^1.6.0"
   },
   "dependencies": {
     "acorn-dynamic-import": "^2.0.2",
