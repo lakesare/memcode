@@ -3,9 +3,11 @@ import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
-import { CourseForm, validate } from '~/appComponents/CourseForm';
+import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
+import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 
 import { browserHistory } from 'react-router';
+import CourseModel from '~/models/CourseModel';
 import * as CourseApi from '~/api/Course';
 
 import css from './index.css';
@@ -16,7 +18,7 @@ class Page_courses_new extends React.Component {
     formState: {
       title: '',
       description: '',
-      courseCategoryId: 1,
+      courseCategoryId: 1, // Other
       ifPublic: true
     },
     formValidation: {}
@@ -24,7 +26,7 @@ class Page_courses_new extends React.Component {
 
   apiCreateCourse = (event) => {
     event.preventDefault();
-    const formValidation = validate(this.state.formState);
+    const formValidation = CourseModel.validateForm(this.state.formState);
     if (formValidation === true) {
       CourseApi.create(
         spe => this.setState({ speSave: spe }),
@@ -36,26 +38,37 @@ class Page_courses_new extends React.Component {
     }
   }
 
+  inputProps = () => ({
+    formState: this.state.formState,
+    updateFormState: (formState) => this.setState({ formState }),
+    formValidation: this.state.formValidation
+  })
+
   render = () =>
     <main className={css.main}>
       <Header/>
 
       <div className="container">
-        <h2>Create a course</h2>
+        <h2 className="title">Create a course</h2>
+
+        <article className="description">
+          Create, study, share your own flashcards!<br/>
+          You'll be able to import flashcards from Excel after creation.
+        </article>
 
         <form className="standard-form -bordered" onSubmit={this.apiCreateCourse}>
-          <CourseForm
-            formState={this.state.formState}
-            updateFormState={(formState) => this.setState({ formState })}
-            formValidation={this.state.formValidation}
-          />
+          <div className="form-insides">
+            <TextInput      {...this.inputProps()} label="* Title:"          name="title"/>
+            <EditorTextarea {...this.inputProps()} label="Description:"      name="description"/>
+            <CourseCategoryFormLine {...this.inputProps()} label="Category:" name="courseCategoryId"/>
+            <Select         {...this.inputProps()} label="Public/Private:"   name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
+          </div>
 
-          <Loading spe={this.state.speSave}>
-            <button
-              className="button -pink standard-submit-button"
-              type="submit"
-            >Create</button>
-          </Loading>
+          <button
+            className="button -pink standard-submit-button"
+            type="submit"
+          >Create</button>
+          <Loading spe={this.state.speSave}/>
         </form>
       </div>
 

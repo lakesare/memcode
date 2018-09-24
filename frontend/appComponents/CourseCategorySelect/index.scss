@@ -1,0 +1,23 @@
+:local(.section){
+  .dropdown{
+    border: 2px solid rgb(33, 10, 56);
+    border-top: none;
+    position: absolute;
+    max-height: 200px;
+    overflow-y: scroll;
+    width: 100%;
+    z-index: 1000;
+    span.group-name{
+      padding: 1px 10px !important;
+      font-size: 12px !important;
+    }
+    li.category{
+      &:hover{
+        background: rgb(96, 214, 236) !important;
+      }
+      &.-active{
+        background: rgb(68, 198, 222) !important;
+      }
+    }
+  }
+}

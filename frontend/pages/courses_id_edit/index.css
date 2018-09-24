@@ -79,6 +79,7 @@
         padding: 4px;
         opacity: 0.5;
         width: 57px;
+        min-width: auto;
         &.-active{
           opacity: 1;
           cursor: default;
@@ -92,11 +93,6 @@
 }
 
 :local(main.main){
-  @media(min-width: 627px){
-    // to allow editing on ipads,
-    // prevents horizontal scroll
-    .container{ padding: 0 73px; }
-  }
   @media(max-width: 627px){
     > .container{ padding: 0 3px; }
     .problem{

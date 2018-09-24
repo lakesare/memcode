@@ -15,12 +15,14 @@ class SelectDropdown extends React.Component {
 
     ifClearIsPossible: PropTypes.bool,
     className: PropTypes.string,
+    dropdownClassName: PropTypes.string,
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
   }
 
   static defaultProps = {
     className: '',
+    dropdownClassName: 'standard-dropdown',
     placeholder: 'Please select',
     ifClearIsPossible: false,
     readOnly: false
@@ -76,7 +78,7 @@ class SelectDropdown extends React.Component {
       </button>
       {
         this.state.ifDropdownIsOpen &&
-        <ul className="standard-dropdown">
+        <ul className={this.props.dropdownClassName}>
           {Object.keys(apiToHumanMapOfPossibleValues).map((value) =>
             <li
               key={value}

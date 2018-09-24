@@ -1,10 +1,28 @@
 :local(main.main){
-  h2{
-    margin: 20px 0;
-    text-align: center;
-    font-weight: bold;
-  }
-  .standard-form{
-    margin-bottom: 20px;
+  > div.container{
+    > h2.title{
+      margin: 20px 0;
+      text-align: center;
+      font-weight: bold;
+    }
+    > article.description{
+      color: rgb(199, 196, 196);
+      font-size: 13px;
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    > form.standard-form{
+      margin-top: 30px;
+      margin-bottom: 40px;
+      > div.form-insides{
+          max-width: 640px;
+          margin: 0 auto;
+          > section.form-line{
+            > label{ width: 200px; flex-shrink: 0; flex-grow: 1; }
+            > div.input-and-validation-error{ width: 100%; flex-shrink: 1; flex-grow: 1; }
+          }
+      }
+    }
   }
 }

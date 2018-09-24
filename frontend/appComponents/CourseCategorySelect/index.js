@@ -6,6 +6,8 @@ import CourseCategoryGroupModel from '~/models/CourseCategoryGroupModel';
 import onClickOutside from 'react-onclickoutside';
 import Loading from '~/components/Loading';
 
+import css from './index.scss';
+
 @onClickOutside
 class CourseCategorySelect extends React.Component {
   static propTypes = {
@@ -37,7 +39,6 @@ class CourseCategorySelect extends React.Component {
 
   // ignored for some reason until we choose a new courseCategoryId
   handleClickOutside = () => {
-    console.log('hi');
     this.closeDropdown();
   }
 
@@ -81,7 +82,7 @@ class CourseCategorySelect extends React.Component {
 
   render = () =>
     <Loading enabledStatuses={['success', 'error']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
-      <section className="standard-dropdown-wrapper course-categories-select">
+      <section className={`standard-dropdown-wrapper ${css.section}`}>
         {this.renderToggler(courseCategories, this.props.courseCategoryId)}
         {
           this.state.ifDropdownIsOpen &&

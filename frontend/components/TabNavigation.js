@@ -22,7 +22,7 @@ class TabNavigation extends React.Component {
   }
 
   render = () =>
-    <nav className="tab-navigation">
+    <nav className="standard-tab-navigation">
       {
         this.props.tabs
           .filter(name => !this.props.disabledTabs.includes(name))

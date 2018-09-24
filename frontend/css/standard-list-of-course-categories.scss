@@ -29,8 +29,8 @@
           }
         }
       }
-      &:hover{ background: rgba(68, 66, 66, 0.5); }
-      &.-active{ background: rgba(68, 66, 66, 0.7); }
+      &:hover{ background: $whale-pink; }
+      &.-active{ background: $whale-pink; }
       > .category-insides{
         padding: 3px 10px;
         padding-left: 20px;

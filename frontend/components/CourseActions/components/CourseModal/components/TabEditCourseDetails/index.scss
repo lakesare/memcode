@@ -1,65 +1,11 @@
 @import 'css/variables';
 :local(.tab){
   form.standard-form{
-    max-width: 600px;
+    max-width: 680px;
     margin: 0 auto;
     > section.form-line{
       > label{ width: 200px; flex-shrink: 0; flex-grow: 1; }
       > div.input-and-validation-error{ width: 100%; flex-shrink: 1; flex-grow: 1; }
-    }
-  }
-  .standard-list-of-course-categories{
-    position: absolute;
-    max-height: 200px;
-    overflow-y: scroll;
-    width: 100%;
-    z-index: 1000;
-    span.group-name{
-      padding: 1px 10px !important;
-      font-size: 12px !important;
-    }
-  }
-}
-
-
-
-.white-heading_and_blue-content{
-  max-width: 1000px;
-  margin: 0 auto;
-  margin-top: 20px;
-  box-shadow: 0px 0 0 1000px rgba(10, 9, 10, 0.7);
-  .background.-white{
-    background: white;
-    padding: 20px;
-    padding-bottom: 0;
-    > h2.title{
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #303030;
-    }
-  }
-
-  .background.-blue{
-    background: rgb(249, 249, 249);
-    padding: 30px 20px;
-  }
-}
-
-
-nav.tab-navigation{
-  font-size: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  a{
-    margin-right: 50px;
-    padding-bottom: 7px;
-    color: #9e9c9c;
-    &.active, &.selected, &:hover{
-      border-bottom: 4px solid $purple;
-    }
-    &.active, &.selected{
-      color: #303030;
     }
   }
 }

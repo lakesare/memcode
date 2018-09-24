@@ -1,0 +1,16 @@
+nav.standard-tab-navigation{
+  font-size: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  > a{
+    margin-right: 50px;
+    padding-bottom: 7px;
+    color: #9e9c9c;
+    &.active, &.selected, &:hover{
+      border-bottom: 4px solid $purple;
+    }
+    &.active, &.selected{
+      color: #303030;
+    }
+  }
+}

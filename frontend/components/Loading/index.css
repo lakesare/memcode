@@ -1,8 +1,10 @@
 :local(.loading){
   &.request{
     text-align: center;
-    padding: 20px;
-    img{ width: 40px; }
+    img{
+      padding: 20px;
+      width: 80px;
+    }
   }
   &.error{
     padding: 20px;

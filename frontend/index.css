@@ -14,18 +14,8 @@
 @import 'css/standard-modal';
 @import 'css/standard-tooltip';
 @import 'css/standard-list-of-course-categories';
+@import 'css/standard-white-heading_and_blue-content';
+@import 'css/standard-tab-navigation';
 
 @import 'css/problem';
 @import 'css/list-of-courses';
-
-// for gifs
-// .rate-yourself{
-//   padding-top: 0px !important;
-// }
-// section.self-score > .stars > .star{
-//   padding-bottom: 10px !important;
-//   padding-top: 10px !important;
-// }
-// a.button.next{
-//   margin-top: 5px !important;
-// }

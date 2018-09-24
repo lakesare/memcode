@@ -74,8 +74,13 @@ class CourseActions extends React.Component {
     this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
   }
 
+  renderRequestIcon = () =>
+    <div className="container">
+      <div style={{ height: 130, background: 'rgba(239, 239, 239, 0.62)' }}/>
+    </div>
+
   render = () =>
-    <Loading spe={this.props.speGetCourse} requestIcon={null}>{(courseDto) =>
+    <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
       <section className={css.actions}>
         {
           this.props.ifBreadcrumbsAreDisplayed &&

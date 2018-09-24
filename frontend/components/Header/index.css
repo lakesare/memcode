@@ -122,7 +122,6 @@
   .container.-desktop{
     display: flex;
     justify-content: space-between;
-    align-items: center;
 
     > div.nav-and-current-user{
       display: flex;
@@ -132,6 +131,8 @@
       flex-basis: 280px;
       flex-shrink: 1;
       flex-grow: 0;
+      display: flex;
+      padding: 13px 0;
       > div.toggler{
         border: 2px solid rgba(236, 242, 255, 0.37);
         border-top: none;

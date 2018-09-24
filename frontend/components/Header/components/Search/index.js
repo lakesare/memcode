@@ -58,7 +58,7 @@ class Search extends React.Component {
 
       {
         this.state.ifDropdownIsOpen &&
-        <div className="standard-dropdown">
+        <div className="standard-purple-dropdown">
           <Loading spe={this.state.speSearch}>{(courseDatas) =>
             <ul>
               {courseDatas.map((courseData) =>

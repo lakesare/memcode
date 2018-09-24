@@ -4,13 +4,13 @@
   > div.toggler{
     // position
     display: flex;
-    align-items: center;
     width: 100%;
-    box-sizing: border-box;
     i{
       flex-shrink: 0;
       flex-grow: 0;
       flex-basis: 20px;
+      align-self: center;
+      padding-right: 7px;
     }
     input{
       flex-shrink: 1;
@@ -24,8 +24,7 @@
       background: transparent;
       color: white;
 
-      padding-left: 6px;
-      padding-bottom: 3px;
+      padding: 0;
       &::placeholder{
         color: white;
         font-size: 12px;
@@ -39,7 +38,7 @@
       padding-left: 20px;
     }
   }
-  > div.standard-dropdown{
+  > div.standard-purple-dropdown{
     li a{
       display: flex;
       justify-content: space-between;

@@ -1,10 +1,9 @@
 import CourseApi from '~/api/Course';
-
-import { validate } from '~/appComponents/CourseForm';
+import CourseModel from '~/models/CourseModel';
 
 import Loading from '~/components/Loading';
 import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
-import CourseCategoryFormLine from '~/appComponents/CourseForm/components/CourseCategoryFormLine';
+import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 
 import css from './index.scss';
 
@@ -22,7 +21,7 @@ class TabEditCourseDetails extends React.Component {
   }
 
   apiUpdateCourse = () => {
-    const formValidation = validate(this.state.formState);
+    const formValidation = CourseModel.validateForm(this.state.formState);
     if (formValidation === true) {
       CourseApi.update(
         (spe) => this.setState({ speSave: spe }),
@@ -42,7 +41,7 @@ class TabEditCourseDetails extends React.Component {
   })
 
   render = () =>
-    <section className={"white-heading_and_blue-content " + css.tab}>
+    <section className={"standard-white-heading_and_blue-content " + css.tab}>
       <div className="background -white">
         <h2 className="title">Edit Course</h2>
         <Loading spe={this.state.speSave}/>
@@ -56,14 +55,14 @@ class TabEditCourseDetails extends React.Component {
           <EditorTextarea {...this.inputProps()} label="Description:"       name="description"/>
           <CourseCategoryFormLine {...this.inputProps()} label="Category:"  name="courseCategoryId"/>
 
-          <Select         {...this.inputProps()} label="Public or private:" name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
+          <Select         {...this.inputProps()} label="Public/private:" name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
 
-          <Loading spe={this.state.speSave}/>
           <button
-            className="button -black standard-submit-button"
+            className="button -pink standard-submit-button"
             type="submit"
             onClick={this.apiUpdateCourse}
-          >Save</button>
+          >Update</button>
+          <Loading spe={this.state.speSave}/>
         </form>
       </div>
     </section>

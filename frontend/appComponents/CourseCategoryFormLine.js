@@ -1,9 +1,6 @@
 import { FormLineLayout } from '~/components/_standardForm';
-import CourseCategorySelect from './CourseCategorySelect';
+import CourseCategorySelect from '~/appComponents/CourseCategorySelect';
 
-// why is there value={this.props.formState[name] || ''} in all inputs?
-// to avoid this issue: https://github.com/twisty/formsy-react-components/issues/66
-// when the initial this.props.formState is {}
 class CourseCategoryFormLine extends React.Component {
   static propTypes = {
     label: PropTypes.string.isRequired,
