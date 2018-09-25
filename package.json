@@ -123,6 +123,7 @@
     "trim-right": "^1.0.1",
     "undefsafe": "^2.0.1",
     "url-search-params-polyfill": "^2.0.1",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "xlsx": "^0.14.0"
   }
 }

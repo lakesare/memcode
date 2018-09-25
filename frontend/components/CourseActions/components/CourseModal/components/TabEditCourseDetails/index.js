@@ -62,7 +62,6 @@ class TabEditCourseDetails extends React.Component {
             type="submit"
             onClick={this.apiUpdateCourse}
           >Update</button>
-          <Loading spe={this.state.speSave}/>
         </form>
       </div>
     </section>

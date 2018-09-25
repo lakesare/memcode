@@ -15,6 +15,24 @@ const insert = {
       )
   ),
 
+  createManyFromExcel: (courseId, problems) =>
+    db.tx((transaction) => {
+      const queries = problems.map((problem) =>
+        transaction.none(
+          "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, timezone('UTC', now()))",
+          {
+            type: 'separateAnswer',
+            content: {
+              content: problem.content,
+              answer: problem.answer
+            },
+            courseId
+          }
+        )
+      );
+      return transaction.batch(queries);
+    }),
+
   moveToCourseMany: (problemIds, courseId) => {
     const promises = problemIds.map((problemId) => {
       const problemPromise = db.one('SELECT * FROM problem WHERE id = ${problemId}', { problemId });

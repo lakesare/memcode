@@ -9,6 +9,13 @@ router.post('/', catchAsync(async (request, response) => {
   response.status(200).json(createdProblem);
 }));
 
+router.post('/createManyFromExcel', catchAsync(async (request, response) => {
+  const courseId = request.body['courseId'];
+  const problems = request.body['problems'];
+  const arrayOfNulls = await Problem.insert.createManyFromExcel(courseId, problems);
+  response.status(200).json({ amountOfCreatedProblems: arrayOfNulls.length });
+}));
+
 router.put('/:id', catchAsync(async (request, response) => {
   const updatedProblem = await Problem.update(request.body['problem'], request.params['id']);
   response.status(200).json(updatedProblem);

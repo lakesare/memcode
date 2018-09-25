@@ -2,6 +2,8 @@ import TogglerAndModal from '~/components/TogglerAndModal';
 import TabNavigation   from '~/components/TabNavigation';
 
 import TabEditCourseDetails from './components/TabEditCourseDetails';
+import TabImportExport from './components/TabImportExport';
+import TabManage from './components/TabManage';
 
 import css from './index.scss';
 
@@ -13,7 +15,6 @@ class CourseModal extends React.Component {
   }
 
   state = {
-    speSave: { status: 'success' },
     selectedTab: 'Course Details'
   }
 
@@ -37,8 +38,16 @@ class CourseModal extends React.Component {
           course={this.props.course}
           uiUpdateCourse={this.props.uiUpdateCourse}
         />,
-      'Import/Export': () => null,
-      'Manage': () => null
+      'Import/Export': () =>
+        <TabImportExport
+          {...props}
+          courseId={this.props.course.id}
+        />,
+      'Manage': () =>
+        <TabManage
+          {...props}
+          course={this.props.course}
+        />
     }[this.state.selectedTab]();
   }
 

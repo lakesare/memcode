@@ -74,10 +74,13 @@ class CourseActions extends React.Component {
     this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
   }
 
-  renderRequestIcon = () =>
-    <div className="container">
-      <div style={{ height: 130, background: 'rgba(239, 239, 239, 0.62)' }}/>
-    </div>
+  renderRequestIcon = () => (
+    this.props.ifCourseDescriptionIsDisplayed ?
+      <div className="container">
+        <div style={{ height: 130, background: 'rgba(239, 239, 239, 0.62)' }}/>
+      </div> :
+      null
+  )
 
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>

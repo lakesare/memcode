@@ -1,0 +1,25 @@
+:local(.tab){
+  section.delete-course{
+    > h2.title{
+      font-size: 22px;
+      font-family: Roboto;
+      font-weight: bold;
+      text-align: center;
+    }
+    > article.instructions{
+      margin-top: 26px;
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+
+      color: rgb(199, 196, 196);
+      font-family: 'Roboto';
+      font-size: 13px;
+      font-weight: lighter;
+    }
+    > button.delete-course-button{
+      margin: 0 auto;
+      margin-top: 30px;
+    }
+  }
+}

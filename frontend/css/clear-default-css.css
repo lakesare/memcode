@@ -30,6 +30,10 @@ table{
   border-collapse: collapse;
 }
 
+figure{
+  margin: 0;
+}
+
 // fun green border
 main{
   // border: 10px solid rgb(123, 255, 66);
