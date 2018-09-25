@@ -29,15 +29,6 @@ class Page_articles_comparison extends React.Component {
   render = () =>
     <main className={css.main}>
       <Header/>
-      <nav className="article-navigation" ref="nav">
-        <div className="container">
-          <a href="#quality-of-courses">Quality Of Courses</a>
-          <a href="#types-of-tasks">Types Of Tasks</a>
-          <a href="#ui">UI</a>
-          <a href="#learning-algorithm">Learning Algorithm</a>
-          <a href="#when-to-use-each">When To Use Each?</a>
-        </div>
-      </nav>
 
       <div className="space"/>
 

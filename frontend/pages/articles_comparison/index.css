@@ -141,8 +141,5 @@
     h2.section-heading{
       width: auto !important;
     }
-    nav.article-navigation{
-     display: none;
-    }
   }
 }
