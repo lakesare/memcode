@@ -1,0 +1,16 @@
+.standard-title-and-description{
+  > h2.title{
+    margin: 20px 0;
+    text-align: center;
+    font-weight: bold;
+  }
+  > article.description{
+    color: rgb(199, 196, 196);
+    font-family: 'Roboto';
+    font-weight: lighter;
+    font-size: 13px;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }  
+}

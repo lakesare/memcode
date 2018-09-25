@@ -49,12 +49,14 @@ class Page_courses_new extends React.Component {
       <Header/>
 
       <div className="container">
-        <h2 className="title">Create a course</h2>
+        <div className="standard-title-and-description">
+          <h2 className="title">Create Course</h2>
 
-        <article className="description">
-          Create, study, share your own flashcards!<br/>
-          You'll be able to import flashcards from Excel after creation.
-        </article>
+          <article className="description">
+            Create, study, share your own flashcards!<br/>
+            You'll be able to import flashcards from Excel after creation.
+          </article>
+        </div>
 
         <form className="standard-form -bordered" onSubmit={this.apiCreateCourse}>
           <div className="form-insides">

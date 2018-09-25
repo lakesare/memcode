@@ -36,15 +36,16 @@
       width: 100%;
       h3{
         color: $whale-pink;
-        width: 138px;
+        width: 190px;
         > span.rating{
           font-size: 15px;
-          width: 23px; height: 21px;
-          border-radius: 50%;
-          padding-top: 2px;
+          width: 25px; height: 25px;
+          border-radius: 3px;
           float: right;
 
           background: #303030;
+          background: rgb(93, 88, 88);
+          box-shadow: 0 0 4px 1px #cecece;
           color: white;
 
           // center a number

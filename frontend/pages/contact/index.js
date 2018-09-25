@@ -75,13 +75,22 @@ class Page_contact extends React.Component {
     <main className={css.main}>
       <Header/>
       <div className="container">
-        <div className="space"/>
+        <div className="standard-title-and-description">
+          <h2 className="title">Send Us a Message</h2>
 
-        <h2>Send us a message</h2>
+          <article className="description">
+            <p>
+              Missing some functionality? Having some question? Seeing some bug? Having some ideas that would make your presence on Memcode more comfortable?
+            </p>
+            <p>Write me, I'll try to answer within the day.</p>
+          </article>
+        </div>
 
         <form className="standard-form -bordered" onSubmit={this.apiSend}>
-          <TextInput      {...this.inputProps()} label="Email:"   name="email" type="email"/>
-          <EditorTextarea {...this.inputProps()} label="Message:" name="message"/>
+          <div className="form-insides">
+            <TextInput      {...this.inputProps()} label="Email:"   name="email" type="email"/>
+            <EditorTextarea {...this.inputProps()} label="Message:" name="message"/>
+          </div>
 
           <Loading spe={this.state.speSend}>
             <button type="submit" className="button -pink standard-submit-button">
@@ -91,8 +100,8 @@ class Page_contact extends React.Component {
 
           {
             this.state.ifJustSent &&
-            <div className="just-sent">
-              <h3>Message was successfully sent!<br/> We will answer shortly.</h3>
+            <div className="standard-success-message">
+              Message was successfully sent!<br/> We will answer shortly.
             </div>
           }
         </form>

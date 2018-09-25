@@ -16,6 +16,8 @@
 @import 'css/standard-list-of-course-categories';
 @import 'css/standard-white-heading_and_blue-content';
 @import 'css/standard-tab-navigation';
+@import 'css/standard-success-message';
+@import 'css/standard-title-and-description';
 
 @import 'css/problem';
 @import 'css/list-of-courses';

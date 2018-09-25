@@ -98,6 +98,7 @@
       .course{
         border: none;
         box-shadow: -1px 1px 7px #f7f5f5;
+        height: calc(200px - 4px);
       }
       .layout-div{ display: none; }
     }

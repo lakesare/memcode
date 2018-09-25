@@ -69,17 +69,6 @@
       margin: 0 auto;
       margin-top: 30px;
     }
-    // bootstrappy, maybe worth making global
-    > div.success-message{
-      color: rgb(60, 118, 61);
-      background-color: rgb(223, 240, 216);
-      border-color: rgb(214, 233, 198);
-      padding: 15px 40px;
-      margin-top: 20px;
-      text-align: center;
-      font-family: 'Roboto';
-      font-weight: lighter;
-    }
   }
 }
 

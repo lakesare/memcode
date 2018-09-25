@@ -117,7 +117,7 @@ class TabImportExport extends React.Component {
             {this.renderCreateFlashcardsButton()}
 
             <Loading spe={this.state.speImport}>{({ amountOfCreatedProblems }) =>
-              <div className="success-message">
+              <div className="standard-success-message">
                 Success! <b>{amountOfCreatedProblems} flashcards</b> have been <b>created</b>, please reload the page and rejoice!
               </div>
             }</Loading>
