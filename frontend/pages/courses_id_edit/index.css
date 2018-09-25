@@ -19,7 +19,8 @@
     &.-withInlinedAnswers{
       > .first-column{
         .ql-toolbar{
-          .ql-formats:first-child{ margin-right: 2px; }
+          .ql-formats{ margin-right: 9px !important; }
+          .ql-formats:first-child{ margin-right: 2px !important; }
           padding-right: 0;
           button.ql-answer{
             font-size: 10px;
@@ -78,8 +79,9 @@
         font-size: 9px;
         padding: 4px;
         opacity: 0.5;
-        width: 57px;
+        width: 65px;
         min-width: auto;
+        text-align: center;
         &.-active{
           opacity: 1;
           cursor: default;

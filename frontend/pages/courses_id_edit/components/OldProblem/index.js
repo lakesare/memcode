@@ -17,7 +17,7 @@ class OldProblem extends React.Component {
 
   state = { speSave: { status: 'success' } }
 
-  save = () =>
+  apiSave = () =>
     ProblemApi.update(
       (spe) => this.setState({ speSave: spe }),
       this.props.problem.id,
@@ -29,24 +29,36 @@ class OldProblem extends React.Component {
       ...this.props.problem, content: problemContent
     })
 
-  render = () =>
-    <div className={css['old-problem']}>
-      <Checkbox
-        id={this.props.problem.id}
-        index={this.props.index}
-        idsOfCheckedProblems={this.props.idsOfCheckedProblems}
-        updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
-        speSave={this.state.speSave}
-      />
+  ifOptimistic = () =>
+    !this.props.problem._optimistic_id
 
-      <Problem
-        mode="edit"
-        problemContent={this.props.problem.content}
-        updateProblemContent={this.updateProblemContent}
-        problemType={this.props.problem.type}
-        apiSave={this.save}
-      />
-    </div>
+  render = () => (
+    this.ifOptimistic() ?
+      <div className={css['old-problem']}>
+        <Checkbox
+          id={this.props.problem.id}
+          index={this.props.index}
+          idsOfCheckedProblems={this.props.idsOfCheckedProblems}
+          updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
+          speSave={this.state.speSave}
+        />
+
+        <Problem
+          mode="edit"
+          problemContent={this.props.problem.content}
+          updateProblemContent={this.updateProblemContent}
+          problemType={this.props.problem.type}
+          apiSave={this.apiSave}
+        />
+      </div> :
+      <div className={css['old-problem']}>
+        <Problem
+          mode="show"
+          problemContent={this.props.problem.content}
+          problemType={this.props.problem.type}
+        />
+      </div>
+  )
 }
 
 export { OldProblem };

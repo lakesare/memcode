@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import * as ProblemApi from '~/api/Problem';
 import * as speCreator from '~/services/spe';
 import { Problem } from '~/components/Problem';
@@ -17,7 +19,8 @@ const createEmptyEditorState = (type) => {
 class NewProblem extends React.Component {
   static propTypes = {
     courseId: PropTypes.string.isRequired,
-    addNewProblem: PropTypes.func.isRequired
+    uiAddOptimisticProblem: PropTypes.func.isRequired,
+    uiUpdateOptimisticProblemIntoOld: PropTypes.func.isRequired
   }
 
   state = {
@@ -67,17 +70,24 @@ class NewProblem extends React.Component {
 
   apiSave = () => {
     if (this.uiValidate()) {
-      const type = this.state.currentProblemType;
+      const optimisticId = _.uniqueId();
+      const problemHash = {
+        type:     this.state.currentProblemType,
+        content:  this.state.problemContent,
+        courseId: this.props.courseId
+      };
+      const optimisticProblem = {
+        ...problemHash,
+        _optimistic_id: optimisticId
+      };
+      this.props.uiAddOptimisticProblem(optimisticProblem);
+
       ProblemApi.create(
         (spe) => this.setState({ speCreateProblem: spe }),
-        {
-          content: this.state.problemContent,
-          type,
-          courseId: this.props.courseId
-        }
+        problemHash
       )
         .then((createdProblem) => {
-          this.props.addNewProblem(createdProblem);
+          this.props.uiUpdateOptimisticProblemIntoOld(optimisticId, createdProblem);
           this.setState({
             problemContent: createEmptyEditorState(this.state.currentProblemType)
           });
@@ -135,7 +145,7 @@ class NewProblem extends React.Component {
 
       <section className="how-to-create">
         <span>CTRL+S to save a new flashcard</span>
-        <button className="button -pink" onClick={this.apiSave}>SAVE</button>
+        <button className="button -pink -fade-out-on-hover" onClick={this.apiSave}>SAVE</button>
       </section>
 
       <Loading enabledStatuses={['failure']} spe={this.state.speCreateProblem}/>

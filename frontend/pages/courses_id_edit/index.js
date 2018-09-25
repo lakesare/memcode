@@ -104,13 +104,25 @@ class Page_courses_id_edit extends React.Component {
       'GET', `/api/pages/courses/${this.props.params.id}/edit`
     )
 
-  addNewProblem = (createdProblem) => {
+  uiAddOptimisticProblem = (optimisticProblem) => {
     this.setState({
       speGetPage:
       update(this.state.speGetPage, `payload.problems`,
-        (problems) => [...problems, createdProblem]
+        (problems) => [...problems, optimisticProblem]
       )
     });
+  }
+
+  uiUpdateOptimisticProblemIntoOld = (optimisticId, createdProblem) => {
+    const index = this.state.speGetPage.payload.problems.findIndex(
+      (problem) => problem._optimistic_id === optimisticId
+    );
+
+    this.setState({
+      speGetPage:
+      update(this.state.speGetPage, `payload.problems[${index}]`, () => createdProblem)
+    });
+
     this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.params.id, createdProblem.id);
 
     setTimeout(() => {
@@ -165,7 +177,7 @@ class Page_courses_id_edit extends React.Component {
       <section className="problems">
         {problems.map((problem, index) =>
           <OldProblem
-            key={problem.id}
+            key={problem._optimistic_id ? problem._optimistic_id : problem.id}
             problem={problem}
             index={index}
             updateOldProblem={this.updateOldProblem}
@@ -216,7 +228,11 @@ class Page_courses_id_edit extends React.Component {
         <div className="container">
           {this.renderActionsForCheckedProblems()}
           {this.renderProblems()}
-          <NewProblem courseId={this.props.params.id} addNewProblem={this.addNewProblem}/>
+          <NewProblem
+            courseId={this.props.params.id}
+            uiAddOptimisticProblem={this.uiAddOptimisticProblem}
+            uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
+          />
           <Instructions/>
         </div>
       </StickyContainer>
