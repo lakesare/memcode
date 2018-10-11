@@ -16,10 +16,9 @@ class TabImportExport extends React.Component {
       </div>
 
       <div className="background -blue">
-        <form className="standard-form">
-          <SectionImportFlashcards courseId={this.props.course.id}/>
-          <SectionExportFlashcards course={this.props.course}/>
-        </form>
+        <SectionImportFlashcards courseId={this.props.course.id}/>
+        <hr/>
+        <SectionExportFlashcards course={this.props.course}/>
       </div>
     </section>
 }
