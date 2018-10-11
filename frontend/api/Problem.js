@@ -1,4 +1,11 @@
 import { commonFetch } from './commonFetch';
+import hashToQueryString from './services/hashToQueryString';
+
+// params = { courseId }
+const index = (dispatch, params = {}) =>
+  commonFetch(dispatch,
+    'GET', `/api/problems/?${hashToQueryString(params)}`
+  );
 
 const create = (dispatch, values) =>
   commonFetch(dispatch,
@@ -34,5 +41,6 @@ const moveToCourseMany = (dispatch, problemIds, courseId) =>
 export { create, update, deleteMany, moveToCourseMany };
 
 export default {
+  index,
   createManyFromExcel
 };

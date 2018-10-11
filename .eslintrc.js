@@ -261,6 +261,7 @@ module.exports = {
     "window": true,
     "Headers": true,
     "FileReader": true,
+    "Blob": true,
     "location": true,
     "navigator": true,
     "URLSearchParams": true, // we have a polyfill

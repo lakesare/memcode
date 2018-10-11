@@ -4,6 +4,13 @@ const router = express.Router();
 import { catchAsync } from '~/services/catchAsync';
 import * as Problem from './model';
 
+router.get('/', catchAsync(async (request, response) => {
+  const courseId = request.query.courseId;
+  const problemsByCourseId = await Problem.select.allByCourseId(courseId);
+
+  response.status(200).json(problemsByCourseId);
+}));
+
 router.post('/', catchAsync(async (request, response) => {
   const createdProblem = await Problem.insert.create(request.body['problem']);
   response.status(200).json(createdProblem);

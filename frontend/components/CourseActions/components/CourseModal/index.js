@@ -41,7 +41,7 @@ class CourseModal extends React.Component {
       'Import/Export': () =>
         <TabImportExport
           {...props}
-          courseId={this.props.course.id}
+          course={this.props.course}
         />,
       'Manage': () =>
         <TabManage

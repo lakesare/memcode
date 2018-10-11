@@ -38,8 +38,8 @@ CREATE TABLE problem (
   id SERIAL PRIMARY KEY,
 
   type VARCHAR NOT NULL,
-  -- inlinedAnswers
-  -- separateAnswer
+  -- inlinedAnswers { content, explanation }
+  -- separateAnswer { content, answer }
   content JSON,
 
   created_at TIMESTAMP NOT NULL,
