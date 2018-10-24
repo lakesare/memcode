@@ -24,6 +24,24 @@ CREATE TABLE "user" (
   unique (oauth_provider, oauth_id)
 );
 
+CREATE TABLE course_category_group (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL
+);
+
+INSERT INTO course_category_group (name)
+VALUES ('Other');
+
+CREATE TABLE course_category (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  course_category_group_id INTEGER REFERENCES course_category_group (id) ON DELETE CASCADE NOT NULL
+);
+
+INSERT INTO course_category (name, course_category_group_id)
+VALUES ('Other', 1);
+
+
 CREATE TABLE course (
   id SERIAL PRIMARY KEY,
   title VARCHAR NOT NULL CHECK (char_length(title) >= 2),
@@ -31,8 +49,32 @@ CREATE TABLE course (
   if_public BOOLEAN DEFAULT true,
   created_at TIMESTAMP NOT NULL DEFAULT now(),
 
-  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
+  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
+  course_category_id INTEGER REFERENCES course_category (id) ON DELETE SET DEFAULT DEFAULT 1
 );
+
+-- Hard Sciences
+--   Mathematics
+--   Physics
+--   Astronomy
+--   Biology
+--   Programming Languages
+--   Computer Science
+
+-- Soft Sciences
+--   Politics
+--   Economics
+--   Psychology
+--   Law
+--   History
+--   Music
+--   Literature
+
+-- Languages
+--   English
+--   German
+--   Swedish
+
 
 CREATE TABLE problem (
   id SERIAL PRIMARY KEY,
@@ -72,3 +114,4 @@ CREATE TABLE problem_user_is_learning (
   unique (problem_id, course_user_is_learning_id),
   CHECK (consecutive_correct_answers >= 0)
 );
+
