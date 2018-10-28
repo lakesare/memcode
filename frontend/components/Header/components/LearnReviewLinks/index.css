@@ -1,6 +1,6 @@
 @import 'css/variables';
 :local(section.section){
-  max-width: 85px;
+  max-width: 90px;
   margin-right: 5px;
   border-right: 2px solid rgba(236, 242, 255, 0.37);
   // compensating for nav

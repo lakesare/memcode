@@ -1,4 +1,24 @@
 @import 'css/variables';
+
+.mixin-dont-break-out{
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+}
+
 .list-of-courses{
   display: flex;
   flex-wrap: wrap;
@@ -8,7 +28,8 @@
     // layout
     position: relative;
     height: 195px;
-    width: 156px;
+    width: 155px;
+    overflow: hidden;
 
     margin-right: 10px; margin-left: 10px;
     margin-bottom: 32px;
@@ -64,11 +85,11 @@
         }
       }
       > article.description{
+        @extend .mixin-dont-break-out;
+
         height: 86px;
         font-size: 12px;
         overflow: hidden;
-        // so that long links break
-        word-wrap: break-word;
 
         padding-top: 12px;
         padding-right: 10px;
@@ -168,7 +189,7 @@
   @media(max-width: 390px){
     > .course{
       width: 100%;
-      height: 88px !important;
+      height: 100px !important;
       padding-bottom: 19px;
       &.-simpleCourse{
         > section.main{
@@ -180,7 +201,7 @@
         }
       }
       &.-learnReviewCourse{
-        > section.main{ height: 52px !important; }
+        > section.main{ height: 60px !important; }
         article.description{ display: none; }
       }
     }

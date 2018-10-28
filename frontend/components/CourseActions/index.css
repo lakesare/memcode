@@ -108,6 +108,7 @@
         > div.stat{
           color: rgb(88, 96, 105);
           font-size: 13px;
+          span.word{}
           span.number{
             color: rgb(36, 41, 46);
             font-weight: bold;
@@ -187,6 +188,16 @@
         }
       }
     }
-    .course-stats{ display: none; }
+
+    ul.course-stats{
+      flex-wrap: wrap;
+      > li{
+        width: 50% !important;
+        justify-content: flex-start !important;
+        padding-left: 15px !important;
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+      }
+    }
   }
 }
