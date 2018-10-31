@@ -27,6 +27,21 @@ const succumb = () => {
   });
 };
 
+const retry = () => {
+  Array.from(document.getElementsByClassName('answer')).forEach((el) => {
+    // ___why el.value instead of el.setAttribute('value')?
+    //   we are modifying element's value propery rather than attribute
+    //   because in HTML (unlike in react)
+    //   value attribute is just the default value
+    //   https://stackoverflow.com/a/29929977/3192470
+    el.value = '';
+    el.setAttribute('data-answered', 'waiting');
+    el.readOnly = false;
+
+    adjustWidthToInput(el);
+  });
+};
+
 const adjustWidthToInput = (el) => {
   const nextLength = (el.value.length + 1) * 9;
   if (nextLength > 120) {
@@ -79,13 +94,18 @@ class InlinedAnswersReview extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const ifJustSuccumbed =
-      prevProps.statusOfSolving.status === 'solving' &&
-      this.props.statusOfSolving.status === 'seeingAnswer';
+    const prevStatus = prevProps.statusOfSolving.status;
+    const nextStatus = this.props.statusOfSolving.status;
 
-    if (ifJustSuccumbed) {
-      succumb();
-    }
+    const ifJustSuccumbed =
+      prevStatus === 'solving' &&
+      nextStatus === 'seeingAnswer';
+    if (ifJustSuccumbed) succumb();
+
+    const ifJustDecidedToRetry =
+      prevStatus === 'seeingAnswer' &&
+      nextStatus === 'solving';
+    if (ifJustDecidedToRetry) retry();
   }
 
   render = () => {

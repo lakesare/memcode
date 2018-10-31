@@ -27,14 +27,14 @@
   > .course{
     // layout
     position: relative;
-    height: 195px;
+    height: $course-in-list-height-desktop;
     width: 155px;
     overflow: hidden;
 
     margin-right: 10px; margin-left: 10px;
     margin-bottom: 32px;
     // pretty (even prettier without next line)
-    // border: 2px solid #444242;
+    border: 2px solid #444242;
     background: white;
     box-shadow: 0px 1px 2px 0px #f0a1fb;
     text-align: center;
@@ -70,7 +70,7 @@
     }
 
     > section.main{
-      height: 156px;
+      height: 151px;
       padding-top: 10px;
       position: relative;
       overflow: hidden;
@@ -135,6 +135,7 @@
               display: flex;
               align-items: center;
               justify-content: center;
+              padding-bottom: 10px;
               &:hover{
                 text-decoration: none;
                 opacity: 1;
@@ -189,19 +190,19 @@
   @media(max-width: 390px){
     > .course{
       width: 100%;
-      height: 100px !important;
+      height: $course-in-list-height-mobile;
       padding-bottom: 19px;
       &.-simpleCourse{
         > section.main{
-          padding-top: 4px !important;
-        } 
+          padding-top: 4px;
+        }
         article.description{
-          padding-top: 4px !important;
-          height: 32px !important;
+          padding-top: 4px;
+          height: 32px;
         }
       }
       &.-learnReviewCourse{
-        > section.main{ height: 60px !important; }
+        > section.main{ height: 60px; }
         article.description{ display: none; }
       }
     }

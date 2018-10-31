@@ -6,7 +6,10 @@ $whale-yellow: rgb(245, 205, 66);
 $purple: rgb(33, 10, 56);
 $deep-green: rgb(1, 23, 4);
 
-//
+
+
+$course-in-list-height-desktop: 195px;
+$course-in-list-height-mobile: 104px;
 
 // courses: rgb(64, 35, 93);
 

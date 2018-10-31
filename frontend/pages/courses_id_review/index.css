@@ -98,7 +98,7 @@
       .course{
         border: none;
         box-shadow: -1px 1px 7px #f7f5f5;
-        height: calc(200px - 4px);
+        height: $course-in-list-height-desktop - 4px;
       }
       .layout-div{ display: none; }
     }
@@ -211,6 +211,14 @@
     }
     a.button.next{
       margin-top: 20px;
+    }
+
+    article.what-next{
+      > section.offered-courses{
+        .course{
+          height: $course-in-list-height-mobile - 4px;
+        }
+      }
     }
   }
 }

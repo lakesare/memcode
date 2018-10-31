@@ -23,7 +23,7 @@ class SeparateAnswerReview extends React.Component {
       <Editor
         placeholder="You can draft your answer here"
         editorState={this.state.draft}
-        updateEditorState={draft => this.setState({ draft })}
+        updateEditorState={(draft) => this.setState({ draft })}
         onFocusChange={(value) => this.setState({ ifDraftIsFocused: value })}
       />
     </div>

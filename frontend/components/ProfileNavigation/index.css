@@ -43,9 +43,7 @@
   @media(max-width: 410px){
     > .container{
       > section.links > a{
-        margin-right: 11px;
-        padding-right: 2px;
-        padding-left: 2px;
+        padding: 5px 13px;
       }
     }
   }
