@@ -116,7 +116,7 @@ class Checkbox extends React.Component {
   render = () => (
     this.props.speSave.status === 'request' ?
       <section className="loading-checkbox">
-        <img src={`/${requestIcon}`}/>
+        <img src={requestIcon}/>
       </section> :
       <section
         className="checkbox"

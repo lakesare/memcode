@@ -23,7 +23,7 @@ class Header extends React.Component {
   renderLogo = () =>
     <section className="logo">
       <Link to="/">
-        <img src={`/${memcodeLogo}`}/>
+        <img src={memcodeLogo}/>
       </Link>
       {/* <div className="memorizing-is-hard-caption">
         Retain the understanding.

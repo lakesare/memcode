@@ -15,8 +15,10 @@ routes.use(bodyParser.urlencoded({
   parameterLimit: 50000
 }));
 
-import { staticAssets } from './middlewares/static';
-routes.use(staticAssets);
+import path from 'path';
+routes.use(express.static(path.join(__dirname, '../../frontend/staticFiles/underRoot')));
+routes.use('/static-files', express.static(path.join(__dirname, '../../frontend/staticFiles/underUrlPrefix')));
+routes.use('/webpacked-files', express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
 
 // routes
 import { router as coursesRouter } from './components/courses/routes';

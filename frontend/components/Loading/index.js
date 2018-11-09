@@ -39,7 +39,7 @@ const Loading = (props) => {
 
 Loading.defaultProps = {
   children: null,
-  requestIcon: <img src={`/${requestIcon}`}/>,
+  requestIcon: <img src={requestIcon}/>,
   className: '',
   enabledStatuses: ['request', 'success', 'failure']
 };

@@ -22,12 +22,14 @@ const html = `
     <title>Memcode</title>
 
     <!-- css -->
-    <link href="/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css">
+    <link href="/webpacked-files/index.css" rel="stylesheet">
+
+    <!-- quill theme support -->
+    <link rel="stylesheet" href="/static-files/quill.snow.css">
 
     <!-- katex support -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static-files/katex.min.css"/>
+    <script src="/static-files/katex.min.js"></script>
 
     <!-- to verify google webmasters -->
     <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>
@@ -59,7 +61,7 @@ const html = `
     </script>
 
     <!-- main js file -->
-    <script type="text/javascript" src="/index.js" defer></script>
+    <script type="text/javascript" src="/webpacked-files/index.js" defer></script>
 
     ${googleAnalyticsScriptTag}
   </html>

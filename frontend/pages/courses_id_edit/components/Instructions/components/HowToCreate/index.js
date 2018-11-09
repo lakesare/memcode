@@ -28,7 +28,7 @@ class HowToCreate extends React.Component {
         {
           this.state.currentType === 'FILL-IN ANSWER' &&
           <div className="gif-and-text">
-            <img src={`/${memcode_1}`}/>
+            <img src={memcode_1}/>
             <div className="text">
               <p className="description"><i className="fa fa-heart"/> This is an <b>insert answer inline flashcard</b>.</p>
               <ol>
@@ -47,7 +47,7 @@ class HowToCreate extends React.Component {
         {
           this.state.currentType === 'QUESTION ANSWER' &&
           <div className="gif-and-text">
-            <img src={`/${memcode_2}`}/>
+            <img src={memcode_2}/>
             <div className="text">
               <p className="description"><i className="fa fa-heart"/> This is a <b>classic flashcard</b>.</p>
               <ol>

@@ -92,7 +92,7 @@ class SectionImportFlashcards extends React.Component {
       <div className="second-column">
         <figure>
           <figcaption><b>Example of a valid excel file</b></figcaption>
-          <img src={`/${exampleOfGoodExcelForImport}`}/>
+          <img src={exampleOfGoodExcelForImport}/>
         </figure>
       </div>
     </article>

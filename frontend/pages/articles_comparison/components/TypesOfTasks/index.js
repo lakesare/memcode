@@ -25,11 +25,11 @@ const TypesOfTasks = () =>
           <ul>
             <li>
               Multiple choice questions
-              <img src={`/${memrise_1}`}/>
+              <img src={memrise_1}/>
             </li>
             <li>
               Typed-in answer that gets autochecked
-              <img src={`/${memrise_2}`}/>
+              <img src={memrise_2}/>
             </li>
           </ul>
         </div>
@@ -43,15 +43,15 @@ const TypesOfTasks = () =>
           <ul>
             <li>
               Typed-in answer that gets autochecked
-              <img src={`/${quizlet_1}`}/>
+              <img src={quizlet_1}/>
             </li>
             <li>
               Classic flashcard
-              <img src={`/${quizlet_2}`}/>
+              <img src={quizlet_2}/>
             </li>
             <li>
               Connect word and defintion:
-              <img src={`/${quizlet_3}`}/>
+              <img src={quizlet_3}/>
             </li>
             <li>
               Type what you hear. <mark>Quizlet</mark> automatically voices (with good quality!) your questions and answers, speaks an answer to you, and checks how you typed it.
@@ -72,7 +72,7 @@ const TypesOfTasks = () =>
         <div className="description">
           <mark>Brainscape</mark> only features classical self-rated turn-over flashcards.
           <ul>
-            <li><img src={`/${brainscape_1}`}/></li>
+            <li><img src={brainscape_1}/></li>
           </ul>
         </div>
       </section>
@@ -86,11 +86,11 @@ const TypesOfTasks = () =>
             <li>
               Classical flashcard, but implemented without the turn-over. It lets you reflect on what you just answered.
               Self-rated.
-              <img src={`/${memcode_1}`}/>
+              <img src={memcode_1}/>
             </li>
             <li>
               'Insert answer inline' task. Multiple answers in one task is possible. It's automatically checked as you type.
-              <img src={`/${memcode_2}`}/>
+              <img src={memcode_2}/>
             </li>
           </ul>
         </div>

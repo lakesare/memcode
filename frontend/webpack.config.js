@@ -47,7 +47,7 @@ module.exports = {
       },
       { // for images
         test: /\.(jpg|png|svg|gif)$/,
-        use: ['file-loader']
+        use: ['file-loader?name=[name].[ext]?[hash]&publicPath=/webpacked-files/']
       }
     ],
   },
@@ -75,6 +75,6 @@ module.exports = {
 
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, '/webpacked')
+    path: path.join(__dirname, '/webpackedFiles')
   }
 };
