@@ -1,6 +1,7 @@
 import { orFalse } from '~/services/orFalse';
 import * as createSpe from '~/services/spe';
 import * as CourseApi from '~/api/Course';
+import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
 import { Loading } from '~/components/Loading';
 import { Course as LearnReviewCourse } from '~/components/ListOfCourses/components/Course';
@@ -68,12 +69,6 @@ class WhatNext extends React.Component {
       }
     )
 
-  humanizeNextDueDateIn = (nextDueDateIn) => {
-    const biggestMeasure = Object.keys(nextDueDateIn)[0];
-    const amount = nextDueDateIn[biggestMeasure];
-    return `${amount} ${biggestMeasure}`;
-  }
-
   render = () =>
     <article className="what-next">
       <div className="space"/>
@@ -86,7 +81,7 @@ class WhatNext extends React.Component {
           <div className="next-review-time">
             Next review:
             <Loading enabledStatuses={['success']} spe={this.props.speNextReviewIn}>{({ nextDueDateIn }) =>
-              <span> in {this.humanizeNextDueDateIn(nextDueDateIn)}</span>
+              <span> in {humanizePostgresInterval(nextDueDateIn)}</span>
             }</Loading>
           </div>
         }

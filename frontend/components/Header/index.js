@@ -1,11 +1,11 @@
 import { Link } from 'react-router';
 import { ArticlesDropdown } from './components/ArticlesDropdown';
 import { Search } from './components/Search';
-import { CurrentUser } from './components/CurrentUser';
 import { SignInLinks } from './components/SignInLinks';
-import css from './index.css';
+import CurrentUser from './components/CurrentUser';
+import Logo from './components/Logo';
 
-import memcodeLogo from './memcodeLogo.svg';
+import css from './index.css';
 
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser
@@ -19,16 +19,6 @@ class Header extends React.Component {
   static defaultProps = {
     currentUser: null
   }
-
-  renderLogo = () =>
-    <section className="logo">
-      <Link to="/">
-        <img src={memcodeLogo}/>
-      </Link>
-      {/* <div className="memorizing-is-hard-caption">
-        Retain the understanding.
-      </div> */}
-    </section>
 
   renderNavigation = () =>
     <nav>
@@ -59,7 +49,7 @@ class Header extends React.Component {
   render = () =>
     <header className={css.header}>
       <div className="container -desktop">
-        {this.renderLogo()}
+        <Logo/>
         <Search currentUser={this.props.currentUser}/>
 
         <div className="nav-and-current-user">
@@ -70,7 +60,7 @@ class Header extends React.Component {
 
       <div className="container -mobile">
         <div className="logo-and-user">
-          {this.renderLogo()}
+          <Logo/>
           {this.renderUser()}
         </div>
 

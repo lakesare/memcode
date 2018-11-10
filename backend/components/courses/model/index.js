@@ -10,4 +10,5 @@ import { insert } from './insert';
 import { update } from './update';
 import { ddelete } from './ddelete';
 
+export default { select, insert, update, ddelete };
 export { select, insert, update, ddelete };

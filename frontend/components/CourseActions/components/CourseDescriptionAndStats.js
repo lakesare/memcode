@@ -1,4 +1,5 @@
-import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
+import humanizePostgresInterval from '~/services/humanizePostgresInterval';
+
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 class CourseDescriptionAndStats extends React.Component {
@@ -43,7 +44,7 @@ class CourseDescriptionAndStats extends React.Component {
             <div>
               Review in
               <span className="number">
-                {' ' + ProblemUserIsLearningModel.getHumanNextDueDateIn(this.props.nextDueDateIn)}
+                {' ' + humanizePostgresInterval(this.props.nextDueDateIn)}
               </span>
             </div>)
           )

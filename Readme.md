@@ -43,3 +43,9 @@ ___
 ### Start test-runners
 1. Run `npm install`.
 2. `make test-backend` for backend, and `make test-frontend`. Both will be automatically compiling code in the runtime, so you don't need to bother with code compilers. Both run code in `**/*/... .test.js` file inside of, respectively, backend and frontend folders.
+
+___
+
+## Possible refactoring
+
+- change next_due_date_in to next_due_date_diff_from_now (all PostgresInterval kind of objects should be suffixed _diff_from_now)

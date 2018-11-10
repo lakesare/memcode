@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
-import { LearnReviewLinks } from './LearnReviewLinks';
+import LearnReviewLinks from './components/LearnReviewLinks';
+import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 
 class CurrentUser extends React.Component {
   static propTypes = {
@@ -15,8 +16,9 @@ class CurrentUser extends React.Component {
   render = () =>
     <section className="current-user">
       <LearnReviewLinks currentUser={this.props.currentUser} dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
+      <NotificationsTogglerAndDropdown currentUser={this.props.currentUser}/>
       {this.renderAvatar()}
     </section>
 }
 
-export { CurrentUser };
+export default CurrentUser;

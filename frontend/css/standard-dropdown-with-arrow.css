@@ -1,0 +1,32 @@
+// temporary, don't know if I should reuse it or use something else
+.standard-dropdown-with-arrow{
+  position: absolute;
+  background: rgb(255, 255, 255);
+  z-index: 800;
+  border: 1px solid rgb(197, 208, 219);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+  filter: alpha(opacity=0);
+  transition: opacity 100ms linear, top 100ms linear, visibility 100ms linear;
+
+  &:after, &:before{
+    position: absolute;
+    pointer-events: none;
+    border: solid rgba(0, 0, 0, 0);
+    content: '';
+    height: 0; width: 0;
+    bottom: 100%;
+    right: 23px;
+  }
+  &:before{
+    border-width: 6px;
+    margin: 0 -6px;
+    border-bottom-color: rgb(250, 251, 252);
+  }
+  &:after{
+    border-width: 5px;
+    margin: 0 -5px;
+    border-bottom-color: rgb(250, 251, 252);
+  }
+}

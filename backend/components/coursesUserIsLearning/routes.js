@@ -6,18 +6,47 @@ import { authenticateMiddleware } from '~/middlewares/authenticate';
 
 import * as CourseUserIsLearning from './model';
 import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';
+import Notification from '~/components/notifications/model';
+import Course from '~/components/courses/model';
 
 router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
+  const courseId = request.body['courseId'];
+  const learner = request.currentUser;
+
   const courseUserIsLearning = await CourseUserIsLearning.insert.create({
     courseId: request.body['courseId'],
-    userId: request.currentUser.id,
+    userId: learner.id,
     active: true
   });
+
+  const course = await Course.select.oneById(courseId);
+  const authorId = course.userId;
+
+  // console.log({ learnerId: learner.id, authorId });
+  if (learner.id !== authorId) {
+    // send author a notification that someone started learning their course!
+    Notification.insert.create({
+      type: 'someone_started_learning_your_course',
+      content: {
+        learnerId: learner.id,
+        courseId: course.id,
+        learnerUsername: learner.username,
+        courseTitle: course.title
+      },
+      userId: authorId
+    });
+  }
+
   response.status(200).json(courseUserIsLearning);
 }));
 
 router.put('/:id/resumeLearning', catchAsync(async (request, response) => {
   const courseUserIsLearning = await CourseUserIsLearning.update.ifActive(request.params['id'], true);
+  // Notification.insert.create({
+  //   type: 'someone_started_learning_your_course',
+  //   content: `lakesare joined <a href="/courses/15/edit">Java Essentials</a>`,
+  //   userId: 1
+  // });
   response.status(200).json(courseUserIsLearning);
 }));
 

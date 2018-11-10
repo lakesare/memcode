@@ -1,0 +1,132 @@
+@import 'css/variables';
+
+:local(.section){
+  position: relative;
+  &.-there-are-unread-notifications{
+    > div.toggler{ color: $whale-pink; }
+  }
+  &.-there-are-no-unread-notifications{
+    > div.toggler{ color: white; }
+  }
+  > div.toggler{
+    cursor: pointer;
+    padding: 8px 20px;
+    padding-left: 15px;
+
+    position: relative;
+    > div.amount-of-notifications{
+      position: absolute;
+      top: 0px; right: 10px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.82);
+      background: rgba(47, 5, 5, 0.58);
+      padding: 3px;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+  }
+  > div.dropdown{
+    top: calc(100% + 8px);
+    right: 4px;
+    width: 405px;
+
+    > div.header{
+      display: flex;
+      justify-content: flex-end;
+      > button.read-all-button{
+        text-transform: uppercase;
+        padding: 5px 15px;
+        font-family: "Helvetica Neue";
+        font-weight: 500;
+        letter-spacing: 1px;
+        color: rgb(82, 82, 82);
+        font-size: 9px;
+        cursor: pointer;
+        &:hover{
+          color: rgb(16, 16, 16);
+        }
+      }
+    }
+    > ul.notifications{
+      > li.notification{
+        display: flex;
+
+
+        padding: 5px 10px;
+
+
+        border-top: 1px solid rgb(234, 229, 229);
+        cursor: default;
+        a{
+          color: rgb(236, 96, 172);
+        }
+
+        // styles for particular types
+        &.-type-someone_started_learning_your_course{
+          > div.title_and_content_and_created-at{
+            > div.content{
+              span.learner-username{
+                color: orange;
+              }
+            }
+          }
+        }
+
+        &.-already-read{
+          opacity: 0.4;
+          > button.mark-as-read-on-unread-button{
+            cursor: pointer;
+            > div.circle{
+              background: rgb(222, 222, 222);
+            }
+          }
+        }
+        &.-not-yet-read{
+          opacity: 1;
+          > button.mark-as-read-on-unread-button{
+            cursor: pointer;
+            > div.circle{
+              background: $whale-pink;
+            }
+          }
+        }
+
+        > div.icon{
+          flex-grow: 0; flex-shrink: 0;
+          width: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        > div.title_and_content_and_created-at{
+          flex-grow: 1; flex-shrink: 1;
+          > div.title{
+            font-size: 12px;
+          }
+          > div.content{
+            font-size: 12px;
+          }
+          > div.created-at{
+            font-size: 11px;
+            color: grey;
+          }
+        }
+        > button.mark-as-read-on-unread-button{
+          flex-grow: 0; flex-shrink: 0;
+          padding-left: 20px;
+          padding-right: 10px;
+          > div.circle{
+            $radius: 5px;
+            width: $radius; height: $radius;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
+  }
+}

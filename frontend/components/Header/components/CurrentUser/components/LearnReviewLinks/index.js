@@ -106,5 +106,4 @@ class LearnReviewLinks extends React.Component {
   )
 }
 
-export { LearnReviewLinks };
-
+export default LearnReviewLinks;
