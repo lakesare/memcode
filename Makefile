@@ -58,9 +58,6 @@ heroku-backend-webpack:
 heroku-frontend-webpack:
 	cd frontend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
 
-heroku-db-reset:
-	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/schema.sql
-
 # manually input migration you want to run (eg 1.sql)
 heroku-db-migrate:
 	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/migrations/5.sql
@@ -70,9 +67,9 @@ heroku-db-console:
 # when they ask for password - they ask for the local one (yes, 4 times)
 heroku-db-pull:
 	make db-drop
-	PGUSER=postgres heroku pg:pull DATABASE_URL memcode
+	PGUSER=postgres PGPASSWORD=§1§1§1 heroku pg:pull DATABASE_URL memcode --app memcode
 
 # when they ask for password - they ask for the local one (yes, 4 times)
-heroku-pg-push:
-	PGUSER=postgres heroku pg:reset DATABASE_URL
-	PGUSER=postgres heroku pg:push memcode DATABASE_URL --app memcode
+# heroku-pg-push:
+# 	PGUSER=postgres heroku pg:reset DATABASE_URL
+# 	PGUSER=postgres heroku pg:push memcode DATABASE_URL --app memcode

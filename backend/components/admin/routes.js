@@ -28,6 +28,7 @@ const createComeoneStartedYourCourseNotificationPromise = async (cuil) => {
         learnerId: learner.id,
         courseId: course.id,
         learnerUsername: learner.username,
+        learnerAvatarUrl: learner.avatarUrl,
         courseTitle: course.title
       },
       userId: authorId,

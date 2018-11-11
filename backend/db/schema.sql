@@ -116,7 +116,7 @@ CREATE TABLE problem_user_is_learning (
 CREATE TABLE notification (
   id SERIAL PRIMARY KEY,
   -- someone_started_learning_your_course
-  -- { learnerUsername, learnerId, courseTitle, courseId }
+  -- { learnerUsername, learnedAvatarUrl, learnerId, courseTitle, courseId }
   -- memcode_added_some_feature
   -- { html }
   -- welcome_to_memcode

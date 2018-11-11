@@ -31,6 +31,7 @@ router.post('/', authenticateMiddleware, catchAsync(async (request, response) =>
         learnerId: learner.id,
         courseId: course.id,
         learnerUsername: learner.username,
+        learnerAvatarUrl: learner.avatarUrl,
         courseTitle: course.title
       },
       userId: authorId
