@@ -50,3 +50,5 @@ ___
 
 - change next_due_date_in to next_due_date_diff_from_now (all PostgresInterval kind of objects should be suffixed _diff_from_now)
 - move /api/commonFetch to /api/services/commonFetch
+
+<!-- hmm, mentioning www. is important on https://console.developers.google.com/apis/credentials/oauthclient/424061266836-qncdffgst1o9kj9i9s3aak2pdgbm7v5o.apps.googleusercontent.com?project=memcode-183715! otherwise ?code won't be included after the redirect -->

@@ -1,6 +1,10 @@
 import express from 'express';
 const routes = express();
 
+// only in NODE_ENV=PRODUCTION - this will redirect all http requests to https
+import sslRedirect from 'heroku-ssl-redirect';
+routes.use(sslRedirect());
+
 import { allowCrossDomain } from './middlewares/allowCrossDomain';
 routes.use(allowCrossDomain);
 

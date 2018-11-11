@@ -1,6 +1,3 @@
-___routes not facing client (=> all api), needs to be in camelCase
-  router.post('/:id/updateProblemScore')
-
 ___what to send to api?
   request.body sent to api should be under key, eg request.body['courseUserIsLearning']
   request.body must be camelCased
