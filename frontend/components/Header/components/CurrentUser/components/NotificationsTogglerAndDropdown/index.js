@@ -27,7 +27,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
   apiGetLast30Notifications = () =>
     NotificationApi.getMostRecentNotificationsOfUser(
       (spe) => this.setState({ speGetNotifications: spe }),
-      { userId: this.props.currentUser.id, limit: 100 }
+      { userId: this.props.currentUser.id, limit: 30 }
     )
 
   apiMarkAsReadOrUnread = (notification, ifRead) => {
@@ -99,6 +99,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
       case 'memcode_added_some_feature':
         return this.renderNotification(
           notification,
+          // fa-font-awesome - флажок
           <i className="fa fa-bullhorn" style={{ fontSize: 21, color: 'rgb(255, 63, 0)' }}/>,
           'We added some feature!',
           <div dangerouslySetInnerHTML={{ __html: notification.content.html }}/>

@@ -12,6 +12,10 @@
   justify-content: center;
   align-items: center;
   min-width: 120px;
+  &.-white{
+    background: white;
+    border: 1px solid $body-color;
+  }
   &.-black{
     color: white;
     background: #333030;
@@ -33,20 +37,20 @@
     background: red;
   }
 
+  &.-small{
+    font-size: 9px;
+    padding: 5px 10px;
+  }
+
   &.-fade-out-on-hover{
     transition: all 60ms ease-in-out;
     opacity: 1;
-    &:hover{
-      opacity: 0.85;
-    }
+    &:hover{ opacity: 0.85; }
   }
-
   &.-fade-in-on-hover{
     transition: opacity 60ms ease-in-out;
     opacity: 0.85;
-    &:hover{
-      opacity: 1;
-    }
+    &:hover{ opacity: 1; }
   }
 
   &.-disabled{

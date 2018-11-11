@@ -55,12 +55,6 @@ module.exports = {
             options: {
               presets: ['es2015', 'stage-0']
             }
-          },
-          {
-            loader: 'eslint-loader',
-            options: {
-              configFile: '../.eslintrc.js'
-            }
           }
         ]
       }

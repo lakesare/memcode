@@ -46,7 +46,7 @@ routes.use('/api/auth', authRouter);
 import { router as pagesRouter } from './components/pages/routes';
 routes.use('/api/pages', pagesRouter);
 
-import { router as adminRouter } from './components/admin/routes';
+import adminRouter from './components/admin/routes';
 routes.use('/api/admin', adminRouter);
 
 import { html } from './html';

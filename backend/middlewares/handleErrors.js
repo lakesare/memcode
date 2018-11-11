@@ -7,6 +7,7 @@ prettyError.skipPath('internal/process/next_tick.js');
 prettyError.skipNodeFiles();
 prettyError.alias('/Users/lakesare/Desktop/memcode/backend/webpacked/test/components/auth/routes/webpack:', '');
 prettyError.alias('/Users/lakesare/Desktop/memcode/backend/webpacked/test', '');
+prettyError.alias('/Users/lakesare/Desktop/memcode/backend/webpacked/webpack:', '/backend');
 prettyError.appendStyle({
   // our error message
   'pretty-error > header > message': {

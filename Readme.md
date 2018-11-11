@@ -49,3 +49,4 @@ ___
 ## Possible refactoring
 
 - change next_due_date_in to next_due_date_diff_from_now (all PostgresInterval kind of objects should be suffixed _diff_from_now)
+- move /api/commonFetch to /api/services/commonFetch

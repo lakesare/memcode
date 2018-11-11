@@ -53,9 +53,10 @@
       }
     }
     > ul.notifications{
+      max-height: 400px;
+      overflow-y: scroll;
       > li.notification{
         display: flex;
-
 
         padding: 5px 10px;
 

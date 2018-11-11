@@ -45,3 +45,4 @@ const commonFetch = (dispatch, method, url, body = undefined) => {
 };
 
 export { commonFetch };
+export default commonFetch;

@@ -12,20 +12,6 @@ import '~/services/quill/registerModules';
 
 import ReactDOM from 'react-dom';
 
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { RootReducer } from './RootReducer.js';
-
-const store = createStore(
-  RootReducer,
-  compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ?
-      window.devToolsExtension() :
-      f => f
-  )
-);
-
 import { Provider } from 'react-redux';
 import { GatewayProvider, GatewayDest } from 'react-gateway';
 
@@ -46,27 +32,15 @@ import { Page_pleaseSignIn } from './pages/pleaseSignIn';
 import { Page_articles_comparison } from './pages/articles_comparison';
 import { Page_articles_welcome } from './pages/articles_welcome';
 import { Page_contact } from './pages/contact';
+
+import Page_admin_notifications from './pages/admin_notifications';
+
 // common css
 import './index.css';
 import './fonts/font-awesome/scss/font-awesome.scss';
 
-const authenticate = {
-  onEnter: (nextState, transition, callback) => {
-    if (!store.getState().global.Authentication.currentUser) {
-      transition({ pathname: '/please-sign-in' });
-    }
-    callback();
-  }
-};
-
-const rootRedirect = {
-  onEnter: (nextState, transition, callback) => {
-    if (store.getState().global.Authentication.currentUser) {
-      transition({ pathname: '/courses/learning' });
-    }
-    callback();
-  }
-};
+import onEnters from '~/services/onEnters';
+import store from './store';
 
 // ___why?
 //    I want every page to remount when route changes, even when only :dynamic-segment chenges.
@@ -82,25 +56,29 @@ ReactDOM.render(
       <div>
         <Router history={browserHistory} createElement={createElement}>
           <Route path="/courses"          component={Page_courses}/>
-          <Route path="/courses/learning" component={Page_courses_learning} {...authenticate}/>
-          <Route path="/courses/created"  component={Page_courses_created} {...authenticate}/>
+          <Route path="/courses/learning" component={Page_courses_learning} onEnter={onEnters.requireAuthentication}/>
+          <Route path="/courses/created"  component={Page_courses_created}  onEnter={onEnters.requireAuthentication}/>
 
-          <Route path="/courses/new"        component={Page_courses_new} {...authenticate}/>
+          <Route path="/courses/new"        component={Page_courses_new}      onEnter={onEnters.requireAuthentication}/>
           <Route path="/courses/:id"        component={Page_courses_id}/>
-          <Route path="/courses/:id/edit"   component={Page_courses_id_edit} {...authenticate}/>
-          <Route path="/courses/:id/learn"  component={Page_courses_id_learn} {...authenticate}/>
-          <Route path="/courses/:id/review" component={Page_courses_id_review} simulated={false} {...authenticate}/>
+          <Route path="/courses/:id/edit"   component={Page_courses_id_edit}  onEnter={onEnters.requireAuthentication}/>
+          <Route path="/courses/:id/learn"  component={Page_courses_id_learn} onEnter={onEnters.requireAuthentication}/>
+          <Route path="/courses/:id/review" component={Page_courses_id_review} simulated={false} onEnter={onEnters.requireAuthentication}/>
           <Route path="/courses/:id/review/simulated" component={Page_courses_id_review} simulated/>
 
           {/* static pages */}
           <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
-          <Route path="/contact" component={Page_contact}/>
-          <Route path="/test" component={Page_test}/>
+          <Route path="/contact"        component={Page_contact}/>
+          <Route path="/test"           component={Page_test}/>
 
           {/* articles */}
-          <Route path="/" component={Page_articles_welcome} {...rootRedirect}/>
+          <Route path="/"                    component={Page_articles_welcome} onEnter={onEnters.redirectToOwnCoursesIfAuthenticated}/>
           <Route path="/articles/comparison" component={Page_articles_comparison}/>
-          <Route path="/articles/welcome" component={Page_articles_welcome}/>
+          <Route path="/articles/welcome"    component={Page_articles_welcome}/>
+
+          {/* admin */}
+          <Route path="/admin/notifications" component={Page_admin_notifications} onEnter={onEnters.requireAdmin}/>
+
         </Router>
         <GatewayDest name="main"/>
       </div>
