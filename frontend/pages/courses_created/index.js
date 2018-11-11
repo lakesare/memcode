@@ -1,3 +1,5 @@
+import * as CourseApi from '~/api/Course';
+
 import { Helmet } from 'react-helmet';
 
 import { Header }  from '~/components/Header';
@@ -7,8 +9,7 @@ import { ListOfCourses } from '~/components/ListOfCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
 import { Link } from 'react-router';
 
-
-import * as CourseApi from '~/api/Course';
+import css from './index.css';
 
 class Page_courses_created extends React.Component {
   state = {
@@ -22,17 +23,16 @@ class Page_courses_created extends React.Component {
   }
 
   renderForBeginners = () =>
-    <article className="article-formatting" style={{ textAlign: 'center' }}>
-      <h1>Welcome!</h1>
-      <h2>You haven't created any courses yet.</h2>
-
-      <p>
-        You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.
-      </p>
+    <article className="for-beginners welcome">
+      <h1 className="welcome-title">Welcome!</h1>
+      <div className="description">
+        <h2>You haven't created any courses yet.</h2>
+        <p>You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.</p>
+      </div>
     </article>
 
   render = () =>
-    <main>
+    <main className={css.main}>
       <Header/>
       <ProfileNavigation/>
       <div className="container">

@@ -21,18 +21,18 @@ class ForBeginners extends React.Component {
   }
 
   render = () =>
-    <section>
-      <article className="article-formatting">
-        <h1>Welcome!</h1>
-        <h2>You are not learning any courses yet.</h2>
-
-        <p>
-          You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.
-        </p>
-
-        <h3>Meanwhile, here are the most popular courses:</h3>
+    <section className="for-beginners">
+      <article className="welcome">
+        <h1 className="welcome-title">Welcome!</h1>
+        <div className="description">
+          <h2>You are not learning any courses yet.</h2>
+          <p>You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.</p>
+        </div>
       </article>
 
+      <hr/>
+
+      <h2 className="meanwhile-here-are-popular-courses-title">Meanwhile, here are the most popular courses:</h2>
       <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
         <ListOfSimpleCourses coursesData={onePageOfCourses}/>
       }</Loading>

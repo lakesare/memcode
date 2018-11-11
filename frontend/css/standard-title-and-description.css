@@ -1,5 +1,5 @@
 .standard-title-and-description{
-  > h2.title{
+  > h1.title, h2.title{
     margin: 20px 0;
     text-align: center;
     font-weight: bold;

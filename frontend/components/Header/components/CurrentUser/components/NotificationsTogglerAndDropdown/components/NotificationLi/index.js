@@ -1,0 +1,76 @@
+import humanizePostgresInterval from '~/services/humanizePostgresInterval';
+
+import { Link } from 'react-router';
+
+import css from './index.css';
+
+class NotificationLi extends React.Component {
+  static propTypes = {
+    notification: PropTypes.object.isRequired,
+    apiMarkAsReadOrUnread: PropTypes.func.isRequired
+  }
+
+  renderLi = (notification, icon, title, content) =>
+    <li
+      className={`
+        ${css.li}
+        ${notification.ifRead ? '-already-read' : '-not-yet-read'}
+        -type-${notification.type}
+      `}
+      key={notification.id}
+    >
+      <div className="icon">{icon}</div>
+      <div className="title_and_content_and_created-at">
+        <div className="title">{title}</div>
+        <div className="content">{content}</div>
+        <div className="created-at">{humanizePostgresInterval(notification.createdAtDiffFromNow)} ago</div>
+      </div>
+      <button
+        type="button"
+        className="mark-as-read-on-unread-button"
+        onClick={() => this.props.apiMarkAsReadOrUnread(notification, !notification.ifRead)}
+      ><div className="circle"/></button>
+    </li>
+
+  // Love it hate it but you did it!
+  render = () => {
+    const notification = this.props.notification;
+    // notification.type = 'welcome_to_memcode';
+    switch (notification.type) {
+      case 'welcome_to_memcode':
+        return this.renderLi(
+          notification,
+          <i className="fa fa-heart" style={{ fontSize: 21, color: 'red' }}/>,
+          <span style={{ color: 'rgb(161, 161, 161)' }}>Welcome to Memcode!</span>,
+          <div>
+            Create flashcards, review flashcards, move flashcards around - live your life to the fullest!
+          </div>
+        );
+      case 'memcode_added_some_feature':
+        return this.renderLi(
+          notification,
+          // fa-font-awesome - флажок
+          <i className="fa fa-bullhorn" style={{ fontSize: 21, color: 'rgb(255, 63, 0)' }}/>,
+          'We added some feature!',
+          <div dangerouslySetInnerHTML={{ __html: notification.content.html }}/>
+        );
+      case 'someone_started_learning_your_course':
+        return this.renderLi(
+          notification,
+          <i className="fa fa-user-plus" style={{ fontSize: 21, color: 'rgb(34, 59, 119)' }}/>,
+          'Someone started learning your course!',
+          <div>
+            <span className="learner-username">{notification.content.learnerUsername} </span>
+            joined
+            <Link to={`/courses/${notification.content.courseId}/edit`}> {notification.content.courseTitle}</Link>
+          </div>
+        );
+      default: {
+        console.error(`Your notification is of type ${notification.type}, and we don't know how to render it.`);
+        return null;
+      }
+    }
+  }
+}
+
+export default NotificationLi;

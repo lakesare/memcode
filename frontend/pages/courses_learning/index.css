@@ -1,9 +1,38 @@
+@import 'css/variables';
+
 :local(main.main){
-  article{
-    text-align: center;
-    h3{
-      border-top: 2px solid #42f93f;
-      padding-top: 10px;
+  section.for-beginners{
+    > article.welcome{
+      > h1.welcome-title{
+        margin: 20px 0;
+        text-align: center;
+        font-weight: bold;
+      }
+      > div.description{
+        h2{ margin-bottom: 10px; }
+        a{ color: $whale-pink; }
+
+        color: rgb(199, 196, 196);
+        font-family: 'Roboto';
+        font-weight: lighter;
+        font-size: 13px;
+        max-width: 400px;
+        margin: 0 auto;
+        text-align: center;
+      }
+    }
+
+    > hr{
+      margin: 40px 0;
+      border: none;
+      border-bottom: 3px solid rgba(232, 229, 229, 0.37);
+    }
+
+    > h2.meanwhile-here-are-popular-courses-title{
+      margin: 20px 0;
+      margin-bottom: 40px;
+      text-align: center;
+      font-weight: bold;
     }
   }
 

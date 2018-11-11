@@ -1,11 +1,11 @@
-import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 import SpeImmutable from '~/services/SpeImmutable';
 import NotificationApi from '~/api/NotificationApi';
 
-import { Link } from 'react-router';
 import onClickOutside from 'react-onclickoutside';
 import Loading from '~/components/Loading';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
+
+import NotificationLi from './components/NotificationLi';
 
 import css from './index.css';
 
@@ -17,23 +17,64 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
   state = {
     speGetNotifications: {},
+    speLoadMoreNotifications: {},
+    amountOfAllNotifications: 0,
+    amountOfUnreadNotifications: 0,
     ifDropdownIsOpen: false
   }
 
   componentDidMount() {
-    this.apiGetLast30Notifications();
+    this.apiGetMostRecentNotifications();
+    this.apiGetNotificationsStatsForUser();
   }
 
-  apiGetLast30Notifications = () =>
+  apiGetNotificationsStatsForUser = () =>
+    NotificationApi.getNotificationsStatsForUser(
+      false,
+      { userId: this.props.currentUser.id }
+    )
+      .then((stats) => {
+        this.setState({
+          amountOfAllNotifications: stats.amountOfAllNotifications,
+          amountOfUnreadNotifications: stats.amountOfUnreadNotifications
+        });
+      })
+
+  apiGetMostRecentNotifications = () =>
     NotificationApi.getMostRecentNotificationsOfUser(
       (spe) => this.setState({ speGetNotifications: spe }),
-      { userId: this.props.currentUser.id, limit: 30 }
+      {
+        userId: this.props.currentUser.id,
+        limit: 15
+      }
     )
+
+  apiLoadMoreNotifications = () =>
+    NotificationApi.getMostRecentNotificationsOfUser(
+      (spe) => this.setState({ speLoadMoreNotifications: spe }),
+      {
+        userId: this.props.currentUser.id,
+        limit: 10,
+        offset: this.state.speGetNotifications.payload.length
+      }
+    )
+      .then((notifications) => {
+        this.setState({
+          speGetNotifications: {
+            ...this.state.speGetNotifications,
+            payload: [
+              ...this.state.speGetNotifications.payload,
+              ...notifications
+            ]
+          }
+        });
+      })
 
   apiMarkAsReadOrUnread = (notification, ifRead) => {
     const updatedNotification = { ...notification, ifRead };
     this.setState({
-      speGetNotifications: SpeImmutable.update(this.state.speGetNotifications, updatedNotification)
+      speGetNotifications: SpeImmutable.update(this.state.speGetNotifications, updatedNotification),
+      amountOfUnreadNotifications: this.state.amountOfUnreadNotifications + (ifRead ? -1 : 1)
     });
     return NotificationApi.markAsReadOrUnread(
       false,
@@ -50,7 +91,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
           ...notification,
           ifRead: true
         }))
-      }
+      },
+      amountOfUnreadNotifications: 0
     });
     return NotificationApi.markAllNotificationsAsRead(
       false,
@@ -61,74 +103,6 @@ class NotificationsTogglerAndDropdown extends React.Component {
   handleClickOutside = () =>
     this.setState({ ifDropdownIsOpen: false })
 
-  renderNotification = (notification, icon, title, content) =>
-    <li
-      className={`
-        notification
-        ${notification.ifRead ? '-already-read' : '-not-yet-read'}
-        -type-${notification.type}
-      `}
-      key={notification.id}
-    >
-      <div className="icon">{icon}</div>
-      <div className="title_and_content_and_created-at">
-        <div className="title">{title}</div>
-        <div className="content">{content}</div>
-        <div className="created-at">{humanizePostgresInterval(notification.createdAtDiffFromNow)} ago</div>
-      </div>
-      <button
-        type="button"
-        className="mark-as-read-on-unread-button"
-        onClick={() => this.apiMarkAsReadOrUnread(notification, !notification.ifRead)}
-      ><div className="circle"/></button>
-    </li>
-
-  // Love it hate it but you did it!
-  renderNotificationLi = (notification) => {
-    // notification.type = 'memcode_added_some_feature';
-    switch (notification.type) {
-      case 'welcome_to_memcode':
-        return this.renderNotification(
-          notification,
-          <i className="fa fa-heart" style={{ fontSize: 21, color: 'red' }}/>,
-          <span style={{ color: 'rgb(161, 161, 161)' }}>Welcome to Memcode!</span>,
-          <div>
-            Create flashcards, review flashcards, move flashcards around - live your life to the fullest!
-          </div>
-        );
-      case 'memcode_added_some_feature':
-        return this.renderNotification(
-          notification,
-          // fa-font-awesome - флажок
-          <i className="fa fa-bullhorn" style={{ fontSize: 21, color: 'rgb(255, 63, 0)' }}/>,
-          'We added some feature!',
-          <div dangerouslySetInnerHTML={{ __html: notification.content.html }}/>
-        );
-      case 'someone_started_learning_your_course':
-        return this.renderNotification(
-          notification,
-          <i className="fa fa-user-plus" style={{ fontSize: 21, color: 'rgb(34, 59, 119)' }}/>,
-          'Someone started learning your course!',
-          <div>
-            <span className="learner-username">{notification.content.learnerUsername} </span>
-            joined
-            <Link to="/courses/${courseId}/edit"> {notification.content.courseTitle}</Link>
-          </div>
-        );
-      default: {
-        console.error(`Your notification is of type ${notification.type}, and we don't know how to render it.`);
-        return null;
-      }
-    }
-  }
-
-  getAmountOfUnreadNotifications = () =>
-    this.state.speGetNotifications.payload.filter((notification) => !notification.ifRead).length
-
-  ifThereAreUnreadNotifications = () =>
-    this.state.speGetNotifications.status === 'success' &&
-    this.getAmountOfUnreadNotifications() > 0
-
   renderToggler = () =>
     <div
       className="toggler"
@@ -137,8 +111,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
     >
       <i className="fa fa-bell"/>
       {
-        this.ifThereAreUnreadNotifications() &&
-        <div className="amount-of-notifications">{this.getAmountOfUnreadNotifications()}</div>
+        this.state.amountOfUnreadNotifications > 0 &&
+        <div className="amount-of-unread-notifications">{this.state.amountOfUnreadNotifications}</div>
       }
     </div>
 
@@ -151,13 +125,20 @@ class NotificationsTogglerAndDropdown extends React.Component {
       >Read All</button>
     </div>
 
+  renderDropdownFooter = (notifications) => (
+    this.state.amountOfAllNotifications > notifications.length &&
+    <div className="footer" onClick={this.apiLoadMoreNotifications} style={disableOnSpeRequest(this.state.speLoadMoreNotifications)}>
+      See More...
+    </div>
+  )
+
   render = () =>
     <section
       className={`
         notifications-toggler-and-dropdown
         ${css.section}
         ${this.state.ifDropdownIsOpen ? '-dropdown-is-open' : '-dropdown-is-closed'}
-        ${this.ifThereAreUnreadNotifications() ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
+        ${this.state.amountOfUnreadNotifications > 0 ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
       `}
     >
       {this.renderToggler()}
@@ -165,8 +146,15 @@ class NotificationsTogglerAndDropdown extends React.Component {
         <div className="dropdown standard-dropdown-with-arrow" style={{ display: this.state.ifDropdownIsOpen ? 'block' : 'none' }}>
           {this.renderDropdownHeader()}
           <ul className="notifications">
-            {notifications.map(this.renderNotificationLi)}
+            {notifications.map((notification) =>
+              <NotificationLi
+                key={notification.id}
+                notification={notification}
+                apiMarkAsReadOrUnread={this.apiMarkAsReadOrUnread}
+              />
+            )}
           </ul>
+          {this.renderDropdownFooter(notifications)}
         </div>
       }</Loading>
     </section>
