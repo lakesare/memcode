@@ -1,7 +1,7 @@
 import * as CourseApi from '~/api/Course';
 
+import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import onClickOutside from 'react-onclickoutside';
-import { Loading } from '~/components/Loading';
 import { Course } from './components/Course';
 
 import css from './index.css';
@@ -14,7 +14,7 @@ class Search extends React.Component {
 
   state = {
     searchString: '',
-    speSearch: {},
+    courseDatas: [],
     ifDropdownIsOpen: false
   }
 
@@ -23,9 +23,14 @@ class Search extends React.Component {
 
   apiSearch = (searchString) =>
     CourseApi.selectSearch(
-      (spe) => this.setState({ speSearch: spe, ifDropdownIsOpen: true }),
+      (spe) => this.setState({ speSearch: spe }),
       searchString
     )
+      .then((courseDatas) => {
+        if (this.state.searchString === searchString) {
+          this.setState({ courseDatas });
+        }
+      })
 
   updateSearchString = (event) => {
     const searchString = event.target.value;
@@ -33,12 +38,15 @@ class Search extends React.Component {
     if (searchString.length === 0) {
       this.clearAndCloseDropdown();
     } else {
+      if (this.state.ifDropdownIsOpen === false) {
+        this.setState({ ifDropdownIsOpen: true });
+      }
       this.apiSearch(searchString);
     }
   }
 
   clearAndCloseDropdown = () =>
-    this.setState({ speSearch: {}, ifDropdownIsOpen: false })
+    this.setState({ ifDropdownIsOpen: false })
 
   render = () =>
     <section className={`${css.search} search`}>
@@ -58,19 +66,22 @@ class Search extends React.Component {
 
       {
         this.state.ifDropdownIsOpen &&
-        <div className="standard-purple-dropdown">
-          <Loading spe={this.state.speSearch}>{(courseDatas) =>
-            <ul>
-              {courseDatas.map((courseData) =>
-                <Course
-                  key={courseData.course.id}
-                  courseData={courseData}
-                  currentUser={this.props.currentUser}
-                  searchString={this.state.searchString}
-                />
-              )}
-            </ul>
-          }</Loading>
+        this.state.courseDatas.length > 0 &&
+        <div className="standard-beige-dropdown">
+          <div className="header">
+            <div className="pretty-text">{this.state.courseDatas.length} courses found</div>
+          </div>
+          <ul style={disableOnSpeRequest(this.state.speSearch, { opacity: 0.9 })}>
+            {this.state.courseDatas.map((courseData) =>
+              <Course
+                key={courseData.course.id}
+                courseData={courseData}
+                currentUser={this.props.currentUser}
+                searchString={this.state.searchString}
+              />
+            )}
+          </ul>
+          <div className="footer"/>
         </div>
       }
     </section>

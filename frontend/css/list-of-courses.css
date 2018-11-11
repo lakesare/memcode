@@ -94,6 +94,9 @@
         padding-top: 12px;
         padding-right: 10px;
         padding-left: 10px;
+
+        // the only nonstripped tag
+        p{ margin: 0; }
       }
     }
 

@@ -1,3 +1,5 @@
+import { stripTags } from '~/services/stripTags';
+
 import { Link } from 'react-router';
 
 class Course extends React.Component {
@@ -5,12 +7,11 @@ class Course extends React.Component {
     currentUser: PropTypes.object,
     courseData: PropTypes.shape({
       course: PropTypes.object.isRequired,
-      amountOfProblems: PropTypes.number.isRequired,
-
-      amountOfProblemsToLearn: PropTypes.number,
-      amountOfProblemsToReview: PropTypes.number,
-      courseUserIsLearning: PropTypes.object,
-      nextDueDateIn: PropTypes.object
+      amountOfProblems: PropTypes.string.isRequired,
+      amountOfUsersLearningThisCourse: PropTypes.string.isRequired,
+      authorUsername: PropTypes.string.isRequired,
+      courseCategoryName: PropTypes.string.isRequired,
+      ifUserIsLearning: PropTypes.bool.isRequired
     }).isRequired,
     searchString: PropTypes.string.isRequired
   }
@@ -57,31 +58,40 @@ class Course extends React.Component {
     />;
   }
 
-  renderUserRelatioshipToCourse = () => {
-    const cuil = this.props.courseData.courseUserIsLearning;
-    const course = this.props.courseData.course;
-    const currentUser = this.props.currentUser;
-    let status;
-    if (currentUser) {
-      if (cuil && cuil.active === true) {
-        status = 'learning';
-      } else if (currentUser.id === course.userId) {
-        status = 'created';
-      } else if (cuil && cuil.active === false) {
-        status = 'used to learn';
-      } else {
-        status = '';
-      }
-    } else {
-      status = '';
-    }
-    return <div className="status">{status}</div>;
+  renderDescription = () => {
+    const description = stripTags(this.props.courseData.course.description);
+    const searchString = this.props.searchString;
+    return <div
+      className="description"
+      dangerouslySetInnerHTML={{
+        __html: this.boldenTitle(description, searchString)
+      }}
+    />;
   }
+
+  renderUserRelatioshipToCourse = () =>
+    <div className="status">
+      {
+        this.props.currentUser &&
+        this.props.courseData.ifUserIsLearning &&
+        <i className="fa fa-graduation-cap"/>
+      }
+    </div>
 
   render = () =>
     <li>
       <Link to={this.getEditOrShowUrl()}>
-        {this.renderTitle()}
+        <div className="title_and_description">
+          {this.renderTitle()}
+          {this.renderDescription()}
+        </div>
+        <div className="amount-of-students_and_course-category-name">
+          <div className="amount-of-students">
+            <i className="fa fa-users"/>
+            {this.props.courseData.amountOfUsersLearningThisCourse}
+          </div>
+          <div className="course-category-name">{this.props.courseData.courseCategoryName}</div>
+        </div>
         {this.renderUserRelatioshipToCourse()}
       </Link>
     </li>

@@ -123,6 +123,7 @@
     "redux-thunk": "^2.2.0",
     "slash": "^1.0.0",
     "source-map-support": "^0.4.2",
+    "striptags": "^3.1.1",
     "trim-right": "^1.0.1",
     "undefsafe": "^2.0.1",
     "url-search-params-polyfill": "^2.0.1",

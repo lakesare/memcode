@@ -12,3 +12,6 @@ ___how to make www.memcode.com (simple memcode.com already works) redirect to ht
 ___is it possible to have everything redirect to https://memcode.com, without www?
    Google Domains support: `Jerry 10:14PM - Well, unfortunately, Heroku needs www to properly set up the pointing. On the other hand, you may ask Heroku if we can just point it to your website using an IP so we can only set up the A records.`,
    so seemingly it's not possible.
+
+___Why www.memcode.com.herokudns.com. for CNAME is okay?
+   https://help.heroku.com/VKRNVVF5/what-is-the-correct-dns-cname-target-for-my-custom-domains

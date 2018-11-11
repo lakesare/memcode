@@ -66,3 +66,66 @@
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+div.standard-beige-dropdown{
+  position: absolute;
+  border: 1px solid rgb(197, 208, 219);
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
+  transition: opacity 100ms linear, top 100ms linear, visibility 100ms linear;
+  z-index: 1000000;
+  top: 100%;
+
+  > div.header, > div.footer{
+    .pretty-text{
+      font-family: "Helvetica Neue";
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: rgb(82, 82, 82);
+      font-size: 9px;
+    }
+  }
+
+  > div.header{
+    background-color: rgb(250, 251, 252);
+    border-bottom: 1px solid rgb(231, 232, 236);
+  }
+  > ul{
+    max-height: 400px;
+    overflow-y: scroll;
+    > li{
+      background: white;
+      border-top: 1px solid rgb(234, 229, 229);
+      &:first-child{ border-top: none; }
+      mark{ color: $whale-pink; }
+    }
+  }
+  > div.footer{
+    padding: 10px 0;
+    background-color: rgb(250, 251, 252);
+    border-top: 1px solid rgb(231, 232, 236);
+    border-radius: 0 0 4px 4px;
+  }
+}
+
+
+
+
+
+
+
+
+
+

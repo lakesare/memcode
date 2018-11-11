@@ -25,7 +25,12 @@ class Course extends React.Component {
       <section className="main">
         <h3 className="title">{this.props.course.title}</h3>
 
-        <article className="description">{stripTags(this.props.course.description)}</article>
+        <article
+          className="description"
+          dangerouslySetInnerHTML={{
+            __html: stripTags(this.props.course.description)
+          }}
+        />
       </section>
 
       <section className="total-amount-of-mems">
