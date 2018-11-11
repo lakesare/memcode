@@ -50,8 +50,11 @@ class NotificationLi extends React.Component {
         return this.renderLi(
           notification,
           // fa-font-awesome - флажок
-          <i className="fa fa-bullhorn" style={{ fontSize: 21, color: 'rgb(255, 63, 0)' }}/>,
-          'We added some feature!',
+          // bullhorn - this would suit a blog post
+          // flask
+          // bolt
+          <i className="fa fa-flask" style={{ fontSize: 21, color: 'rgb(97, 22, 132)' }}/>,
+          <span style={{ color: 'rgb(161, 161, 161)' }}>We added a new feature</span>,
           <div dangerouslySetInnerHTML={{ __html: notification.content.html }}/>
         );
       case 'someone_started_learning_your_course':

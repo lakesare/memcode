@@ -27,6 +27,7 @@
     > section.actual-main{
       flex-grow: 1;
       flex-shrink: 1;
+      padding-bottom: 30px;
       > h1.standard-admin-title{
         font-size: 30px;
       }
@@ -34,8 +35,17 @@
         margin-top: 20px;
         > section.standard-admin-section{
           margin-top: 30px;
-          border-top: 1px solid rgba(68, 67, 67, 0.07);
-          padding: 20px;
+          > h2.standard-admin-section-title{
+            background: rgba(68, 67, 67, 0.07);
+            padding: 15px 20px;
+            padding-top: 11px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-family: Roboto;
+            border-top: 4px solid rgba(177, 177, 177, 0.42);
+            font-weight: lighter;
+          }
         }
       }
     }

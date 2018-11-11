@@ -37,4 +37,9 @@ router.put('/mark-all-notifications-as-read', catchAsync(async (request, respons
   response.status(200).json({});
 }));
 
+router.post('/announce-a-new-feature', catchAsync(async (request, response) => {
+  const amountOfUsersNotified = await Notification.insert.announceANewFeature(request.body['type'], request.body['content']);
+  response.status(200).json({ message: `${amountOfUsersNotified} users are notified!` });
+}));
+
 export default router;
