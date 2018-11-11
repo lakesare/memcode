@@ -58,11 +58,18 @@ heroku-backend-webpack:
 heroku-frontend-webpack:
 	cd frontend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
 
-# manually input migration you want to run (eg 1.sql)
+
+DB_URL = $$(heroku config:get DATABASE_URL --app memcode)
+# ___Where did we get these credentials from?
+#    Find our credentials from `heroku config`
+# ___How to run a particular migration?
+#    Manually input migration you want to run (eg 1.sql)
+# ___Where is 7.sql taken from?
+#    From local files!
 heroku-db-migrate:
-	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy -f backend/db/migrations/5.sql
+	psql -v database=d9glthq2q1grjs $(DB_URL) -f backend/db/migrations/7.sql
 heroku-db-console:
-	psql -v database=d4atjhah7jcdbj -h ec2-54-235-119-27.compute-1.amazonaws.com -p 5432 -d d4atjhah7jcdbj -U rrorcwayzmpggy
+	psql -v $(DB_URL)
 
 # when they ask for password - they ask for the local one (yes, 4 times)
 heroku-db-pull:
