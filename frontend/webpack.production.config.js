@@ -5,24 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: config.entry,
 
-  module: {
-    rules: [
-      ...config.module.rules.filter(
-        (rule) => String(rule.test) !== String(/\.js$/)
-      ),
-      {
-        test: /\.js$/,
-        exclude: /node_modules(?!\/quill-image-drop-module|quill-image-resize-module)/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: ['es2015', 'react', 'stage-0'],
-            plugins: ['transform-decorators-legacy']
-          }
-        }]
-      },
-    ]
-  },
+  module: config.module,
 
   resolve: config.resolve,
 

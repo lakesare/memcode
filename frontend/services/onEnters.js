@@ -7,12 +7,14 @@ const requireAuthentication = (nextState, transition, callback) => {
     callback();
   } else {
     transition({ pathname: '/please-sign-in' });
+    callback();
   }
 };
 
 const redirectToOwnCoursesIfAuthenticated = (nextState, transition, callback) => {
   if (getCurrentUser()) {
     transition({ pathname: '/courses/learning' });
+    callback();
   } else {
     callback();
   }
@@ -24,6 +26,7 @@ const requireAdmin = (nextState, transition, callback) => {
     callback();
   } else {
     transition({ pathname: '/please-sign-in' });
+    callback();
   }
 };
 
