@@ -96,9 +96,7 @@
       margin-top: 44px;
       // made border look a little better on dark bg
       .course{
-        border: none;
         box-shadow: -1px 1px 7px #f7f5f5;
-        height: $course-in-list-height-desktop - 4px;
       }
       .layout-div{ display: none; }
     }

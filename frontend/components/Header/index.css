@@ -189,4 +189,10 @@
       }
     }
   }
+  @media(max-width: 500px){
+    .notifications-toggler-and-dropdown{ display: none }
+    .learn-review-links{
+      margin-right: 10px;
+    }
+  }
 }

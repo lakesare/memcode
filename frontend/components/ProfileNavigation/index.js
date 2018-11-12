@@ -19,35 +19,45 @@ class ProfileNavigation extends React.Component {
   }
 
   render = () => (
-    this.props.currentUser ?
-      <nav className={css.nav}>
-        <div className="container">
-          <section className="links">
-            <Link
-              to="/courses"
-              activeClassName="active"
-            >All</Link>
-            <Link
-              to="/courses/learning"
-              activeClassName="active"
-            >Learning</Link>
-            <Link
-              to="/courses/created"
-              activeClassName="active"
-            >Created</Link>
-          </section>
+    this.props.currentUser &&
+    <nav className={css.nav}>
+      <div className="container">
+        <section className="links">
+          <h2>Courses:</h2>
 
-          <section className="settings standard-tooltip">
-            <span className="toggler">
-              <i className="fa fa-cog"/>
-            </span>
-            <div className="modal -standard-tooltip-list">
-              <a onClick={this.props.signOut}>Sign Out</a>
-            </div>
-          </section>
-        </div>
-      </nav> :
-      null
+          <Link
+            to="/courses"
+            activeClassName="active"
+          >
+            <i className="fa fa-folder"/>
+            All
+          </Link>
+          <Link
+            to="/courses/learning"
+            activeClassName="active"
+          >
+            <i className="fa fa-graduation-cap"/>
+            Learning
+          </Link>
+          <Link
+            to="/courses/created"
+            activeClassName="active"
+          >
+            <i className="fa fa-paint-brush"/>
+            Created
+          </Link>
+        </section>
+
+        <section className="settings standard-tooltip">
+          <span className="toggler">
+            <i className="fa fa-cog"/>
+          </span>
+          <div className="modal -standard-tooltip-list">
+            <a onClick={this.props.signOut}>Sign Out</a>
+          </div>
+        </section>
+      </div>
+    </nav>
   )
 }
 
