@@ -120,7 +120,7 @@ const select = {
   // 4. amount of users learning this course
   // 5. category name!
   search: (userId, searchString) =>
-    db.many(
+    db.any(
       `
       SELECT
         row_to_json(course.*) AS course,
