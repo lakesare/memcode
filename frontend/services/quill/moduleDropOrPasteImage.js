@@ -1,15 +1,21 @@
-const readFiles = (files, callback) => {
-  [].forEach.call(files, file => {
-    const type = file.type;
-    if (!file.type.match(/^image\/(gif|jpe?g|a?png|svg|webp|bmp)/i)) return;
+const readFiles = (files, handler, quill) => {
+  files.forEach((file) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      callback(e.target.result, type);
+      handler(e.target.result, quill);
     };
     const blob = file.getAsFile ? file.getAsFile() : file;
     if (blob instanceof Blob) reader.readAsDataURL(blob);
   });
 };
+
+const ifEverythingInsertedIsImage = (files) =>
+  files.every((file) =>
+    file.type.match(/^image\/(gif|jpe?g|a?png|svg|webp|bmp)/i)
+  );
+
+const toArray = (arrLike) =>
+  [].slice.call(arrLike);
 
 export class moduleDropOrPasteImage {
   constructor(quill, options = {}) {
@@ -24,20 +30,18 @@ export class moduleDropOrPasteImage {
   }
 
   handleDrop(e) {
-    e.preventDefault();
-    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) {
-      readFiles(e.dataTransfer.files, (dataUrl, type) => {
-        this.options.handler(dataUrl, type, this.quill);
-      });
+    const inserts = toArray(e.dataTransfer.files);
+    if (ifEverythingInsertedIsImage(inserts)) {
+      e.preventDefault();
+      readFiles(inserts, this.options.handler, this.quill);
     }
   }
 
   handlePaste(e) {
-    e.preventDefault();
-    if (e.clipboardData && e.clipboardData.items && e.clipboardData.items.length) {
-      readFiles(e.clipboardData.items, (dataUrl, type) => {
-        this.options.handler(dataUrl, type, this.quill);
-      });
+    const inserts = toArray(e.clipboardData.items);
+    if (ifEverythingInsertedIsImage(inserts)) {
+      e.preventDefault();
+      readFiles(inserts, this.options.handler, this.quill);
     }
   }
 }
