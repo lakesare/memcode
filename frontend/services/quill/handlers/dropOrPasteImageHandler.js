@@ -1,5 +1,5 @@
-import FileApi from '~/api/FileApi';
 import fromDataUrlToBlob from '~/services/fromDataUrlToBlob';
+import FileApi from '~/api/FileApi';
 
 function dropOrPasteImageHandler(dataUrl, quill) {
   const selectionAt = quill.getSelection().index;

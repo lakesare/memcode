@@ -1,5 +1,8 @@
+import toArray from '~/services/toArray';
+
 const readFiles = (files, handler, quill) => {
   files.forEach((file) => {
+    console.log('files in forEach!');
     const reader = new FileReader();
     reader.onload = (e) => {
       handler(e.target.result, quill);
@@ -13,9 +16,6 @@ const ifEverythingInsertedIsImage = (files) =>
   files.every((file) =>
     file.type.match(/^image\/(gif|jpe?g|a?png|svg|webp|bmp)/i)
   );
-
-const toArray = (arrLike) =>
-  [].slice.call(arrLike);
 
 export class moduleDropOrPasteImage {
   constructor(quill, options = {}) {

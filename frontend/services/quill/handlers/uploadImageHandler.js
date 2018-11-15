@@ -1,3 +1,4 @@
+import toArray from '~/services/toArray';
 import FileApi from '~/api/FileApi';
 
 function uploadImageHandler() {
@@ -5,14 +6,16 @@ function uploadImageHandler() {
 
   const input = document.createElement('input');
   input.setAttribute('type', 'file');
+  input.setAttribute('multiple', true);
   input.click();
 
   input.onchange = () => {
-    const file = input.files[0];
-    FileApi.upload(false, file)
-      .then((response) => {
-        this.quill.insertEmbed(selectionAt, 'image', response.url);
-      });
+    toArray(input.files).forEach((file) =>
+      FileApi.upload(false, file)
+        .then((response) => {
+          this.quill.insertEmbed(selectionAt, 'image', response.url);
+        })
+    );
   };
 }
 
