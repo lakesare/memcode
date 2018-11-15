@@ -1,4 +1,7 @@
 import { standardToolbarContainer } from '~/services/quill/standardToolbarContainer';
+import handlerUploadImage from '~/services/quill/handlerUploadImage';
+import handlerDropOrPasteImage from '~/services/quill/handlerDropOrPasteImage';
+
 import ReactQuill from 'react-quill';
 
 class Editor extends React.Component {
@@ -44,7 +47,10 @@ class Editor extends React.Component {
         // syntax: false,
         toolbar: {
           container: this.props.toolbarContainer,
-          handlers: this.props.toolbarHandlers
+          handlers: {
+            ...this.props.toolbarHandlers,
+            image: handlerUploadImage
+          }
         },
         // just cycles forever :|
         // keyboard: {
@@ -62,7 +68,10 @@ class Editor extends React.Component {
         imageResize: {
           modules: ['Resize']
         },
-        imageDrop: true
+        moduleDropOrPasteImage: {
+          // add a custom image handler
+          handler: handlerDropOrPasteImage
+        }
       }}
 
       onChangeSelection={this.onChangeSelection}

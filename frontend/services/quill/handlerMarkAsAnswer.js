@@ -1,4 +1,4 @@
-function answerHandler() {
+function handlerMarkAsAnswer() {
   const range = this.quill.getSelection();
   if (range) {
     this.quill.formatText(
@@ -9,4 +9,4 @@ function answerHandler() {
   }
 }
 
-export { answerHandler };
+export default handlerMarkAsAnswer;
