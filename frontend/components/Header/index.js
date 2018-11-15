@@ -26,7 +26,7 @@ class Header extends React.Component {
       <Link
         to={this.props.currentUser ? '/courses/learning' : '/courses'}
         activeClassName="active"
-        className={`link courses ${location.pathname.startsWith('/courses') ? 'active' : ''}`}
+        className={`link courses ${['/courses', '/courses/learning', '/courses/created'].some((url) => location.pathname === url) ? 'active' : ''}`}
       >courses</Link>
       <Link
         to="/courses/new"
