@@ -266,6 +266,7 @@ module.exports = {
     "navigator": true,
     "URLSearchParams": true, // we have a polyfill
     "URL": true,
+    "Image": true,
 
     // in our tests
     "describe": true,

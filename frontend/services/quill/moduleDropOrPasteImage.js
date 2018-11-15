@@ -1,21 +1,6 @@
 import toArray from '~/services/toArray';
+const imageRegex = /^image\/(gif|jpe?g|a?png|svg|webp|bmp)/i;
 
-const readFiles = (files, handler, quill) => {
-  files.forEach((file) => {
-    console.log('files in forEach!');
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      handler(e.target.result, quill);
-    };
-    const blob = file.getAsFile ? file.getAsFile() : file;
-    if (blob instanceof Blob) reader.readAsDataURL(blob);
-  });
-};
-
-const ifEverythingInsertedIsImage = (files) =>
-  files.every((file) =>
-    file.type.match(/^image\/(gif|jpe?g|a?png|svg|webp|bmp)/i)
-  );
 
 export class moduleDropOrPasteImage {
   constructor(quill, options = {}) {
@@ -30,18 +15,25 @@ export class moduleDropOrPasteImage {
   }
 
   handleDrop(e) {
+    e.preventDefault();
     const inserts = toArray(e.dataTransfer.files);
-    if (ifEverythingInsertedIsImage(inserts)) {
-      e.preventDefault();
-      readFiles(inserts, this.options.handler, this.quill);
-    }
+    const files = inserts.filter((file) =>
+      file.type.match(imageRegex)
+    );
+    files.forEach((file) => this.options.handler(file, this.quill));
   }
 
   handlePaste(e) {
-    const inserts = toArray(e.clipboardData.items);
-    if (ifEverythingInsertedIsImage(inserts)) {
+    // not .items! .files!!!
+    const inserts = toArray(e.clipboardData.files);
+    const files = inserts.filter((file) =>
+      file.type.match(imageRegex)
+    );
+    // if at least one insert is an image! otherwise it may be plain text, and we should insert it as is!
+    if (files.length > 0) {
+      console.log(files);
       e.preventDefault();
-      readFiles(inserts, this.options.handler, this.quill);
+      files.forEach((file) => this.options.handler(file, this.quill));
     }
   }
 }
