@@ -1,5 +1,4 @@
-import * as spe from '~/services/spe.js';
-import { handleErrors } from './services/handleErrors';
+import fetchWrapper from './services/fetchWrapper';
 // ___how to use it?
 //
 // _in api/UserApi.js:
@@ -23,25 +22,18 @@ import { handleErrors } from './services/handleErrors';
 //
 // if it's a GET request - just omit the body argument.
 const commonFetch = (dispatch, method, url, body = undefined) => {
-  if (dispatch) dispatch(spe.request());
   const jwt = localStorage.getItem('jwt');
-  return fetch(url, {
-    method,
-    headers: new Headers({
-      'Content-Type': 'application/json',
-      ...(jwt ? { Authorization: `Bearer ${jwt}` } : {})
-    }),
-    body: JSON.stringify(body)
-  })
-    .then(handleErrors)
-    .then((response) => {
-      if (dispatch) dispatch(spe.success(response));
-      return Promise.resolve(response);
+  return fetchWrapper(
+    dispatch,
+    fetch(url, {
+      method,
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        ...(jwt ? { Authorization: `Bearer ${jwt}` } : {})
+      }),
+      body: JSON.stringify(body)
     })
-    .catch((error) => { // { error: error }
-      if (dispatch) dispatch(spe.failure(error.error));
-      return Promise.reject(error);
-    });
+  );
 };
 
 export { commonFetch };

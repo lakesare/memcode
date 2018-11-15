@@ -207,7 +207,7 @@
         }
       }
       &.-learnReviewCourse{
-        > section.main{ height: 60px; }
+        > section.main{ height: 64px; }
         article.description{ display: none; }
       }
     }

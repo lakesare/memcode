@@ -18,5 +18,4 @@ const failure = errorString => ({
   error: errorString
 });
 
-export { request, success, failure };
 export default { request, success, failure };

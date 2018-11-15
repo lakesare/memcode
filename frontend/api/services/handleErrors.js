@@ -9,3 +9,4 @@ const handleErrors = (response) => {
 };
 
 export { handleErrors };
+export default handleErrors;

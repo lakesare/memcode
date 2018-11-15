@@ -1,9 +1,4 @@
 import { Quill } from 'react-quill';
+import Answer from './blots/Answer';
 
-const Inline = Quill.import('blots/inline');
-class Answer extends Inline {
-  static blotName = 'answer';
-  static className = 'answer';
-  static tagName = 'mark';
-}
 Quill.register(Answer);

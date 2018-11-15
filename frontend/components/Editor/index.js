@@ -1,6 +1,6 @@
 import { standardToolbarContainer } from '~/services/quill/standardToolbarContainer';
-import handlerUploadImage from '~/services/quill/handlerUploadImage';
-import handlerDropOrPasteImage from '~/services/quill/handlerDropOrPasteImage';
+import uploadImageHandler from '~/services/quill/handlers/uploadImageHandler';
+import dropOrPasteImageHandler from '~/services/quill/handlers/dropOrPasteImageHandler';
 
 import ReactQuill from 'react-quill';
 
@@ -49,7 +49,7 @@ class Editor extends React.Component {
           container: this.props.toolbarContainer,
           handlers: {
             ...this.props.toolbarHandlers,
-            image: handlerUploadImage
+            image: uploadImageHandler
           }
         },
         // just cycles forever :|
@@ -70,7 +70,7 @@ class Editor extends React.Component {
         },
         moduleDropOrPasteImage: {
           // add a custom image handler
-          handler: handlerDropOrPasteImage
+          handler: dropOrPasteImageHandler
         }
       }}
 

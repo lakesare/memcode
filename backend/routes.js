@@ -53,6 +53,9 @@ routes.use('/api/pages', pagesRouter);
 import adminRouter from './components/admin/routes';
 routes.use('/api/admin', adminRouter);
 
+import fileRouter from './components/files/routes';
+routes.use('/api/files', fileRouter);
+
 import { html } from './html';
 routes.get('*', (request, response) => response.send(html));
 
