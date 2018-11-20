@@ -182,6 +182,7 @@ class Page_courses_id_edit extends React.Component {
             index={index}
             updateOldProblem={this.updateOldProblem}
             removeOldProblem={this.removeOldProblem}
+            problems={problems}
             idsOfCheckedProblems={this.state.idsOfCheckedProblems}
             updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
           />

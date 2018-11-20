@@ -1,3 +1,4 @@
+// make formula=true in editor
 
 function Person(name) {
   this.name = name;

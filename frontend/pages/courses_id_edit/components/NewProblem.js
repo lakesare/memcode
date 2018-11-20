@@ -81,6 +81,9 @@ class NewProblem extends React.Component {
         _optimistic_id: optimisticId
       };
       this.props.uiAddOptimisticProblem(optimisticProblem);
+      this.setState({
+        problemContent: createEmptyEditorState(this.state.currentProblemType)
+      });
 
       ProblemApi.create(
         (spe) => this.setState({ speCreateProblem: spe }),
@@ -88,9 +91,6 @@ class NewProblem extends React.Component {
       )
         .then((createdProblem) => {
           this.props.uiUpdateOptimisticProblemIntoOld(optimisticId, createdProblem);
-          this.setState({
-            problemContent: createEmptyEditorState(this.state.currentProblemType)
-          });
         });
     }
   }

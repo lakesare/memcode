@@ -10,7 +10,7 @@ class OldProblem extends React.Component {
     problem: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
     updateOldProblem: PropTypes.func.isRequired,
-    // removeOldProblem: PropTypes.func.isRequired,
+    problems: PropTypes.array.isRequired,
     idsOfCheckedProblems: PropTypes.array.isRequired,
     updateIdsOfCheckedProblems: PropTypes.func.isRequired
   }
@@ -38,6 +38,7 @@ class OldProblem extends React.Component {
         <Checkbox
           id={this.props.problem.id}
           index={this.props.index}
+          problems={this.props.problems}
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
           updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
           speSave={this.state.speSave}
