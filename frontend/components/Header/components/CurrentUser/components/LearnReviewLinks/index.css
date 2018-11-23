@@ -1,13 +1,13 @@
 @import 'css/variables';
 :local(section.section){
   max-width: 90px;
-  border-right: 2px solid rgba(236, 242, 255, 0.37);
+  // border-right: 2px solid rgba(236, 242, 255, 0.37);
   // compensating for nav
   > a{
     display: block;
     box-sizing: border-box;
     width: 100%;
-    padding: 3px 8px;
+    padding: 7px 8px;
     font-family: $body-font;
     font-size: 10px;
     color: white;
