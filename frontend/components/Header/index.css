@@ -60,8 +60,7 @@
       display: block;
       line-height: 0;
       img{
-        max-width: 30px;
-        max-height: 30px;
+        max-width: 54px; max-height: 54px;
       }
     }
   }
@@ -133,8 +132,9 @@
       flex-grow: 0;
       display: flex;
       padding: 13px 0;
+      background: rgba(255, 255, 255, 0.06);
       > div.toggler{
-        border: 2px solid rgba(236, 242, 255, 0.37);
+      //  border: 2px solid rgba(236, 242, 255, 0.37);
         border-top: none;
         border-bottom: none;
       }

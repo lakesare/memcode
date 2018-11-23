@@ -22,15 +22,14 @@ class ProfileNavigation extends React.Component {
     this.props.currentUser &&
     <nav className={css.nav}>
       <div className="container">
-        <section className="links">
-          <h2>Courses:</h2>
+        <section className="links"> 
 
           <Link
             to="/courses"
             activeClassName="active"
           >
             <i className="fa fa-folder"/>
-            All
+            All Courses
           </Link>
           <Link
             to="/courses/learning"

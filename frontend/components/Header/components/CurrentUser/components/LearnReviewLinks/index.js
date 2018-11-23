@@ -2,7 +2,7 @@ import { orFalse } from '~/services/orFalse';
 import { shuffle } from 'lodash';
 import { Link } from 'react-router';
 
-import css from './index.css';
+import css from './index.css';  
 
 // every time we go to the other page - reload it in the background.
 // when we learn/review, delete/create a LEARNED COURSE problem - update this state.

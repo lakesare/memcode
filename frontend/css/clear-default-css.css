@@ -10,6 +10,16 @@ body{
   padding-bottom: 30px;
   box-sizing: border-box;
 }
+
+//this part is for prettier sides on pc screens
+@media only screen and (min-width: 600px) 
+  {
+    body 
+    {
+       box-shadow: inset 0px 0px 500px 34px rgba(67, 66, 66, 0.21);
+    }
+  }
+
 a{
   text-decoration: none;
   color: inherit;

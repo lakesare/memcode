@@ -11,7 +11,12 @@
     margin-top: 10px;
     text-align: center;
     background: white;
-    color: black;
+    // color: black;
+
+    color: #ec4c7b;
     font-weight: bold;
+
+    border: 2px solid #200a38;
+    border-radius: 0px 0px 5px 5px;
   }
 }

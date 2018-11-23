@@ -36,7 +36,7 @@ const getConnectionString = () => {
       return {
         host: 'localhost', // 'localhost' is the default;
         port: 5432, // 5432 is the default;
-        database: 'memcode',
+        database: 'postgres',
         user: process.env['DB_USER'],
         password: process.env['DB_PASSWORD']
       };
