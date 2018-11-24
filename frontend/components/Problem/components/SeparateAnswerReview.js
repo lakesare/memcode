@@ -30,24 +30,30 @@ class SeparateAnswerReview extends React.Component {
 
   render = () =>
     <section className="problem -withSeparateAnswer">
-      <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
 
-      {
-        this.props.statusOfSolving.status === 'seeingAnswer' ?
-          <div className="second-column">
-            <ReadonlyEditor html={this.props.problemContent.answer}/>
+      <div className="top-bit">     
+        <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
 
-            {this.renderDraftAnswerEditor()}
-          </div> :
-          <div className="second-column">
-            <div
-              className="see-answer button"
-              onClick={this.props.enterPressed}
-            >See answer</div>
+        {
+          this.props.statusOfSolving.status === 'seeingAnswer' ?
+            <div className="second-column">
+              <ReadonlyEditor html={this.props.problemContent.answer}/>
+            </div> :
+            <div className="second-column">
+              <div
+                className="see-answer button"
+                onClick={this.props.enterPressed}
+              >See answer</div>
+            </div>   
+        }
 
-            {this.renderDraftAnswerEditor()}
-          </div>
-      }
+      </div>
+
+      <div className="bottom-bit">
+        <div className="second-column">
+          {this.renderDraftAnswerEditor()}
+        </div>
+      </div>
     </section>
 }
 
