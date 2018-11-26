@@ -2,7 +2,7 @@ section.problem{
   display: flex;
   .first-column, .second-column{
     width: 50%;
-  }
+  }   
 
   .bottom-bit, .top-bit {
     width: 100%;
@@ -10,7 +10,6 @@ section.problem{
 
   .first-column{ margin-right: 10px; }
   .second-column{ margin-left: 10px; }
-  .bottom-bit{ margin-left: 10px}
 
   $answer-background: rgba(45, 245, 83, 0.9);
   &.-withInlinedAnswers{
@@ -21,37 +20,42 @@ section.problem{
     }
   }
   &.-withSeparateAnswer{
-    flex-direction: column;
 
-    > .top-bit{
-      display: flex;
-      flex-direction: row;
+    > .whole-problem{
+      width: 100%;
+      flex-direction: column;
 
-      > .second-column{
-        > .see-answer{
-          height: 100%;
-          cursor: pointer;
-          font-family: 'Mukta Vaani';
-          background: rgb(106, 243, 132);
-          box-shadow: 0px -1px 6px 1px rgba(74, 241, 42, 0.39);
-          border: 2px solid $whale-green;
-          padding: 6px 0;
-          font-size: 16px;
-          color: #232425;
-          text-shadow: 0px 0px 9px white;
+      > .top-bit{
+        display: flex;
+        flex-direction: row;
+
+        > .second-column{
+          > .see-answer{
+            height: 100%;
+            cursor: pointer;
+            font-family: 'Mukta Vaani';
+            background: rgb(106, 243, 132);
+            box-shadow: 0px -1px 6px 1px rgba(74, 241, 42, 0.39);
+            border: 2px solid $whale-green;
+            padding: 6px 0;
+            font-size: 16px;
+            color: #232425;
+            text-shadow: 0px 0px 9px white;
+          }
         }
       }
-    }
 
-    > .bottom-bit{
-      display: flex;
-      flex-direction: row-reverse;
+      > .bottom-bit{
+        display: flex;
+        flex-direction: row-reverse;
 
-      > .second-column{
-        > .quill{
-          height: 100%;
-          .ql-editor{
-            border: 5px solid $answer-background;
+        > .second-column{
+          padding-left: 10px;
+          > .quill{
+            height: 100%;
+            .ql-editor{
+              border: 5px solid $answer-background;
+            }
           }
         }
       }
