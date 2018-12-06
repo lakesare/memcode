@@ -23,22 +23,8 @@ router.post('/createManyFromExcel', catchAsync(async (request, response) => {
   response.status(200).json({ amountOfCreatedProblems: arrayOfNulls.length });
 }));
 
-// @param { idToPositionMaps: [{ id: 3, position: 0 }] }
-router.put('/reorderMany', catchAsync(async (request, response) => {
-  const idToPositionMaps = request.body['idToPositionMaps'];
-
-  const promises = idToPositionMaps.map((id_position) =>
-    Problem.update.updatePosition({
-      id: id_position.id,
-      position: id_position.position
-    })
-  );
-  await Promise.all(promises);
-  response.status(200).json({});
-}));
-
 router.put('/:id', catchAsync(async (request, response) => {
-  const updatedProblem = await Problem.update.update(request.body['problem'], request.params['id']);
+  const updatedProblem = await Problem.update(request.body['problem'], request.params['id']);
   response.status(200).json(updatedProblem);
 }));
 

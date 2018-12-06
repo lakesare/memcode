@@ -81,7 +81,6 @@ CREATE TABLE problem (
   -- inlinedAnswers { content, explanation }
   -- separateAnswer { content, answer }
   content JSON,
-  position INTEGER,
 
   created_at TIMESTAMP NOT NULL,
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL

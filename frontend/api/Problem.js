@@ -25,12 +25,6 @@ const update = (dispatch, problemId, values) =>
     { problem: values }
   );
 
-const reorderMany = (dispatch, values) =>
-  commonFetch(dispatch,
-    'PUT', `/api/problems/reorderMany`,
-    { idToPositionMaps: values }
-  );
-
 const deleteMany = (dispatch, problemIds) =>
   commonFetch(dispatch,
     'DELETE', '/api/problems/deleteMany',
@@ -43,12 +37,10 @@ const moveToCourseMany = (dispatch, problemIds, courseId) =>
     { problemIds, courseId }
   );
 
-
 // import * as ProblemApi from '~/api/Problem';
 export { create, update, deleteMany, moveToCourseMany };
 
 export default {
   index,
-  createManyFromExcel,
-  reorderMany
+  createManyFromExcel
 };
