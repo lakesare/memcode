@@ -11,6 +11,13 @@
     cursor: pointer;
   }
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  // background: rgba(255, 255, 255, 0.06);
+  // background: rgba(0, 0, 0, 0.2);
+
   position: relative;
   &.-there-are-unread-notifications{
     > div.toggler{ color: $whale-pink; }
@@ -20,24 +27,22 @@
   }
   > div.toggler{
     cursor: pointer;
-    padding: 8px 20px;
-    padding-left: 15px;
-
     position: relative;
     > div.amount-of-unread-notifications{
       position: absolute;
-      top: 0px; right: 10px;
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.82);
-      background: rgba(47, 5, 5, 0.58);
-      padding: 3px;
+      top: -8px; left: 12px;
       border-radius: 50%;
-      width: 15px;
-      height: 15px;
+
+      width: 15px; height: 15px;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       border: 1px solid rgba(255, 255, 255, 0.4);
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.82);
+      background: rgba(47, 5, 5, 0.58);
     }
   }
   > div.dropdown{

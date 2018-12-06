@@ -1,11 +1,7 @@
-# eveything needed for development
-# I don't know how to make them not close an entire tab on CTRL+Z
-# docs: https://www.systutorials.com/docs/linux/man/1-gnome-terminal/
 all:
-	gnome-terminal \
-		--tab -e 'make start' \
-		--tab -e 'make backend-webpack' \
-		--tab -e 'make frontend-webpack'
+	ttab 'make start'
+	ttab 'make backend-webpack'
+	ttab 'make frontend-webpack'
 
 # $(npm bin)/nodemon doesn't work, npm bin is '' then.
 start:
@@ -24,7 +20,7 @@ db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U postgres -f backend/db/migrations/7.sql
+	psql -v database=memcode -U postgres -f backend/db/migrations/8.sql
 
 # dump and restore data
 db-dump:

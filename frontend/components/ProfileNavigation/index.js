@@ -23,14 +23,12 @@ class ProfileNavigation extends React.Component {
     <nav className={css.nav}>
       <div className="container">
         <section className="links">
-          <h2>Courses:</h2>
-
           <Link
             to="/courses"
             activeClassName="active"
           >
             <i className="fa fa-folder"/>
-            All
+            All Courses
           </Link>
           <Link
             to="/courses/learning"

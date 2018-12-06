@@ -9,17 +9,6 @@
     > section.links{
       display: flex;
       align-items: center;
-      > h2{
-        border-left: 2px solid rgb(107, 95, 131);
-        padding: 3px 2px;
-        padding-left: 20px;
-        padding-right: 30px;
-        font-size: 11px;
-        text-transform: uppercase;
-        color: rgba(255, 255, 255, 0.42);
-        cursor: default;
-        font-weight: bold;
-      }
       > a{
         padding: 6px 0;
         min-width: 145px;

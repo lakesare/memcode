@@ -28,7 +28,8 @@ class WhatNext extends React.Component {
     ]).then(([popularCourses, ownCourses]) => {
       const filteredOwnCourses = ownCourses.filter(({ course }) => course.id !== this.props.courseId);
 
-      const amountOfCoursesToShow = 8;
+      // um, 8 actually
+      const amountOfCoursesToShow = 9;
 
       let finalCourses = filteredOwnCourses
         .slice(0, amountOfCoursesToShow)
