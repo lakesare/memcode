@@ -21,7 +21,7 @@ const TypesOfTasks = () =>
         <h3>Memrise: <span className="rating">4</span></h3>
 
         <div className="description">
-          <mark>Memrise</mark> randomly suggests two types of tasks (for the same flashcard), and requires you to complete them in about 10-30 seconds (depending on task dificulty):
+          <mark>Memrise</mark> randomly suggests two types of tasks (for the same flashcard) and requires you to complete them in about 10-30 seconds (depending on task dificulty):
           <ul>
             <li>
               Multiple choice questions
@@ -39,7 +39,7 @@ const TypesOfTasks = () =>
         <h3>Quizlet: <span className="rating">5</span></h3>
 
         <div className="description">
-          <mark>Quizlet</mark> lets you choose what types of tasks you want to exercise your memories with.
+          <mark>Quizlet</mark> lets you choose which types of tasks you want to exercise your memories with. 
           <ul>
             <li>
               Typed-in answer that gets autochecked
@@ -54,10 +54,10 @@ const TypesOfTasks = () =>
               <img src={quizlet_3}/>
             </li>
             <li>
-              Type what you hear. <mark>Quizlet</mark> automatically voices (with good quality!) your questions and answers, speaks an answer to you, and checks how you typed it.
+              Type what you hear. <mark>Quizlet</mark> automatically voices (with good quality!) your questions and answers, speaks the answer and checks how you typed it.
             </li>
             <li>
-              Asteroid game. Expects you to type in answers quick, so that asteroids don't destroy you.
+              Asteroid game. Expects you to type in answers quick, <br/>so that asteroids don't destroy you.
             </li>
             <li>
               Test-like sprint. Solve 20 tasks from the course with randomized task types, and get a grade.
@@ -81,7 +81,7 @@ const TypesOfTasks = () =>
         <h3>Memcode: <span className="rating">5</span></h3>
 
         <div className="description">
-          Unlike other apps, <mark>Memcode</mark> offers two distinct types of flashcards, which are intrinsic to each flashcard (you can't play type_1 on the type_2 card). Those are:
+          Unlike other apps, <mark>Memcode</mark> offers two distinct types of flashcards, with task intrinsic to eachtape are intrinsic to each flashcard (you can't play type_1 on the type_2 card). Those are:
           <ul>
             <li>
               Classical flashcard, but implemented without the turn-over. It lets you reflect on what you just answered.

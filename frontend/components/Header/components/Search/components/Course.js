@@ -18,7 +18,7 @@ class Course extends React.Component {
 
   getEditOrShowUrl = () => {
     const course = this.props.courseData.course;
-    const ifCanEdit = this.props.currentUser && this.props.currentUser.id === course.userId;
+    const ifCanEdit = this.props.currentUser && this.props.currentUser.id === course.user_id;
     return ifCanEdit ?
       `/courses/${course.id}/edit` :
       `/courses/${course.id}`;

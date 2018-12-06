@@ -9,8 +9,8 @@ const QualityOfCourses = () =>
         <h3>Memrise: <span className="rating">5</span></h3>
 
         <div className="description">
-          Many courses on languages, where each flashcard has 'memes' attached to it. It helps tremendously in learning foreign languages.<br/>
-          <mark>Memrise</mark> doesn't offer any flashcard formatting, so courses that need images or even simple paragraphs (basically any technical course) are of worse quality.
+          It has many language courses, where each flashcard has 'memes' attached to it. It helps tremendously in learning foreign languages.<br/>
+          <mark>Memrise</mark> doesn't offer any flashcard formatting, so courses which need images or even simple paragraphs (so basically any technical course) are of worse quality.
         </div>
       </section>
 
@@ -25,7 +25,7 @@ const QualityOfCourses = () =>
       <section className="site">
         <h3>Brainscape: <span className="rating">3</span></h3>
 
-        <div className="description"><mark>Brainscape</mark> is proud of its collection of expert-certified courses, however most of them require paid subscription.<br/>
+        <div className="description"><mark>Brainscape</mark> is proud of its collection of expert-certified courses, however most of them require a paid subscription.<br/>
         I checked a few certified courses though, and they felt like automatically imported dictionary definitions rather than something worth memorizing.</div>
       </section>
 
@@ -33,8 +33,8 @@ const QualityOfCourses = () =>
         <h3>Memcode: <span className="rating">0?</span></h3>
 
         <div className="description">
-          There are basically no courses in this app.<br/>
-          But <mark>Memcode</mark> was not built with rich course ecosystem in mind. This app is meant for users who tend to create their own courses.
+          There are still comparatively few courses on this site.<br/>
+          But <mark>Memcode</mark> was not built with a rich course ecosystem in mind. It's meant for users who tend to create their own courses. If you want a service optimized for custom personal use - it might just be the site for you.
         </div>
       </section>
     </div>
