@@ -1,5 +1,9 @@
 import { update } from 'lodash';
 
+import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
+import { commonFetch } from '~/api/commonFetch';
+import ProblemApi from '~/api/Problem';
+
 import Joyride from 'react-joyride';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { Header }  from '~/components/Header';
@@ -11,8 +15,6 @@ import { NewProblem } from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
 import { Instructions } from './components/Instructions';
 import { ActionsForCheckedProblems } from './components/ActionsForCheckedProblems';
-
-import { commonFetch } from '~/api/commonFetch';
 
 import css from './index.css';
 
@@ -172,6 +174,27 @@ class Page_courses_id_edit extends React.Component {
     </div>
   )
 
+  uiReorderOldProblem = (dragIndex, hoverIndex) => {
+    this.setState({
+      speGetPage: {
+        ...this.state.speGetPage,
+        payload: {
+          ...this.state.speGetPage.payload,
+          problems: injectFromOldToNewIndex(this.state.speGetPage.payload.problems, dragIndex, hoverIndex)
+        }
+      }
+    });
+  }
+
+  apiReorderProblems = () =>
+    ProblemApi.reorderMany(
+      false,
+      this.state.speGetPage.payload.problems.map((problem, index) => ({
+        id: problem.id,
+        position: index
+      }))
+    )
+
   renderProblems = () =>
     <Loading spe={this.state.speGetPage}>{({ problems }) =>
       <section className="problems">
@@ -181,10 +204,12 @@ class Page_courses_id_edit extends React.Component {
             problem={problem}
             index={index}
             updateOldProblem={this.updateOldProblem}
-            removeOldProblem={this.removeOldProblem}
             problems={problems}
             idsOfCheckedProblems={this.state.idsOfCheckedProblems}
             updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
+            // for react-dnd dropTargetSpec
+            uiReorderOldProblem={this.uiReorderOldProblem}
+            apiReorderProblems={this.apiReorderProblems}
           />
         )}
       </section>
@@ -218,7 +243,7 @@ class Page_courses_id_edit extends React.Component {
             backgroundColor: '#ffffff',
             primaryColor: '#ec60ac',
             textColor: '#004a14',
-            width: 200,
+            width: 200
           }
         }}
       />

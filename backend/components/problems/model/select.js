@@ -8,7 +8,7 @@ const select = {
     ),
   allByCourseId: (courseId) =>
     db.any(
-      'SELECT * FROM problem WHERE course_id = ${courseId} ORDER BY created_at',
+      'SELECT * FROM problem WHERE course_id = ${courseId} ORDER BY position, created_at',
       { courseId }
     ),
   all: () =>

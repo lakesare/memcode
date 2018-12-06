@@ -1,10 +1,21 @@
 import * as ProblemApi from '~/api/Problem';
 
+import { DragSource, DropTarget } from 'react-dnd';
 import { Problem } from '~/components/Problem';
 import { Checkbox } from './components/Checkbox';
 
 import css from './index.css';
 
+import dragSourceSpec from './services/dragSourceSpec';
+import dropTargetSpec from './services/dropTargetSpec';
+
+@DropTarget('OldProblem', dropTargetSpec, (connect) => ({
+  connectDropTarget: connect.dropTarget()
+}))
+@DragSource('OldProblem', dragSourceSpec, (connect, monitor) => ({
+  connectDragSource: connect.dragSource(),
+  isDragging: monitor.isDragging()
+}))
 class OldProblem extends React.Component {
   static propTypes = {
     problem: PropTypes.object.isRequired,
@@ -12,7 +23,18 @@ class OldProblem extends React.Component {
     updateOldProblem: PropTypes.func.isRequired,
     problems: PropTypes.array.isRequired,
     idsOfCheckedProblems: PropTypes.array.isRequired,
-    updateIdsOfCheckedProblems: PropTypes.func.isRequired
+    updateIdsOfCheckedProblems: PropTypes.func.isRequired,
+
+    // used inside DropTarget's spec
+    // eslint-disable-next-line react/no-unused-prop-types
+    uiReorderOldProblem: PropTypes.func.isRequired,
+    // eslint-disable-next-line react/no-unused-prop-types
+    apiReorderProblems: PropTypes.func.isRequired,
+
+    // react-dnd props returned from collect
+    isDragging: PropTypes.bool.isRequired,
+    connectDragSource: PropTypes.func.isRequired,
+    connectDropTarget: PropTypes.func.isRequired
   }
 
   state = { speSave: { status: 'success' } }
@@ -29,29 +51,36 @@ class OldProblem extends React.Component {
       ...this.props.problem, content: problemContent
     })
 
-  ifOptimistic = () =>
+  ifAlreadyExists = () =>
     !this.props.problem._optimistic_id
 
   render = () => (
-    this.ifOptimistic() ?
-      <div className={css['old-problem']}>
-        <Checkbox
-          id={this.props.problem.id}
-          index={this.props.index}
-          problems={this.props.problems}
-          idsOfCheckedProblems={this.props.idsOfCheckedProblems}
-          updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
-          speSave={this.state.speSave}
-        />
+    this.ifAlreadyExists() ?
+      this.props.connectDragSource(this.props.connectDropTarget(
+        <div
+          className={`
+            ${css['old-problem']}
+            ${this.props.isDragging ? ' -is-dragging' : ''}`
+          }
+        >
+          <Checkbox
+            id={this.props.problem.id}
+            index={this.props.index}
+            problems={this.props.problems}
+            idsOfCheckedProblems={this.props.idsOfCheckedProblems}
+            updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
+            speSave={this.state.speSave}
+          />
 
-        <Problem
-          mode="edit"
-          problemContent={this.props.problem.content}
-          updateProblemContent={this.updateProblemContent}
-          problemType={this.props.problem.type}
-          apiSave={this.apiSave}
-        />
-      </div> :
+          <Problem
+            mode="edit"
+            problemContent={this.props.problem.content}
+            updateProblemContent={this.updateProblemContent}
+            problemType={this.props.problem.type}
+            apiSave={this.apiSave}
+          />
+        </div>
+      )) :
       <div className={css['old-problem']}>
         <Problem
           mode="show"

@@ -4,7 +4,11 @@
   position: relative;
   margin-bottom: 10px;
 
-  > .problem{
+  &.-is-dragging{
+    opacity: 0;
+  }
+
+  > section.problem{
     &.-not-focused .ql-toolbar{ display: none; }
     &.-focused .ql-toolbar{ display: block; }
 
