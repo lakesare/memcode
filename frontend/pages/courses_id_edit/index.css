@@ -108,20 +108,18 @@
   }
 }
 
+// joyride
 .__floater__body{
   > div{
-    padding: 0 !important;
+    // padding: 0 !important;
     > div:nth-child(1){
       font-size: 13px !important;
-      > button[title="Close"]{
-        visibility: hidden;
-      }
       > div{
         color: rgb(140, 138, 138);
       }
     }
     > div:nth-child(2){
-      display: none !important;
+      margin-top: 0 !important;
     }
   }
 }

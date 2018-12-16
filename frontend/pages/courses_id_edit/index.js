@@ -50,12 +50,12 @@ class Page_courses_id_edit extends React.Component {
       },
       {
         target: '.new-problem .first-column',
-        content: "Enter the question, you will be asked this question when you're learning the flashcards (What's 2x2?)",
+        content: "Enter the question, you will be asked this question when you're learning the flashcards (e.g. 'What's one and only Earth's satellite?')",
         placement: 'bottom'
       },
       {
         target: '.new-problem .second-column',
-        content: "Enter the answer (4)",
+        content: "Enter the answer (e.g. 'Moon')",
         placement: 'bottom'
       },
       {
@@ -195,9 +195,10 @@ class Page_courses_id_edit extends React.Component {
       <Joyride
         steps={this.state.joyrideHowToCreateProblemSteps}
         run={this.state.joyrideHowToCreateProblemRun}
-        // callback={this.callback}
+        showSkipButton
+        showProgress
+        continuous
         hideBackButton
-        // disableOverlay
         styles={{
           options: {
             arrowColor: '#ffffff',
@@ -211,6 +212,9 @@ class Page_courses_id_edit extends React.Component {
       <Joyride
         steps={this.state.joyrideHowToReviewProblemSteps}
         run={this.state.joyrideHowToReviewProblemRun}
+        showSkipButton
+        showProgress
+        continuous
         hideBackButton
         styles={{
           options: {

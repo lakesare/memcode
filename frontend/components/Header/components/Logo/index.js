@@ -4,14 +4,9 @@ import memcodeLogo from './memcodeLogo.svg';
 
 class Logo extends React.Component {
   render = () =>
-    <section className="logo">
-      <Link to="/">
-        <img src={memcodeLogo}/>
-      </Link>
-      {/* <div className="memorizing-is-hard-caption">
-        Retain the understanding.
-      </div> */}
-    </section>
+    <Link className="logo" to="/">
+      <img src={memcodeLogo}/>
+    </Link>
 }
 
 export default Logo;

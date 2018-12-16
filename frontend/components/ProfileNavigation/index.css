@@ -49,10 +49,12 @@
   @media(max-width: 605px){
     > .container{
       > section.links{
-        > h2{ display: none; }
+        align-items: stretch;
+        width: 100%;
         > a{
           min-width: auto;
-          padding: 6px 23px;
+          width: 33.3%;
+          .hide-on-mobile{ display: none; }
         }
       }
       > section.settings{ display: none !important; }

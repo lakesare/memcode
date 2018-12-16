@@ -44,8 +44,8 @@ class TogglerAndModal extends React.Component {
   }
 
   onClickCapture = (event) => {
-    event.stopPropagation();
-    this.closeModal();
+    // event.stopPropagation();
+    // this.closeModal();
   }
 
   renderCloseButton = () =>

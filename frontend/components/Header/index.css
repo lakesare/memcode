@@ -3,12 +3,10 @@
 :local(header.header){
   background: $purple;
 
-  section.logo{
-    align-self: center;
-    > a{
-      display: block;
-      > img{ width: 145px; }
-    }
+  a.logo{
+    display: flex;
+    align-items: center;
+    > img{ width: 145px; }
   }
 
   nav{
@@ -61,7 +59,7 @@
     > a.avatar{
       width: 50px; height: 50px;
       img{
-        border: 3px solid rgb(86, 11, 90);
+        // border: 3px solid rgb(86, 11, 90);
         width: 100%;
         height: 100%;
       }
@@ -140,7 +138,7 @@
   }
   .container.-mobile{
     padding-top: 2px;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
     > div.logo-and-user{
       display: flex;
       justify-content: space-between;
@@ -148,18 +146,21 @@
     }
     > nav{
       justify-content: space-between;
-      max-width: 337px;
       margin: 10px auto;
       > .link{
-        padding: 10px 13px;
+        padding: 10px 0px;
+        width: 25%;
+        display: flex;
+        justify-content: center;
       }
     }
     > section.search{
       margin: 0 auto;
-      margin-top: 4px;
-      max-width: 370px;
-
-      padding: 3px 0;
+      // max-width: initial;
+      width: 100%;
+      input{
+        padding: 10px 10px;
+      }
     }
   }
 }

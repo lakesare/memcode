@@ -28,7 +28,7 @@ class ProfileNavigation extends React.Component {
             activeClassName="active"
           >
             <i className="fa fa-folder"/>
-            All Courses
+            All <span className="hide-on-mobile" style={{ paddingLeft: 3 }}>Courses</span>
           </Link>
           <Link
             to="/courses/learning"
