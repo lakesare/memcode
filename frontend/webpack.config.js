@@ -4,7 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 
@@ -59,17 +59,6 @@ module.exports = {
           }
         ]
       },
-      // {
-      //   test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
-      //   use: [{
-      //     loader: 'file-loader',
-      //     options: {
-      //       name: '[name].[ext]',
-      //       outputPath: 'fonts/',    // where the fonts will go
-      //       publicPath: '../'       // override the default path
-      //     }
-      //   }]
-      // },
       { // for images
         test: /\.(jpg|png|svg|gif)$/,
         use: [

@@ -1,6 +1,7 @@
 const config = require('./webpack.config.js');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: config.entry,
@@ -10,6 +11,9 @@ module.exports = {
   resolve: config.resolve,
 
   plugins: [
+    new CopyWebpackPlugin(['nonWebpackedFiles'], {
+      copyUnmodified: true
+    }),
     new ExtractTextPlugin('/index.css'),
     new webpack.ProvidePlugin({
       React: 'react',
