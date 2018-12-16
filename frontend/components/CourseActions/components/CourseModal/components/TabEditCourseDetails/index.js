@@ -15,7 +15,7 @@ class TabEditCourseDetails extends React.Component {
   }
 
   state = {
-    speSave: { status: 'success' },
+    speSave: {},
     formState: this.props.course,
     formValidation: {}
   }
@@ -44,7 +44,6 @@ class TabEditCourseDetails extends React.Component {
     <section className={"standard-white-heading_and_blue-content " + css.tab}>
       <div className="background -white">
         <h2 className="title">Edit Course</h2>
-        <Loading spe={this.state.speSave}/>
         {this.props.tabNavigation}
       </div>
 
@@ -62,6 +61,11 @@ class TabEditCourseDetails extends React.Component {
             type="submit"
             onClick={this.apiUpdateCourse}
           >Update</button>
+          <Loading spe={this.state.speSave}>{() =>
+            <div className="standard-success-message">
+              Course was successfully updated.
+            </div>
+          }</Loading>
         </form>
       </div>
     </section>

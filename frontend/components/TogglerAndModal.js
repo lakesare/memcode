@@ -1,3 +1,4 @@
+import onClickOutside from 'react-onclickoutside';
 import { Gateway } from 'react-gateway';
 
 // works with 'Function As Component Child' (example: https://gist.github.com/choonkending/7da9fd006df752680ad51f58440bbc40)
@@ -11,6 +12,7 @@ import { Gateway } from 'react-gateway';
 // ___gotchas?
 // you have to have <GatewayProvider/> somewhere as parent, refer to 'react-gateway' docs.
 // this is done in order to keep it a direct child of <main/>.
+// @onClickOutside
 class TogglerAndModal extends React.Component {
   static propTypes = {
     // notice that toggler must be an element that can have children (not a void one)
@@ -41,6 +43,11 @@ class TogglerAndModal extends React.Component {
     this.props.afterModalCloses();
   }
 
+  onClickCapture = (event) => {
+    event.stopPropagation();
+    this.closeModal();
+  }
+
   renderCloseButton = () =>
     <button type="button" className="close-button" onClick={this.closeModal}>
       +
@@ -49,7 +56,7 @@ class TogglerAndModal extends React.Component {
   renderModal = () =>
     this.state.ifModalIsOpen &&
     <Gateway key="key-for-array" into="main">
-      <div className={`standard-modal ${this.props.modalClassName}`}>
+      <div className={`standard-modal ${this.props.modalClassName}`} onClickCapture={this.onClickCapture}>
         {this.renderCloseButton()}
         {
           typeof this.props.children === 'function' ?

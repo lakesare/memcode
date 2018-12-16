@@ -73,7 +73,6 @@
             height: 100%;
             > .ql-container{
               height: 100%;
-              border: 5px solid $answer-background;
             }
           }
         }
@@ -84,6 +83,7 @@
         display: flex;
         width: 100%;
         .ql-toolbar{ box-shadow: none; }
+        .ql-editor{ border: none !important; }
         &.-focused{ .ql-toolbar{ opacity: 1; } }
         &.-not-focused{ .ql-toolbar{ opacity: 0; } }
       }
@@ -92,13 +92,14 @@
 
   .button.next{
     color: white;
-    background: rgba(0, 255, 29, 0.48);
+    background: $whale-pink;
     max-width: 100px;
     margin: 0 auto;
     margin-top: 60px;
     border-radius: 2px;
+    opacity: 0.9;
     &:hover{
-      background: rgba(0, 255, 29, 0.77);;
+      opacity: 1;
     }
   }
 
@@ -254,14 +255,6 @@
     }
     a.button.next{
       margin-top: 20px;
-    }
-
-    article.what-next{
-      > section.offered-courses{
-        .course{
-          height: $course-in-list-height-mobile - 4px;
-        }
-      }
     }
   }
 }

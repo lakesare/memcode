@@ -14,4 +14,9 @@ section.problem{
       border-radius: 2px;
     }
   }
+  &.-withSeparateAnswer{
+    .second-column .ql-editor{
+      border: 5px solid $answer-background;
+    }
+  }
 }
