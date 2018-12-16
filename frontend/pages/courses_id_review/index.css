@@ -92,14 +92,14 @@
 
   .button.next{
     color: white;
-    background: $whale-pink;
+    background: rgba(0, 255, 29, 0.48);;
     max-width: 100px;
     margin: 0 auto;
     margin-top: 60px;
     border-radius: 2px;
     opacity: 0.9;
     &:hover{
-      opacity: 1;
+      background: rgba(0, 255, 29, 0.77);
     }
   }
 
