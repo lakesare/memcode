@@ -2,12 +2,7 @@ section.problem{
   display: flex;
   .first-column, .second-column{
     width: 50%;
-  }   
-
-  .bottom-bit, .top-bit {
-    width: 100%;
   }
-
   .first-column{ margin-right: 10px; }
   .second-column{ margin-left: 10px; }
 
@@ -17,49 +12,6 @@ section.problem{
       border: 5px solid $answer-background;
       padding: 1px 2px;
       border-radius: 2px;
-    }
-  }
-  &.-withSeparateAnswer{
-    width: 100%;
-    flex-direction: column;
-
-    > .top-bit{
-      display: flex;
-      flex-direction: row;
-      /* introducing this div caused problems on mobiles, following line fixes them */
-      @media(max-width: 500px) {
-        flex-wrap: wrap;
-      }
-
-      > .second-column{
-        > .see-answer{
-          height: 100%;
-          cursor: pointer;
-          font-family: 'Mukta Vaani';
-          background: rgb(106, 243, 132);
-          box-shadow: 0px -1px 6px 1px rgba(74, 241, 42, 0.39);
-          border: 2px solid $whale-green;
-          padding: 6px 0;
-          font-size: 16px;
-          color: #232425;
-          text-shadow: 0px 0px 9px white;
-        }
-      }
-    }
-
-    > .bottom-bit{
-      display: flex;
-      flex-direction: row-reverse;
-
-      > .second-column{
-        padding-left: 10px;
-        > .quill{
-          height: 100%;
-          .ql-editor{
-            border: 5px solid $answer-background;
-          }
-        }
-      }  
     }
   }
 }

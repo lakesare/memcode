@@ -17,7 +17,8 @@ class Editor extends React.Component {
 
     onFocusChange: PropTypes.func,
     toolbarContainer: PropTypes.array,
-    toolbarHandlers: PropTypes.object
+    toolbarHandlers: PropTypes.object,
+    className: PropTypes.string
   };
 
   static defaultProps = {
@@ -27,7 +28,8 @@ class Editor extends React.Component {
     onFocusChange: () => {},
 
     toolbarContainer: standardToolbarContainer,
-    toolbarHandlers: {}
+    toolbarHandlers: {},
+    className: ''
   }
 
   // range: Range {index: 5, length: 0} OR null
@@ -37,6 +39,7 @@ class Editor extends React.Component {
 
   render = () =>
     <ReactQuill
+      className={this.props.className}
       value={this.props.editorState}
       onChange={this.props.updateEditorState}
       readOnly={this.props.readOnly}

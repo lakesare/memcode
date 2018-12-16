@@ -17,7 +17,9 @@
     box-shadow: 0px 0px 9px rgba(214, 214, 214, 0.16);
     padding: 7px 5px;
 
+    $answer-background: rgba(45, 245, 83, 0.9);
     &.-withInlinedAnswers{
+      .quill, .ql-container{ height: 100%; }
       input.answer{
         width: 120px;
         display: inline-block;
@@ -39,8 +41,48 @@
       }
     }
     &.-withSeparateAnswer{
-      .draft-answer{
-        margin-top: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+
+      > div.question-and-answer{
+        width: 100%;
+        display: flex;
+        // button or answer editor
+        > button.see-answer-button{
+          max-height: 400px;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          user-select: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          cursor: pointer;
+          font-family: 'Mukta Vaani';
+          background: rgb(106, 243, 132);
+          box-shadow: 0px -1px 6px 1px rgba(74, 241, 42, 0.39);
+          border: 2px solid $whale-green;
+          padding: 6px 0;
+          font-size: 16px;
+          color: #232425;
+          text-shadow: 0px 0px 9px white;
+        }
+        > div.answer{
+          > .quill{
+            height: 100%;
+            > .ql-container{
+              height: 100%;
+              border: 5px solid $answer-background;
+            }
+          }
+        }
+      }
+
+      > div.draft-answer{
+        margin-top: 5px;
+        display: flex;
+        width: 100%;
         .ql-toolbar{ box-shadow: none; }
         &.-focused{ .ql-toolbar{ opacity: 1; } }
         &.-not-focused{ .ql-toolbar{ opacity: 0; } }
@@ -161,11 +203,8 @@
     }
   }
 }
-// rgb(185, 49, 49) red
-// rgba(115, 232, 61, 0.79) green
 
-
-@media(max-width: 500px) {
+@media(max-width: 900px) {
   :local(main.main){
     section.instructions{
       margin-bottom: 20px;
@@ -178,7 +217,6 @@
     }
     section.problem{
       margin-top: 0px;
-      flex-wrap: wrap;
       .first-column, .second-column{
         width: 100%;
       }
@@ -189,8 +227,15 @@
         margin-top: 20px;
         margin-left: 0px !important;
       }
+      &.-withInlinedAnswers{
+        flex-wrap: wrap;
+      }
       &.-withSeparateAnswer{
-        .draft-answer{ display: none; }
+        flex-wrap: wrap;
+        > div.question-and-answer{
+          flex-wrap: wrap;
+        }
+        div.draft-answer{ display: none !important; }
       }
     }
     section.self-score{
