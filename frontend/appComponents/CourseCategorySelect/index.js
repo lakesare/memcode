@@ -56,7 +56,9 @@ class CourseCategorySelect extends React.Component {
     >
       <div className="category-insides">
         <span className="category-name">{category.name}</span>
-        <span className="amount-of-courses"><b>(</b>{category.amountOfCourses}<b>)</b></span>
+        <span className="amount-of-courses">
+          {/* <b>(</b>{category.amountOfCourses}<b>)</b> */}
+        </span>
       </div>
     </li>
 

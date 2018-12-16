@@ -45,6 +45,8 @@
     > .loading.loading-courses{
       margin: 0 auto;
     }
+
+    .amount-of-courses{ display: none; }
   }
 }
 

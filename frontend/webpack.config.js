@@ -3,7 +3,13 @@ const path = require('path');
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
+
+
+const outputPath = path.join(__dirname, '/webpackedFiles');
 
 module.exports = {
   entry: {
@@ -42,12 +48,39 @@ module.exports = {
         })
       },
       { // for fonts
-        test: /\.(ttf|eot|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        use: ['file-loader']
+        test: /\.(ttf|otf|eot|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]?[hash]',
+              publicPath: '/'
+            }
+          }
+        ]
       },
+      // {
+      //   test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+      //   use: [{
+      //     loader: 'file-loader',
+      //     options: {
+      //       name: '[name].[ext]',
+      //       outputPath: 'fonts/',    // where the fonts will go
+      //       publicPath: '../'       // override the default path
+      //     }
+      //   }]
+      // },
       { // for images
         test: /\.(jpg|png|svg|gif)$/,
-        use: ['file-loader?name=[name].[ext]?[hash]&publicPath=/webpacked-files/']
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]?[hash]',
+              publicPath: '/'
+            }
+          }
+        ]
       }
     ],
   },
@@ -62,7 +95,23 @@ module.exports = {
     alias: { '~': path.resolve(__dirname) }
   },
 
+  stats: {
+    modules: false,
+    maxModules: 0,
+    children: false
+  },
+
   plugins: [
+    // new CleanWebpackPlugin([outputPath]),
+    // copies subfoldered files directly into /webpackedFiles
+    new CopyWebpackPlugin([
+      'nonWebpackedFiles'
+    ], {
+      // ___Why do we need it?
+      //    Because workbox-webpack-plugin's precache-minifest will not include copied over files on next rebuilds otherwise.
+      // Copies files, regardless of modification when using watch or webpack-dev-server. All files are copied on first build, regardless of this option
+      copyUnmodified: true
+    }),
     new ExtractTextPlugin('/index.css'),
     new webpack.ProvidePlugin({
       React: 'react',
@@ -70,11 +119,20 @@ module.exports = {
       'window.Quill': 'quill',
       connect: ['react-redux', 'connect']
     }),
-    new WebpackNotifierPlugin({ alwaysNotify: true, excludeWarnings: true })
+    new WebpackNotifierPlugin({
+      alwaysNotify: true,
+      excludeWarnings: true
+    }),
+    new WorkboxPlugin.InjectManifest({
+      swSrc: './service-worker.js',
+      // places it into /webpackedFiles/webpacked-service-worker.js,
+      // useless-subdirectory is needed for node'd express.static() route.
+      swDest: './webpacked-service-worker.js'
+    })
   ],
 
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, '/webpackedFiles')
+    path: outputPath
   }
 };

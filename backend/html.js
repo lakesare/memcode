@@ -22,14 +22,14 @@ const html = `
     <title>Memcode</title>
 
     <!-- css -->
-    <link href="/webpacked-files/index.css" rel="stylesheet">
+    <link href="/index.css" rel="stylesheet">
 
     <!-- quill theme support -->
-    <link rel="stylesheet" href="/static-files/quill.snow.css">
+    <link rel="stylesheet" href="/nonNpmLibraries/quill.snow.css">
 
     <!-- katex support -->
-    <link rel="stylesheet" href="/static-files/katex.min.css"/>
-    <script src="/static-files/katex.min.js"></script>
+    <link rel="stylesheet" href="/nonNpmLibraries/katex.min.css"/>
+    <script src="/nonNpmLibraries/katex.min.js"></script>
 
     <!-- to verify google webmasters -->
     <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>
@@ -37,10 +37,10 @@ const html = `
     <meta id="meta" name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <!-- as per https://realfavicongenerator.net/favicon_result?file_id=p1cd8gt6qj1kvp121l103k18gh1u4c6#.WvYIatOuzhM -->
-    <link rel="icon" type="image/png" href="/favicon-32x32.png?v=3" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="/favicon-16x16.png?v=3" sizes="16x16"/>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=3" color="#ba2490">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ba2490">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="msapplication-TileColor" content="#9f00a7">
     <meta name="theme-color" content="#ffffff">
@@ -61,7 +61,7 @@ const html = `
     </script>
 
     <!-- main js file -->
-    <script type="text/javascript" src="/webpacked-files/index.js" defer></script>
+    <script type="text/javascript" src="/index.js" defer></script>
 
     ${googleAnalyticsScriptTag}
   </html>

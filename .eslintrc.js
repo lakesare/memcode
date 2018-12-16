@@ -276,6 +276,10 @@ module.exports = {
     // things I make global with ProvidePlugin
     "React": true,
     "PropTypes": true,
-    "connect": true
+    "connect": true,
+
+    // only available and used via service-worker.js
+    "workbox": true,
+    "self": true
   }
 }

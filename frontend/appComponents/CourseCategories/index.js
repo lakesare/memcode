@@ -21,7 +21,9 @@ class CourseCategories extends React.Component {
     >
       <Link className="category-insides" to={`${window.location.pathname}?categoryId=${category.id}`}>
         <span className="category-name">{category.name}</span>
-        <span className="amount-of-courses"><b>(</b>{category.amountOfCourses}<b>)</b></span>
+        <span className="amount-of-courses">
+          <b>(</b>{category.amountOfCourses}<b>)</b>
+        </span>
       </Link>
     </li>
 

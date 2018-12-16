@@ -20,9 +20,10 @@ routes.use(bodyParser.urlencoded({
 }));
 
 import path from 'path';
-routes.use(express.static(path.join(__dirname, '../../frontend/staticFiles/underRoot')));
-routes.use('/static-files', express.static(path.join(__dirname, '../../frontend/staticFiles/underUrlPrefix')));
-routes.use('/webpacked-files', express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
+// routes.use(express.static(path.join(__dirname, '../../frontend/staticFiles/underRoot')));
+// routes.use(express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
+// routes.use('/static-files', express.static(path.join(__dirname, '../../frontend/staticFiles/underUrlPrefix')));
+routes.use('/', express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
 
 // routes
 import { router as coursesRouter } from './components/courses/routes';
