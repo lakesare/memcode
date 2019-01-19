@@ -9,6 +9,17 @@ import NotificationLi from './components/NotificationLi';
 
 import css from './index.css';
 
+// every time we go to the other page - reload it in the background.
+
+// import NotificationsReducer from '~/reducers/NotificationsReducer';
+// @connect(
+//   (state) => ({
+//     idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
+//   }),
+//   (dispatch) => ({
+//     apiSync: (payload) => NotificationsReducer.actions.apiSync(dispatch, payload)
+//   })
+// )
 @onClickOutside
 class NotificationsTogglerAndDropdown extends React.Component {
   static propTypes = {
@@ -19,7 +30,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
     speGetNotifications: {},
     speLoadMoreNotifications: {},
     amountOfAllNotifications: 0,
-    amountOfUnreadNotifications: 0,
+    // should be stored in the local storage before we implement global state via the reducer
+    amountOfUnreadNotifications: localStorage.getItem('amountOfUnreadNotifications') || 0,
     ifDropdownIsOpen: false
   }
 
@@ -38,6 +50,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
           amountOfAllNotifications: stats.amountOfAllNotifications,
           amountOfUnreadNotifications: stats.amountOfUnreadNotifications
         });
+        localStorage.setItem('amountOfUnreadNotifications', stats.amountOfUnreadNotifications)
       })
 
   apiGetMostRecentNotifications = () =>
@@ -72,10 +85,12 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
   apiMarkAsReadOrUnread = (notification, ifRead) => {
     const updatedNotification = { ...notification, ifRead };
-    this.setState({
-      speGetNotifications: SpeImmutable.update(this.state.speGetNotifications, updatedNotification),
-      amountOfUnreadNotifications: this.state.amountOfUnreadNotifications + (ifRead ? -1 : 1)
-    });
+    const speGetNotifications = SpeImmutable.update(this.state.speGetNotifications, updatedNotification);
+
+    const amountOfUnreadNotifications = this.state.amountOfUnreadNotifications + (ifRead ? -1 : 1);
+
+    this.setState({ speGetNotifications, amountOfUnreadNotifications });
+    localStorage.setItem('amountOfUnreadNotifications', amountOfUnreadNotifications);
     return NotificationApi.markAsReadOrUnread(
       false,
       notification.id,
@@ -106,7 +121,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
   renderToggler = () =>
     <div
       className="toggler"
-      style={disableOnSpeRequest(this.state.speGetNotifications)}
+      style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
       onClick={() => this.setState({ ifDropdownIsOpen: !this.state.ifDropdownIsOpen })}
     >
       <i className="fa fa-bell"/>
