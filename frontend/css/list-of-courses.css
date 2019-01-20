@@ -199,7 +199,8 @@
     > .course{
       width: 100%;
       height: $course-in-list-height-mobile;
-      padding-bottom: 19px;
+      margin-bottom: 15px;
+
       &.-simpleCourse{
         > section.main{
           padding-top: 4px;
