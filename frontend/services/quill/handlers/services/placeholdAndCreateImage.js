@@ -5,6 +5,8 @@ import preloadImage from '~/services/preloadImage';
 import FileApi from '~/api/FileApi';
 
 const placeholdAndCreateImage = (quill, file) => {
+  // needed for quill.getSelection() to work
+  quill.focus();
   const selectionAt = quill.getSelection() ?
     quill.getSelection().index :
     // when we are not focused on the editor (e.g. when we just drop something)

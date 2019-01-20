@@ -134,7 +134,7 @@ class Page_courses_id_review extends React.Component {
               randomizeProblems={this.props.randomizeProblems}
             />
           }
-         
+
           <WhatNext
             courseId={parseInt(this.props.params.id)}
             currentUser={this.props.currentUser}
