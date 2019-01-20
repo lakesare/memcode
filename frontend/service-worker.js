@@ -13,7 +13,6 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 //   workbox.strategies.networkFirst()
 // );
 
- 
 workbox.precaching.precache([
   { url: '/index.html', revision: 'aaaa' }
 ]);
@@ -26,8 +25,6 @@ workbox.routing.registerNavigationRoute(
   // }
 );
 
-
-
 workbox.routing.registerRoute(
   new RegExp('.*/api/courseCategories/withGroups'),
   workbox.strategies.staleWhileRevalidate({
@@ -35,8 +32,12 @@ workbox.routing.registerRoute(
   })
 );
 
-
-
+workbox.routing.registerRoute(
+  new RegExp('.*/api/courses/public.*'),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: 'api',
+  })
+);
 
 // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
 workbox.routing.registerRoute(
