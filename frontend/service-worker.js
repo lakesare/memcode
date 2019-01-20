@@ -19,11 +19,11 @@ workbox.precaching.precache([
 ]);
 workbox.routing.registerNavigationRoute(
   '/index.html',
-  {
-    blacklist: [
-      new RegExp('/api/.*')
-    ]
-  }
+  // {
+  //   blacklist: [
+  //     new RegExp('/api/.*')
+  //   ]
+  // }
 );
 
 

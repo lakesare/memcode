@@ -64,14 +64,14 @@ ReactDOM.render(
 );
 
 // console.log('change for webpack');
-// document.addEventListener("DOMContentLoaded", () => {
-//   if ('serviceWorker' in navigator) {
-//     window.addEventListener('load', () => {
-//       navigator.serviceWorker.register('/webpacked-service-worker.js').then(registration => {
-//         console.log('SW registered: ', registration);
-//       }).catch(registrationError => {
-//         console.log('SW registration failed: ', registrationError);
-//       });
-//     });
-//   }
-// });
+document.addEventListener("DOMContentLoaded", () => {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/webpacked-service-worker.js').then(registration => {
+        console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+});
