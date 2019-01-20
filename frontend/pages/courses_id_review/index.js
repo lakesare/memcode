@@ -5,6 +5,8 @@ import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { ProblemBeingSolved } from './components/ProblemBeingSolved';
 import { WhatNext } from './components/WhatNext';
+import { Problem } from '~/components/Problem';
+
 
 import css from './index.css';
 
@@ -83,7 +85,12 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPage(this.props.params.id);
+    this.props.getPage(this.props.params.id)
+    // .then((response) => {
+    //   response.problems
+    // });
+
+
 
     document.body.style.background = 'rgb(19, 2, 2)';
   }
@@ -98,12 +105,24 @@ class Page_courses_id_review extends React.Component {
     document.body.style.background = '';
   }
 
+  renderProblemContentCachingMechanism = (problems) =>
+    <div style={{ display: 'none' }}>{
+      problems.map((problem) =>
+        <Problem
+          key={problem.id}
+          mode="show"
+          problemContent={problem.content}
+          problemType={problem.type}
+        />
+      )
+    }</div>
+
   render = () =>
     <main className={css.main} key={this.props.params.id}>
       <Header dontLinkToLearnOrReview={this.props.params.id}/>
 
       <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
-      <Loading spe={this.props.speGetPage}>{() =>
+      <Loading spe={this.props.speGetPage}>{({ problems }) =>
         <div className="container">
           {
             this.props.currentProblem ?
@@ -122,6 +141,8 @@ class Page_courses_id_review extends React.Component {
               /> :
               <WhatNext courseId={parseInt(this.props.params.id)} currentUser={this.props.currentUser} speNextReviewIn={this.props.speNextReviewIn}/>
           }
+
+          {this.renderProblemContentCachingMechanism(problems)}
         </div>
       }</Loading>
     </main>

@@ -1,5 +1,6 @@
 import toArray from '~/services/toArray';
 import placeholdAndCreateImage from './services/placeholdAndCreateImage';
+// import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 
 function uploadImageHandler() {
   const input = document.createElement('input');

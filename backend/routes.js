@@ -19,6 +19,9 @@ routes.use(bodyParser.urlencoded({
   parameterLimit: 50000
 }));
 
+// for dataUrl image downloads
+// routes.keepAliveTimeout = 60000 * 2;
+
 import path from 'path';
 // routes.use(express.static(path.join(__dirname, '../../frontend/staticFiles/underRoot')));
 // routes.use(express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
