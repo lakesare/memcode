@@ -1,6 +1,7 @@
 process.noDeprecation = true;
 const path = require('path');
 
+const webpack = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const sharedPlugins = require('./webpack.sharedPlugins');
@@ -88,6 +89,9 @@ module.exports = {
 
   plugins: [
     ...sharedPlugins,
+    new webpack.DefinePlugin({
+       'process.env.NODE_ENV': JSON.stringify('development')
+    }),
     new WebpackNotifierPlugin({
       alwaysNotify: true,
       excludeWarnings: true
