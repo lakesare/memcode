@@ -13,6 +13,7 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 //   workbox.strategies.networkFirst()
 // );
 
+ 
 workbox.precaching.precache([
   { url: '/index.html', revision: 'aaaa' }
 ]);

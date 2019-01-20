@@ -2,16 +2,16 @@
 // because there is no alternative to el.readOnly
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
-const focusOnTheFirstAnswer = () => {
-  const answers = document.getElementsByClassName('answer');
+const focusOnTheFirstAnswer = (arrayOfAnswerEls) => {
+  const answers = arrayOfAnswerEls;
   const firstAnswer = answers[0];
   if (firstAnswer) {
     firstAnswer.focus();
   }
 };
 
-const succumb = () => {
-  Array.from(document.getElementsByClassName('answer')).forEach((el) => {
+const succumb = (arrayOfAnswerEls) => {
+  arrayOfAnswerEls.forEach((el) => {
     if (el.getAttribute('data-answered') !== 'right') {
       // ___why el.value instead of el.setAttribute('value')?
       //   we are modifying element's value propery rather than attribute
@@ -22,13 +22,13 @@ const succumb = () => {
       el.setAttribute('data-answered', 'wrong');
       el.readOnly = true;
 
-      adjustWidthToInput(el);
+      _adjustWidthToInput(el);
     }
   });
 };
 
-const retry = () => {
-  Array.from(document.getElementsByClassName('answer')).forEach((el) => {
+const retry = (arrayOfAnswerEls) => {
+  arrayOfAnswerEls.forEach((el) => {
     // ___why el.value instead of el.setAttribute('value')?
     //   we are modifying element's value propery rather than attribute
     //   because in HTML (unlike in react)
@@ -38,11 +38,11 @@ const retry = () => {
     el.setAttribute('data-answered', 'waiting');
     el.readOnly = false;
 
-    adjustWidthToInput(el);
+    _adjustWidthToInput(el);
   });
 };
 
-const adjustWidthToInput = (el) => {
+const _adjustWidthToInput = (el) => {
   const nextLength = (el.value.length + 1) * 9;
   if (nextLength > 120) {
     el.style.width = nextLength + 'px';
@@ -51,7 +51,7 @@ const adjustWidthToInput = (el) => {
   }
 };
 
-const checkAnswer = (el, onRightAnswerGiven) => {
+const _checkAnswer = (el, onRightAnswerGiven) => {
   const answer = el.getAttribute('data-answer');
   const currentValue = el.value;
 
@@ -66,11 +66,11 @@ const checkAnswer = (el, onRightAnswerGiven) => {
   }
 };
 
-const attachKeyup = (onRightAnswerGiven) => {
-  Array.from(document.getElementsByClassName('answer')).forEach((el) => {
+const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
+  arrayOfAnswerEls.forEach((el) => {
     el.addEventListener('input', () => {
-      adjustWidthToInput(el);
-      checkAnswer(el, onRightAnswerGiven);
+      _adjustWidthToInput(el);
+      _checkAnswer(el, onRightAnswerGiven);
     });
   });
 };
@@ -89,8 +89,9 @@ class InlinedAnswersReview extends React.Component {
   }
 
   componentDidMount() {
-    focusOnTheFirstAnswer();
-    attachKeyup(this.props.onRightAnswerGiven);
+    this.arrayOfAnswerEls = Array.from(this.refs.problem.querySelectorAll('.answer'));
+    focusOnTheFirstAnswer(this.arrayOfAnswerEls);
+    attachKeyup(this.arrayOfAnswerEls, this.props.onRightAnswerGiven);
   }
 
   componentDidUpdate(prevProps) {
@@ -100,12 +101,12 @@ class InlinedAnswersReview extends React.Component {
     const ifJustSuccumbed =
       prevStatus === 'solving' &&
       nextStatus === 'seeingAnswer';
-    if (ifJustSuccumbed) succumb();
+    if (ifJustSuccumbed) succumb(this.arrayOfAnswerEls);
 
     const ifJustDecidedToRetry =
       prevStatus === 'seeingAnswer' &&
       nextStatus === 'solving';
-    if (ifJustDecidedToRetry) retry();
+    if (ifJustDecidedToRetry) retry(this.arrayOfAnswerEls);
   }
 
   render = () => {
@@ -120,7 +121,7 @@ class InlinedAnswersReview extends React.Component {
         />`
       );
 
-    return <section className="problem -withInlinedAnswers">
+    return <section className="problem -withInlinedAnswers" ref="problem">
       <ReadonlyEditor className="first-column" html={content}/>
       <ReadonlyEditor className="second-column" html={this.props.problemContent.explanation}/>
     </section>;
