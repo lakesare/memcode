@@ -85,13 +85,7 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPage(this.props.params.id)
-    // .then((response) => {
-    //   response.problems
-    // });
-
-
-
+    this.props.getPage(this.props.params.id);
     document.body.style.background = 'rgb(19, 2, 2)';
   }
 
@@ -125,22 +119,28 @@ class Page_courses_id_review extends React.Component {
       <Loading spe={this.props.speGetPage}>{({ problems }) =>
         <div className="container">
           {
-            this.props.currentProblem ?
-              <ProblemBeingSolved
-                key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
-                problem={this.props.currentProblem}
-                ifReviewIsSimulated={this.props.route.simulated}
-                ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
-                statusOfSolving={this.props.statusOfSolving}
-                amountOfProblems={this.props.amountOfProblems}
+            this.props.currentProblem &&
+            <ProblemBeingSolved
+              key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
+              problem={this.props.currentProblem}
+              ifReviewIsSimulated={this.props.route.simulated}
+              ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
+              statusOfSolving={this.props.statusOfSolving}
+              amountOfProblems={this.props.amountOfProblems}
 
-                enterPressed={this.props.enterPressed}
-                separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
-                onRightAnswerGiven={this.props.onRightAnswerGiven}
-                randomizeProblems={this.props.randomizeProblems}
-              /> :
-              <WhatNext courseId={parseInt(this.props.params.id)} currentUser={this.props.currentUser} speNextReviewIn={this.props.speNextReviewIn}/>
+              enterPressed={this.props.enterPressed}
+              separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
+              onRightAnswerGiven={this.props.onRightAnswerGiven}
+              randomizeProblems={this.props.randomizeProblems}
+            />
           }
+         
+          <WhatNext
+            courseId={parseInt(this.props.params.id)}
+            currentUser={this.props.currentUser}
+            speNextReviewIn={this.props.speNextReviewIn}
+            ifDisplay={!this.props.currentProblem}
+          />
 
           {this.renderProblemContentCachingMechanism(problems)}
         </div>

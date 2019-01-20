@@ -11,7 +11,8 @@ class WhatNext extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    speNextReviewIn: PropTypes.object.isRequired
+    speNextReviewIn: PropTypes.object.isRequired,
+    ifDisplay: PropTypes.bool.isRequired
   }
 
   state = { speCourses: {} }
@@ -71,7 +72,7 @@ class WhatNext extends React.Component {
     )
 
   render = () =>
-    <article className="what-next">
+    <article className="what-next" style={this.props.ifDisplay ? {} : { display: 'none' }}>
       <div className="space"/>
       <section className="congratulations">
         <h2>You successfully reviewed this course!</h2>
