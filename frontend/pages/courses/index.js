@@ -68,7 +68,10 @@ class Page_courses extends React.Component {
         pageSize: 16,
         pageNumber: getCurrentPage(this.props),
         sortBy: getSortBy(this.props),
-        ...(getCategoryId(this.props) || {})
+        ...(getCategoryId(this.props) ?
+          { courseCategoryId: getCategoryId(this.props) } :
+          {}
+        )
       }
     )
       .then(({ amountOfPages }) =>
