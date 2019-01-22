@@ -1,49 +1,48 @@
 @import 'css/variables';
 :local(section.pagination){
-  > ul{
-    display: flex;
-    align-items: center;
-    > li{
-      // clickable page numebrs
-      &.page-n{
-        padding: 0 5px;
-        font-size: 13px;
-        &.current{
-          color: #e86fa5;
-          border-bottom: 1px solid #e86fa5;
-          font-weight: bold;
-          &:hover{
-            cursor: default;
-          }
-        }
-        &:not(.current){
-          border-bottom: 1px solid #d4d4d4;
-          &:hover{
-            cursor: pointer;
-            color: #e86fa5;
-          }
-        }
-      }
-      // previous and next arrows
-      &.arrow{
-        font-size: 15px;
-        &.active{
-          cursor: pointer;
-          color: $purple;
-        }
-        &.disabled{
+  display: flex;
+  align-items: center;
+  > a{
+    // clickable page numbers
+    &.page-n{
+      padding: 0 5px;
+      font-size: 13px;
+      &.current{
+        color: #e86fa5;
+        border-bottom: 1px solid #e86fa5;
+        font-weight: bold;
+        &:hover{
           cursor: default;
-          color: #d0d2d4; // light grey
         }
+      }
+      &:not(.current){
+        border-bottom: 1px solid #d4d4d4;
+        &:hover{
+          cursor: pointer;
+          color: #e86fa5;
+        }
+      }
 
-        .fa-caret-left{ padding-right: 10px; }
-        .fa-caret-right{ padding-left: 10px; }
-      }
-      &.epsilon{
-        color: #d4d4d4;
-        // border-bottom: #827e7e dotted 2px;
-        // width: 4px;
-      }
     }
+    // previous and next arrows
+    &.arrow{
+      font-size: 15px;
+      &.active{
+        cursor: pointer;
+        color: $purple;
+      }
+      &.disabled{
+        cursor: default;
+        color: #d0d2d4; // light grey
+      }
+
+      i.fa-caret-left{ padding-right: 10px; }
+      i.fa-caret-right{ padding-left: 10px; }
+    }
+  }
+  > span.epsilon{
+    color: #d4d4d4;
+    // border-bottom: #827e7e dotted 2px;
+    // width: 4px;
   }
 }

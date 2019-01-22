@@ -1,15 +1,16 @@
 import * as CourseApi from '~/api/Course';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
+import hashToQueryString from '~/api/services/hashToQueryString';
 
 import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import Pagination from '~/components/Pagination';
-import { SelectDropdown } from '~/components/SelectDropdown';
 import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
 import CourseCategories from '~/appComponents/CourseCategories';
+import SortBySelect from './components/SortBySelect';
 
 import css from './index.css';
 
@@ -18,12 +19,24 @@ const getCategoryId = (props) => {
   return categoryId ? parseInt(categoryId) : false;
 };
 
+const getCurrentPage = (props) => {
+  const currentPage = props.location.query.page;
+  return currentPage ? parseInt(currentPage) : 1;
+};
+
+const getSortBy = (props) => {
+  const sortBy = props.location.query.sortBy;
+  return sortBy ? sortBy : 'popular';
+};
+
 class Page_courses extends React.Component {
+  static propTypes = {
+    location: PropTypes.object.isRequired
+  }
+
   state = {
     speGetCourses: {},
     speGetCategories: {},
-    sortBy: 'popular',
-    currentPage: 1,
     // to avoid blinking pagination
     amountOfPages: 1
   }
@@ -34,8 +47,12 @@ class Page_courses extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (getCategoryId(prevProps) !== getCategoryId(this.props)) {
-      this.setState({ currentPage: 1 }, this.apiGetCourses);
+    if (
+      getCategoryId(prevProps) !== getCategoryId(this.props) ||
+      getCurrentPage(prevProps) !== getCurrentPage(this.props) ||
+      getSortBy(prevProps) !== getSortBy(this.props)
+    ) {
+      this.apiGetCourses();
     }
   }
 
@@ -49,31 +66,31 @@ class Page_courses extends React.Component {
       (spe) => this.setState({ speGetCourses: spe }),
       {
         pageSize: 16,
-        pageNumber: this.state.currentPage,
-        sortBy: this.state.sortBy,
-        ...(
-          getCategoryId(this.props) ?
-          { courseCategoryId: getCategoryId(this.props) } :
-          {}
-        )
+        pageNumber: getCurrentPage(this.props),
+        sortBy: getSortBy(this.props),
+        ...(getCategoryId(this.props) || {})
       }
     )
       .then(({ amountOfPages }) =>
         this.setState({ amountOfPages })
       )
 
-  updateSortBy = (sortBy) =>
-    this.setState({ sortBy, currentPage: 1 }, this.apiGetCourses)
+  getUrlForNewPageNumber = (pageN) => {
+    const newQuery = { ...this.props.location.query, page: pageN };
+    return this.props.location.pathname + '?' + hashToQueryString(newQuery);
+  }
 
-  updateCurrentPage = (currentPage) =>
-    this.setState({ currentPage }, this.apiGetCourses)
+  getUrlForNewSortBy = (sortBy) => {
+    const newQuery = { ...this.props.location.query, page: 1, sortBy };
+    return this.props.location.pathname + '?' + hashToQueryString(newQuery);
+  }
 
   renderPagination = (className = '') =>
     <Pagination
       className={className}
       amountOfPages={this.state.amountOfPages}
-      currentPage={this.state.currentPage}
-      updateCurrentPage={this.updateCurrentPage}
+      currentPage={getCurrentPage(this.props)}
+      getUrlForNewPageNumber={this.getUrlForNewPageNumber}
     />
 
   render = () =>
@@ -83,21 +100,10 @@ class Page_courses extends React.Component {
 
       <div className="container">
         <div className="sorting-options">
-          <section className="sort-by">
-            <label>Sort By:</label>
-
-            <SelectDropdown
-              className="standard-dropdown-wrapper"
-              dropdownClassName="standard-purple-dropdown"
-              value={this.state.sortBy}
-              updateValue={this.updateSortBy}
-              possibleValues={{
-                popular: 'Most popular',
-                new: 'Recently created'
-              }}
-            />
-          </section>
-
+          <SortBySelect
+            sortBy={getSortBy(this.props)}
+            getUrlForNewSortBy={this.getUrlForNewSortBy}
+          />
           {this.renderPagination()}
         </div>
 

@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router';
+
 import css from './index.css';
 
 class Pagination extends React.Component {
   static propTypes = {
     amountOfPages: PropTypes.number.isRequired,
     currentPage: PropTypes.number.isRequired,
-    updateCurrentPage: PropTypes.func.isRequired,
+
+    getUrlForNewPageNumber: PropTypes.func.isRequired,
+
     className: PropTypes.string
   }
 
   static defaultProps = {
     className: ''
-  }
-
-  updateCurrentPage = (pageN) => {
-    if (this.props.currentPage !== pageN) {
-      this.props.updateCurrentPage(pageN);
-    }
   }
 
   pagesToDisplay = (currentPage, amountOfPages) =>
@@ -39,21 +37,25 @@ class Pagination extends React.Component {
         pageN >= 1
       )
       // uniq
-      .filter((pageN, index, array) => array.indexOf(pageN) === index);
+      .filter((pageN, index, array) => array.indexOf(pageN) === index)
 
   renderPage = (pageN) =>
-    <li
+    <Link
+      to={this.props.getUrlForNewPageNumber(pageN)}
       key={pageN}
       className={pageN === this.props.currentPage ? 'page-n current' : 'page-n'}
-      onClick={() => this.updateCurrentPage(pageN)}
-    >{pageN}</li>
+    >
+      {pageN}
+    </Link>
 
   renderArrow = (ifClickable, nextPage, iconClass) =>
-    <li
+    <Link
       key={iconClass}
       className={`arrow ${ifClickable ? 'active' : 'disabled'}`}
-      onClick={ifClickable ? () => this.updateCurrentPage(nextPage) : () => {}}
-    ><i className={`fa ${iconClass}`}/></li>
+      to={ifClickable ? this.props.getUrlForNewPageNumber(nextPage) : undefined}
+    >
+      <i className={`fa ${iconClass}`}/>
+    </Link>
 
   render = () => {
     const currentPage = this.props.currentPage;
@@ -65,18 +67,16 @@ class Pagination extends React.Component {
     this.pagesToDisplay(currentPage, this.props.amountOfPages).forEach((pageN) => {
       const ifPageIsConsecutive = prevN + 1 === pageN;
       if (!ifPageIsConsecutive) {
-        pageLinks.push(<li className="epsilon" key={`epsilon before-${pageN}`}>~</li>);
+        pageLinks.push(<span className="epsilon" key={`epsilon before-${pageN}`}>~</span>);
       }
       pageLinks.push(this.renderPage(pageN));
       prevN = pageN;
     });
 
     return <section className={`pagination ${css.pagination} ${this.props.className}`}>
-      <ul>
-        {this.renderArrow(currentPage > 1, currentPage - 1, 'fa-caret-left')}
-        {pageLinks}
-        {this.renderArrow(currentPage < this.props.amountOfPages, currentPage + 1, 'fa-caret-right')}
-      </ul>
+      {this.renderArrow(currentPage > 1, currentPage - 1, 'fa-caret-left')}
+      {pageLinks}
+      {this.renderArrow(currentPage < this.props.amountOfPages, currentPage + 1, 'fa-caret-right')}
     </section>;
   }
 }

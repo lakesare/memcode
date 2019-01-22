@@ -1,4 +1,4 @@
-// hash = { SearchQuery = '', pageSize = '', passengerId = '' }
+// @param hash - { SearchQuery: '', pageSize: '', passengerId: 15 }
 // => SearchQuery=Hello&pageSize=3
 const hashToQueryString = (hash) =>
   Object.keys(hash).map((key) =>

@@ -15,7 +15,7 @@
         font-size: 14px;
         padding-right: 10px;
       }
-      > .select-dropdown{
+      > .standard-dropdown-wrapper{
         button.toggler{
           i{ padding-left: 7px; }
           text-transform: uppercase;
@@ -24,9 +24,26 @@
           justify-content: flex-end;
           padding: 2px;
         }
-        .standard-purple-dropdown li{
-          font-size: 12px;
-          text-align: right;
+        div.standard-beige-dropdown{
+          width: 100%;
+          > ul{
+            border-radius: 0 0 4px 4px;
+            > li > a{
+              width: 100%;
+              display: block;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              padding-right: 17px;
+
+              color: rgb(161, 161, 161);
+              text-align: right;
+              font-size: 11px;
+              text-transform: uppercase;
+              &:hover{
+                color: rgb(101, 101, 101);
+              }
+            }
+          }
         }
       }
     }
