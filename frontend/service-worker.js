@@ -18,11 +18,12 @@ workbox.precaching.precache([
 ]);
 workbox.routing.registerNavigationRoute(
   '/index.html',
-  // {
-  //   blacklist: [
-  //     new RegExp('/api/.*')
-  //   ]
-  // }
+  {
+    blacklist: [
+      // aaaaaa for fucking OAuth, don't remove bitch
+      new RegExp('/api/.*')
+    ]
+  }
 );
 
 workbox.routing.registerRoute(
