@@ -22,9 +22,8 @@
   }
   > .ql-container.ql-snow{ border: none; }
   > .ql-container{
-    border-top: none;
-    background: white;
-    height: auto;
+  	background: white;
+    border-top: none;    
     > .ql-editor{
       min-height: 58px;
       font-family: $body-font;

@@ -19,7 +19,7 @@
 
     $answer-background: rgba(45, 245, 83, 0.9);
     &.-withInlinedAnswers{
-      .quill, .ql-container{ height: 100%; }
+      
       input.answer{
         width: 120px;
         display: inline-block;
@@ -68,20 +68,14 @@
           color: #232425;
           text-shadow: 0px 0px 9px white;
         }
-        > div.answer{
-          > .quill{
-            height: 100%;
-            > .ql-container{
-              height: 100%;
-            }
-          }
-        }
       }
 
       > div.draft-answer{
-        margin-top: 5px;
         display: flex;
         width: 100%;
+        .quill{
+          margin-top: 5px;
+        }
         .ql-toolbar{ box-shadow: none; }
         .ql-editor{ border: none !important; }
         &.-focused{ .ql-toolbar{ opacity: 1; } }
