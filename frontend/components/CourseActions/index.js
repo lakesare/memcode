@@ -2,8 +2,8 @@ import { orFalse } from '~/services/orFalse';
 import { commonFetch } from '~/api/commonFetch';
 import { url } from '~/services/url';
 
-import { MetaTags } from './components/MetaTags';
 import { Link } from 'react-router';
+import { MetaTags } from './components/MetaTags';
 import { Loading } from '~/components/Loading';
 import Breadcrumbs from './components/Breadcrumbs';
 import CourseModal from './components/CourseModal';
@@ -133,6 +133,9 @@ class CourseActions extends React.Component {
                   <LearnAndReviewButtons
                     courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
                     amountOfProblems={this.props.amountOfProblems}
+
+                    stats={courseDto.stats}
+                    nextDueDateIn={courseDto.nextDueDateIn}
                   />
                 </div> :
                 <div className="please-sign-in_and_simulated-review-button">

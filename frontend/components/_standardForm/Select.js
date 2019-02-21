@@ -7,7 +7,7 @@ import { SelectDropdown } from '~/components/SelectDropdown';
 // when the initial this.props.formState is {}
 class Select extends React.Component {
   static propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     name: PropTypes.string.isRequired,
     updateFormState: PropTypes.func.isRequired,
     formState: PropTypes.object.isRequired,

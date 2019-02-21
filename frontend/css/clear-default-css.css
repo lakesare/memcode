@@ -57,6 +57,10 @@ input, textarea, select, button{
   background: none;
   padding: 0;
 }
+
+button{
+  cursor: pointer;
+}
 textarea {
   resize: none;
 }

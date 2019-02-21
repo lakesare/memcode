@@ -23,16 +23,22 @@
         padding: 2px 10px;
       }
 
-      > a.add-to-learned{
+      > section.start-stop-or-resume-learning-course{
         min-width: 130px;
         text-align: center;
         border: 1px solid #989494;
-        i.fa-plus{
-          font-size: 14px;
-          padding-right: 4px;
-          color: $whale-pink;
+
+        button{
+          cursor: pointer;
+          font-size: 12px;
+          padding: 2px 10px;
+          i.fa-plus{
+            font-size: 14px;
+            padding-right: 4px;
+            color: $whale-pink;
+          }
         }
-        .request{
+        div.loading.request{
           padding: 0;
           font-size: 7px;
         }
@@ -173,7 +179,7 @@
         margin-bottom: 10px;
       }
       > .buttons{
-        > a.add-to-learned{
+        > section.start-stop-or-resume-learning-course{
           min-width: auto;
         }
       }

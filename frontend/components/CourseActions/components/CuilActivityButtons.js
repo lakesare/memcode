@@ -3,6 +3,8 @@ import { Loading } from '~/components/Loading';
 import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 
+import StandardTooltip from '~/components/StandardTooltip';
+
 @connect(
   (state) => ({
     speCourseUserIsLearning: state.components.CourseActions.speCourseUserIsLearning
@@ -53,22 +55,28 @@ class CuilActivityButtons extends React.Component {
       .then(this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync)
 
   renderStartLearningButton = () =>
-    <div onClick={this.apiStartLearning}>
-      <i className="fa fa-plus"/> TO LEARNED COURSES
-    </div>
+    <StandardTooltip tooltipEl="We will be recording your results, and asking you to repeat flashcards when necessary!">
+      <button type="button" onClick={this.apiStartLearning}>
+        <i className="fa fa-plus"/> TO LEARNED COURSES
+      </button>
+    </StandardTooltip>
 
   renderStopLearningButton = () =>
-    <div onClick={this.apiStopLearning}>
-      STOP LEARNING
-    </div>
+    <StandardTooltip tooltipEl="If you stop learning this course, you will not be asked to review flashcards from it again. But you can always resume learning it!">
+      <button type="button" onClick={this.apiStopLearning}>
+        STOP LEARNING
+      </button>
+    </StandardTooltip>
 
   renderResumeLearningButton = () =>
-    <div onClick={this.apiResumeLearning}>
-      RESUME LEARNING
-    </div>
+    <StandardTooltip tooltipEl="All of your results are saved! Just click resume and return to learning a course.">
+      <button type="button" onClick={this.apiResumeLearning}>
+        RESUME LEARNING
+      </button>
+    </StandardTooltip>
 
   render = () =>
-    <a className="add-to-learned">
+    <section className="start-stop-or-resume-learning-course">
       <Loading spe={this.props.speCourseUserIsLearning} requestIcon={<i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw"/>}>{(cuil) => {
         if (cuil === null) {
           return this.renderStartLearningButton();
@@ -78,7 +86,7 @@ class CuilActivityButtons extends React.Component {
           return this.renderResumeLearningButton();
         }
       }}</Loading>
-    </a>
+    </section>
 }
 
 export { CuilActivityButtons };
