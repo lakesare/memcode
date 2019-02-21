@@ -1,6 +1,5 @@
 // for googlebot and other browsers not to choke on draftjs
-import 'es5-shim';
-import 'es6-shim';
+import 'airbnb-browser-shims';
 // `fetch` polyfill for safari
 import 'whatwg-fetch';
 // `URLSearchParams` polyfill for parsing query params
