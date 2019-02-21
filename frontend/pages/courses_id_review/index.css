@@ -149,14 +149,24 @@
       &.-desktop{ display: block; }
     }
     &.-real{
-      button.randomize{
-        color: rgba(249, 249, 249, 0.67);
-        font-weight: bold;
-        text-transform: uppercase;
-        font-size: 10px;
-        cursor: pointer;
-        background: rgba(224, 17, 185, 0.24);
-        padding: 3px 8px;
+      > .buttons{
+        display: flex;
+        align-items: center;
+        button{
+          color: rgba(249, 249, 249, 0.67);
+          font-weight: bold;
+          text-transform: uppercase;
+          font-size: 10px;
+          cursor: pointer;
+          padding: 3px 8px;
+        }
+        button.switch-answer-and-definition-button{
+          background: rgba(224, 17, 17, 0.24);
+        }
+        button.randomize{
+          margin-left: 10px;
+          background: rgba(224, 17, 185, 0.24);
+        }
       }
     }
   }

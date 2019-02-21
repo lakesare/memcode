@@ -51,8 +51,16 @@ class LearnAndReviewButtons extends React.Component {
     }
   }
 
+  getTooltipProps = () => ({
+    tooltipProps: {
+      delay: 1000,
+      animation: 'fade',
+      duration: 600
+    }
+  })
+
   renderLearnButton = () =>
-    <StandardTooltip tooltipEl={this.getLearnButtonTooltip()}>
+    <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getLearnButtonTooltip()}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/learn`}
         className={`learn ${this.props.amountOfProblems.toLearn === 0 ? '-disabled' : ''}`}
@@ -60,7 +68,7 @@ class LearnAndReviewButtons extends React.Component {
     </StandardTooltip>
 
   renderReviewButton = () =>
-    <StandardTooltip tooltipEl={`You have ${this.props.amountOfProblems.toReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.`}>
+    <StandardTooltip {...this.getTooltipProps()} tooltipEl={`You have ${this.props.amountOfProblems.toReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.`}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/review`}
         className="review"
@@ -68,7 +76,7 @@ class LearnAndReviewButtons extends React.Component {
     </StandardTooltip>
 
   renderSimulatedReviewButton = () =>
-    <StandardTooltip tooltipEl={this.getSimulatedReviewTooltip()}>
+    <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getSimulatedReviewTooltip()}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/review/simulated`}
         className="review -disabled"

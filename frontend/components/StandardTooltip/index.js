@@ -10,12 +10,14 @@ class StandardTooltip extends React.Component {
     tooltipEl: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
     children: PropTypes.any,
 
-    className: PropTypes.string
+    className: PropTypes.string,
+    tooltipProps: PropTypes.object
   }
 
   static defaultProps = {
     children: null,
-    className: ''
+    className: '',
+    tooltipProps: {}
   }
 
   render = () =>
@@ -25,6 +27,7 @@ class StandardTooltip extends React.Component {
       position="top"
       trigger="mouseenter"
       arrow
+      {...this.props.tooltipProps}
     >
       {
         this.props.children ?

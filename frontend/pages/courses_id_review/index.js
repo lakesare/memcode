@@ -56,7 +56,8 @@ import actions from './duck/actions';
         payload: selfScore
       }),
     onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
-    randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' })
+    randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
+    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' })
   })
 )
 class Page_courses_id_review extends React.Component {
@@ -132,6 +133,7 @@ class Page_courses_id_review extends React.Component {
               separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
               onRightAnswerGiven={this.props.onRightAnswerGiven}
               randomizeProblems={this.props.randomizeProblems}
+              switchQuestionAndAnswer={this.props.switchQuestionAndAnswer}
             />
           }
 

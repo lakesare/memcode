@@ -161,6 +161,34 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case 'SWITCH_QUESTION_AND_ANSWER': {
+      const problems = state.speGetPage.payload.problems;
+      const newProblems = problems.map((problem) => {
+        if (problem.type === 'separateAnswer') {
+          return {
+            ...problem,
+            content: {
+              content: problem.content.answer,
+              answer: problem.content.content
+            }
+          };
+        } else {
+          return problem;
+        }
+      });
+
+      return {
+        ...state,
+        speGetPage: {
+          ...state.speGetPage,
+          payload: {
+            ...state.speGetPage.payload,
+            problems: newProblems
+          }
+        }
+      };
+    }
+
     default:
       return state;
   }

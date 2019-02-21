@@ -63,13 +63,19 @@ class ProblemBeingSolved extends React.Component {
             Press ENTER fo reveal answers
           </h4>
 
-          {
-            // if it's not the last problem we're reviewing - randomize
-            this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
-            <button type="button" className="randomize" onClick={this.props.randomizeProblems}>
-              Randomize
+          <div className="buttons">
+            <button type="button" className="switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
+              Term ⟷ definition
             </button>
-          }
+
+            {
+              // if it's not the last problem we're reviewing - randomize
+              this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
+              <button type="button" className="randomize" onClick={this.props.randomizeProblems}>
+                Randomize
+              </button>
+            }
+          </div>
         </section>
       }
 
