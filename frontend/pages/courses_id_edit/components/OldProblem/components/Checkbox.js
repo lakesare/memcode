@@ -1,3 +1,4 @@
+
 import requestIcon from '~/components/Loading/requestIcon.svg';
 
 const getExclusiveIndexesInBetween = (int_1, int_2) => {
@@ -31,6 +32,7 @@ class Checkbox extends React.Component {
     )
 
   check = (event) => {
+    event.preventDefault();
     const idsOfCheckedProblems = this.props.idsOfCheckedProblems;
     const problems = this.props.problems;
     const idsOfProblemsToCheck = [];
@@ -118,6 +120,7 @@ class Checkbox extends React.Component {
       <section className="loading-checkbox">
         <img src={requestIcon}/>
       </section> :
+
       <section
         className="checkbox"
         onMouseEnter={() => this.setState({ ifHoveringOver: true })}

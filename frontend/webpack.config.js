@@ -44,6 +44,14 @@ module.exports = {
           ]
         })
       },
+      {
+        // specifically for tippy css
+        test: /(\.css$)/,
+        include: /(node_modules)/,
+        loaders: ExtractTextPlugin.extract(
+          ['css-loader']
+        )
+      },
       { // for fonts
         test: /\.(ttf|otf|eot|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         use: [

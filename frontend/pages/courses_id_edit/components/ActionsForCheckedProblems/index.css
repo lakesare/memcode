@@ -2,8 +2,6 @@
 $blue-color: #375598;
 :local(section.actions-for-checked-problems){
   // layout
-  padding: 5px 50px;
-  box-sizing: border-box;
   &.-not-sticky{
     width: 100%;
     // otherwise dropdown goes to the bg
@@ -26,7 +24,10 @@ $blue-color: #375598;
     img{ width: 28px; }
   }
 
+  position: relative;
   > .container{
+    padding: 5px 0px;
+
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -42,8 +43,10 @@ $blue-color: #375598;
       flex-basis: auto;
       &.-approving{
         background: #ec2727;
+        width: 224px;
       }
     }
+
     > section.choose-course-to-move-problems-to{
       flex-basis: 100%;
       display: flex;
@@ -85,6 +88,18 @@ $blue-color: #375598;
           padding-left: 10px;
         }
       }
+    }
+
+    > button.close-button{
+      color: white;
+      position: absolute;
+      top: -7px; right: 30px;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 17px;
+
+      opacity: 0.8;
+      &:hover{ opacity: 1; }
     }
   }
 }

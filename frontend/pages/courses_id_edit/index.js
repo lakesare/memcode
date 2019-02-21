@@ -90,12 +90,12 @@ class Page_courses_id_edit extends React.Component {
   }
 
   componentDidMount = () => {
-    this.apiGetPage()
-      .then(() => {
-        setTimeout(() => {
-          this.setState({ joyrideHowToCreateProblemRun: true });
-        }, 3000);
-      });
+    this.apiGetPage();
+      // .then(() => {
+      //   setTimeout(() => {
+      //     this.setState({ joyrideHowToCreateProblemRun: true });
+      //   }, 3000);
+      // });
   }
 
   apiGetPage = () =>
@@ -163,6 +163,7 @@ class Page_courses_id_edit extends React.Component {
           <Sticky>{({ isSticky }) =>
             <ActionsForCheckedProblems
               idsOfCheckedProblems={this.state.idsOfCheckedProblems}
+              updateIdsOfCheckedProblems={(idsOfCheckedProblems) => this.setState({ idsOfCheckedProblems })}
               uiRemoveOldProblems={this.uiRemoveOldProblems}
               isSticky={isSticky}
             />

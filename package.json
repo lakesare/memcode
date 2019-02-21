@@ -1,7 +1,7 @@
 {
   "name": "memcode",
   "version": "1.0.0",
-  "description": "Memrise. For code.",
+  "description": "Memcode. For memorizing things.",
   "repository": {
     "type": "git",
     "url": "https://github.com/lakesare/memcode.git"
@@ -9,7 +9,6 @@
   "engines": {
     "node": "8.4.0"
   },
-  "description": "Memcode. For memorizing things.",
   "main": "",
   "scripts": {
     "heroku-postbuild": "make heroku-postbuild"
@@ -128,6 +127,7 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "react-sticky": "^6.0.1",
+    "react-tippy": "^1.2.3",
     "read-pkg-up": "^2.0.0",
     "redux": "^3.5.2",
     "redux-thunk": "^2.2.0",

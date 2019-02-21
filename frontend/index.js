@@ -19,6 +19,11 @@ import { GatewayProvider, GatewayDest } from 'react-gateway';
 import './index.css';
 // import './fonts/font-awesome/scss/font-awesome.scss';
 
+
+// For the tooltip
+import 'react-tippy/dist/tippy.css';
+
+
 import store from './store';
 import router from './router';
 
@@ -64,14 +69,14 @@ ReactDOM.render(
 );
 
 // console.log('change for webpack');
-document.addEventListener("DOMContentLoaded", () => {
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/webpacked-service-worker.js').then(registration => {
-        console.log('SW registered: ', registration);
-      }).catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
-      });
-    });
-  }
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//   if ('serviceWorker' in navigator) {
+//     window.addEventListener('load', () => {
+//       navigator.serviceWorker.register('/webpacked-service-worker.js').then(registration => {
+//         console.log('SW registered: ', registration);
+//       }).catch(registrationError => {
+//         console.log('SW registration failed: ', registrationError);
+//       });
+//     });
+//   }
+// });

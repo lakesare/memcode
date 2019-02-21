@@ -33,6 +33,8 @@
   }
   > section.checkbox{
     cursor: pointer;
+    // this prevents all flashcard texts from being selected when we click cmd+shift!
+    user-select: none;
     > div.index-and-mark{
       font-size: 12px;
       font-weight: bold;

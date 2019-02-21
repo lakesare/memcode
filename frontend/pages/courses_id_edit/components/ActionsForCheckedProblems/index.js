@@ -10,6 +10,7 @@ class ActionsForCheckedProblems extends React.Component {
   static propTypes = {
     // courseId: PropTypes.number.isRequired,
     idsOfCheckedProblems: PropTypes.array.isRequired,
+    updateIdsOfCheckedProblems: PropTypes.func.isRequired,
     uiRemoveOldProblems: PropTypes.func.isRequired,
     isSticky: PropTypes.bool.isRequired
   }
@@ -26,14 +27,25 @@ class ActionsForCheckedProblems extends React.Component {
     ProblemApi.moveToCourseMany(this.onRemove, this.props.idsOfCheckedProblems, courseId)
       .then(() => this.props.uiRemoveOldProblems(this.props.idsOfCheckedProblems))
 
+  uiClose = () =>
+    this.props.updateIdsOfCheckedProblems([])
+
   render = () =>
     <section className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-sticky')}>
       <Loading spe={this.state.speRemovingProblems}>
         <div className="container">
           <ChooseCourseToMoveProblemsTo apiMoveAllCheckedProblemsToCourse={this.apiMoveAllCheckedProblemsToCourse} amount={this.props.idsOfCheckedProblems.length}/>
           <ButtonToDeleteProblems apiDeleteAllCheckedProblems={this.apiDeleteAllCheckedProblems} amount={this.props.idsOfCheckedProblems.length}/>
+          <button
+            type="button"
+            className="close-button"
+            onClick={this.uiClose}
+          >
+            <i className="fa fa-times"/>
+          </button>
         </div>
       </Loading>
+
     </section>
 }
 
