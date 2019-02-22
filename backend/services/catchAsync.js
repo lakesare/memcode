@@ -12,3 +12,4 @@ const catchAsync = (asyncFunction) =>
   };
 
 export { catchAsync };
+export default catchAsync;

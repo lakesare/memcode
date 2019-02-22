@@ -34,3 +34,4 @@ const optionalAuthenticateMiddleware = (request, response, next) => {
 };
 
 export { authenticateMiddleware, optionalAuthenticateMiddleware };
+export default authenticateMiddleware;

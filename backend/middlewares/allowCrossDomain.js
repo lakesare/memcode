@@ -5,4 +5,4 @@ const allowCrossDomain = (req, res, next) => {
   next();
 };
 
-export { allowCrossDomain };
+export default allowCrossDomain;

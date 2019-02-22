@@ -1,8 +1,8 @@
-import * as User from '~/components/users/model';
-import * as Course from '~/components/courses/model';
-import * as Problem from '~/components/problems/model';
-import * as CourseUserIsLearning from '~/components/coursesUserIsLearning/model';
-import * as ProblemUserIsLearning from '~/components/problemsUserIsLearning/model';
+import UserModel from '~/models/UserModel';
+import CourseModel from '~/models/CourseModel';
+import ProblemModel from '~/models/ProblemModel';
+import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
+import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 
 import { requireKeys } from '~/services/requireKeys';
 
@@ -11,7 +11,7 @@ let uniqueIndex = 1;
 const RawFactory = {
   user: (userFields) => {
     uniqueIndex++;
-    return User.insert.create({
+    return UserModel.insert.create({
       oauthProvider: 'github',
       oauthId: uniqueIndex, // oauthId, not real one. still needs to be unique
       username: 'lakesare',
@@ -24,7 +24,7 @@ const RawFactory = {
   // required: userId
   course: requireKeys(['userId'],
     (courseFields) =>
-      Course.insert.create(
+      CourseModel.insert.create(
         {
           title: 'React',
           description: 'Js framework',
@@ -36,7 +36,7 @@ const RawFactory = {
 
   problem: requireKeys(['courseId'],
     (problemFields) =>
-      Problem.insert.create({
+      ProblemModel.insert.create({
         type: 'inlinedAnswers',
         content: {
           content: '2+2',
@@ -48,7 +48,7 @@ const RawFactory = {
 
   courseUserIsLearning: requireKeys(['courseId', 'userId'],
     (cuilFields) =>
-      CourseUserIsLearning.insert.create({
+      CourseUserIsLearningModel.insert.create({
         active: true,
         ...cuilFields
       })
@@ -56,7 +56,7 @@ const RawFactory = {
 
   problemUserIsLearning: requireKeys(['problemId', 'courseUserIsLearningId'],
     (puilFields) =>
-      ProblemUserIsLearning.insert.create({
+      ProblemUserIsLearningModel.insert.create({
         ...puilFields
       })
   )

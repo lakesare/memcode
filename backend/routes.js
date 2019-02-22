@@ -5,11 +5,14 @@ const routes = express();
 import sslRedirect from 'heroku-ssl-redirect';
 routes.use(sslRedirect());
 
-import { allowCrossDomain } from './middlewares/allowCrossDomain';
+import allowCrossDomain from '~/middlewares/allowCrossDomain';
 routes.use(allowCrossDomain);
 
-import { stopPropagationForAssets } from './middlewares/stopPropagationForAssets';
+import stopPropagationForAssets from '~/middlewares/stopPropagationForAssets';
 routes.use(stopPropagationForAssets);
+
+// import bodyParser from '~/middlewares/bodyParser';
+// routes.use('/', bodyParser);
 
 import bodyParser from 'body-parser';
 routes.use(bodyParser.json({ limit: '50mb' })); // to support JSON-encoded bodies
@@ -19,51 +22,44 @@ routes.use(bodyParser.urlencoded({
   parameterLimit: 50000
 }));
 
-// for dataUrl image downloads
-// routes.keepAliveTimeout = 60000 * 2;
-
 import path from 'path';
-// routes.use(express.static(path.join(__dirname, '../../frontend/staticFiles/underRoot')));
-// routes.use(express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
-// routes.use('/static-files', express.static(path.join(__dirname, '../../frontend/staticFiles/underUrlPrefix')));
 routes.use('/', express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
 
 // routes
-import { router as coursesRouter } from './components/courses/routes';
-routes.use('/api/courses', coursesRouter);
+import CourseApi from '~/api/CourseApi';
+routes.use('/api/courses', CourseApi);
 
-import { router as problemsRouter } from './components/problems/routes';
-routes.use('/api/problems', problemsRouter);
+import ProblemApi from '~/api/ProblemApi';
+routes.use('/api/problems', ProblemApi);
 
-import { router as coursesUserIsLearningRouter } from './components/coursesUserIsLearning/routes';
-routes.use('/api/coursesUserIsLearning', coursesUserIsLearningRouter);
+import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
+routes.use('/api/problemsUserIsLearning', ProblemUserIsLearningApi);
 
-import { router as problemsUserIsLearningRouter } from './components/problemsUserIsLearning/routes';
-routes.use('/api/problemsUserIsLearning', problemsUserIsLearningRouter);
+import CourseCategoryApi from '~/api/CourseCategoryApi';
+routes.use('/api/courseCategories', CourseCategoryApi);
 
-import courseCategoryRouter from './components/courseCategories/routes';
-routes.use('/api/courseCategories', courseCategoryRouter);
+import NotificationApi from '~/api/NotificationApi';
+routes.use('/api/notifications', NotificationApi);
 
-import notificationRouter from './components/notifications/routes';
-routes.use('/api/notifications', notificationRouter);
+import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
+routes.use('/api/courseUserIsLearning', CourseUserIsLearningApi);
 
-import { router as authRouter } from './components/auth/routes';
-routes.use('/api/auth', authRouter);
+import AuthApi from '~/api/AuthApi';
+routes.use('/api/auth', AuthApi);
 
-// GET routes that return results for particular frontend page. something like what a standard server-rendered structure would do.
-import { router as pagesRouter } from './components/pages/routes';
-routes.use('/api/pages', pagesRouter);
+import PageApi from '~/api/PageApi';
+routes.use('/api/pages', PageApi);
 
-import adminRouter from './components/admin/routes';
-routes.use('/api/admin', adminRouter);
+import AdminApi from '~/api/AdminApi';
+routes.use('/api/admin', AdminApi);
 
-import fileRouter from './components/files/routes';
-routes.use('/api/files', fileRouter);
+import FileApi from '~/api/FileApi';
+routes.use('/api/files', FileApi);
 
-import { html } from './html';
+import html from '~/html';
 routes.get('*', (request, response) => response.send(html));
 
-import { handleErrors } from './middlewares/handleErrors';
+import handleErrors from '~/middlewares/handleErrors';
 routes.use(handleErrors);
 
-export { routes };
+export default routes;

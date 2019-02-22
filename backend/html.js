@@ -67,4 +67,4 @@ const html = `
   </html>
 `;
 
-export { html };
+export default html;

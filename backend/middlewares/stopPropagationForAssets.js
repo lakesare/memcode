@@ -9,4 +9,4 @@ const stopPropagationForAssets = (req, res, next) => {
   }
 };
 
-export { stopPropagationForAssets };
+export default stopPropagationForAssets;

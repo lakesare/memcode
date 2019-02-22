@@ -4,8 +4,8 @@
 const pgp = require('pg-promise');
 const pgPackage = pgp({});
 
-import * as Course from '~/components/courses/model';
-import * as User from '~/components/users/model';
+// import * as Course from '~/components/courses/model';
+// import * as User from '~/components/users/model';
 
 // ____Enzyme
 // shallow Shallow rendering is useful to constrain yourself to testing a component as a unit, and to ensure that your tests aren't indirectly asserting on behavior of child components.

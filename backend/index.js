@@ -4,7 +4,7 @@ import 'source-map-support/register';
 import '../env.js';
 console.log('NODE_ENV: ' + process.env.NODE_ENV);
 
-import { routes } from './routes';
+import routes from '~/routes';
 
 // process.env.PORT lets the port be set by Heroku
 const port = process.env.PORT || 3000;

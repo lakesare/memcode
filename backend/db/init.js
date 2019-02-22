@@ -64,4 +64,4 @@ db.connect()
     console.log("ERROR:", error.message || error);
   });
 
-export { db };
+export default db;
