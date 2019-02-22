@@ -1,6 +1,6 @@
 import db from '~/db/init.js';
 import { requireKeys } from '~/services/requireKeys';
-import { initialScore } from './services/initialScore';
+import initialScore from './services/initialScore';
 
 const insert = {
   create: requireKeys(['courseUserIsLearningId', 'problemId'],
@@ -23,4 +23,4 @@ const insert = {
   )
 };
 
-export { insert };
+export default insert;

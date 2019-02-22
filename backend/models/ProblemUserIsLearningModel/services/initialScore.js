@@ -3,4 +3,4 @@ const initialScore = () => ({
   consecutiveCorrectAnswers: 0
 });
 
-export { initialScore };
+export default initialScore;

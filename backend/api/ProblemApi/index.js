@@ -24,7 +24,7 @@ router.post('/createManyFromExcel', catchAsync(async (request, response) => {
 }));
 
 router.put('/:id', catchAsync(async (request, response) => {
-  const updatedProblem = await ProblemModel.update(request.body['problem'], request.params['id']);
+  const updatedProblem = await ProblemModel.update.update(request.body['problem'], request.params['id']);
   response.status(200).json(updatedProblem);
 }));
 

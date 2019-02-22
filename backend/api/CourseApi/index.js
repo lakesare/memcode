@@ -82,7 +82,7 @@ router.put('/:id', catchAsync(async (request, response) => {
 }));
 
 router.delete('/:id', catchAsync(async (request, response) => {
-  await CourseModel.ddelete.destroyCourseWithProblems(request.params.id);
+  await CourseModel.delete.destroyCourseWithProblems(request.params.id);
   response.status(200).json({});
 }));
 

@@ -51,4 +51,4 @@ const insert = {
   }
 };
 
-export { insert };
+export default insert;

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { getNextScore } from './getNextScore';
-import { initialScore } from './initialScore';
+import getNextScore from './getNextScore';
+import initialScore from './initialScore';
 
 describe('getNextScore', () => {
   it('all 5 rating', () => {

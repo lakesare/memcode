@@ -11,19 +11,11 @@ routes.use(allowCrossDomain);
 import stopPropagationForAssets from '~/middlewares/stopPropagationForAssets';
 routes.use(stopPropagationForAssets);
 
-// import bodyParser from '~/middlewares/bodyParser';
-// routes.use('/', bodyParser);
+import bodyParser from '~/middlewares/bodyParser';
+routes.use(bodyParser);
 
-import bodyParser from 'body-parser';
-routes.use(bodyParser.json({ limit: '50mb' })); // to support JSON-encoded bodies
-routes.use(bodyParser.urlencoded({
-  limit: '50mb', // otherwise will complain about image upload
-  extended: true,
-  parameterLimit: 50000
-}));
-
-import path from 'path';
-routes.use('/', express.static(path.join(__dirname, '../../frontend/webpackedFiles')));
+import webpackedFiles from '~/middlewares/webpackedFiles';
+routes.use(webpackedFiles);
 
 // routes
 import CourseApi from '~/api/CourseApi';
@@ -42,7 +34,7 @@ import NotificationApi from '~/api/NotificationApi';
 routes.use('/api/notifications', NotificationApi);
 
 import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
-routes.use('/api/courseUserIsLearning', CourseUserIsLearningApi);
+routes.use('/api/coursesUserIsLearning', CourseUserIsLearningApi);
 
 import AuthApi from '~/api/AuthApi';
 routes.use('/api/auth', AuthApi);

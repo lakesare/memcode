@@ -1,11 +1,6 @@
-import insert from './insert';
 import select from './select';
+import insert from './insert';
+import update from './update';
 import ddelete from './delete';
 
-const Model = {
-  select,
-  insert,
-  delete: ddelete
-};
-
-export default Model;
+export default { select, insert, update, delete: ddelete };

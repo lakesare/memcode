@@ -13,4 +13,4 @@ const update = {
     )
 };
 
-export { update };
+export default update;

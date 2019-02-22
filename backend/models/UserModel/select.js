@@ -19,4 +19,4 @@ const select = {
     )
 };
 
-export { select };
+export default select;

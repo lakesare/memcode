@@ -1,12 +1,12 @@
 import db from '~/db/init.js';
-import { getNextScore } from '../services/getNextScore';
-import { select } from './select';
+import getNextScore from './services/getNextScore';
+import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 
 const update = {
   // solve particular problem
   // performanceRating: 0-5
   review: async (courseUserIsLearningId, problemId, performanceRating) => {
-    const me = await select.findByCuilIdAndProblemId(courseUserIsLearningId, problemId);
+    const me = await ProblemUserIsLearningModel.select.findByCuilIdAndProblemId(courseUserIsLearningId, problemId);
     const nextScore = getNextScore(me.easiness, me.consecutiveCorrectAnswers, performanceRating);
 
     return db.one(
@@ -39,4 +39,4 @@ const update = {
     )
 };
 
-export { update };
+export default update;

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import supertest from 'supertest';
 // import jwt from 'jsonwebtoken';
 
-import '../../env.js';
+import '../../../../env.js';
 
 import routes from '~/routes';
 import db from '~/db/init';

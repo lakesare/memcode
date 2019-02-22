@@ -15,4 +15,4 @@ const select = {
     db.any('SELECT * FROM problem')
 };
 
-export { select };
+export default select;

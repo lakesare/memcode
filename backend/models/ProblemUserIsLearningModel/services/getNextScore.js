@@ -68,4 +68,4 @@ const clipEasiness = (easiness) => Math.max(easiness, 1.3);
 
 const clipDaysToNextReview = (days) => Math.min(days, 300);
 
-export { getNextScore };
+export default getNextScore;
