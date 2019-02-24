@@ -2,13 +2,13 @@ import express from 'express';
 const router = express.Router();
 
 import catchAsync from '~/services/catchAsync';
-import { authenticateMiddleware } from '~/middlewares/authenticate';
+import authenticate from '~/middlewares/authenticate';
 
 import ProblemModel from '~/models/ProblemModel';
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 
-router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
+router.post('/', authenticate, catchAsync(async (request, response) => {
   const problemId = request.body['problemId'];
   const userId = request.currentUser.id;
 
@@ -22,13 +22,13 @@ router.post('/', authenticateMiddleware, catchAsync(async (request, response) =>
   response.status(200).json(createdPuil);
 }));
 
-router.delete('/:id', authenticateMiddleware, catchAsync(async (request, response) => {
+router.delete('/:id', authenticate, catchAsync(async (request, response) => {
   const puilId = request.params['id'];
   await ProblemUserIsLearningModel.delete.ddelete(puilId);
   response.status(200).json({});
 }));
 
-router.put('/:id/ignore', authenticateMiddleware, catchAsync(async (request, response) => {
+router.put('/:id/ignore', authenticate, catchAsync(async (request, response) => {
   const ignoredPuil = await ProblemUserIsLearningModel.update.ignore(request.params['id']);
   response.status(200).json(ignoredPuil);
 }));

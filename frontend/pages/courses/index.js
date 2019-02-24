@@ -1,4 +1,4 @@
-import * as CourseApi from '~/api/Course';
+import CourseApi from '~/api/CourseApi';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
 import hashToQueryString from '~/api/services/hashToQueryString';
 

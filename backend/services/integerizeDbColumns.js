@@ -24,3 +24,4 @@ const integerizeDbColumns = (arrayOrHash, columnTitlesArray) => {
 };
 
 export { integerizeDbColumns };
+export default integerizeDbColumns;

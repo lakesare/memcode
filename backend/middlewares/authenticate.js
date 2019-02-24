@@ -1,11 +1,11 @@
 import jwt from 'jsonwebtoken';
 
-import { handleErrors } from './handleErrors';
+import handleErrors from './handleErrors';
 
 // make request.currentUser available
 // request.currentUser.oauthId,
 // request.currentUser.oauthProvider
-const authenticateMiddleware = (request, response, next) => {
+const authenticate = (request, response, next) => {
   if (request.headers['authorization']) {
     const token = request.headers['authorization'].split('Bearer ')[1];
     jwt.verify(token, process.env['JWT_SECRET'], (error, user) => {
@@ -21,17 +21,4 @@ const authenticateMiddleware = (request, response, next) => {
   }
 };
 
-const optionalAuthenticateMiddleware = (request, response, next) => {
-  if (request.headers['authorization']) {
-    const token = request.headers['authorization'].split('Bearer ')[1];
-    jwt.verify(token, process.env['JWT_SECRET'], (error, user) => {
-      if (!error) request.currentUser = user;
-      next();
-    });
-  } else {
-    next();
-  }
-};
-
-export { authenticateMiddleware, optionalAuthenticateMiddleware };
-export default authenticateMiddleware;
+export default authenticate;

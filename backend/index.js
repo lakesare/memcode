@@ -2,7 +2,6 @@ import 'source-map-support/register';
 
 // load environment variables.
 import '../env.js';
-console.log('NODE_ENV: ' + process.env.NODE_ENV);
 
 import routes from '~/routes';
 

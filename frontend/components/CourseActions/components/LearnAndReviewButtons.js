@@ -9,11 +9,12 @@ class LearnAndReviewButtons extends React.Component {
   static propTypes = {
     courseUserIsLearning: PropTypes.object,
     amountOfProblems: orFalse(PropTypes.object).isRequired,
-    nextDueDateIn: PropTypes.object.isRequired,
+    nextDueDateIn: orFalse(PropTypes.object),
   }
 
   static defaultProps = {
-    courseUserIsLearning: null
+    courseUserIsLearning: null,
+    nextDueDateIn: false
   }
 
   ifCourseIsLearnedAndActive = () => {

@@ -9,7 +9,7 @@ import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 import { browserHistory } from 'react-router';
 import StandardTooltip from '~/components/StandardTooltip';
 import CourseModel from '~/models/CourseModel';
-import * as CourseApi from '~/api/Course';
+import CourseApi from '~/api/CourseApi';
 
 import css from './index.css';
 

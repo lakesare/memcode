@@ -12,8 +12,8 @@ class ListOfSimpleCourses extends React.Component {
   render = () =>
     <section className="list-of-courses">
       {
-        this.props.coursesData.map(({ course, amountOfProblems }) =>
-          <Course key={course.id} course={course} amountOfProblems={amountOfProblems}/>
+        this.props.coursesData.map(({ course, amountOfProblems, averageCourseRating }) =>
+          <Course key={course.id} course={course} amountOfProblems={amountOfProblems} averageCourseRating={averageCourseRating}/>
         )
       }
       {this.renderLayoutDivs()}

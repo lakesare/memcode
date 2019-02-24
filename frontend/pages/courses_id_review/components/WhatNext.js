@@ -1,6 +1,6 @@
 import { orFalse } from '~/services/orFalse';
 import * as createSpe from '~/services/spe';
-import * as CourseApi from '~/api/Course';
+import CourseApi from '~/api/CourseApi';
 import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
 import { Loading } from '~/components/Loading';

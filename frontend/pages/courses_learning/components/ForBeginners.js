@@ -1,4 +1,4 @@
-import * as CourseApi from '~/api/Course';
+import CourseApi from '~/api/CourseApi';
 
 import { Link } from 'react-router';
 import { Loading } from '~/components/Loading';

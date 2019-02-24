@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 import catchAsync from '~/services/catchAsync';
-import authenticateMiddleware from '~/middlewares/authenticate';
+import authenticate from '~/middlewares/authenticate';
 
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
@@ -11,7 +11,7 @@ import CourseModel from '~/models/CourseModel';
 
 // import * from '~/models';
 
-router.post('/', authenticateMiddleware, catchAsync(async (request, response) => {
+router.post('/', authenticate, catchAsync(async (request, response) => {
   const courseId = request.body['courseId'];
   const learner = request.currentUser;
 
@@ -58,7 +58,7 @@ router.put('/:id/stopLearning', catchAsync(async (request, response) => {
   response.status(200).json(courseUserIsLearning);
 }));
 
-router.put('/:id/problems/:problemId/review', authenticateMiddleware, catchAsync(async (request, response) => {
+router.put('/:id/problems/:problemId/review', authenticate, catchAsync(async (request, response) => {
   await ProblemUserIsLearningModel.update.review(
     request.params['id'],
     request.params['problemId'],
@@ -67,7 +67,7 @@ router.put('/:id/problems/:problemId/review', authenticateMiddleware, catchAsync
   response.status(200).json({});
 }));
 
-router.post('/:id/problems/:problemId/learn', authenticateMiddleware, catchAsync(async (request, response) => {
+router.post('/:id/problems/:problemId/learn', authenticate, catchAsync(async (request, response) => {
   const puil = await ProblemUserIsLearningModel.insert.create({
     courseUserIsLearningId: request.params['id'],
     problemId: request.params['problemId']

@@ -1,5 +1,6 @@
 import db from '~/db/init.js';
 import { camelizeDbColumns } from '~/services/camelizeDbColumns';
+import integerizeDbColumns from '~/services/integerizeDbColumns';
 import wherePublic from './services/wherePublic';
 import getCoursesWithStats from './services/getCoursesWithStats';
 
@@ -34,7 +35,9 @@ const select = {
       SELECT
         row_to_json(course.*) AS course,
         COUNT(distinct course_user_is_learning.user_id) AS amount_of_users_learning_this_course,
-        COUNT(distinct problem.id) AS amount_of_problems
+        COUNT(distinct problem.id) AS amount_of_problems,
+        ROUND(AVG(course_rating.rating), 1) AS average_course_rating,
+        COUNT(distinct course_rating.id) AS amount_of_course_ratings
       FROM course
       LEFT OUTER JOIN course_user_is_learning
         ON (
@@ -42,6 +45,8 @@ const select = {
           AND
           course.id = course_user_is_learning.course_id
         )
+      LEFT OUTER JOIN course_rating
+        ON course_rating.course_id = course.id
       INNER JOIN problem
         ON problem.course_id = course.id
       WHERE
@@ -52,6 +57,8 @@ const select = {
         sortBy === 'popular' ?
           `
           ORDER BY
+            amount_of_course_ratings DESC,
+            4 DESC,
             amount_of_users_learning_this_course DESC,
             amount_of_problems DESC
           ` :
@@ -61,7 +68,9 @@ const select = {
       OFFSET ${offset}
       `
     )
-      .then((array) => camelizeDbColumns(array, ['course'])),
+      .then((array) => camelizeDbColumns(array, ['course']))
+      .then((array) => integerizeDbColumns(array, ['amountOfUsersLearningThisCourse', 'amountOfProblems'])),
+      // .then((array) => )
 
   countAllPublic: ({ courseCategoryId }) =>
     db.one(

@@ -17,6 +17,10 @@ routes.use(bodyParser);
 import webpackedFiles from '~/middlewares/webpackedFiles';
 routes.use(webpackedFiles);
 
+import optionalAuthenticate from '~/middlewares/optionalAuthenticate';
+routes.use(optionalAuthenticate);
+
+
 // routes
 import CourseApi from '~/api/CourseApi';
 routes.use('/api/courses', CourseApi);

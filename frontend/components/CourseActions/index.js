@@ -74,6 +74,11 @@ class CourseActions extends React.Component {
     this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
   }
 
+  ifCanRateCourse = (courseDto) => (
+    this.props.currentUser &&
+    courseDto.course.userId !== this.props.currentUser.id
+  )
+
   renderRequestIcon = () => (
     this.props.ifCourseDescriptionIsDisplayed ?
       <div className="container">
@@ -87,7 +92,11 @@ class CourseActions extends React.Component {
       <section className={css.actions}>
         {
           this.props.ifBreadcrumbsAreDisplayed &&
-          <Breadcrumbs courseCategoryId={courseDto.course.courseCategoryId || false}/>
+          <Breadcrumbs
+            courseCategoryId={courseDto.course.courseCategoryId || false}
+            courseId={this.props.courseId}
+            ifCanRateCourse={this.ifCanRateCourse(courseDto)}
+          />
         }
 
         {

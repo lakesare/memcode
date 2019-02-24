@@ -1,33 +1,52 @@
 import { orFalse } from '~/services/orFalse';
-import { Link } from 'react-router';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
+import CourseApi from '~/api/CourseApi';
+
+import { Link } from 'react-router';
+import Loading from '~/components/Loading';
+import StarRating from '~/components/StarRating';
 
 class Breadcrumbs extends React.Component {
   static propTypes = {
-    courseCategoryId: orFalse(PropTypes.number).isRequired
+    courseCategoryId: orFalse(PropTypes.number).isRequired,
+    courseId: PropTypes.string.isRequired,
+    ifCanRateCourse: PropTypes.bool.isRequired
   }
 
   state = {
     courseCategory: false,
-    courseCategoryGroup: false
+    courseCategoryGroup: false,
+    speGetRatings: {},
+    rating: false
   }
 
-  componentDidMount = () =>
-    this.refreshCategoryAndGroup()
+  componentDidMount = () => {
+    this.apiGetCategoryAndGroup();
+    this.apiGetRatings();
+  }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.courseCategoryId !== this.props.courseCategoryId) {
-      this.refreshCategoryAndGroup();
+      this.apiGetCategoryAndGroup();
     }
   }
 
-  refreshCategoryAndGroup = () => {
+  apiGetCategoryAndGroup = () => {
     if (this.props.courseCategoryId) {
       this.apiGetCategories();
     } else {
       this.setState({ courseCategory: false, courseCategoryGroup: false });
     }
   }
+
+  apiGetRatings = () =>
+    CourseApi.getAllRatings(
+      (spe) => this.setState({ speGetRatings: spe }),
+      this.props.courseId
+    )
+      .then(({ ownRating }) => {
+        this.setState({ rating: ownRating });
+      })
 
   apiGetCategories = () =>
     CourseCategoryApi.selectWithGroups(false)
@@ -36,6 +55,18 @@ class Breadcrumbs extends React.Component {
         const courseCategoryGroup = courseCategoryGroups.find((group) => group.id === courseCategory.courseCategoryGroupId);
         this.setState({ courseCategory, courseCategoryGroup });
       })
+
+  apiUpdateRating = (rating) => {
+    this.setState({ rating });
+    this.apiRate(rating);
+  }
+
+  apiRate = (rating) =>
+    CourseApi.rate(
+      (spe) => this.setState({ speGetRatings: spe }),
+      this.props.courseId,
+      rating
+    )
 
   renderLinkToAllCourses = () =>
     <li>
@@ -68,14 +99,32 @@ class Breadcrumbs extends React.Component {
     null
   )
 
+  renderNavigation = () =>
+    <ul className="navigation">
+      {this.renderLinkToAllCourses()}
+      {this.renderArrow()}
+      {this.renderFetchedCategoryAndGroup()}
+    </ul>
+
+  renderRating = () =>
+    <div className="rating">
+      <Loading enabledStatuses={['success']} spe={this.state.speGetRatings}>{({ averageRating, ratings }) =>
+        ratings.length > 0 &&
+        <span>[{averageRating}/5 | {ratings.length} ratings]</span>
+      }</Loading>
+      <StarRating
+        className="stars"
+        rating={this.state.rating || false}
+        updateRating={this.apiUpdateRating}
+        readOnly={!this.props.ifCanRateCourse}
+      />
+    </div>
+
   render = () =>
     <section className="breadcrumbs">
       <div className="container">
-        <ul>
-          {this.renderLinkToAllCourses()}
-          {this.renderArrow()}
-          {this.renderFetchedCategoryAndGroup()}
-        </ul>
+        {this.renderNavigation()}
+        {this.renderRating()}
       </div>
     </section>
 }

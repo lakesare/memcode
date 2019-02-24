@@ -1,4 +1,4 @@
-import CourseApi from '~/api/Course';
+import CourseApi from '~/api/CourseApi';
 import CourseModel from '~/models/CourseModel';
 
 import Loading from '~/components/Loading';

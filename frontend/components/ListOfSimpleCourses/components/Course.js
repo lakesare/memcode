@@ -7,8 +7,9 @@ import { url } from '~/services/url';
 class Course extends React.Component {
   static propTypes = {
     course: PropTypes.object.isRequired,
-    amountOfProblems: PropTypes.string.isRequired,
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    amountOfProblems: PropTypes.number.isRequired,
+    averageCourseRating: PropTypes.number.isRequired
   }
 
   static defaultProps = {
@@ -34,7 +35,8 @@ class Course extends React.Component {
       </section>
 
       <section className="total-amount-of-mems">
-        {this.props.amountOfProblems} flashcards
+        {this.props.amountOfProblems} flashcards,
+        {this.props.averageCourseRating} stars
       </section>
     </Link>
 }

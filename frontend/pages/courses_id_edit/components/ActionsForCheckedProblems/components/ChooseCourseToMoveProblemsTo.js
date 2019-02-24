@@ -1,4 +1,4 @@
-import * as CourseApi from '~/api/Course';
+import CourseApi from '~/api/CourseApi';
 
 import onClickOutside from 'react-onclickoutside';
 import { Loading } from '~/components/Loading';

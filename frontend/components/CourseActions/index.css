@@ -138,28 +138,55 @@
   }
   section.breadcrumbs{
     font-size: 13px;
-    padding: 4px 0;
 
     background: $deep-green;
     border-top: 3px solid rgba(55, 102, 167, 0.21);
     border-bottom: 2px solid rgb(49, 29, 39);
-    ul{
-      border-left: 2px solid $whale-pink;
-      padding-left: 10px;
-      li{
-        display: inline-block;
-        margin-right: 10px;
-        color: white;
-        cursor: default; // not text selection one
-        font-size: 11px;
-        font-family: $heading-font;
-        a{
-          cursor: pointer;
-          color: rgb(250, 197, 253);
+    > div.container{
+      display: flex;
+      justify-content: space-between;
+      > ul.navigation{
+        // border-left: 2px solid $whale-pink;
+        padding: 3px;
+        padding-left: 10px;
+        display: flex;
+        align-items: center;
+        li{
+          display: inline-block;
+          margin-right: 10px;
+          color: white;
+          cursor: default; // not text selection one
+          font-size: 12px;
+          font-family: $heading-font;
+          a{
+            cursor: pointer;
+            color: rgb(250, 197, 253);
+          }
+        }
+        li.arrow{
+          color: rgb(224, 224, 224);
         }
       }
-      li.arrow{
-        color: rgb(224, 224, 224);
+
+      > div.rating{
+        display: flex;
+        align-items: center;
+        > span{
+          color: white;
+          opacity: 0.6;
+          font-size: 11px;
+          padding-right: 10px;
+          font-family: "Sintony";
+          letter-spacing: 0.3px;
+        }
+        > ul.stars{
+          li{
+            padding: 10px 3px;
+          }
+          // li.-selected{
+          //   color: rgb(255, 253, 91);
+          // }
+        }
       }
     }
   }

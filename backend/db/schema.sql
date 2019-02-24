@@ -128,7 +128,7 @@ CREATE TABLE notification (
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );
 
-CREATE TABLE courseRatingByUser (
+CREATE TABLE course_rating (
   id SERIAL PRIMARY KEY,
 
   rating INTEGER CHECK (rating >= 1 AND rating <= 5),

@@ -1,0 +1,14 @@
+:local(.ul){
+  display: flex;
+  > li{
+    color: rgba(255, 255, 255, 0.69);
+    transition: color .2s ease-out;
+
+    &:hover{
+      cursor: pointer;
+    }
+    &.-selected{
+      color: rgb(247, 255, 7);
+    }
+  }
+}

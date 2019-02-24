@@ -39,14 +39,20 @@ const destroy = (dispatch, courseId) =>
     'DELETE', `/api/courses/${courseId}`
   );
 
+const getAllRatings = (dispatch, courseId) =>
+  commonFetch(dispatch,
+    'GET', `/api/courses/${courseId}/ratings`
+  );
+
+const rate = (dispatch, courseId, rating) =>
+  commonFetch(dispatch,
+    'PUT', `/api/courses/${courseId}/rate`,
+    { rating }
+  );
+
 export default {
   selectSearch, selectPublic,
   selectAllLearned, selectAllCreated,
-  create, update, destroy
-};
-
-export {
-  selectSearch, selectPublic,
-  selectAllLearned, selectAllCreated,
-  create, update, destroy
+  create, update, destroy,
+  getAllRatings, rate
 };
