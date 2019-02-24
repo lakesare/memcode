@@ -1,11 +1,11 @@
 import { commonFetch } from '~/api/commonFetch';
+import api from '~/api';
 
 import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
 import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { TextInput, EditorTextarea } from '~/components/_standardForm';
-
 
 import css from './index.css';
 
@@ -35,6 +35,9 @@ class Page_contact extends React.Component {
 
     ifJustSent: false
   }
+
+  componentDidMount = () =>
+    api.CourseApi.getPublicCourses({ groupId: 5 })
 
   apiSend = (e) => {
     e.preventDefault();

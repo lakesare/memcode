@@ -3,11 +3,29 @@ import router from '~/router';
 import authenticate from '~/middlewares/authenticate';
 import catchAsync from '~/services/catchAsync';
 
+
 // TODO make all routes like CourseApi.rate()
 import CourseApi from '~/api/CourseApi';
 router.use('/api/courses', CourseApi);
 import rate from '~/api/CourseApi/rate';
 router.put('/api/courses/:id/rate', authenticate, catchAsync(rate));
+
+
+
+
+import TestApi from '~/api/TestApi';
+
+router.post('/api', catchAsync(async (request, response, next) => {
+  switch (request.body.controllerName) {
+    // CourseApi.getPublicCourses(request, response)
+    case 'CourseApi': await TestApi[request.body.methodName](request, response, next);
+  }
+}));
+
+
+
+
+
 
 import ProblemApi from '~/api/ProblemApi';
 router.use('/api/problems', ProblemApi);
@@ -21,8 +39,8 @@ router.use('/api/courseCategories', CourseCategoryApi);
 import NotificationApi from '~/api/NotificationApi';
 router.use('/api/notifications', NotificationApi);
 import markAllNotificationsAsRead from './NotificationApi/markAllNotificationsAsRead';
-router.put('/api/notifications/markAllNotificationsAsRead', catchAsync(markAllNotificationsAsRead));
 import getNotificationStatsForUser from './NotificationApi/getNotificationStatsForUser';
+router.put('/api/notifications/markAllNotificationsAsRead', catchAsync(markAllNotificationsAsRead));
 router.get('/api/notifications/stats-for-user', catchAsync(getNotificationStatsForUser));
 
 import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
