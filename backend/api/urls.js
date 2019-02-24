@@ -21,7 +21,7 @@ router.use('/api/courseCategories', CourseCategoryApi);
 import NotificationApi from '~/api/NotificationApi';
 router.use('/api/notifications', NotificationApi);
 import markAllNotificationsAsRead from './NotificationApi/markAllNotificationsAsRead';
-router.use('/api/notifications/markAllNotificationsAsRead', catchAsync(markAllNotificationsAsRead));
+router.put('/api/notifications/markAllNotificationsAsRead', catchAsync(markAllNotificationsAsRead));
 import getNotificationStatsForUser from './NotificationApi/getNotificationStatsForUser';
 router.get('/api/notifications/stats-for-user', catchAsync(getNotificationStatsForUser));
 
