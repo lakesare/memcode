@@ -50,7 +50,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
           amountOfAllNotifications: stats.amountOfAllNotifications,
           amountOfUnreadNotifications: stats.amountOfUnreadNotifications
         });
-        localStorage.setItem('amountOfUnreadNotifications', stats.amountOfUnreadNotifications)
+        localStorage.setItem('amountOfUnreadNotifications', stats.amountOfUnreadNotifications);
       })
 
   apiGetMostRecentNotifications = () =>

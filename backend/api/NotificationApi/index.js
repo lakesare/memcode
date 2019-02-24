@@ -15,18 +15,6 @@ router.get('/most-recent-notifications-of-user', catchAsync(async (request, resp
   response.status(200).json(notifications);
 }));
 
-// params = { userId }
-router.get('/stats-for-user', catchAsync(async (request, response) => {
-  const userId = request.query.userId;
-  const amountOfUnreadNotifications = await NotificationModel.select.amountOfUnreadNotificationsForUser({ userId });
-  const amountOfAllNotifications = await NotificationModel.select.amountOfAllNotificationsForUser({ userId });
-
-  response.status(200).json({
-    amountOfUnreadNotifications,
-    amountOfAllNotifications
-  });
-}));
-
 router.put('/:id/mark-as-read-or-unread', catchAsync(async (request, response) => {
   const updatedNotification = await NotificationModel.update.markAsReadOrUnread(request.params['id'], request.body['ifRead']);
   response.status(200).json(updatedNotification);

@@ -1,6 +1,6 @@
 const injectResponseTypes = (request, response, next) => {
   response.success = (obj) => {
-    response.status(200).json(obj);
+    response.status(200).json(obj || {});
   };
   response.error = (string) => {
     response.status(500).json(string);

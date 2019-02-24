@@ -26,20 +26,6 @@ const mostRecentNotificationsOfUser = ({ userId, limit, offset = 0 }) =>
     { userId, limit, offset }
   );
 
-// => 5
-const amountOfUnreadNotificationsForUser = ({ userId }) =>
-  db.one(
-    `SELECT COUNT(*) AS amount FROM notification WHERE user_id = \${userId} AND if_read=false`,
-    { userId }
-  ).then(({ amount }) => parseInt(amount));
-
-const amountOfAllNotificationsForUser = ({ userId }) =>
-  db.one(
-    `SELECT COUNT(*) AS amount FROM notification WHERE user_id = \${userId}`,
-    { userId }
-  ).then(({ amount }) => parseInt(amount));
-
 export default {
-  one, mostRecentNotificationsOfUser,
-  amountOfUnreadNotificationsForUser, amountOfAllNotificationsForUser
+  one, mostRecentNotificationsOfUser
 };
