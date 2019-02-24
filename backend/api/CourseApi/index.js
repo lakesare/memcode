@@ -129,36 +129,5 @@ router.get('/:id/ratings', catchAsync(async (request, response) => {
   response.status(200).json(obj);
 }));
 
-// const rate = (dispatch, courseId, rating) =>
-//   commonFetch(dispatch,
-//     'PUT', `/api/courses/${courseId}/rate`,
-//     { rating }
-//   );
-
-// @authenticate
-// const rate = (request, response) => {}
-router.put('/:id/rate', authenticate, catchAsync(async (request, response) => {
-  const userId = request.currentUser.id;
-  const courseId = request.params.id;
-  const rating = request.body['rating'];
-
-  const existingRating = await CourseRatingModel.select.oneOrNoneByUserAndCourse({
-    userId,
-    courseId
-  });
-
-  // const existingRating = CourseRatingByUser.where({ userId, courseId })[0];
-  // knex('CourseRatingByUser').where({ userId, courseId })[0]
-
-  if (existingRating) {
-    await CourseRatingModel.update.rate({ id: existingRating.id, rating });
-  } else {
-    await CourseRatingModel.insert.rate({ userId, courseId, rating });
-  }
-
-  const obj = await _getRatingsAndAverageAndOwn(courseId, userId);
-
-  response.status(200).json(obj);
-}));
-
 export default router;
+// export { rate };

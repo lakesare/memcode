@@ -20,7 +20,7 @@ const markAsReadOrUnread = (dispatch, id, values) =>
 
 const markAllNotificationsAsRead = (dispatch, values) =>
   commonFetch(dispatch,
-    'PUT', `/api/notifications/mark-all-notifications-as-read`,
+    'PUT', `/api/notifications/markAllNotificationsAsRead`,
     values
   );
 

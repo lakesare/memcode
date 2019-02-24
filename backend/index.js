@@ -3,12 +3,16 @@ import 'source-map-support/register';
 // load environment variables.
 import '../env.js';
 
-import routes from '~/routes';
+// inject router with middlewares and urls
+import '~/beforeMiddleware';
+import '~/api/urls';
+import '~/afterMiddleware';
 
 // process.env.PORT lets the port be set by Heroku
 const port = process.env.PORT || 3000;
 
-routes.listen(port, (error) => {
+import router from './router';
+router.listen(port, (error) => {
   error ?
   console.log(`Server start error: ${error}`) :
   console.log(`Server is listening on port: ${port}`);

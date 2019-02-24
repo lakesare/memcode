@@ -11,17 +11,4 @@ const markAsReadOrUnread = (id, ifRead) =>
     { id, ifRead }
   );
 
-const markAllNotificationsOfUserAsRead = (userId) =>
-  db.any(
-    `
-    UPDATE notification
-    SET if_read = true
-    WHERE
-      user_id = \${userId} AND
-      if_read = false
-    RETURNING *
-    `,
-    { userId }
-  );
-
-export default { markAsReadOrUnread, markAllNotificationsOfUserAsRead };
+export default { markAsReadOrUnread };

@@ -32,11 +32,6 @@ router.put('/:id/mark-as-read-or-unread', catchAsync(async (request, response) =
   response.status(200).json(updatedNotification);
 }));
 
-router.put('/mark-all-notifications-as-read', catchAsync(async (request, response) => {
-  await NotificationModel.update.markAllNotificationsOfUserAsRead(request.body['userId']);
-  response.status(200).json({});
-}));
-
 router.post('/announce-a-new-feature', catchAsync(async (request, response) => {
   const amountOfUsersNotified = await NotificationModel.insert.announceANewFeature(request.body['type'], request.body['content']);
   response.status(200).json({ message: `${amountOfUsersNotified} users are notified!` });
