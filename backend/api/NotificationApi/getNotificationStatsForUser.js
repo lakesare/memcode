@@ -2,7 +2,7 @@ import knex from '~/db/knex';
 
 // params = { userId }
 const getNotificationStatsForUser = async (request, response) => {
-  const userId = request.query.userId;
+  const userId = request.body.userId;
 
   const allNotifications = await knex('notification').where({ userId });
   const unreadNotifications = await knex('notification').where({ userId, ifRead: false });

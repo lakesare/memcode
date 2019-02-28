@@ -1,5 +1,4 @@
 import { commonFetch } from '~/api/commonFetch';
-import api from '~/api';
 
 import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
@@ -35,9 +34,6 @@ class Page_contact extends React.Component {
 
     ifJustSent: false
   }
-
-  componentDidMount = () =>
-    api.CourseApi.getPublicCourses({ groupId: 5 })
 
   apiSend = (e) => {
     e.preventDefault();

@@ -8,12 +8,8 @@ import commonFetch from './commonFetch';
 const fetchFunctionCreator = (controllerName, methodName) =>
   (body, dispatch) =>
     commonFetch(dispatch || false,
-      'POST', '/api',
-      {
-        controllerName,
-        methodName,
-        payload: body
-      }
+      'POST', `/api/${controllerName}.${methodName}`,
+      body
     );
 
 const api = new Proxy({}, {
@@ -23,8 +19,7 @@ const api = new Proxy({}, {
     const methodProxy = new Proxy({}, {
       get: (obj, property_2) => {
         const methodName = property_2;
-        console.log({controllerName, methodName});
-        return fetchFunctionCreator(controllerName, methodName)
+        return fetchFunctionCreator(controllerName, methodName);
       }
     });
 

@@ -1,5 +1,5 @@
 import SpeImmutable from '~/services/SpeImmutable';
-import NotificationApi from '~/api/NotificationApi';
+import api from '~/api';
 
 import onClickOutside from 'react-onclickoutside';
 import Loading from '~/components/Loading';
@@ -41,10 +41,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
   }
 
   apiGetNotificationsStatsForUser = () =>
-    NotificationApi.getNotificationsStatsForUser(
-      false,
-      { userId: this.props.currentUser.id }
-    )
+    api.NotificationApi.getNotificationStatsForUser({ userId: this.props.currentUser.id })
       .then((stats) => {
         this.setState({
           amountOfAllNotifications: stats.amountOfAllNotifications,
@@ -54,22 +51,22 @@ class NotificationsTogglerAndDropdown extends React.Component {
       })
 
   apiGetMostRecentNotifications = () =>
-    NotificationApi.getMostRecentNotificationsOfUser(
-      (spe) => this.setState({ speGetNotifications: spe }),
+    api.NotificationApi.getNotificationsForUser(
       {
         userId: this.props.currentUser.id,
         limit: 15
-      }
+      },
+      (spe) => this.setState({ speGetNotifications: spe })
     )
 
   apiLoadMoreNotifications = () =>
-    NotificationApi.getMostRecentNotificationsOfUser(
-      (spe) => this.setState({ speLoadMoreNotifications: spe }),
+    api.NotificationApi.getNotificationsForUser(
       {
         userId: this.props.currentUser.id,
         limit: 10,
         offset: this.state.speGetNotifications.payload.length
-      }
+      },
+      (spe) => this.setState({ speLoadMoreNotifications: spe })
     )
       .then((notifications) => {
         this.setState({
@@ -91,11 +88,10 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
     this.setState({ speGetNotifications, amountOfUnreadNotifications });
     localStorage.setItem('amountOfUnreadNotifications', amountOfUnreadNotifications);
-    return NotificationApi.markAsReadOrUnread(
-      false,
-      notification.id,
-      { ifRead }
-    );
+    return api.NotificationApi.markAsReadOrUnread({
+      id: notification.id,
+      ifRead
+    });
   }
 
   apiMarkAllNotificationsAsRead = () => {
@@ -109,10 +105,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
       },
       amountOfUnreadNotifications: 0
     });
-    return NotificationApi.markAllNotificationsAsRead(
-      false,
-      { userId: this.props.currentUser.id }
-    );
+    return api.NotificationApi.markAllNotificationsAsRead({ userId: this.props.currentUser.id });
   }
 
   handleClickOutside = () =>

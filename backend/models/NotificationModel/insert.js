@@ -26,28 +26,6 @@ const create = requireKeys(
     )
 );
 
-// => 3 (amount of notifications created/users notified)
-const announceANewFeature = async (type, content) =>
-  db.tx(async (transaction) => {
-    const users = await db.many('SELECT * FROM "user"');
-    const queries = users.map((user) =>
-      transaction.one(
-        `
-          INSERT INTO notification (type, content, if_read, user_id)
-          VALUES (\${type}, \${content}, false, \${userId})
-          RETURNING *
-        `,
-        {
-          type,
-          content,
-          userId: user.id
-        }
-      )
-    );
-    return transaction.batch(queries);
-  })
-    .then((notificationsCreated) => notificationsCreated.length);
-
 export default {
-  create, announceANewFeature
+  create
 };
