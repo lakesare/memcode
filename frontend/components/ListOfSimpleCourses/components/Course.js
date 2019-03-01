@@ -1,6 +1,9 @@
 import { Link } from 'react-router';
 import { stripTags } from '~/services/stripTags';
 import { url } from '~/services/url';
+
+import StarRating from '~/components/StarRating';
+
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser || undefined
 }))
@@ -9,11 +12,12 @@ class Course extends React.Component {
     course: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
     amountOfProblems: PropTypes.number.isRequired,
-    averageCourseRating: PropTypes.number.isRequired
+    averageCourseRating: PropTypes.string
   }
 
   static defaultProps = {
-    currentUser: null
+    currentUser: null,
+    averageCourseRating: null
   }
 
   render = () =>
@@ -34,9 +38,15 @@ class Course extends React.Component {
         />
       </section>
 
+      <div>
+        <StarRating
+          rating={this.props.averageCourseRating ? parseFloat(this.props.averageCourseRating) : false}
+          readOnly
+        />
+      </div>
+
       <section className="total-amount-of-mems">
-        {this.props.amountOfProblems} flashcards,
-        {this.props.averageCourseRating} stars
+        {this.props.amountOfProblems} flashcards
       </section>
     </Link>
 }

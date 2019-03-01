@@ -6,7 +6,6 @@ import authenticate from '~/middlewares/authenticate';
 
 import CourseModel from '~/models/CourseModel';
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
-import CourseRatingModel from '~/models/CourseRatingModel';
 
 router.get('/public', catchAsync(async (request, response) => {
   const pageSize = request.query.pageSize;
@@ -86,48 +85,8 @@ router.delete('/:id', catchAsync(async (request, response) => {
   response.status(200).json({});
 }));
 
-const _getRatingsAndAverageAndOwn = async (courseId, currentUserId) => {
-  const ratings = await CourseRatingModel.select.anyByCourse({
-    courseId
-  });
-
-  const amountOfRatings = ratings.length;
-
-  let averageRating;
-  if (amountOfRatings > 0) {
-    const sumOfAllRatings = ratings.reduce((acc, rating) => acc + rating.rating, 0);
-    const aveRating = sumOfAllRatings / amountOfRatings;
-    averageRating = parseFloat(aveRating.toFixed(2));
-  } else {
-    averageRating = null;
-  }
-
-  let ownRating;
-  if (currentUserId) {
-    const rating = await CourseRatingModel.select.oneOrNoneByUserAndCourse({
-      userId: currentUserId,
-      courseId
-    });
-    ownRating = rating ? rating.rating : null;
-  } else {
-    ownRating = null;
-  }
-
-  return {
-    ratings,
-    averageRating,
-    ownRating
-  };
-};
-
-router.get('/:id/ratings', catchAsync(async (request, response) => {
-  const courseId = request.params.id;
-  const currentUserId = request.currentUser ? request.currentUser.id : null;
-
-  const obj = await _getRatingsAndAverageAndOwn(courseId, currentUserId);
-
-  response.status(200).json(obj);
-}));
-
+import rate from './rate';
+router.rate = rate;
+import getRatings from './getRatings';
+router.getRatings = getRatings;
 export default router;
-// export { rate };

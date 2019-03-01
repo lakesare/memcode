@@ -7,22 +7,21 @@ import catchAsync from '~/services/catchAsync';
 // TODO make all routes like CourseApi.rate()
 import CourseApi from '~/api/CourseApi';
 router.use('/api/courses', CourseApi);
-import rate from '~/api/CourseApi/rate';
-router.put('/api/courses/:id/rate', authenticate, catchAsync(rate));
-
 
 import NotificationApi from '~/api/NotificationApi';
 
 
-import TestApi from '~/api/TestApi';
+const getApiClass = (controllerName) => {
+  switch (controllerName) {
+    case 'NotificationApi': return NotificationApi;
+    case 'CourseApi': return CourseApi;
+  }
+};
 
 // request.params - { controllerName: 'CourseApi', methodName: 'getPublicCourses' }
 router.post('/api/:controllerName.:methodName', catchAsync(async (request, response, next) => {
-  switch (request.params.controllerName) {
-    // CourseApi.getPublicCourses(request, response)
-    case 'CourseApi': await TestApi[request.params.methodName](request, response, next); break;
-    case 'NotificationApi': await NotificationApi[request.params.methodName](request, response, next); break;
-  }
+  const SomeApi = getApiClass(request.params.controllerName);
+  await SomeApi[request.params.methodName](request, response, next);
 }));
 
 

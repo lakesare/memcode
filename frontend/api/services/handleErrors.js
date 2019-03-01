@@ -1,10 +1,11 @@
-// as per https://www.tjvantoll.com/2015/09/13/fetch-and-errors
 const handleErrors = (response) => {
   if (response.status === 200) {
-    return response.json();
+    return response.json()
+      .catch((error) => Promise.reject(error.toString()));
   } else {
     return response.json()
-      .then((error) => Promise.reject(error));
+      .then((error) => Promise.reject(error))
+      .catch((error) => Promise.reject(error.toString()));
   }
 };
 

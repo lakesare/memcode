@@ -1,6 +1,7 @@
 import { orFalse } from '~/services/orFalse';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
 import CourseApi from '~/api/CourseApi';
+import api from '~/api';
 
 import { Link } from 'react-router';
 import Loading from '~/components/Loading';
@@ -40,9 +41,9 @@ class Breadcrumbs extends React.Component {
   }
 
   apiGetRatings = () =>
-    CourseApi.getAllRatings(
-      (spe) => this.setState({ speGetRatings: spe }),
-      this.props.courseId
+    api.CourseApi.getRatings(
+      { courseId: this.props.courseId },
+      (spe) => this.setState({ speGetRatings: spe })
     )
       .then(({ ownRating }) => {
         this.setState({ rating: ownRating });
@@ -62,10 +63,9 @@ class Breadcrumbs extends React.Component {
   }
 
   apiRate = (rating) =>
-    CourseApi.rate(
-      (spe) => this.setState({ speGetRatings: spe }),
-      this.props.courseId,
-      rating
+    api.CourseApi.rate(
+      { courseId: this.props.courseId, rating },
+      (spe) => this.setState({ speGetRatings: spe })
     )
 
   renderLinkToAllCourses = () =>
@@ -107,18 +107,20 @@ class Breadcrumbs extends React.Component {
     </ul>
 
   renderRating = () =>
-    <div className="rating">
-      <Loading enabledStatuses={['success']} spe={this.state.speGetRatings}>{({ averageRating, ratings }) =>
-        ratings.length > 0 &&
-        <span>[{averageRating}/5 | {ratings.length} ratings]</span>
-      }</Loading>
-      <StarRating
-        className="stars"
-        rating={this.state.rating || false}
-        updateRating={this.apiUpdateRating}
-        readOnly={!this.props.ifCanRateCourse}
-      />
-    </div>
+    <Loading enabledStatuses={['success']} spe={this.state.speGetRatings}>{({ averageRating, ratings, ownRating }) =>
+      <div className="rating">
+        {
+          ratings.length > 0 &&
+          <span>[{averageRating}/5 | {ratings.length} ratings]</span>
+        }
+        <StarRating
+          className="stars"
+          rating={ownRating || false}
+          updateRating={this.apiUpdateRating}
+          readOnly={!this.props.ifCanRateCourse}
+        />
+      </div>
+    }</Loading>
 
   render = () =>
     <section className="breadcrumbs">

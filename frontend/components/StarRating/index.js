@@ -7,7 +7,7 @@ import css from './index.scss';
 class StarRating extends React.Component {
   static propTypes = {
     rating: orFalse(PropTypes.number).isRequired,
-    updateRating: PropTypes.func.isRequired,
+    updateRating: PropTypes.func,
 
     readOnly: PropTypes.bool,
     className: PropTypes.string
@@ -15,6 +15,7 @@ class StarRating extends React.Component {
 
   static defaultProps = {
     className: '',
+    updateRating: () => {},
     readOnly: false
   }
 
