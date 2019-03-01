@@ -15,4 +15,4 @@ class Page_test extends React.Component {
     </div>
 }
 
-export { Page_test };
+export default Page_test;

@@ -32,4 +32,4 @@ class Page_pleaseSignIn extends React.Component {
     </main>
 }
 
-export { Page_pleaseSignIn };
+export default Page_pleaseSignIn;

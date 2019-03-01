@@ -114,4 +114,4 @@ class Page_contact extends React.Component {
     </main>
 }
 
-export { Page_contact };
+export default Page_contact;

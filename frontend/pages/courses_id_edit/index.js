@@ -247,4 +247,4 @@ class Page_courses_id_edit extends React.Component {
     </main>
 }
 
-export { Page_courses_id_edit };
+export default Page_courses_id_edit;

@@ -79,4 +79,4 @@ class Page_articles_comparison extends React.Component {
     </main>
 }
 
-export { Page_articles_comparison };
+export default Page_articles_comparison;

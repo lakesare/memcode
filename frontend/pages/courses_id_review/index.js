@@ -150,4 +150,4 @@ class Page_courses_id_review extends React.Component {
     </main>
 }
 
-export { Page_courses_id_review };
+export default Page_courses_id_review;

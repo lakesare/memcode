@@ -63,6 +63,7 @@
     "workbox-webpack-plugin": "^3.6.3"
   },
   "dependencies": {
+    "@redux-offline/redux-offline": "^2.5.1",
     "acorn-dynamic-import": "^2.0.2",
     "acorn-jsx": "^4.0.1",
     "airbnb-browser-shims": "^3.1.0",

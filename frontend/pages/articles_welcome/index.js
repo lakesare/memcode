@@ -124,4 +124,4 @@ class Page_articles_welcome extends React.Component {
     </main>
 }
 
-export { Page_articles_welcome };
+export default Page_articles_welcome;

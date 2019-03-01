@@ -92,4 +92,4 @@ class Page_courses_learning extends React.Component {
     </main>
 }
 
-export { Page_courses_learning };
+export default Page_courses_learning;

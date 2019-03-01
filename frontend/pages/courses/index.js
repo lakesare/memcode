@@ -136,4 +136,4 @@ class Page_courses extends React.Component {
     </main>
 }
 
-export { Page_courses };
+export default Page_courses;

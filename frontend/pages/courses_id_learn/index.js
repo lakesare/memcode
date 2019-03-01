@@ -26,4 +26,4 @@ class Page_courses_id_learn extends React.Component {
     </main>
 }
 
-export { Page_courses_id_learn };
+export default Page_courses_id_learn;

@@ -1,24 +1,24 @@
-import { Router, Route, browserHistory, Link } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import onEnters from '~/services/onEnters';
 
-import { Page_courses } from './pages/courses';
-import { Page_courses_new } from './pages/courses_new';
-import { Page_courses_id } from './pages/courses_id';
-import { Page_courses_id_review } from './pages/courses_id_review';
-import { Page_courses_id_learn } from './pages/courses_id_learn';
-import { Page_courses_id_edit } from './pages/courses_id_edit';
-import { Page_courses_learning } from './pages/courses_learning';
-import { Page_courses_created } from './pages/courses_created';
+import Page_courses from './pages/courses';
+import Page_courses_new from './pages/courses_new';
+import Page_courses_id from './pages/courses_id';
+import Page_courses_id_review from './pages/courses_id_review';
+import Page_courses_id_learn from './pages/courses_id_learn';
+import Page_courses_id_edit from './pages/courses_id_edit';
+import Page_courses_learning from './pages/courses_learning';
+import Page_courses_created from './pages/courses_created';
 
 import Page_offline_courses from './pages/offline_courses';
 import Page_offline_courses_id_review from './pages/offline_courses_id_review';
 
 // static pages
-import { Page_test } from './pages/test';
-import { Page_pleaseSignIn } from './pages/pleaseSignIn';
-import { Page_articles_comparison } from './pages/articles_comparison';
-import { Page_articles_welcome } from './pages/articles_welcome';
-import { Page_contact } from './pages/contact';
+import Page_test from './pages/test';
+import Page_pleaseSignIn from './pages/pleaseSignIn';
+import Page_articles_comparison from './pages/articles_comparison';
+import Page_articles_welcome from './pages/articles_welcome';
+import Page_contact from './pages/contact';
 
 import Page_admin_notifications from './pages/admin_notifications';
 

@@ -58,4 +58,4 @@ class Page_courses_id extends React.Component {
     </main>
 }
 
-export { Page_courses_id };
+export default Page_courses_id;
