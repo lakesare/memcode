@@ -15,19 +15,22 @@ import SortBySelect from './components/SortBySelect';
 import css from './index.css';
 
 const getCategoryId = (props) => {
-  const categoryId = props.location.query.categoryId;
+  const categoryId = getQuery(props).get('categoryId');
   return categoryId ? parseInt(categoryId) : false;
 };
 
 const getCurrentPage = (props) => {
-  const currentPage = props.location.query.page;
+  const currentPage = getQuery(props).get('page');
   return currentPage ? parseInt(currentPage) : 1;
 };
 
 const getSortBy = (props) => {
-  const sortBy = props.location.query.sortBy;
+  const sortBy = getQuery(props).get('sortBy');
   return sortBy ? sortBy : 'popular';
 };
+
+const getQuery = (props) =>
+  new URLSearchParams(props.location.search)
 
 class Page_courses extends React.Component {
   static propTypes = {
@@ -79,13 +82,15 @@ class Page_courses extends React.Component {
       )
 
   getUrlForNewPageNumber = (pageN) => {
-    const newQuery = { ...this.props.location.query, page: pageN };
-    return this.props.location.pathname + '?' + hashToQueryString(newQuery);
+    const newQuery = getQuery(this.props)
+    newQuery.set('page', pageN);
+    return this.props.location.pathname + '?' + newQuery.toString();
   }
 
   getUrlForNewSortBy = (sortBy) => {
-    const newQuery = { ...this.props.location.query, page: 1, sortBy };
-    return this.props.location.pathname + '?' + hashToQueryString(newQuery);
+    const newQuery = getQuery(this.props)
+    newQuery.set('page', 1).set('sortBy', sortBy);
+    return this.props.location.pathname + '?' + newQuery.toString();
   }
 
   renderPagination = (className = '') =>

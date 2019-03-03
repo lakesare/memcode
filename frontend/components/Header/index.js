@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import { ArticlesDropdown } from './components/ArticlesDropdown';
 import { Search } from './components/Search';
 import { SignInLinks } from './components/SignInLinks';
@@ -23,21 +23,21 @@ class Header extends React.Component {
   renderNavigation = () =>
     <nav>
       <ArticlesDropdown/>
-      <Link
+      <NavLink
+        exact
         to={this.props.currentUser ? '/courses/learning' : '/courses'}
-        activeClassName="active"
-        className={`link courses ${['/courses', '/courses/learning', '/courses/created'].some((url) => location.pathname === url) ? 'active' : ''}`}
-      >courses</Link>
-      <Link
+        className="link courses"
+        isActive={(match, location) => ['/courses', '/courses/learning', '/courses/created'].some((url) => location.pathname === url)}
+      >courses</NavLink>
+      <NavLink
+        exact
         to="/courses/new"
-        activeClassName="active"
         className="link create"
-      ><i className="fa fa-plus"/>create</Link>
-      <Link
+      ><i className="fa fa-plus"/>create</NavLink>
+      <NavLink
         to="/contact"
-        activeClassName="active"
         className="link contact"
-      >contact</Link>
+      >contact</NavLink>
     </nav>
 
   renderUser = () => (

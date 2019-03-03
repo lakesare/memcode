@@ -4,12 +4,12 @@ import { FakeProblemWithInlinedAnswers } from './components/FakeProblemWithInlin
 import { FakeProblemWithSeparateAnswer } from './components/FakeProblemWithSeparateAnswer';
 import { Table } from './components/Table';
 
-import { browserHistory } from 'react-router';
+import { withRouter } from "react-router-dom";
 
 import css from './index.css';
 
-
 import { AuthenticationActions } from '~/reducers/Authentication';
+@withRouter
 @connect(
   () => ({}),
   (dispatch) => ({
@@ -30,7 +30,7 @@ class Page_articles_welcome extends React.Component {
     const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-      browserHistory.push('/courses/learning');
+      this.props.history.push('/courses/learning');
     }
   }
 

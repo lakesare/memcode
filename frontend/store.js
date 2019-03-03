@@ -8,7 +8,7 @@ const store = createStore(
   RootReducer,
   compose(
     applyMiddleware(thunk),
-    offline(config),
+    // offline(config),
     window.__REDUX_DEVTOOLS_EXTENSION__ ?
       window.__REDUX_DEVTOOLS_EXTENSION__() :
       f => f

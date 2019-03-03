@@ -6,24 +6,26 @@ import { Tabs } from './components/Tabs';
 
 import css from './index.css';
 
-class Page_courses_id_learn extends React.Component {
+class Page extends React.Component {
   static propTypes = {
-    params: PropTypes.shape({
-      id: PropTypes.string
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.string
+      })
     }).isRequired
   }
 
   render = () =>
     <main className={css.main}>
-      <Header dontLinkToLearnOrReview={this.props.params.id}/>
+      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
 
-      <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
+      <CourseActions courseId={this.props.match.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
       <div className="container">
-        <Tabs courseId={this.props.params.id}/>
+        <Tabs courseId={this.props.match.params.id}/>
       </div>
 
       <Footer/>
     </main>
 }
 
-export default Page_courses_id_learn;
+export default Page;

@@ -33,7 +33,7 @@ class TextInput extends React.Component {
         id={this.props.name} // for htmlFor
         value={this.props.formState[this.props.name] || ''}
         onChange={this.updateFormState}
-        autoComplete={false}
+        autoComplete="off"
       />,
       '-TextInput'
     )

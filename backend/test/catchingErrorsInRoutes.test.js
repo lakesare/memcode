@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import supertest from 'supertest';
 import express from 'express';
 import catchAsync from '~/services/catchAsync';
-import { handleErrors } from '~/middlewares/handleErrors';
+import handleErrors from '~/middlewares/handleErrors';
 
 
 const createAppWithRoute = (routeCallback) => {

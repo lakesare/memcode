@@ -10,8 +10,10 @@ import css from './index.css';
 
 class Page_courses_id extends React.Component {
   static propTypes = {
-    params: PropTypes.shape({
-      id: PropTypes.string
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.string
+      })
     }).isRequired
   }
 
@@ -19,11 +21,12 @@ class Page_courses_id extends React.Component {
     speGetPage: {}
   }
 
-  componentDidMount = () =>
-    this.apiGetPage()
+  componentDidMount = () => {
+    this.apiGetPage();
+  }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.params.id !== this.props.params.id) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
       this.apiGetPage();
     }
   }
@@ -31,14 +34,14 @@ class Page_courses_id extends React.Component {
   apiGetPage = () =>
     commonFetch(
       spe => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/${this.props.params.id}`
+      'GET', `/api/pages/courses/${this.props.match.params.id}`
     )
 
   render = () =>
-    <main className={css.main} key={this.props.params.id}>
-      <Header dontLinkToLearnOrReview={this.props.params.id}/>
+    <main className={css.main} key={this.props.match.params.id}>
+      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
 
-      <CourseActions courseId={this.props.params.id} ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed/>
+      <CourseActions courseId={this.props.match.params.id} ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed/>
       <div className="container">
         <Loading spe={this.state.speGetPage}>{(problems) =>
           <section className="problems">

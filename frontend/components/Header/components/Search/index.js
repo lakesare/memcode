@@ -64,10 +64,10 @@ class Search extends React.Component {
           onChange={this.updateSearchString}
           value={this.state.searchString}
           type="text"
-          autoComplete={false}
-          autoCorrect={false}
-          autoCapitalize={false}
-          spellCheck={false}
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="off"
         />
       </div>
 

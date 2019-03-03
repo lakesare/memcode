@@ -14,9 +14,12 @@ import { ForBeginners } from './components/ForBeginners';
 import css from './index.css';
 
 const getCategoryId = (props) => {
-  const categoryId = props.location.query.categoryId;
+  const categoryId = getQuery(props).get('categoryId');
   return categoryId ? parseInt(categoryId) : false;
 };
+
+const getQuery = (props) =>
+  new URLSearchParams(props.location.search);
 
 class Page_courses_learning extends React.Component {
   state = {

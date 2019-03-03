@@ -6,13 +6,15 @@ import { Loading } from '~/components/Loading';
 import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
 import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 
-import { browserHistory } from 'react-router';
+import { withRouter } from "react-router-dom";
 import StandardTooltip from '~/components/StandardTooltip';
 import CourseModel from '~/models/CourseModel';
 import CourseApi from '~/api/CourseApi';
 
+
 import css from './index.css';
 
+@withRouter
 class Page_courses_new extends React.Component {
   state = {
     speSave: { status: 'success' },
@@ -33,7 +35,7 @@ class Page_courses_new extends React.Component {
         spe => this.setState({ speSave: spe }),
         this.state.formState
       )
-        .then((course) => browserHistory.push(`/courses/${course.id}/edit`));
+        .then((course) => this.props.history.push(`/courses/${course.id}/edit`));
     } else {
       this.setState({ formValidation });
     }

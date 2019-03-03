@@ -1,6 +1,6 @@
 import { orFalse } from '~/services/orFalse';
 import { shuffle } from 'lodash';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 import css from './index.css';
 

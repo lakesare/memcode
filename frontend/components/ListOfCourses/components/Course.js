@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 import { ReviewAndLearn } from './ReviewAndLearn';
 
 import { stripTags } from '~/services/stripTags';

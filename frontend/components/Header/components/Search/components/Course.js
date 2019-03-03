@@ -1,6 +1,6 @@
 import { stripTags } from '~/services/stripTags';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 class Course extends React.Component {
   static propTypes = {

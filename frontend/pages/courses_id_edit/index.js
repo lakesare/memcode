@@ -29,8 +29,10 @@ import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfP
 )
 class Page_courses_id_edit extends React.Component {
   static propTypes = {
-    params: PropTypes.shape({
-      id: PropTypes.string
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.string
+      })
     }).isRequired,
     IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.shape({
       createProblem: PropTypes.func.isRequired,
@@ -101,7 +103,7 @@ class Page_courses_id_edit extends React.Component {
   apiGetPage = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/${this.props.params.id}/edit`
+      'GET', `/api/pages/courses/${this.props.match.params.id}/edit`
     )
 
   uiAddOptimisticProblem = (optimisticProblem) => {
@@ -123,7 +125,7 @@ class Page_courses_id_edit extends React.Component {
       update(this.state.speGetPage, `payload.problems[${index}]`, () => createdProblem)
     });
 
-    this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.params.id, createdProblem.id);
+    this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.match.params.id, createdProblem.id);
 
     setTimeout(() => {
       this.setState({ joyrideHowToReviewProblemRun: true });
@@ -227,15 +229,15 @@ class Page_courses_id_edit extends React.Component {
           }
         }}
       />
-      <Header dontLinkToLearnOrReview={this.props.params.id}/>
+      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
 
-      <CourseActions courseId={this.props.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused/>
+      <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused/>
       <StickyContainer>
         <div className="container">
           {this.renderActionsForCheckedProblems()}
           {this.renderProblems()}
           <NewProblem
-            courseId={this.props.params.id}
+            courseId={this.props.match.params.id}
             uiAddOptimisticProblem={this.uiAddOptimisticProblem}
             uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
           />

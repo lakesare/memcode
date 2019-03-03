@@ -1,6 +1,6 @@
 import CourseApi from '~/api/CourseApi';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 import { Loading } from '~/components/Loading';
 import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
 

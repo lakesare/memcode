@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 
-import { db } from '~/db/init';
+import db from '~/db/init';
 import { Factory } from '~/test/services/Factory';
 
-import * as Course from '../index';
+import Course from '../index';
 
 describe('course model', () => {
   describe('select', () => {

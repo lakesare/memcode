@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { db } from '~/db/init';
+import db from '~/db/init';
 import { Factory, RawFactory } from '~/test/services/Factory';
 
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';

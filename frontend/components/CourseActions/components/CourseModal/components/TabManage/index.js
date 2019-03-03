@@ -1,10 +1,11 @@
-import { browserHistory } from 'react-router';
 import CourseApi from '~/api/CourseApi';
 
+import { withRouter } from "react-router-dom";
 import { Loading } from '~/components/Loading';
 
 import css from './index.css';
 
+@withRouter
 class TabManage extends React.Component {
   static propTypes = {
     tabNavigation: PropTypes.element.isRequired,
@@ -20,7 +21,7 @@ class TabManage extends React.Component {
       (spe) => this.setState({ speDelete: spe }),
       this.props.course.id
     )
-      .then(() => browserHistory.push('/courses/created'))
+      .then(() => this.props.history.push('/courses/created'))
 
   render = () =>
     <section className={"standard-white-heading_and_blue-content " + css.tab}>

@@ -1,6 +1,6 @@
 import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 import css from './index.css';
 

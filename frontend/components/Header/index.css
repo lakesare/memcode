@@ -1,6 +1,6 @@
 @import 'css/variables';
 
-:local(header.header){
+:local(.header){
   background: $purple;
 
   a.logo{

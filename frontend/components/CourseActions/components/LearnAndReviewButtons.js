@@ -2,7 +2,7 @@ import { orFalse } from '~/services/orFalse';
 import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 // import ifPositivePostgresInterval from '~/services/ifPositivePostgresInterval';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 import StandardTooltip from '~/components/StandardTooltip';
 
 class LearnAndReviewButtons extends React.Component {

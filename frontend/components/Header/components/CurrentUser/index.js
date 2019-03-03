@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import LearnReviewLinks from './components/LearnReviewLinks';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 
@@ -9,9 +9,9 @@ class CurrentUser extends React.Component {
   }
 
   renderAvatar = () =>
-    <Link className="avatar" to="/courses/learning" activeClassName="active">
+    <NavLink className="avatar" to="/courses/learning">
       <img src={this.props.currentUser.avatarUrl}/>
-    </Link>
+    </NavLink>
 
   render = () =>
     <section className="current-user">

@@ -2,7 +2,7 @@ import orFalse from '~/services/orFalse';
 import CourseCategoryModel from '~/models/CourseCategoryModel';
 import CourseCategoryGroupModel from '~/models/CourseCategoryGroupModel';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 class CourseCategories extends React.Component {
   static propTypes = {

@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 import { AmountOfProblemsToReview } from './AmountOfProblemsToReview';
 
 class ReviewAndLearn extends React.Component {

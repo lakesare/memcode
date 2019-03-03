@@ -2,7 +2,7 @@ import { orFalse } from '~/services/orFalse';
 import { commonFetch } from '~/api/commonFetch';
 import { url } from '~/services/url';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 import { MetaTags } from './components/MetaTags';
 import { Loading } from '~/components/Loading';
 import Breadcrumbs from './components/Breadcrumbs';

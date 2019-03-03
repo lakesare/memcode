@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 import css from './index.css';
 
@@ -49,13 +49,7 @@ class Pagination extends React.Component {
     </Link>
 
   renderArrow = (ifClickable, nextPage, iconClass) =>
-    <Link
-      key={iconClass}
-      className={`arrow ${ifClickable ? 'active' : 'disabled'}`}
-      to={ifClickable ? this.props.getUrlForNewPageNumber(nextPage) : undefined}
-    >
-      <i className={`fa ${iconClass}`}/>
-    </Link>
+    null
 
   render = () => {
     const currentPage = this.props.currentPage;

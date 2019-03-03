@@ -1,4 +1,5 @@
-import { Router, Route, browserHistory } from 'react-router';
+import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import onEnters from '~/services/onEnters';
 
 import Page_courses from './pages/courses';
@@ -31,33 +32,35 @@ const createElement = (Component, props) =>
   <Component key={props.params.id} {...props}/>;
 
 const router =
-  <Router history={browserHistory} createElement={createElement}>
-    <Route path="/courses"          component={Page_courses}/>
-    <Route path="/courses/learning" component={Page_courses_learning} onEnter={onEnters.requireAuthentication}/>
-    <Route path="/courses/created"  component={Page_courses_created}  onEnter={onEnters.requireAuthentication}/>
-    <Route path="/courses/new"        component={Page_courses_new}      onEnter={onEnters.requireAuthentication}/>
-    <Route path="/courses/:id"        component={Page_courses_id}/>
-    <Route path="/courses/:id/edit"   component={Page_courses_id_edit}  onEnter={onEnters.requireAuthentication}/>
-    <Route path="/courses/:id/learn"  component={Page_courses_id_learn} onEnter={onEnters.requireAuthentication}/>
-    <Route path="/courses/:id/review" component={Page_courses_id_review} simulated={false} onEnter={onEnters.requireAuthentication}/>
-    <Route path="/courses/:id/review/simulated" component={Page_courses_id_review} simulated/>
+  <BrowserRouter createElement={createElement}>
+    <Switch>
+      <Route exact path="/courses"          component={Page_courses}/>
+      <Route exact path="/courses/learning" component={Page_courses_learning} onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses/created"  component={Page_courses_created}  onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses/new"        component={Page_courses_new}      onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses/:id"        component={Page_courses_id}/>
+      <Route exact path="/courses/:id/edit"   component={Page_courses_id_edit}  onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses/:id/learn"  component={Page_courses_id_learn} onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses/:id/review" component={Page_courses_id_review} simulated={false} onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses/:id/review/simulated" component={(props) => <Page_courses_id_review {...props} simulated/>}/>
 
-    {/* offline */}
-    <Route path="/offline/courses" component={Page_offline_courses} onEnter={onEnters.requireAuthentication}/>
-    <Route path="/offline/courses/:id/review" component={Page_offline_courses_id_review} onEnter={onEnters.requireAuthentication}/>
+      {/* offline */}
+      <Route exact path="/offline/courses" component={Page_offline_courses} onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/offline/courses/:id/review" component={Page_offline_courses_id_review} onEnter={onEnters.requireAuthentication}/>
 
-    {/* static pages */}
-    <Route path="/please-sign-in" component={Page_pleaseSignIn}/>
-    <Route path="/contact"        component={Page_contact}/>
-    <Route path="/test"           component={Page_test}/>
+      {/* static pages */}
+      <Route exact path="/please-sign-in" component={Page_pleaseSignIn}/>
+      <Route exact path="/contact"        component={Page_contact}/>
+      <Route exact path="/test"           component={Page_test}/>
 
-    {/* articles */}
-    <Route path="/"                    component={Page_articles_welcome} onEnter={onEnters.redirectToOwnCoursesIfAuthenticated}/>
-    <Route path="/articles/comparison" component={Page_articles_comparison}/>
-    <Route path="/articles/welcome"    component={Page_articles_welcome}/>
+      {/* articles */}
+      <Route exact path="/"                    component={Page_articles_welcome} onEnter={onEnters.redirectToOwnCoursesIfAuthenticated}/>
+      <Route exact path="/articles/comparison" component={Page_articles_comparison}/>
+      <Route exact path="/articles/welcome"    component={Page_articles_welcome}/>
 
-    {/* admin */}
-    <Route path="/admin/notifications" component={Page_admin_notifications} onEnter={onEnters.requireAdmin}/>
-  </Router>;
+      {/* admin */}
+      <Route exact path="/admin/notifications" component={Page_admin_notifications} onEnter={onEnters.requireAdmin}/>
+    </Switch>
+  </BrowserRouter>;
 
 export default router;

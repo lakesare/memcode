@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 class ArticlesDropdown extends React.Component {
   render = () =>

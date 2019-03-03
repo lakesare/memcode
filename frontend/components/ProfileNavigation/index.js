@@ -1,7 +1,7 @@
 import { AuthenticationActions } from '~/reducers/Authentication';
 import { orFalse } from '~/services/orFalse';
 
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 import css from './index.css';
 
 @connect(
@@ -23,27 +23,18 @@ class ProfileNavigation extends React.Component {
     <nav className={css.nav}>
       <div className="container">
         <section className="links">
-          <Link
-            to="/courses"
-            activeClassName="active"
-          >
+          <NavLink to="/courses">
             <i className="fa fa-folder"/>
             All <span className="hide-on-mobile" style={{ paddingLeft: 3 }}>Courses</span>
-          </Link>
-          <Link
-            to="/courses/learning"
-            activeClassName="active"
-          >
+          </NavLink>
+          <NavLink to="/courses/learning">
             <i className="fa fa-graduation-cap"/>
             Learning
-          </Link>
-          <Link
-            to="/courses/created"
-            activeClassName="active"
-          >
+          </NavLink>
+          <NavLink to="/courses/created">
             <i className="fa fa-paint-brush"/>
             Created
-          </Link>
+          </NavLink>
         </section>
 
         <section className="settings standard-tooltip">

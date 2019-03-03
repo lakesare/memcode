@@ -1,16 +1,13 @@
-const config = require('./webpack.config.js');
 const webpack = require('webpack');
-const sharedPlugins = require('./webpack.sharedPlugins');
+const sharedConfig = require('./sharedConfig');
 
 module.exports = {
-  entry: config.entry,
+  entry: sharedConfig.entry,
+  output: sharedConfig.output,
 
-  module: config.module,
-
-  resolve: config.resolve,
-
+  module: sharedConfig.module,
   plugins: [
-    ...sharedPlugins,
+    ...sharedConfig._partialPlugins,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
@@ -21,5 +18,6 @@ module.exports = {
     })
   ],
 
-  output: config.output
+  resolve: sharedConfig.resolve,
+  mode: 'production'
 };

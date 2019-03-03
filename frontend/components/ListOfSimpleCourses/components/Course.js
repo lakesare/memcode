@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 import { stripTags } from '~/services/stripTags';
 import { url } from '~/services/url';
 

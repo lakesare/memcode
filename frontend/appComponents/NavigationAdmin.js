@@ -1,10 +1,10 @@
-import { Link } from 'react-router';
+import { NavLink } from 'react-router-dom';
 
 class NavigationAdmin extends React.Component {
   render = () =>
     <nav className="navigation-admin">
-      <Link activeClassName="active" to="/admin/notifications">Notifications</Link>
-      <Link activeClassName="active" to="/admin/eeelse">Something else</Link>
+      <NavLink to="/admin/notifications">Notifications</NavLink>
+      <NavLink to="/admin/eeelse">Something else</NavLink>
     </nav>
 }
 

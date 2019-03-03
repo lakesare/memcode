@@ -9,9 +9,9 @@ start:
 
 # build and watch
 backend-webpack:
-	cd backend; ../node_modules/.bin/webpack -w
+	cd backend; ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
 frontend-webpack:
-	cd frontend; ../node_modules/.bin/webpack -w
+	cd frontend; ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
 
 # database
 db-drop:
@@ -50,9 +50,9 @@ heroku-deploy:
 	git push heroku master
 
 heroku-backend-webpack:
-	cd backend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
+	cd backend; ../node_modules/.bin/webpack --config ./webpack/production.config.js
 heroku-frontend-webpack:
-	cd frontend; ../node_modules/.bin/webpack --config ./webpack.production.config.js
+	cd frontend; ../node_modules/.bin/webpack --config ./webpack/production.config.js
 
 
 DB_URL = $$(heroku config:get DATABASE_URL --app memcode)

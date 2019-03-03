@@ -7,7 +7,7 @@ import { Footer } from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { ListOfCourses } from '~/components/ListOfCourses';
 import { ProfileNavigation } from '~/components/ProfileNavigation';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom'
 
 import css from './index.css';
 

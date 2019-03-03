@@ -43,10 +43,10 @@ import actions from './duck/actions';
   },
   (dispatch, ownProps) => ({
     getPage: (courseId) => dispatch(
-      actions.getPage(courseId, ownProps.route.simulated)
+      actions.getPage(courseId, ownProps.simulated)
     ),
     enterPressed: () => {
-      ownProps.route.simulated ?
+      ownProps.simulated ?
         dispatch(actions.enterPressedInSimulatedReview()) :
         dispatch(actions.enterPressed());
     },
@@ -62,12 +62,12 @@ import actions from './duck/actions';
 )
 class Page_courses_id_review extends React.Component {
   static propTypes = {
-    params: PropTypes.shape({
-      id: PropTypes.string
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        id: PropTypes.string
+      })
     }).isRequired,
-    route: PropTypes.shape({
-      simulated: PropTypes.bool
-    }).isRequired,
+    simulated: PropTypes.bool,
     getPage: PropTypes.func.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
@@ -85,14 +85,18 @@ class Page_courses_id_review extends React.Component {
     randomizeProblems: PropTypes.func.isRequired
   }
 
+  static defaultProps = {
+    simulated: false
+  }
+
   componentDidMount() {
-    this.props.getPage(this.props.params.id);
+    this.props.getPage(this.props.match.params.id);
     document.body.style.background = 'rgb(19, 2, 2)';
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.params.id !== this.props.params.id) {
-      this.props.getPage(this.props.params.id);
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.props.getPage(this.props.match.params.id);
     }
   }
 
@@ -113,10 +117,10 @@ class Page_courses_id_review extends React.Component {
     }</div>
 
   render = () =>
-    <main className={css.main} key={this.props.params.id}>
-      <Header dontLinkToLearnOrReview={this.props.params.id}/>
+    <main className={css.main} key={this.props.match.params.id}>
+      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
 
-      <CourseActions courseId={this.props.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
+      <CourseActions courseId={this.props.match.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
       <Loading spe={this.props.speGetPage}>{({ problems }) =>
         <div className="container">
           {
@@ -124,7 +128,7 @@ class Page_courses_id_review extends React.Component {
             <ProblemBeingSolved
               key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
               problem={this.props.currentProblem}
-              ifReviewIsSimulated={this.props.route.simulated}
+              ifReviewIsSimulated={this.props.simulated}
               ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
               statusOfSolving={this.props.statusOfSolving}
               amountOfProblems={this.props.amountOfProblems}
@@ -138,7 +142,7 @@ class Page_courses_id_review extends React.Component {
           }
 
           <WhatNext
-            courseId={parseInt(this.props.params.id)}
+            courseId={parseInt(this.props.match.params.id)}
             currentUser={this.props.currentUser}
             speNextReviewIn={this.props.speNextReviewIn}
             ifDisplay={!this.props.currentProblem}
