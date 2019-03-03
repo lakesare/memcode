@@ -13,11 +13,17 @@ import { CourseActionsReducer } from '~/components/CourseActions/reducer';
 // logic of naming is that _courses_id_review_ in the middle originates from url, and should be left alone from our usual camelCase.
 import Page_courses_id_review_Reducer from '~/pages/courses_id_review/duck/reducer';
 
-const RootReducer = combineReducers({
+const reducers = combineReducers({
   // global state
   global: combineReducers({
     Authentication: AuthenticationReducer,
-    IdsOfProblemsToLearnAndReviewPerCourse: IdsOfProblemsToLearnAndReviewPerCourseReducer
+    IdsOfProblemsToLearnAndReviewPerCourse: IdsOfProblemsToLearnAndReviewPerCourseReducer,
+
+    // mine: {
+    //   courseUserIsLearning
+    //   course
+    //   course_user_is_learning
+    // }
   }),
 
   // per-component state
@@ -31,4 +37,4 @@ const RootReducer = combineReducers({
   })
 });
 
-export { RootReducer };
+export default reducers;
