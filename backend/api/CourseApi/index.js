@@ -89,4 +89,6 @@ import rate from './rate';
 router.rate = rate;
 import getRatings from './getRatings';
 router.getRatings = getRatings;
+import getMyEverything from './getMyEverything';
+router.getMyEverything = getMyEverything;
 export default router;

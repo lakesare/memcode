@@ -38,12 +38,10 @@ class Course extends React.Component {
         />
       </section>
 
-      <div>
-        <StarRating
-          rating={this.props.averageCourseRating ? parseFloat(this.props.averageCourseRating) : false}
-          readOnly
-        />
-      </div>
+      <StarRating
+        rating={this.props.averageCourseRating ? parseFloat(this.props.averageCourseRating) : false}
+        readOnly
+      />
 
       <section className="total-amount-of-mems">
         {this.props.amountOfProblems} flashcards

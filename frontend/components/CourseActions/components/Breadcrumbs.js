@@ -1,9 +1,8 @@
 import { orFalse } from '~/services/orFalse';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
-import CourseApi from '~/api/CourseApi';
 import api from '~/api';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import Loading from '~/components/Loading';
 import StarRating from '~/components/StarRating';
 
@@ -91,12 +90,12 @@ class Breadcrumbs extends React.Component {
   renderFetchedCategoryAndGroup = () => (
     // only if already fetched
     this.state.courseCategory ?
-    [
-      this.renderGroup(),
-      this.renderArrow(),
-      this.renderCategory()
-    ] :
-    null
+      [
+        this.renderGroup(),
+        this.renderArrow(),
+        this.renderCategory()
+      ] :
+      null
   )
 
   renderNavigation = () =>

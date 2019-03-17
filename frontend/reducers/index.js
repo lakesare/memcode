@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 // global state
 import { AuthenticationReducer } from '~/reducers/Authentication';
 import { IdsOfProblemsToLearnAndReviewPerCourseReducer } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
+import MyDuck from '~/ducks/MyDuck';
 
 // per-component state
 // [named like: component name + Reducer]
@@ -19,11 +20,7 @@ const reducers = combineReducers({
     Authentication: AuthenticationReducer,
     IdsOfProblemsToLearnAndReviewPerCourse: IdsOfProblemsToLearnAndReviewPerCourseReducer,
 
-    // mine: {
-    //   courseUserIsLearning
-    //   course
-    //   course_user_is_learning
-    // }
+    My: MyDuck.reducer
   }),
 
   // per-component state

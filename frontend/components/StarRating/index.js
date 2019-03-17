@@ -34,7 +34,7 @@ class StarRating extends React.Component {
 
   render = () =>
     <ul
-      className={`${css.ul} ${this.props.className}`}
+      className={`star-rating ${css.ul} ${this.props.className}`}
       onMouseOut={() => this.setState({ temporaryRating: this.props.rating })}
       style={this.props.readOnly ? { cursor: 'not-allowed', pointerEvents: 'none' } : {}}
     >

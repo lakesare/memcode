@@ -105,6 +105,10 @@
       }
     }
 
+    ul.star-rating{
+      position: absolute;
+      top: 0;
+    }
     > section.total-amount-of-mems, section.amount-footer{
       font-size: 11px;
     }

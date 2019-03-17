@@ -30,7 +30,7 @@ const getSortBy = (props) => {
 };
 
 const getQuery = (props) =>
-  new URLSearchParams(props.location.search)
+  new URLSearchParams(props.location.search);
 
 class Page_courses extends React.Component {
   static propTypes = {

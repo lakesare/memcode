@@ -251,7 +251,9 @@ module.exports = {
 
     // because it was forcing me to put this into production dependencies for some reason:
     // const WebpackNotifierPlugin = require('webpack-notifier');
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+
+    'jsx-a11y/no-noninteractive-element-interactions': "off"
   },
   "globals": {
     "fetch": true,

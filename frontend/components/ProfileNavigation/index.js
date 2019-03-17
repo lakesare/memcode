@@ -23,15 +23,15 @@ class ProfileNavigation extends React.Component {
     <nav className={css.nav}>
       <div className="container">
         <section className="links">
-          <NavLink to="/courses">
+          <NavLink exact to="/courses">
             <i className="fa fa-folder"/>
             All <span className="hide-on-mobile" style={{ paddingLeft: 3 }}>Courses</span>
           </NavLink>
-          <NavLink to="/courses/learning">
+          <NavLink exact to="/courses/learning">
             <i className="fa fa-graduation-cap"/>
             Learning
           </NavLink>
-          <NavLink to="/courses/created">
+          <NavLink exact to="/courses/created">
             <i className="fa fa-paint-brush"/>
             Created
           </NavLink>
