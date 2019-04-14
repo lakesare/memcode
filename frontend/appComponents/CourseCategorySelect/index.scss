@@ -1,6 +1,7 @@
+@import 'css/variables';
+
 :local(.section){
   .dropdown{
-    border: 2px solid rgb(33, 10, 56);
     border-top: none;
     position: absolute;
     max-height: 200px;
@@ -8,15 +9,15 @@
     width: 100%;
     z-index: 1000;
     span.group-name{
-      padding: 1px 10px !important;
-      font-size: 12px !important;
+      padding: 1px 10px;
+      font-size: 12px;
     }
     li.category{
       &:hover{
-        background: rgb(96, 214, 236) !important;
+        background: $purple;
       }
       &.-active{
-        background: rgb(68, 198, 222) !important;
+        background: $purple;
       }
     }
   }

@@ -1,27 +1,17 @@
 .standard-list-of-course-categories{
-  background: #f3f3f3;
-  border-left: 2px solid $purple;
   ul.groups > li.group{
     margin-bottom: 10px;
     > span.group-name{
+      border-left: 2px solid red;
       display: block;
       padding: 6px 10px;
       font-size: 16px;
-      background: rgb(1, 23, 4);
-      // font-family: roboto;
       cursor: default;
 
       color: rgb(232, 234, 236);
-      background: rgb(32, 10, 56);
-      border-bottom-right-radius: 6px;
       letter-spacing: 1px
-
-      // these grey borders looked very very ugly letter-spacing: 1px
-      // border-top: 3px solid rgba(55, 102, 167, 0.21);
-      // border-bottom: 3px solid rgba(159, 194, 241, 0.41);
     }
     > ul.categories > li.category{
-      border-bottom: 1px solid rgba(68, 67, 67, 0.07);
       &:last-child{ border-bottom: none; }
       &:hover, &.-active{
         cursor: pointer;
@@ -35,8 +25,8 @@
           }
         }
       }
-      &:hover{ background: $whale-pink; }
-      &.-active{ background: $whale-pink; }
+      &:hover{ background: $purple; }
+      &.-active{ background: $purple; }
       > .category-insides{
         padding: 3px 10px;
         padding-left: 20px;
@@ -45,8 +35,9 @@
         justify-content: space-between;
         align-items: center;
         > span.category-name{
-          color: rgb(78, 78, 78);
+          color: white;
           font-size: 14px;
+          opacity: 0.7;
         }
         > span.amount-of-courses{
           color: rgb(195, 195, 195);

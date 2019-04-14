@@ -1,29 +1,52 @@
 .standard-form{
-  &.-bordered{ border: 2px #5a5d5a solid; }
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  &.-bordered{
+    background: rgba(25, 26, 46, 0.27);
+  }
 
-  padding: 20px;
-  .form-line{
+  .form-insides{
+    max-width: 640px;
+    margin: 0 auto;
+
+    > .form-line, > .two-form-lines-in-row{
+      margin-top: 30px;
+    }
+  }
+
+  .two-form-lines-in-row{
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 30px;
+    > .form-line{
+      width: 100%;
+      &:first-child{
+        padding-right: 20px;
+      }
+      &:last-child{
+        padding-left: 20px;
+      }
+    }
+  }
+  .form-line{
+    &:first-child{ margin-top: 0; }
     > label{
-      width: 50%;
-      padding-right: 5px;
-      text-align: left;
-      color: rgb(86, 86, 86);
-      font-family: Roboto;
-      font-weight: bold;
+      color: white;
+      font-weight: 300;
       text-transform: uppercase;
       font-size: 12px;
+      letter-spacing: 0.4px;
     }
     > div.input-and-validation-error{
-      width: 50%;
+      margin-top: 10px;
       > div.standard-input{}
       > div.validation-error{
-        color: #19d422;
+        padding: 10px 20px;
+        background: rgba(25, 26, 46, 0.27);
+        border-radius: 0px 0px 5px 5px;
         text-align: left;
+        color: $purple;
         font-size: 12px;
-        padding-top: 5px;
       }
     }
   }

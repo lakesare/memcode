@@ -11,3 +11,4 @@ const url = {
 };
 
 export { url };
+export default url;

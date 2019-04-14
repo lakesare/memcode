@@ -92,7 +92,7 @@ class Page_contact extends React.Component {
           </div>
 
           <Loading spe={this.state.speSend}>
-            <button type="submit" className="button -pink standard-submit-button">
+            <button type="submit" className="button -purple standard-submit-button">
               SEND
             </button>
           </Loading>

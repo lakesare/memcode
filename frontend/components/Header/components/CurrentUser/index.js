@@ -10,7 +10,10 @@ class CurrentUser extends React.Component {
 
   renderAvatar = () =>
     <NavLink className="avatar" to="/courses/learning">
-      <img src={this.props.currentUser.avatarUrl}/>
+      <img
+        src={this.props.currentUser.avatarUrl}
+        alt="Avatar of a current user"
+      />
     </NavLink>
 
   render = () =>

@@ -51,6 +51,8 @@ class Page_courses_new extends React.Component {
     <main className={css.main}>
       <Header/>
 
+      <div className="space"/>
+
       <div className="container">
         <div className="standard-title-and-description">
           <h2 className="title">Create Course</h2>
@@ -63,23 +65,24 @@ class Page_courses_new extends React.Component {
 
         <form className="standard-form -bordered" onSubmit={this.apiCreateCourse}>
           <div className="form-insides">
-            <TextInput      {...this.inputProps()} label="* Title:"          name="title"/>
-            <EditorTextarea {...this.inputProps()} label="Description:"      name="description"/>
-            <CourseCategoryFormLine {...this.inputProps()} label="Category:" name="courseCategoryId"/>
-            <Select
-              {...this.inputProps()}
-              label={
-                <span>
-                  Public/Private: <StandardTooltip tooltipEl="Private courses won't be listed in /courses. Consider making your course public if other people may want to use it!"/>
-                </span>
-              }
-              name="ifPublic"
-              possibleValues={{ true: 'Public', false: "Private" }}
-            />
+            <TextInput      {...this.inputProps()} label="* Title" name="title"/>
+            <div className="two-form-lines-in-row">
+              <CourseCategoryFormLine {...this.inputProps()} label="Category" name="courseCategoryId"/>
+              <Select
+                {...this.inputProps()}
+                label={
+                  <span>
+                    Public/Private <StandardTooltip tooltipEl="Private courses won't be listed in /courses. Consider making your course public if other people may want to use it!"/>
+                  </span>
+                }
+                name="ifPublic"
+                possibleValues={{ true: 'Public', false: "Private" }}
+              />
+            </div>
           </div>
 
           <button
-            className="button -pink standard-submit-button"
+            className="button -purple standard-submit-button"
             type="submit"
           >Create</button>
           <Loading spe={this.state.speSave}/>

@@ -21,7 +21,7 @@
 
   position: relative;
   &.-there-are-unread-notifications{
-    > div.toggler{ color: $whale-pink; }
+    > div.toggler{ color: $purple; }
   }
   &.-there-are-no-unread-notifications{
     > div.toggler{ color: white; }

@@ -1,17 +1,17 @@
 .button{
-  font-weight: bold;
+  font-weight: 300;
   text-transform: uppercase;
   font-size: 12px;
   letter-spacing: 1px;
 
-  padding: 10px 20px;
+  padding: 13px 20px;
   cursor: pointer;
   user-select: none;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 120px;
+  min-width: 140px;
   &.-white{
     background: white;
     border: 1px solid $body-color;
@@ -30,7 +30,7 @@
   }
   &.-pink{
     color: white;
-    background: $whale-pink;
+    background: $purple;
   }
   &.-red{
     color: white;

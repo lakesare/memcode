@@ -56,7 +56,7 @@ class Search extends React.Component {
     this.setState({ ifDropdownIsOpen: false })
 
   render = () =>
-    <section className={`${css.search} search`}>
+    <section className={`${css.search} search standard-dropdown-wrapper`}>
       <div className="toggler">
         <i className="fa fa-search"/>
         <input
@@ -74,7 +74,7 @@ class Search extends React.Component {
       {
         this.state.ifDropdownIsOpen &&
         this.state.courseDatas.length > 0 &&
-        <div className="standard-beige-dropdown">
+        <div className="standard-dropdown">
           <div className="header">
             <div className="pretty-text">{this.state.realCourseDataLength} courses found</div>
           </div>

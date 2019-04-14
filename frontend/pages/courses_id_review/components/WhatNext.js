@@ -5,7 +5,7 @@ import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
 import { Loading } from '~/components/Loading';
 import { Course as LearnReviewCourse } from '~/components/ListOfCourses/components/Course';
-import { Course as SimpleCourse } from '~/components/ListOfSimpleCourses/components/Course';
+import SimpleCourseCard from '~/appComponents/SimpleCourseCard';
 
 class WhatNext extends React.Component {
   static propTypes = {
@@ -95,7 +95,7 @@ class WhatNext extends React.Component {
         <section className="offered-courses list-of-courses">
           {coursesData.map((courseData) => (
             courseData._type === 'simpleCourse' ?
-              <SimpleCourse key={courseData.course.id} {...courseData}/> :
+              <SimpleCourseCard key={courseData.course.id} {...courseData}/> :
               <LearnReviewCourse key={courseData.course.id} {...courseData}/>
           ))}
         </section>

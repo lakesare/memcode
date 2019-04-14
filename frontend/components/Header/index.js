@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-import { ArticlesDropdown } from './components/ArticlesDropdown';
 import { Search } from './components/Search';
 import { SignInLinks } from './components/SignInLinks';
 import CurrentUser from './components/CurrentUser';
@@ -22,7 +21,6 @@ class Header extends React.Component {
 
   renderNavigation = () =>
     <nav>
-      <ArticlesDropdown/>
       <NavLink
         exact
         to={this.props.currentUser ? '/courses/learning' : '/courses'}
@@ -33,11 +31,7 @@ class Header extends React.Component {
         exact
         to="/courses/new"
         className="link create"
-      ><i className="fa fa-plus"/>create</NavLink>
-      <NavLink
-        to="/contact"
-        className="link contact"
-      >contact</NavLink>
+      >create</NavLink>
     </nav>
 
   renderUser = () => (

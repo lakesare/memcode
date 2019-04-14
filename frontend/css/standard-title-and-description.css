@@ -1,13 +1,15 @@
+@import 'css/variables';
+
 .standard-title-and-description{
   > h1.title, h2.title{
     margin: 20px 0;
     text-align: center;
-    font-weight: bold;
+    font-weight: 300;
+    color: $purple;
   }
   > article.description{
-    color: rgb(199, 196, 196);
-    font-family: 'Roboto';
-    font-weight: lighter;
+    color: rgba(255, 255, 255, 0.57);
+    font-weight: 100;
     font-size: 13px;
     max-width: 400px;
     margin: 0 auto;

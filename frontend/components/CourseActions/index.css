@@ -6,7 +6,7 @@
     justify-content: space-between;
     align-items: center;
 
-    border-bottom: 2px $whale-pink solid;
+    border-bottom: 2px $purple solid;
     padding: 10px; padding-right: 0;
     margin-bottom: 10px;
     h3.title{
@@ -35,7 +35,7 @@
           i.fa-plus{
             font-size: 14px;
             padding-right: 4px;
-            color: $whale-pink;
+            color: $purple;
           }
         }
         div.loading.request{
@@ -94,7 +94,7 @@
 
     > ul.course-stats{
       width: 100%;
-      border-bottom: 2px $whale-pink solid;
+      border-bottom: 2px $purple solid;
       background: rgb(249, 249, 249);
       color: #4d4f50;
       display: flex;
@@ -146,7 +146,7 @@
       display: flex;
       justify-content: space-between;
       > ul.navigation{
-        // border-left: 2px solid $whale-pink;
+        // border-left: 2px solid $purple;
         padding: 3px;
         padding-left: 10px;
         display: flex;

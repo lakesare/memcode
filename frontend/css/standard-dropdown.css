@@ -3,9 +3,6 @@
   position: relative;
   button.toggler{
     cursor: pointer;
-    border-bottom: 1px solid #d4d4d4;
-    padding: 2px 10px;
-    width: 100%;
     // center text and an arrow
     display: flex;
     justify-content: space-between;
@@ -15,117 +12,35 @@
       padding-left: 10px;
     }
   }
-}
-
-.extend-shared-standard-dropdown{
-  position: absolute;
-  top: 100%;
-  max-height: 200px;
-  overflow-y: scroll;
-  width: 100%;
-  z-index: 1000;
-  font-size: 14px;
-  border-top: none !important;
-
-  li{
-    padding: 6px 10px;
+  .standard-dropdown{
+    position: absolute;
+    top: 100%;
+    max-height: 200px;
+    overflow-y: scroll;
+    width: 100%;
+    z-index: 1000;
+    font-size: 14px;
   }
 }
 
 // can be separate
 .standard-dropdown{
-  @extend .extend-shared-standard-dropdown;
-  background: rgb(96, 214, 236);
-  border: 1px solid rgb(195, 195, 195);
-
+  padding: 0 10px;
   li{
-    border-bottom: 1px solid rgba(41, 158, 167, 0.3);
-    color: white;
-    mark{ color: $whale-pink; }
-    &:last-child{ border-bottom: none; }
-    &:hover{
-      cursor: pointer;
-      background: rgb(68, 198, 222);
+    padding: 10px 10px;
+    cursor: pointer;
+  }
+  &.-purple{
+    background: rgb(25, 26, 46);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    // border-top: none;
+    li{
+      border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+      &:last-child{ border-bottom: none; }
+      mark{ color: $purple; }
+      &:hover{
+        color: $purple;
+      }
     }
   }
 }
-
-.standard-purple-dropdown{
-  @extend .extend-shared-standard-dropdown;
-  background: $purple;
-  padding: 0 7px;
-  li{
-    border-bottom: 1px solid rgba(29, 241, 57, 0.17);
-    color: white;
-    mark{ color: $whale-pink; }
-    &:last-child{ border-bottom: none; }
-    opacity: 0.9;
-    &:hover{
-      cursor: pointer;
-      opacity: 1;
-    }
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-div.standard-beige-dropdown{
-  position: absolute;
-  border: 1px solid rgb(197, 208, 219);
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
-  transition: opacity 100ms linear, top 100ms linear, visibility 100ms linear;
-  z-index: 1000000;
-  top: 100%;
-
-  > div.header, > div.footer{
-    .pretty-text{
-      font-family: "Helvetica Neue";
-      font-weight: 500;
-      letter-spacing: 1px;
-      color: rgb(82, 82, 82);
-      font-size: 9px;
-    }
-  }
-
-  > div.header{
-    background-color: rgb(250, 251, 252);
-    border-bottom: 1px solid rgb(231, 232, 236);
-  }
-  > ul{
-    max-height: 400px;
-    overflow-y: scroll;
-    > li{
-      background: white;
-      border-top: 1px solid rgb(234, 229, 229);
-      &:first-child{ border-top: none; }
-      mark{ color: $whale-pink; }
-    }
-  }
-  > div.footer{
-    padding: 10px 0;
-    background-color: rgb(250, 251, 252);
-    border-top: 1px solid rgb(231, 232, 236);
-    border-radius: 0 0 4px 4px;
-  }
-}
-
-
-
-
-
-
-
-
-
-

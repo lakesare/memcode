@@ -35,7 +35,7 @@
     .site{
       width: 100%;
       h3{
-        color: $whale-pink;
+        color: $purple;
         width: 190px;
         > span.rating{
           font-size: 15px;
@@ -58,7 +58,7 @@
     .conclusion{
       width: 100%;
       h3{
-        background: $whale-pink;
+        background: $purple;
         color: white;
         padding: 5px;
         padding-left: 10px;
@@ -107,7 +107,7 @@
   .article-formatting{
     .article-headings{
       margin-bottom: 0;
-      mark{ color: $whale-pink; }
+      mark{ color: $purple; }
     }
     mark{
       background: none;

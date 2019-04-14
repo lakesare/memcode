@@ -3,7 +3,7 @@
 :local(section.instructions){
   margin-bottom: 40px;
   > div.nav-item{
-    background: $whale-pink;
+    background: $purple;
     color: white;
     text-align: center;
     padding: 2px; padding-right: 20px;
@@ -61,7 +61,7 @@
         > .text{
           padding-left: 40px;
           > .description{
-            b{ color: $whale-pink; }
+            b{ color: $purple; }
             i{
               color: $whale-tail-blue;
               padding-right: 10px;
@@ -73,7 +73,7 @@
             padding-left: 30px;
             li{
               padding-bottom: 5px;
-              b{ color: $whale-pink; }
+              b{ color: $purple; }
             }
           }
         }

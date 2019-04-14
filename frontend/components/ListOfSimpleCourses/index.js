@@ -1,4 +1,4 @@
-import { Course } from './components/Course';
+import SimpleCourseCard from '~/appComponents/SimpleCourseCard';
 
 class ListOfSimpleCourses extends React.Component {
   static propTypes = {
@@ -12,8 +12,11 @@ class ListOfSimpleCourses extends React.Component {
   render = () =>
     <section className="list-of-courses">
       {
-        this.props.coursesData.map(({ course, amountOfProblems, averageCourseRating }) =>
-          <Course key={course.id} course={course} amountOfProblems={amountOfProblems} averageCourseRating={averageCourseRating}/>
+        this.props.coursesData.map((courseDto) =>
+          <SimpleCourseCard
+            key={courseDto.course.id}
+            courseDto={courseDto}
+          />
         )
       }
       {this.renderLayoutDivs()}

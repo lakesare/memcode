@@ -1,31 +1,33 @@
+
+.extendable-pretty-input{
+  width: 100%;
+  padding: 10px 20px;
+  background: rgb(25, 26, 46);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
 .standard-input{
   &.-TextInput{
     input{
-      background: white;
-      border: 1px solid rgb(195, 195, 195);
-      padding: 5px 10px;
-      color: rgb(107, 103, 103);
-      width: 100%;
+      @extend .extendable-pretty-input;
     }
   }
   &.-EditorTextarea{
     max-width: 100%;
     .quill{
       .ql-container{
-        border: 1px solid rgb(195, 195, 195) !important;
+        // border: 1px solid rgb(195, 195, 195) !important;
       }
       .ql-editor{
+        @extend .extendable-pretty-input;
         min-height: 70px;
       }
     }
   }
   &.-Select{
-    max-width: 250px;
     button.toggler{
-      background: white;
-      border: 1px solid rgb(195, 195, 195);
-      padding: 5px 10px;
-      color: rgb(107, 103, 103);
+      @extend .extendable-pretty-input;
     }
   }
 }

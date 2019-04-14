@@ -1,6 +1,5 @@
 import CourseApi from '~/api/CourseApi';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
-import hashToQueryString from '~/api/services/hashToQueryString';
 
 import { Helmet } from 'react-helmet';
 import { Header } from '~/components/Header';
@@ -82,14 +81,15 @@ class Page_courses extends React.Component {
       )
 
   getUrlForNewPageNumber = (pageN) => {
-    const newQuery = getQuery(this.props)
+    const newQuery = getQuery(this.props);
     newQuery.set('page', pageN);
     return this.props.location.pathname + '?' + newQuery.toString();
   }
 
   getUrlForNewSortBy = (sortBy) => {
-    const newQuery = getQuery(this.props)
-    newQuery.set('page', 1).set('sortBy', sortBy);
+    const newQuery = getQuery(this.props);
+    newQuery.set('page', 1);
+    newQuery.set('sortBy', sortBy);
     return this.props.location.pathname + '?' + newQuery.toString();
   }
 

@@ -35,7 +35,7 @@
     > button.mark-as-read-on-unread-button{
       cursor: pointer;
       > div.circle{
-        background: $whale-pink;
+        background: $purple;
       }
     }
   }

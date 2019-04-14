@@ -10,3 +10,4 @@ const stripTags = (html) =>
   striptags(html, ['p'], '');
 
 export { stripTags };
+export default striptags

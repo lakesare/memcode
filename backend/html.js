@@ -24,9 +24,6 @@ const html = `
     <!-- css -->
     <link href="/index.css" rel="stylesheet">
 
-    <!-- quill theme support -->
-    <link rel="stylesheet" href="/nonNpmLibraries/quill.snow.css">
-
     <!-- katex support -->
     <link rel="stylesheet" href="/nonNpmLibraries/katex.min.css"/>
     <script src="/nonNpmLibraries/katex.min.js"></script>

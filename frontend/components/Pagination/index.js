@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import css from './index.css';
 
@@ -11,7 +10,6 @@ class Pagination extends React.Component {
     currentPage: PropTypes.number.isRequired,
 
     getUrlForNewPageNumber: PropTypes.func.isRequired,
-
     className: PropTypes.string
   }
 
@@ -22,6 +20,7 @@ class Pagination extends React.Component {
   pagesToDisplay = (currentPage, amountOfPages) =>
     [
       1,
+      currentPage - 3,
       currentPage - 2,
       currentPage - 1,
 
@@ -29,6 +28,7 @@ class Pagination extends React.Component {
 
       currentPage + 1,
       currentPage + 2,
+      currentPage + 3,
       amountOfPages
     ]
       // filter out negatives and exceeding max page amount
@@ -40,16 +40,13 @@ class Pagination extends React.Component {
       .filter((pageN, index, array) => array.indexOf(pageN) === index)
 
   renderPage = (pageN) =>
-    <Link
-      to={this.props.getUrlForNewPageNumber(pageN)}
-      key={pageN}
-      className={pageN === this.props.currentPage ? 'page-n current' : 'page-n'}
-    >
-      {pageN}
-    </Link>
-
-  renderArrow = (ifClickable, nextPage, iconClass) =>
-    null
+    <li key={pageN} className={pageN === this.props.currentPage ? 'page-n -current' : 'page-n'}>
+      <Link
+        to={this.props.getUrlForNewPageNumber(pageN)}
+      >
+        {pageN}
+      </Link>
+    </li>
 
   render = () => {
     const currentPage = this.props.currentPage;
@@ -61,17 +58,15 @@ class Pagination extends React.Component {
     this.pagesToDisplay(currentPage, this.props.amountOfPages).forEach((pageN) => {
       const ifPageIsConsecutive = prevN + 1 === pageN;
       if (!ifPageIsConsecutive) {
-        pageLinks.push(<span className="epsilon" key={`epsilon before-${pageN}`}>~</span>);
+        pageLinks.push(<li className="epsilon" key={`epsilon before-${pageN}`}>...</li>);
       }
       pageLinks.push(this.renderPage(pageN));
       prevN = pageN;
     });
 
-    return <section className={`pagination ${css.pagination} ${this.props.className}`}>
-      {this.renderArrow(currentPage > 1, currentPage - 1, 'fa-caret-left')}
+    return <ul className={`pagination ${css.ul} ${this.props.className}`}>
       {pageLinks}
-      {this.renderArrow(currentPage < this.props.amountOfPages, currentPage + 1, 'fa-caret-right')}
-    </section>;
+    </ul>;
   }
 }
 

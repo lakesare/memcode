@@ -12,7 +12,7 @@ import Page_courses_learning from './pages/courses_learning';
 import Page_courses_created from './pages/courses_created';
 
 import Page_offline_courses from './pages/offline_courses';
-import Page_offline_courses_id_review from './pages/offline_courses_id_review';
+// import Page_offline_courses_id_review from './pages/offline_courses_id_review';
 
 // static pages
 import Page_test from './pages/test';
@@ -46,7 +46,7 @@ const router =
 
       {/* offline */}
       <Route exact path="/offline/courses" component={Page_offline_courses} onEnter={onEnters.requireAuthentication}/>
-      <Route exact path="/offline/courses/:id/review" component={Page_offline_courses_id_review} onEnter={onEnters.requireAuthentication}/>
+      {/* <Route exact path="/offline/courses/:id/review" component={Page_offline_courses_id_review} onEnter={onEnters.requireAuthentication}/> */}
 
       {/* static pages */}
       <Route exact path="/please-sign-in" component={Page_pleaseSignIn}/>

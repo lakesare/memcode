@@ -1,14 +1,19 @@
+@import 'css/variables';
+
 :local(.ul){
-  display: flex;
   > li{
-    color: rgba(255, 255, 255, 0.69);
+    margin-left: 3px;
+    &:first-child{ margin-left: 0; }
+    display: inline-block;
+
+    color: rgba(255, 255, 255, 0.04);
     transition: color .2s ease-out;
 
     &:hover{
       cursor: pointer;
     }
     &.-selected{
-      color: rgb(158, 68, 68);
+      color: $purple;
     }
   }
 }

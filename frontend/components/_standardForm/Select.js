@@ -30,6 +30,7 @@ class Select extends React.Component {
           value={String(this.props.formState[this.props.name])}
           updateValue={this.updateFormState}
           possibleValues={this.props.possibleValues}
+          dropdownClassName="standard-dropdown -purple"
         />
       </div>,
       '-Select'

@@ -1,5 +1,5 @@
 .container{
-  max-width: 1000px;
+  // max-width: 1000px;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -9,11 +9,17 @@ body{
   margin: 0;
   padding-bottom: 30px;
   box-sizing: border-box;
+  font-weight: 300;
+
+  background: $color-main-2;
 }
 a{
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+label{
+  font-weight: 300;
 }
 h1, h2, h3, h4, h5, h6{
   margin-top: 0; margin-bottom: 0;
@@ -53,6 +59,7 @@ input, textarea, select, button{
   font-size: 14px;
   // because font defaults to system despite body style
   font-family: $body-font;
+  font-weight: 300;
 
   background: none;
   padding: 0;

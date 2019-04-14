@@ -1,12 +1,12 @@
 @import 'css/variables';
 
 :local(.header){
-  background: $purple;
+  background: $color-main-1;
 
   a.logo{
     display: flex;
     align-items: center;
-    > img{ width: 145px; }
+    color: white;
   }
 
   nav{
@@ -14,40 +14,29 @@
     display: flex;
     align-items: center;
     .link{
+      margin-right: 10px;
       padding: 0 13px;
       text-transform: uppercase;
       font-size: 11px;
       color: white;
       height: 100%;
+      min-width: 100px;
       display: flex;
       align-items: center;
+      justify-content: center;
       cursor: pointer;
       > div.toggler{
         cursor: pointer;
       }
       &.active{
-        background: rgb(236, 96, 172) !important;
-        i{ color: white !important; }
+        background: rgb(25, 26, 46);
       }
       &:hover{
-        background: rgb(97, 51, 71);
+        background: rgb(25, 26, 46);
       }
     }
 
-    a.link.create{
-      i{
-        color: $whale-pink;
-        padding-right: 7px;
-        font-size: 12px;
-      }
-    }
     div.link.articles{
-      > .toggler{
-        i{
-          padding-left: 3px;
-          color: $whale-pink;
-        }
-      }
       > .modal{
         text-transform: none;
       }

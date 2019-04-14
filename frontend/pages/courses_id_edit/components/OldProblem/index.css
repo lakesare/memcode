@@ -44,7 +44,7 @@
         top: 2px; left: 4px;
         font-size: 17px;
         line-height: 0;
-        color: $whale-pink;
+        color: $purple;
       }
       &.-hovering.-not-checked{
         > .mark{

@@ -4,9 +4,11 @@ const sharedConfig = require('./sharedConfig');
 
 module.exports = {
   entry: sharedConfig.entry,
+
   output: sharedConfig.output,
 
   module: sharedConfig.module,
+
   plugins: [
     ...sharedConfig._partialPlugins,
     new webpack.DefinePlugin({
@@ -25,7 +27,6 @@ module.exports = {
     maxModules: 0,
     children: false
   },
-  // devtool: 'cheap-eval-source-map',
-  // devtool: 'inline-module-source-map',
+
   mode: 'development'
 };

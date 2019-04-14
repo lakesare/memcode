@@ -1,38 +1,38 @@
-$whale-pink: rgb(236, 96, 172);
+// new colors
+
+$purple: rgb(136, 125, 220);
+$blue: rgb(21, 23, 58);
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500,700');
+$body-font: 'Roboto';
+$heading-font: 'Roboto';
+
+
+$color-main-1: rgb(15, 17, 34); // header
+$color-main-2: rgb(15, 17, 34); // bg
+$color-main-3: rgb(26, 28, 44); // course
+
+
+// old colors
 $whale-tail-blue: rgb(236, 96, 100);
 $whale-green: rgb(100, 215, 96);
 $whale-red: rgb(253, 95, 108);
 $whale-yellow: rgb(245, 205, 66);
-$purple: rgb(33, 10, 56);
 $deep-green: rgb(1, 23, 4);
+
+
 
 
 
 $course-in-list-height-desktop: 195px;
 $course-in-list-height-mobile: 104px;
 
-// courses: rgb(64, 35, 93);
-
-// amusing pink, goes well for wrapping problem answer text editors: rgb(226, 169, 201)
-
 
 // blue he offered for learn
-$learn-button-color: rgb(28, 38, 60);
-$review-button-color: rgb(232, 92, 75);
+$learn-button-color: rgb(31, 27, 134);
+$review-button-color: rgb(215, 37, 111);
 
 $black-gradient: -webkit-gradient(linear, 0% 100%, 0% 0%, from(rgb(51, 51, 51)), to(rgb(68, 68, 68)));
-$green-nav-border: 2px $whale-pink solid;
+$green-nav-border: 2px $purple solid;
 
-// I should reconsider this font as a body font, because however pretty, it doesn't support boldness and nonlatin alphabet
-@import url('https://fonts.googleapis.com/css?family=Amethysta');
-
-@import url('https://fonts.googleapis.com/css?family=Sintony:400,700');
-@import url('https://fonts.googleapis.com/css?family=Mukta+Vaani:600');
-
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,500,700');
-
-
-$body-font: 'Amethysta';
-$heading-font: 'Sintony';
-
-$body-color: #292b2c;
+$body-color: white;

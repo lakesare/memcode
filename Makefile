@@ -1,7 +1,5 @@
 all:
-	ttab 'make start'
-	ttab 'make backend-webpack'
-	ttab 'make frontend-webpack'
+	make start & make backend-webpack & make frontend-webpack &
 
 # $(npm bin)/nodemon doesn't work, npm bin is '' then.
 start:

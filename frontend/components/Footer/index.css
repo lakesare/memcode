@@ -22,30 +22,21 @@ body{
     justify-content: space-between;
     align-items: center;
 
-    > div.faq, > div.email{
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      i{
-        color: $whale-pink;
+    font-size: 12px;
+    letter-spacing: 2px;
+
+    > section.blog-links{
+      > a{
+        display: inline-block;
+      }
+      > span.pipe{
+        display: inline-block;
+        padding: 0 15px;
+        opacity: 0.3;
       }
     }
-    .faq{
-      font-family: $heading-font;
-      &:hover{
-        a{ color: $whale-pink; }
-      }
-      i{
-        padding-right: 10px;
-        font-size: 14px;
-      }
-    }
-    > div.email{
-      font-size: 9px;
-      i{
-        padding-left: 10px;
-        font-size: 12px;
-      }
+    > section.email{
+      i{ padding-left: 10px; }
     }
   }
 }

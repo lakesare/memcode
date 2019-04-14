@@ -1,7 +1,7 @@
-import { jwtToUserObject } from '~/services/jwtToUserObject';
+import jwtToUserObject from '~/services/jwtToUserObject';
 
 const initialState = {
-  currentUser: jwtToUserObject(localStorage.getItem('jwt'))
+  currentUser: jwtToUserObject(localStorage.getItem('jwt')) || false
 };
 
 const AuthenticationReducer = (authentication = initialState, action) => {

@@ -3,9 +3,11 @@ const sharedConfig = require('./sharedConfig');
 
 module.exports = {
   entry: sharedConfig.entry,
+
   output: sharedConfig.output,
 
   module: sharedConfig.module,
+
   plugins: [
     ...sharedConfig._partialPlugins,
     new webpack.DefinePlugin({
@@ -19,5 +21,6 @@ module.exports = {
   ],
 
   resolve: sharedConfig.resolve,
+
   mode: 'production'
 };

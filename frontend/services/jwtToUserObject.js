@@ -11,4 +11,4 @@ const jwtToUserObject = (token) => {
   }
 };
 
-export { jwtToUserObject };
+export default jwtToUserObject;

@@ -57,7 +57,7 @@ class TabEditCourseDetails extends React.Component {
           <Select         {...this.inputProps()} label="Public/private:" name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
 
           <button
-            className="button -pink standard-submit-button"
+            className="button -purple standard-submit-button"
             type="submit"
             onClick={this.apiUpdateCourse}
           >Update</button>

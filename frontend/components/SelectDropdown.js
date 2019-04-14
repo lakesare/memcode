@@ -5,7 +5,7 @@ import { orFalse } from '~/services/orFalse';
 @onClickOutside
 class SelectDropdown extends React.Component {
   static propTypes = {
-    updateValue: PropTypes.func.isRequired,
+    updateValue: PropTypes.func,
     value: orFalse(PropTypes.string).isRequired,
 
     possibleValues: PropTypes.oneOfType([
@@ -21,6 +21,8 @@ class SelectDropdown extends React.Component {
   }
 
   static defaultProps = {
+    // needed for when <li>s are links
+    updateValue: () => {},
     className: '',
     dropdownClassName: 'standard-dropdown',
     placeholder: 'Please select',
@@ -55,8 +57,8 @@ class SelectDropdown extends React.Component {
   render = () => {
     const apiToHumanMapOfPossibleValues =
       Array.isArray(this.props.possibleValues) ?
-      this.arrayToMap(this.props.possibleValues) :
-      this.props.possibleValues;
+        this.arrayToMap(this.props.possibleValues) :
+        this.props.possibleValues;
 
     return <section
       className={`
@@ -87,9 +89,7 @@ class SelectDropdown extends React.Component {
           )}
           {
             this.props.ifClearIsPossible &&
-            <li
-              onClick={() => this.onSelect(false)}
-            >-</li>
+            <li onClick={() => this.onSelect(false)}>-</li>
           }
         </ul>
       }
@@ -98,3 +98,4 @@ class SelectDropdown extends React.Component {
 }
 
 export { SelectDropdown };
+export default SelectDropdown;

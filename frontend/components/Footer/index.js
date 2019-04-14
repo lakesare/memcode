@@ -1,18 +1,19 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import css from './index.css';
 
 const Footer = () =>
   <footer className={css.footer}>
     <div className="container">
-      <div className="faq">
-        <i className="fa fa-anchor"/>
+      <section className="blog-links">
         <Link to="/articles/welcome">FAQ</Link>
-      </div>
+        <span className="pipe">|</span>
+        <Link to="/articles/comparison">Memrise VS Quizlet VS Brainscape</Link>
+      </section>
 
-      <div className="email">
+      <section className="email">
         {window.env.contactEmail}
         <i className="fa fa-heart"/>
-      </div>
+      </section>
     </div>
   </footer>;
 

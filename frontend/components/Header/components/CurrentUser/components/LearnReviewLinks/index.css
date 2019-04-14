@@ -1,14 +1,18 @@
 @import 'css/variables';
+
 :local(section.section){
-  max-width: 90px;
+  display: flex;
+  align-items: center;
   // compensating for nav
   > a{
-    height: 50%;
+    min-width: 90px;
+    padding: 10px 10px;
+    margin-right: 10px;
+
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    justify-content: center;
 
-    font-family: $body-font;
     font-size: 10px;
     color: white;
 

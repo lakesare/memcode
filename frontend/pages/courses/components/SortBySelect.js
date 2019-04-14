@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import SelectDropdown from '~/components/SelectDropdown';
 
 class SortBySelect extends React.Component {
   static propTypes = {
@@ -6,48 +7,19 @@ class SortBySelect extends React.Component {
     getUrlForNewSortBy: PropTypes.func.isRequired
   }
 
-  state = {
-    ifDropdownIsOpen: false
-  }
-
-  toggleDropdown  = () => {
-    this.setState({ ifDropdownIsOpen: !this.state.ifDropdownIsOpen });
-  }
-
-  updateSortBy = (sortBy) =>
-    this.setState({ sortBy, currentPage: 1 }, this.apiGetCourses)
-
   render = () =>
     <section className="sort-by">
       <label>Sort By:</label>
 
-      <section
-        className={`
-          standard-dropdown-wrapper
-          ${(this.state.ifDropdownIsOpen ? 'open' : '')}
-        `}
-      >
-        <button type="button" className="toggler" onClick={this.toggleDropdown}>
-          {
-            this.props.sortBy === 'popular' ?
-              'Most Popular' :
-              'Recently Created'
-          }
-          <i className="fa fa-caret-down"/>
-        </button>
-        {
-          this.state.ifDropdownIsOpen &&
-          <div className="standard-beige-dropdown">
-            <ul onClick={this.toggleDropdown}>
-              <li>
-                <Link to={this.props.getUrlForNewSortBy('popular')}>Most Popular</Link>
-              </li>
-              <li>
-                <Link to={this.props.getUrlForNewSortBy('new')}>Recently Created</Link>
-              </li>
-            </ul>
-          </div>
-        }
+      <section className="standard-dropdown-wrapper standard-input -Select">
+        <SelectDropdown
+          value={this.props.sortBy}
+          possibleValues={{
+            popular: <Link to={this.props.getUrlForNewSortBy('popular')}>Most Popular</Link>,
+            new: <Link to={this.props.getUrlForNewSortBy('new')}>Recently Created</Link>
+          }}
+          dropdownClassName="standard-dropdown -purple"
+        />
       </section>
     </section>
 }
