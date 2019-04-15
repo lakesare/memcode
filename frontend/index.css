@@ -16,7 +16,6 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/standard-dropdown';
 @import 'css/standard-modal';
 @import 'css/standard-tooltip';
-@import 'css/standard-list-of-course-categories';
 @import 'css/standard-white-heading_and_blue-content';
 @import 'css/standard-tab-navigation';
 @import 'css/standard-success-message';

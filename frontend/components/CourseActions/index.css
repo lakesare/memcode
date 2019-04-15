@@ -10,7 +10,7 @@
     padding: 10px; padding-right: 0;
     margin-bottom: 10px;
     h3.title{
-      color: #292b2c;
+      // color: #292b2c;
     }
 
     > .buttons{
@@ -60,7 +60,6 @@
     > .please-sign-in_and_simulated-review-button{
       > h4.please-sign-in{
         display: inline-block;
-        color: rgb(187, 188, 189);
         font-size: 14px
       }
       > a.simulated-review-button{
@@ -82,7 +81,6 @@
         i{ padding-left: 3px; }
         font-size: 10px;
         padding-left: 4px;
-        color: rgba(40, 41, 43, 0.84);
         font-family: $heading-font;
         font-weight: bold;
       }
@@ -95,8 +93,6 @@
     > ul.course-stats{
       width: 100%;
       border-bottom: 2px $purple solid;
-      background: rgb(249, 249, 249);
-      color: #4d4f50;
       display: flex;
       margin-top: -10px;
       cursor: default;
@@ -112,11 +108,9 @@
           font-size: 17px;
         }
         > div.stat{
-          color: rgb(88, 96, 105);
           font-size: 13px;
           span.word{}
           span.number{
-            color: rgb(36, 41, 46);
             font-weight: bold;
             font-size: 15px;
           }

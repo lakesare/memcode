@@ -3,9 +3,8 @@ import stripTags from '~/services/stripTags';
 import url from '~/services/url';
 
 import { Link } from 'react-router-dom';
-import StarRating from '~/components/StarRating';
 
-import css from './index.scss';
+import css from './index.css';
 
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser
@@ -34,12 +33,6 @@ class SimpleCourseCard extends React.Component {
       </section>
 
       <h2 className="title">{this.props.courseDto.course.title}</h2>
-
-
-      <section className="star-rating">
-        <div className="star">★</div>
-        <div className="number">{this.props.courseDto.averageCourseRating ? this.props.courseDto.averageCourseRating : false}</div>
-      </section>
 
       <div
         className="description"

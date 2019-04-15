@@ -120,18 +120,12 @@ class NewProblem extends React.Component {
     });
   }
 
-  renderTypeButton = (type, typeInHuman) => {
-    if (this.state.currentProblemType === type) {
-      return <div
-        className="button -black -active"
-      >{typeInHuman}</div>;
-    } else {
-      return <div
-        className="button -black"
-        onClick={() => this.updateType(type)}
-      >{typeInHuman}</div>;
-    }
-  }
+  renderTypeButton = (type, typeInHuman) =>
+    <button
+      type="button"
+      className={`button ${this.state.currentProblemType === type ? '-active' : ''}`}
+      onClick={() => this.updateType(type)}
+    >{typeInHuman}</button>
 
   render = () =>
     <div className="new-problem">
@@ -151,6 +145,7 @@ class NewProblem extends React.Component {
       <Loading enabledStatuses={['failure']} spe={this.state.speCreateProblem}/>
 
       <section className="choose-type">
+        <label>FLASHCARD TYPE</label>
         {this.renderTypeButton('separateAnswer', 'question answer')}
         {this.renderTypeButton('inlinedAnswers', 'fill-in answer')}
       </section>

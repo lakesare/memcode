@@ -5,15 +5,17 @@
     padding: 3px;
     font-size: 13px;
     text-align: center;
-    font-weight: bold;
-    background: #f7f7f7;
-    color: #565353;
+    background: rgba(136, 125, 220, 0.09);
+    color: rgb(255, 255, 255);
     a{ color: #e20f6d; }
   }
+  // list of problems
+  section.problems{
+    max-width: 960px;
+    margin: 0 auto;
+  }
   section.problem{
-    padding: 4px;
-    background: rgba(245, 245, 245, 0.5);
-    box-shadow: 0px 2px 3px rgba(189, 189, 189, 0.39);
+    padding: 0 4px;
     border-left: 2px solid $purple;
     // background: rgb(1, 23, 4);
     &.-withInlinedAnswers{
@@ -28,15 +30,12 @@
             padding: 0;
 
             text-align: center;
-            font-weight: bold;
-
             border-radius: 2px;
             line-height: 10px;
-            font-family: 'Sintony';
 
             border: 1px solid rgb(20, 214, 20);
             background: rgba(40, 236, 77, 0.3);
-            color: rgba(90, 26, 10, 0.56);
+            color: white;
             &.ql-active, &:hover{
               background: rgba(40, 236, 77, 0.56);
               color: $body-color;
@@ -48,20 +47,18 @@
         }
       }
     }
-    .ql-toolbar{
-      border: none !important;
-      border-bottom: 1px solid rgb(216, 215, 215) !important;
-      box-shadow: 0px -3px 5px 4px rgba(247, 247, 247, 0.81);
-    }
+    .ql-toolbar{}
   }
   .new-problem{
     position: relative;
+    max-width: 960px;
+    margin: 0 auto;
     margin-top: 25px;
     // to avoid editing problem at the bottom of the screen
     margin-bottom: 40px;
     > section.how-to-create{
       margin-top: 10px;
-      color: #adadad;
+      color: rgb(172, 181, 218);
       text-align: right;
       font-size: 12px;
       button.button{
@@ -71,23 +68,31 @@
     }
     > section.choose-type{
       position: absolute;
-      right: -72px;
-      top: 0;
+      top: 0; right: -90px;
       // for react-joyride
       padding-bottom: 20px;
-      > .button{
+      > label{
+        display: block;
+        font-size: 10px;
+        padding-bottom: 8px;
+        font-weight: 300;
+        color: rgb(172, 181, 218);
+      }
+      > button.button{
         font-size: 9px;
-        padding: 4px;
+        padding: 7px 4px;
         opacity: 0.5;
-        width: 65px;
+        width: 84px;
         min-width: auto;
-        text-align: center;
+        background: $purple;
+        color: white;
+        font-weight: 300;
         &.-active{
           opacity: 1;
           cursor: default;
         }
         &:not(.-active):hover{
-          opacity: 0.9;
+          opacity: 0.7;
         }
       }
     }

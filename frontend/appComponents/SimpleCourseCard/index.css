@@ -6,9 +6,12 @@
   height: 205px;
   background: rgb(25, 26, 46);
   padding: 10px;
+  overflow: hidden;
 
   h2.title{
     margin-top: 10px;
+    min-height: 42px;
+
     font-weight: 100;
     font-size: 18px;
     text-align: center;
@@ -16,27 +19,10 @@
 
   div.description{
     margin-top: 10px;
-    font-size: 12px;
-    line-height: 20px;
-    color: rgba(181, 213, 243, 0.35);
     line-height: 15px;
-  }
-
-  ul.star-rating{
+    word-break: break-word;
     font-size: 12px;
-    text-align: center;
-
-  }
-
-  section.star-rating{
-    background: rgba(0, 0, 0, 0.12);
-    padding: 5px;
-    div.star{
-      font-size: 12px;
-    }
-    div.number{
-      font-size: 11px;
-    }
+    color: rgba(181, 213, 243, 0.35);
   }
 
   position: relative;
@@ -51,7 +37,6 @@
     color: rgb(255, 255, 255);
     font-size: 11px;
   }
-
 
   > section.category-and-author{
     font-size: 12px;

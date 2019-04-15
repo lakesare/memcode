@@ -19,7 +19,7 @@
   section.pagination.-for-mobile{ display: none; }
   .courses-and-nav{
     display: flex;
-    > nav.standard-list-of-course-categories{
+    > nav.course-categories-nav{
       width: 236px;
       flex-grow: 0;
       flex-shrink: 0;

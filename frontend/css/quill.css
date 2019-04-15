@@ -792,9 +792,6 @@
   background-color: #000;
 }
 .ql-toolbar.ql-snow {
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   padding: 8px;
 }
 .ql-toolbar.ql-snow .ql-formats {
@@ -807,12 +804,6 @@
   border: 1px solid transparent;
   box-shadow: rgba(0,0,0,0.2) 0 2px 8px;
 }
-.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
-  border-color: #ccc;
-}
-.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
-  border-color: #ccc;
-}
 .ql-toolbar.ql-snow .ql-color-picker .ql-picker-item.ql-selected,
 .ql-toolbar.ql-snow .ql-color-picker .ql-picker-item:hover {
   border-color: #000;
@@ -822,7 +813,6 @@
 }
 .ql-snow .ql-tooltip {
   background-color: #fff;
-  border: 1px solid #ccc;
   box-shadow: 0px 0px 5px #ddd;
   color: white;
   padding: 5px 12px;
@@ -916,16 +906,25 @@
 
 
 
+
   }
   > .ql-container.ql-snow{ border: none; }
   > .ql-container{
     background: rgb(25, 26, 46);
     border-top: none;
-    color: white;
+    color: rgb(206, 199, 245);
+
+
+    color: rgb(255, 255, 255);
+        background: rgb(34, 38, 74);
+
+        // background: rgb(43, 45, 64);
     > .ql-editor{
       min-height: 58px;
       font-family: $body-font;
       font-size: 15px;
+
+
       pre.ql-syntax, code{
         background: rgba(253, 123, 246, 0.17);
         color: $purple;
@@ -943,12 +942,13 @@
       }
       a{ color: $purple; }
       blockquote{
-        border-left: 4px solid rgb(165, 164, 165);
-        color: rgb(119, 116, 119);
+        border-left: 4px solid white;
+        color: white;
         font-size: 12px;
       }
 
       img{
+        background: white;
         display: block;
         margin: 0 auto;
         border: 1px solid rgba(236, 236, 236, 0.72);
@@ -998,11 +998,10 @@
 
       // placeholder!
       &.ql-blank::before{
-        // color: rgba(0, 0, 0, 0.77);
         font-style: normal;
         padding-right: 10px;
         line-height: 20px;
-        color: #b5b5b9;
+        color: rgb(172, 181, 218);
       }
     }
   }
