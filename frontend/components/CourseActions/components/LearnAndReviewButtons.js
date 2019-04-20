@@ -64,7 +64,7 @@ class LearnAndReviewButtons extends React.Component {
     <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getLearnButtonTooltip()}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/learn`}
-        className={`learn ${this.props.amountOfProblems.toLearn === 0 ? '-disabled' : ''}`}
+        className={`button learn ${this.props.amountOfProblems.toLearn === 0 ? '-disabled' : ''}`}
       >LEARN ({this.props.amountOfProblems.toLearn})</Link>
     </StandardTooltip>
 
@@ -72,7 +72,7 @@ class LearnAndReviewButtons extends React.Component {
     <StandardTooltip {...this.getTooltipProps()} tooltipEl={`You have ${this.props.amountOfProblems.toReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.`}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/review`}
-        className="review"
+        className="button review"
       >REVIEW ({this.props.amountOfProblems.toReview})</Link>
     </StandardTooltip>
 
@@ -80,7 +80,7 @@ class LearnAndReviewButtons extends React.Component {
     <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getSimulatedReviewTooltip()}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/review/simulated`}
-        className="review -disabled"
+        className="button review -disabled"
       >REVIEW (0)</Link>
     </StandardTooltip>
 

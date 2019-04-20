@@ -1,5 +1,3 @@
-// @import url(https://fonts.googleapis.com/css?family=Amethysta);
-
 section.problem{
   display: flex;
   .first-column, .second-column{
@@ -10,8 +8,8 @@ section.problem{
 
   $answer-background: rgba(45, 245, 83, 0.9);
   .ql-editor{
-    // font-family: Amethysta;
     border-radius: 2px;
+    background: rgb(34, 38, 74);
     *{
       color: rgb(206, 199, 245) !important;
     }

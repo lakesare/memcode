@@ -3,6 +3,7 @@
 $purple: rgb(136, 125, 220);
 $blue: rgb(21, 23, 58);
 
+// move it to somewhere else at some point, it gets included many times
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500,700');
 $body-font: 'Roboto';
 $heading-font: 'Roboto';

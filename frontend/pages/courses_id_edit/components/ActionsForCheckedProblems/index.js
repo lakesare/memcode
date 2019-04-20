@@ -31,7 +31,7 @@ class ActionsForCheckedProblems extends React.Component {
     this.props.updateIdsOfCheckedProblems([])
 
   render = () =>
-    <section className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-sticky')}>
+    <section className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-not-sticky')}>
       <Loading spe={this.state.speRemovingProblems}>
         <div className="container">
           <ChooseCourseToMoveProblemsTo apiMoveAllCheckedProblemsToCourse={this.apiMoveAllCheckedProblemsToCourse} amount={this.props.idsOfCheckedProblems.length}/>

@@ -100,15 +100,15 @@ class CourseActions extends React.Component {
         }
 
         {
+          false &&
           this.props.ifConfused &&
           <article className="contact-us">
             Confused? Missing any features? <Link to="/contact">Contact us</Link>.
           </article>
         }
 
-        <div className="container">
-          <section className="title-and-buttons">
-
+        <section className="title-and-buttons">
+          <div className="container">
             <section className="course-title-and-edit-form">
               <h3 className="title">
                 <Link to={url.courseEditOrShow(this.props.currentUser, courseDto.course)}>
@@ -156,13 +156,13 @@ class CourseActions extends React.Component {
                   >REVIEW ({courseDto.amountOfProblems})</Link>
                 </div>
             }
-          </section>
+          </div>
+        </section>
 
-          {
-            this.props.ifCourseDescriptionIsDisplayed &&
-            <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats} nextDueDateIn={courseDto.nextDueDateIn} amountOfProblemsToReview={courseDto.amountOfProblemsToReview} courseUserIsLearning={courseDto.courseUserIsLearning}/>
-          }
-        </div>
+        {
+          this.props.ifCourseDescriptionIsDisplayed &&
+          <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats} nextDueDateIn={courseDto.nextDueDateIn} amountOfProblemsToReview={courseDto.amountOfProblemsToReview} courseUserIsLearning={courseDto.courseUserIsLearning}/>
+        }
 
         <MetaTags title={courseDto.course.title} description={courseDto.course.description}/>
       </section>

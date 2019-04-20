@@ -4,6 +4,7 @@
   position: relative;
   margin-bottom: 20px;
   padding: 4px 0;
+  border-radius: 2px;
 
   > .problem{
     &.-not-focused .ql-toolbar{ display: none; }
@@ -16,53 +17,29 @@
     }
   }
 
-  > section.checkbox, > section.loading-checkbox{
-    position: absolute;
-    left: -40px;
-    top: 0; bottom: 0;
-    > div.index-and-mark, > img{
-      box-sizing: border-box;
-      border: 2px solid $purple;
-      width: 22px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 3px;
-    }
-  }
   > section.checkbox{
+    position: absolute;
+    right: -30px;
+    top: 0; bottom: 0;
+    width: 26px;
+
     cursor: pointer;
     // this prevents all flashcard texts from being selected when we click cmd+shift!
     user-select: none;
 
-    width: 26px; height: 100%;
-
     font-size: 12px;
     font-weight: 500;
     border-radius: 2px;
-    // background: rgba(164, 155, 232, 0.12);
     background: rgba(181, 34, 218, 0.12);
-    color: rgb(159, 128, 247);
+    color: white;
 
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  &.-checked,
+  &.-checked > section.checkbox,
   &.-not-checked > section.checkbox:hover{
-    background: rgba(181, 34, 218, 0.78);
-    color: white;
-  }
-  &.-checked{
-    // background: rgba(181, 34, 218, 0.78);
-    // padding: 4px 0;
-    border-radius: 2px;
-    > section.checkbox{
-      // background: rgba(181, 34, 218, 0.78);
-      color: white;
-    }
-  }
-  &.-checked, &.-checked > section.checkbox{
     background: rgba(181, 34, 218, 0.78);
   }
 }

@@ -27,6 +27,7 @@ class StandardTooltip extends React.Component {
       position="top"
       trigger="mouseenter"
       arrow
+      // open
       {...this.props.tooltipProps}
     >
       {

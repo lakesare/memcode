@@ -3,6 +3,9 @@ $blue-color: #375598;
 :local(section.actions-for-checked-problems){
   // layout
   &.-not-sticky{
+    // for a .close-button
+    position: relative;
+
     width: 100%;
     // otherwise dropdown goes to the bg
     z-index: 1;
@@ -15,35 +18,30 @@ $blue-color: #375598;
     width: 100%;
   }
   // pretty
-  background: $deep-green;
+  padding: 10px 20px;
   color: white;
-  border-bottom: 2px solid rgba(89, 91, 95, 0.12);
+  background: rgb(15, 17, 34);
+  box-shadow: 1px 1px 11px rgb(136, 125, 220);  
 
   > .request.loading{
     padding: 0;
     img{ width: 28px; }
   }
 
-  position: relative;
+  // position: relative;
   > .container{
-    padding: 5px 0px;
+    max-width: 1000px;
 
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-
-    // shared styles
-    button{
-      padding: 6px 12px;
-      font-size: 11px;
-    }
 
     // children styles
     > button.delete-button{
       flex-basis: auto;
       &.-approving{
         background: #ec2727;
-        width: 224px;
+        width: 250px;
       }
     }
 
@@ -54,35 +52,25 @@ $blue-color: #375598;
       > label{
         width: 165px;
         font-size: 14px;
-        b{ opacity: 0.6; }
+        b{ color: $purple; }
       }
-      > .dropdown-wrapper{
+      > .standard-dropdown-wrapper{
         position: relative;
         width: 260px;
         margin-right: 30px;
 
-        > input.toggler{
-          background: transparent;
-          color: white;
-          border-bottom: 1px solid white;
-          width: 100%;
-          box-sizing: border-box;
-          &::placeholder{
-            color: white;
-          }
-        }
-
         > ul.standard-dropdown{
-          z-index: 1000;
-          max-height: 250px;
-          overflow-y: auto;
-          font-size: 14px;
+          // z-index: 1000;
+          // max-height: 250px;
+          // overflow-y: auto;
+          // font-size: 14px;
         }
+      }
+      .button{
+        padding: 11px 20px;
       }
       > button.-move{
         flex-basis: 102px;
-        background: $blue-color;
-        color: white;
         padding-right: 0;
         > i.fa-exchange{
           padding-left: 10px;

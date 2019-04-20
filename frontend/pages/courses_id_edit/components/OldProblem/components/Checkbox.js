@@ -1,6 +1,3 @@
-
-import requestIcon from '~/components/Loading/requestIcon.svg';
-
 const getExclusiveIndexesInBetween = (int_1, int_2) => {
   const inBetweenIntegers = [];
   for (let integer = int_1 + 1; integer < int_2; integer++) {
@@ -78,18 +75,13 @@ class Checkbox extends React.Component {
     ]);
   }
 
-  render = () => (
-    this.props.speSave.status === 'request' ?
-      <section className="loading-checkbox">
-        <img src={requestIcon} alt=""/>
-      </section> :
-      <section
-        className="checkbox"
-        onClick={this.props.ifChecked ? this.uncheck : this.check}
-      >
-        {this.props.index + 1}
-      </section>
-  )
+  render = () =>
+    <section
+      className="checkbox"
+      onClick={this.props.ifChecked ? this.uncheck : this.check}
+    >
+      {this.props.index + 1}
+    </section>
 }
 
 export { Checkbox };

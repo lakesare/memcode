@@ -32,7 +32,6 @@ class OldProblem extends React.Component {
   ifOptimistic = () =>
     !this.props.problem._optimistic_id
 
-
   ifChecked = () =>
     this.props.idsOfCheckedProblems.includes(this.props.problem.id)
 

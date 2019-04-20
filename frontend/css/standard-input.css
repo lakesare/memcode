@@ -9,9 +9,7 @@
 
 .standard-input{
   &.-TextInput{
-    input{
-      @extend .extendable-pretty-input;
-    }
+    @extend .extendable-pretty-input;
   }
   &.-EditorTextarea{
     max-width: 100%;

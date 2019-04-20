@@ -822,6 +822,7 @@
   content: "Visit URL:";
   line-height: 26px;
   margin-right: 8px;
+  color: rgb(0, 0, 0);
 }
 .ql-snow .ql-tooltip input[type=text] {
   display: none;
@@ -873,14 +874,6 @@
 .ql-snow .ql-tooltip[data-mode=video]::before {
   content: "Enter video:";
 }
-.ql-snow a {
-  color: #06c;
-}
-.ql-container.ql-snow {
-  border: 1px solid #ccc;
-}
-
-
 
 .quill{
   position: relative;
@@ -902,28 +895,13 @@
         margin-right: 0;
       }
     }
-
-
-
-
-
   }
   > .ql-container.ql-snow{ border: none; }
   > .ql-container{
-    background: rgb(25, 26, 46);
-    border-top: none;
-    color: rgb(206, 199, 245);
-
-
-    color: rgb(255, 255, 255);
-        background: rgb(34, 38, 74);
-
-        // background: rgb(43, 45, 64);
     > .ql-editor{
       min-height: 58px;
       font-family: $body-font;
       font-size: 15px;
-
 
       pre.ql-syntax, code{
         background: rgba(253, 123, 246, 0.17);
