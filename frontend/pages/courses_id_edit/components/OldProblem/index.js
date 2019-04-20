@@ -32,9 +32,13 @@ class OldProblem extends React.Component {
   ifOptimistic = () =>
     !this.props.problem._optimistic_id
 
+
+  ifChecked = () =>
+    this.props.idsOfCheckedProblems.includes(this.props.problem.id)
+
   render = () => (
     this.ifOptimistic() ?
-      <div className={css['old-problem']}>
+      <div className={`${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'}`}>
         <Checkbox
           id={this.props.problem.id}
           index={this.props.index}
@@ -42,6 +46,7 @@ class OldProblem extends React.Component {
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
           updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
           speSave={this.state.speSave}
+          ifChecked={this.ifChecked()}
         />
 
         <Problem

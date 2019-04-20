@@ -1,3 +1,5 @@
+// @import url(https://fonts.googleapis.com/css?family=Amethysta);
+
 section.problem{
   display: flex;
   .first-column, .second-column{
@@ -7,14 +9,27 @@ section.problem{
   .second-column{ margin-left: 10px; }
 
   $answer-background: rgba(45, 245, 83, 0.9);
+  .ql-editor{
+    // font-family: Amethysta;
+    border-radius: 2px;
+    *{
+      color: rgb(206, 199, 245) !important;
+    }
+  }
   &.-withInlinedAnswers{
     mark.answer{
       border: 2px solid $answer-background;
       padding: 1px 2px;
       border-radius: 2px;
     }
+    .ql-editor{
+      border: 2px solid rgb(170, 160, 247);
+    }
   }
   &.-withSeparateAnswer{
+    .first-column .ql-editor{
+      border: 2px solid rgb(170, 160, 247);
+    }
     .second-column .ql-editor{
       border: 2px solid $answer-background;
     }

@@ -16,7 +16,7 @@
   }
   section.problem{
     padding: 0 4px;
-    border-left: 2px solid $purple;
+    // border-left: 2px solid $purple;
     // background: rgb(1, 23, 4);
     &.-withInlinedAnswers{
       > .first-column{

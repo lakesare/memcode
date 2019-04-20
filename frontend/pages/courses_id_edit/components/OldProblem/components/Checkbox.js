@@ -16,15 +16,9 @@ class Checkbox extends React.Component {
     problems: PropTypes.array.isRequired,
     idsOfCheckedProblems: PropTypes.array.isRequired,
     updateIdsOfCheckedProblems: PropTypes.func.isRequired,
-    speSave: PropTypes.object.isRequired
+    speSave: PropTypes.object.isRequired,
+    ifChecked: PropTypes.bool.isRequired
   }
-
-  state = {
-    ifHoveringOver: false
-  }
-
-  ifChecked = () =>
-    this.props.idsOfCheckedProblems.includes(this.props.id)
 
   uncheck = () =>
     this.props.updateIdsOfCheckedProblems(
@@ -84,54 +78,16 @@ class Checkbox extends React.Component {
     ]);
   }
 
-  renderIndex = () =>
-    <div className="index">
-      {this.props.index + 1}
-    </div>
-
-  renderMark = () =>
-    <div className="mark">
-      <i className="fa fa-check-square"/>
-    </div>
-
-  renderHovering = () => (
-    this.ifChecked() ?
-      <div className="index-and-mark -hovering -checked">
-        {this.renderMark()}
-      </div> :
-      <div className="index-and-mark -hovering -not-checked">
-        {this.renderMark()}
-        {this.renderIndex()}
-      </div>
-  )
-
-  renderStatic = () => (
-    this.ifChecked() ?
-      <div className="index-and-mark -static -checked">
-        {this.renderMark()}
-      </div> :
-      <div className="index-and-mark -static -not-checked">
-        {this.renderIndex()}
-      </div>
-  )
-
   render = () => (
     this.props.speSave.status === 'request' ?
       <section className="loading-checkbox">
-        <img src={requestIcon}/>
+        <img src={requestIcon} alt=""/>
       </section> :
-
       <section
         className="checkbox"
-        onMouseEnter={() => this.setState({ ifHoveringOver: true })}
-        onMouseLeave={() => this.setState({ ifHoveringOver: false })}
-        onClick={this.ifChecked() ? this.uncheck : this.check}
+        onClick={this.props.ifChecked ? this.uncheck : this.check}
       >
-        {
-          this.state.ifHoveringOver ?
-            this.renderHovering() :
-            this.renderStatic()
-        }
+        {this.props.index + 1}
       </section>
   )
 }

@@ -2,7 +2,8 @@
 
 :local(.old-problem){
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  padding: 4px 0;
 
   > .problem{
     &.-not-focused .ql-toolbar{ display: none; }
@@ -34,24 +35,34 @@
     cursor: pointer;
     // this prevents all flashcard texts from being selected when we click cmd+shift!
     user-select: none;
-    > div.index-and-mark{
-      font-size: 12px;
-      font-weight: bold;
-      > .mark{
-        position: absolute;
-        top: -1px; left: 1px;
-        font-size: 24px;
-        line-height: 0;
-        color: $purple;
-      }
-      &.-hovering.-not-checked{
-        > .mark{
-          opacity: 1;
-        }
-        > .index{
-          opacity: 0.3;
-        }
-      }
+
+    width: 26px; height: 100%;
+
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 2px;
+    // background: rgba(164, 155, 232, 0.12);
+    background: rgba(181, 34, 218, 0.12);
+    color: rgb(159, 128, 247);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &.-not-checked > section.checkbox:hover{
+    background: rgba(181, 34, 218, 0.78);
+    color: white;
+  }
+  &.-checked{
+    // background: rgba(181, 34, 218, 0.78);
+    // padding: 4px 0;
+    border-radius: 2px;
+    > section.checkbox{
+      // background: rgba(181, 34, 218, 0.78);
+      color: white;
     }
+  }
+  &.-checked, &.-checked > section.checkbox{
+    background: rgba(181, 34, 218, 0.78);
   }
 }
