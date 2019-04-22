@@ -281,6 +281,7 @@ module.exports = {
 
     // things I make global with ProvidePlugin
     "React": true,
+    "React.Fragment": true,
     "PropTypes": true,
     "connect": true,
 

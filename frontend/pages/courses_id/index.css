@@ -4,23 +4,10 @@
   section.problems{
     max-width: 960px;
     margin: 0 auto;
+    margin-top: 40px;
     section.problem{
       margin-bottom: 20px;
-      border-left: 2px solid $purple;
       * { cursor: default !important; }
-    }
-  }
-}
-
-:local(main.main){
-  @media(max-width: 627px){
-    > .container{ padding: 0 3px; }
-    section.problems{
-      .problem{
-        > .first-column{ margin-right: 3px; }
-        > .second-column{ margin-left: 3px; }
-        .ql-editor{ padding: 4px 3px; }
-      }
     }
   }
 }

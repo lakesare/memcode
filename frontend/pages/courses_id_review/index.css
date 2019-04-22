@@ -12,14 +12,24 @@
   .course-title-and-edit-form h3.title{
     a{ color: white; }
   }
+  // in course actions
+  // section.title-and-buttons{
+  //   padding-top: 30px;
+  //   padding-bottom: 20px;
+  // }
   section.problem{
+    max-width: 960px;
+    margin: 0 auto;
     margin-bottom: 20px; margin-top: 100px;
-    box-shadow: 0px 0px 9px rgba(214, 214, 214, 0.16);
-    padding: 7px 5px;
 
-    $answer-background: rgba(45, 245, 83, 0.9);
+    box-shadow: 0px 0px 32px 4px rgba(224, 174, 234, 0.08);
+    padding: 13px 13px;
+    border-radius: 5px;
+
     &.-withInlinedAnswers{
-      
+      .ql-editor{
+        box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+      }
       input.answer{
         width: 120px;
         display: inline-block;
@@ -47,26 +57,37 @@
       > div.question-and-answer{
         width: 100%;
         display: flex;
+        .question.first-column{
+          .ql-editor{
+            box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+          }
+        }
+        .answer.second-column{
+          .ql-editor{
+            box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+          }
+        }
         // button or answer editor
         > button.see-answer-button{
           max-height: 400px;
-          font-weight: bold;
+          font-weight: 300;
+          padding: 6px 0;
+          font-size: 14px;
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 0.5px;
           user-select: none;
+          border-radius: 2px;
+          /* text-shadow: 0px 0px 19px #ffffff42; */
+
           display: flex;
           justify-content: center;
           align-items: center;
-
           cursor: pointer;
-          font-family: 'Mukta Vaani';
-          background: rgb(106, 243, 132);
-          box-shadow: 0px -1px 6px 1px rgba(74, 241, 42, 0.39);
-          border: 2px solid $whale-green;
-          padding: 6px 0;
-          font-size: 16px;
-          color: #232425;
-          text-shadow: 0px 0px 9px white;
+
+          box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+          border: 2px solid rgb(160, 247, 200);
+          background: rgb(34, 38, 74);          
+          color: rgb(160, 247, 200);
         }
       }
 
@@ -76,8 +97,14 @@
         .quill{
           margin-top: 5px;
         }
+        .ql-editor.ql-blank::before{
+          color: rgba(132, 155, 249, 0.48);
+        }
         .ql-toolbar{ box-shadow: none; }
-        .ql-editor{ border: none !important; }
+        .ql-editor{
+          border: none !important;
+          background: rgba(34, 38, 74, 0.29);
+        }
         &.-focused{ .ql-toolbar{ opacity: 1; } }
         &.-not-focused{ .ql-toolbar{ opacity: 0; } }
       }
@@ -140,32 +167,32 @@
   }
 
   section.instructions{
-    display: flex;
-    justify-content: space-between;
-    color: rgba(255, 255, 255, 0.65);
-    h4.where-we-are{
+    background: rgba(34, 38, 74, 0.27);
+
+    .container{
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    div.where-we-are{
       font-size: 14px;
       &.-mobile{ display: none; }
       &.-desktop{ display: block; }
     }
     &.-real{
-      > .buttons{
+      .buttons{
         display: flex;
         align-items: center;
         button{
-          color: rgba(249, 249, 249, 0.67);
-          font-weight: bold;
-          text-transform: uppercase;
-          font-size: 10px;
-          cursor: pointer;
+          font-size: 9px;
           padding: 3px 8px;
+          height: 33px;
+          min-width: auto;
+          letter-spacing: 0.9px;
         }
-        button.switch-answer-and-definition-button{
-          background: rgba(224, 17, 17, 0.24);
-        }
-        button.randomize{
+        button.randomize-button{
           margin-left: 10px;
-          background: rgba(224, 17, 185, 0.24);
         }
       }
     }
@@ -213,7 +240,7 @@
   :local(main.main){
     section.instructions{
       margin-bottom: 20px;
-      h4.where-we-are{
+      div.where-we-are{
         &.-mobile{ display: block; }
         &.-desktop{ display: none; }
       }

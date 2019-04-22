@@ -91,7 +91,6 @@ class Page_courses_id_review extends React.Component {
 
   componentDidMount() {
     this.props.getPage(this.props.match.params.id);
-    document.body.style.background = 'rgb(19, 2, 2)';
   }
 
   componentDidUpdate = (prevProps) => {
@@ -122,7 +121,7 @@ class Page_courses_id_review extends React.Component {
 
       <CourseActions courseId={this.props.match.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
       <Loading spe={this.props.speGetPage}>{({ problems }) =>
-        <div className="container">
+        <React.Fragment>
           {
             this.props.currentProblem &&
             <ProblemBeingSolved
@@ -149,7 +148,7 @@ class Page_courses_id_review extends React.Component {
           />
 
           {this.renderProblemContentCachingMechanism(problems)}
-        </div>
+        </React.Fragment>
       }</Loading>
     </main>
 }

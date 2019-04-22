@@ -1,50 +1,62 @@
 @import 'css/variables';
 :local(main.main){
-  .sorting-options{
+  > .container{
+    margin-top: 30px;
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: 20px 0;
-    > section.sort-by{
-      display: flex;
-      align-items: center;
-      font-family: $heading-font;
-
-      > label{
-        font-size: 14px;
-        padding-right: 10px;
-      }
+    h1{
+      font-size: 32px;
+      font-weight: 100;
+      letter-spacing: 0.3px;
     }
-  }
-  section.pagination.-for-mobile{ display: none; }
-  .courses-and-nav{
-    display: flex;
     > nav.course-categories-nav{
-      width: 236px;
+      width: 231px;
       flex-grow: 0;
       flex-shrink: 0;
+      border-right: 1px solid rgba(223, 201, 247, 0.06);
 
-      margin-right: 20px;
-      margin-bottom: 30px;
+      margin-right: 70px;
     }
     > .loading.loading-courses{
       margin: 0 auto;
     }
 
-    .amount-of-courses{ display: none; }
-  }
-}
+    > .sorting-options_and_courses{
+      // making <a/>-s span 100% width and height
+      section.sort-by-dropdown-wrapper{
+        max-width: 200px;
+        > button.toggler{
+          padding-left: 10px;
+          padding-right: 10px;
+          width: 151px;
+        }
+        > ul.standard-dropdown{
+          padding: 0;
+          li{
+            padding: 0;
+            a{
+              padding: 10px;
+              display: block;
+            }
+          }
+        }
+      }
 
-:local(main.main){
-  @media(max-width: 630px){
-    .standard-list-of-course-categories{ display: none; }
-  }
-  @media(max-width: 400px){
-    .sorting-options section.pagination{ display: none; }
-    section.pagination.-for-mobile{
-      display: flex;
-      justify-content: center;
-      padding-bottom: 80px; padding-top: 20px;
+      div.title_and_sort-by{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+
+      ul.pagination{
+        justify-content: flex-end;
+        margin-top: 20px;
+        > li:last-child{
+          margin-right: 0;
+        }
+      }
+
+
+
     }
   }
 }

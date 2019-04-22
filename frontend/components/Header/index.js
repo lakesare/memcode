@@ -23,7 +23,7 @@ class Header extends React.Component {
     <nav>
       <NavLink
         exact
-        to={this.props.currentUser ? '/courses/learning' : '/courses'}
+        to="/courses"
         className="link courses"
         isActive={(match, location) => ['/courses', '/courses/learning', '/courses/created'].some((url) => location.pathname === url)}
       >courses</NavLink>
@@ -48,6 +48,12 @@ class Header extends React.Component {
 
         <div className="nav-and-current-user">
           {this.renderNavigation()}
+
+          <NavLink
+            to="/courses/learning"
+            className="button -purple my-courses-link"
+          >MY COURSES</NavLink>
+
           {this.renderUser()}
         </div>
       </div>

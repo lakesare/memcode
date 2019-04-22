@@ -8,20 +8,18 @@ class SortBySelect extends React.Component {
   }
 
   render = () =>
-    <section className="sort-by">
-      <label>Sort By:</label>
-
-      <section className="standard-dropdown-wrapper standard-input -Select">
-        <SelectDropdown
-          value={this.props.sortBy}
-          possibleValues={{
-            popular: <Link to={this.props.getUrlForNewSortBy('popular')}>Most Popular</Link>,
-            new: <Link to={this.props.getUrlForNewSortBy('new')}>Recently Created</Link>
-          }}
-          dropdownClassName="standard-dropdown -purple"
-        />
-      </section>
-    </section>
+    <SelectDropdown
+      className="sort-by-dropdown-wrapper standard-dropdown-wrapper standard-input -Select"
+      dropdownClassName="standard-dropdown -purple"
+      value={this.props.sortBy}
+      possibleValues={{
+        popular: 'Most Popular',
+        new: 'Recently Created'
+      }}
+      renderLi={(value, humanValue) =>
+        <Link to={this.props.getUrlForNewSortBy(value)}>{humanValue}</Link>
+      }
+    />
 }
 
 export default SortBySelect;

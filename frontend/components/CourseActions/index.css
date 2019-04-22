@@ -1,20 +1,63 @@
 @import 'css/variables';
 
 :local(section.actions){
-  section.title-and-buttons,
-  section.course-description-and-stats{
-    .container{
-      max-width: 1300px;
+  section.breadcrumbs{
+    padding-top: 8px;
+    background: rgb(7, 9, 39);
+    font-size: 13px;
+    > div.container{
+      display: flex;
+      justify-content: space-between;
+      > ul.navigation{
+        // border-bottom: 1px solid rgba(253, 249, 249, 0.06);
+        padding-bottom: 7px;
+
+        display: flex;
+        align-items: center;
+        li{
+          display: inline-block;
+          margin-right: 10px;
+          color: white;
+          cursor: default; // not text selection one
+          font-size: 10px;
+          text-transform: uppercase;
+          font-family: $heading-font;
+        }
+        li.arrow{
+          color: rgb(224, 224, 224);
+        }
+      }
+
+      > div.rating{
+        display: flex;
+        align-items: center;
+        > span{
+          color: white;
+          opacity: 0.6;
+          font-size: 11px;
+          padding-right: 10px;
+          font-family: "Sintony";
+          letter-spacing: 0.3px;
+        }
+        > ul.stars{
+          li{
+            padding: 10px 3px;
+          }
+          // li.-selected{
+          //   color: rgb(255, 253, 91);
+          // }
+        }
+      }
     }
   }
   section.title-and-buttons{
-    > .container{    
+    padding-top: 10px;
+    padding-bottom: 20px;
+    > .container{
       display: flex;
       justify-content: space-between;
       align-items: center;
 
-      padding: 10px; padding-right: 0;
-      margin-bottom: 10px;
       h3.title{
         font-weight: 300;
         font-size: 30px;
@@ -41,7 +84,6 @@
             i.fa-plus{
               font-size: 14px;
               padding-right: 4px;
-              color: $purple;
             }
           }
           button.stop-learning-button{
@@ -108,11 +150,10 @@
   }
   section.course-description-and-stats{
     background: rgba(34, 38, 74, 0.27);
+    padding: 10px 0;
     > .container{
-      margin-bottom: 20px;
       display: flex;
       align-items: flex-start;
-      padding: 10px 0;
 
       > ul.course-stats{
         width: 311px;
@@ -147,14 +188,36 @@
             }
           }
         }
+        > li.course-star-rating{
+          > div.stat{
+            padding-right: 3px;
+            > i.fa-user-o{
+              font-size: 11px;
+              padding-left: 3px;
+            }
+            > span.amount-of-voters{
+              text-shadow: none;
+              padding-left: 2px;
+            }
+          }
+          > div.icon{
+            width: auto;
+            > ul.star-rating{
+              display: flex;
+              > li.-not-selected{
+                text-shadow: none;
+              }
+            }
+          }
+        }
       }
       > .course-description{
-        padding: 20px;
         flex-grow: 1;
         flex-shrink: 1;
-        border-right: 1px rgba(136, 125, 220, 0.12) solid;
         flex-basis: 100%;
+
         padding: 20px;
+        padding-left: 0;
         .ql-snow.ql-container{
           border: none !important;
           > .ql-editor{
@@ -163,102 +226,6 @@
             min-height: auto;
           }
         }
-      }
-    }
-  }
-  section.breadcrumbs{
-    margin-top: 20px;
-    font-size: 13px;
-    background: rgba(136, 125, 220, 0.09);
-    > div.container{
-      display: flex;
-      justify-content: space-between;
-      > ul.navigation{
-        // border-left: 2px solid $purple;
-        padding: 3px;
-        padding-left: 10px;
-        display: flex;
-        align-items: center;
-        li{
-          display: inline-block;
-          margin-right: 10px;
-          color: white;
-          cursor: default; // not text selection one
-          font-size: 10px;
-          text-transform: uppercase;
-          font-family: $heading-font;
-          a{
-            cursor: pointer;
-            color: $purple;
-          }
-        }
-        li.arrow{
-          color: rgb(224, 224, 224);
-        }
-      }
-
-      > div.rating{
-        display: flex;
-        align-items: center;
-        > span{
-          color: white;
-          opacity: 0.6;
-          font-size: 11px;
-          padding-right: 10px;
-          font-family: "Sintony";
-          letter-spacing: 0.3px;
-        }
-        > ul.stars{
-          li{
-            padding: 10px 3px;
-          }
-          // li.-selected{
-          //   color: rgb(255, 253, 91);
-          // }
-        }
-      }
-    }
-  }
-}
-
-:local(section.actions){
-  @media(max-width: 600px) {
-    section.title-and-buttons{
-      padding: 10px 0;
-      text-align: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      > section.course-title-and-edit-form{
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-bottom: 10px;
-      }
-      > .buttons{
-        > section.start-stop-or-resume-learning-course{
-          min-width: auto;
-        }
-      }
-
-      > .please-sign-in_and_simulated-review-button{
-        > h4.please-sign-in{
-          display: block;
-          margin-bottom: 10px;
-        }
-        > a.simulated-review-button{
-          display: block;
-        }
-      }
-    }
-
-    ul.course-stats{
-      flex-wrap: wrap;
-      > li{
-        width: 50% !important;
-        justify-content: flex-start !important;
-        padding-left: 15px !important;
-        padding-top: 5px !important;
-        padding-bottom: 5px !important;
       }
     }
   }

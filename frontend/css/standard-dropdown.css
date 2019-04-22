@@ -1,46 +1,37 @@
 @import 'css/variables';
+
 .standard-dropdown-wrapper{
   position: relative;
-  button.toggler{
-    cursor: pointer;
-    // center text and an arrow
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    i.fa-caret-down{
-      color: $purple;
-      padding-left: 10px;
-    }
-  }
   .standard-dropdown{
     position: absolute;
     top: 100%;
-    max-height: 200px;
+    max-height: 200px; width: 100%;
+
     overflow-y: scroll;
-    width: 100%;
     z-index: 1000;
-    font-size: 14px;
   }
 }
 
 // can be separate
 .standard-dropdown{
+  font-size: 14px;
   padding: 0 10px;
   li{
     padding: 10px 10px;
     cursor: pointer;
   }
-  &.-purple{
-    background: rgb(25, 26, 46);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    // border-top: none;
-    li{
-      border-bottom: 1px solid rgba(255, 255, 255, 0.01);
-      &:last-child{ border-bottom: none; }
-      mark{ color: $purple; }
-      &:hover{
-        color: $purple;
-      }
+}
+
+.standard-dropdown.-purple{
+  background: rgb(25, 26, 46);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  // border-top: none;
+  li{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+    &:last-child{ border-bottom: none; }
+    mark{ color: $purple; }
+    &:hover{
+      color: $purple;
     }
   }
 }

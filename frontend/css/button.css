@@ -28,6 +28,11 @@
     color: white;
     background: $purple;
   }
+  // -outlines, just like in fontawesome
+  &.-purple-o{
+    color: $purple;
+    border: 1px solid $purple;
+  }
   &.-pink{
     color: white;
     background: $purple;

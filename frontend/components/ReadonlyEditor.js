@@ -19,3 +19,4 @@ class ReadonlyEditor extends React.Component {
 }
 
 export { ReadonlyEditor };
+export default ReadonlyEditor;

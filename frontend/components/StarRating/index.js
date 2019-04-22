@@ -25,7 +25,7 @@ class StarRating extends React.Component {
 
   renderStar = (starN) =>
     <li
-      className={(this.state.temporaryRating && (this.state.temporaryRating >= starN)) ? '-selected' : ''}
+      className={(this.state.temporaryRating && (this.state.temporaryRating >= starN)) ? '-selected' : '-not-selected'}
       onClick={() => this.props.updateRating(starN)}
       onMouseOver={() => this.setState({ temporaryRating: starN })}
     >

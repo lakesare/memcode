@@ -1,15 +1,23 @@
+import orFalse from '~/services/orFalse';
 import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
-import { ReadonlyEditor } from '~/components/ReadonlyEditor';
+import ReadonlyEditor from '~/components/ReadonlyEditor';
+import CourseStarRating from './CourseStarRating';
 
 class CourseDescriptionAndStats extends React.Component {
   static propTypes = {
+    currentUser: orFalse(PropTypes.object).isRequired,
     course: PropTypes.object.isRequired,
     stats: PropTypes.object.isRequired,
     amountOfProblemsToReview: PropTypes.number.isRequired,
     nextDueDateIn: PropTypes.object,
     courseUserIsLearning: PropTypes.object
   }
+
+  ifCanRateCourse = () => (
+    this.props.currentUser &&
+    this.props.course.userId !== this.props.currentUser.id
+  )
 
   renderStat = (icon, stat) =>
     <li>
@@ -69,6 +77,11 @@ class CourseDescriptionAndStats extends React.Component {
                 </div>)
             )
           }
+
+          <CourseStarRating
+            courseId={this.props.course.id}
+            ifCanRateCourse={this.ifCanRateCourse()}
+          />
         </ul>
       </div>
     </section>

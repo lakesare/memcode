@@ -2,7 +2,7 @@ import { orFalse } from '~/services/orFalse';
 import { commonFetch } from '~/api/commonFetch';
 import { url } from '~/services/url';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { MetaTags } from './components/MetaTags';
 import { Loading } from '~/components/Loading';
 import Breadcrumbs from './components/Breadcrumbs';
@@ -17,17 +17,18 @@ import css from './index.css';
   (state, ownProps) => ({
     currentUser: state.global.Authentication.currentUser || false,
     speGetCourse: state.components.CourseActions.speGetCourse,
+    // speGetCourse: { status: 'request' },
     speCourseUserIsLearning: state.components.CourseActions.speCourseUserIsLearning,
     amountOfProblems:
       (
         state.global.IdsOfProblemsToLearnAndReviewPerCourse &&
         state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId]
       ) ?
-      {
-        toLearn: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toLearn.length,
-        toReview: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toReview.length
-      } :
-      false
+        {
+          toLearn: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toLearn.length,
+          toReview: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toReview.length
+        } :
+        false
   }),
   (dispatch) => ({
     seedSpeGetCourse: (spe) => dispatch({
@@ -74,15 +75,10 @@ class CourseActions extends React.Component {
     this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
   }
 
-  ifCanRateCourse = (courseDto) => (
-    this.props.currentUser &&
-    courseDto.course.userId !== this.props.currentUser.id
-  )
-
   renderRequestIcon = () => (
     this.props.ifCourseDescriptionIsDisplayed ?
       <div className="container">
-        <div style={{ height: 130, background: 'rgba(239, 239, 239, 0.32)', marginTop: 30 }}/>
+        <div style={{ height: 130, background: 'rgb(20, 22, 45)', marginTop: 30 }}/>
       </div> :
       null
   )
@@ -91,11 +87,9 @@ class CourseActions extends React.Component {
     <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
       <section className={css.actions}>
         {
-          this.props.ifBreadcrumbsAreDisplayed &&
+          // this.props.ifBreadcrumbsAreDisplayed &&
           <Breadcrumbs
             courseCategoryId={courseDto.course.courseCategoryId || false}
-            courseId={this.props.courseId}
-            ifCanRateCourse={this.ifCanRateCourse(courseDto)}
           />
         }
 
@@ -161,7 +155,14 @@ class CourseActions extends React.Component {
 
         {
           this.props.ifCourseDescriptionIsDisplayed &&
-          <CourseDescriptionAndStats course={courseDto.course} stats={courseDto.stats} nextDueDateIn={courseDto.nextDueDateIn} amountOfProblemsToReview={courseDto.amountOfProblemsToReview} courseUserIsLearning={courseDto.courseUserIsLearning}/>
+          <CourseDescriptionAndStats
+            currentUser={this.props.currentUser}
+            course={courseDto.course}
+            stats={courseDto.stats}
+            nextDueDateIn={courseDto.nextDueDateIn}
+            amountOfProblemsToReview={courseDto.amountOfProblemsToReview}
+            courseUserIsLearning={courseDto.courseUserIsLearning}
+          />
         }
 
         <MetaTags title={courseDto.course.title} description={courseDto.course.description}/>

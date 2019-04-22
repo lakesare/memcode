@@ -13,6 +13,9 @@ class SelectDropdown extends React.Component {
       PropTypes.object
     ]).isRequired,
 
+    renderLi: PropTypes.func,
+    renderSelectedLi: PropTypes.func,
+
     ifClearIsPossible: PropTypes.bool,
     className: PropTypes.string,
     dropdownClassName: PropTypes.string,
@@ -23,6 +26,8 @@ class SelectDropdown extends React.Component {
   static defaultProps = {
     // needed for when <li>s are links
     updateValue: () => {},
+    renderLi: (value, humanValue) => humanValue,
+    renderSelectedLi: (value, humanValue) => humanValue,
     className: '',
     dropdownClassName: 'standard-dropdown',
     placeholder: 'Please select',
@@ -70,7 +75,7 @@ class SelectDropdown extends React.Component {
       <button type="button" className="toggler" onClick={this.toggleDropdown}>
         {
           this.props.value ?
-            apiToHumanMapOfPossibleValues[this.props.value] :
+            this.props.renderSelectedLi(this.props.value, apiToHumanMapOfPossibleValues[this.props.value]) :
             this.props.placeholder
         }
         {
@@ -85,7 +90,7 @@ class SelectDropdown extends React.Component {
             <li
               key={value}
               onClick={() => this.onSelect(value)}
-            >{apiToHumanMapOfPossibleValues[value]}</li>
+            >{this.props.renderLi(value, apiToHumanMapOfPossibleValues[value])}</li>
           )}
           {
             this.props.ifClearIsPossible &&

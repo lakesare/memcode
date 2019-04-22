@@ -39,42 +39,44 @@ class ProblemBeingSolved extends React.Component {
   }
 
   render = () =>
-    <div>
+    <React.Fragment>
       {
         this.props.ifReviewIsSimulated &&
-          <section className="instructions -simulated">
-            <h4 className="where-we-are -desktop">
-              We are in a simulated review. Results will not be recorded.
-            </h4>
-            <h4 className="where-we-are -mobile">
-              Simulated review.
-            </h4>
-            <h4 className="amount-of-problems-left">
-              {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
-            </h4>
-          </section>
+        <section className="instructions -simulated">
+          <h4 className="where-we-are -desktop">
+            We are in a simulated review. Results will not be recorded.
+          </h4>
+          <h4 className="where-we-are -mobile">
+            Simulated review.
+          </h4>
+          <h4 className="amount-of-problems-left">
+            {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
+          </h4>
+        </section>
       }
 
       {
         !this.props.ifReviewIsSimulated &&
         !this.props.ifReviewingFailedProblems &&
         <section className="instructions -real">
-          <h4 className="where-we-are -desktop">
-            Press ENTER fo reveal answers
-          </h4>
+          <div className="container">
+            <div className="where-we-are -desktop">
+              Press ENTER fo reveal answers
+            </div>
 
-          <div className="buttons">
-            <button type="button" className="switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
-              Term ⟷ definition
-            </button>
-
-            {
-              // if it's not the last problem we're reviewing - randomize
-              this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
-              <button type="button" className="randomize" onClick={this.props.randomizeProblems}>
-                Randomize
+            <div className="buttons">
+              <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
+                Term ⟷ definition
               </button>
-            }
+
+              {
+                // if it's not the last problem we're reviewing - randomize
+                this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
+                <button type="button" className="button -purple-o randomize-button" onClick={this.props.randomizeProblems}>
+                  Randomize
+                </button>
+              }
+            </div>
           </div>
         </section>
       }
@@ -82,12 +84,12 @@ class ProblemBeingSolved extends React.Component {
       {
         this.props.ifReviewingFailedProblems &&
           <section className="instructions -simulated">
-            <h4 className="where-we-are -desktop">
+            <div className="where-we-are -desktop">
               We are repeating failed flashcards. Results will not be recorded.
-            </h4>
-            <h4 className="where-we-are -mobile">
+            </div>
+            <div className="where-we-are -mobile">
               Repeating failed flashcards.
-            </h4>
+            </div>
           </section>
       }
 
@@ -124,7 +126,7 @@ class ProblemBeingSolved extends React.Component {
           NEXT
         </button>
       }
-    </div>
+    </React.Fragment>
 }
 
 export { ProblemBeingSolved };

@@ -107,29 +107,30 @@ class Page_courses extends React.Component {
       <ProfileNavigation/>
 
       <div className="container">
-        <div className="sorting-options">
-          <SortBySelect
-            sortBy={getSortBy(this.props)}
-            getUrlForNewSortBy={this.getUrlForNewSortBy}
+        <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+          <CourseCategories
+            courseCategoryId={getCategoryId(this.props)}
+            courseCategoryGroups={courseCategoryGroups}
+            courseCategories={courseCategories}
           />
-          {this.renderPagination()}
-        </div>
+        }</Loading>
 
-        <div className="courses-and-nav">
-          <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
-            <CourseCategories
-              courseCategoryId={getCategoryId(this.props)}
-              courseCategoryGroups={courseCategoryGroups}
-              courseCategories={courseCategories}
+        <div className="sorting-options_and_courses">
+
+          <div className="title_and_sort-by">
+            <h1 className="title">Computer Science</h1>
+
+            <SortBySelect
+              sortBy={getSortBy(this.props)}
+              getUrlForNewSortBy={this.getUrlForNewSortBy}
             />
-          }</Loading>
+          </div>
+          {this.renderPagination()}
 
           <Loading className="loading-courses" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
             <ListOfSimpleCourses coursesData={onePageOfCourses}/>
           }</Loading>
         </div>
-
-        {this.renderPagination('-for-mobile')}
       </div>
 
       <Footer/>

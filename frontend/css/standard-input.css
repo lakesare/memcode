@@ -25,6 +25,16 @@
   }
   &.-Select{
     button.toggler{
+      cursor: pointer;
+      // center text and an arrow
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      i.fa-caret-down{
+        color: $purple;
+        padding-left: 10px;
+      }
       @extend .extendable-pretty-input;
     }
   }

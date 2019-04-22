@@ -1,12 +1,16 @@
 @import 'css/variables';
 
 :local(.header){
-  background: $color-main-1;
+  background: rgba(34, 38, 74, 0.27);
 
   a.logo{
     display: flex;
     align-items: center;
     color: white;
+  }
+
+  a.my-courses-link{
+    margin: 10px 0;
   }
 
   nav{
@@ -46,7 +50,8 @@
   section.current-user{
     display: flex;
     > a.avatar{
-      width: 50px; height: 50px;
+      width: 30px; height: 30px;
+      margin-top: 10px;
       img{
         // border: 3px solid rgb(86, 11, 90);
         width: 100%;
@@ -113,13 +118,12 @@
     display: flex;
     justify-content: space-between;
     height: 50px;
-
     > div.nav-and-current-user{
       display: flex;
     }
 
     section.search{
-      flex-basis: 280px;
+      flex-basis: 410px;
       flex-shrink: 1;
       flex-grow: 0;
       display: flex;

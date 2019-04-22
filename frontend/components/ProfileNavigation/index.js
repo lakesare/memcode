@@ -19,6 +19,7 @@ class ProfileNavigation extends React.Component {
   }
 
   render = () => (
+    false &&
     this.props.currentUser &&
     <nav className={css.nav}>
       <div className="container">

@@ -2,18 +2,22 @@
 
 :local(.ul){
   > li{
-    margin-left: 3px;
+    // padding instead of margin, so that we seemlessly hover over stars without no-star space
+    padding-left: 2px;
+    padding-right: 2px;
     &:first-child{ margin-left: 0; }
     display: inline-block;
 
-    color: rgba(255, 255, 255, 0.04);
-    transition: color .2s ease-out;
-
+    transition-property: color;
+    transition-duration: .2s;
     &:hover{
       cursor: pointer;
     }
     &.-selected{
       color: $purple;
+    }
+    &.-not-selected{
+      color: rgba(255, 255, 255, 0.04);
     }
   }
 }
