@@ -9,8 +9,6 @@ import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 import NotificationModel from '~/models/NotificationModel';
 import CourseModel from '~/models/CourseModel';
 
-// import * from '~/models';
-
 router.post('/', authenticate, catchAsync(async (request, response) => {
   const courseId = request.body['courseId'];
   const learner = request.currentUser;
@@ -27,17 +25,7 @@ router.post('/', authenticate, catchAsync(async (request, response) => {
   // console.log({ learnerId: learner.id, authorId });
   if (learner.id !== authorId) {
     // send author a notification that someone started learning their course!
-    NotificationModel.insert.create({
-      type: 'someone_started_learning_your_course',
-      content: {
-        learnerId: learner.id,
-        courseId: course.id,
-        learnerUsername: learner.username,
-        learnerAvatarUrl: learner.avatarUrl,
-        courseTitle: course.title
-      },
-      userId: authorId
-    });
+    await NotificationModel.insert.someone_started_learning_your_course({ learner, course });
   }
 
   response.status(200).json(courseUserIsLearning);

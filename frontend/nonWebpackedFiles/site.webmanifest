@@ -1,6 +1,7 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "Memcode",
+    "short_name": "Memcode",
+    "start_url": "https://memcode.com/courses",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

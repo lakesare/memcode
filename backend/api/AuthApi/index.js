@@ -38,11 +38,7 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   let dbUser = await UserModel.select.oneByOauth(oauthProviderName, oauthProfile.id);
   if (!dbUser) {
     dbUser = await UserModel.insert.createFrom(oauthProviderName, oauthProfile);
-    NotificationModel.insert.create({
-      type: 'welcome_to_memcode',
-      content: {},
-      userId: dbUser.id
-    });
+    await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
   }
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
 

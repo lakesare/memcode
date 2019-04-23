@@ -1,31 +1,55 @@
-import db from '~/db/init.js';
-import { requireKeys } from '~/services/requireKeys';
+import knex from '~/db/knex';
 
 // Notification.insert.create({
 //   type: 'someone_started_learning_your_course',
-//   content: '',
+//   content: {},
 //   userId
 // })
-const create = requireKeys(
-  ['type', 'content', 'userId'],
-  // { createdAt } is only used for the initial population of notifications currently,
-  // maybe got to rename that column if we'll use it some other way
-  ({ type, content, userId, createdAt = undefined }) =>
-    db.one(
-      `
-        INSERT INTO notification (type, content, if_read, user_id, created_at)
-        VALUES (\${type}, \${content}, false, \${userId}, ${createdAt ? "${createdAt}" : "timezone('UTC', now())"})
-        RETURNING *
-      `,
-      {
-        type,
-        content,
-        userId,
-        createdAt
-      }
-    )
-);
+const create = ({ type, content, userId }) =>
+  knex('notification').insert({ type, content, userId, ifRead: false });
+
+const someone_rated_your_course = async ({ raterId, courseId, rating }) => {
+  const rater = (await knex('user').where({ id: raterId }))[0];
+  const course = (await knex('course').where({ id: courseId }))[0];
+  const courseAuthorId = course.userId;
+
+  return create({
+    type: 'someone_rated_your_course',
+    content: {
+      rating,
+      raterId: rater.id,
+      courseId: course.id,
+      raterUsername: rater.username,
+      raterAvatarUrl: rater.avatarUrl,
+      courseTitle: course.title
+    },
+    userId: courseAuthorId
+  });
+};
+
+const welcome_to_memcode = ({ userId }) =>
+  create({
+    type: 'welcome_to_memcode',
+    content: {},
+    userId
+  });
+
+const someone_started_learning_your_course = ({ learner, course }) =>
+  create({
+    type: 'someone_started_learning_your_course',
+    content: {
+      learnerId: learner.id,
+      courseId: course.id,
+      learnerUsername: learner.username,
+      learnerAvatarUrl: learner.avatarUrl,
+      courseTitle: course.title
+    },
+    userId: course.userId
+  });
 
 export default {
-  create
+  create,
+  welcome_to_memcode,
+  someone_rated_your_course,
+  someone_started_learning_your_course
 };

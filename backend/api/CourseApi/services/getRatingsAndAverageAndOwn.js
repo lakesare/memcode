@@ -4,7 +4,8 @@ const getRatingsAndAverageAndOwn = async (courseId, currentUserId) => {
   const ratings = await knex('courseRating').where({ courseId });
 
   const averageRatingSql = await knex('courseRating')
-    .select(knex.raw('ROUND(AVG(rating), 1) AS average_rating'));
+    .select(knex.raw('ROUND(AVG(rating), 1) AS average_rating'))
+    .where({ courseId });
   const averageRating = averageRatingSql[0].averageRating;
 
   let ownRating;

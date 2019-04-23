@@ -68,6 +68,18 @@ class NotificationLi extends React.Component {
             <Link to={`/courses/${notification.content.courseId}/edit`}> {notification.content.courseTitle}</Link>
           </div>
         );
+      case 'someone_rated_your_course':
+        return this.renderLi(
+          notification,
+          <i className="fa fa-star" style={{ fontSize: 21, color: 'rgb(34, 59, 119)' }}/>,
+          'Someone rated your course!',
+          <div>
+            <span className="learner-username">{notification.content.learnerUsername} </span>
+            gave
+            <Link to={`/courses/${notification.content.courseId}/edit`}> {notification.content.courseTitle}</Link>
+            {notification.content.rating} stars!
+          </div>
+        );
       default: {
         console.error(`Your notification is of type ${notification.type}, and we don't know how to render it.`);
         return null;

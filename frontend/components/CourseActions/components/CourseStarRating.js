@@ -5,7 +5,7 @@ import StarRating from '~/components/StarRating';
 
 class CourseStarRating extends React.Component {
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
+    courseId: PropTypes.number.isRequired,
     ifCanRateCourse: PropTypes.bool.isRequired
   }
 
@@ -41,29 +41,33 @@ class CourseStarRating extends React.Component {
   apiRate = (rating) =>
     api.CourseApi.rate(
       { courseId: this.props.courseId, rating },
-      (spe) => this.setState({ speGetRatings: spe })
+      (spe) => spe.status === 'success' && this.setState({ speGetRatings: spe })
     )
 
-  render = () =>
-    <Loading enabledStatuses={['success']} spe={this.state.speGetRatings}>{({ averageRating, ratings, ownRating }) =>
-      <li className="course-star-rating">
+  renderSuccess = ({ averageRating, ratings, ownRating }) =>
+    <li className={`course-star-rating ${this.props.ifCanRateCourse ? '-can-rate-course' : ''}`}>
+      <div className="stat">
+        <span className="number">{ratings.length > 0 && averageRating}</span>
+        <i className="fa fa-user-o"/>
+        <span className="amount-of-voters">{ratings.length}</span>
+      </div>
+
+      <div className="icon">
         {
-          ratings.length > 0 &&
-          <div className="stat">
-            <span className="number">{averageRating}</span>
-            <i className="fa fa-user-o"/>
-            <span className="amount-of-voters">{ratings.length}</span>
-          </div>
+          this.props.ifCanRateCourse ?
+            <StarRating
+              rating={ownRating || false}
+              updateRating={this.apiUpdateRating}
+              readOnly={!this.props.ifCanRateCourse}
+            /> :
+            <div className="one-star">★</div>
         }
-        <div className="icon">
-          <StarRating
-            rating={ownRating || false}
-            updateRating={this.apiUpdateRating}
-            readOnly={!this.props.ifCanRateCourse}
-          />
-        </div>
-      </li>
-    }</Loading>
+      </div>
+    </li>
+
+  render = () =>
+    this.state.speGetRatings.status === 'success' &&
+    this.renderSuccess(this.state.speGetRatings.payload)
 }
 
 export default CourseStarRating;

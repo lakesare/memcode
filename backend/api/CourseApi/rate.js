@@ -1,6 +1,7 @@
 import knex from '~/db/knex';
 import auth from '~/middlewares/auth';
 import getRatingsAndAverageAndOwn from './services/getRatingsAndAverageAndOwn';
+import NotificationModel from '~/models/NotificationModel';
 
 const rate = auth(async (request, response) => {
   const userId = request.currentUser.id;
@@ -11,14 +12,16 @@ const rate = auth(async (request, response) => {
   const existingRating = existingRatingSql[0];
 
   if (existingRating) {
-    await knex('courseRating').where({ id: existingRating.id }).update({ rating });
+    await knex('courseRating').where({ userId, courseId }).update({ rating });
   } else {
     await knex('courseRating').insert({ userId, courseId, rating });
   }
 
-  const obj = await getRatingsAndAverageAndOwn(courseId, userId);
+  await NotificationModel.insert.someone_rated_your_course({ raterId: userId, courseId, rating });
 
-  response.success(obj);
+  const dto = await getRatingsAndAverageAndOwn(courseId, userId);
+
+  response.success(dto);
 });
 
 export default rate;

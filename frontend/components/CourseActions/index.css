@@ -27,30 +27,10 @@
           color: rgb(224, 224, 224);
         }
       }
-
-      > div.rating{
-        display: flex;
-        align-items: center;
-        > span{
-          color: white;
-          opacity: 0.6;
-          font-size: 11px;
-          padding-right: 10px;
-          font-family: "Sintony";
-          letter-spacing: 0.3px;
-        }
-        > ul.stars{
-          li{
-            padding: 10px 3px;
-          }
-          // li.-selected{
-          //   color: rgb(255, 253, 91);
-          // }
-        }
-      }
     }
   }
   section.title-and-buttons{
+    background: rgb(7, 9, 39);
     padding-top: 10px;
     padding-bottom: 20px;
     > .container{
@@ -149,7 +129,7 @@
     }
   }
   section.course-description-and-stats{
-    background: rgba(34, 38, 74, 0.27);
+    background: rgb(14, 16, 49);
     padding: 10px 0;
     > .container{
       display: flex;
@@ -190,7 +170,6 @@
         }
         > li.course-star-rating{
           > div.stat{
-            padding-right: 3px;
             > i.fa-user-o{
               font-size: 11px;
               padding-left: 3px;
@@ -200,12 +179,17 @@
               padding-left: 2px;
             }
           }
-          > div.icon{
-            width: auto;
-            > ul.star-rating{
-              display: flex;
-              > li.-not-selected{
-                text-shadow: none;
+          &.-can-rate-course{
+            > div.stat{
+              padding-right: 3px;
+            }
+            > div.icon{
+              width: auto;
+              > ul.star-rating{
+                display: flex;
+                > li.-not-selected{
+                  text-shadow: none;
+                }
               }
             }
           }
