@@ -4,6 +4,8 @@ import { Loading } from '~/components/Loading';
 import { ChooseCourseToMoveProblemsTo } from './components/ChooseCourseToMoveProblemsTo';
 import { ButtonToDeleteProblems } from './components/ButtonToDeleteProblems';
 
+import closeButtonSvg from '~/images/closeButton.svg';
+
 import css from './index.css';
 
 class ActionsForCheckedProblems extends React.Component {
@@ -41,7 +43,7 @@ class ActionsForCheckedProblems extends React.Component {
             className="close-button"
             onClick={this.uiClose}
           >
-            <i className="fa fa-times"/>
+            <img src={closeButtonSvg} alt="Unselect selected flashcards"/>
           </button>
         </div>
       </Loading>

@@ -5,6 +5,9 @@
   background: rgb(25, 26, 46);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
+  &::placeholder{
+    color: rgb(136, 140, 202);
+  }
 }
 
 .standard-input{

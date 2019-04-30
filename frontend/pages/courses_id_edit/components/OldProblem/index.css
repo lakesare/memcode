@@ -30,7 +30,7 @@
     font-size: 12px;
     font-weight: 500;
     border-radius: 2px;
-    background: rgba(181, 34, 218, 0.12);
+    background: rgba(136, 125, 220, 0.12);
     color: white;
 
     display: flex;
@@ -40,6 +40,6 @@
   &.-checked,
   &.-checked > section.checkbox,
   &.-not-checked > section.checkbox:hover{
-    background: rgba(181, 34, 218, 0.78);
+    background: rgba(136, 125, 220, 0.78);
   }
 }

@@ -93,11 +93,11 @@ class Page_courses_id_edit extends React.Component {
 
   componentDidMount = () => {
     this.apiGetPage();
-      // .then(() => {
-      //   setTimeout(() => {
-      //     this.setState({ joyrideHowToCreateProblemRun: true });
-      //   }, 3000);
-      // });
+    // .then(() => {
+    //   setTimeout(() => {
+    //     this.setState({ joyrideHowToCreateProblemRun: true });
+    //   }, 3000);
+    // });
   }
 
   apiGetPage = () =>
@@ -158,21 +158,20 @@ class Page_courses_id_edit extends React.Component {
   uiRemoveOldProblems = (problemIds) =>
     problemIds.forEach(this.removeOldProblem)
 
+  ifShowActionsForSelectedProblems = () =>
+    this.state.idsOfCheckedProblems.length > 0
+
   renderActionsForCheckedProblems = () => (
-    <div style={{ marginBottom: 20, marginTop: 20 }}>
-      {
-        this.state.idsOfCheckedProblems.length > 0 ?
-          <Sticky>{({ isSticky }) =>
-            <ActionsForCheckedProblems
-              idsOfCheckedProblems={this.state.idsOfCheckedProblems}
-              updateIdsOfCheckedProblems={(idsOfCheckedProblems) => this.setState({ idsOfCheckedProblems })}
-              uiRemoveOldProblems={this.uiRemoveOldProblems}
-              isSticky={isSticky}
-            />
-          }</Sticky> :
-          null
-      }
-    </div>
+    this.ifShowActionsForSelectedProblems() ?
+      <Sticky>{({ isSticky }) =>
+        <ActionsForCheckedProblems
+          idsOfCheckedProblems={this.state.idsOfCheckedProblems}
+          updateIdsOfCheckedProblems={(idsOfCheckedProblems) => this.setState({ idsOfCheckedProblems })}
+          uiRemoveOldProblems={this.uiRemoveOldProblems}
+          isSticky={isSticky}
+        />
+      }</Sticky> :
+      null
   )
 
   renderProblems = () =>
@@ -194,7 +193,7 @@ class Page_courses_id_edit extends React.Component {
     }</Loading>
 
   render = () =>
-    <main className={css.main}>
+    <main className={`${css.main} ${this.ifShowActionsForSelectedProblems() ? '-if-showing-actions-for-selected-problems' : ''}`}>
       <Joyride
         steps={this.state.joyrideHowToCreateProblemSteps}
         run={this.state.joyrideHowToCreateProblemRun}
@@ -233,8 +232,8 @@ class Page_courses_id_edit extends React.Component {
 
       <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused/>
       <StickyContainer>
+        {this.renderActionsForCheckedProblems()}
         <div className="container">
-          {this.renderActionsForCheckedProblems()}
           {this.renderProblems()}
           <NewProblem
             courseId={this.props.match.params.id}

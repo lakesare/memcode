@@ -149,7 +149,7 @@ class CourseActions extends React.Component {
 
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
-      <section className={css.actions}>
+      <section className={`course-actions ${css.actions}`}>
         {
           false &&
           this.props.ifConfused &&

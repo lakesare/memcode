@@ -1,15 +1,27 @@
 @import 'css/variables';
 $blue-color: #375598;
 :local(section.actions-for-checked-problems){
-  z-index: 100;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
+  // layout
+  &.-not-sticky{
+    // for a .close-button
+    position: relative;
+
+    width: 100%;
+    // otherwise dropdown goes to the bg
+    z-index: 1;
+  }
+  &.-sticky{
+    z-index: 100;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+  }
+
   // pretty
   padding: 10px 20px;
   color: white;
   background: rgb(15, 17, 34);
-  box-shadow: 1px 1px 11px rgb(136, 125, 220);  
+  box-shadow: -1px 7px 12px 0px #887ddc38;
 
   > .request.loading{
     padding: 0;
@@ -18,19 +30,20 @@ $blue-color: #375598;
 
   // position: relative;
   > .container{
-    max-width: 1000px;
-
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 
     // children styles
     > button.delete-button{
-      flex-basis: auto;
       &.-approving{
-        background: #ec2727;
-        width: 250px;
+        color: #ec2727;
+        min-width: 250px;
       }
+    }
+    button.button{
+      height: 34px;
+      padding: 0;
     }
 
     > section.choose-course-to-move-problems-to{
@@ -38,28 +51,27 @@ $blue-color: #375598;
       display: flex;
       align-items: center;
       > label{
-        width: 165px;
+        b{ color: $purple; font-weight: 100; font-size: 16px; }
+        width: 182px;
         font-size: 14px;
-        b{ color: $purple; }
+        font-weight: 100;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 1.2px;
       }
       > .standard-dropdown-wrapper{
         position: relative;
         width: 260px;
         margin-right: 30px;
 
-        > ul.standard-dropdown{
-          // z-index: 1000;
-          // max-height: 250px;
-          // overflow-y: auto;
-          // font-size: 14px;
+        input{
+          color: $purple;
+          background: rgb(7, 9, 39);
+          border-bottom: 1px solid $purple;
         }
       }
-      .button{
-        padding: 11px 20px;
-      }
       > button.-move{
-        flex-basis: 102px;
-        padding-right: 0;
+        min-width: 100px;
         > i.fa-exchange{
           padding-left: 10px;
         }
@@ -69,13 +81,17 @@ $blue-color: #375598;
     > button.close-button{
       color: white;
       position: absolute;
-      top: -7px; right: 30px;
-      padding: 12px;
+      top: 0px; right: 20px;
       cursor: pointer;
-      font-size: 17px;
+      padding: 12px;
 
       opacity: 0.8;
       &:hover{ opacity: 1; }
+
+      img{
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

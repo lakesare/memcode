@@ -18,7 +18,7 @@ class ButtonToDeleteProblems extends React.Component {
     this.setState({ ifAskingForApproval: true })
 
   render = () =>
-    <button className={`delete-button button -purple ${this.state.ifAskingForApproval ? '-approving' : ''}`} onClick={this.uiAskForApproval}>
+    <button className={`delete-button button -purple-o ${this.state.ifAskingForApproval ? '-approving' : ''}`} onClick={this.uiAskForApproval}>
       {
         this.state.ifAskingForApproval ?
           <div onClick={this.props.apiDeleteAllCheckedProblems}>

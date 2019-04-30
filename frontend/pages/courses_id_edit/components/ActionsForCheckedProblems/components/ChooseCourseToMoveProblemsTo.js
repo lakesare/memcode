@@ -86,7 +86,7 @@ class ChooseCourseToMoveProblemsTo extends React.Component {
         this.state.selectedCourse &&
         <button
           type="button"
-          className="button -purple -move"
+          className="button -purple-o -move"
           onClick={this.apiMove}
         >Move <i className="fa fa-exchange"/></button>
       }

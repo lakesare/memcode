@@ -1,6 +1,15 @@
 @import 'css/variables';
 
 :local(main.main){
+  &.-if-showing-actions-for-selected-problems{
+    section.course-actions,
+    div.new-problem,
+    header,
+    footer,
+    section.instructions{
+      // filter: blur(4px);
+    }
+  }
   article.contact-us{
     padding: 3px;
     font-size: 13px;
@@ -13,6 +22,7 @@
   section.problems{
     max-width: 960px;
     margin: 0 auto;
+    margin-top: 30px;
   }
   section.problem{
     padding: 0 4px;
@@ -96,20 +106,6 @@
         }
       }
     }
-  }
-}
-
-:local(main.main){
-  @media(max-width: 627px){
-    > .container{ padding: 0 3px; }
-    .problem{
-      > .first-column{ margin-right: 3px; }
-      > .second-column{ margin-left: 3px; }
-      .ql-editor{ padding: 4px 3px; }
-    }
-    .new-problem{ display: none; }
-    .actions{ display: none; }
-    .ql-toolbar{ display: none; }
   }
 }
 
