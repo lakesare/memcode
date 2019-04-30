@@ -1,37 +1,9 @@
 @import 'css/variables';
 
 :local(section.actions){
-  section.breadcrumbs{
-    padding-top: 8px;
-    background: rgb(7, 9, 39);
-    font-size: 13px;
-    > div.container{
-      display: flex;
-      justify-content: space-between;
-      > ul.navigation{
-        // border-bottom: 1px solid rgba(253, 249, 249, 0.06);
-        padding-bottom: 7px;
-
-        display: flex;
-        align-items: center;
-        li{
-          display: inline-block;
-          margin-right: 10px;
-          color: white;
-          cursor: default; // not text selection one
-          font-size: 10px;
-          text-transform: uppercase;
-          font-family: $heading-font;
-        }
-        li.arrow{
-          color: rgb(224, 224, 224);
-        }
-      }
-    }
-  }
   section.title-and-buttons{
     background: rgb(7, 9, 39);
-    padding-top: 10px;
+    padding-top: 20px;
     padding-bottom: 20px;
     > .container{
       display: flex;
@@ -82,7 +54,6 @@
         }
         > .learn-and-review-buttons{
           display: flex;
-          align-items: flex-start;
           a{
             margin-left: 10px;
 
@@ -113,17 +84,42 @@
         }
       }
 
-      > section.course-title-and-edit-form{
+      > section.course-title_and_category_and_author{
         display: flex;
-        align-items: flex-start;
         color: white;
+        > h3.title{}
+        > section.category_and_author{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 2px 0;
+          padding-left: 14px;
+          margin-left: 14px;
+          border-left: 1px solid rgb(28, 31, 62);
+          > div.category, div.author{
+            cursor: default;
+
+            font-size: 10px;
+            letter-spacing: 0.9px;
+            text-transform: uppercase;
+            span, a{
+              color: rgba(136, 125, 220, 0.9);
+              text-shadow: 0 0 12px #fbfbfb52;
+            }
+          }
+        }
         > button.edit-button{
-          i{ padding-left: 3px; }
-          color: white;
+          margin-left: 10px;
+          margin-top: 4px;
+          align-self: flex-start;
+          min-width: auto;
+          padding: 2px 10px;
+
           font-size: 10px;
-          padding-left: 4px;
-          font-family: $heading-font;
-          font-weight: bold;
+          align-items: flex-start;
+          color: rgb(206, 199, 245);
+          border: 1px solid rgba(193, 185, 239, 0.48);
+          i{ padding-right: 3px; }
         }
       }
     }
@@ -149,9 +145,9 @@
           justify-content: flex-end;
           > div.icon{
             color: rgba(136, 125, 220, 0.9);
+            text-shadow: 0 0 12px #fbfbfb52;
             font-size: 17px;
             width: 27px;
-            text-shadow: 0 0 12px #fbfbfb52;
             text-align: center;
           }
           > div.stat{
@@ -161,6 +157,8 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
             span.number{
+              position: relative;
+              top: 1px;
               padding-right: 3px;
               font-size: 15px;
               color: rgb(232, 0, 255);
@@ -199,9 +197,6 @@
         flex-grow: 1;
         flex-shrink: 1;
         flex-basis: 100%;
-
-        padding: 20px;
-        padding-left: 0;
         .ql-snow.ql-container{
           border: none !important;
           > .ql-editor{

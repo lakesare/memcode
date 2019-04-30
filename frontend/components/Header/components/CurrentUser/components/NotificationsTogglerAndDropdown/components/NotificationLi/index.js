@@ -71,12 +71,12 @@ class NotificationLi extends React.Component {
       case 'someone_rated_your_course':
         return this.renderLi(
           notification,
-          <i className="fa fa-star" style={{ fontSize: 21, color: 'rgb(34, 59, 119)' }}/>,
+          <i className="fa fa-star" style={{ fontSize: 21, color: 'rgb(136, 125, 220)' }}/>,
           'Someone rated your course!',
           <div>
-            <span className="learner-username">{notification.content.learnerUsername} </span>
+            <span className="rater-username">{notification.content.raterUsername} </span>
             gave
-            <Link to={`/courses/${notification.content.courseId}/edit`}> {notification.content.courseTitle}</Link>
+            <Link to={`/courses/${notification.content.courseId}/edit`}> {notification.content.courseTitle} </Link>
             {notification.content.rating} stars!
           </div>
         );

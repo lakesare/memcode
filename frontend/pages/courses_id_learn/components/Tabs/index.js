@@ -20,6 +20,12 @@ class Tabs extends React.Component {
   componentDidMount = () =>
     this.apiGetProblems()
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.courseId !== this.props.courseId) {
+      this.apiGetProblems();
+    }
+  }
+
   apiGetProblems = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
@@ -32,13 +38,13 @@ class Tabs extends React.Component {
   }
 
   render = () =>
-    <div className="tabs">
+    <React.Fragment>
       <TabNavigation currentTab={this.state.currentTab} updateCurrentTab={this.updateCurrentTab}/>
 
       <Loading spe={this.state.speGetPage}>{({ problems, problemUserIsLearnings }) =>
         <TabContent currentTab={this.state.currentTab} problems={problems} puils={problemUserIsLearnings}/>
       }</Loading>
-    </div>
+    </React.Fragment>
 }
 
 export { Tabs };

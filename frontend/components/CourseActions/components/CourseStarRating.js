@@ -1,6 +1,5 @@
 import api from '~/api';
 
-import Loading from '~/components/Loading';
 import StarRating from '~/components/StarRating';
 
 class CourseStarRating extends React.Component {

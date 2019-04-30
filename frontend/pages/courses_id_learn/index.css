@@ -1,117 +1,117 @@
 @import 'css/variables';
 
 :local(main.main){
-  header > .container.-mobile{
-    section.search{ display: none; }
-    nav{ display: none; }
+  > nav{
+    > ul.tab-links{
+      background: rgb(14, 16, 49);
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 1.1px;
+      > li{
+        padding: 20px 20px;
+        padding-bottom: 13px;
+        cursor: pointer;
+        &.-active{
+          // color: $purple;
+          // background: $purple;
+
+          // color: rgb(150, 137, 249);
+          border-bottom: 1px solid rgb(150, 137, 249);
+        }
+        &.-not-active{
+          border-bottom: 1px solid transparent;
+          // color: black;
+          // background: #ececec78;
+        }
+      }
+    }
+    > section.instructions{
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      text-align: center;
+      line-height: 20px;
+      letter-spacing: 0.2px;
+      em{
+        font-style: normal;
+        text-transform: uppercase;
+      }
+      em.review{ color: $review-button-color; }
+      em.learn{ color: $learn-button-color; }
+    }
   }
 
-  > .container > div.tabs{
-    > nav{
-      > ul.tab-links{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        max-width: 800px;
-        margin: 0 auto;
-        > li{
-          margin: 0 10px;
-          padding: 5px 10px;
-          font-size: 13px;
+  > section.tab-content{
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    max-width: 960px;
+
+    padding: 0;
+    div.problem-wrapper{
+      padding: 10px 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 32px 4px rgba(224, 174, 234, 0.08);
+      .ql-editor{ cursor: default; }
+      &.-ignored{
+        background: rgb(23, 23, 22);
+        section.problem{
+          opacity: 0.4;
+          filter: grayscale(100%);
+        }
+      }
+      &.-learned{
+        background: $learn-button-color;
+      }
+      &.-yet-to-learn{
+        .button-wrapper.-learn{
+          // overlay with -learn wrapper so that whole problem is clickable
+          width: 100%;
           cursor: pointer;
-          &.-active{
-            color: white;
-            background: #355B74;
-          }
-          &.-not-active{
-            color: black;
-            background: #ececec78;
-          }
+          z-index: 1001;
         }
       }
-      > section.instructions{
-        margin-top: 20px;
-        font-size: 12px;
-        text-align: center;
-        color: #a09f9f;
-        b.review{ color: $review-button-color; }
-        b.learn{ color: $learn-button-color; }
-      }
-    }
 
-    > section.tab-content{
-      padding-top: 22px;
-      padding-bottom: 30px;
-      div.problem-wrapper{
-        padding: 5px;
-        box-shadow: -1px 1px 5px 1px rgb(189, 189, 189);
-        .ql-editor{ cursor: default; }
-        &.-ignored{
-          background: #e6e6e6;
-          .ql-container{ background: #ffffff2b; }
-        }
-        &.-learned{
-          background: #1341a7;
-        }
-        &.-yet-to-learn{
-          background: white;
-          .button-wrapper.-learn{
-            // overlay with -learn wrapper so that whole problem is clickable
-            width: 100%;
-            cursor: pointer;
-            z-index: 1001;
-          }
-        }
+      position: relative;
+      .button-wrapper{
+        position: absolute;
+        top: 2px; bottom: 0;
+        right: -15px;
+        &.-disabled{ opacity: 0.1; cursor: default; button{ cursor: default; } }
 
-        position: relative;
-        .button-wrapper{
+        button{
           position: absolute;
-          top: 5px; bottom: 0;
-          right: 0;
-          &.-disabled{ opacity: 0.1; cursor: default; button{ cursor: default; } }
-
-          button{
-            position: absolute;
-            font-weight: bold;
-            font-size: 11px;
-            padding: 3px 10px;
-            cursor: pointer;
-            left: calc(100% + 5px);
-            &.-ignore, &.-unignore{
-              top: 24px;
-            }
-
-            // color of buttons
-            &.-ignore, &.-unlearn, &.-unignore{
-              background: #d8d6d6;
-              color: white;
-            }
-            &.-learn{
-              background: #1341a7;
-              color: white;
-            }
-
-            // for the undo icon
-            display: flex;
-            align-items: center;
-            > i.fa-undo{ padding-right: 5px; }
+          left: calc(100% + 5px);
+          padding: 10px 5px;
+          font-size: 10px;
+          min-width: 92px;
+          &.-ignore, &.-unignore{
+            top: 42px;
           }
-        }
-      }
-    }
-  }
-}
 
-:local(main.main){
-  @media(max-width: 627px){
-    ul.tab-links li{ font-size: 12px !important; }
-    > .container{ padding: 0 3px; }
-    section.problem{
-      > .first-column{ margin-right: 3px; }
-      > .second-column{ margin-left: 3px; }
-      .ql-editor{
-        padding: 4px 3px;
-        font-size: 14px !important;
+          // color of buttons
+          &.-ignore, &.-unignore{
+            background: rgb(23, 25, 29);
+            color: rgb(255, 255, 255);
+            // border: 1px solid rgba(75, 77, 80, 0.22);
+          }
+          &.-learn, &.-unlearn{
+            background: $learn-button-color;
+            // border: 1px solid rgb(0, 0, 255);
+            color: white;
+          }
+
+          // for the undo icon
+          display: flex;
+          align-items: center;
+          > i.fa-undo{ padding-right: 5px; }
+        }
       }
     }
   }

@@ -78,7 +78,7 @@ class ProblemWrapper extends React.Component {
       className={`button-wrapper ${className} ${disabled ? '-disabled' : ''}`}
       onClick={disabled ? () => {} : onClick}
     >
-      <button className={className} type="button">
+      <button className={`button ${className}`} type="button">
         {
           (className === '-unlearn' || className === '-unignore') &&
           <i className="fa fa-undo"/>

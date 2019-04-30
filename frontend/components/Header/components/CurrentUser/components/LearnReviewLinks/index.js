@@ -1,6 +1,6 @@
 import { orFalse } from '~/services/orFalse';
 import { shuffle } from 'lodash';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import css from './index.css';
 
@@ -55,7 +55,7 @@ class LearnReviewLinks extends React.Component {
     // if there are no other courser to learn/review except for the current one -
     // pass undefined to props.to, so that we stay at the same page
     if (linkableCourseIds.length === 0) {
-      return undefined;
+      return `/courses/${this.props.dontLinkToLearnOrReview}/learn`;
     } else {
       const courseId = shuffle(linkableCourseIds)[0];
 
@@ -77,9 +77,9 @@ class LearnReviewLinks extends React.Component {
         LEARN ({amount})
       </Link>;
     } else {
-      return <Link className="-to-learn -zero">
+      return <a className="-to-learn -zero">
         LEARN (0)
-      </Link>;
+      </a>;
     }
   }
 
@@ -90,9 +90,9 @@ class LearnReviewLinks extends React.Component {
         REVIEW ({amount})
       </Link>;
     } else {
-      return <Link className="-to-review -zero">
+      return <a className="-to-review -zero">
         REVIEW (0)
-      </Link>;
+      </a>;
     }
   }
 

@@ -904,8 +904,13 @@
       font-size: 15px;
 
       pre.ql-syntax, code{
-        background: rgba(253, 123, 246, 0.17);
-        color: $purple;
+        // ___brighter good idea too:
+        // background: rgba(166, 128, 220, 0.54) !important;
+        // color: rgb(255, 255, 255) !important;
+
+        background: rgb(13, 16, 49) !important;
+        color: $purple !important;
+
         font-size: 13px;
       }
       sup, sub{

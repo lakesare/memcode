@@ -30,7 +30,8 @@ $course-in-list-height-mobile: 104px;
 
 
 // blue he offered for learn
-$learn-button-color: rgb(31, 27, 134);
+// $learn-button-color: rgb(31, 27, 134);
+$learn-button-color: rgb(34, 26, 230);
 $review-button-color: rgb(215, 37, 111);
 
 $black-gradient: -webkit-gradient(linear, 0% 100%, 0% 0%, from(rgb(51, 51, 51)), to(rgb(68, 68, 68)));

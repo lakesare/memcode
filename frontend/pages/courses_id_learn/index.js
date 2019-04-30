@@ -20,9 +20,8 @@ class Page extends React.Component {
       <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
 
       <CourseActions courseId={this.props.match.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
-      <div className="container">
-        <Tabs courseId={this.props.match.params.id}/>
-      </div>
+
+      <Tabs courseId={this.props.match.params.id}/>
 
       <Footer/>
     </main>

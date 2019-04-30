@@ -39,47 +39,16 @@ class Breadcrumbs extends React.Component {
         this.setState({ courseCategory, courseCategoryGroup });
       })
 
-  renderLinkToAllCourses = () =>
-    <li>
-      <Link to="/courses">All Courses</Link>
-    </li>
-
-  renderArrow = () =>
-    <li key="arrow" className="arrow">
-      <i className="fa fa-caret-right"/>
-    </li>
-
-  renderCategory = () =>
-    <li key="category">
+  render = () => (
+    // only if already fetched
+    this.state.courseCategory &&
+    <div className="category">
+      {`To `}
       <Link to={`/courses?categoryId=${this.state.courseCategory.id}`}>
         {this.state.courseCategory.name}
       </Link>
-    </li>
-
-  renderGroup = () =>
-    <li key="group">{this.state.courseCategoryGroup.name}</li>
-
-  renderFetchedCategoryAndGroup = () => (
-    // only if already fetched
-    this.state.courseCategory ?
-      [
-        this.renderGroup(),
-        this.renderArrow(),
-        this.renderCategory()
-      ] :
-      null
+    </div>
   )
-
-  render = () =>
-    <section className="breadcrumbs">
-      <div className="container">
-        <ul className="navigation">
-          {this.renderLinkToAllCourses()}
-          {this.renderArrow()}
-          {this.renderFetchedCategoryAndGroup()}
-        </ul>
-      </div>
-    </section>
 }
 
 export default Breadcrumbs;

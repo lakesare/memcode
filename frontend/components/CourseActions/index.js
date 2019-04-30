@@ -83,16 +83,73 @@ class CourseActions extends React.Component {
       null
   )
 
+  renderTitleAndButtons = (courseDto) =>
+    <section className="title-and-buttons">
+      <div className="container">
+        <section className="course-title_and_category_and_author">
+          <h3 className="title">
+            <Link to={url.courseEditOrShow(this.props.currentUser, courseDto.course)}>
+              {courseDto.course.title}
+            </Link>
+          </h3>
+
+          {
+            this.props.ifBreadcrumbsAreDisplayed &&
+            <section className="category_and_author">
+              <Breadcrumbs courseCategoryId={courseDto.course.courseCategoryId}/>
+
+              <div className="author">
+                By <span>Lakesare</span>
+              </div>
+            </section>
+          }
+
+          {
+            this.props.ifEditCourseModalTogglerIsDisplayed &&
+            this.props.currentUser &&
+            <CourseModal
+              toggler={
+                <button className="button edit-button" type="button">
+                  <i className="fa fa-hand-pointer-o"/> EDIT
+                </button>
+              }
+              course={courseDto.course}
+              uiUpdateCourse={this.uiUpdateCourse}
+            />
+          }
+        </section>
+
+        {
+          this.props.currentUser ?
+            <div className="buttons">
+              {
+                this.props.ifCuilActivityButtonsAreDisplayed &&
+                <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={courseDto.course.id}/>
+              }
+
+              <LearnAndReviewButtons
+                courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
+                amountOfProblems={this.props.amountOfProblems}
+
+                stats={courseDto.stats}
+                nextDueDateIn={courseDto.nextDueDateIn}
+              />
+            </div> :
+            <div className="please-sign-in_and_simulated-review-button">
+              <h4 className="please-sign-in">Sign in to start recording results</h4>
+
+              <Link
+                to={`/courses/${this.props.courseId}/review/simulated`}
+                className="simulated-review-button"
+              >REVIEW ({courseDto.amountOfProblems})</Link>
+            </div>
+        }
+      </div>
+    </section>
+
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
       <section className={css.actions}>
-        {
-          // this.props.ifBreadcrumbsAreDisplayed &&
-          <Breadcrumbs
-            courseCategoryId={courseDto.course.courseCategoryId || false}
-          />
-        }
-
         {
           false &&
           this.props.ifConfused &&
@@ -101,57 +158,7 @@ class CourseActions extends React.Component {
           </article>
         }
 
-        <section className="title-and-buttons">
-          <div className="container">
-            <section className="course-title-and-edit-form">
-              <h3 className="title">
-                <Link to={url.courseEditOrShow(this.props.currentUser, courseDto.course)}>
-                  {courseDto.course.title}
-                </Link>
-              </h3>
-
-              {
-                this.props.ifEditCourseModalTogglerIsDisplayed &&
-                this.props.currentUser &&
-                <CourseModal
-                  toggler={
-                    <button className="edit-button" type="button">
-                      <i className="fa fa-hand-pointer-o"/> EDIT
-                    </button>
-                  }
-                  course={courseDto.course}
-                  uiUpdateCourse={this.uiUpdateCourse}
-                />
-              }
-            </section>
-
-            {
-              this.props.currentUser ?
-                <div className="buttons">
-                  {
-                    this.props.ifCuilActivityButtonsAreDisplayed &&
-                    <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={courseDto.course.id}/>
-                  }
-
-                  <LearnAndReviewButtons
-                    courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
-                    amountOfProblems={this.props.amountOfProblems}
-
-                    stats={courseDto.stats}
-                    nextDueDateIn={courseDto.nextDueDateIn}
-                  />
-                </div> :
-                <div className="please-sign-in_and_simulated-review-button">
-                  <h4 className="please-sign-in">Sign in to start recording results</h4>
-
-                  <Link
-                    to={`/courses/${this.props.courseId}/review/simulated`}
-                    className="simulated-review-button"
-                  >REVIEW ({courseDto.amountOfProblems})</Link>
-                </div>
-            }
-          </div>
-        </section>
+        {this.renderTitleAndButtons(courseDto)}
 
         {
           this.props.ifCourseDescriptionIsDisplayed &&

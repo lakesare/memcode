@@ -21,6 +21,18 @@
     }
   }
 
+  &.-type-someone_rated_your_course{
+    > div.title_and_content_and_created-at{
+      > div.content{
+        span.rater-username{
+          color: orange;
+        }
+      }
+    }
+  }
+
+
+  // style for read vs not-read notifications
   &.-already-read{
     opacity: 0.4;
     > button.mark-as-read-on-unread-button{
@@ -54,6 +66,7 @@
     }
     > div.content{
       font-size: 12px;
+      color: black;
     }
     > div.created-at{
       font-size: 11px;
