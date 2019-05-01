@@ -1,56 +1,64 @@
-// spe stands for Request Success Failure
+import * as customPropTypes from '~/services/customPropTypes';
+import requestIcon from './requestIcon.svg';
+import css from './index.css';
 
+// spe stands for Request Success Failure
+//
 // if this.props.children doesn't depend on resulting payload, use as:
 // <Loading spe={apiGetProfile}>
 //   <section>
 //     <h3>yay! loaded!</h3>
 //   </section>
 // </Loading>
-
+//
 // if this.props.children depends on resulting payload - use:
 // <Loading spe={apiGetProfile}>{payload => {
 //   <h3>{payload.firstName}</h3>
 // }</Loading>
-
-import * as customPropTypes from '~/services/customPropTypes';
-import requestIcon from './requestIcon.svg';
-import css from './index.css';
-
-const Loading = (props) => {
-  if (!props.enabledStatuses.includes(props.spe.status)) return null;
-  switch (props.spe.status) {
-    case 'request':
-      return (
-        <div className={`${css.loading} ${props.className} loading request`}>
-          {props.requestIcon}
-        </div>
-      );
-    case 'success':
-      switch (typeof props.children) {
-        case 'function': return props.children(props.spe.payload);
-        default:         return props.children;
-      }
-    case 'failure':
-      return <div className={`${css.loading} ${props.className} loading error`}>{props.spe.error}</div>;
-    default: // spe is {}, request was not yet initiated
-      return null;
+class Loading extends React.Component {
+  static propTypes = {
+    spe: customPropTypes.spe.isRequired,
+    children: PropTypes.any, // can be null, or false, or element
+    requestIcon: PropTypes.any,
+    className: PropTypes.string,
+    enabledStatuses: PropTypes.array
   }
-};
 
-Loading.defaultProps = {
-  children: null,
-  requestIcon: <img src={requestIcon}/>,
-  className: '',
-  enabledStatuses: ['request', 'success', 'failure']
-};
+  static defaultProps = {
+    children: null,
+    requestIcon: <img src={requestIcon} alt="Loading"/>,
+    className: '',
+    enabledStatuses: ['request', 'success', 'failure']
+  }
 
-Loading.propTypes = {
-  spe: customPropTypes.spe.isRequired,
-  children: PropTypes.any, // can be null, or false, or element
-  requestIcon: PropTypes.any,
-  className: PropTypes.string,
-  enabledStatuses: PropTypes.array
-};
+  getClassName = (status) =>
+    `${css.loading} ${this.props.className} loading -${status}`
+
+  renderSuccess = () => {
+    switch (typeof this.props.children) {
+      case 'function': return this.props.children(this.props.spe.payload);
+      default:         return this.props.children;
+    }
+  }
+
+  renderRequest = () =>
+    <div className={this.getClassName(this.props.spe.status)}>{this.props.requestIcon}</div>
+
+  renderFailure = () =>
+    <div className={this.getClassName(this.props.spe.status)}>{this.props.spe.error}</div>
+
+  render = () => {
+    if (!this.props.enabledStatuses.includes(this.props.spe.status)) return null;
+
+    switch (this.props.spe.status) {
+      case 'request': return this.renderRequest();
+      case 'failure': return this.renderFailure();
+      case 'success': return this.renderSuccess();
+      // spe is {}, request was not yet initiated
+      default: return null;
+    }
+  }
+}
 
 export default Loading;
 export { Loading };

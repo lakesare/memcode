@@ -2,12 +2,11 @@ import CourseApi from '~/api/CourseApi';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
 
 import { Helmet } from 'react-helmet';
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
-import { Loading } from '~/components/Loading';
+import Header from '~/components/Header';
+import Footer from '~/components/Footer';
+import Loading from '~/components/Loading';
 import Pagination from '~/components/Pagination';
-import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
-import { ProfileNavigation } from '~/components/ProfileNavigation';
+import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 import CourseCategories from '~/appComponents/CourseCategories';
 import SortBySelect from './components/SortBySelect';
 
@@ -40,7 +39,8 @@ class Page_courses extends React.Component {
     speGetCourses: {},
     speGetCategories: {},
     // to avoid blinking pagination
-    amountOfPages: 1
+    amountOfPages: 1,
+    ifCoursesAreLoading: false
   }
 
   componentDidMount = () => {
@@ -65,7 +65,18 @@ class Page_courses extends React.Component {
 
   apiGetCourses = () =>
     CourseApi.selectPublic(
-      (spe) => this.setState({ speGetCourses: spe }),
+      (spe) => {
+        // if there are already some courses
+        if (this.state.speGetCourses.payload) {
+          if (spe.status === 'success') {
+            this.setState({ speGetCourses: spe, ifCoursesAreLoading: false });
+          } else {
+            this.setState({ ifCoursesAreLoading: true });
+          }
+        } else {
+          this.setState({ speGetCourses: spe });
+        }
+      },
       {
         pageSize: 16,
         pageNumber: getCurrentPage(this.props),
@@ -104,34 +115,36 @@ class Page_courses extends React.Component {
   render = () =>
     <main className={css.main}>
       <Header/>
-      <ProfileNavigation/>
 
-      <div className="container">
-        <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+      <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+        <div className="container standard-navigation_and_courses">
           <CourseCategories
-            courseCategoryId={getCategoryId(this.props)}
+            selectedCourseCategoryId={getCategoryId(this.props)}
             courseCategoryGroups={courseCategoryGroups}
             courseCategories={courseCategories}
           />
-        }</Loading>
 
-        <div className="sorting-options_and_courses">
+          <div className="title_and_sorting_and_courses">
+            <div className="title_and_sorting">
+              <h1 className="title">Computer Science</h1>
 
-          <div className="title_and_sort-by">
-            <h1 className="title">Computer Science</h1>
+              <SortBySelect
+                sortBy={getSortBy(this.props)}
+                getUrlForNewSortBy={this.getUrlForNewSortBy}
+              />
+            </div>
+            {this.renderPagination()}
 
-            <SortBySelect
-              sortBy={getSortBy(this.props)}
-              getUrlForNewSortBy={this.getUrlForNewSortBy}
-            />
+            <Loading className="list-of-courses-loading" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
+              <ListOfCourseCards
+                className={`list-of-courses ${this.state.ifCoursesAreLoading ? '-loading' : ''}`}
+                type="simple"
+                courseDtos={onePageOfCourses}
+              />
+            }</Loading>
           </div>
-          {this.renderPagination()}
-
-          <Loading className="loading-courses" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
-            <ListOfSimpleCourses coursesData={onePageOfCourses}/>
-          }</Loading>
         </div>
-      </div>
+      }</Loading>
 
       <Footer/>
 

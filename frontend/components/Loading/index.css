@@ -1,12 +1,12 @@
 :local(.loading){
-  &.request{
+  &.-request{
     text-align: center;
     img{
       padding: 20px;
       width: 80px;
     }
   }
-  &.error{
+  &.-failure{
     padding: 20px;
     margin-top: 10px;
     text-align: center;

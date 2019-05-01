@@ -2,12 +2,8 @@
 :local(main.main){
   > .container{
     margin-top: 30px;
+    margin-bottom: 30px;
     display: flex;
-    h1{
-      font-size: 32px;
-      font-weight: 100;
-      letter-spacing: 0.3px;
-    }
     > nav.course-categories-nav{
       width: 231px;
       flex-grow: 0;
@@ -15,39 +11,42 @@
       border-right: 1px solid rgba(223, 201, 247, 0.06);
 
       margin-right: 70px;
+      padding-bottom: 140px;
     }
-    > .loading.loading-courses{
-      margin: 0 auto;
-    }
-
-    > .sorting-options_and_courses{
-      // making <a/>-s span 100% width and height
-      section.sort-by-dropdown-wrapper{
-        max-width: 200px;
-        > button.toggler{
-          padding-left: 10px;
-          padding-right: 10px;
-          width: 151px;
+    > div.title_and_sorting_and_courses{
+      // helps .loading to stay wide
+      width: 100%;
+      > div.title_and_sorting{
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        > h1.title{
+          font-size: 32px;
+          font-weight: 100;
+          letter-spacing: 0.3px;
         }
-        > ul.standard-dropdown{
-          padding: 0;
-          li{
+
+        > section.sort-by-dropdown-wrapper{
+          max-width: 200px;
+          > button.toggler{
+            padding-left: 10px;
+            padding-right: 10px;
+            width: 151px;
+          }
+          > ul.standard-dropdown{
             padding: 0;
-            a{
-              padding: 10px;
-              display: block;
+            li{
+              padding: 0;
+              a{
+                padding: 10px;
+                display: block;
+              }
             }
           }
         }
       }
 
-      div.title_and_sort-by{
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-      }
-
-      ul.pagination{
+      > ul.pagination{
         justify-content: flex-end;
         margin-top: 20px;
         > li:last-child{
@@ -55,8 +54,16 @@
         }
       }
 
-
-
+      > div.list-of-courses-loading{
+      }
+      > section.list-of-courses{
+        opacity: 1;
+        transition-property: opacity;
+        transition-duration: 0.3s;
+        &.-loading{
+          opacity: 0.5;
+        }
+      }
     }
   }
 }

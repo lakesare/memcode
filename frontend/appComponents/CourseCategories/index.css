@@ -40,13 +40,17 @@
         font-size: 14px;
         > li{
           opacity: 0.6;
-          padding: 5px 0;
           &.-active{
             color: $purple;
             opacity: 1;
           }
           &:hover{
             opacity: 1;
+          }
+          a{
+            // to span entire width, so that entire li is clickable
+            display: block;
+            padding: 5px 0;
           }
         }
       }

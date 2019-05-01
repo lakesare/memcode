@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
-import { AmountOfProblemsToReview } from './AmountOfProblemsToReview';
+import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
-class ReviewAndLearn extends React.Component {
+import { Link } from 'react-router-dom';
+
+class LearnAndReviewButtons extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
     amountOfProblemsToLearn: PropTypes.number.isRequired,
@@ -13,15 +14,29 @@ class ReviewAndLearn extends React.Component {
     nextDueDateIn: null // can be null if we haven't learned any problems yet
   }
 
+  renderAmountOfProblemsToReview = (amountOfProblemsToReview, nextDueDateIn) => {
+    // user will have to review some problems soon
+    if (amountOfProblemsToReview === 0 && nextDueDateIn) {
+      return <div className="review -zero">
+        in {humanizePostgresInterval(nextDueDateIn)}
+      </div>;
+    // user hasn't learned anything from this course yet
+    } else if (amountOfProblemsToReview === 0 && !nextDueDateIn) {
+      return <div className="review"/>;
+    // user has problems to review
+    } else if (amountOfProblemsToReview > 0) {
+      return <div className="review -nonzero">
+        {amountOfProblemsToReview} to review
+      </div>;
+    }
+  }
+
   renderAmountFooter = (amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn) =>
     <section className="amount-footer">
       <div className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}>
         {amountOfProblemsToLearn} to learn
       </div>
-      <AmountOfProblemsToReview
-        amountOfProblemsToReview={amountOfProblemsToReview}
-        nextDueDateIn={nextDueDateIn}
-      />
+      {this.renderAmountOfProblemsToReview(amountOfProblemsToReview, nextDueDateIn)}
     </section>
 
   renderLinks = (amountOfProblemsToLearn, amountOfProblemsToReview, courseId) =>
@@ -49,4 +64,4 @@ class ReviewAndLearn extends React.Component {
     </div>
 }
 
-export { ReviewAndLearn };
+export default LearnAndReviewButtons;

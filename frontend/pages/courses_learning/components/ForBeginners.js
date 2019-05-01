@@ -1,8 +1,8 @@
 import CourseApi from '~/api/CourseApi';
 
-import { Link } from 'react-router-dom'
-import { Loading } from '~/components/Loading';
-import { ListOfSimpleCourses } from '~/components/ListOfSimpleCourses';
+import { Link } from 'react-router-dom';
+import Loading from '~/components/Loading';
+import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 
 class ForBeginners extends React.Component {
   state = {
@@ -34,7 +34,7 @@ class ForBeginners extends React.Component {
 
       <h2 className="meanwhile-here-are-popular-courses-title">Meanwhile, here are the most popular courses:</h2>
       <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
-        <ListOfSimpleCourses coursesData={onePageOfCourses}/>
+        <ListOfCourseCards courseDtos={onePageOfCourses}/>
       }</Loading>
     </section>
 }

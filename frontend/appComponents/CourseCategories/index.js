@@ -8,18 +8,18 @@ import css from './index.css';
 
 class CourseCategories extends React.Component {
   static propTypes = {
-    courseCategoryId: orFalse(PropTypes.number).isRequired,
+    selectedCourseCategoryId: orFalse(PropTypes.number).isRequired,
     courseCategories: PropTypes.array.isRequired,
     courseCategoryGroups: PropTypes.array.isRequired
   }
 
-  ifCategoryIsActive = (category) =>
-    this.props.courseCategoryId === category.id
+  ifCategoryIsSelected = (category) =>
+    this.props.selectedCourseCategoryId === category.id
 
   renderCategoryLi = (category) =>
     <li
       key={category.id}
-      className={`category ${this.ifCategoryIsActive(category) ? '-active' : '-non-active'}`}
+      className={`category ${this.ifCategoryIsSelected(category) ? '-active' : '-non-active'}`}
     >
       <Link to={`${window.location.pathname}?categoryId=${category.id}`}>
         {category.name}
@@ -37,7 +37,7 @@ class CourseCategories extends React.Component {
                 {CourseCategoryModel.deriveAndSortCategoriesPerGroup(this.props.courseCategories, group).map(this.renderCategoryLi)}
               </ul>
             </li>
-        )}
+          )}
       </ul>
     </nav>
 }

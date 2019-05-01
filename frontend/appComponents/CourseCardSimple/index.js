@@ -9,7 +9,7 @@ import css from './index.css';
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser
 }))
-class SimpleCourseCard extends React.Component {
+class CourseCardSimple extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
     courseDto: PropTypes.shape({
@@ -47,4 +47,4 @@ class SimpleCourseCard extends React.Component {
     </Link>
 }
 
-export default SimpleCourseCard;
+export default CourseCardSimple;

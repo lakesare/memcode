@@ -3,12 +3,11 @@ import CourseCategoryApi from '~/api/CourseCategoryApi';
 
 import { Helmet } from 'react-helmet';
 
-import { Header }  from '~/components/Header';
-import { Footer } from '~/components/Footer';
-import { Loading } from '~/components/Loading';
+import Header  from '~/components/Header';
+import Footer from '~/components/Footer';
+import Loading from '~/components/Loading';
 import CourseCategories from '~/appComponents/CourseCategories';
-import { ListOfCourses } from '~/components/ListOfCourses';
-import { ProfileNavigation } from '~/components/ProfileNavigation';
+import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 import { ForBeginners } from './components/ForBeginners';
 
 import css from './index.css';
@@ -67,7 +66,7 @@ class Page_courses_learning extends React.Component {
   render = () =>
     <main className={css.main}>
       <Header/>
-      <ProfileNavigation/>
+
       <div className="container">
         <div className="space"/>
 
@@ -82,9 +81,13 @@ class Page_courses_learning extends React.Component {
                   courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
                 />
               }</Loading>
-              <ListOfCourses coursesData={this.filterCoursesForCategory(coursesData)}/>
+              <ListOfCourseCards
+                className="list-of-courses"
+                type="learnReview"
+                courseDtos={this.filterCoursesForCategory(coursesData)}
+              />
             </div>
-          }</Loading>
+        }</Loading>
       </div>
 
       <Footer/>
