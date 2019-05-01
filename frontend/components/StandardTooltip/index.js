@@ -33,7 +33,7 @@ class StandardTooltip extends React.Component {
       {
         this.props.children ?
           this.props.children :
-          <i className="fa fa-info-circle"/>
+          <i className="material-icons">info</i>
       }
     </Tooltip>
 }

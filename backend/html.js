@@ -59,6 +59,8 @@ const html = `
 
     <!-- main js file -->
     <script type="text/javascript" src="/index.js" defer></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
     ${googleAnalyticsScriptTag}
   </html>

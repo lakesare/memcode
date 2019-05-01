@@ -82,7 +82,8 @@ class Page_courses_id_review extends React.Component {
 
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired,
-    randomizeProblems: PropTypes.func.isRequired
+    randomizeProblems: PropTypes.func.isRequired,
+    switchQuestionAndAnswer: PropTypes.func.isRequired
   }
 
   static defaultProps = {

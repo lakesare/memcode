@@ -122,7 +122,7 @@ class ProblemBeingSolved extends React.Component {
 
       {
         this.props.statusOfSolving.status === 'seeingAnswer' &&
-        <button type="button" className="button next" onClick={this.props.enterPressed}>
+        <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
           NEXT
         </button>
       }

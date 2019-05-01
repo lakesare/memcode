@@ -1,14 +1,18 @@
+@import 'css/variables';
+
 :local(.div){
   &.-with-children{}
   &.-without-children{
-    padding-left: 5px;
-    padding-right: 5px;
 
     position: relative;
-    top: -6px;
+    top: -2px;
+    padding-bottom: 2px;
 
     cursor: pointer;
     > i{
+      color: $purple;
+      opacity: 0.9;
+      font-size: 14px;
     }
   }
 }

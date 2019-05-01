@@ -21,7 +21,7 @@
   // pretty
   color: white;
   background: rgb(15, 17, 34);
-  // box-shadow: -1px 7px 12px 0px #887ddc38;
+  // box-shadow: -1px 7px 12px 0px #887ddc38; // big border
   box-shadow: 2px 2px 10px 0px rgba(136, 125, 220, 0.15);
 
   > .request.loading{

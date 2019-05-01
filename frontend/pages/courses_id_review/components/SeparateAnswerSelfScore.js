@@ -1,29 +1,26 @@
+import StandardTooltip from '~/components/StandardTooltip';
+import Rating from '~/components/Rating';
+
 class SeparateAnswerSelfScore extends React.Component {
   static propTypes = {
-    giveScore: PropTypes.func.isRequired,
-    score: PropTypes.number.isRequired
+    score: PropTypes.number.isRequired,
+    giveScore: PropTypes.func.isRequired
   }
-
-  renderStar = (value) =>
-    <div
-      className="star"
-      onClick={() => this.props.giveScore(value)}
-    >
-      <div className={this.props.score >= value ? 'yellow' : 'grey'}/>
-    </div>
 
   render = () =>
     <section className="self-score">
       <label className="rate-yourself">
-        Rate your answer! (1 - 5)
+        Rate your answer <StandardTooltip tooltipEl="Don't be afraid to rate yourself poorly! It just means that we'll be offering you this flashcard for repeat more frequently."/>
       </label>
-      <div className="stars">
-        {this.renderStar(1)}
-        {this.renderStar(2)}
-        {this.renderStar(3)}
-        {this.renderStar(4)}
-        {this.renderStar(5)}
-      </div>
+
+      <Rating
+        className="stars"
+        amountOfStars={5}
+        renderStar={() => <div className="star"/>}
+
+        rating={this.props.score}
+        updateRating={this.props.giveScore}
+      />
     </section>
 }
 

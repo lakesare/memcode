@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet';
 
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
-import { Loading } from '~/components/Loading';
+import { withRouter } from "react-router-dom";
+import StandardTooltip from '~/components/StandardTooltip';
+import Header from '~/components/Header';
+import Footer from '~/components/Footer';
+import Loading from '~/components/Loading';
 import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
 import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 
-import { withRouter } from "react-router-dom";
-import StandardTooltip from '~/components/StandardTooltip';
 import CourseModel from '~/models/CourseModel';
 import CourseApi from '~/api/CourseApi';
 

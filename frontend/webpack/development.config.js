@@ -28,5 +28,7 @@ module.exports = {
     children: false
   },
 
-  mode: 'development'
+  mode: 'development',
+
+  devtool: 'source-map'
 };
