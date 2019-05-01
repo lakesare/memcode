@@ -2,15 +2,15 @@ import { update } from 'lodash';
 
 import Joyride from 'react-joyride';
 import { StickyContainer, Sticky } from 'react-sticky';
-import { Header }  from '~/components/Header';
-import { Footer } from '~/components/Footer';
+import Header  from '~/components/Header';
+import Footer from '~/components/Footer';
 import { Loading } from '~/components/Loading';
 import { CourseActions } from '~/components/CourseActions';
 import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
 import { Instructions } from './components/Instructions';
-import { ActionsForCheckedProblems } from './components/ActionsForCheckedProblems';
+import ActionsForCheckedProblems from './components/ActionsForCheckedProblems';
 
 import { commonFetch } from '~/api/commonFetch';
 
@@ -158,21 +158,15 @@ class Page_courses_id_edit extends React.Component {
   uiRemoveOldProblems = (problemIds) =>
     problemIds.forEach(this.removeOldProblem)
 
-  ifShowActionsForSelectedProblems = () =>
-    this.state.idsOfCheckedProblems.length > 0
-
-  renderActionsForCheckedProblems = () => (
-    this.ifShowActionsForSelectedProblems() ?
-      <Sticky>{({ isSticky }) =>
-        <ActionsForCheckedProblems
-          idsOfCheckedProblems={this.state.idsOfCheckedProblems}
-          updateIdsOfCheckedProblems={(idsOfCheckedProblems) => this.setState({ idsOfCheckedProblems })}
-          uiRemoveOldProblems={this.uiRemoveOldProblems}
-          isSticky={isSticky}
-        />
-      }</Sticky> :
-      null
-  )
+  renderActionsForCheckedProblems = () =>
+    <Sticky>{({ isSticky }) =>
+      <ActionsForCheckedProblems
+        idsOfCheckedProblems={this.state.idsOfCheckedProblems}
+        updateIdsOfCheckedProblems={(idsOfCheckedProblems) => this.setState({ idsOfCheckedProblems })}
+        uiRemoveOldProblems={this.uiRemoveOldProblems}
+        isSticky={isSticky}
+      />
+    }</Sticky>
 
   renderProblems = () =>
     <Loading spe={this.state.speGetPage}>{({ problems }) =>
@@ -193,7 +187,7 @@ class Page_courses_id_edit extends React.Component {
     }</Loading>
 
   render = () =>
-    <main className={`${css.main} ${this.ifShowActionsForSelectedProblems() ? '-if-showing-actions-for-selected-problems' : ''}`}>
+    <main className={css.main}>
       <Joyride
         steps={this.state.joyrideHowToCreateProblemSteps}
         run={this.state.joyrideHowToCreateProblemRun}

@@ -8,6 +8,17 @@ import closeButtonSvg from '~/images/closeButton.svg';
 
 import css from './index.css';
 
+import posed from 'react-pose';
+
+const Animation = posed.section({
+  hidden: {
+    height: 0
+  },
+  visible: {
+    height: 'auto'
+  }
+});
+
 class ActionsForCheckedProblems extends React.Component {
   static propTypes = {
     // courseId: PropTypes.number.isRequired,
@@ -32,8 +43,8 @@ class ActionsForCheckedProblems extends React.Component {
   uiClose = () =>
     this.props.updateIdsOfCheckedProblems([])
 
-  render = () =>
-    <section className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-not-sticky')}>
+  render = () => (
+    <Animation className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-not-sticky')} pose={this.props.idsOfCheckedProblems.length > 0 ? 'visible' : 'hidden'}>
       <Loading spe={this.state.speRemovingProblems}>
         <div className="container">
           <ChooseCourseToMoveProblemsTo apiMoveAllCheckedProblemsToCourse={this.apiMoveAllCheckedProblemsToCourse} amount={this.props.idsOfCheckedProblems.length}/>
@@ -47,8 +58,8 @@ class ActionsForCheckedProblems extends React.Component {
           </button>
         </div>
       </Loading>
-
-    </section>
+    </Animation>
+  )
 }
 
-export { ActionsForCheckedProblems };
+export default ActionsForCheckedProblems;
