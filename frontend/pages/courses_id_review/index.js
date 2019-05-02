@@ -1,12 +1,11 @@
-import { orFalse } from '~/services/orFalse';
+import orFalse from '~/services/orFalse';
 
-import { Header }  from '~/components/Header';
-import { Loading } from '~/components/Loading';
-import { CourseActions } from '~/components/CourseActions';
-import { ProblemBeingSolved } from './components/ProblemBeingSolved';
-import { WhatNext } from './components/WhatNext';
-import { Problem } from '~/components/Problem';
-
+import Header  from '~/components/Header';
+import Loading from '~/components/Loading';
+import CourseActions from '~/components/CourseActions';
+import ProblemBeingSolved from './components/ProblemBeingSolved';
+import WhatsNext from './components/WhatsNext';
+import Problem from '~/components/Problem';
 
 import css from './index.css';
 
@@ -19,7 +18,7 @@ import css from './index.css';
 //       person presses ENTER once again, we record their score and
 //       move onto the next problem
 //       WHATEVER I DONT CARE ACCEPT ANYWAY button
-
+//
 //   if there are no answers in problem:
 //     -> we accept problem and move to the next problem
 import selectors from './duck/selectors';
@@ -117,12 +116,16 @@ class Page_courses_id_review extends React.Component {
     }</div>
 
   render = () =>
-    <main className={css.main} key={this.props.match.params.id}>
+    <main className={css.main}>
       <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
 
-      <CourseActions courseId={this.props.match.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
-      <Loading spe={this.props.speGetPage}>{({ problems }) =>
-        <React.Fragment>
+      <CourseActions
+        courseId={this.props.match.params.id}
+        ifCuilActivityButtonsAreDisplayed={false}
+      />
+
+      <Loading spe={this.props.speGetPage}>{() =>
+        <>
           {
             this.props.currentProblem &&
             <ProblemBeingSolved
@@ -141,16 +144,19 @@ class Page_courses_id_review extends React.Component {
             />
           }
 
-          <WhatNext
+          <WhatsNext
             courseId={parseInt(this.props.match.params.id)}
             currentUser={this.props.currentUser}
             speNextReviewIn={this.props.speNextReviewIn}
             ifDisplay={!this.props.currentProblem}
           />
-
-          {this.renderProblemContentCachingMechanism(problems)}
-        </React.Fragment>
+        </>
       }</Loading>
+
+      {
+        this.props.speGetPage.status === 'success' &&
+        this.renderProblemContentCachingMechanism(this.props.speGetPage.payload.problems)
+      }
     </main>
 }
 

@@ -1,0 +1,60 @@
+:local(.section){
+  background: rgb(14, 16, 49);
+
+  // hide shit on mobile, show shit on desktop
+  .-mobile{ display: none; }
+  .-desktop{ display: block; }
+
+  > .container{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  // types of headers
+  &.-simulated-review > .container{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    > div.instructions{ font-size: 14px; }
+    > div.amount-of-problems-left{
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+  }
+  &.-usual-review > .container{
+    > div.instructions{
+      font-size: 14px;
+      p{
+        margin-top: 10px;
+        margin-bottom: 0;
+      }
+    }
+    > div.buttons{
+      display: flex;
+      align-items: center;
+      button{
+        font-size: 9px;
+        padding: 3px 8px;
+        height: 33px;
+        min-width: auto;
+        letter-spacing: 0.9px;
+      }
+      button.randomize-button{
+        margin-left: 10px;
+      }
+    }
+  }
+  &.-failed-flashcards-review > .container{
+    > div.instructions{ font-size: 14px; }
+  }
+}
+
+
+@media(max-width: 900px) {
+  :local(.section){
+    .-mobile{ display: block; }
+    .-desktop{ display: none; }
+  }
+}

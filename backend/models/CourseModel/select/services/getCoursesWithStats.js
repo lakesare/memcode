@@ -20,6 +20,8 @@ const getCoursesWithStats = ({ where = '', orderBy = '', params = {} } = {}) =>
     `SELECT
       row_to_json(course.*)                  AS course,
       row_to_json(course_user_is_learning.*) AS course_user_is_learning,
+      row_to_json("user".*) AS author,
+      row_to_json(course_category.*) AS course_category,
       COUNT(distinct problem_user_is_learning.id) AS amount_of_problems_to_review,
       (
         (SELECT COUNT(problem.*) FROM problem WHERE problem.course_id = course.id) -
@@ -64,9 +66,17 @@ const getCoursesWithStats = ({ where = '', orderBy = '', params = {} } = {}) =>
     -- amount_of_problems
     LEFT OUTER JOIN problem ON problem.course_id = course.id
 
+
+    INNER JOIN course_category
+      ON course.course_category_id = course_category.id
+
+    -- author
+    INNER JOIN "user"
+      ON course.user_id = "user".id
+
     ${where}
 
-    GROUP BY course_user_is_learning.id, course.id
+    GROUP BY course_user_is_learning.id, course.id, "user".id, course_category.id
 
     ${orderBy}
     `,

@@ -178,3 +178,4 @@ class CourseActions extends React.Component {
 }
 
 export { CourseActions };
+export default CourseActions;

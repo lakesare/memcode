@@ -22,7 +22,7 @@ class LearnAndReviewButtons extends React.Component {
       </div>;
     // user hasn't learned anything from this course yet
     } else if (amountOfProblemsToReview === 0 && !nextDueDateIn) {
-      return <div className="review"/>;
+      return <div className="review -empty"/>;
     // user has problems to review
     } else if (amountOfProblemsToReview > 0) {
       return <div className="review -nonzero">

@@ -67,28 +67,26 @@ class Page_courses_learning extends React.Component {
     <main className={css.main}>
       <Header/>
 
-      <div className="container">
-        <div className="space"/>
-
+      <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
         <Loading spe={this.state.speGetCourses}>{(coursesData) =>
           coursesData.length === 0 ?
             <ForBeginners/> :
-            <div className="courses-and-nav">
-              <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
-                <CourseCategories
-                  courseCategoryId={getCategoryId(this.props)}
-                  courseCategoryGroups={courseCategoryGroups}
-                  courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
-                />
-              }</Loading>
-              <ListOfCourseCards
-                className="list-of-courses"
-                type="learnReview"
-                courseDtos={this.filterCoursesForCategory(coursesData)}
+            <div className="container">
+              <CourseCategories
+                selectedCourseCategoryId={getCategoryId(this.props)}
+                courseCategoryGroups={courseCategoryGroups}
+                courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
               />
+              <div className="title_and_sorting_and_courses">
+                <ListOfCourseCards
+                  className="list-of-courses"
+                  type="learnReview"
+                  courseDtos={this.filterCoursesForCategory(coursesData)}
+                />
+              </div>
             </div>
         }</Loading>
-      </div>
+      }</Loading>
 
       <Footer/>
 

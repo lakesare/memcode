@@ -1,6 +1,8 @@
 import StandardTooltip from '~/components/StandardTooltip';
 import Rating from '~/components/Rating';
 
+import css from './index.css';
+
 class SeparateAnswerSelfScore extends React.Component {
   static propTypes = {
     score: PropTypes.number.isRequired,
@@ -8,7 +10,7 @@ class SeparateAnswerSelfScore extends React.Component {
   }
 
   render = () =>
-    <section className="self-score">
+    <section className={`self-score ${css.section}`}>
       <label className="rate-yourself">
         Rate your answer <StandardTooltip tooltipEl="Don't be afraid to rate yourself poorly! It just means that we'll be offering you this flashcard for repeat more frequently."/>
       </label>
@@ -24,4 +26,4 @@ class SeparateAnswerSelfScore extends React.Component {
     </section>
 }
 
-export { SeparateAnswerSelfScore };
+export default SeparateAnswerSelfScore;

@@ -1,0 +1,162 @@
+@import 'css/variables';
+
+$green-answer-border: 2px solid rgb(160, 247, 200);
+$green-answer-box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+$purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
+
+:local(.section){
+  section.problem{
+    max-width: 960px;
+    margin: 0 auto;
+    margin-bottom: 20px; margin-top: 60px;
+
+    box-shadow: 0px 0px 32px 4px rgba(224, 174, 234, 0.08);
+    padding: 13px 13px;
+    border-radius: 5px;
+
+    &.-withInlinedAnswers{
+      .ql-editor{
+        box-shadow: $purple-question-box-shadow;
+      }
+      input.answer{
+        width: 120px;
+        display: inline-block;
+        // padding: 0 10px;
+        font-size: 16px;
+        text-align: center;
+        
+        padding: 2px 0;
+        margin: 0 4px;
+        border-radius: 2px;
+        &:focus{ outline: none; }
+        &[data-answered='right']{
+          box-shadow: $green-answer-box-shadow;
+          border: $green-answer-border;
+          color: rgb(160, 247, 200) !important;
+          // background: rgba(41, 255, 141, 0.2);
+          font-weight: 500;
+        }
+        &[data-answered='wrong']{
+          border: 2px solid #f9637d;
+          color: #f9637d !important;
+          font-weight: 500;
+        }
+        &[data-answered='waiting']{
+          border: 2px solid #FFEB3B;
+        }
+      }
+    }
+    &.-withSeparateAnswer{
+      flex-wrap: wrap;
+      justify-content: flex-end;
+
+      > div.question-and-answer{
+        width: 100%;
+        display: flex;
+        .question.first-column{
+          .ql-editor{
+            box-shadow: $purple-question-box-shadow;
+          }
+        }
+        .answer.second-column{
+          .ql-editor{
+            box-shadow: $green-answer-box-shadow;
+            border: $green-answer-border;
+          }
+        }
+        // button or answer editor
+        > button.see-answer-button{
+          max-height: 400px;
+          font-weight: 300;
+          padding: 6px 0;
+          font-size: 14px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          user-select: none;
+          border-radius: 2px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+
+          box-shadow: $green-answer-box-shadow;
+          border: $green-answer-border;
+          background: rgb(34, 38, 74);          
+          color: rgb(160, 247, 200);
+        }
+      }
+
+      > div.draft-answer{
+        display: flex;
+        width: 100%;
+        .quill{
+          margin-top: 5px;
+        }
+        .ql-editor.ql-blank::before{
+          color: rgba(132, 155, 249, 0.48);
+        }
+        .ql-toolbar{ box-shadow: none; }
+        .ql-editor{
+          border: none !important;
+          background: rgba(34, 38, 74, 0.29);
+        }
+        &.-focused{ .ql-toolbar{ opacity: 1; } }
+        &.-not-focused{ .ql-toolbar{ opacity: 0; } }
+      }
+    }
+  }
+
+  button.next-button{
+    max-width: 100px;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius: 2px;
+    opacity: 0.9;
+    &:hover{
+      opacity: 1;
+    }
+  }
+
+  button.reveal{
+    color: rgba(255, 235, 59, 0.71);
+    background: rgba(245, 238, 238, 0.07);
+    font-size: 11px;
+
+    max-width: 150px;
+    margin: 0 auto;
+    margin-top: 60px;
+    border-radius: 2px;
+    &:hover{
+      color: rgb(255, 235, 59);
+    }
+  }
+}
+
+@media(max-width: 900px) {
+  :local(.section){
+    section.problem{
+      margin-top: 0px;
+      .first-column, .second-column{
+        width: 100%;
+      }
+      .first-column{
+        margin-right: 0 !important;
+      }
+      .second-column{
+        margin-top: 20px;
+        margin-left: 0px !important;
+      }
+      &.-withInlinedAnswers{
+        flex-wrap: wrap;
+      }
+      &.-withSeparateAnswer{
+        flex-wrap: wrap;
+        > div.question-and-answer{
+          flex-wrap: wrap;
+        }
+        div.draft-answer{ display: none !important; }
+      }
+    }
+  }
+}

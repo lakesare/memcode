@@ -1,5 +1,3 @@
-import stripTags from '~/services/stripTags';
-
 import { Link } from 'react-router-dom';
 import LearnAndReviewButtons from './components/LearnAndReviewButtons';
 
@@ -18,7 +16,9 @@ class CourseCardLearnReview extends React.Component {
       amountOfProblemsToReview: PropTypes.number.isRequired,
       amountOfProblems: PropTypes.number.isRequired,
       courseUserIsLearning: PropTypes.object,
-      nextDueDateIn: PropTypes.object
+      nextDueDateIn: PropTypes.object,
+      courseCategory: PropTypes.object,
+      author: PropTypes.object
     })
   }
 
@@ -46,17 +46,13 @@ class CourseCardLearnReview extends React.Component {
 
   render = () =>
     <div className={"course -learnReviewCourse " + css.div}>
-      {this.renderGo(this.props.courseDto.course)}
+      <section className="category_and_author">
+        <div className="category">{this.props.courseDto.courseCategory.name === 'Programming Languages' ? 'Programming' : this.props.courseDto.courseCategory.name}</div>
+        <div className="author">{this.props.courseDto.author.username}</div>
+      </section>
 
       <section className="main">
-        <h3 className="title">{this.props.courseDto.course.title}</h3>
-
-        <article
-          className="description"
-          dangerouslySetInnerHTML={{
-            __html: stripTags(this.props.courseDto.course.description)
-          }}
-        />
+        <h2 className="title">{this.props.courseDto.course.title}</h2>
 
         {
           this.ifCanLearnAndReview() &&
@@ -69,7 +65,7 @@ class CourseCardLearnReview extends React.Component {
         }
       </section>
 
-      <section className="total-amount-of-mems">
+      <section className="total-amount-of-flashcards">
         {this.props.courseDto.amountOfProblems} flashcards
       </section>
     </div>

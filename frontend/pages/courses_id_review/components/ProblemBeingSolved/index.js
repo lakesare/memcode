@@ -1,5 +1,8 @@
-import { Problem } from '~/components/Problem';
-import { SeparateAnswerSelfScore } from './SeparateAnswerSelfScore';
+import Problem from '~/components/Problem';
+import SeparateAnswerSelfScore from './components/SeparateAnswerSelfScore';
+import Header from './components/Header';
+
+import css from './index.css';
 
 class ProblemBeingSolved extends React.Component {
   static propTypes = {
@@ -10,10 +13,11 @@ class ProblemBeingSolved extends React.Component {
     enterPressed: PropTypes.func.isRequired,
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
     randomizeProblems: PropTypes.func.isRequired,
+    switchQuestionAndAnswer: PropTypes.func.isRequired,
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
     ifReviewingFailedProblems: PropTypes.bool.isRequired,
-    onRightAnswerGiven: PropTypes.func.isRequired
+    onRightAnswerGiven: PropTypes.func.isRequired,
   }
 
   componentDidMount = () => {
@@ -39,59 +43,17 @@ class ProblemBeingSolved extends React.Component {
   }
 
   render = () =>
-    <React.Fragment>
-      {
-        this.props.ifReviewIsSimulated &&
-        <section className="instructions -simulated">
-          <h4 className="where-we-are -desktop">
-            We are in a simulated review. Results will not be recorded.
-          </h4>
-          <h4 className="where-we-are -mobile">
-            Simulated review.
-          </h4>
-          <h4 className="amount-of-problems-left">
-            {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems}
-          </h4>
-        </section>
-      }
+    <section className={css.section}>
+      <Header
+        statusOfSolving={this.props.statusOfSolving}
+        amountOfProblems={this.props.amountOfProblems}
 
-      {
-        !this.props.ifReviewIsSimulated &&
-        !this.props.ifReviewingFailedProblems &&
-        <section className="instructions -real">
-          <div className="container">
-            <div className="where-we-are -desktop">
-              Press ENTER fo reveal answers
-            </div>
+        randomizeProblems={this.props.randomizeProblems}
+        switchQuestionAndAnswer={this.props.switchQuestionAndAnswer}
 
-            <div className="buttons">
-              <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
-                Term ⟷ definition
-              </button>
-
-              {
-                // if it's not the last problem we're reviewing - randomize
-                this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
-                <button type="button" className="button -purple-o randomize-button" onClick={this.props.randomizeProblems}>
-                  Randomize
-                </button>
-              }
-            </div>
-          </div>
-        </section>
-      }
-
-      {
-        this.props.ifReviewingFailedProblems &&
-          <section className="instructions -simulated">
-            <div className="where-we-are -desktop">
-              We are repeating failed flashcards. Results will not be recorded.
-            </div>
-            <div className="where-we-are -mobile">
-              Repeating failed flashcards.
-            </div>
-          </section>
-      }
+        ifReviewIsSimulated={this.props.ifReviewIsSimulated}
+        ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
+      />
 
       <Problem
         mode="review"
@@ -126,7 +88,7 @@ class ProblemBeingSolved extends React.Component {
           NEXT
         </button>
       }
-    </React.Fragment>
+    </section>
 }
 
-export { ProblemBeingSolved };
+export default ProblemBeingSolved;

@@ -1,0 +1,42 @@
+@import 'css/variables';
+
+:local(.section){
+  max-width: 470px;
+  margin: 0 auto;
+  > label.rate-yourself{
+    margin-top: 60px;
+    display: block;
+    width: 100%;
+
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+  }
+  > ul.stars{
+    margin-top: 6px;
+    display: flex;
+    > li{
+      cursor: pointer;
+      padding-bottom: 45px;
+      padding-top: 20px;
+      width: 25%;
+      > div.star{
+        padding-right: 3px; padding-left: 3px;
+        width: 100%; height: 10px;
+        transition-property: background;
+        transition-duration: .4s;
+      }
+      &.-not-selected > div.star{
+        background: rgba(124, 114, 201, 0.11);
+        border-right: 1px solid rgba(136, 125, 220, 0.36);
+      }
+      &.-selected > div.star{
+        background: $purple;
+        border-right: 1px solid rgb(55, 54, 78);
+      }
+      &:last-child > div.star{ border-right: none; }
+    }
+  }
+}

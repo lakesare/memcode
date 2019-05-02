@@ -11,6 +11,7 @@ module.exports = {
     "jsx-a11y/no-static-element-interactions": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-no-bind": "off",
+    // "react/jsx-fragments": ""
 
     // because it doesn't understand import `~/hi/hello`
     "import/no-unresolved": "off",
@@ -281,7 +282,6 @@ module.exports = {
 
     // things I make global with ProvidePlugin
     "React": true,
-    "React.Fragment": true,
     "PropTypes": true,
     "connect": true,
 

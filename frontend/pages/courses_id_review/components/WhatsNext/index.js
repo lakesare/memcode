@@ -3,11 +3,13 @@ import * as createSpe from '~/services/spe';
 import CourseApi from '~/api/CourseApi';
 import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
-import { Loading } from '~/components/Loading';
+import Loading from '~/components/Loading';
 import CourseCardLearnReview from '~/appComponents/CourseCardLearnReview';
 import CourseCardSimple from '~/appComponents/CourseCardSimple';
 
-class WhatNext extends React.Component {
+import css from './index.css';
+
+class WhatsNext extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
@@ -72,7 +74,7 @@ class WhatNext extends React.Component {
     )
 
   render = () =>
-    <article className="what-next" style={this.props.ifDisplay ? {} : { display: 'none' }}>
+    <section className={css.section} style={this.props.ifDisplay ? {} : { display: 'none' }}>
       <div className="space"/>
       <section className="congratulations">
         <h2>You successfully reviewed this course!</h2>
@@ -95,12 +97,12 @@ class WhatNext extends React.Component {
         <section className="offered-courses list-of-courses">
           {coursesData.map((courseData) => (
             courseData._type === 'simpleCourse' ?
-              <CourseCardSimple key={courseData.course.id} {...courseData}/> :
-              <CourseCardLearnReview key={courseData.course.id} {...courseData}/>
+              <CourseCardSimple key={courseData.course.id} courseDto={courseData}/> :
+              <CourseCardLearnReview key={courseData.course.id} courseDto={courseData}/>
           ))}
         </section>
       )}</Loading>
-    </article>
+    </section>
 }
 
-export { WhatNext };
+export default WhatsNext;

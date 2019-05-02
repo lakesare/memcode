@@ -37,3 +37,4 @@ class Problem extends React.Component {
 }
 
 export { Problem };
+export default Problem;

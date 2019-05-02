@@ -1,0 +1,27 @@
+:local(.section){
+  > section.congratulations{
+    color: white;
+    text-align: center;
+    .next-review-time{
+      color: rgba(239, 234, 233, 0.5);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+    h3.whats-next{
+      width: 150px;
+      margin: 35px auto;
+      padding-bottom: 20px;
+      // border-bottom: 2px solid rgb(255, 192, 203);
+    }
+  }
+  > section.offered-courses{
+    max-width: 821px;
+    margin: 0 auto;
+    margin-top: 44px;
+    // made border look a little better on dark bg
+    .course{
+      box-shadow: -1px 1px 7px #f7f5f5;
+    }
+    .layout-div{ display: none; }
+  }
+}

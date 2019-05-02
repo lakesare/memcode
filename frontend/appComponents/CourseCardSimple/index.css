@@ -38,7 +38,7 @@
     font-size: 11px;
   }
 
-  > section.category-and-author{
+  > section.category_and_author{
     font-size: 12px;
     display: flex;
     justify-content: space-between;
@@ -46,7 +46,7 @@
       border-left: 1px solid $purple;
       padding-left: 6px;
     }
-    > div.username{
+    > div.author{
       font-weight: 100;
     }
   }

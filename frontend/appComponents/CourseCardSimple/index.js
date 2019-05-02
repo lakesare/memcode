@@ -27,9 +27,9 @@ class CourseCardSimple extends React.Component {
       to={url.courseEditOrShow(this.props.currentUser, this.props.courseDto.course)}
       className={`course-card -simple ${css.a}`}
     >
-      <section className="category-and-author">
+      <section className="category_and_author">
         <div className="category">{this.props.courseDto.courseCategory.name === 'Programming Languages' ? 'Programming' : this.props.courseDto.courseCategory.name}</div>
-        <div className="username">{this.props.courseDto.author.username}</div>
+        <div className="author">{this.props.courseDto.author.username}</div>
       </section>
 
       <h2 className="title">{this.props.courseDto.course.title}</h2>
