@@ -8,15 +8,12 @@
   }
   &.-failure{
     padding: 20px;
-    margin-top: 10px;
+    margin-top: 30px;
+
+    background: rgba(25, 26, 46, 0.27);
+    border-radius: 2px;
     text-align: center;
-    background: white;
-    // color: black;
-
     color: #ec4c7b;
-    font-weight: bold;
-
-    border: 2px solid #200a38;
-    border-radius: 0px 0px 5px 5px;
+    font-size: 14px;
   }
 }

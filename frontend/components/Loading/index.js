@@ -50,6 +50,8 @@ class Loading extends React.Component {
   render = () => {
     if (!this.props.enabledStatuses.includes(this.props.spe.status)) return null;
 
+    console.log(this.props.spe);
+
     switch (this.props.spe.status) {
       case 'request': return this.renderRequest();
       case 'failure': return this.renderFailure();
