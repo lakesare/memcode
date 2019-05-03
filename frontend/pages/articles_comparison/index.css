@@ -2,12 +2,18 @@
 
 :local(main.main){
   ul{ padding-top: 20px; li{ padding-bottom: 10px; } }
-  h1{ font-size: 30px; }
+  h1{
+    font-size: 30px;
+    font-size: 40px;
+    font-weight: 100;
+    margin-top: 40px;
+  }
   .how-did-I-choose-sites-for-comparison{
+    margin-top: 40px;
     h4{
-      font-weight: bold;
       margin-top: 20px;
       margin-bottom: 10px;
+      font-weight: 100;
     }
     ul{
       padding-top: 10px;
@@ -22,11 +28,12 @@
     .site, .conclusion{
       h3{
         padding-left: 10px;
-        margin-top: 30px;
+        margin-top: 50px;
         border-left: 21px solid #303030;
-        font-weight: bold;
+        
         position: relative;
         right: 21px;
+        font-weight: 100;
       }
       .description{
         margin-top: 20px;
@@ -78,7 +85,7 @@
         padding: 10px;
         box-sizing: border-box;
         box-shadow: -1px 0px 9px 2px #0f1835;
-        font-weight: bold;
+        
         text-align: center;
       }
     }
@@ -111,8 +118,8 @@
     }
     mark{
       background: none;
-      color: #016501;
-      font-weight: bold;
+      color: $purple;
+      
     }
     section.article-section{
       padding-top: 40px;

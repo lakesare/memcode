@@ -1,7 +1,8 @@
+@import 'css/variables';
+
 .article-formatting{
   padding-bottom: 20px;
   line-height: 30px;
-  font-family: Sintony;
   font-size: 15px;
   a{ color: $purple; }
   ol, ul{
@@ -12,12 +13,12 @@
 
   // subclasses
   .container.-left-border{
-    border-left: 2px solid #6d6d6d;
   }
   section.article-headings{
     margin-bottom: 20px;
     h3{
-      margin-top: 13px;
+      margin-top: 30px;
+      font-weight: 100;
     }
   }
   section.article-section{
@@ -25,7 +26,7 @@
     padding-top: 20px; padding-bottom: 20px;
   }
   h2.section-heading{
-    font-weight: bold;
+    font-weight: 100;
     margin-bottom: 20px;
     i{
       padding-right: 10px;

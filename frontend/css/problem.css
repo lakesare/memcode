@@ -12,6 +12,7 @@ section.problem{
     background: rgb(34, 38, 74);
     *{
       color: rgb(206, 199, 245) !important;
+      background: rgba(0, 0, 0, 0) !important;
     }
   }
   &.-withInlinedAnswers{

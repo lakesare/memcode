@@ -5,8 +5,49 @@
   width: 199px;
   height: 213px;
   background: rgb(25, 26, 46);
-  padding: 10px;
   overflow: hidden;
+
+  .go{
+    background: rgb(29, 31, 52);
+    width: 100%;
+    display: block;
+    text-align: right;
+    padding-right: 10px;
+    color: white;
+    opacity: 0.8;
+    &:hover{
+      opacity: 1;
+      text-shadow: 0 0 6px rgba(243, 243, 243, 0.5);
+    }
+    i{
+      font-size: 14px;
+    }
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .go{
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+  div.main{
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+
+    &:hover{
+      section.links{
+        visibility: visible;
+      }
+    }
+  }
+
+  h2.title,
+  .category_and_author{
+    padding: 0 10px;
+  }
 
   h2.title{
     margin-top: 20px;
@@ -14,28 +55,17 @@
     font-weight: 100;
     font-size: 18px;
     text-align: center;
+    &:hover{
+      color: red;
+    }
   }
 
-
-  position: relative;
-  section.total-amount-of-flashcards{
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%;
-    text-align: center;
-    padding-bottom: 3px;
-    padding-top: 3px;
-    background: rgb(136, 125, 220);
-    color: rgb(255, 255, 255);
-    font-size: 11px;
-    background: rgb(7, 9, 39);
-    color: rgb(7, 9, 39);
-  }
-
-  > section.category_and_author{
+  section.category_and_author{
+    padding-top: 10px;
     font-size: 12px;
     display: flex;
     justify-content: space-between;
+    cursor: default;
     > div.category{
       border-left: 1px solid $purple;
       padding-left: 6px;
@@ -50,7 +80,7 @@
 
     position: absolute;
     left: 0; right: 0;
-    bottom: 18px; top: 34px;
+    bottom: 18px; top: 0;
     display: flex;
 
     > a{
@@ -71,23 +101,24 @@
       }
       &.review{
         background: $review-button-color;
+        &.-simulated{
+          color: rgb(214, 37, 111);
+          background: rgb(29, 31, 52);
+          text-align: center;
+        }
       }
     }
   }
 
 
 
-  &:hover{
-    section.links{
-      visibility: visible;
-    }
-  }
 
-  div.review-and-learn{
 
+  div.learn-and-review-buttons{    
     section.amount-footer{
+      background: rgba(86, 91, 130, 0.08);
       position: absolute;
-      bottom: 19px;
+      bottom: 0;
       left: 0; right: 0;
       display: flex;
       > div.learn, > div.review{
@@ -99,14 +130,18 @@
       }
       > div.learn{
         background: $learn-button-color;
-        &.-zero{ opacity: 0; pointer-events: 'none'; }
+        &.-zero{
+          opacity: 0;
+          pointer-events: none;
+          cursor: default;
+        }
       }
       > div.review{
         &.-nonzero{
           background: $review-button-color;
         }
         &.-zero{
-          background: grey;
+          color: white;
         }
         &.-empty{
           visibility: hidden;

@@ -25,7 +25,6 @@ class Header extends React.Component {
         exact
         to="/courses"
         className="link courses"
-        isActive={(match, location) => ['/courses', '/courses/learning', '/courses/created'].some((url) => location.pathname === url)}
       >courses</NavLink>
       <NavLink
         exact

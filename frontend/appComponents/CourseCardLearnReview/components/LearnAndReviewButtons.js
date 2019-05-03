@@ -58,7 +58,7 @@ class LearnAndReviewButtons extends React.Component {
     </section>
 
   render = () =>
-    <div className="review-and-learn">
+    <div className="learn-and-review-buttons">
       {this.renderLinks(this.props.amountOfProblemsToLearn, this.props.amountOfProblemsToReview, this.props.courseId)}
       {this.renderAmountFooter(this.props.amountOfProblemsToLearn, this.props.amountOfProblemsToReview, this.props.nextDueDateIn)}
     </div>

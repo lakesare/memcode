@@ -36,22 +36,27 @@ class CourseCardLearnReview extends React.Component {
 
   renderGo = (course) =>
     <Link
-      className="actions"
+      className="go"
       to={
         this.ifCanEdit() ?
           `/courses/${course.id}/edit` :
           `/courses/${course.id}`
       }
-    ><i className="fa fa-long-arrow-right"/></Link>
+    >
+      <i className="fa fa-long-arrow-right"/>
+
+    </Link>
 
   render = () =>
     <div className={"course -learnReviewCourse " + css.div}>
-      <section className="category_and_author">
-        <div className="category">{this.props.courseDto.courseCategory.name === 'Programming Languages' ? 'Programming' : this.props.courseDto.courseCategory.name}</div>
-        <div className="author">{this.props.courseDto.author.username}</div>
-      </section>
+      {this.renderGo(this.props.courseDto.course)}
 
-      <section className="main">
+      <div className="main">
+        <section className="category_and_author">
+          <div className="category">{this.props.courseDto.courseCategory.name === 'Programming Languages' ? 'Programming' : this.props.courseDto.courseCategory.name}</div>
+          <div className="author">{this.props.courseDto.author.username}</div>
+        </section>
+
         <h2 className="title">{this.props.courseDto.course.title}</h2>
 
         {
@@ -63,11 +68,7 @@ class CourseCardLearnReview extends React.Component {
             nextDueDateIn={this.props.courseDto.nextDueDateIn}
           />
         }
-      </section>
-
-      <section className="total-amount-of-flashcards">
-        {this.props.courseDto.amountOfProblems} flashcards
-      </section>
+      </div>
     </div>
 }
 

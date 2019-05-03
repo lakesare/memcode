@@ -39,7 +39,7 @@ class Page_articles_comparison extends React.Component {
             <h1><mark>Memrise</mark> vs <mark>Quizlet</mark> vs <mark>Brainscape</mark> vs <mark>Memcode</mark></h1>
 
             <h3>
-              Comparison of popular <b>repetition-based learning</b> sites.
+              Comparison of popular <mark>repetition-based learning</mark> sites.
             </h3>
           </section>
 
