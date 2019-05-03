@@ -1,14 +1,14 @@
 import * as ProblemApi from '~/api/Problem';
+import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 
-import { Loading } from '~/components/Loading';
+import posed from 'react-pose';
+import Loading from '~/components/Loading';
 import { ChooseCourseToMoveProblemsTo } from './components/ChooseCourseToMoveProblemsTo';
 import { ButtonToDeleteProblems } from './components/ButtonToDeleteProblems';
 
 import closeButtonSvg from '~/images/closeButton.svg';
 
 import css from './index.css';
-
-import posed from 'react-pose';
 
 const Animation = posed.section({
   hidden: {
@@ -44,20 +44,24 @@ class ActionsForCheckedProblems extends React.Component {
     this.props.updateIdsOfCheckedProblems([])
 
   render = () => (
-    <Animation className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-not-sticky')} pose={this.props.idsOfCheckedProblems.length > 0 ? 'visible' : 'hidden'}>
-      <Loading spe={this.state.speRemovingProblems}>
-        <div className="container">
-          <ChooseCourseToMoveProblemsTo apiMoveAllCheckedProblemsToCourse={this.apiMoveAllCheckedProblemsToCourse} amount={this.props.idsOfCheckedProblems.length}/>
-          <ButtonToDeleteProblems apiDeleteAllCheckedProblems={this.apiDeleteAllCheckedProblems} amount={this.props.idsOfCheckedProblems.length}/>
-          <button
-            type="button"
-            className="close-button"
-            onClick={this.uiClose}
-          >
-            <img src={closeButtonSvg} alt="Unselect selected flashcards"/>
-          </button>
-        </div>
-      </Loading>
+    <Animation
+      className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-not-sticky') + ' ' + (this.props.idsOfCheckedProblems.length > 0 ? '-visible' : '-not-visible')}
+      pose={this.props.idsOfCheckedProblems.length > 0 ? 'visible' : 'hidden'}
+      style={disableOnSpeRequest(this.state.speRemovingProblems)}
+    >
+      <div className="container">
+        <ChooseCourseToMoveProblemsTo apiMoveAllCheckedProblemsToCourse={this.apiMoveAllCheckedProblemsToCourse} amount={this.props.idsOfCheckedProblems.length}/>
+        <ButtonToDeleteProblems apiDeleteAllCheckedProblems={this.apiDeleteAllCheckedProblems} amount={this.props.idsOfCheckedProblems.length}/>
+        <button
+          type="button"
+          className="close-button"
+          onClick={this.uiClose}
+        >
+          <img src={closeButtonSvg} alt="Unselect selected flashcards"/>
+        </button>
+      </div>
+
+      <Loading enabledStatuses={['failure']} spe={this.state.speRemovingProblems}/>
     </Animation>
   )
 }

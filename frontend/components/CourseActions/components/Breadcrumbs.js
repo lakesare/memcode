@@ -43,7 +43,7 @@ class Breadcrumbs extends React.Component {
     // only if already fetched
     this.state.courseCategory &&
     <div className="category">
-      {`To `}
+      {`In `}
       <Link to={`/courses?categoryId=${this.state.courseCategory.id}`}>
         {this.state.courseCategory.name}
       </Link>

@@ -1,7 +1,13 @@
 @import 'css/variables';
 
 :local(section.actions-for-checked-problems){
-  overflow: hidden;
+  &.-visible{
+    overflow: visible;
+  }
+  &.-not-visible{
+    overflow: hidden;
+  }
+
   // layout
   &.-not-sticky{
     // for a .close-button
