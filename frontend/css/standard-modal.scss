@@ -5,25 +5,24 @@
   left: 0; right: 0;
   z-index: 2000;
 
-  background: rgba(255, 255, 255, 0.8);
+  background: rgb(15, 17, 34);
   > button.close-button{
     position: absolute;
-    right: 10px; top: 10px;
+    right: 10px;
+    top: 10px;
     z-index: 2001;
 
-    border: 1px solid #efefef;;
     border-radius: 50%;
-
-    width: 35px; height: 35px;
+    width: 35px;
+    height: 35px;
     transform: rotate(45deg);
-    color: #969595;
-    background: white;
-    // centering text
+    color: rgb(145, 148, 179);
+
     line-height: 0;
-    font-size: 29px;
+    font-size: 40px;
     padding-left: 1px;
     padding-bottom: 1px;
-
     cursor: pointer;
+    font-weight: 100;
   }
 }

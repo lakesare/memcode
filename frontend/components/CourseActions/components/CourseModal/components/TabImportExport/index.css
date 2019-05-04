@@ -4,22 +4,19 @@
       padding: 0 20px;
       > h2.title{
         font-size: 22px;
-        font-family: Roboto;
-        font-weight: bold;
         text-align: center;
+        font-weight: 100;
       }
       > article.instructions{
         margin-top: 26px;
 
-        color: rgb(199, 196, 196);
-        font-family: 'Roboto';
+        // color: rgb(199, 196, 196);
         font-size: 13px;
-        font-weight: lighter;
 
         display: flex;
         > div.first-column{
           width: 50%;
-          border-right: 2px solid rgba(236, 236, 236, 0.44);
+          border-right: 1px solid rgba(223, 201, 247, 0.06);
           padding-right: 20px;
 
           p{
@@ -33,7 +30,7 @@
           padding-left: 20px;
           img{
             max-width: 400px;
-            opacity: 0.4;
+            opacity: 0.96;
             &:hover{ opacity: 1; }    
           }
           figcaption{
@@ -76,7 +73,7 @@
       margin-top: 30px;
       margin-bottom: 30px;
       border: none;
-      border-bottom: 3px dashed rgba(214, 213, 213, 0.48);
+      border-bottom: 3px dashed rgba(223, 201, 247, 0.06);
     }
   }
 }

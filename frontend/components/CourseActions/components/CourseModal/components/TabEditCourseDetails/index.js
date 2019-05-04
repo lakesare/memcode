@@ -2,6 +2,7 @@ import CourseApi from '~/api/CourseApi';
 import CourseModel from '~/models/CourseModel';
 
 import Loading from '~/components/Loading';
+import StandardTooltip from '~/components/StandardTooltip';
 import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
 import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 
@@ -50,11 +51,25 @@ class TabEditCourseDetails extends React.Component {
       <div className="background -blue">
         <form className="standard-form" onSubmit={(e) => e.preventDefault()}>
 
-          <TextInput      {...this.inputProps()} label="* Title:"           name="title"/>
-          <EditorTextarea {...this.inputProps()} label="Description:"       name="description"/>
-          <CourseCategoryFormLine {...this.inputProps()} label="Category:"  name="courseCategoryId"/>
+          <div className="form-insides">
+            <TextInput      {...this.inputProps()} label="* Title" name="title"/>
 
-          <Select         {...this.inputProps()} label="Public/private:" name="ifPublic" possibleValues={{ true: 'Public', false: "Private" }}/>
+            <EditorTextarea {...this.inputProps()} label="Description:"       name="description"/>
+
+            <div className="two-form-lines-in-row">
+              <CourseCategoryFormLine {...this.inputProps()} label="Category" name="courseCategoryId"/>
+              <Select
+                {...this.inputProps()}
+                label={
+                  <span>
+                    Public/Private <StandardTooltip tooltipEl="Private courses won't be listed in /courses. Consider making your course public if other people may want to use it!"/>
+                  </span>
+                }
+                name="ifPublic"
+                possibleValues={{ true: 'Public', false: "Private" }}
+              />
+            </div>
+          </div>
 
           <button
             className="button -purple standard-submit-button"

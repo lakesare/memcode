@@ -27,13 +27,14 @@ class TabNavigation extends React.Component {
         this.props.tabs
           .filter(name => !this.props.disabledTabs.includes(name))
           .map(name =>
-            <a
+            <button
               key={name}
+              type="button"
               className={this.props.selectedTab === name ? 'selected' : ''}
               onClick={() => this.selectTab(name)}
             >
               {name}
-            </a>
+            </button>
           )
       }
     </nav>
