@@ -4,8 +4,7 @@ import { url } from '~/services/url';
 
 import { Link } from 'react-router-dom';
 import { MetaTags } from './components/MetaTags';
-import { Loading } from '~/components/Loading';
-import Breadcrumbs from './components/Breadcrumbs';
+import Loading from '~/components/Loading';
 import CourseModal from './components/CourseModal';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
@@ -105,10 +104,15 @@ class CourseActions extends React.Component {
           {
             this.props.ifBreadcrumbsAreDisplayed &&
             <section className="category_and_author">
-              <Breadcrumbs courseCategoryId={courseDto.course.courseCategoryId}/>
+              <div className="category">
+                {`In `}
+                <Link to={`/courses?categoryId=${courseDto.courseCategory.id}`}>
+                  {courseDto.courseCategory.name}
+                </Link>
+              </div>
 
               <div className="author">
-                By <span>Lakesare</span>
+                By <span>{courseDto.author.username}</span>
               </div>
             </section>
           }
