@@ -32,9 +32,12 @@ class Editor extends React.Component {
     className: ''
   }
 
-  // range: Range {index: 5, length: 0} OR null
-  onChangeSelection = (range) => {
-    this.props.onFocusChange(!!range);
+  onBlur = () => {
+    this.props.onFocusChange(false);
+  }
+
+  onFocus = () => {
+    this.props.onFocusChange(true);
   }
 
   render = () =>
@@ -77,9 +80,11 @@ class Editor extends React.Component {
         }
       }}
 
-      onChangeSelection={this.onChangeSelection}
+      onBlur={this.onBlur}
+      onFocus={this.onFocus}
       placeholder={this.props.placeholder}
     />
 }
 
 export { Editor };
+export default Editor;

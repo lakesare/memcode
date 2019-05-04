@@ -59,7 +59,7 @@ class SeparateAnswerEdit extends React.Component {
         <Editor
           placeholder="Enter a question"
           editorState={this.props.problemContent.content}
-          updateEditorState={newState => this.updateProblemContent('content', newState)}
+          updateEditorState={(newState) => this.updateProblemContent('content', newState)}
           onFocusChange={(value) => this.updateFocus('firstColumn', value)}
         />
       </div>
@@ -68,7 +68,7 @@ class SeparateAnswerEdit extends React.Component {
         <Editor
           placeholder="Enter an answer"
           editorState={this.props.problemContent.answer}
-          updateEditorState={newState => this.updateProblemContent('answer', newState)}
+          updateEditorState={(newState) => this.updateProblemContent('answer', newState)}
           onFocusChange={(value) => this.updateFocus('secondColumn', value)}
         />
       </div>

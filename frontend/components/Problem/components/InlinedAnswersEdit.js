@@ -1,7 +1,7 @@
 import { standardToolbarContainer } from '~/services/quill/standardToolbarContainer';
 import handlerMarkAsAnswer from '~/services/quill/handlerMarkAsAnswer';
 
-import { Editor } from '~/components/Editor';
+import Editor from '~/components/Editor';
 
 class InlinedAnswersEdit extends React.Component {
   static propTypes = {
@@ -74,7 +74,7 @@ class InlinedAnswersEdit extends React.Component {
         <Editor
           placeholder="Enter some additional information/hint"
           editorState={this.props.problemContent.explanation}
-          updateEditorState={newState => this.updateProblemContent('explanation', newState)}
+          updateEditorState={(newState) => this.updateProblemContent('explanation', newState)}
           onFocusChange={(value) => this.updateFocus('secondColumn', value)}
         />
       </div>

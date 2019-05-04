@@ -34,14 +34,14 @@ router.get('/courses/:id/review', authenticate, catchAsync(async (request, respo
 
 router.get('/courses/:id/review/simulated', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
-  const problems = await knex('problem').where({ course_id: courseId });
+  const problems = await knex('problem').where({ course_id: courseId }).orderBy('createdAt');
   response.status(200).json({ courseUserIsLearning: null, problems });
 }));
 
 router.get('/courses/:id/edit', authenticate, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
-  const problems = await knex('problem').where({ course_id: courseId });
+  const problems = await knex('problem').where({ course_id: courseId }).orderBy('createdAt');
 
   response.status(200).json({ problems });
 }));
