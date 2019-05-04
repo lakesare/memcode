@@ -78,19 +78,23 @@ class Course extends React.Component {
       }
     </div>
 
+  renderCourseStats = () =>
+    <div className="course-stats">
+      <div className="course-category-name">{this.props.courseData.courseCategoryName}</div>
+      <div className="author">{this.props.courseData.authorUsername}</div>
+      <div className="amount-of-students">
+        <i className="fa fa-users"/>
+        {this.props.courseData.amountOfUsersLearningThisCourse}
+      </div>
+    </div>
+
   render = () =>
     <li>
       <Link to={this.getEditOrShowUrl()}>
+        {this.renderCourseStats()}
         <div className="title_and_description">
           {this.renderTitle()}
           {this.renderDescription()}
-        </div>
-        <div className="amount-of-students_and_course-category-name">
-          <div className="amount-of-students">
-            <i className="fa fa-users"/>
-            {this.props.courseData.amountOfUsersLearningThisCourse}
-          </div>
-          <div className="course-category-name">{this.props.courseData.courseCategoryName}</div>
         </div>
         {this.renderUserRelatioshipToCourse()}
       </Link>

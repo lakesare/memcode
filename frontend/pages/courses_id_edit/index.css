@@ -65,9 +65,10 @@
     margin: 0 auto;
     margin-top: 25px;
     // to avoid editing problem at the bottom of the screen
-    margin-bottom: 40px;
+    margin-bottom: 200px;
     > section.how-to-create{
       margin-top: 10px;
+      margin-right: 5px;
       color: rgb(172, 181, 218);
       text-align: right;
       font-size: 12px;

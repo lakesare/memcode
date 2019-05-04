@@ -3,7 +3,7 @@
   width: 100%;
   padding: 10px 20px;
   background: rgb(25, 26, 46);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgb(33, 35, 54);
   color: white;
   &::placeholder{
     color: rgb(136, 140, 202);

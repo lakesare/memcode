@@ -67,7 +67,7 @@ class Page_courses_learning extends React.Component {
     <main className={css.main}>
       <Header/>
 
-      <Loading enabledStatuses={['failure', 'success']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+      <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
         <Loading spe={this.state.speGetCourses}>{(coursesData) =>
           coursesData.length === 0 ?
             <ForBeginners/> :

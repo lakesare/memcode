@@ -1,7 +1,6 @@
 @import 'css/variables';
 
 :local(.a){
-  margin-top: 20px;
   width: 199px;
   height: 213px;
   background: rgb(25, 26, 46);

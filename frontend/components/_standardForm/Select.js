@@ -1,6 +1,5 @@
-/* eslint-disable */
-import { FormLineLayout } from './components/FormLineLayout';
-import { SelectDropdown } from '~/components/SelectDropdown';
+import FormLineLayout from './components/FormLineLayout';
+import SelectDropdown from '~/components/SelectDropdown';
 
 // why is there value={this.props.formState[name] || ''} in all inputs?
 // to avoid this issue: https://github.com/twisty/formsy-react-components/issues/66
@@ -23,18 +22,20 @@ class Select extends React.Component {
     })
 
   render = () =>
-    FormLineLayout(
-      this.props,
-      <div className="standard-dropdown-wrapper">
-        <SelectDropdown
-          value={String(this.props.formState[this.props.name])}
-          updateValue={this.updateFormState}
-          possibleValues={this.props.possibleValues}
-          dropdownClassName="standard-dropdown -purple"
-        />
-      </div>,
-      '-Select'
-    )
+    <FormLineLayout
+      label={this.props.label}
+      name={this.props.name}
+      formValidation={this.props.formValidation}
+    >
+      <SelectDropdown
+        value={String(this.props.formState[this.props.name])}
+        updateValue={this.updateFormState}
+        possibleValues={this.props.possibleValues}
+        className="standard-input -Select standard-dropdown-wrapper"
+        dropdownClassName="standard-dropdown -purple"
+      />
+    </FormLineLayout>
 }
 
 export { Select };
+export default Select;

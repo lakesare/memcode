@@ -1,18 +1,29 @@
 @import 'css/variables';
 
-:local(.div){
-  margin-top: 20px;
+:local(.CourseCardLearnReview){
   width: 199px;
   height: 213px;
   background: rgb(25, 26, 46);
   overflow: hidden;
 
-  .go{
-    background: rgb(29, 31, 52);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  // instead of global padding
+  h2.title,
+  section.category_and_author,
+  a.go{
+    padding: 0 10px;
+  }
+
+  > a.go{
+    flex-grow: 0;
+    flex-shrink: 0;
+
     width: 100%;
-    display: block;
+    background: rgb(29, 31, 52);
     text-align: right;
-    padding-right: 10px;
     color: white;
     opacity: 0.8;
     &:hover{
@@ -23,128 +34,104 @@
       font-size: 14px;
     }
   }
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  .go{
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-  div.main{
+  > div.main{
     flex-grow: 1;
     height: 100%;
     position: relative;
-
     &:hover{
-      section.links{
+      > div.learn-and-review-buttons > section.links{
         visibility: visible;
       }
     }
-  }
+    > h2.title{
+      margin-top: 20px;
 
-  h2.title,
-  .category_and_author{
-    padding: 0 10px;
-  }
-
-  h2.title{
-    margin-top: 20px;
-
-    font-weight: 100;
-    font-size: 18px;
-    text-align: center;
-    &:hover{
-      color: red;
-    }
-  }
-
-  section.category_and_author{
-    padding-top: 10px;
-    font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-    cursor: default;
-    > div.category{
-      border-left: 1px solid $purple;
-      padding-left: 6px;
-    }
-    > div.author{
       font-weight: 100;
+      font-size: 18px;
+      text-align: center;
     }
-  }
 
-  section.links{
-    visibility: hidden;
-
-    position: absolute;
-    left: 0; right: 0;
-    bottom: 18px; top: 0;
-    display: flex;
-
-    > a{
-      width: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.8;
+    > section.category_and_author{
+      padding-top: 10px;
       font-size: 12px;
-      &:hover{
-        opacity: 1;
+      display: flex;
+      justify-content: space-between;
+      cursor: default;
+      > div.category{
+        border-left: 1px solid $purple;
+        padding-left: 6px;
       }
-      &.learn{
-        background: $learn-button-color;
-        &.-zero{
-          visibility: hidden;
-        }
-      }
-      &.review{
-        background: $review-button-color;
-        &.-simulated{
-          color: rgb(214, 37, 111);
-          background: rgb(29, 31, 52);
-          text-align: center;
-        }
+      > div.author{
+        font-weight: 100;
       }
     }
-  }
 
+    > div.learn-and-review-buttons{
+      > section.links{
+        visibility: hidden;
 
+        position: absolute;
+        left: 0; right: 0;
+        bottom: 18px; top: 0;
+        display: flex;
 
-
-
-  div.learn-and-review-buttons{    
-    section.amount-footer{
-      background: rgba(86, 91, 130, 0.08);
-      position: absolute;
-      bottom: 0;
-      left: 0; right: 0;
-      display: flex;
-      > div.learn, > div.review{
-        width: 50%;
-        font-size: 10px;
-        padding: 4px 0;
-        text-align: center;
-        text-transform: uppercase;
-      }
-      > div.learn{
-        background: $learn-button-color;
-        &.-zero{
-          opacity: 0;
-          pointer-events: none;
-          cursor: default;
+        > a{
+          width: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0.8;
+          font-size: 12px;
+          &:hover{
+            opacity: 1;
+          }
+          &.learn{
+            background: $learn-button-color;
+            &.-zero{
+              visibility: hidden;
+            }
+          }
+          &.review{
+            background: $review-button-color;
+            &.-simulated{
+              color: rgb(214, 37, 111);
+              background: rgb(29, 31, 52);
+              text-align: center;
+            }
+          }
         }
       }
-      > div.review{
-        &.-nonzero{
-          background: $review-button-color;
+      > section.amount-footer{
+        background: rgba(86, 91, 130, 0.08);
+        position: absolute;
+        bottom: 0;
+        left: 0; right: 0;
+        display: flex;
+        > div.learn, > div.review{
+          width: 50%;
+          font-size: 10px;
+          padding: 4px 0;
+          text-align: center;
+          text-transform: uppercase;
         }
-        &.-zero{
-          color: white;
+        > div.learn{
+          background: $learn-button-color;
+          &.-zero{
+            opacity: 0;
+            pointer-events: none;
+            cursor: default;
+          }
         }
-        &.-empty{
-          visibility: hidden;
+        > div.review{
+          &.-nonzero{
+            background: $review-button-color;
+          }
+          &.-zero{
+            color: white;
+          }
+          &.-empty{
+            visibility: hidden;
+          }
         }
       }
     }

@@ -76,7 +76,7 @@ class Search extends React.Component {
         this.state.courseDatas.length > 0 &&
         <div className="standard-dropdown">
           <div className="header">
-            <div className="pretty-text">{this.state.realCourseDataLength} courses found</div>
+            {this.state.realCourseDataLength} courses found
           </div>
           <ul style={disableOnSpeRequest(this.state.speSearch, { opacity: 0.9 })}>
             {this.state.courseDatas.map((courseData) =>

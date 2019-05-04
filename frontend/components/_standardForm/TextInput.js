@@ -1,15 +1,13 @@
-/* eslint-disable */
-import { FormLineLayout } from './components/FormLineLayout';
+import FormLineLayout from './components/FormLineLayout';
 
-// why is there value={this.props.formState[name] || ''} in all inputs?
-// to avoid this issue: https://github.com/twisty/formsy-react-components/issues/66
-// when the initial this.props.formState is {}
 class TextInput extends React.Component {
   static propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     name: PropTypes.string.isRequired,
-    updateFormState: PropTypes.func.isRequired,
+
     formState: PropTypes.object.isRequired,
+    updateFormState: PropTypes.func.isRequired,
+
     formValidation: PropTypes.object.isRequired,
 
     type: PropTypes.string
@@ -26,17 +24,21 @@ class TextInput extends React.Component {
     })
 
   render = () =>
-    FormLineLayout(
-      this.props,
+    <FormLineLayout
+      label={this.props.label}
+      name={this.props.name}
+      formValidation={this.props.formValidation}
+    >
       <input
+        className="standard-input -TextInput"
         type={this.props.type}
         id={this.props.name} // for htmlFor
-        value={this.props.formState[this.props.name] || ''}
+        value={this.props.formState[this.props.name]}
         onChange={this.updateFormState}
         autoComplete="off"
-      />,
-      '-TextInput'
-    )
+      />
+    </FormLineLayout>
 }
 
 export { TextInput };
+export default TextInput;

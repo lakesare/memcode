@@ -1,145 +1,148 @@
 @import 'css/variables';
 
 :local(main.main){
-  ul{ padding-top: 20px; li{ padding-bottom: 10px; } }
-  h1{
-    font-size: 30px;
-    font-size: 40px;
-    font-weight: 100;
-    margin-top: 40px;
-  }
-  .how-did-I-choose-sites-for-comparison{
-    margin-top: 40px;
-    h4{
-      margin-top: 20px;
-      margin-bottom: 10px;
+  article{
+    ul{ padding-top: 20px; li{ padding-bottom: 10px; } }
+    h1{
+      font-size: 30px;
+      font-size: 40px;
       font-weight: 100;
+      margin-top: 40px;
     }
-    ul{
-      padding-top: 10px;
-      li{ padding-bottom: 0; }
-    }
-  }
-  // shared among children
-  .sites{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    .site, .conclusion{
-      h3{
-        padding-left: 10px;
-        margin-top: 50px;
-        border-left: 21px solid #303030;
-        
-        position: relative;
-        right: 21px;
+    .how-did-I-choose-sites-for-comparison{
+      margin-top: 40px;
+      h4{
+        margin-top: 20px;
+        margin-bottom: 10px;
         font-weight: 100;
       }
-      .description{
-        margin-top: 20px;
+      ul{
+        padding-top: 10px;
+        li{ padding-bottom: 0; }
       }
     }
-    .site{
-      width: 100%;
-      h3{
-        color: $purple;
-        width: 190px;
-        > span.rating{
-          font-size: 15px;
-          width: 25px; height: 25px;
-          border-radius: 3px;
-          float: right;
+    // shared among children
+    .sites{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      .site, .conclusion{
+        h3{
+          padding-left: 10px;
+          margin-top: 50px;
+          border-left: 21px solid #303030;
+          
+          position: relative;
+          right: 21px;
+          font-weight: 100;
+        }
+        .description{
+          margin-top: 20px;
+        }
+      }
+      .site{
+        width: 100%;
+        h3{
+          color: $purple;
+          width: 190px;
+          > span.rating{
+            font-size: 15px;
+            width: 25px; height: 25px;
+            border-radius: 3px;
+            float: right;
 
-          background: #303030;
-          background: rgb(93, 88, 88);
-          box-shadow: 0 0 4px 1px #cecece;
+            background: #303030;
+            background: rgb(93, 88, 88);
+            box-shadow: 0 0 4px 1px #cecece;
+            color: white;
+
+            // center a number
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
+      .conclusion{
+        width: 100%;
+        h3{
+          background: $purple;
           color: white;
-
-          // center a number
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          padding: 5px;
+          padding-left: 10px;
         }
       }
     }
-    .conclusion{
-      width: 100%;
-      h3{
-        background: $purple;
-        color: white;
-        padding: 5px;
-        padding-left: 10px;
+
+    // child-specific
+    section.article-section#types-of-tasks{
+      ul{
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        list-style-type: none;
+        li{
+          width: 50%;
+          padding: 10px;
+          box-sizing: border-box;
+          box-shadow: -1px 0px 9px 2px #0f1835;
+          
+          text-align: center;
+        }
+      }
+      img{
+        width: 100%;
+        max-width: 325px;
+
+        margin: 0 auto;
+        display: block;
+        margin-top: 10px;
+        border: 1px solid #c6cbea;
       }
     }
-  }
 
-  // child-specific
-  section.article-section#types-of-tasks{
-    ul{
-      display: flex;
-      flex-wrap: wrap;
-      padding-left: 0;
-      list-style-type: none;
-      li{
-        width: 50%;
-        padding: 10px;
-        box-sizing: border-box;
-        box-shadow: -1px 0px 9px 2px #0f1835;
+    section.article-section#when-to-use-each{
+      .site h3{
+        width: auto;
+        > span.answer{
+          color: black;
+          font-size: 16px;
+        }
+      }
+    }
+
+    // overrides
+    &.article-formatting{
+      .article-headings{
+        margin-bottom: 0;
+        mark{ color: $purple; }
+      }
+      mark{
+        background: none;
+        color: $purple;
         
-        text-align: center;
+      }
+      section.article-section{
+        padding-top: 40px;
+        margin-top: -20px;
+        padding-bottom: 0;
+        border-top: none;
+        h2.section-heading{
+          margin-bottom: 5px;
+          margin-top: 30px;
+          background: #303030;
+          color: white;
+          font-weight: normal;
+          padding: 5px;
+          padding-left: 31px;
+
+          position: relative;
+          right: 21px;
+          width: 50%;
+        }
       }
     }
-    img{
-      width: 100%;
-      max-width: 325px;
 
-      margin: 0 auto;
-      display: block;
-      margin-top: 10px;
-      border: 1px solid #c6cbea;
-    }
-  }
-
-  section.article-section#when-to-use-each{
-    .site h3{
-      width: auto;
-      > span.answer{
-        color: black;
-        font-size: 16px;
-      }
-    }
-  }
-
-  // overrides
-  .article-formatting{
-    .article-headings{
-      margin-bottom: 0;
-      mark{ color: $purple; }
-    }
-    mark{
-      background: none;
-      color: $purple;
-      
-    }
-    section.article-section{
-      padding-top: 40px;
-      margin-top: -20px;
-      padding-bottom: 0;
-      border-top: none;
-      h2.section-heading{
-        margin-bottom: 5px;
-        margin-top: 30px;
-        background: #303030;
-        color: white;
-        font-weight: normal;
-        padding: 5px;
-        padding-left: 31px;
-
-        position: relative;
-        right: 21px;
-        width: 50%;
-      }
-    }
   }
 }
 

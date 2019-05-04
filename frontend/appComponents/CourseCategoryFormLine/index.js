@@ -1,5 +1,5 @@
 import { FormLineLayout } from '~/components/_standardForm';
-import CourseCategorySelect from '~/appComponents/CourseCategorySelect';
+import CourseCategorySelect from './components/CourseCategorySelect';
 
 class CourseCategoryFormLine extends React.Component {
   static propTypes = {
@@ -17,14 +17,16 @@ class CourseCategoryFormLine extends React.Component {
     })
 
   render = () =>
-    FormLineLayout(
-      this.props,
+    <FormLineLayout
+      label={this.props.label}
+      name={this.props.name}
+      formValidation={this.props.formValidation}
+    >
       <CourseCategorySelect
         courseCategoryId={this.props.formState[this.props.name] || false}
         updateCourseCategoryId={this.updateFormState}
-      />,
-      '-Select'
-    )
+      />
+    </FormLineLayout>
 }
 
 export default CourseCategoryFormLine;

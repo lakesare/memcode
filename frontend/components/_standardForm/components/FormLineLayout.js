@@ -1,25 +1,29 @@
-const FormLineLayout = (props, inputElement, className = '') =>
-  <section className={`form-line -${props.name}`}>
-    <label htmlFor={props.name}>{props.label}</label>
+class FormLineLayout extends React.Component {
+  static propTypes = {
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
+    name: PropTypes.string.isRequired,
+    formValidation: PropTypes.object.isRequired,
+    children: PropTypes.element.isRequired
+  }
 
-    <div className="input-and-validation-error">
-      <div className={`standard-input ${className}`}>
-        {inputElement}
-      </div>
+  render = () =>
+    <section className={`form-line -${this.props.name}`}>
+      <label htmlFor={this.props.name}>{this.props.label}</label>
 
-      {
-        props.formValidation[props.name] &&
-        <div className="validation-error">
-          {props.formValidation[props.name]}
+      <div className="input-and-validation-error">
+        <div className="input">
+          {this.props.children}
         </div>
-      }
-    </div>
-  </section>;
 
-FormLineLayout.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  formValidation: PropTypes.object.isRequired
-};
+        {
+          this.props.formValidation[this.props.name] &&
+          <div className="validation-error">
+            {this.props.formValidation[this.props.name]}
+          </div>
+        }
+      </div>
+    </section>
+}
 
 export { FormLineLayout };
+export default FormLineLayout;

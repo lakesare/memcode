@@ -65,6 +65,15 @@ class CourseActions extends React.Component {
   }
 
   componentDidMount = () =>
+    this.apiGetCourseActions()
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.courseId !== this.props.courseId) {
+      this.apiGetCourseActions();
+    }
+  }
+
+  apiGetCourseActions = () =>
     commonFetch(
       (spe) => this.props.seedSpeGetCourse(spe),
       'GET', `/api/pages/courseActions/${this.props.courseId}`

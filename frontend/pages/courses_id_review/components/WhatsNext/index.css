@@ -2,25 +2,35 @@
   > section.congratulations{
     color: white;
     text-align: center;
-    .next-review-time{
+    h2{
+      font-weight: 100;
+      font-size: 27px;
+      letter-spacing: 0.4px;
+    }
+    div.next-review-time{
       color: rgba(239, 234, 233, 0.5);
       font-size: 14px;
-      margin-top: 8px;
+      margin-top: 13px;
     }
     h3.whats-next{
       width: 150px;
-      margin: 35px auto;
-      padding-bottom: 20px;
+      margin: 0 auto;
+      margin-top: 35px;
+      font-weight: 300;
+      text-align: center;
       // border-bottom: 2px solid rgb(255, 192, 203);
     }
   }
   > section.offered-courses{
-    max-width: 821px;
+    max-width: 915px;
     margin: 0 auto;
-    margin-top: 44px;
-    // made border look a little better on dark bg
-    .course{
-      box-shadow: -1px 1px 7px #f7f5f5;
+    margin-top: 30px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .course-card{
+      margin-top: 35px;
     }
     .layout-div{ display: none; }
   }

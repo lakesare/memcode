@@ -1,5 +1,7 @@
 @import 'css/variables';
 :local(section.search){
+  margin-left: 10px;
+  margin-right: 10px;
   position: relative;
   > div.toggler{
     // position
@@ -41,16 +43,22 @@
   }
   > div.standard-dropdown{
     width: 100%;
+    max-height: 300px;
+    padding: 0;
+    box-shadow: 0px 0px 10px 2px rgba(11, 12, 31, 0.9);
     > div.header{
       padding: 5px 10px;
+      font-size: 12px;
       text-align: right;
     }
     > ul{
+      > li{ padding: 0; }
       > li > a{
+        background: rgb(15, 17, 34);
         display: block;
         > div.title_and_description{
           width: 100%;
-          padding: 3px 10px;
+          padding: 6px 10px;
           > div.title, > div.description{
             mark{ color: $purple; }
             p{ margin: 0 }
@@ -61,17 +69,18 @@
             padding-right: 10px;
           }
           > div.description{
+            padding-top: 5px;
             font-size: 11px;
-            color: rgb(161, 161, 161);
+            color: rgba(181, 213, 243, 0.35);
             overflow-x: hidden;
           }
         }
-        > div.amount-of-students_and_course-category-name{
+        > div.course-stats{
           width: 100%;
           display: flex;
           justify-content: space-between;
           font-size: 11px;
-          color: rgb(128, 128, 128);
+          color: white;
           padding: 3px 10px;
           background: rgba(230, 230, 230, 0.2);
           > div.amount-of-students{
@@ -80,7 +89,10 @@
               color: rgb(189, 189, 189);
             }
           }
-          > div.course-category-name{}
+          > div.course-category-name{
+            border-left: 1px solid rgb(136, 125, 220);
+            padding-left: 6px;
+          }
         }
         position: relative;
         > div.status{

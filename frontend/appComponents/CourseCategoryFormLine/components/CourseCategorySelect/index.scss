@@ -1,0 +1,46 @@
+@import 'css/variables';
+
+:local(.section){
+  ul.groups{
+    position: absolute;
+    top: 100%;
+    max-height: 200px;
+    width: 100%;
+    overflow-y: scroll;
+    z-index: 1000;
+    padding-bottom: 14px;
+
+    background: rgb(25, 26, 46);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+
+    font-size: 14px;
+    > li.group{
+      margin-top: 10px;
+      margin-left: 10px;
+      > span.group-name{
+        padding: 2px 10px;
+        padding-left: 17px;
+        cursor: default;
+        border-left: 2px solid rgb(136, 125, 220);
+        background-image: linear-gradient(to right, rgba(136, 125, 220, 0.5) 0%, rgba(136, 125, 220, 0.15) 1.5%, rgba(136, 125, 220, 0.075) 3.5%, rgba(136, 125, 220, 0.0375) 5.75%, rgba(136, 125, 220, 0.0185) 8.425%, rgba(136, 125, 220, 0.0095) 12.7%, rgba(136, 125, 220, 0) 17%);
+        letter-spacing: 0.4px;
+        font-weight: 500;
+      }
+      > ul.categories{
+        > li.category{
+          padding-top: 6px;
+          padding-left: 20px;
+          cursor: pointer;
+          opacity: 0.6;
+          &:hover{
+            opacity: 1;
+          }
+          &.-active{
+            color: $purple;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

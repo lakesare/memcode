@@ -104,6 +104,15 @@ class Page_courses extends React.Component {
     return this.props.location.pathname + '?' + newQuery.toString();
   }
 
+  getCurrentCategoryName = (courseCategories) => {
+    const currentCategoryId = getCategoryId(this.props);
+    if (currentCategoryId) {
+      return courseCategories.find((category) => category.id === currentCategoryId).name;
+    } else {
+      return 'All Courses';
+    }
+  }
+
   renderPagination = (className = '') =>
     <Pagination
       className={className}
@@ -126,7 +135,7 @@ class Page_courses extends React.Component {
 
           <div className="title_and_sorting_and_courses">
             <div className="title_and_sorting">
-              <h1 className="title">Computer Science</h1>
+              <h1 className="title">{this.getCurrentCategoryName(courseCategories)}</h1>
 
               <SortBySelect
                 sortBy={getSortBy(this.props)}

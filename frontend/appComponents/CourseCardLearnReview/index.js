@@ -48,7 +48,7 @@ class CourseCardLearnReview extends React.Component {
     </Link>
 
   render = () =>
-    <div className={"course -learnReviewCourse " + css.div}>
+    <div className={"course-card -learnReviewCourse " + css.CourseCardLearnReview}>
       {this.renderGo(this.props.courseDto.course)}
 
       <div className="main">

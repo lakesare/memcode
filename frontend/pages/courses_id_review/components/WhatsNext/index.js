@@ -32,7 +32,7 @@ class WhatsNext extends React.Component {
       const filteredOwnCourses = ownCourses.filter(({ course }) => course.id !== this.props.courseId);
 
       // um, 8 actually
-      const amountOfCoursesToShow = 8;
+      const amountOfCoursesToShow = 20;
 
       let finalCourses = filteredOwnCourses
         .slice(0, amountOfCoursesToShow)
@@ -47,6 +47,7 @@ class WhatsNext extends React.Component {
             !filteredOwnCourses.find((ownCourseData) => ownCourseData.course.id === course.id)
           );
         const neededAmountOfCourses = amountOfCoursesToShow - finalCourses.length;
+
         finalCourses = [
           ...finalCourses,
           ...filteredPopularCourses
@@ -67,7 +68,7 @@ class WhatsNext extends React.Component {
     CourseApi.selectPublic(
       false,
       {
-        pageSize: 8,
+        pageSize: 21,
         pageNumber: 1,
         sortBy: 'popular'
       }

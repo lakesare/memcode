@@ -1,9 +1,9 @@
-import { Editor } from '~/components/Editor';
-import { FormLineLayout } from './components/FormLineLayout';
+import Editor from '~/components/Editor';
+import FormLineLayout from './components/FormLineLayout';
 
 class EditorTextarea extends React.Component {
   static propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     name: PropTypes.string.isRequired,
     updateFormState: PropTypes.func.isRequired,
     formState: PropTypes.object.isRequired,
@@ -17,14 +17,18 @@ class EditorTextarea extends React.Component {
     })
 
   render = () =>
-    FormLineLayout(
-      this.props,
+    <FormLineLayout
+      label={this.props.label}
+      name={this.props.name}
+      formValidation={this.props.formValidation}
+    >
       <Editor
-        editorState={this.props.formState[this.props.name] || ''}
+        className="standard-input -EditorTextarea"
+        editorState={this.props.formState[this.props.name]}
         updateEditorState={this.updateFormState}
-      />,
-      '-EditorTextarea'
-    )
+      />
+    </FormLineLayout>
 }
 
 export { EditorTextarea };
+export default EditorTextarea;

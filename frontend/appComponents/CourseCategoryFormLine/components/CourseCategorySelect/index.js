@@ -54,12 +54,7 @@ class CourseCategorySelect extends React.Component {
       onClick={() => this.updateCourseCategoryId(category.id)}
       className={`category ${this.ifCategoryIsActive(category) ? '-active' : '-non-active'}`}
     >
-      <div className="category-insides">
-        <span className="category-name">{category.name}</span>
-        <span className="amount-of-courses">
-          {/* <b>(</b>{category.amountOfCourses}<b>)</b> */}
-        </span>
-      </div>
+      {category.name}
     </li>
 
   renderToggler = (categories, categoryId) =>
@@ -69,22 +64,20 @@ class CourseCategorySelect extends React.Component {
     </button>
 
   renderDropdown = (courseCategoryGroups, courseCategories) =>
-    <div className="dropdown">
-      <ul className="groups">
-        {CourseCategoryGroupModel.sortByAmountOfCourses(courseCategoryGroups, courseCategories).map((group) =>
-          <li className="group" key={group.id}>
-            <span className="group-name">{group.name}</span>
-            <ul className="categories">
-              {CourseCategoryModel.deriveAndSortCategoriesPerGroup(courseCategories, group).map(this.renderCategoryLi)}
-            </ul>
-          </li>
-        )}
-      </ul>
-    </div>
+    <ul className="groups">
+      {CourseCategoryGroupModel.sortByAmountOfCourses(courseCategoryGroups, courseCategories).map((group) =>
+        <li className="group" key={group.id}>
+          <span className="group-name">{group.name}</span>
+          <ul className="categories">
+            {CourseCategoryModel.deriveAndSortCategoriesPerGroup(courseCategories, group).map(this.renderCategoryLi)}
+          </ul>
+        </li>
+      )}
+    </ul>
 
   render = () =>
     <Loading enabledStatuses={['success', 'error']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
-      <section className={`standard-dropdown-wrapper ${css.section}`}>
+      <section className={`standard-input -Select standard-dropdown-wrapper ${css.section}`}>
         {this.renderToggler(courseCategories, this.props.courseCategoryId)}
         {
           this.state.ifDropdownIsOpen &&

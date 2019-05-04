@@ -234,7 +234,10 @@ class Page_courses_id_edit extends React.Component {
             uiAddOptimisticProblem={this.uiAddOptimisticProblem}
             uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
           />
-          <Instructions/>
+          {
+            false &&
+            <Instructions/>
+          }
         </div>
       </StickyContainer>
 
