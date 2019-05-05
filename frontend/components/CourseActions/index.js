@@ -149,11 +149,11 @@ class CourseActions extends React.Component {
               />
             </div> :
             <div className="please-sign-in_and_simulated-review-button">
-              <h4 className="please-sign-in">Sign in to start recording results</h4>
+              <label className="please-sign-in">Sign in to start recording results</label>
 
               <Link
                 to={`/courses/${this.props.courseId}/review/simulated`}
-                className="simulated-review-button"
+                className="button simulated-review-button"
               >REVIEW ({courseDto.amountOfProblems})</Link>
             </div>
         }

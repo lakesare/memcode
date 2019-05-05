@@ -1,3 +1,4 @@
+import orFalse from '~/services/orFalse';
 import { NavLink } from 'react-router-dom';
 import { Search } from './components/Search';
 import { SignInLinks } from './components/SignInLinks';
@@ -11,12 +12,8 @@ import css from './index.css';
 }))
 class Header extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object,
+    currentUser: orFalse(PropTypes.object).isRequired,
     dontLinkToLearnOrReview: PropTypes.string
-  }
-
-  static defaultProps = {
-    currentUser: null
   }
 
   renderNavigation = () =>
@@ -48,10 +45,13 @@ class Header extends React.Component {
         <div className="nav-and-current-user">
           {this.renderNavigation()}
 
-          <NavLink
-            to="/courses/learning"
-            className="button -purple my-courses-link"
-          >MY COURSES</NavLink>
+          {
+            this.props.currentUser &&
+            <NavLink
+              to="/courses/learning"
+              className="button -purple my-courses-link"
+            >MY COURSES</NavLink>
+          }
 
           {this.renderUser()}
         </div>

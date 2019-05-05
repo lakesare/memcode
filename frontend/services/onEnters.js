@@ -1,32 +1,31 @@
 import store from '~/store';
+import { Redirect } from 'react-router';
 
-const getCurrentUser = () => store.getState().global.Authentication.currentUser;
+const getCurrentUser = () =>
+  store.getState().global.Authentication.currentUser;
 
-const requireAuthentication = (nextState, transition, callback) => {
+const requireAuthentication = (Component) => {
   if (getCurrentUser()) {
-    callback();
+    return (props) => <Component {...props}/>;
   } else {
-    transition({ pathname: '/please-sign-in' });
-    callback();
+    return (props) => <Redirect to="/please-sign-in" {...props}/>;
   }
 };
 
-const redirectToOwnCoursesIfAuthenticated = (nextState, transition, callback) => {
+const redirectToOwnCoursesIfAuthenticated = (Component) => {
   if (getCurrentUser()) {
-    transition({ pathname: '/courses/learning' });
-    callback();
+    return (props) => <Redirect to="/courses/learning" {...props}/>;
   } else {
-    callback();
+    return (props) => <Component {...props}/>;
   }
 };
 
-const requireAdmin = (nextState, transition, callback) => {
+const requireAdmin = (Component) => {
   // introduce ifAdmin=true later
   if (getCurrentUser() && getCurrentUser().email === 'lakesare@gmail.com') {
-    callback();
+    return (props) => <Component {...props}/>;
   } else {
-    transition({ pathname: '/please-sign-in' });
-    callback();
+    return (props) => <Redirect to="/please-sign-in" {...props}/>;
   }
 };
 

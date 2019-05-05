@@ -17,7 +17,6 @@ class CourseCardSimple extends React.Component {
       amountOfProblems: PropTypes.number.isRequired,
       author: PropTypes.object.isRequired,
       courseCategory: PropTypes.object.isRequired,
-      courseCategoryGroup: PropTypes.object.isRequired,
       averageCourseRating: PropTypes.string,
     }).isRequired
   }

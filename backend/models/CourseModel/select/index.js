@@ -36,7 +36,6 @@ const select = {
         row_to_json(course.*) AS course,
         row_to_json("user".*) AS author,
         row_to_json(course_category.*) AS course_category,
-        row_to_json(course_category_group.*) AS course_category_group,
         COUNT(distinct course_user_is_learning.user_id) AS amount_of_users_learning_this_course,
         COUNT(distinct problem.id) AS amount_of_problems,
         ROUND(AVG(course_rating.rating), 1) AS average_course_rating,
@@ -56,12 +55,10 @@ const select = {
         ON course.user_id = "user".id
       INNER JOIN course_category
         ON course.course_category_id = course_category.id
-      INNER JOIN course_category_group
-        ON course_category.course_category_group_id = course_category_group.id
       WHERE
         ${wherePublic}
         ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
-      GROUP BY (course.id, "user".id, course_category.id, course_category_group.id)
+      GROUP BY (course.id, "user".id, course_category.id)
       ${
         sortBy === 'popular' ?
           `

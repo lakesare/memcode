@@ -1,7 +1,7 @@
 class SignInLinks extends React.Component {
   render = () =>
     <section className="sign-in-links">
-      <h6 className="soliciting">Sign in:</h6>
+      <label className="soliciting">Sign in:</label>
       <div className="links">
         <a className="gmail" href={window.env.googleSignInLink}>
           <span className="name">Gmail</span>

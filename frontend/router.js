@@ -10,7 +10,7 @@ import Page_courses_id_learn from './pages/courses_id_learn';
 import Page_courses_id_edit from './pages/courses_id_edit';
 import Page_courses_learning from './pages/courses_learning';
 
-import Page_offline_courses from './pages/offline_courses';
+// import Page_offline_courses from './pages/offline_courses';
 // import Page_offline_courses_id_review from './pages/offline_courses_id_review';
 
 // static pages
@@ -30,20 +30,22 @@ const createElement = (Component, props) =>
   // eslint-disable-next-line react/prop-types
   <Component key={props.params.id} {...props}/>;
 
+const auth = onEnters.requireAuthentication;
+
 const router =
   <BrowserRouter createElement={createElement}>
     <Switch>
-      <Route exact path="/courses"          component={Page_courses}/>
-      <Route exact path="/courses/learning" component={Page_courses_learning} onEnter={onEnters.requireAuthentication}/>
-      <Route exact path="/courses/new"        component={Page_courses_new}      onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses"            component={Page_courses}/>
+      <Route exact path="/courses/learning"   component={auth(Page_courses_learning)}/>
+      <Route exact path="/courses/new"        component={auth(Page_courses_new)}/>
       <Route exact path="/courses/:id"        component={Page_courses_id}/>
-      <Route exact path="/courses/:id/edit"   component={Page_courses_id_edit}  onEnter={onEnters.requireAuthentication}/>
-      <Route exact path="/courses/:id/learn"  component={Page_courses_id_learn} onEnter={onEnters.requireAuthentication}/>
-      <Route exact path="/courses/:id/review" component={Page_courses_id_review} simulated={false} onEnter={onEnters.requireAuthentication}/>
+      <Route exact path="/courses/:id/edit"   component={auth(Page_courses_id_edit)}/>
+      <Route exact path="/courses/:id/learn"  component={auth(Page_courses_id_learn)}/>
+      <Route exact path="/courses/:id/review" component={auth(Page_courses_id_review)} simulated={false}/>
       <Route exact path="/courses/:id/review/simulated" component={(props) => <Page_courses_id_review {...props} simulated/>}/>
 
       {/* offline */}
-      <Route exact path="/offline/courses" component={Page_offline_courses} onEnter={onEnters.requireAuthentication}/>
+      {/* <Route exact path="/offline/courses" component={Page_offline_courses} onEnter={onEnters.requireAuthentication}/> */}
       {/* <Route exact path="/offline/courses/:id/review" component={Page_offline_courses_id_review} onEnter={onEnters.requireAuthentication}/> */}
 
       {/* static pages */}
@@ -52,12 +54,12 @@ const router =
       <Route exact path="/test"           component={Page_test}/>
 
       {/* articles */}
-      <Route exact path="/"                    component={Page_articles_welcome} onEnter={onEnters.redirectToOwnCoursesIfAuthenticated}/>
+      <Route exact path="/"                    component={onEnters.redirectToOwnCoursesIfAuthenticated(Page_articles_welcome)}/>
       <Route exact path="/articles/comparison" component={Page_articles_comparison}/>
       <Route exact path="/articles/welcome"    component={Page_articles_welcome}/>
 
       {/* admin */}
-      <Route exact path="/admin/notifications" component={Page_admin_notifications} onEnter={onEnters.requireAdmin}/>
+      <Route exact path="/admin/notifications" component={onEnters.requireAdmin(Page_admin_notifications)}/>
     </Switch>
   </BrowserRouter>;
 

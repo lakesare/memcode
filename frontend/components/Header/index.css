@@ -14,7 +14,6 @@
   }
 
   nav{
-    font-family: $heading-font;
     display: flex;
     align-items: center;
     .link{
@@ -63,13 +62,13 @@
   section.sign-in-links{
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.06);
     padding: 0 20px;
-    > h6.soliciting{
+    background: rgb(24, 26, 46);
+    > label.soliciting{
       font-size: 11px;
-      color: white;
-      opacity: 0.9;
-      padding-right: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding-right: 16px;
       display: flex;
       align-items: center;
     }
@@ -97,17 +96,18 @@
         // specific
         &.gmail{
           padding-right: 7px;
-          border-right: 1px solid rgba(255, 255, 255, 0.25);
           > i{
-            color: #fbbc05;
+            color: rgb(212, 70, 56);
             font-size: 20px;
+            &:hover{ text-shadow: 0 0 8px rgba(212, 70, 56, 0.2); }
           }
         }
         &.github{
           padding-left: 7px;
           > i{
-            color: #c49bf9;
+            color: rgb(136, 125, 220);
             font-size: 23px;
+            &:hover{ text-shadow: 0 0 8px rgba(136, 125, 220, 0.2); }
           }
         }
       }

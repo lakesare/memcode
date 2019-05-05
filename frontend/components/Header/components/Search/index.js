@@ -1,3 +1,4 @@
+import orFalse from '~/services/orFalse';
 import CourseApi from '~/api/CourseApi';
 
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
@@ -9,7 +10,7 @@ import css from './index.css';
 @onClickOutside
 class Search extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object
+    currentUser: orFalse(PropTypes.object).isRequired
   }
 
   state = {
@@ -21,7 +22,7 @@ class Search extends React.Component {
   }
 
   handleClickOutside = () => {
-    this.clearAndCloseDropdown()
+    this.clearAndCloseDropdown();
   }
 
   apiSearch = (searchString) =>
