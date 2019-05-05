@@ -3,10 +3,8 @@
 :local(.section){
   .extendable-class-read-all_and_see-more{
     text-transform: uppercase;
-    font-family: "Helvetica Neue";
     font-weight: 500;
     letter-spacing: 1px;
-    color: rgb(82, 82, 82);
     font-size: 9px;
     cursor: pointer;
   }
@@ -15,23 +13,28 @@
   align-items: center;
   justify-content: center;
   width: 50px;
-  padding-right: 10px;
   // background: rgba(255, 255, 255, 0.06);
   // background: rgba(0, 0, 0, 0.2);
 
   position: relative;
+  > div.toggler > i{
+    font-size: 19px;
+  }
   &.-there-are-unread-notifications{
-    > div.toggler{ color: $purple; }
+    > div.toggler > i{
+      color: rgb(212, 4, 236);
+      text-shadow: 0px 0px 6px #b10acc;
+    }
   }
   &.-there-are-no-unread-notifications{
-    > div.toggler{ color: white; }
+    > div.toggler > i{ color: rgba(255, 255, 255, 0.25); }
   }
   > div.toggler{
     cursor: pointer;
     position: relative;
     > div.amount-of-unread-notifications{
       position: absolute;
-      top: -8px; left: 12px;
+      top: -8px; left: 9px;
       border-radius: 50%;
 
       width: 15px; height: 15px;
@@ -40,10 +43,9 @@
       align-items: center;
       justify-content: center;
 
-      border: 1px solid rgba(255, 255, 255, 0.4);
       font-size: 10px;
-      color: rgba(255, 255, 255, 0.82);
-      background: rgba(47, 5, 5, 0.58);
+      text-shadow: 0px 0px 7px #ffffff85;
+      color: rgb(239, 173, 247);
     }
   }
   > div.dropdown{
@@ -51,21 +53,21 @@
     right: 4px;
     width: 405px;
 
+    background: rgb(15, 17, 34);
+    box-shadow: 0px 6px 9px 0px #181a2e;
+    outline: 1px solid rgb(23, 27, 55);
+
     > div.header{
       display: flex;
       justify-content: flex-end;
       > button.read-all-button{
         padding: 5px 15px;
+        color: white;
         @extend .extendable-class-read-all_and_see-more;
-        &:hover{
-          color: rgb(16, 16, 16);
-        }
       }
     }
     > div.footer{
       padding: 10px 0;
-      background-color: rgb(250, 251, 252);
-      border-top: 1px solid rgb(231, 232, 236);
       text-align: center;
       border-radius: 0 0 4px 4px;
 

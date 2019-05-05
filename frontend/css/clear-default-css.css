@@ -46,12 +46,12 @@ main{
   // background: #4e4b4b;
 }
 
-input[type="text"], input[type="email"], textarea{
+input[type="text"], input[type="search"], input[type="email"], textarea{
   padding: 4px 10px;
   border: none;
 }
 
-input[type="text"]:focus, textarea:focus, button:focus{
+input[type="text"]:focus, input[type="search"]:focus, textarea:focus, button:focus{
   outline: none;
 }
 input, textarea, select, button{

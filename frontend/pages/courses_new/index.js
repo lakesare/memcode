@@ -5,7 +5,7 @@ import StandardTooltip from '~/components/StandardTooltip';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
 import Loading from '~/components/Loading';
-import { TextInput, EditorTextarea, Select } from '~/components/_standardForm';
+import { TextInput, Select } from '~/components/_standardForm';
 import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 
 import CourseModel from '~/models/CourseModel';
@@ -16,6 +16,10 @@ import css from './index.css';
 
 @withRouter
 class Page_courses_new extends React.Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired
+  }
+
   state = {
     speSave: { status: 'success' },
     formState: {

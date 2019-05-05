@@ -80,8 +80,8 @@ class Course extends React.Component {
 
   renderCourseStats = () =>
     <div className="course-stats">
-      <div className="course-category-name">{this.props.courseData.courseCategoryName}</div>
-      <div className="author">{this.props.courseData.authorUsername}</div>
+      <div className="course-category-name">In {this.props.courseData.courseCategoryName} |</div>
+      <div className="author">By {this.props.courseData.authorUsername} |</div>
       <div className="amount-of-students">
         <i className="fa fa-users"/>
         {this.props.courseData.amountOfUsersLearningThisCourse}
@@ -91,12 +91,12 @@ class Course extends React.Component {
   render = () =>
     <li>
       <Link to={this.getEditOrShowUrl()}>
-        {this.renderCourseStats()}
         <div className="title_and_description">
           {this.renderTitle()}
           {this.renderDescription()}
         </div>
         {this.renderUserRelatioshipToCourse()}
+        {this.renderCourseStats()}
       </Link>
     </li>
 }

@@ -903,7 +903,7 @@
       font-family: $body-font;
       font-size: 15px;
 
-      pre.ql-syntax, code{
+      pre.ql-syntax, code, code *{
         // ___brighter good idea too:
         // background: rgba(166, 128, 220, 0.54) !important;
         // color: rgb(255, 255, 255) !important;
@@ -925,13 +925,15 @@
       }
       a{ color: $purple; }
       blockquote{
-        border-left: 4px solid white;
         color: white;
         font-size: 12px;
+        border-left: 1px solid rgba(206, 199, 245, 0.62);
+        background: rgba(21, 23, 45, 0.38) !important;
+        padding: 4px 16px;
       }
 
       img{
-        background: white;
+        background: white !important;
         display: block;
         margin: 0 auto;
         border: 1px solid rgba(236, 236, 236, 0.72);

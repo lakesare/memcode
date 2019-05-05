@@ -45,9 +45,6 @@ class CourseCategorySelect extends React.Component {
   ifCategoryIsActive = (category) =>
     this.props.courseCategoryId === category.id
 
-  renderSelectedCategory = (category) =>
-    category.name
-
   renderCategoryLi = (category) =>
     <li
       key={category.id}
@@ -57,11 +54,26 @@ class CourseCategorySelect extends React.Component {
       {category.name}
     </li>
 
-  renderToggler = (categories, categoryId) =>
-    <button type="button" className="toggler" onClick={this.toggleDropdown}>
-      {this.renderSelectedCategory(categories.find((category) => category.id === categoryId))}
+  renderToggler = () => {
+    let categoryName;
+    if (this.state.speGetCategories.status === 'success') {
+      const courseCategories = this.state.speGetCategories.payload.courseCategories;
+      categoryName = courseCategories
+        .find((category) => category.id === this.props.courseCategoryId)
+        .name;
+    } else {
+      if (this.props.courseCategoryId === 1) {
+        categoryName = 'Other';
+      } else {
+        categoryName = <span/>;
+      }
+    }
+
+    return <button type="button" className="toggler" onClick={this.toggleDropdown}>
+      {categoryName}
       <i className="fa fa-caret-down"/>
-    </button>
+    </button>;
+  }
 
   renderDropdown = (courseCategoryGroups, courseCategories) =>
     <ul className="groups">
@@ -76,15 +88,13 @@ class CourseCategorySelect extends React.Component {
     </ul>
 
   render = () =>
-    <Loading enabledStatuses={['success', 'error']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
-      <section className={`standard-input -Select standard-dropdown-wrapper ${css.section}`}>
-        {this.renderToggler(courseCategories, this.props.courseCategoryId)}
-        {
-          this.state.ifDropdownIsOpen &&
-          this.renderDropdown(courseCategoryGroups, courseCategories)
-        }
-      </section>
-    }</Loading>
+    <section className={`standard-input -Select standard-dropdown-wrapper ${css.section}`}>
+      {this.renderToggler()}
+      <Loading enabledStatuses={['success', 'error']} spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) => (
+        this.state.ifDropdownIsOpen &&
+        this.renderDropdown(courseCategoryGroups, courseCategories)
+      )}</Loading>
+    </section>
 }
 
 export default CourseCategorySelect;

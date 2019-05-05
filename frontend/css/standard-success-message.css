@@ -1,10 +1,11 @@
 .standard-success-message{
-  color: rgb(60, 118, 61);
-  background-color: rgb(223, 240, 216);
-  border-color: rgb(214, 233, 198);
-  padding: 15px 40px;
-  margin-top: 20px;
+  max-width: 640px;
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 30px;
+  background: rgba(25, 26, 46, 0.57);
+  border-radius: 2px;
   text-align: center;
-  font-family: 'Roboto';
-  font-weight: lighter;
+  color: rgb(136, 125, 220);
+  font-size: 14px;
 }

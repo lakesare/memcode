@@ -20,8 +20,9 @@ class Search extends React.Component {
     realCourseDataLength: 0
   }
 
-  handleClickOutside = () =>
+  handleClickOutside = () => {
     this.clearAndCloseDropdown()
+  }
 
   apiSearch = (searchString) =>
     CourseApi.selectSearch(
@@ -55,6 +56,9 @@ class Search extends React.Component {
   clearAndCloseDropdown = () =>
     this.setState({ ifDropdownIsOpen: false })
 
+  onFocus = () =>
+    this.setState({ ifDropdownIsOpen: true })
+
   render = () =>
     <section className={`${css.search} search standard-dropdown-wrapper`}>
       <div className="toggler">
@@ -62,8 +66,10 @@ class Search extends React.Component {
         <input
           // placeholder="Find a course..."
           onChange={this.updateSearchString}
+          onFocus={this.onFocus}
           value={this.state.searchString}
-          type="text"
+          type="search"
+
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"

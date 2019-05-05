@@ -117,7 +117,9 @@ class NotificationsTogglerAndDropdown extends React.Component {
       style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
       onClick={() => this.setState({ ifDropdownIsOpen: !this.state.ifDropdownIsOpen })}
     >
-      <i className="fa fa-bell"/>
+      <i className="material-icons">
+        notifications_none
+      </i>
       {
         this.state.amountOfUnreadNotifications > 0 &&
         <div className="amount-of-unread-notifications">{this.state.amountOfUnreadNotifications}</div>
