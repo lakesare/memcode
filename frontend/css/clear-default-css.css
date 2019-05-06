@@ -67,9 +67,6 @@ input, textarea, select, button{
 button{
   cursor: pointer;
 }
-textarea {
-  resize: none;
-}
 
 mark{
   background: none;

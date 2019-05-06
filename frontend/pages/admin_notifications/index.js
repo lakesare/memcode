@@ -1,4 +1,4 @@
-import commonFetch from '~/api/commonFetch';
+import api from '~/api';
 
 import Loading from '~/components/Loading';
 import PageAdmin from '~/appComponents/PageAdmin';
@@ -8,44 +8,24 @@ import css from './index.css';
 
 class Page extends React.Component {
   state = {
-    speCreateNotificationsForExistingUsers: {},
     speAnnounceAFeature: {},
     memcode_added_some_feature_notificationHtml: ''
   }
 
-  apiCreateNotificationsForExistingUsers = () =>
-    commonFetch(
-      (spe) => this.setState({ speCreateNotificationsForExistingUsers: spe }),
-      'POST', '/api/admin/temporary/create-notifications-for-existing-users'
-    )
-
   apiAnnounceAFeature = () =>
-    commonFetch(
-      (spe) => this.setState({ speAnnounceAFeature: spe }),
-      'POST', '/api/notifications/announce-a-new-feature',
+    api.NotificationApi.announceNewFeature(
       {
         type: 'memcode_added_some_feature',
         content: {
           html: this.state.memcode_added_some_feature_notificationHtml
         }
-      }
+      },
+      (spe) => this.setState({ speAnnounceAFeature: spe })
     )
 
   render = () =>
     <PageAdmin title="Notifications">
       <div className={`standard-admin-sections ${css.sections}`}>
-        <section className="standard-admin-section">
-          <h2 className="standard-admin-section-title">Create Notifications For Existing Users</h2>
-          <code>
-            make db-restore
-          </code>
-          <button className="button -white -small" type="submit" onClick={this.apiCreateNotificationsForExistingUsers}>
-            Create
-          </button>
-
-          <Loading spe={this.state.speCreateNotificationsForExistingUsers}>{({ message }) => <span>{message}</span>}</Loading>
-        </section>
-
         <section className="standard-admin-section">
           <h2 className="standard-admin-section-title">Send everyone notification about the new feature</h2>
 

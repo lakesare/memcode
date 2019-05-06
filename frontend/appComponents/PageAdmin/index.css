@@ -8,10 +8,11 @@
     > nav.navigation-admin{
       flex-grow: 0;
       flex-shrink: 0;
-      width: 250px; min-height: 400px;
-      margin-right: 20px;
-      background: rgb(243, 243, 243);
-      border-left: 2px solid rgb(33, 10, 56);
+      width: 250px;
+      min-height: 400px;
+      margin-right: 40px;
+      margin-bottom: 60px;
+      background: rgba(34, 38, 74, 0.27);
       a{
         display: block;
         padding: 10px;

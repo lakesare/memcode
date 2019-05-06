@@ -1,8 +1,7 @@
 @import 'css/variables';
 
 :local(.sections){
-	code{
-		display: block;
-		margin-bottom: 30px;
-	}
+  textarea{
+    color: white;
+  }
 }

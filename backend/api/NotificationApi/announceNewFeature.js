@@ -6,15 +6,15 @@ const announceNewFeature = async (request, response) => {
 
   const users = await knex('user');
 
-  await knex.transaction((trx) => trx.then(() =>
+  await knex.transaction((trx) =>
     Promise.all(users.map((user) =>
       trx()
         .insert({ type, content, ifRead: false, userId: user.id })
         .into('notification')
     ))
-  ));
+  );
 
-  response.success({ message: `${users.count()} users are notified!` });
+  response.success({ message: `${users.length} users are notified!` });
 };
 
 
