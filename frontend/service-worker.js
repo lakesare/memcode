@@ -1,20 +1,15 @@
-
-
 console.log('this is my custom service worker');
-
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
-// workbox.precaching.precacheAndRoute([
-//   { url: '/index.html', revision: 'aaaa' },
-// ]);
-
-// workbox.routing.registerRoute(
-//   new RegExp('/index.html'),
-//   workbox.strategies.networkFirst()
-// );
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    // clearing cached responses!
+    caches.delete('api')
+  );
+});
 
 workbox.precaching.precache([
-  { url: '/index.html', revision: 'aaaa' }
+  { url: '/index.html', revision: 'v2' }
 ]);
 workbox.routing.registerNavigationRoute(
   '/index.html',
@@ -29,14 +24,14 @@ workbox.routing.registerNavigationRoute(
 workbox.routing.registerRoute(
   new RegExp('.*/api/courseCategories/withGroups'),
   workbox.strategies.staleWhileRevalidate({
-    cacheName: 'api',
+    cacheName: 'api_v2'
   })
 );
 
 workbox.routing.registerRoute(
   new RegExp('.*/api/courses/public.*'),
   workbox.strategies.staleWhileRevalidate({
-    cacheName: 'api',
+    cacheName: 'api_v2'
   })
 );
 

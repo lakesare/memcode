@@ -67,7 +67,6 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// console.log('change for webpack');
 if (process.env.NODE_ENV === 'production') {
   document.addEventListener("DOMContentLoaded", () => {
     if ('serviceWorker' in navigator) {
