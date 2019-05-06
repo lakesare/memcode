@@ -7,7 +7,11 @@ class ListOfCourseCards extends React.Component {
   static propTypes = {
     courseDtos: PropTypes.array.isRequired,
     type: PropTypes.oneOf(['simple', 'learnReview']).isRequired,
-    className: PropTypes.string.isRequired
+    className: PropTypes.string
+  }
+
+  static defaultProps = {
+    className: ''
   }
 
   renderLayoutDivs = () =>

@@ -107,6 +107,7 @@
         bottom: 0;
         left: 0; right: 0;
         display: flex;
+        cursor: default;
         > div.learn, > div.review{
           width: 50%;
           font-size: 10px;

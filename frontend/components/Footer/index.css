@@ -12,9 +12,8 @@ body{
   right: 0; left: 0;
   bottom: 0;
 
-  padding: 7px 0;
-  border-top: 3px solid #111111;
-  background: $purple;
+  padding: 10px 0;
+  background: rgb(20, 22, 45);
   color: white;
 
   > .container{

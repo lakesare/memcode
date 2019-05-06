@@ -13,7 +13,7 @@ class ForBeginners extends React.Component {
     CourseApi.selectPublic(
       (spe) => this.setState({ speGetCourses: spe }),
       {
-        pageSize: 10,
+        pageSize: 16,
         pageNumber: 1,
         sortBy: 'popular'
       }
@@ -22,20 +22,27 @@ class ForBeginners extends React.Component {
 
   render = () =>
     <section className="for-beginners">
-      <article className="welcome">
-        <h1 className="welcome-title">Welcome!</h1>
-        <div className="description">
-          <h2>You are not learning any courses yet.</h2>
-          <p>You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.</p>
-        </div>
-      </article>
+      <div className="container">
+        <article className="welcome">
+          <h1 className="title">Welcome!</h1>
+          <div className="description">
+            <h2>You are not learning any courses yet.</h2>
+            <p>
+              You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.
+            </p>
+            <p>
+              Or just walk around the site, isn't it damn beautiful?
+            </p>
+          </div>
+        </article>
 
-      <hr/>
+        <hr/>
 
-      <h2 className="meanwhile-here-are-popular-courses-title">Meanwhile, here are the most popular courses:</h2>
-      <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
-        <ListOfCourseCards courseDtos={onePageOfCourses}/>
-      }</Loading>
+        <h2 className="meanwhile-here-are-popular-courses-title">Meanwhile, here are the most popular courses:</h2>
+        <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
+          <ListOfCourseCards type="simple" courseDtos={onePageOfCourses}/>
+        }</Loading>
+      </div>
     </section>
 }
 

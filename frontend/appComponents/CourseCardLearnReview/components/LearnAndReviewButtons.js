@@ -52,7 +52,7 @@ class LearnAndReviewButtons extends React.Component {
             REVIEW
           </Link> :
           <Link className="review -simulated" to={`/courses/${courseId}/review/simulated`}>
-            REVIEW without recording results
+            REVIEW <br/>without recording results
           </Link>
       }
     </section>
