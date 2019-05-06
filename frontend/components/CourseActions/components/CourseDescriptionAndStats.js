@@ -19,6 +19,19 @@ class CourseDescriptionAndStats extends React.Component {
     this.props.course.userId !== this.props.currentUser.id
   )
 
+  ifAuthor = () => (
+    this.props.currentUser &&
+    this.props.course.userId === this.props.currentUser.id
+  )
+
+  getCourseDescription = () => {
+    const description = this.props.course.description;
+    if (this.ifAuthor() && !description) {
+      return '<div class="placeholder">Click [edit] to add some description to your course ♥</div>';
+    }
+    return description;
+  }
+
   renderStat = (icon, stat) =>
     <li>
       <div className="stat">{stat}</div>
@@ -30,7 +43,7 @@ class CourseDescriptionAndStats extends React.Component {
       <div className="container">
         <ReadonlyEditor
           className="course-description"
-          html={this.props.course.description}
+          html={this.getCourseDescription()}
         />
 
         {

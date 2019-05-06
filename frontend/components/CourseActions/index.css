@@ -200,7 +200,20 @@
             padding: 0;
             font-size: 14px;
             min-height: auto;
+            .placeholder{
+              padding-right: 10px;
+              line-height: 20px;
+              color: rgb(172, 181, 218);
+              opacity: 0;
+              transition-duration: 300ms;
+              transition-delay: 300ms;
+            }
           }
+        }
+      }
+      &:hover{
+        .course-description .placeholder{
+          opacity: 1 !important;
         }
       }
     }

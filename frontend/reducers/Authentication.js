@@ -18,6 +18,8 @@ const AuthenticationActions = {
   signIn: (dispatch, token) => {
     localStorage.setItem('jwt', token);
     dispatch({ type: 'SET_CURRENT_USER', payload: jwtToUserObject(token) });
+    // location.reload();
+    // window.location = '/courses/learning';
   },
 
   signOut: () => {
