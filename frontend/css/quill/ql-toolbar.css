@@ -1,0 +1,19 @@
+.quill > .ql-toolbar{
+  border: none;
+  padding: 2px 10px !important;
+  background: rgb(37, 40, 70);
+  button:hover, button.ql-active{
+    .ql-stroke{
+      stroke: $purple !important;
+    }
+    .ql-fill{
+      fill: $purple !important;
+    }
+  }
+  .ql-formats{
+    display: inline-block;;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}

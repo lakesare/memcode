@@ -51,7 +51,7 @@ input[type="text"], input[type="search"], input[type="email"], textarea{
   border: none;
 }
 
-input[type="text"]:focus, input[type="search"]:focus, textarea:focus, button:focus{
+input[type="text"]:focus, input[type="search"]:focus, input[type="email"]:focus, textarea:focus, button:focus{
   outline: none;
 }
 input, textarea, select, button{

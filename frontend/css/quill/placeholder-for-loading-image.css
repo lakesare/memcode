@@ -1,0 +1,41 @@
+// placeholder for when image is uploading.
+// fades in and out, has a spinning loading icon.
+section.placeholder-for-loading-image{
+  cursor: progress;
+  pointer-events: none;
+  background: black;
+  img{
+    animation: fadeIn 1.3s infinite alternate;
+  }
+  // spinning icon
+  position: relative;
+  &:after{
+    content: " ";
+    display: block;
+
+    $radius: 20px;
+    width: $radius * 2;
+    height: $radius * 2;
+    position: absolute;
+    left: calc(50% - #{$radius});
+    top: calc(50% - #{$radius});
+
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid white;
+    border-color: white transparent white transparent;
+    animation: dual-ring 1.2s linear infinite;
+  }
+}
+@keyframes dual-ring{
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeIn{ 
+  from{ opacity: 0.2; }
+  to{ opacity: 0.3; }
+}

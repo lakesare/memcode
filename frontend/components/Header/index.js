@@ -28,6 +28,14 @@ class Header extends React.Component {
         to="/courses/new"
         className="link create"
       >create</NavLink>
+      {
+        !this.props.currentUser &&
+        <NavLink
+          exact
+          to="/contact"
+          className="link"
+        >contact</NavLink>
+      }
     </nav>
 
   renderUser = () => (

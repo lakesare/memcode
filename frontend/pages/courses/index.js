@@ -1,6 +1,7 @@
 import CourseApi from '~/api/CourseApi';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
 
+import { withRouter } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
@@ -30,9 +31,19 @@ const getSortBy = (props) => {
 const getQuery = (props) =>
   new URLSearchParams(props.location.search);
 
+import { AuthenticationActions } from '~/reducers/Authentication';
+@withRouter
+@connect(
+  () => ({}),
+  (dispatch) => ({
+    signIn: (token) => AuthenticationActions.signIn(dispatch, token)
+  })
+)
 class Page_courses extends React.Component {
   static propTypes = {
-    location: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
+    signIn: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
   }
 
   state = {
@@ -46,6 +57,7 @@ class Page_courses extends React.Component {
   componentDidMount = () => {
     this.apiGetCourses();
     this.apiGetCategories();
+    this.tryToFindToken();
   }
 
   componentDidUpdate = (prevProps) => {
@@ -55,6 +67,15 @@ class Page_courses extends React.Component {
       getSortBy(prevProps) !== getSortBy(this.props)
     ) {
       this.apiGetCourses();
+    }
+  }
+
+  tryToFindToken = () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get('token');
+    if (token) {
+      this.props.signIn(token);
+      this.props.history.push('/courses/learning');
     }
   }
 

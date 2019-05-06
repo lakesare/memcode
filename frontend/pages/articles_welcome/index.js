@@ -18,7 +18,8 @@ import { AuthenticationActions } from '~/reducers/Authentication';
 )
 class Page_articles_welcome extends React.Component {
   static propTypes = {
-    signIn: PropTypes.func.isRequired
+    signIn: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
   }
 
   componentDidMount = () => {

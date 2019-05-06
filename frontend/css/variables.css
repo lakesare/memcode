@@ -1,13 +1,8 @@
-// new colors
-
 $purple: rgb(136, 125, 220);
 $blue: rgb(21, 23, 58);
 
-// move it to somewhere else at some point, it gets included many times
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500,700');
 $body-font: 'Roboto';
 $heading-font: 'Roboto';
-
 
 $color-main-1: rgb(15, 17, 34); // header
 $color-main-2: rgb(15, 17, 34); // bg
@@ -22,9 +17,6 @@ $whale-yellow: rgb(245, 205, 66);
 $deep-green: rgb(1, 23, 4);
 
 
-
-
-
 $course-in-list-height-desktop: 195px;
 $course-in-list-height-mobile: 104px;
 
@@ -34,7 +26,5 @@ $course-in-list-height-mobile: 104px;
 $learn-button-color: rgb(34, 26, 230);
 $review-button-color: rgb(215, 37, 111);
 
-$black-gradient: -webkit-gradient(linear, 0% 100%, 0% 0%, from(rgb(51, 51, 51)), to(rgb(68, 68, 68)));
-$green-nav-border: 2px $purple solid;
 
 $body-color: white;
