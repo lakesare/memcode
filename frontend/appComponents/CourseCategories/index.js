@@ -10,7 +10,8 @@ class CourseCategories extends React.Component {
   static propTypes = {
     selectedCourseCategoryId: orFalse(PropTypes.number).isRequired,
     courseCategories: PropTypes.array.isRequired,
-    courseCategoryGroups: PropTypes.array.isRequired
+    courseCategoryGroups: PropTypes.array.isRequired,
+    ifShowAmountOfCoursesInCategory: PropTypes.bool.isRequired
   }
 
   ifCategoryIsSelected = (category) =>
@@ -23,6 +24,14 @@ class CourseCategories extends React.Component {
     >
       <Link to={`${window.location.pathname}?categoryId=${category.id}`}>
         {category.name}
+
+        {
+          this.props.ifShowAmountOfCoursesInCategory &&
+          category.amountOfCourses &&
+          category.amountOfCourses !== '0' ?
+            <span className="amount-of-courses">({category.amountOfCourses})</span> :
+            null
+        }
       </Link>
     </li>
 

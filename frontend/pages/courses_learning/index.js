@@ -76,6 +76,7 @@ class Page_courses_learning extends React.Component {
                 selectedCourseCategoryId={getCategoryId(this.props)}
                 courseCategoryGroups={courseCategoryGroups}
                 courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
+                ifShowAmountOfCoursesInCategory
               />
               <div className="title_and_sorting_and_courses">
                 <ListOfCourseCards

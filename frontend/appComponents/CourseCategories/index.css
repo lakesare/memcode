@@ -51,6 +51,13 @@
             // to span entire width, so that entire li is clickable
             display: block;
             padding: 5px 0;
+            span.amount-of-courses{
+              padding-left: 5px;
+              font-size: 11px;
+              position: relative;
+              bottom: 2px;
+              color: rgba(181, 213, 243, 0.35);
+            }
           }
         }
       }

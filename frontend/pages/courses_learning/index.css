@@ -88,6 +88,7 @@
       > div.list-of-courses-loading{
       }
       > section.list-of-courses{
+        margin-top: -30px;
         opacity: 1;
         transition-property: opacity;
         transition-duration: 0.3s;

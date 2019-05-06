@@ -152,6 +152,7 @@ class Page_courses extends React.Component {
             selectedCourseCategoryId={getCategoryId(this.props)}
             courseCategoryGroups={courseCategoryGroups}
             courseCategories={courseCategories}
+            ifShowAmountOfCoursesInCategory={false}
           />
 
           <div className="title_and_sorting_and_courses">
