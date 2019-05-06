@@ -26,48 +26,45 @@
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      .site, .conclusion{
+      .site{
         h3{
-          padding-left: 10px;
-          margin-top: 50px;
-          border-left: 21px solid #303030;
-          
-          position: relative;
-          right: 21px;
           font-weight: 100;
-        }
-        .description{
-          margin-top: 20px;
         }
       }
       .site{
         width: 100%;
+        border-left: 1px solid rgba(136, 125, 220, 0.13);
+        margin-top: 20px;
+        padding-left: 20px;
         h3{
-          color: $purple;
+          color: rgb(212, 4, 236);
           width: 190px;
           > span.rating{
-            font-size: 15px;
-            width: 25px; height: 25px;
-            border-radius: 3px;
+            em{
+              font-style: normal;
+              padding-right: 5px;
+              color: rgb(234, 226, 152);
+              text-shadow: none;
+              position: relative;
+              bottom: 2px;
+              // font-size: 14px;
+            }
+            font-size: 18px;
+            font-weight: 300;
             float: right;
-
-            background: #303030;
-            background: rgb(93, 88, 88);
-            box-shadow: 0 0 4px 1px #cecece;
-            color: white;
-
-            // center a number
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            color: rgb(255, 255, 255);
+            text-shadow: 0 0 5px #ffffff7d;
           }
         }
       }
       .conclusion{
+        margin-top: 20px;
+        padding: 20px;
+        background: rgba(136, 125, 220, 0.13);
         width: 100%;
         h3{
-          background: $purple;
-          color: white;
+          display: none;
+          font-size: 20px;
           padding: 5px;
           padding-left: 10px;
         }
@@ -76,28 +73,41 @@
 
     // child-specific
     section.article-section#types-of-tasks{
+      .site.brainscape ul{
+        box-shadow: none;
+        li{
+          box-shadow: 5px 2px 20px 0px #1e203a;
+        }
+      }
       ul{
         display: flex;
         flex-wrap: wrap;
         padding-left: 0;
         list-style-type: none;
+        box-shadow: 5px 2px 20px 0px #1e203a;
+        padding-top: 0;
+        margin-top: 30px;
         li{
           width: 50%;
-          padding: 10px;
+          padding: 14px;
           box-sizing: border-box;
-          box-shadow: -1px 0px 9px 2px #0f1835;
-          
+          box-shadow: 0px 0px 6px 0px #0f1122;
           text-align: center;
+          background: rgb(31, 32, 58);
+          margin-bottom: inherit;
+          line-height: 22px;
+          font-size: 15px;
+          font-weight: 100;
+          min-height: 205px;
         }
       }
       img{
         width: 100%;
-        max-width: 325px;
-
+        max-width: 310px;
         margin: 0 auto;
         display: block;
         margin-top: 10px;
-        border: 1px solid #c6cbea;
+        // border: 2px solid rgb(8, 9, 16);
       }
     }
 
@@ -105,9 +115,15 @@
       .site h3{
         width: auto;
         > span.answer{
-          color: black;
           font-size: 16px;
         }
+      }
+    }
+
+    section.article-section#ui{
+      .description b{
+        font-weight: 300;
+        color: $purple;
       }
     }
 
@@ -115,7 +131,7 @@
     &.article-formatting{
       .article-headings{
         margin-bottom: 0;
-        mark{ color: $purple; }
+        mark{ color: rgb(212, 4, 236); }
       }
       mark{
         background: none;
@@ -124,21 +140,9 @@
       }
       section.article-section{
         padding-top: 40px;
-        margin-top: -20px;
         padding-bottom: 0;
-        border-top: none;
         h2.section-heading{
-          margin-bottom: 5px;
-          margin-top: 30px;
-          background: #303030;
-          color: white;
-          font-weight: normal;
-          padding: 5px;
-          padding-left: 31px;
-
-          position: relative;
-          right: 21px;
-          width: 50%;
+          font-size: 33px;          
         }
       }
     }

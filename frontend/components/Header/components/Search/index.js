@@ -69,7 +69,7 @@ class Search extends React.Component {
           onChange={this.updateSearchString}
           onFocus={this.onFocus}
           value={this.state.searchString}
-          type="search"
+          type="text"
 
           autoComplete="off"
           autoCorrect="off"

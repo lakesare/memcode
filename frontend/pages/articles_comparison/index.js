@@ -12,20 +12,6 @@ import { QualityOfCourses } from './components/QualityOfCourses';
 import css from './index.css';
 
 class Page_articles_comparison extends React.Component {
-  componentDidMount = () =>
-    document.addEventListener("scroll", this.fixNavigation);
-
-  componentWillUnmount = () =>
-    document.removeEventListener("scroll", this.fixNavigation);
-
-  fixNavigation = () => {
-    if (window.scrollY > 35) {
-      this.refs.nav.classList.add("fixed");
-    } else {
-      this.refs.nav.classList.remove("fixed");
-    }
-  }
-
   render = () =>
     <main className={css.main}>
       <Header/>
@@ -50,16 +36,19 @@ class Page_articles_comparison extends React.Component {
             I was having a few critical issues with <mark>Memrise</mark> though, which led me to try and find some more <b>spaced-repetition based learning</b> sites, and consequently create my own.<br/>
             Here is a description of my experience with <mark>Memrise</mark>, <mark>Quizlet</mark> and <mark>Brainscape</mark>.
 
-            <div className="how-did-I-choose-sites-for-comparison">
-              <h4>How did I choose sites for comparison?</h4>
+            {
+              false &&
+              <div className="how-did-I-choose-sites-for-comparison">
+                <p>How did I choose sites for comparison?</p>
 
-              My main criteria were:
-              <ul>
-                <li><b>It has to be web-based.</b> That's why I didn't include Anki (only desktop), or Flashcards Deluxe (only mobile). I conisder browser to be the most comfortable environment.</li>
-                <li><b>It has to be popular.</b> I did check out a few less popular sites, and some of those were better than the ones I chose. For my purposes, however, they were not better than Memcode.</li>
-                <li><b>The site has to offer an ability to create your own courses.</b> Again, because that's where Memcode can compete. Duolingo and Codequizzes are beautiful sites with great courses, but you can't create your own.</li>
-              </ul>
-            </div>
+                My main criteria were:
+                <ul>
+                  <li><b>It has to be web-based.</b> That's why I didn't include Anki (only desktop), or Flashcards Deluxe (only mobile). I conisder browser to be the most comfortable environment.</li>
+                  <li><b>It has to be popular.</b> I did check out a few less popular sites, and some of those were better than the ones I chose. For my purposes, however, they were not better than Memcode.</li>
+                  <li><b>The site has to offer an ability to create your own courses.</b> Again, because that's where Memcode can compete. Duolingo and Codequizzes are beautiful sites with great courses, but you can't create your own.</li>
+                </ul>
+              </div>
+            }
           </section>
 
           <QualityOfCourses/>

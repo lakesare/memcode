@@ -2,9 +2,13 @@
 
 .article-formatting{
   padding-bottom: 20px;
-  line-height: 30px;
-  font-size: 15px;
+  line-height: 39px;
+  font-size: 18px;
+  color: rgb(219, 222, 249);
   a{ color: $purple; }
+  .container{
+
+  }
   ol, ul{
     list-style-type: initial;
     margin-left: 20px;
@@ -17,12 +21,12 @@
   section.article-headings{
     margin-bottom: 20px;
     h3{
-      margin-top: 30px;
+      margin-top: 7px;
       font-weight: 100;
     }
   }
   section.article-section{
-    border-top: 1px solid #cecccc;
+    max-width: 1000px;
     padding-top: 20px; padding-bottom: 20px;
   }
   h2.section-heading{

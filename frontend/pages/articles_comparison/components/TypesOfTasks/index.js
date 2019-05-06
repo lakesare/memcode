@@ -18,7 +18,7 @@ const TypesOfTasks = () =>
 
     <div className="sites">
       <section className="site">
-        <h3>Memrise: <span className="rating">4</span></h3>
+        <h3>Memrise: <span className="rating"><em>★</em>4</span></h3>
 
         <div className="description">
           <mark>Memrise</mark> randomly suggests two types of tasks (for the same flashcard) and requires you to complete them in about 10-30 seconds (depending on task dificulty):
@@ -36,7 +36,7 @@ const TypesOfTasks = () =>
       </section>
 
       <section className="site">
-        <h3>Quizlet: <span className="rating">5</span></h3>
+        <h3>Quizlet: <span className="rating"><em>★</em>5</span></h3>
 
         <div className="description">
           <mark>Quizlet</mark> lets you choose which types of tasks you want to exercise your memories with. 
@@ -67,7 +67,7 @@ const TypesOfTasks = () =>
       </section>
 
       <section className="site brainscape">
-        <h3>Brainscape: <span className="rating">2</span></h3>
+        <h3>Brainscape: <span className="rating"><em>★</em>2</span></h3>
 
         <div className="description">
           <mark>Brainscape</mark> only features classical self-rated turn-over flashcards.
@@ -78,7 +78,7 @@ const TypesOfTasks = () =>
       </section>
 
       <section className="site">
-        <h3>Memcode: <span className="rating">5</span></h3>
+        <h3>Memcode: <span className="rating"><em>★</em>5</span></h3>
 
         <div className="description">
           Unlike other apps, <mark>Memcode</mark> offers two distinct types of flashcards, with task intrinsic to eachtape are intrinsic to each flashcard (you can't play type_1 on the type_2 card). Those are:
