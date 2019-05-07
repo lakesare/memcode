@@ -124,7 +124,7 @@ class NewProblem extends React.Component {
     <button
       type="button"
       className={`button ${this.state.currentProblemType === type ? '-active' : ''}`}
-      onClick={() => this.updateType(type)}
+      onClick={() => this.state.currentProblemType !== type && this.updateType(type)}
     >{typeInHuman}</button>
 
   render = () =>
