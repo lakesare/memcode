@@ -210,6 +210,10 @@ module.exports = {
     // };
     "object-property-newline": "off",
 
+    // It wasn't allowing me
+    // let lastIndexOfSelection = range.index + range.length - 1;
+    "no-mixed-operators": "off",
+
     // airbnb makes me move around getters setter, ugh
     // copypasted the default config instead.
     "react/sort-comp": [1, {
