@@ -18,10 +18,10 @@ const TypesOfTasks = () =>
 
     <div className="sites">
       <section className="site">
-        <h3>Memrise: <span className="rating"><em>★</em>4</span></h3>
+        <h3>Memrise: <span className="rating">4</span></h3>
 
         <div className="description">
-          <mark>Memrise</mark> randomly suggests two types of tasks (for the same flashcard) and requires you to complete them in about 10-30 seconds (depending on task dificulty):
+          <mark>Memrise</mark> randomly suggests two types of tasks (for the same flashcard) and requires you to complete them in about 10-30 seconds (depending on task difficulty):
           <ul>
             <li>
               Multiple choice questions
@@ -36,10 +36,10 @@ const TypesOfTasks = () =>
       </section>
 
       <section className="site">
-        <h3>Quizlet: <span className="rating"><em>★</em>5</span></h3>
+        <h3>Quizlet: <span className="rating">5</span></h3>
 
         <div className="description">
-          <mark>Quizlet</mark> lets you choose which types of tasks you want to exercise your memories with. 
+          <mark>Quizlet</mark> lets you choose which types of tasks you want to exercise your memory with.
           <ul>
             <li>
               Typed-in answer that gets autochecked
@@ -67,7 +67,7 @@ const TypesOfTasks = () =>
       </section>
 
       <section className="site brainscape">
-        <h3>Brainscape: <span className="rating"><em>★</em>2</span></h3>
+        <h3>Brainscape: <span className="rating">2</span></h3>
 
         <div className="description">
           <mark>Brainscape</mark> only features classical self-rated turn-over flashcards.
@@ -78,19 +78,19 @@ const TypesOfTasks = () =>
       </section>
 
       <section className="site">
-        <h3>Memcode: <span className="rating"><em>★</em>5</span></h3>
+        <h3>Memcode: <span className="rating">5</span></h3>
 
         <div className="description">
-          Unlike other apps, <mark>Memcode</mark> offers two distinct types of flashcards, with task intrinsic to eachtape are intrinsic to each flashcard (you can't play type_1 on the type_2 card). Those are:
+          Unlike other apps, <mark>Memcode</mark> offers two distinct types of flashcards, which are intrinsic to each flashcard (you can't play type_1 on the type_2 card). Those are:
           <ul>
             <li>
-              Classical flashcard, but implemented without the turn-over. It lets you reflect on what you just answered.
+              Classic 'Question-Answer' flashcard, but implemented without the turn-over (see Brainscape, e.g.). It lets you reflect on what you just answered.
               Self-rated.
-              <img src={memcode_1}/>
+              <img src={memcode_2}/>
             </li>
             <li>
-              'Insert answer inline' task. Multiple answers in one task is possible. It's automatically checked as you type.
-              <img src={memcode_2}/>
+              'Insert answer inline' (or cloze-deletion) flashcard. If you type the right answer, - input will light up with green, indicating your answer is right. If you can't recall an answer, - just press ENTER, and the right answer will be revealed.
+              <img src={memcode_1}/>
             </li>
           </ul>
         </div>
@@ -99,7 +99,9 @@ const TypesOfTasks = () =>
       <section className="conclusion">
         <h3>Conclusion</h3>
         <div className="description">
-          <mark>Memrise</mark> and <mark>Memcode</mark> are suitable for fast learning, their interface is slick, they can be manipulated using keyboard.<br/>
+          <mark>Memrise</mark> and <mark>Memcode</mark> are suitable for fast learning, their interface is slick, they can be navigated via the keyboard.<br/>
+          Unlike <mark>Memrise</mark>, however, <mark>Memcode</mark> has rich formatting for flashcards available, which means we have bold text, images, lists, code excerpts, and math formulas in our flashcards. These are essential if you are learning something more extensive than languages (coding, medicine, maths? And even with languages images won't hurt)<br/>
+          <mark>Memrise</mark> also doesn't have cloze deletion cards, which are extremely helpful for learning foreign words in the context of sentences they are in.<br/>
           <mark>Quizlet</mark> on the other hand clearly attempts to gamify the learning process. It's refreshing to be able to switch the task types, but there is too much going on to be able to parse through your items at a fast pace.<br/>
           <mark>Brainscape</mark> is the only clear loser here. Process is both nonfun and slow with it.
         </div>

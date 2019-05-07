@@ -2,11 +2,11 @@ import { Heading } from './Heading';
 
 const LearningAlgorithm = () =>
   <section className="article-section" id="learning-algorithm">
-    <Heading text="Learning Algorithm?"/>
+    <Heading text="Learning Algorithm"/>
 
     <div className="sites">
       <section className="site">
-        <h3>Memrise: <span className="rating"><em>★</em>5</span></h3>
+        <h3>Memrise: <span className="rating">5</span></h3>
 
         <div className="description">
           SM2, approximate frequency of review with all the answers given right:<br/>
@@ -15,7 +15,7 @@ const LearningAlgorithm = () =>
       </section>
 
       <section className="site">
-        <h3>Quizlet: <span className="rating"><em>★</em>0</span></h3>
+        <h3>Quizlet: <span className="rating">0</span></h3>
 
         <div className="description">
           Basic: either know or don't know.
@@ -23,7 +23,7 @@ const LearningAlgorithm = () =>
       </section>
 
       <section className="site">
-        <h3>Brainscape: <span className="rating"><em>★</em>5</span></h3>
+        <h3>Brainscape: <span className="rating">5</span></h3>
 
         <div className="description">
           SM2
@@ -31,7 +31,7 @@ const LearningAlgorithm = () =>
       </section>
 
       <section className="site">
-        <h3>Memcode: <span className="rating"><em>★</em>5</span></h3>
+        <h3>Memcode: <span className="rating">5</span></h3>
 
         <div className="description">
           SM2, approximate frequency of review with all the answers given right:<br/>

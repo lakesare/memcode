@@ -1,10 +1,12 @@
 @import 'css/variables';
 
 .article-formatting{
-  padding-bottom: 20px;
-  line-height: 39px;
-  font-size: 18px;
+  font-family: 'Open Sans';
+  padding-bottom: 50px;
+  line-height: 24px;
+  font-size: 15px;
   color: rgb(219, 222, 249);
+  font-weight: 100;
   a{ color: $purple; }
   .container{
 
@@ -21,7 +23,7 @@
   section.article-headings{
     margin-bottom: 20px;
     h3{
-      margin-top: 7px;
+      margin-top: 20px;
       font-weight: 100;
     }
   }
@@ -31,10 +33,7 @@
   }
   h2.section-heading{
     font-weight: 100;
-    margin-bottom: 20px;
-    i{
-      padding-right: 10px;
-      color: $purple;
-    }
+    margin-bottom: 50px;
+    margin-top: 70px;
   }
 }

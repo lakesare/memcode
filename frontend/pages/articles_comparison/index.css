@@ -2,12 +2,14 @@
 
 :local(main.main){
   article{
+    max-width: 1000px;
+    margin: 0 auto;
     ul{ padding-top: 20px; li{ padding-bottom: 10px; } }
     h1{
-      font-size: 30px;
       font-size: 40px;
       font-weight: 100;
-      margin-top: 40px;
+      margin-top: 80px;
+      margin-bottom: 30px;
     }
     .how-did-I-choose-sites-for-comparison{
       margin-top: 40px;
@@ -23,37 +25,31 @@
     }
     // shared among children
     .sites{
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      .site{
-        h3{
-          font-weight: 100;
-        }
-      }
       .site{
         width: 100%;
         border-left: 1px solid rgba(136, 125, 220, 0.13);
         margin-top: 20px;
-        padding-left: 20px;
+        padding: 30px 50px;
+        padding-right: 0;
         h3{
-          color: rgb(212, 4, 236);
-          width: 190px;
+          font-weight: 100;
+          margin-bottom: 17px;
+          color: $purple;
+          width: 160px;
+          text-transform: uppercase;
+          font-weight: 300;
+          font-size: 15px;
+          display: flex;
+          align-items: center;
           > span.rating{
-            em{
-              font-style: normal;
-              padding-right: 5px;
-              color: rgb(234, 226, 152);
-              text-shadow: none;
-              position: relative;
-              bottom: 2px;
-              // font-size: 14px;
-            }
-            font-size: 18px;
+            font-size: 14px;
             font-weight: 300;
-            float: right;
             color: rgb(255, 255, 255);
             text-shadow: 0 0 5px #ffffff7d;
+            padding-left: 10px;
+            &:after{
+              content: '/5';
+            }
           }
         }
       }
@@ -62,6 +58,7 @@
         padding: 20px;
         background: rgba(136, 125, 220, 0.13);
         width: 100%;
+        padding-left: 50px;
         h3{
           display: none;
           font-size: 20px;
@@ -87,6 +84,7 @@
         box-shadow: 5px 2px 20px 0px #1e203a;
         padding-top: 0;
         margin-top: 30px;
+        margin-left: 0;
         li{
           width: 50%;
           padding: 14px;
@@ -114,8 +112,10 @@
     section.article-section#when-to-use-each{
       .site h3{
         width: auto;
+        justify-content: flex-start;
         > span.answer{
-          font-size: 16px;
+          padding-left: 15px;
+          text-transform: none;
         }
       }
     }
