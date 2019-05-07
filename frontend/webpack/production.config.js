@@ -12,13 +12,12 @@ module.exports = {
     ...sharedConfig._partialPlugins,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
     })
   ],
+
+  optimization: {
+    minimize: false
+  },
 
   resolve: sharedConfig.resolve,
 
