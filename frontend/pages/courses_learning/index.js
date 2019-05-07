@@ -71,7 +71,7 @@ class Page_courses_learning extends React.Component {
         <Loading spe={this.state.speGetCourses}>{(coursesData) =>
           coursesData.length === 0 ?
             <ForBeginners/> :
-            <div className="container">
+            <div className="container standard-navigation_and_courses">
               <CourseCategories
                 selectedCourseCategoryId={getCategoryId(this.props)}
                 courseCategoryGroups={courseCategoryGroups}
@@ -79,6 +79,10 @@ class Page_courses_learning extends React.Component {
                 ifShowAmountOfCoursesInCategory
               />
               <div className="title_and_sorting_and_courses">
+                <div className="title_and_sorting">
+                  <h1 className="title">My Courses</h1>
+                </div>
+
                 <ListOfCourseCards
                   className="list-of-courses"
                   type="learnReview"

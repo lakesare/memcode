@@ -164,6 +164,7 @@ class Page_courses extends React.Component {
                 getUrlForNewSortBy={this.getUrlForNewSortBy}
               />
             </div>
+
             {this.renderPagination()}
 
             <Loading className="list-of-courses-loading" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>

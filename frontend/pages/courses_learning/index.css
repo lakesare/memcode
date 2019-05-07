@@ -31,71 +31,16 @@
     }
   }
 
-  > .container{
-    margin-top: 30px;
-    margin-bottom: 30px;
-    display: flex;
-    > nav.course-categories-nav{
-      width: 231px;
-      flex-grow: 0;
-      flex-shrink: 0;
-      border-right: 1px solid rgba(223, 201, 247, 0.06);
 
-      margin-right: 70px;
-      padding-bottom: 140px;
-    }
+  > .loading.-request{
+    margin-top: 100px;
+  }
+  > .container.standard-navigation_and_courses{
     > div.title_and_sorting_and_courses{
-      // helps .loading to stay wide
-      width: 100%;
-      > div.title_and_sorting{
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        > h1.title{
-          font-size: 32px;
-          font-weight: 100;
-          letter-spacing: 0.3px;
-        }
-
-        > section.sort-by-dropdown-wrapper{
-          max-width: 200px;
-          > button.toggler{
-            padding-left: 10px;
-            padding-right: 10px;
-            width: 151px;
-          }
-          > ul.standard-dropdown{
-            padding: 0;
-            li{
-              padding: 0;
-              a{
-                padding: 10px;
-                display: block;
-              }
-            }
-          }
-        }
-      }
-
-      > ul.pagination{
-        justify-content: flex-end;
-        margin-top: 20px;
-        > li:last-child{
-          margin-right: 0;
-        }
-      }
-
-      > div.list-of-courses-loading{
-      }
       > section.list-of-courses{
-        margin-top: -30px;
-        opacity: 1;
-        transition-property: opacity;
-        transition-duration: 0.3s;
-        &.-loading{
-          opacity: 0.5;
-        }
+        margin-top: 70px;
       }
     }
+
   }  
 }

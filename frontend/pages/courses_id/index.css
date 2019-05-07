@@ -4,7 +4,9 @@
   section.problems{
     max-width: 960px;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 50px;
+    margin-bottom: 100px;
+
     section.problem{
       margin-bottom: 20px;
       * { cursor: default !important; }
