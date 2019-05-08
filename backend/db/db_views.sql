@@ -44,7 +44,7 @@ SELECT "user".username,
     JOIN "user" ON "user".id = course_user_is_learning.user_id
     JOIN course ON course.id = course_user_is_learning.course_id
     JOIN problem ON problem.id = problem_user_is_learning.problem_id
---  WHERE "user".username::text <> 'lakesare'::text
+ WHERE "user".username::text <> 'lakesare'::text
  ORDER BY problem_user_is_learning.last_reviewed_at DESC;
 
 

@@ -16,7 +16,7 @@ module.exports = {
   ],
 
   optimization: {
-    minimize: false
+    minimize: true
   },
 
   resolve: sharedConfig.resolve,
