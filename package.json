@@ -140,7 +140,7 @@
     "react-animate-height": "^2.0.8",
     "react-dom": "^16.8.3",
     "react-gateway": "^3.0.0",
-    "react-helmet": "^5.0.3",
+    "react-helmet": "^6.0.0-beta",
     "react-joyride": "^2.0.5",
     "react-onclickoutside": "^6.8.0",
     "react-pose": "^4.0.8",

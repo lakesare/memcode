@@ -13,8 +13,7 @@ module.exports = {
   plugins: [
     ...sharedConfig._partialPlugins,
     new webpack.DefinePlugin({
-      // must NOT be process.env.NODE_ENV: 'production'!
-      'DefinePlugin.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify('production')
     })
   ],
 
@@ -24,9 +23,5 @@ module.exports = {
 
   resolve: sharedConfig.resolve,
 
-  // must NOT be 'production', because some dumb ass library makes does
-  // react-dom.production.min.js:198 RangeError: Maximum call stack size exceeded
-  //     at objEquiv (index.js:43)
-  //     at module.exports (index.js:26)
-  mode: 'development'
+  mode: 'production'
 };

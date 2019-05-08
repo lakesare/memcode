@@ -294,6 +294,6 @@ module.exports = {
     "self": true,
     "caches": true,
 
-    "DefinePlugin": true
+    // "DefinePlugin": true
   }
 }

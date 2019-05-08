@@ -12,7 +12,7 @@ module.exports = {
   plugins: [
     ...sharedConfig._partialPlugins,
     new webpack.DefinePlugin({
-      'DefinePlugin.NODE_ENV': JSON.stringify('development')
+      'process.env.NODE_ENV': JSON.stringify('development')
     }),
     new WebpackNotifierPlugin({
       alwaysNotify: true,

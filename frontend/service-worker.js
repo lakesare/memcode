@@ -2,6 +2,7 @@ console.log('this is my custom service worker');
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
 self.addEventListener('activate', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     // clearing cached responses!
     caches.delete('api')
