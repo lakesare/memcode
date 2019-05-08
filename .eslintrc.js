@@ -292,6 +292,8 @@ module.exports = {
     // only available and used via service-worker.js
     "workbox": true,
     "self": true,
-    "caches": true
+    "caches": true,
+
+    "DefinePlugin": true
   }
 }

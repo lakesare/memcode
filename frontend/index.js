@@ -67,7 +67,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-if (process.env.NODE_ENV === 'production') {
+if (DefinePlugin.NODE_ENV === 'production') {
   document.addEventListener("DOMContentLoaded", () => {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
