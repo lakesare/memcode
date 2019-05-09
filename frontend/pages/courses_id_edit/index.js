@@ -100,6 +100,12 @@ class Page_courses_id_edit extends React.Component {
     // });
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.apiGetPage();
+    }
+  }
+
   apiGetPage = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
