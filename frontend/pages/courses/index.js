@@ -130,7 +130,7 @@ class Page_courses extends React.Component {
     if (currentCategoryId) {
       return courseCategories.find((category) => category.id === currentCategoryId).name;
     } else {
-      return 'All Courses';
+      return 'Courses';
     }
   }
 

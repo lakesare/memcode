@@ -10,13 +10,6 @@
   flex-direction: column;
   justify-content: space-between;
 
-  // instead of global padding
-  h2.title,
-  section.category_and_author,
-  a.go{
-    padding: 0 10px;
-  }
-
   > a.go{
     flex-grow: 0;
     flex-shrink: 0;
@@ -45,25 +38,10 @@
     }
     > h2.title{
       margin-top: 20px;
-
-      font-weight: 100;
-      font-size: 18px;
-      text-align: center;
     }
 
     > section.category_and_author{
       padding-top: 10px;
-      font-size: 12px;
-      display: flex;
-      justify-content: space-between;
-      cursor: default;
-      > div.category{
-        border-left: 1px solid $purple;
-        padding-left: 6px;
-      }
-      > div.author{
-        font-weight: 100;
-      }
     }
 
     > div.learn-and-review-buttons{

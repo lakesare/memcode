@@ -6,7 +6,7 @@
   justify-content: space-between;
   margin: 0 -10px;
 
-  > .course-card{
+  > .standard-course-card{
     margin: 0 10px;
     margin-bottom: 40px;
   }

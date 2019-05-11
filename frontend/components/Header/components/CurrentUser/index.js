@@ -9,7 +9,7 @@ class CurrentUser extends React.Component {
   }
 
   renderAvatar = () =>
-    <NavLink className="avatar" to="/courses/learning">
+    <NavLink className="avatar" to="/profile">
       <img
         src={this.props.currentUser.avatarUrl}
         alt="Avatar of a current user"
@@ -18,6 +18,10 @@ class CurrentUser extends React.Component {
 
   render = () =>
     <section className="current-user">
+      <NavLink
+        to="/courses/learning"
+        className="button -purple my-courses-link"
+      >MY COURSES</NavLink>
       <NotificationsTogglerAndDropdown currentUser={this.props.currentUser}/>
       <LearnReviewLinks currentUser={this.props.currentUser} dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
       {this.renderAvatar()}

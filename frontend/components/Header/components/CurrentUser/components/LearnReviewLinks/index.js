@@ -2,8 +2,6 @@ import { orFalse } from '~/services/orFalse';
 import { shuffle } from 'lodash';
 import { Link } from 'react-router-dom';
 
-import css from './index.css';
-
 // every time we go to the other page - reload it in the background.
 // when we learn/review, delete/create a LEARNED COURSE problem - update this state.
 
@@ -20,7 +18,6 @@ import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfP
 )
 class LearnReviewLinks extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object,
     idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
     apiSync: PropTypes.func.isRequired,
     dontLinkToLearnOrReview: PropTypes.string
@@ -31,7 +28,7 @@ class LearnReviewLinks extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.currentUser) this.props.apiSync();
+    this.props.apiSync();
   }
 
   deriveAmountOfProblems = (toLearnOrToReview) => {
@@ -73,36 +70,35 @@ class LearnReviewLinks extends React.Component {
   renderToLearnLink = () => {
     const amount = this.deriveAmountOfProblems('toLearn');
     if (amount > 0) {
-      return <Link to={this.generateLink('toLearn')} className="-to-learn -nonzero">
+      return <Link to={this.generateLink('toLearn')} className="button -to-learn -nonzero">
         LEARN ({amount})
       </Link>;
     } else {
-      return <a className="-to-learn -zero">
+      return <div className="button -to-learn -zero">
         LEARN (0)
-      </a>;
+      </div>;
     }
   }
 
   renderToReviewLink = () => {
     const amount = this.deriveAmountOfProblems('toReview');
     if (amount > 0) {
-      return <Link to={this.generateLink('toReview')} className="-to-review -nonzero">
+      return <Link to={this.generateLink('toReview')} className="button -to-review -nonzero">
         REVIEW ({amount})
       </Link>;
     } else {
-      return <a className="-to-review -zero">
+      return <div className="button -to-review -zero">
         REVIEW (0)
-      </a>;
+      </div>;
     }
   }
 
   render = () => (
-    this.props.idsOfProblemsToLearnAndReviewPerCourse ?
-      <section className={`${css.section} learn-review-links`}>
-        {this.renderToLearnLink()}
-        {this.renderToReviewLink()}
-      </section> :
-      null
+    this.props.idsOfProblemsToLearnAndReviewPerCourse &&
+    <section className="learn-review-links">
+      {this.renderToLearnLink()}
+      {this.renderToReviewLink()}
+    </section>
   )
 }
 

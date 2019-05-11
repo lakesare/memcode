@@ -4,16 +4,10 @@
   width: 199px;
   height: 213px;
   background: rgb(25, 26, 46);
-  padding: 10px;
   overflow: hidden;
 
   h2.title{
     margin-top: 10px;
-    min-height: 42px;
-
-    font-weight: 100;
-    font-size: 18px;
-    text-align: center;
   }
 
   div.description{
@@ -35,18 +29,5 @@
     background: rgb(136, 125, 220);
     color: rgb(255, 255, 255);
     font-size: 11px;
-  }
-
-  > section.category_and_author{
-    font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-    > div.category{
-      border-left: 1px solid $purple;
-      padding-left: 6px;
-    }
-    > div.author{
-      font-weight: 100;
-    }
   }
 }

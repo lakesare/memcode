@@ -9,16 +9,15 @@
     color: white;
   }
 
-  a.my-courses-link{
-    margin: 10px 0;
-  }
 
   nav{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     .link{
       margin-right: 10px;
-      padding: 0 13px;
+      height: 31px;
+      width: 33.333%;
       text-transform: uppercase;
       font-size: 11px;
       color: white;
@@ -38,24 +37,50 @@
         background: rgb(25, 26, 46);
       }
     }
-
-    div.link.articles{
-      > .modal{
-        text-transform: none;
-      }
-    }
   }
+
 
   section.current-user{
     display: flex;
+    align-items: center;
     > a.avatar{
-      width: 30px; height: 30px;
-      margin-top: 10px;
+      width: 31px; height: 31px;
       img{
         // border: 3px solid rgb(86, 11, 90);
         width: 100%;
         height: 100%;
       }
+    }
+
+    > a.my-courses-link{
+      height: 31px;
+      font-size: 11px;
+    }
+
+    > section.learn-review-links{
+      display: flex;
+      > .button{
+        height: 31px;
+        min-width: 90px;
+        margin-right: 10px;
+        padding: 0;
+
+        font-size: 10px;
+        letter-spacing: 0;
+
+        color: white;
+        &.-to-learn{ background: $learn-button-color; }
+        &.-to-review{ background: $review-button-color; }
+        &.-nonzero{
+          opacity: 0.9;
+          &:hover{ opacity: 1; }
+        }
+        &.-zero{
+          cursor: default;
+          opacity: 0.1;
+        }
+      }
+
     }
   }
   // or
@@ -130,25 +155,33 @@
     }
   }
   .container.-mobile{
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    nav{
+      margin-top: 20px;
+      .link{
+        height: 31px;
+        margin-right: 0;
+        &.-active{
+          background: rgb(51, 53, 78);
+        }
+      }
+    }
     > div.logo-and-user{
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    > nav{
-      justify-content: space-between;
-      margin: 10px auto;
-      > .link{
-        padding: 10px 0px;
-        width: 25%;
-        display: flex;
-        justify-content: center;
+      > section.sign-in-links{
+        padding: 0;
+        background: none;
+      }
+      a.my-courses-link{
+        display: none;
       }
     }
     > section.search{
       margin: 0 auto;
+      margin-top: 20px;
       // max-width: initial;
       width: 100%;
       input{

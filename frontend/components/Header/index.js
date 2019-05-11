@@ -52,15 +52,6 @@ class Header extends React.Component {
 
         <div className="nav-and-current-user">
           {this.renderNavigation()}
-
-          {
-            this.props.currentUser &&
-            <NavLink
-              to="/courses/learning"
-              className="button -purple my-courses-link"
-            >MY COURSES</NavLink>
-          }
-
           {this.renderUser()}
         </div>
       </div>
@@ -71,7 +62,11 @@ class Header extends React.Component {
           {this.renderUser()}
         </div>
 
-        {this.renderNavigation()}
+        {
+          !this.props.currentUser &&
+          this.renderNavigation()
+        }
+
         <Search currentUser={this.props.currentUser}/>
       </div>
     </header>

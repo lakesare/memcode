@@ -26,3 +26,31 @@
     }
   }
 }
+
+
+.standard-navigation_and_courses{
+  @media(max-width: 1200px){
+    > nav.course-categories-nav{
+      width: 170px;
+      margin-right: 20px;
+    }
+  }
+
+  @media(max-width: 900px){
+    // flex-wrap: wrap;
+    > nav.course-categories-nav{
+      display: none;
+    }
+    // > div.title_and_sorting_and_courses{
+    //   > .title_and_sorting{
+    //     flex-wrap: wrap;
+    //     > h1.title{
+    //       width: 100%;
+    //     }
+    //     > section.select-dropdown{
+    //       margin-top: 20px;
+    //     }
+    //   }
+    // }
+  }
+}

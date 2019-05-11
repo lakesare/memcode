@@ -1,8 +1,7 @@
 .standard-form{
   margin-top: 40px;
   margin-bottom: 40px;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding: 25px 15px;
   &.-bordered{
     background: rgba(25, 26, 46, 0.27);
   }
@@ -58,23 +57,12 @@
 }
 
 .standard-form{
-  @media(max-width: 800px){
-    .form-line{
-      > label{
-        width: 20%;
-      }
-      > div.input-and-validation-error{
-        width: 80%;
-      }
-    }
-  }
-  @media(max-width: 600px){
+  @media(max-width: 550px){
     .form-line{
       flex-wrap: wrap;
       > label{
         margin-bottom: 10px;
         width: 100%;
-        text-align: left;
       }
       > div.input-and-validation-error{
         width: 100%;

@@ -1,0 +1,41 @@
+.standard-course-card{
+  // instead of global padding
+  h2.title,
+  section.category_and_author,
+  a.go,
+  div.description{
+    padding: 0 10px;
+  }
+
+  h2.title{
+    font-weight: 100;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  section.category_and_author{
+    padding-top: 10px !important;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    cursor: default;
+    > div.category{
+      border-left: 1px solid $purple;
+      padding-left: 6px;
+    }
+    > div.author{
+      font-weight: 100;
+    }
+  }
+}
+
+@media(max-width: 470px){
+  .standard-course-card{
+    width: 100% !important;
+    height: 112px !important;
+    h2.title{
+      margin-top: 5px !important;
+      min-height: auto;
+    }
+  }
+}

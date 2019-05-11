@@ -46,3 +46,45 @@
     }
   }
 }
+
+.standard-navigation_and_courses{
+  @media(max-width: 1200px){
+    > nav.course-categories-nav{
+      width: 170px;
+      margin-right: 20px;
+    }
+  }
+
+  @media(max-width: 900px){
+    // flex-wrap: wrap;
+    > nav.course-categories-nav{
+      display: none;
+
+      // width: 100%;
+      // border-right: none;
+      // > ul.groups{
+      //   display: flex;
+      //   flex-wrap: wrap;
+      //   background: rgb(20, 22, 45);
+      //   > li.group{
+      //     width: 50%;
+      //     padding-right: 10px;
+      //     padding-left: 10px;
+      //     > h2.group-name{
+      //       border-left: 1px solid rgba(136, 125, 220, 0.12);
+      //       background: rgba(136, 125, 220, 0.06);
+      //     }
+      //   }
+      // }
+    }
+  }
+
+  @media(max-width: 470px){
+    > div.title_and_sorting_and_courses{
+      width: 100%;
+      .layout-div{
+        display: none;
+      }
+    }
+  }
+}

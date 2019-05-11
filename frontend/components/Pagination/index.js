@@ -20,7 +20,6 @@ class Pagination extends React.Component {
   pagesToDisplay = (currentPage, amountOfPages) =>
     [
       1,
-      currentPage - 3,
       currentPage - 2,
       currentPage - 1,
 
@@ -28,7 +27,6 @@ class Pagination extends React.Component {
 
       currentPage + 1,
       currentPage + 2,
-      currentPage + 3,
       amountOfPages
     ]
       // filter out negatives and exceeding max page amount

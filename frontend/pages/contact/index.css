@@ -1,14 +1,2 @@
 :local(main.main){
-  .standard-form{
-    margin-top: 30px;
-    margin-bottom: 40px;
-    > div.form-insides{
-      max-width: 640px;
-      margin: 0 auto;
-      > section.form-line{
-        > label{ width: 200px; flex-shrink: 0; flex-grow: 1; }
-        > div.input-and-validation-error{ width: 100%; flex-shrink: 1; flex-grow: 1; }
-      }
-    }
-  }
 }
