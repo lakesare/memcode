@@ -20,18 +20,17 @@
     font-family: 'Open Sans';
 
     // We need !important-s because we have to override styles copypasted by users
-    *{
+    *:not(strong):not(em){
       color: rgb(206, 199, 245) !important;
       background: rgba(0, 0, 0, 0) !important;
     }
 
     strong{
       font-family: inherit;
-      font-weight: 100;
-      color: $purple !important;
     }
     a{
-      color: rgb(255, 165, 0) !important;
+      color: $purple !important;
+      text-decoration: underline;
     }
 
     pre.ql-syntax, code{
@@ -59,8 +58,11 @@
       strong{ font-size: inherit; }
     }
     ul, ol{
-      padding-left: 20px;
+      padding-left: 15px;
       list-style-type: initial;
+      li{
+        padding-left: 0;
+      }
     }
     a{ color: $purple; }
     blockquote{
@@ -72,7 +74,7 @@
     }
 
     img{
-      background: white !important;
+      // background: white !important;
       max-width: 100%;
     }
   }
