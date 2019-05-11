@@ -20,7 +20,7 @@
     font-family: 'Open Sans';
 
     // We need !important-s because we have to override styles copypasted by users
-    *:not(strong):not(em){
+    *:not(strong):not(em):not(code){
       color: rgb(206, 199, 245) !important;
       background: rgba(0, 0, 0, 0) !important;
     }
