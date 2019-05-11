@@ -10,9 +10,10 @@ section.problem{
   .ql-editor{
     border-radius: 2px;
     background: rgb(34, 38, 74);
-    *{
-      color: rgb(206, 199, 245) !important;
-      background: rgba(0, 0, 0, 0) !important;
+
+    img{
+      display: block;
+      margin: 0 auto;
     }
   }
   &.-withInlinedAnswers{

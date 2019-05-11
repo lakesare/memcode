@@ -1,7 +1,7 @@
 @import 'css/variables';
 
 :local(section.actions){
-  section.title-and-buttons{
+  > section.title-and-buttons{
     background: rgb(7, 9, 39);
     padding-top: 20px;
     padding-bottom: 20px;
@@ -10,7 +10,7 @@
       justify-content: space-between;
       align-items: center;
 
-      h3.title{
+      h1.title{
         font-weight: 300;
         font-size: 30px;
       }
@@ -84,7 +84,7 @@
       > section.course-title_and_category_and_author{
         display: flex;
         color: white;
-        > h3.title{}
+        > h1.title{}
         > section.category_and_author{
           display: flex;
           flex-direction: column;
@@ -121,7 +121,7 @@
       }
     }
   }
-  section.course-description-and-stats{
+  > section.course-description-and-stats{
     background: rgb(14, 16, 49);
     padding: 10px 0;
     > .container{
@@ -214,6 +214,67 @@
       &:hover{
         .course-description .placeholder{
           opacity: 1 !important;
+        }
+      }
+    }
+  }
+}
+
+:local(section.actions){
+  @media(max-width: 600px){
+    > section.title-and-buttons{
+      > .container{
+        flex-wrap: wrap;
+        > section.course-title_and_category_and_author{
+          flex-wrap: wrap;
+          > h1.title{
+            font-size: 23px;
+            width: 100%;
+          }
+          > section.category_and_author{
+            border-left: none;
+            flex-direction: row;
+            margin-left: 0;
+            padding-left: 0;
+            padding-top: 10px;
+            > div.category{
+              border-right: 1px solid rgb(28, 31, 62);
+              padding-right: 5px;
+              margin-right: 5px;
+            }
+          }
+          > button.edit-button{
+            display: none;
+          }
+        }
+        > div.buttons{
+          margin-top: 10px;
+        }
+      }
+    }
+
+    > section.course-description-and-stats{
+      > div.container{
+        flex-wrap: wrap;
+        > div.course-description{
+
+        }
+        > ul.course-stats{
+          width: 100%;
+          margin-top: 20px;
+          display: flex;
+          flex-wrap: wrap;
+          > li{
+            width: 50%;
+            justify-content: flex-start;
+            div.stat{
+              order: 1;
+            }
+            div.icon{
+              order: 0;
+              padding-right: 5px;
+            }
+          }
         }
       }
     }

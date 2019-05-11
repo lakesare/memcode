@@ -19,9 +19,21 @@
 
     font-family: 'Open Sans';
 
+    // We need !important-s because we have to override styles copypasted by users
+    *{
+      color: rgb(206, 199, 245) !important;
+      background: rgba(0, 0, 0, 0) !important;
+    }
+
     strong{
       font-family: inherit;
+      font-weight: 100;
+      color: $purple !important;
     }
+    a{
+      color: rgb(255, 165, 0) !important;
+    }
+
     pre.ql-syntax, code{
       background: rgb(13, 16, 49) !important;
       color: $purple !important;
@@ -61,8 +73,6 @@
 
     img{
       background: white !important;
-      display: block;
-      margin: 0 auto;
       max-width: 100%;
     }
   }

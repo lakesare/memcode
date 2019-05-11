@@ -23,7 +23,6 @@ $background_color_6: #06c;
 $background_color_7: #93f;
 $background_color_8: #f0f0f0;
 $background_color_9: #23241f;
-$background_color_10: #fff;
 $border_color_1: #000;
 
 .ql-container {
@@ -673,11 +672,12 @@ $border_color_1: #000;
   .ql-tooltip {
     position: absolute;
     transform: translateY(10px);
-    background-color: $background_color_10;
-    box-shadow: 0px 0px 5px #ddd;
-    color: $color_11;
+    box-shadow: 0px 0px 4px #0303062e;
+    color: rgb(255, 255, 255);
     padding: 5px 12px;
     white-space: nowrap;
+    background-color: rgb(37, 39, 70);
+    border-radius: 3px;
     a {
       cursor: pointer;
       text-decoration: none;
@@ -687,16 +687,16 @@ $border_color_1: #000;
       content: "Visit URL:";
       line-height: 26px;
       margin-right: 8px;
-      color: $color_13;
     }
     input[type=text] {
       display: none;
-      border: 1px solid #ccc;
       font-size: 13px;
       height: 26px;
-      margin: 0px;
       padding: 3px 5px;
-      width: 170px;
+      width: 300px;
+      background: rgb(25, 26, 46);
+      border-bottom: 1px solid rgb(33, 35, 54);
+      color: white;
     }
     a.ql-preview {
       display: inline-block;
@@ -704,6 +704,7 @@ $border_color_1: #000;
       overflow-x: hidden;
       text-overflow: ellipsis;
       vertical-align: top;
+      color: rgb(255, 165, 0) !important;
     }
     a.ql-action {
       &::after {
@@ -818,7 +819,7 @@ $border_color_1: #000;
     }
   }
   .ql-picker-options {
-    background-color: $background_color_10;
+    background-color: white;
     display: none;
     min-width: 100%;
     padding: 4px 8px;
@@ -949,7 +950,7 @@ $border_color_1: #000;
   }
   .ql-color-picker.ql-background {
     .ql-picker-item {
-      background-color: $background_color_10;
+      background-color: white;
     }
   }
   .ql-color-picker.ql-color {

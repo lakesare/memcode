@@ -95,11 +95,11 @@ class CourseActions extends React.Component {
     <section className="title-and-buttons">
       <div className="container">
         <section className="course-title_and_category_and_author">
-          <h3 className="title">
+          <h1 className="title">
             <Link to={url.courseEditOrShow(this.props.currentUser, courseDto.course)}>
               {courseDto.course.title}
             </Link>
-          </h3>
+          </h1>
 
           {
             this.props.ifBreadcrumbsAreDisplayed &&
