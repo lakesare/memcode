@@ -1,8 +1,12 @@
 console.log('this is my custom service worker');
 workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
 
-self.addEventListener('activate', (event) => {
+self.addEventListener('install', function(event) {
+  // The promise that skipWaiting() returns can be safely ignored.
   self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     // clearing cached responses!
     caches.delete('api')
