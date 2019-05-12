@@ -31,11 +31,6 @@
     flex-grow: 1;
     height: 100%;
     position: relative;
-    &:hover{
-      > div.learn-and-review-buttons > section.links{
-        visibility: visible;
-      }
-    }
     > h2.title{
       margin-top: 20px;
     }
@@ -44,24 +39,29 @@
       padding-top: 10px;
     }
 
+    &:hover{
+      > div.learn-and-review-buttons > section.links > a{
+        opacity: 0.8;
+      }
+    }
     > div.learn-and-review-buttons{
       > section.links{
-        visibility: hidden;
-
         position: absolute;
         left: 0; right: 0;
         bottom: 18px; top: 0;
         display: flex;
 
         > a{
+          opacity: 0;
           width: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          opacity: 0.8;
           font-size: 12px;
-          &:hover{
+          &:hover, &:focus{
             opacity: 1;
+            box-shadow: none;
+            border: none !important;
           }
           &.learn{
             background: $learn-button-color;

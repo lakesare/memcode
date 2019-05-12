@@ -27,6 +27,10 @@
   &.-purple{
     color: white;
     background: $purple;
+    &:focus{
+      box-shadow: 0 0 3px white;
+      border: 1px solid white !important;
+    }
   }
   // -outlines, just like in fontawesome
   &.-purple-o{

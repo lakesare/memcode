@@ -53,8 +53,7 @@ class Search extends React.Component {
     this.setState({ ifDropdownIsOpen: false })
 
   onFocus = () => {
-
-    this.setState({ ifDropdownIsOpen: true })
+    this.setState({ ifDropdownIsOpen: true });
   }
 
   render = () =>
@@ -83,6 +82,7 @@ class Search extends React.Component {
             {this.state.courseDatas.map((courseData) =>
               <Course
                 key={courseData.course.id}
+                uiCloseDropdown={this.clearAndCloseDropdown}
                 courseData={courseData}
                 currentUser={this.props.currentUser}
                 searchString={this.state.searchString}

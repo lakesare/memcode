@@ -27,17 +27,25 @@
         font-weight: 500;
       }
       > ul.categories{
+        margin-top: 5px;
         > li.category{
-          padding-top: 6px;
-          padding-left: 20px;
+          padding-right: 9px;
           cursor: pointer;
-          opacity: 0.6;
-          &:hover{
-            opacity: 1;
+          > button{
+            color: rgba(255, 255, 255, 0.9);
+            padding: 6px 4px;
+            padding-left: 16px;
+            width: 100%;
+            text-align: left;
+            &:focus{
+              color: white;
+            }
+            &:hover{
+              color: $purple;
+            }
           }
-          &.-active{
+          &.-active > button{
             color: $purple;
-            opacity: 1;
           }
         }
       }

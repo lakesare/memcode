@@ -19,6 +19,7 @@ class SortBySelect extends React.Component {
       renderLi={(value, humanValue) =>
         <Link to={this.props.getUrlForNewSortBy(value)}>{humanValue}</Link>
       }
+      renderButtonInLi={false}
     />
 }
 

@@ -15,6 +15,11 @@ class CourseCategorySelect extends React.Component {
     updateCourseCategoryId: PropTypes.func.isRequired
   }
 
+  constructor(props) {
+    super(props);
+    this.togglerButtonRef = React.createRef();
+  }
+
   state = {
     ifDropdownIsOpen: false,
     speGetCategories: {}
@@ -30,6 +35,7 @@ class CourseCategorySelect extends React.Component {
 
   updateCourseCategoryId = (id) => {
     this.closeDropdown();
+    this.togglerButtonRef.current.focus();
     this.props.updateCourseCategoryId(id);
   }
 
@@ -48,10 +54,12 @@ class CourseCategorySelect extends React.Component {
   renderCategoryLi = (category) =>
     <li
       key={category.id}
-      onClick={() => this.updateCourseCategoryId(category.id)}
       className={`category ${this.ifCategoryIsActive(category) ? '-active' : '-non-active'}`}
     >
-      {category.name}
+      <button
+        type="button"
+        onClick={() => this.updateCourseCategoryId(category.id)}
+      >{category.name}</button>
     </li>
 
   renderToggler = () => {
@@ -61,15 +69,13 @@ class CourseCategorySelect extends React.Component {
       categoryName = courseCategories
         .find((category) => category.id === this.props.courseCategoryId)
         .name;
+    } else if (this.props.courseCategoryId === 1) {
+      categoryName = 'Other';
     } else {
-      if (this.props.courseCategoryId === 1) {
-        categoryName = 'Other';
-      } else {
-        categoryName = <span/>;
-      }
+      categoryName = <span/>;
     }
 
-    return <button type="button" className="toggler" onClick={this.toggleDropdown}>
+    return <button ref={this.togglerButtonRef} type="button" className="toggler" onClick={this.toggleDropdown}>
       {categoryName}
       <i className="fa fa-caret-down"/>
     </button>;

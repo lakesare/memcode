@@ -15,16 +15,22 @@
 // can be separate
 .standard-dropdown{
   font-size: 14px;
-  padding: 0 10px;
   li{
-    padding: 10px 10px;
     cursor: pointer;
+    > button, > a{
+      padding: 10px;
+      padding-left: 20px;
+      color: inherit;
+      width: 100%;
+      height: 100%;
+      text-align: left;
+    }
   }
 }
 
 .standard-dropdown.-purple{
   background: rgb(25, 26, 46);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  // border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   // border-top: none;
   li{
     border-bottom: 1px solid rgba(255, 255, 255, 0.01);

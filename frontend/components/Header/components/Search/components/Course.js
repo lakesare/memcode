@@ -1,6 +1,6 @@
 import { stripTags } from '~/services/stripTags';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class Course extends React.Component {
   static propTypes = {
@@ -13,7 +13,8 @@ class Course extends React.Component {
       courseCategoryName: PropTypes.string.isRequired,
       ifUserIsLearning: PropTypes.bool.isRequired
     }).isRequired,
-    searchString: PropTypes.string.isRequired
+    searchString: PropTypes.string.isRequired,
+    uiCloseDropdown: PropTypes.func.isRequired
   }
 
   getEditOrShowUrl = () => {
@@ -89,7 +90,7 @@ class Course extends React.Component {
     </div>
 
   render = () =>
-    <li>
+    <li onClick={this.props.uiCloseDropdown}>
       <Link to={this.getEditOrShowUrl()}>
         <div className="title_and_description">
           {this.renderTitle()}

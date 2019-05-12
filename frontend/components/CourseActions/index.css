@@ -38,11 +38,6 @@
             border: 1px solid rgb(58, 65, 101);
             color: rgb(78, 87, 134);
           }
-          button.start-learning-button, button.resume-learning-button{
-            background: $purple;
-
-            color: white;
-          }
 
           div.loading.-request{
             padding: 0;

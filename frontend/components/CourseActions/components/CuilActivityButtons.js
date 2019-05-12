@@ -56,7 +56,7 @@ class CuilActivityButtons extends React.Component {
 
   renderStartLearningButton = () =>
     <StandardTooltip tooltipEl="We will be recording your results, and asking you to repeat flashcards when necessary!">
-      <button className="button start-learning-button" type="button" onClick={this.apiStartLearning}>
+      <button className="button -purple start-learning-button" type="button" onClick={this.apiStartLearning}>
         <i className="fa fa-plus"/> TO LEARNED COURSES
       </button>
     </StandardTooltip>
@@ -70,7 +70,7 @@ class CuilActivityButtons extends React.Component {
 
   renderResumeLearningButton = () =>
     <StandardTooltip tooltipEl="All of your results are saved! Just click resume and return to learning a course.">
-      <button className="button resume-learning-button" type="button" onClick={this.apiResumeLearning}>
+      <button className="button -purple resume-learning-button" type="button" onClick={this.apiResumeLearning}>
         RESUME LEARNING
       </button>
     </StandardTooltip>

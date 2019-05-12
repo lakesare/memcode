@@ -1,6 +1,5 @@
 @import 'css/variables';
 
-
 @function easing-gradient($color: black, $alpha-from: 1, $alpha-to: 0) {
   $diff: $alpha-from - $alpha-to;
 
@@ -36,21 +35,28 @@
 
       > ul.categories{
         margin-top: 5px;
-        margin-left: 15px;
         font-size: 14px;
         > li{
-          opacity: 0.6;
-          &.-active{
+          padding-right: 5px;
+          &.-active a{
             color: $purple;
-            opacity: 1;
-          }
-          &:hover{
-            opacity: 1;
           }
           a{
             // to span entire width, so that entire li is clickable
             display: block;
-            padding: 5px 0;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 6px 4px;
+            padding-left: 16px;
+            width: 100%;
+            &:focus{
+              color: $purple;
+              border-color: transparent !important;
+              box-shadow: none;
+            }
+            &:hover{
+              color: $purple;
+            }
+
             span.amount-of-courses{
               padding-left: 5px;
               font-size: 11px;

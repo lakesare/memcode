@@ -39,19 +39,14 @@ figure{
   margin: 0;
 }
 
-// fun green border
-main{
-  // border: 10px solid rgb(123, 255, 66);
-  // background: #4e4b4b;
-}
-
-input[type="text"], input[type="search"], input[type="email"], textarea{
-  padding: 4px 10px;
-  border: none;
-}
-
-input[type="text"]:focus, input[type="search"]:focus, input[type="email"]:focus, textarea:focus, button:focus{
-  outline: none;
+input[type="text"], input[type="search"], input[type="email"], textarea, button, a{
+  border: 1px solid transparent;
+  color: inherit;
+  &:focus{
+    outline: none;
+    box-shadow: 0 0 3px $purple;
+    border: 1px solid $purple !important;
+  }
 }
 input, textarea, select, button{
   // because mac makes it tity 11px
@@ -87,7 +82,6 @@ p{
 // mac's chrome rounds all corners by default
 button{
   border-radius: 0;
-  border: none;
 }
 
 *,
