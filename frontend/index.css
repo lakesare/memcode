@@ -34,3 +34,26 @@ $fa-font-path: "~font-awesome/fonts";
 div.space{
   margin-top: 35px;
 }
+
+
+// Move to some place if we'll be using joyride again
+//
+// joyride
+.__floater__body{
+  > div{
+    // padding: 0 !important;
+    > div:nth-child(1){
+      font-size: 13px !important;
+      > div{
+        color: rgb(140, 138, 138);
+      }
+    }
+    > div:nth-child(2){
+      margin-top: 0 !important;
+    }
+  }
+}
+// to allow ESC on click, but to have no darkened bg
+.joyride-overlay{
+  opacity: 0;
+}

@@ -52,10 +52,11 @@ module.exports = {
       },
       {
         test: /\.(css|scss)$/,
-        exclude: /(node_modules)/,
+        exclude: (modulePath) => (
+          /node_modules/.test(modulePath) &&
+          !/node_modules\/react-tippy/.test(modulePath)
+        ),
         use: [
-          // if we include style-loader, then :local() classes don't get returned from css-loader for some reason.
-          // 'style-loader',
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
@@ -70,15 +71,6 @@ module.exports = {
               sourceMap: true
             }
           }
-        ]
-      },
-      {
-        // specifically for tippy css
-        test: /(\.css$)/,
-        include: /(node_modules)/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader'
         ]
       },
       { // for fonts
@@ -99,7 +91,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]?[hash]',
+              name: '[name]_v2.[ext]?[hash]',
               publicPath: '/'
             }
           }

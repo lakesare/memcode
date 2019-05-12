@@ -233,7 +233,7 @@ class Page_courses_id_edit extends React.Component {
       <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused/>
       <StickyContainer>
         {this.renderActionsForCheckedProblems()}
-        <div className="container">
+        <div className="container problems-container">
           {this.renderProblems()}
           <NewProblem
             courseId={this.props.match.params.id}

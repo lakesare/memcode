@@ -37,7 +37,7 @@ class OldProblem extends React.Component {
 
   render = () => (
     this.ifOptimistic() ?
-      <div className={`${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'}`}>
+      <div className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'}`}>
         <Checkbox
           id={this.props.problem.id}
           index={this.props.index}
@@ -56,7 +56,7 @@ class OldProblem extends React.Component {
           apiSave={this.apiSave}
         />
       </div> :
-      <div className={css['old-problem']}>
+      <div className={`old-problem-wrapper ${css['old-problem']}`}>
         <Problem
           mode="show"
           problemContent={this.props.problem.content}

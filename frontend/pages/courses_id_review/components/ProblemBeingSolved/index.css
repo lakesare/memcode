@@ -22,7 +22,7 @@ $purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
         width: 120px;
         display: inline-block;
         // padding: 0 10px;
-        font-size: 16px;
+        font-size: 15px;
         text-align: center;
 
         padding: 2px 0;
@@ -34,7 +34,7 @@ $purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
           border: $green-answer-border;
           color: rgb(160, 247, 200) !important;
           // background: rgba(41, 255, 141, 0.2);
-          font-weight: 500;
+          // font-weight: 500;
 
 
 
@@ -49,8 +49,8 @@ $purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
           color: #f9637d !important;
         }
         &[data-answered='waiting']{
-          color: white !important;
-          font-weight: 500;
+          color: rgb(206, 199, 245) !important;
+          // font-weight: 500;
           // border: 2px solid #FFEB3B;
           border: 2px solid rgb(249, 237, 131);
         }
@@ -137,39 +137,6 @@ $purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
     border-radius: 2px;
     &:hover{
       color: white;
-    }
-  }
-}
-
-@media(max-width: 900px) {
-  :local(.section){
-    section.problem{
-      margin-right: 20px;
-      margin-left: 20px;
-      .first-column, .second-column{
-        width: 100%;
-      }
-      .first-column{
-        margin-right: 0 !important;
-      }
-      .second-column{
-        margin-top: 20px;
-        margin-left: 0px !important;
-      }
-      &.-withInlinedAnswers{
-        flex-wrap: wrap;
-      }
-      &.-withSeparateAnswer{
-        flex-wrap: wrap;
-        > div.question-and-answer{
-          flex-wrap: wrap;
-        }
-        div.draft-answer{ display: none !important; }
-      }
-    }
-
-    button.see-answer-button{
-      min-height: 68px;
     }
   }
 }

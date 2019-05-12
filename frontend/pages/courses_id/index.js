@@ -45,13 +45,15 @@ class Page_courses_id extends React.Component {
       <div className="container">
         <Loading spe={this.state.speGetPage}>{(problems) =>
           <section className="problems">
-            {problems.map((problem) =>
-              <Problem
-                key={problem.id}
-                mode="show"
-                problemContent={problem.content}
-                problemType={problem.type}
-              />
+            {problems.map((problem, index) =>
+              <div key={problem.id} className="problem-wrapper">
+                <div className="index">{index + 1}</div>
+                <Problem
+                  mode="show"
+                  problemContent={problem.content}
+                  problemType={problem.type}
+                />
+              </div>
             )}
           </section>
         }</Loading>

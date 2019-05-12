@@ -26,11 +26,14 @@ class Header extends React.Component {
     </section>
 
   renderUsualReview = () =>
-    <section className={`${css.section} -usual-review`}>
+    <section className={`Header ${css.section} -usual-review`}>
       <div className="container">
         <div className="instructions -desktop">
           Press ENTER fo reveal answers
         </div>
+
+        {/* for flexbox to float randomize buttons to the right */}
+        <div className="instructions -mobile"/>
 
         <div className="buttons">
           <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>

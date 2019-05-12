@@ -7,9 +7,45 @@
     margin-top: 50px;
     margin-bottom: 100px;
 
+    div.problem-wrapper{
+      margin-bottom: 50px;
+      display: flex;
+
+      > div.index{
+        width: 26px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        font-size: 12px;
+        font-weight: 500;
+        border-radius: 2px;
+        background: radial-gradient(rgba(136, 125, 220, 0.91), $purple, $purple);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      > section.problem{
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin-left: 12px;
+      }
+    }
+  }
+
+
+  @media(max-width: 900px){
     section.problem{
-      margin-bottom: 20px;
-      * { cursor: default !important; }
+      display: block;
+      div.first-column,
+      div.second-column{
+        width: 100%;
+      }
+      div.first-column{
+        margin-right: 0;
+      }
+      div.second-column{
+        margin-left: 0;
+        margin-top: 20px;
+      }
     }
   }
 }

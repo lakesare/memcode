@@ -3,8 +3,8 @@
 :local(.section){
   max-width: 470px;
   margin: 0 auto;
+  margin-top: 60px;
   > label.rate-yourself{
-    margin-top: 60px;
     display: block;
     width: 100%;
 

@@ -57,6 +57,10 @@
     }
     .ql-toolbar{}
   }
+  .old-problem-wrapper{
+    margin-bottom: 20px;
+    padding: 4px 0;
+  }
   .new-problem{
     position: relative;
     max-width: 960px;
@@ -108,23 +112,12 @@
   }
 }
 
-// joyride
-.__floater__body{
-  > div{
-    // padding: 0 !important;
-    > div:nth-child(1){
-      font-size: 13px !important;
-      > div{
-        color: rgb(140, 138, 138);
-      }
-    }
-    > div:nth-child(2){
-      margin-top: 0 !important;
+:local(main.main){
+  @media(max-width: 1160px){
+    .container.problems-container{
+      padding-right: 112px;
     }
   }
+  // @media(max-width: 900px) is unimportant!
+  // because we're redirecting everyone to /courses/:id at that width!
 }
-// to allow ESC on click, but to have no darkened bg
-.joyride-overlay{
-  opacity: 0;
-}
-

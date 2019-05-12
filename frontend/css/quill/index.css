@@ -6,6 +6,9 @@
 
 .quill{
   position: relative;
+  &.-readOnly{
+    *:not(a) { cursor: default !important; }
+  }
   > .ql-container > .ql-editor{
     min-height: 58px;
     font-size: 15px;
@@ -19,12 +22,12 @@
 
     font-family: 'Open Sans';
 
+    color: rgb(206, 199, 245);
     // We need !important-s because we have to override styles copypasted by users
-    *:not(strong):not(em):not(code){
+    span, mark{
       color: rgb(206, 199, 245) !important;
       background: rgba(0, 0, 0, 0) !important;
     }
-
     strong{
       font-family: inherit;
     }
@@ -64,11 +67,10 @@
         padding-left: 0;
       }
     }
-    a{ color: $purple; }
     blockquote{
-      color: white;
       font-size: 12px;
       border-left: 1px solid rgba(206, 199, 245, 0.62);
+      color: white !important;
       background: rgba(21, 23, 45, 0.38) !important;
       padding: 4px 16px;
     }
@@ -84,5 +86,11 @@
     padding-right: 10px;
     line-height: 20px;
     color: rgb(172, 181, 218);
+  }
+}
+
+@media(max-width: 600px){
+  .quill > .ql-toolbar{
+    display: none !important;
   }
 }

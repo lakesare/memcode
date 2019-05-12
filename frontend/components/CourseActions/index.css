@@ -20,42 +20,40 @@
         justify-content: space-between;
         align-items: flex-start;
 
+        .button{
+          min-width: 90px;
+          font-size: 10px;
+          padding: 0 10px;
+          height: 31px;
+        }
+
         > section.start-stop-or-resume-learning-course{
-          min-width: 130px;
-          button{
-            margin-left: 10px;
-            min-width: 90px;
-            padding: 10px;
-            font-size: 10px;
-            padding: 10px 10px;
+          .button{
             i.fa-plus{
               font-size: 14px;
               padding-right: 4px;
             }
           }
           button.stop-learning-button{
-            border: 1px solid rgba(37, 37, 37, 0.68);
-            color: rgb(134, 132, 132);
+            border: 1px solid rgb(58, 65, 101);
+            color: rgb(78, 87, 134);
           }
           button.start-learning-button, button.resume-learning-button{
             background: $purple;
+
             color: white;
           }
 
-          div.loading.request{
+          div.loading.-request{
             padding: 0;
             font-size: 7px;
           }
         }
         > .learn-and-review-buttons{
           display: flex;
-          a{
+          .button{
             margin-left: 10px;
-
-            min-width: 90px;
-            padding: 10px 10px;
-            font-size: 10px;
-            color: rgb(255, 255, 255);
+            color: white;
             &.-disabled{ opacity: 0.1; }
             &.review{ background: $review-button-color; }
             &.learn{ background: $learn-button-color; }
@@ -141,8 +139,8 @@
           align-items: center;
           justify-content: flex-end;
           > div.icon{
-            color: rgba(136, 125, 220, 0.9);
-            text-shadow: 0 0 12px #fbfbfb52;
+            color: $purple;
+            text-shadow: 0 0 6px #fbfbfb47;
             font-size: 17px;
             width: 27px;
             text-align: center;
@@ -221,22 +219,35 @@
 }
 
 :local(section.actions){
+  @media(max-width: 900px){
+    section.course-description-and-stats{
+      div.course-description{
+        .placeholder{ display: none; }
+      }
+      ul.course-stats{
+        margin-top: 0 !important;
+      }
+    }
+  }
   @media(max-width: 600px){
     > section.title-and-buttons{
       > .container{
         flex-wrap: wrap;
         > section.course-title_and_category_and_author{
           flex-wrap: wrap;
+
           > h1.title{
+            order: 1;
             font-size: 23px;
             width: 100%;
           }
           > section.category_and_author{
+            order: 0;
             border-left: none;
             flex-direction: row;
             margin-left: 0;
             padding-left: 0;
-            padding-top: 10px;
+            padding-bottom: 10px;
             > div.category{
               border-right: 1px solid rgb(28, 31, 62);
               padding-right: 5px;
@@ -257,11 +268,10 @@
       > div.container{
         flex-wrap: wrap;
         > div.course-description{
-
+          margin-bottom: 20px;
         }
         > ul.course-stats{
           width: 100%;
-          margin-top: 20px;
           display: flex;
           flex-wrap: wrap;
           > li{

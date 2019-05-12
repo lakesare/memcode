@@ -18,13 +18,14 @@ class ButtonToDeleteProblems extends React.Component {
     this.setState({ ifAskingForApproval: true })
 
   render = () =>
-    <button className={`delete-button button -purple-o ${this.state.ifAskingForApproval ? '-approving' : ''}`} onClick={this.uiAskForApproval}>
+    <button
+      className={`delete-button button -purple-o ${this.state.ifAskingForApproval ? '-approving' : ''}`}
+      onClick={this.state.ifAskingForApproval ? this.props.apiDeleteAllCheckedProblems : this.uiAskForApproval}
+    >
       {
         this.state.ifAskingForApproval ?
-          <div onClick={this.props.apiDeleteAllCheckedProblems}>
-            Delete {this.props.amount} flashcards?
-          </div> :
-          <div>Delete ({this.props.amount})</div>
+          `Delete ${this.props.amount} flashcards?` :
+          `Delete (${this.props.amount})`
       }
     </button>
 }

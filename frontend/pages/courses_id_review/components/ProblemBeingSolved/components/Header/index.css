@@ -36,8 +36,8 @@
       align-items: center;
       button{
         font-size: 9px;
-        padding: 3px 8px;
-        height: 33px;
+        padding: 0 8px;
+        height: 31px;
         min-width: auto;
         letter-spacing: 0.9px;
       }
@@ -48,13 +48,5 @@
   }
   &.-failed-flashcards-review > .container{
     > div.instructions{ font-size: 14px; }
-  }
-}
-
-
-@media(max-width: 900px) {
-  :local(.section){
-    .-mobile{ display: block; }
-    .-desktop{ display: none; }
   }
 }

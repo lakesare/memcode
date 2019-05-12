@@ -43,7 +43,7 @@ class ProblemBeingSolved extends React.Component {
   }
 
   render = () =>
-    <section className={css.section}>
+    <section className={`ProblemBeingSolved ${css.section}`}>
       <Header
         statusOfSolving={this.props.statusOfSolving}
         amountOfProblems={this.props.amountOfProblems}

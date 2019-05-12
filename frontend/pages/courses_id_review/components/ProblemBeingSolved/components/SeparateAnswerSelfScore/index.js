@@ -10,7 +10,7 @@ class SeparateAnswerSelfScore extends React.Component {
   }
 
   render = () =>
-    <section className={`self-score ${css.section}`}>
+    <section className={`self-score container ${css.section}`}>
       <label className="rate-yourself">
         Rate your answer <StandardTooltip tooltipEl="Don't be afraid to rate yourself poorly! It just means that we'll be offering you this flashcard for repeat more frequently."/>
       </label>

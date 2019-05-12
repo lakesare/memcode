@@ -1,0 +1,68 @@
+:local(.main){
+  @media(max-width: 900px){
+    > header section.search{
+      display: none;
+    }
+
+    > section.course-actions{
+      > section.title-and-buttons{
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+    }
+
+    > section.ProblemBeingSolved{
+      > section.Header{
+        > .container{
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+        .-mobile{ display: block; }
+        .-desktop{ display: none; }
+      }
+
+      > section.problem{
+        margin-right: 20px;
+        margin-left: 20px;
+        .first-column, .second-column{
+          width: 100%;
+        }
+        .first-column{
+          margin-right: 0 !important;
+        }
+        .second-column{
+          margin-top: 20px;
+          margin-left: 0px !important;
+        }
+        &.-withInlinedAnswers{
+          flex-wrap: wrap;
+        }
+        &.-withSeparateAnswer{
+          flex-wrap: wrap;
+          > div.question-and-answer{
+            flex-wrap: wrap;
+          }
+          button.see-answer-button{
+            min-height: 58px;
+          }
+          div.draft-answer{ display: none !important; }
+        }
+      }
+
+      > section.self-score{
+        margin-top: 40px;
+      }
+
+      > button.next-button{
+        margin-top: 20px;
+      }
+
+    }
+
+
+
+  }
+}
+
+
+
