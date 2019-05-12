@@ -39,3 +39,17 @@ body{
     }
   }
 }
+
+:local(footer.footer){
+  @media(max-width: 500px){
+    > .container{
+      flex-wrap: wrap;
+      > section.blog-links{
+        width: 100%;
+      }
+      > section.email{
+        margin-top: 15px;
+      }
+    }
+  }
+}

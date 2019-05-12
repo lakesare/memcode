@@ -40,5 +40,12 @@
       }
       @extend .extendable-pretty-input;
     }
+
+    .standard-dropdown{
+      a, button{
+        padding: 10px;
+        padding-left: 20px;
+      }
+    }
   }
 }

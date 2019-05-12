@@ -20,21 +20,19 @@ class Dropdown extends React.Component {
   render = () =>
     <ul className="standard-dropdown -purple">
       {
-        this.props.courses.length === 0 ?
-          <li className="no-courses">You have not created any other courses yet, create one in order to move flashcards to it.</li> :
-          this.deriveFilteredCourses().map((course) =>
-            <li
-              key={course.original.id}
-              className="course-title"
+        this.deriveFilteredCourses().map((course) =>
+          <li
+            key={course.original.id}
+            className="course-title"
+          >
+            <button
+              type="button"
+              onClick={() => this.props.uiSelectCourse(course.original)}
             >
-              <button
-                type="button"
-                onClick={() => this.props.uiSelectCourse(course.original)}
-              >
-                <div dangerouslySetInnerHTML={{ __html: course.string }}/>
-              </button>
-            </li>
-          )
+              <div dangerouslySetInnerHTML={{ __html: course.string }}/>
+            </button>
+          </li>
+        )
       }
     </ul>
 }

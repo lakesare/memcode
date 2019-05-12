@@ -7,10 +7,12 @@
   > div.toggler{
     // position
     width: 100%;
-    margin: 5px 0;
+    height: 38px;
+    align-self: center;
+    position: relative;
     i{
       position: absolute;
-      top: 16px;
+      top: 11px;
       left: 16px;
     }
     input{

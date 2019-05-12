@@ -54,43 +54,46 @@ class ChooseCourseToMoveProblemsTo extends React.Component {
     })
 
   render = () =>
-    <section className="choose-course-to-move-problems-to">
-      <label htmlFor="search-input">
-        Move <b className="amount">{this.props.amount}</b> flashcards to:
-      </label>
+    <Loading spe={this.state.speCourses}>{(response) =>
+      response.length > 0 ?
+        <section className="choose-course-to-move-problems-to">
+          <label htmlFor="search-input">
+            Move <b className="amount">{this.props.amount}</b> flashcards to:
+          </label>
 
-      <div className="standard-dropdown-wrapper">
-        <input
-          type="text"
-          id="search-input"
-          className="toggler standard-input -TextInput"
-          value={this.state.searchString}
-          onChange={this.updateSearchString}
-          onFocus={() => this.setState({ ifDropdownIsOpen: true })}
-          placeholder="Another course..."
-        />
-
-        {
-          this.state.ifDropdownIsOpen &&
-          <Loading spe={this.state.speCourses}>{(response) =>
-            <Dropdown
-              courses={response.map((a) => a.course)}
-              searchString={this.state.searchString}
-              uiSelectCourse={this.uiSelectCourse}
+          <div className="standard-dropdown-wrapper">
+            <input
+              type="text"
+              id="search-input"
+              className="toggler standard-input -TextInput"
+              value={this.state.searchString}
+              onChange={this.updateSearchString}
+              onFocus={() => this.setState({ ifDropdownIsOpen: true })}
+              onBlur={() => this.setState({ ifDropdownIsOpen: false })}
+              placeholder="Another course..."
             />
-          }</Loading>
-        }
-      </div>
 
-      {
-        this.state.selectedCourse &&
-        <button
-          type="button"
-          className="button -purple-o -move"
-          onClick={this.apiMove}
-        >Move <i className="fa fa-exchange"/></button>
-      }
-    </section>
+            {
+              this.state.ifDropdownIsOpen &&
+              <Dropdown
+                courses={response.map((a) => a.course)}
+                searchString={this.state.searchString}
+                uiSelectCourse={this.uiSelectCourse}
+              />
+            }
+          </div>
+
+          {
+            this.state.selectedCourse &&
+            <button
+              type="button"
+              className="button -purple-o -move"
+              onClick={this.apiMove}
+            >Move <i className="fa fa-exchange"/></button>
+          }
+        </section> :
+        <section/>
+    }</Loading>
 }
 
 export { ChooseCourseToMoveProblemsTo };
