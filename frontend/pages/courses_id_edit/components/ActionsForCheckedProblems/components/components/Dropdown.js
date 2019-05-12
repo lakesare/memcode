@@ -25,10 +25,14 @@ class Dropdown extends React.Component {
           this.deriveFilteredCourses().map((course) =>
             <li
               key={course.original.id}
-              onClick={() => this.props.uiSelectCourse(course.original)}
               className="course-title"
             >
-              <div dangerouslySetInnerHTML={{ __html: course.string }}/>
+              <button
+                type="button"
+                onClick={() => this.props.uiSelectCourse(course.original)}
+              >
+                <div dangerouslySetInnerHTML={{ __html: course.string }}/>
+              </button>
             </li>
           )
       }
