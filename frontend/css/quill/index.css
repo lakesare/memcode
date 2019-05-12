@@ -22,11 +22,19 @@
 
     font-family: 'Open Sans';
 
-    color: rgb(206, 199, 245);
+    // color: rgb(206, 199, 245);
     // We need !important-s because we have to override styles copypasted by users
-    span, mark{
+    *{
       color: rgb(206, 199, 245) !important;
       background: rgba(0, 0, 0, 0) !important;
+    }
+    strong{
+      font-weight: 100;
+      color: rgb(226, 148, 20) !important;
+    }
+    em{
+      color: $purple !important;
+      font-style: normal;
     }
     strong{
       font-family: inherit;
@@ -70,7 +78,7 @@
     blockquote{
       font-size: 12px;
       border-left: 1px solid rgba(206, 199, 245, 0.62);
-      color: white !important;
+      color: rgb(206, 199, 245) !important;
       background: rgba(21, 23, 45, 0.38) !important;
       padding: 4px 16px;
     }

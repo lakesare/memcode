@@ -17,14 +17,6 @@ section.problem{
       display: block;
       margin: 0 auto;
     }
-    strong{
-      font-weight: 100;
-      color: rgb(226, 148, 20) !important;
-    }
-    em{
-      color: $purple !important;
-      font-style: normal;
-    }
   }
 
   // Css for particular flashcard types

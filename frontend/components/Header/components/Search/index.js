@@ -17,8 +17,7 @@ class Search extends React.Component {
     speSearch: {},
     searchString: '',
     courseDatas: [],
-    ifDropdownIsOpen: false,
-    realCourseDataLength: 0
+    ifDropdownIsOpen: false
   }
 
   handleClickOutside = () => {
@@ -33,11 +32,7 @@ class Search extends React.Component {
       .then((courseDatas) => {
         // of searchString is still relevant
         if (this.state.searchString === searchString) {
-          if (courseDatas.length === 0) {
-            this.setState({ realCourseDataLength: 0 });
-          } else {
-            this.setState({ courseDatas, realCourseDataLength: courseDatas.length });
-          }
+          this.setState({ courseDatas });
         }
       })
 
@@ -57,8 +52,10 @@ class Search extends React.Component {
   clearAndCloseDropdown = () =>
     this.setState({ ifDropdownIsOpen: false })
 
-  onFocus = () =>
+  onFocus = () => {
+
     this.setState({ ifDropdownIsOpen: true })
+  }
 
   render = () =>
     <section className={`${css.search} search standard-dropdown-wrapper`}>
@@ -82,9 +79,6 @@ class Search extends React.Component {
         this.state.ifDropdownIsOpen &&
         this.state.courseDatas.length > 0 &&
         <div className="standard-dropdown">
-          <div className="header">
-            {this.state.realCourseDataLength} courses found
-          </div>
           <ul style={disableOnSpeRequest(this.state.speSearch, { opacity: 0.9 })}>
             {this.state.courseDatas.map((courseData) =>
               <Course
@@ -95,7 +89,6 @@ class Search extends React.Component {
               />
             )}
           </ul>
-          <div className="footer"/>
         </div>
       }
     </section>
