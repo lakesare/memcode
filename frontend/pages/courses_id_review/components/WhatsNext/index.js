@@ -75,7 +75,7 @@ class WhatsNext extends React.Component {
     )
 
   render = () =>
-    <section className={css.section} style={this.props.ifDisplay ? {} : { display: 'none' }}>
+    <section className={`${css.section} container`} style={this.props.ifDisplay ? {} : { display: 'none' }}>
       <div className="space"/>
       <section className="congratulations">
         <h2>You successfully reviewed this course!</h2>

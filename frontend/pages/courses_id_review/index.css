@@ -8,6 +8,12 @@
       > section.title-and-buttons{
         padding-top: 10px;
         padding-bottom: 10px;
+        .container{
+          justify-content: flex-end;
+          .learn-and-review-buttons{
+            a.button.learn{ margin-left: 0 !important; }
+          }
+        }
       }
     }
 

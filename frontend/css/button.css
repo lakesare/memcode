@@ -37,13 +37,26 @@
     color: $purple;
     border: 1px solid $purple;
   }
+
+  &.-to-learn, &.-to-review{
+    color: white;
+    font-size: 10px;
+    letter-spacing: 0;
+    &:focus{
+      box-shadow: none;
+      border: 1px solid white !important;
+    }
+  }
+  &.-to-learn{
+    background: $learn-button-color;
+  }
+  &.-to-review{
+    background: $review-button-color;
+  }
+
   &.-pink{
     color: white;
     background: $purple;
-  }
-  &.-red{
-    color: white;
-    background: red;
   }
 
   &.-small{

@@ -15,9 +15,12 @@ class Header extends React.Component {
   renderSimulatedReview = () =>
     <section className={`${css.section} -simulated-review`}>
       <div className="container">
-        <div className="instructions">
+        <div className="instructions -desktop">
           <p>Test drive! Results will not be recorded.</p>
           <p>Press ENTER to reveal answers</p>
+        </div>
+        <div className="instructions -mobile">
+          <p>Test drive! <br/>Results are not recorded.</p>
         </div>
         <div className="amount-of-problems-left">
           {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems} flashcards
