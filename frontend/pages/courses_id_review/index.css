@@ -59,8 +59,8 @@
         margin-top: 40px;
       }
 
-      > button.next-button{
-        margin-top: 20px;
+      > button.next-button, > button.reveal{
+        margin-top: 40px;
       }
 
     }

@@ -9,7 +9,7 @@ import { CourseActions } from '~/components/CourseActions';
 import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
-import { Instructions } from './components/Instructions';
+// import { Instructions } from './components/Instructions';
 import ActionsForCheckedProblems from './components/ActionsForCheckedProblems';
 
 import { commonFetch } from '~/api/commonFetch';
@@ -240,10 +240,6 @@ class Page_courses_id_edit extends React.Component {
             uiAddOptimisticProblem={this.uiAddOptimisticProblem}
             uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
           />
-          {
-            false &&
-            <Instructions/>
-          }
         </div>
       </StickyContainer>
 

@@ -9,8 +9,8 @@ import quizlet_3 from './quizlet_3.gif';
 
 import brainscape_1 from './brainscape_1.gif';
 
-import memcode_1 from './memcode_1.gif';
-import memcode_2 from './memcode_2.gif';
+import memcode_1_new from './memcode_1_new.gif';
+import memcode_2_new from './memcode_2_new.gif';
 
 const TypesOfTasks = () =>
   <section className="article-section types-of-tasks" id="types-of-tasks">
@@ -25,11 +25,11 @@ const TypesOfTasks = () =>
           <ul>
             <li>
               Multiple choice questions
-              <img src={memrise_1}/>
+              <img src={memrise_1} alt="Memrise flashcard type: multiple choice question"/>
             </li>
             <li>
               Typed-in answer that gets autochecked
-              <img src={memrise_2}/>
+              <img src={memrise_2} alt="Memrise flashcard type: typed-in answer that gets automatically checked"/>
             </li>
           </ul>
         </div>
@@ -43,15 +43,15 @@ const TypesOfTasks = () =>
           <ul>
             <li>
               Typed-in answer that gets autochecked
-              <img src={quizlet_1}/>
+              <img src={quizlet_1} alt="Quizlet flashcard type: Typed-in answer that gets autochecked"/>
             </li>
             <li>
               Classic flashcard
-              <img src={quizlet_2}/>
+              <img src={quizlet_2} alt="Quizlet flashcard type: Classic question-answer"/>
             </li>
             <li>
               Connect word and defintion:
-              <img src={quizlet_3}/>
+              <img src={quizlet_3} alt="Quizlet flashcard type: Connect word and definition"/>
             </li>
             <li>
               Type what you hear. <mark>Quizlet</mark> automatically voices (with good quality!) your questions and answers, speaks the answer and checks how you typed it.
@@ -72,7 +72,7 @@ const TypesOfTasks = () =>
         <div className="description">
           <mark>Brainscape</mark> only features classical self-rated turn-over flashcards.
           <ul>
-            <li><img src={brainscape_1}/></li>
+            <li><img src={brainscape_1} alt="Brainscape flashcard type: classic turn-over flashcard"/></li>
           </ul>
         </div>
       </section>
@@ -86,11 +86,11 @@ const TypesOfTasks = () =>
             <li>
               Classic 'Question-Answer' flashcard, but implemented without the turn-over (see Brainscape, e.g.). It lets you reflect on what you just answered.
               Self-rated.
-              <img src={memcode_2}/>
+              <img src={memcode_1_new} alt="Memcode flashcard type: Classic question-answer"/>
             </li>
             <li>
               'Insert answer inline' (or cloze-deletion) flashcard. If you type the right answer, - input will light up with green, indicating your answer is right. If you can't recall an answer, - just press ENTER, and the right answer will be revealed.
-              <img src={memcode_1}/>
+              <img src={memcode_2_new} alt="Memcode flashcard type: Automatically checked cloze-deletion flashcard"/>
             </li>
           </ul>
         </div>
