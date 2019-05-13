@@ -38,13 +38,13 @@ class Tabs extends React.Component {
   }
 
   render = () =>
-    <React.Fragment>
+    <>
       <TabNavigation currentTab={this.state.currentTab} updateCurrentTab={this.updateCurrentTab}/>
 
       <Loading spe={this.state.speGetPage}>{({ problems, problemUserIsLearnings }) =>
         <TabContent currentTab={this.state.currentTab} problems={problems} puils={problemUserIsLearnings}/>
       }</Loading>
-    </React.Fragment>
+    </>
 }
 
 export { Tabs };

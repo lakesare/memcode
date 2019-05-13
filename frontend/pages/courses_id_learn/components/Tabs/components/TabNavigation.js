@@ -12,15 +12,15 @@ class TabNavigation extends React.Component {
 
   renderInstructions = () => (
     {
-      notLearned: <section className="instructions">
+      notLearned: <section className="instructions container">
         Mark flashcards as learned by clicking on them.<br/>
         As soon as you mark some flashcard as learned, you will be able to <em className="review">review</em> (that is, recall) it.
       </section>,
-      ignored: <section className="instructions">
+      ignored: <section className="instructions container">
         We won't ask you to <em className="review">review</em> flashcards that you marked as ignored, and you will not see them in the <em className="learn">'to learn'</em> list.<br/>
         You can start learning them again by clicking 'unignore'.
       </section>,
-      learned: <section className="instructions">
+      learned: <section className="instructions container">
         These are the flashcards that you marked as <em className="learn">learned</em>, and we will be asking you to <em className="review">review</em> them from time to time.<br/>
         If you want to stop reviewing them - click 'unlearn', and then 'ignore'.
       </section>

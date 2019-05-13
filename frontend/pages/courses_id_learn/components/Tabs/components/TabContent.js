@@ -35,7 +35,7 @@ class TabContent extends React.Component {
   }
 
   render = () =>
-    <section className="tab-content">
+    <section className="tab-content container">
       {this.deriveFilteredProblems().map((problem) =>
         <ProblemWrapper
           key={problem.id}
