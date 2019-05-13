@@ -61,7 +61,7 @@ class ChooseCourseToMoveProblemsTo extends React.Component {
             Move <b className="amount">{this.props.amount}</b> flashcards to:
           </label>
 
-          <div className="standard-dropdown-wrapper">
+          <div className="standard-dropdown-wrapper standard-input -Select">
             <input
               type="text"
               id="search-input"
@@ -69,7 +69,6 @@ class ChooseCourseToMoveProblemsTo extends React.Component {
               value={this.state.searchString}
               onChange={this.updateSearchString}
               onFocus={() => this.setState({ ifDropdownIsOpen: true })}
-              onBlur={() => this.setState({ ifDropdownIsOpen: false })}
               placeholder="Another course..."
             />
 

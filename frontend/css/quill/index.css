@@ -30,15 +30,13 @@
       background: rgba(0, 0, 0, 0) !important;
     }
     strong{
+      font-family: inherit;
       font-weight: 100;
       color: rgb(226, 148, 20) !important;
     }
     em{
       color: $purple !important;
       font-style: normal;
-    }
-    strong{
-      font-family: inherit;
     }
     a{
       color: $purple !important;
