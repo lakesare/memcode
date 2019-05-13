@@ -11,8 +11,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/clear-default-css';
 
 @import 'css/quill/index';
-@import 'css/article-formatting';
-@import 'css/article-navigation';
+@import 'css/container';
 @import 'css/button';
 @import 'css/action';
 @import 'css/standard-form';
@@ -20,6 +19,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/standard-dropdown';
 @import 'css/standard-modal';
 @import 'css/standard-tooltip';
+@import 'css/standard-article-formatting';
 @import 'css/standard-white-heading_and_blue-content';
 @import 'css/standard-tab-navigation';
 @import 'css/standard-success-message';

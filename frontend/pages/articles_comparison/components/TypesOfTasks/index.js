@@ -13,7 +13,7 @@ import memcode_1_new from './memcode_1_new.gif';
 import memcode_2_new from './memcode_2_new.gif';
 
 const TypesOfTasks = () =>
-  <section className="article-section types-of-tasks" id="types-of-tasks">
+  <section className="article-section" id="types-of-tasks">
     <Heading text="Types of tasks"/>
 
     <div className="sites">
@@ -22,7 +22,7 @@ const TypesOfTasks = () =>
 
         <div className="description">
           <mark>Memrise</mark> randomly suggests two types of tasks (for the same flashcard) and requires you to complete them in about 10-30 seconds (depending on task difficulty):
-          <ul>
+          <ul className="list-of-flashcard-types">
             <li>
               Multiple choice questions
               <img src={memrise_1} alt="Memrise flashcard type: multiple choice question"/>
@@ -40,7 +40,7 @@ const TypesOfTasks = () =>
 
         <div className="description">
           <mark>Quizlet</mark> lets you choose which types of tasks you want to exercise your memory with.
-          <ul>
+          <ul className="list-of-flashcard-types">
             <li>
               Typed-in answer that gets autochecked
               <img src={quizlet_1} alt="Quizlet flashcard type: Typed-in answer that gets autochecked"/>
@@ -71,7 +71,7 @@ const TypesOfTasks = () =>
 
         <div className="description">
           <mark>Brainscape</mark> only features classical self-rated turn-over flashcards.
-          <ul>
+          <ul className="list-of-flashcard-types">
             <li><img src={brainscape_1} alt="Brainscape flashcard type: classic turn-over flashcard"/></li>
           </ul>
         </div>
@@ -82,7 +82,7 @@ const TypesOfTasks = () =>
 
         <div className="description">
           Unlike other apps, <mark>Memcode</mark> offers two distinct types of flashcards, which are intrinsic to each flashcard (you can't play type_1 on the type_2 card). Those are:
-          <ul>
+          <ul className="list-of-flashcard-types">
             <li>
               Classic 'Question-Answer' flashcard, but implemented without the turn-over (see Brainscape, e.g.). It lets you reflect on what you just answered.
               Self-rated.

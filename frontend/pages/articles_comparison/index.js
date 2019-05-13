@@ -16,17 +16,16 @@ class Page_articles_comparison extends React.Component {
     <main className={css.main}>
       <Header/>
 
-      <div className="space"/>
-
-      <article className="article-formatting">
-
-        <div className="container -left-border">
+      <article className="standard-article-formatting">
+        <div className="container">
           <section className="article-headings">
-            <h1><mark>Memrise</mark> vs <mark>Quizlet</mark> vs <mark>Brainscape</mark> vs <mark>Memcode</mark></h1>
+            <h1>
+              <mark>Memrise</mark> vs <mark>Quizlet</mark> vs <mark>Brainscape</mark> vs <mark>Memcode</mark>
+            </h1>
 
-            <h3>
+            <h2>
               Comparison of popular <mark>repetition-based learning</mark> sites.
-            </h3>
+            </h2>
           </section>
 
           {
@@ -66,7 +65,7 @@ class Page_articles_comparison extends React.Component {
 
       <Helmet>
         <title>Memrise VS  Quizlet VS Brainscape VS Memcode</title>
-        <meta name="description" content="Memrise VS  Quizlet VS Brainscape VS Memcode: comparison of most popular flashcard learning sites."/> :
+        <meta name="description" content="Memrise VS  Quizlet VS Brainscape VS Memcode: comparison of most popular flashcard-based learning sites."/> :
       </Helmet>
     </main>
 }

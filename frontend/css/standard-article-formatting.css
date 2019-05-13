@@ -1,0 +1,51 @@
+@import 'css/variables';
+
+.standard-article-formatting{
+  max-width: 1000px;
+  margin: 0 auto;
+  margin-top: 80px;
+  margin-bottom: 50px;
+
+  line-height: 24px;
+  font-size: 15px;
+
+  font-family: 'Open Sans';
+  color: rgb(219, 222, 249);
+  font-weight: 100;
+
+  // standard elements
+  a{
+    text-decoration: underline;
+  }
+  mark{ color: rgb(212, 4, 236); }
+  ol.standard-list, ul.standard-list{
+    list-style-type: initial;
+    margin-left: 20px;
+    margin-top: 20px;
+    li{ margin-bottom: 10px; }
+  }
+  h1, h2{
+    font-weight: 100;
+  }
+
+  // section subclasses
+  section.article-headings{
+    h1{
+      font-size: 40px;
+      line-height: 48px;
+    }
+    h2{
+      margin-top: 30px;
+    }
+  }
+
+  section.article-section{
+    padding-top: 40px;
+    h2.section-heading{
+      margin-bottom: 50px;
+      margin-top: 70px;
+
+      font-size: 33px;          
+    }
+  }
+}

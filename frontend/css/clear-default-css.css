@@ -1,8 +1,11 @@
-.container{
-  max-width: 1250px;
-  margin: 0 auto;
-  padding: 0 20px;
+
+// footer positioning depends on it!
+html{ height: 100%; }
+body{
+  position: relative;
+  min-height: 100%;
 }
+
 body{
   font-family: $body-font, serif;
   color: $body-color;
