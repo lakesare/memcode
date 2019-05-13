@@ -43,7 +43,7 @@
     display: flex;
     align-items: center;
     > a.avatar{
-      width: 33px; height: 33px;
+      width: 31px; height: 31px;
       img{
         // border: 3px solid rgb(86, 11, 90);
         width: 100%;
@@ -63,7 +63,6 @@
         min-width: 90px;
         margin-right: 10px;
         padding: 0;
-        color: white;
       
         opacity: 0.9;
         &:hover{ opacity: 1; }
@@ -188,13 +187,6 @@
         a.button{
           margin-right: 5px;
         }
-      }
-    }
-  }
-  @media(max-width: 360px){
-    section.learn-review-links{
-      a.button{
-        min-width: 70px !important;
       }
     }
   }

@@ -54,22 +54,31 @@ class CuilActivityButtons extends React.Component {
     )
       .then(this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync)
 
+
+  getTooltipProps = () => ({
+    tooltipProps: {
+      delay: 1000,
+      animation: 'fade',
+      duration: 600
+    }
+  })
+
   renderStartLearningButton = () =>
-    <StandardTooltip tooltipEl="We will be recording your results, and asking you to repeat flashcards when necessary!">
+    <StandardTooltip {...this.getTooltipProps()} tooltipEl="We will be recording your results, and asking you to repeat flashcards when necessary!">
       <button className="button -purple start-learning-button" type="button" onClick={this.apiStartLearning}>
         <i className="fa fa-plus"/> TO LEARNED COURSES
       </button>
     </StandardTooltip>
 
   renderStopLearningButton = () =>
-    <StandardTooltip tooltipEl="If you stop learning this course, you will not be asked to review flashcards from it again. But you can always resume learning it!">
+    <StandardTooltip {...this.getTooltipProps()} tooltipEl="You won't be asked to review flashcards from this course again.">
       <button className="button stop-learning-button" type="button" onClick={this.apiStopLearning}>
         STOP LEARNING
       </button>
     </StandardTooltip>
 
   renderResumeLearningButton = () =>
-    <StandardTooltip tooltipEl="All of your results are saved! Just click resume and return to learning a course.">
+    <StandardTooltip {...this.getTooltipProps()} tooltipEl="All of your results are saved! Just click resume and return to learning a course.">
       <button className="button -purple resume-learning-button" type="button" onClick={this.apiResumeLearning}>
         RESUME LEARNING
       </button>

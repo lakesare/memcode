@@ -1,3 +1,10 @@
+@media(max-width: 900px){
+  // for section.Header positioning
+  body{
+    padding-bottom: 0;
+  }
+}
+
 :local(.main){
   @media(max-width: 900px){
     > header section.search{
@@ -13,11 +20,17 @@
           .learn-and-review-buttons{
             a.button.learn{ margin-left: 0 !important; }
           }
+          h1.title{
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+          }
         }
       }
     }
 
     > section.ProblemBeingSolved{
+      padding-bottom: 80px;
       > section.Header{
         > .container{
           padding-top: 10px;
@@ -25,11 +38,20 @@
         }
         .-mobile{ display: block; }
         .-desktop{ display: none; }
+        position: absolute;
+        bottom: 0;
+        width: 100%;
       }
 
       > section.problem{
         margin-right: 20px;
         margin-left: 20px;
+        margin-top: 30px;
+        padding: 0;
+        box-shadow: none;
+        .ql-editor{
+          padding: 6px 10px;
+        }
         .first-column, .second-column{
           width: 100%;
         }
@@ -56,11 +78,14 @@
       }
 
       > section.self-score{
-        margin-top: 40px;
+        margin-top: 25px;
+        li{
+          padding-bottom: 20px;
+        }
       }
 
       > button.next-button, > button.reveal{
-        margin-top: 40px;
+        margin-top: 30px;
       }
 
     }

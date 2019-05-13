@@ -2,14 +2,14 @@
 
 // TODO move this
 .tippy-tooltip{
-  background-color: rgba(136, 125, 220, 0.72) !important;
+  background-color: rgba(136, 125, 220, 1) !important;
 }
 
 .tippy-popper[x-placement^=top] [x-arrow] {
-  border-top-color: rgba(136, 125, 220, 0.72) !important;
+  border-top-color: rgba(136, 125, 220, 1) !important;
 }
 .tippy-popper[x-placement^=bottom] [x-arrow] {
-  border-bottom-color: rgba(136, 125, 220, 0.72) !important;
+  border-bottom-color: rgba(136, 125, 220, 1) !important;
 }
 
 

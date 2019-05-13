@@ -46,22 +46,20 @@
     //   box-shadow: none;
     //   border: 1px solid white !important;
     // }
+    &.-disabled{
+      background: rgba(30, 31, 56, 0.8);
+      color: rgb(117, 122, 146);
+      opacity: 1 !important;
+    }
+    @media(max-width: 400px){
+      min-width: 70px !important;
+    }
   }
   &.-to-learn{
     background: $learn-button-color;
-    &.-disabled-to-learn{
-      border: 1px solid rgb(58, 65, 101);
-      color: rgb(78, 87, 134);
-      background: transparent;
-    }
   }
   &.-to-review{
     background: $review-button-color;
-    &.-disabled-to-review{
-      border: 1px solid rgb(58, 65, 101);
-      color: rgb(78, 87, 134);
-      background: transparent;
-    }
   }
 
   &.-pink{

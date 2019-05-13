@@ -34,13 +34,11 @@ class LearnAndReviewButtons extends React.Component {
   getSimulatedReviewTooltip = () => {
     if (this.props.nextDueDateIn) {
       return `Wait until the next review! It will be in ${humanizePostgresInterval(this.props.nextDueDateIn)}.`;
+    // nextDueDateIn is null here (I think?)
+    } else if (this.props.amountOfProblems.toLearn > 0) {
+      return "You have nothing to review yet. Learn some flashcards first!";
     } else {
-      // nextDueDateIn is null here (I think?)
-      if (this.props.amountOfProblems.toLearn > 0) {
-        return "You have nothing to review yet. Learn some flashcards first!";
-      } else {
-        return "There are no flashcards to review yet. Is this your course or not? Create some!";
-      }
+      return "There are no flashcards to review yet. Is this your course or not? Create some!";
     }
   }
 
@@ -64,7 +62,7 @@ class LearnAndReviewButtons extends React.Component {
     <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getLearnButtonTooltip()}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/learn`}
-        className={`button -to-learn ${this.props.amountOfProblems.toLearn === 0 ? '-disabled-to-learn' : ''}`}
+        className={`button -to-learn ${this.props.amountOfProblems.toLearn === 0 ? '-disabled' : ''}`}
       >LEARN ({this.props.amountOfProblems.toLearn})</Link>
     </StandardTooltip>
 
@@ -80,7 +78,7 @@ class LearnAndReviewButtons extends React.Component {
     <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getSimulatedReviewTooltip()}>
       <Link
         to={`/courses/${this.props.courseUserIsLearning.courseId}/review/simulated`}
-        className="button -to-review -disabled-to-review"
+        className="button -to-review -disabled"
       >REVIEW (0)</Link>
     </StandardTooltip>
 
