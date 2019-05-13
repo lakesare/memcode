@@ -1,6 +1,6 @@
 import { orFalse } from '~/services/orFalse';
 import { commonFetch } from '~/api/commonFetch';
-import { url } from '~/services/url';
+import UrlCreator from '~/services/UrlCreator';
 
 import { Link } from 'react-router-dom';
 import { MetaTags } from './components/MetaTags';
@@ -51,7 +51,8 @@ class CourseActions extends React.Component {
     ifCourseDescriptionIsDisplayed: PropTypes.bool,
     ifEditCourseModalTogglerIsDisplayed: PropTypes.bool,
     ifBreadcrumbsAreDisplayed: PropTypes.bool,
-    ifConfused: PropTypes.bool
+    ifConfused: PropTypes.bool,
+    ifWithDescriptionPlaceholder: PropTypes.bool
   }
 
   static defaultProps = {
@@ -60,7 +61,8 @@ class CourseActions extends React.Component {
     ifCourseDescriptionIsDisplayed: false,
     ifEditCourseModalTogglerIsDisplayed: false,
     ifBreadcrumbsAreDisplayed: false,
-    ifConfused: false
+    ifConfused: false,
+    ifWithDescriptionPlaceholder: false
   }
 
   componentDidMount = () =>
@@ -96,7 +98,7 @@ class CourseActions extends React.Component {
       <div className="container">
         <section className="course-title_and_category_and_author">
           <h1 className="title">
-            <Link to={url.courseEditOrShow(this.props.currentUser, courseDto.course)}>
+            <Link to={UrlCreator.courseEditOrShow(this.props.currentUser, courseDto.course)}>
               {courseDto.course.title}
             </Link>
           </h1>
@@ -182,6 +184,7 @@ class CourseActions extends React.Component {
             nextDueDateIn={courseDto.nextDueDateIn}
             amountOfProblemsToReview={courseDto.amountOfProblemsToReview}
             courseUserIsLearning={courseDto.courseUserIsLearning}
+            ifWithDescriptionPlaceholder={this.props.ifWithDescriptionPlaceholder}
           />
         }
 

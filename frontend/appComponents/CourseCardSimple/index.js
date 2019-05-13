@@ -1,6 +1,6 @@
 import orFalse from '~/services/orFalse';
 import stripTags from '~/services/stripTags';
-import url from '~/services/url';
+import UrlCreator from '~/services/UrlCreator';
 
 import { Link } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ class CourseCardSimple extends React.Component {
 
   render = () =>
     <Link
-      to={url.courseEditOrShow(this.props.currentUser, this.props.courseDto.course)}
+      to={UrlCreator.courseEditOrShow(this.props.currentUser, this.props.courseDto.course)}
       className={`standard-course-card -simple ${css.a}`}
     >
       <section className="category_and_author">

@@ -11,7 +11,8 @@ class CourseDescriptionAndStats extends React.Component {
     stats: PropTypes.object.isRequired,
     amountOfProblemsToReview: PropTypes.number.isRequired,
     nextDueDateIn: PropTypes.object,
-    courseUserIsLearning: PropTypes.object
+    courseUserIsLearning: PropTypes.object,
+    ifWithDescriptionPlaceholder: PropTypes.bool.isRequired
   }
 
   ifCanRateCourse = () => (
@@ -26,7 +27,7 @@ class CourseDescriptionAndStats extends React.Component {
 
   getCourseDescription = () => {
     const description = this.props.course.description;
-    if (this.ifAuthor() && !description) {
+    if (this.props.ifWithDescriptionPlaceholder && this.ifAuthor() && !description) {
       return '<div class="placeholder">Click [edit] to add some description to your course ♥</div>';
     }
     return description;

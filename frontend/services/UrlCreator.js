@@ -1,4 +1,4 @@
-const url = {
+const UrlCreator = {
   courseEditOrShow: (currentUser, course) => {
     const ifWideEnough = window.innerWidth > 900;
 
@@ -12,5 +12,4 @@ const url = {
   }
 };
 
-export { url };
-export default url;
+export default UrlCreator;

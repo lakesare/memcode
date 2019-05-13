@@ -67,6 +67,11 @@
     background: $purple;
   }
 
+  &.-red{
+    color: white;
+    background: red;
+  }
+
   &.-small{
     font-size: 9px;
     padding: 5px 10px;

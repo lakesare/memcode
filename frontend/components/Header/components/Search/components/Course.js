@@ -1,4 +1,5 @@
-import { stripTags } from '~/services/stripTags';
+import stripTags from '~/services/stripTags';
+import UrlCreator from '~/services/UrlCreator';
 
 import { Link } from 'react-router-dom';
 
@@ -17,13 +18,14 @@ class Course extends React.Component {
     uiCloseDropdown: PropTypes.func.isRequired
   }
 
-  getEditOrShowUrl = () => {
-    const course = this.props.courseData.course;
-    const ifCanEdit = this.props.currentUser && this.props.currentUser.id === course.user_id;
-    return ifCanEdit ?
-      `/courses/${course.id}/edit` :
-      `/courses/${course.id}`;
-  }
+  getEditOrShowUrl = () =>
+    UrlCreator.courseEditOrShow(
+      this.props.currentUser,
+      {
+        ...this.props.courseData.course,
+        userId: this.props.courseData.course.user_id
+      }
+    )
 
   boldenTitle = (title, searchString) => {
     // "hello", "ll" => 2

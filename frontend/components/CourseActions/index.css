@@ -273,7 +273,7 @@
     > section.course-description-and-stats{
       > div.container{
         flex-wrap: wrap;
-        > div.course-description{
+        > div.course-description:not(.-empty){
           margin-bottom: 20px;
         }
         > ul.course-stats{

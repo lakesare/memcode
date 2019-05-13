@@ -1,3 +1,5 @@
+import UrlCreator from '~/services/UrlCreator';
+
 import { Link } from 'react-router-dom';
 import LearnAndReviewButtons from './components/LearnAndReviewButtons';
 
@@ -27,9 +29,6 @@ class CourseCardLearnReview extends React.Component {
     nextDueDateIn: null // because courseUserIsLearning can be null
   }
 
-  ifCanEdit = () =>
-    this.props.currentUser.id === this.props.courseDto.course.userId
-
   ifCanLearnAndReview = () =>
     this.props.courseDto.courseUserIsLearning &&
     this.props.courseDto.courseUserIsLearning.active === true
@@ -37,14 +36,9 @@ class CourseCardLearnReview extends React.Component {
   renderGo = (course) =>
     <Link
       className="go"
-      to={
-        this.ifCanEdit() ?
-          `/courses/${course.id}/edit` :
-          `/courses/${course.id}`
-      }
+      to={UrlCreator.courseEditOrShow(this.props.currentUser, course)}
     >
       <i className="fa fa-long-arrow-right"/>
-
     </Link>
 
   render = () =>

@@ -9,7 +9,7 @@ class ReadonlyEditor extends React.Component {
   }
 
   render = () =>
-    <div className={`quill -readOnly ${this.props.className}`}>
+    <div className={`quill -readOnly ${this.props.className} ${!this.props.html ? '-empty' : ''}`}>
       <div className="ql-container ql-snow">
         <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.props.html }}/>
       </div>
