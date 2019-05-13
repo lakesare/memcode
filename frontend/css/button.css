@@ -27,10 +27,10 @@
   &.-purple{
     color: white;
     background: $purple;
-    &:focus{
-      box-shadow: 0 0 3px white;
-      border: 1px solid white !important;
-    }
+    // &:focus{
+    //   box-shadow: 0 0 3px white;
+    //   border: 1px solid white !important;
+    // }
   }
   // -outlines, just like in fontawesome
   &.-purple-o{
@@ -42,16 +42,26 @@
     color: white;
     font-size: 10px;
     letter-spacing: 0;
-    &:focus{
-      box-shadow: none;
-      border: 1px solid white !important;
-    }
+    // &:focus{
+    //   box-shadow: none;
+    //   border: 1px solid white !important;
+    // }
   }
   &.-to-learn{
     background: $learn-button-color;
+    &.-disabled-to-learn{
+      border: 1px solid rgb(58, 65, 101);
+      color: rgb(78, 87, 134);
+      background: transparent;
+    }
   }
   &.-to-review{
     background: $review-button-color;
+    &.-disabled-to-review{
+      border: 1px solid rgb(58, 65, 101);
+      color: rgb(78, 87, 134);
+      background: transparent;
+    }
   }
 
   &.-pink{

@@ -16,12 +16,11 @@
     justify-content: space-between;
     .link{
       margin-right: 10px;
-      height: 31px;
+      height: 100%;
       width: 33.333%;
       text-transform: uppercase;
       font-size: 11px;
       color: white;
-      height: 100%;
       min-width: 100px;
       display: flex;
       align-items: center;
@@ -31,10 +30,10 @@
         cursor: pointer;
       }
       &.active{
-        background: rgb(25, 26, 46);
+        background: rgb(30, 32, 53);
       }
-      &:hover{
-        background: rgb(25, 26, 46);
+      &:hover:not(.active){
+        background: rgba(30, 32, 53, 0.7);
       }
     }
   }
@@ -65,14 +64,9 @@
         margin-right: 10px;
         padding: 0;
         color: white;
-        &.-nonzero{
-          opacity: 0.9;
-          &:hover{ opacity: 1; }
-        }
-        &.-zero{
-          cursor: default;
-          opacity: 0.1;
-        }
+      
+        opacity: 0.9;
+        &:hover{ opacity: 1; }
       }
 
     }

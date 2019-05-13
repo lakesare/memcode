@@ -40,12 +40,12 @@ figure{
 }
 
 input[type="text"], input[type="search"], input[type="email"], textarea, button, a{
-  border: 1px solid transparent;
+  // border: 1px solid transparent;
+  border: none;
   color: inherit;
   &:focus{
     outline: none;
-    box-shadow: 0 0 3px $purple;
-    border: 1px solid $purple !important;
+    // border: 1px solid $purple !important;
   }
 }
 input, textarea, select, button{

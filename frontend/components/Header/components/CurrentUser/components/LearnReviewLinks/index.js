@@ -70,11 +70,11 @@ class LearnReviewLinks extends React.Component {
   renderToLearnLink = () => {
     const amount = this.deriveAmountOfProblems('toLearn');
     if (amount > 0) {
-      return <Link to={this.generateLink('toLearn')} className="button -to-learn -nonzero">
+      return <Link to={this.generateLink('toLearn')} className="button -to-learn">
         LEARN ({amount})
       </Link>;
     } else {
-      return <div className="button -to-learn -zero">
+      return <div className="button -to-learn -disabled-to-learn">
         LEARN (0)
       </div>;
     }
@@ -83,11 +83,11 @@ class LearnReviewLinks extends React.Component {
   renderToReviewLink = () => {
     const amount = this.deriveAmountOfProblems('toReview');
     if (amount > 0) {
-      return <Link to={this.generateLink('toReview')} className="button -to-review -nonzero">
+      return <Link to={this.generateLink('toReview')} className="button -to-review">
         REVIEW ({amount})
       </Link>;
     } else {
-      return <div className="button -to-review -zero">
+      return <div className="button -to-review -disabled-to-review">
         REVIEW (0)
       </div>;
     }
