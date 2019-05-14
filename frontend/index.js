@@ -4,6 +4,8 @@ import 'airbnb-browser-shims';
 import 'whatwg-fetch';
 // `URLSearchParams` polyfill for parsing query params
 import 'url-search-params-polyfill';
+// `Proxy` polyfill
+import 'proxy-polyfill/proxy.min.js';
 
 // globally setting up quill text editor
 import '~/services/quill/registerBlots';
