@@ -16,7 +16,7 @@ import { AuthenticationActions } from '~/reducers/Authentication';
     signIn: (token) => AuthenticationActions.signIn(dispatch, token)
   })
 )
-class Page_articles_welcome extends React.Component {
+class Page_articles_home extends React.Component {
   static propTypes = {
     signIn: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired
@@ -50,7 +50,7 @@ class Page_articles_welcome extends React.Component {
             <h1>Welcome to Memcode.</h1>
 
             <h2>
-              Lightweight <mark>spaced repetition</mark>-based learning site.<br/>
+              Lightweight <mark>spaced repetition</mark>-based learning site.
             </h2>
           </section>
 
@@ -59,7 +59,7 @@ class Page_articles_welcome extends React.Component {
 
             <p>
               Create a course with flashcards for a subject you’re interested in.<br/>
-              To keep it in your long term memory, we will be asking you to review the flashcards you’re starting to forget.
+              To keep it in your long term memory, we ask you to review the flashcards you’re starting to forget.
             </p>
 
             <b>Two types of flashcards:</b>
@@ -123,4 +123,4 @@ class Page_articles_welcome extends React.Component {
     </main>
 }
 
-export default Page_articles_welcome;
+export default Page_articles_home;

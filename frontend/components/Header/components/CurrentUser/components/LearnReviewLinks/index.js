@@ -31,6 +31,10 @@ class LearnReviewLinks extends React.Component {
     this.props.apiSync();
   }
 
+  //   componentDidUpdate() {
+  //     this.props.apiSync();
+  //   }
+
   deriveAmountOfProblems = (toLearnOrToReview) => {
     const response = this.props.idsOfProblemsToLearnAndReviewPerCourse;
     const courseIds = Object.keys(response);
