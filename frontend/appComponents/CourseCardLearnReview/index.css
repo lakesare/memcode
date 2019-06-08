@@ -40,15 +40,20 @@
     }
 
     &:hover{
-      > div.learn-and-review-buttons > section.links > a{
-        opacity: 0.8;
+      > div.learn-and-review-buttons > section.links{
+        > a{
+          opacity: 0.8;
+        }
+        > a.review.-simulated{
+          opacity: 1;
+        }
       }
     }
     > div.learn-and-review-buttons{
       > section.links{
         position: absolute;
         left: 0; right: 0;
-        bottom: 18px; top: 0;
+        bottom: 22px; top: 0;
         display: flex;
 
         > a{
@@ -72,7 +77,7 @@
           &.review{
             background: $review-button-color;
             &.-simulated{
-              color: rgb(214, 37, 111);
+              color: $purple;
               background: rgb(29, 31, 52);
               text-align: center;
             }
@@ -85,6 +90,7 @@
         bottom: 0;
         left: 0; right: 0;
         display: flex;
+        height: 22px;
         cursor: default;
         > div.learn, > div.review{
           width: 50%;
@@ -92,6 +98,9 @@
           padding: 4px 0;
           text-align: center;
           text-transform: uppercase;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         > div.learn{
           background: $learn-button-color;
@@ -107,6 +116,11 @@
           }
           &.-zero{
             color: white;
+            i.timer-icon{
+              color: $purple;
+              font-size: 14px;
+              padding-right: 5px;
+            }
           }
           &.-empty{
             visibility: hidden;

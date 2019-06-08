@@ -18,6 +18,7 @@ class LearnAndReviewButtons extends React.Component {
     // user will have to review some problems soon
     if (amountOfProblemsToReview === 0 && nextDueDateIn) {
       return <div className="review -zero">
+        <i className="material-icons timer-icon">timer</i>
         in {humanizePostgresInterval(nextDueDateIn)}
       </div>;
     // user hasn't learned anything from this course yet
