@@ -46,11 +46,27 @@ input[type="text"], input[type="search"], input[type="email"], textarea, button,
   // border: 1px solid transparent;
   border: none;
   color: inherit;
-  &:focus{
-    outline: none;
-    // border: 1px solid $purple !important;
-  }
 }
+
+*:not(.ql-editor):not(.button):not(.see-answer-button):not(.answer):focus{
+  outline: none;
+  // outline: $purple auto 1px;
+  border: 1px solid $purple !important;
+
+}
+.button:focus{
+  &.-purple, &.-purple-o, &.-to-learn, &.-to-review{
+    outline: 1px dashed white;
+  }
+  outline: 1px solid $purple;
+}
+.see-answer-button:focus, .see-answer-button:hover{
+  background: rgb(68, 245, 149) !important;
+  color: rgb(10, 80, 42) !important;
+  outline: none;
+  transition-duration: 150ms;
+}
+
 input, textarea, select, button{
   // because mac makes it tity 11px
   font-size: 14px;

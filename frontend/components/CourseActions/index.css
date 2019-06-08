@@ -200,9 +200,9 @@
               padding-right: 10px;
               line-height: 20px;
               color: rgb(172, 181, 218);
-              opacity: 0;
-              transition-duration: 300ms;
-              transition-delay: 300ms;
+              // opacity: 0;
+              // transition-duration: 300ms;
+              // transition-delay: 300ms;
             }
           }
         }

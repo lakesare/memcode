@@ -50,9 +50,12 @@ class Subheader extends React.Component {
         <div className="instructions -mobile"/>
 
         <div className="buttons">
-          <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
-            Term ⟷ definition
-          </button>
+          {
+            false &&
+            <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
+              Term ⟷ definition
+            </button>
+          }
 
           {
             // if it's not the last problem we're reviewing - randomize
