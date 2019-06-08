@@ -39,6 +39,24 @@ class CourseDescriptionAndStats extends React.Component {
       <div className="icon">{icon}</div>
     </li>
 
+  renderReviewInStat = () => {
+    const [amount, measure] = humanizePostgresInterval(this.props.nextDueDateIn, { asArray: true });
+    return this.renderStat(
+      <i className="fa fa-hourglass-start"/>,
+      (
+        this.props.amountOfProblemsToReview > 0 ?
+          'Review now!' :
+          <>
+            Review in
+            <span className="number review-in-stat-number">
+              {amount}
+              <span className="measure">{measure}</span>
+            </span>
+          </>
+      )
+    );
+  }
+
   render = () =>
     <section className="course-description-and-stats">
       <div className="container">
@@ -79,17 +97,7 @@ class CourseDescriptionAndStats extends React.Component {
             this.props.courseUserIsLearning &&
             this.props.courseUserIsLearning.active &&
             this.props.nextDueDateIn &&
-            this.renderStat(
-              <i className="fa fa-hourglass-start"/>,
-              (this.props.amountOfProblemsToReview > 0 ?
-                'Review now!' :
-                <div>
-                  Review in
-                  <span className="number">
-                    {' ' + humanizePostgresInterval(this.props.nextDueDateIn)}
-                  </span>
-                </div>)
-            )
+            this.renderReviewInStat()
           }
 
           <CourseStarRating
