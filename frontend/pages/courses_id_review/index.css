@@ -30,7 +30,7 @@
       padding-bottom: 80px;
       > section.Subheader{
         > .container{
-          display: block;
+          flex-wrap: wrap;
           padding-top: 10px;
           padding-bottom: 10px;
           .amount-of-problems-left{
