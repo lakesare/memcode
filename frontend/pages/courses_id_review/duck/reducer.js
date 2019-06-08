@@ -20,7 +20,18 @@ const initialState = {
   //   failedProblemIndexes: [3, 5, 6] // taken from speGetPage.payload.problems
   // }
   ifReviewingFailedProblems: false,
-  indexesOfFailedProblems: []
+  indexesOfFailedProblems: [],
+  amountOfFailedProblems: 0
+
+  //   ___idea:
+  //   statusOfReview: 'simulated', 'review', "what's next"
+  //   ifReviewingFailedProblems: false,
+  //
+  //   ids of all problems we have to review on page load, on RANDOMIZE they shuffle
+  //   idsOfReviewableProblemsLeft: [],
+  //   idsOfFailedProblemsLeft: [],
+  //   amountOfReviewableProblems: 0,
+  //   amountOfFailedProblems: 0
 };
 
 import amountOfAnswerInputsInProblem from './services/amountOfAnswerInputsInProblem';
@@ -76,6 +87,7 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           ifReviewingFailedProblems: true,
+          amountOfFailedProblems: state.indexesOfFailedProblems.length,
           statusOfSolving: freshStatusOfSolving(reReviewProblem, firstFailedIndex)
         };
       } else {
@@ -120,7 +132,8 @@ const reducer = (state = initialState, action) => {
           // um because it won't get reloaded if we come from /:id/review to another /:id/review
           speNextReviewIn: {},
           ifReviewingFailedProblems: false,
-          indexesOfFailedProblems: []
+          indexesOfFailedProblems: [],
+          amountOfFailedProblems: 0
         };
       } else {
         return { ...state, speGetPage: spe };

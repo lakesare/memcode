@@ -1,6 +1,10 @@
 :local(.main){
+  .loading.loading-flashcards{
+    margin-top: 100px;
+  }
   @media(max-width: 900px){
-    > header section.search{
+    > header section.search,
+    > header nav{
       display: none;
     }
 
@@ -24,12 +28,17 @@
 
     > section.ProblemBeingSolved{
       padding-bottom: 80px;
-      > section.Header{
+      > section.Subheader{
         > .container{
+          display: block;
           padding-top: 10px;
           padding-bottom: 10px;
+          .amount-of-problems-left{
+            margin-top: 15px;
+            width: 100%;
+          }
         }
-        .-mobile{ display: block; }
+        .-mobile{ display: block; text-align: right; }
         .-desktop{ display: none; }
         position: absolute;
         bottom: 0;

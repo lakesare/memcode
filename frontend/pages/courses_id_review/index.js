@@ -37,7 +37,9 @@ import actions from './duck/actions';
         {
           statusOfSolving:  pageState.statusOfSolving,
           amountOfProblems: pageState.speGetPage.payload.problems.length
-        }
+        },
+      amountOfFailedProblems: pageState.amountOfFailedProblems,
+      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length
     };
   },
   (dispatch, ownProps) => ({
@@ -77,6 +79,8 @@ class Page_courses_id_review extends React.Component {
     statusOfSolving: PropTypes.object,
     enterPressed: PropTypes.func.isRequired,
     amountOfProblems: PropTypes.number,
+    amountOfFailedProblems: PropTypes.number.isRequired,
+    amountOfFailedProblemsLeft: PropTypes.number.isRequired,
     ifReviewingFailedProblems: PropTypes.bool.isRequired,
 
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
@@ -124,34 +128,32 @@ class Page_courses_id_review extends React.Component {
         ifCuilActivityButtonsAreDisplayed={false}
       />
 
-      <Loading spe={this.props.speGetPage}>{() =>
-        <>
-          {
-            this.props.currentProblem &&
-            <ProblemBeingSolved
-              key={this.props.currentProblem.id} // is needed, otherwise Editor will just stay the same
-              problem={this.props.currentProblem}
-              ifReviewIsSimulated={this.props.simulated}
-              ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
-              statusOfSolving={this.props.statusOfSolving}
-              amountOfProblems={this.props.amountOfProblems}
+      {
+        this.props.currentProblem &&
+        <ProblemBeingSolved
+          problem={this.props.currentProblem}
+          ifReviewIsSimulated={this.props.simulated}
+          ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
+          statusOfSolving={this.props.statusOfSolving}
+          amountOfProblems={this.props.amountOfProblems}
+          amountOfFailedProblems={this.props.amountOfFailedProblems}
+          amountOfFailedProblemsLeft={this.props.amountOfFailedProblemsLeft}
 
-              enterPressed={this.props.enterPressed}
-              separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
-              onRightAnswerGiven={this.props.onRightAnswerGiven}
-              randomizeProblems={this.props.randomizeProblems}
-              switchQuestionAndAnswer={this.props.switchQuestionAndAnswer}
-            />
-          }
+          enterPressed={this.props.enterPressed}
+          separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
+          onRightAnswerGiven={this.props.onRightAnswerGiven}
+          randomizeProblems={this.props.randomizeProblems}
+          switchQuestionAndAnswer={this.props.switchQuestionAndAnswer}
+        />
+      }
+      <Loading className="loading-flashcards" spe={this.props.speGetPage}/>
 
-          <WhatsNext
-            courseId={parseInt(this.props.match.params.id)}
-            currentUser={this.props.currentUser}
-            speNextReviewIn={this.props.speNextReviewIn}
-            ifDisplay={!this.props.currentProblem}
-          />
-        </>
-      }</Loading>
+      <WhatsNext
+        courseId={parseInt(this.props.match.params.id)}
+        currentUser={this.props.currentUser}
+        speNextReviewIn={this.props.speNextReviewIn}
+        ifDisplay={this.props.speGetPage.status === 'success' && !this.props.currentProblem}
+      />
 
       {
         this.props.speGetPage.status === 'success' &&

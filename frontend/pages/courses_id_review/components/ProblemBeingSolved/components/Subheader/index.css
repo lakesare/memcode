@@ -13,15 +13,36 @@
     align-items: center;
   }
 
+  // may be shared
+  div.amount-of-problems-left{
+    position: relative;
+    label{
+      position: absolute;
+      text-transform: uppercase;
+      font-size: 10px;
+      right: 5px;
+      top: 2px;
+    }
+  }
+
+  .instructions{
+    em.yellow-emphasis{
+      color: rgb(236, 236, 133);
+      font-style: normal;
+      text-shadow: 0 0 2px #f7f96d9e;
+      text-transform: uppercase;
+    }
+  }
+  .amount-of-problems-left{
+    width: 400px;
+    max-width: 100%;
+  }
+
   // types of headers
   &.-simulated-review > .container{
     padding-top: 10px;
     padding-bottom: 10px;
     > div.instructions{ font-size: 14px; }
-    > div.amount-of-problems-left{
-      text-transform: uppercase;
-      font-size: 12px;
-    }
   }
   &.-usual-review > .container{
     > div.instructions{
@@ -50,3 +71,22 @@
     > div.instructions{ font-size: 14px; }
   }
 }
+
+// @media(max-width: 700px){
+//   :local(.section){
+//     .container{
+//       display: block;
+//       .amount-of-problems-left{
+//         margin-top: 15px;
+//         width: 100%;
+//       }
+//     }
+
+//     .-mobile{
+//       display: block;
+//     }
+//     .-desktop{
+//       display: none;
+//     }
+//   }
+// }

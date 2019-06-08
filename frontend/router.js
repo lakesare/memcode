@@ -24,18 +24,10 @@ import Page_contact from './pages/contact';
 
 import Page_admin_notifications from './pages/admin_notifications';
 
-// ___why?
-//    I want every page to remount when route changes, even when only :dynamic-segment chenges.
-// ___where is this solution taken from?
-//    https://stackoverflow.com/a/32961482/3192470
-const createElement = (Component, props) =>
-  // eslint-disable-next-line react/prop-types
-  <Component key={props.params.id} {...props}/>;
-
 const auth = onEnters.requireAuthentication;
 
 const router =
-  <BrowserRouter createElement={createElement}>
+  <BrowserRouter>
     <Switch>
       <Route exact path="/courses"            component={Page_courses}/>
       <Route exact path="/courses/learning"   component={auth(Page_courses_learning)}/>

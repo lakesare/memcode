@@ -1,9 +1,13 @@
 import css from './index.css';
 
-class Header extends React.Component {
+import ProgressBar from '~/components/ProgressBar';
+
+class Subheader extends React.Component {
   static propTypes = {
     statusOfSolving: PropTypes.object.isRequired,
-    amountOfProblems: PropTypes.number,
+    amountOfProblems: PropTypes.number.isRequired,
+    amountOfFailedProblems: PropTypes.number.isRequired,
+    amountOfFailedProblemsLeft: PropTypes.number.isRequired,
 
     randomizeProblems: PropTypes.func.isRequired,
     switchQuestionAndAnswer: PropTypes.func.isRequired,
@@ -12,24 +16,31 @@ class Header extends React.Component {
     ifReviewingFailedProblems: PropTypes.bool.isRequired
   }
 
+  renderProgressBar = (current, max) =>
+    <div className="amount-of-problems-left">
+      <label>{current}/{max}</label>
+
+      <ProgressBar
+        currentAmount={current}
+        maxAmount={max}
+      />
+    </div>
+
   renderSimulatedReview = () =>
-    <section className={`${css.section} -simulated-review`}>
+    <section className={`Subheader ${css.section} -simulated-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          <p>Test drive! Results will not be recorded.</p>
-          <p>Press ENTER to reveal answers</p>
+          <p><em className="yellow-emphasis">Test drive</em> - results will not be recorded. Press ENTER to reveal answers</p>
         </div>
         <div className="instructions -mobile">
-          <p>Test drive! <br/>Results are not recorded.</p>
+          <p><em className="yellow-emphasis">Test drive</em> - results are not recorded.</p>
         </div>
-        <div className="amount-of-problems-left">
-          {this.props.statusOfSolving.index + 1}/{this.props.amountOfProblems} flashcards
-        </div>
+        {this.renderProgressBar(this.props.statusOfSolving.index, this.props.amountOfProblems)}
       </div>
     </section>
 
   renderUsualReview = () =>
-    <section className={`Header ${css.section} -usual-review`}>
+    <section className={`Subheader ${css.section} -usual-review`}>
       <div className="container">
         <div className="instructions -desktop">
           Press ENTER fo reveal answers
@@ -55,7 +66,7 @@ class Header extends React.Component {
     </section>
 
   renderFailedFlashcardsReview = () =>
-    <section className={`${css.section} -failed-flashcards-review`}>
+    <section className={`Subheader ${css.section} -failed-flashcards-review`}>
       <div className="container">
         <div className="instructions -desktop">
           We are repeating failed flashcards. Results will not be recorded.
@@ -63,13 +74,15 @@ class Header extends React.Component {
         <div className="instructions -mobile">
           Repeating failed flashcards.
         </div>
+
+        {this.renderProgressBar(this.props.amountOfFailedProblems - this.props.amountOfFailedProblemsLeft, this.props.amountOfFailedProblems)}
       </div>
     </section>
 
   render = () => {
     if (!this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
       return this.renderUsualReview();
-    } else if (this.props.ifReviewIsSimulated) {
+    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
       return this.renderSimulatedReview();
     } else if (this.props.ifReviewingFailedProblems) {
       return this.renderFailedFlashcardsReview();
@@ -77,4 +90,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default Subheader;

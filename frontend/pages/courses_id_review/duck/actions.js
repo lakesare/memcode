@@ -8,7 +8,7 @@ const enterPressed = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
     if (state.ifReviewingFailedProblems) {
-      enterPressedInReReviewingMode()(dispatch, getState);
+      enterPressedInFailedMode()(dispatch, getState);
     } else {
       switch (state.statusOfSolving.status) {
         case 'solving':
@@ -56,7 +56,7 @@ const enterPressed = () =>
     }
   };
 
-const enterPressedInReReviewingMode = () =>
+const enterPressedInFailedMode = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
     switch (state.statusOfSolving.status) {
@@ -99,16 +99,45 @@ const enterPressedInReReviewingMode = () =>
 const enterPressedInSimulatedReview = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
-    switch (state.statusOfSolving.status) {
-      case 'solving':
-        dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-        break;
-      case 'seeingAnswer':
-        dispatch({
-          type: 'SET_NEXT_PROBLEM',
-          payload: state.statusOfSolving.index + 1
-        });
-        break;
+    if (state.ifReviewingFailedProblems) {
+      enterPressedInFailedMode()(dispatch, getState);
+    } else {
+      switch (state.statusOfSolving.status) {
+        case 'solving':
+          dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
+          break;
+        case 'seeingAnswer': {
+          const score = selectors.deriveScore(state);
+          const currentIndex = state.statusOfSolving.index;
+          // readd if it was bad again
+          if (score < 5) {
+            dispatch({
+              type: 'ADD_TO_FAILED_PROBLEMS',
+              payload: currentIndex
+            });
+          }
+
+          dispatch({
+            type: 'SET_NEXT_PROBLEM',
+            payload: state.statusOfSolving.index + 1
+          });
+
+          // if (smth) {
+          //   setTimeout(() => {
+          //     dispatch({
+          //       type: 'SET_IF_WHATS_NEXT'
+          //     })
+          //   }, 600)
+          // } else if (smth_else) {
+          //   setTimeout(() => {
+          //     dispatch({
+          //       type: 'SET_IF_FAILED_PROBLEMS'
+          //     })
+          //   })
+          // }
+          break;
+        }
+      }
     }
   };
 

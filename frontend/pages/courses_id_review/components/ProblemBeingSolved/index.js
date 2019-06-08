@@ -1,6 +1,6 @@
 import Problem from '~/components/Problem';
 import SeparateAnswerSelfScore from './components/SeparateAnswerSelfScore';
-import Header from './components/Header';
+import Subheader from './components/Subheader';
 
 import css from './index.css';
 
@@ -9,6 +9,8 @@ class ProblemBeingSolved extends React.Component {
     problem: PropTypes.object.isRequired,
     statusOfSolving: PropTypes.object.isRequired,
     amountOfProblems: PropTypes.number,
+    amountOfFailedProblems: PropTypes.number.isRequired,
+    amountOfFailedProblemsLeft: PropTypes.number.isRequired,
 
     enterPressed: PropTypes.func.isRequired,
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
@@ -21,6 +23,7 @@ class ProblemBeingSolved extends React.Component {
   }
 
   componentDidMount = () => {
+    console.log('Mounting ProblemBeingSolved');
     document.addEventListener('keydown', this.onEnter, false);
   }
 
@@ -44,9 +47,11 @@ class ProblemBeingSolved extends React.Component {
 
   render = () =>
     <section className={`ProblemBeingSolved ${css.section}`}>
-      <Header
+      <Subheader
         statusOfSolving={this.props.statusOfSolving}
         amountOfProblems={this.props.amountOfProblems}
+        amountOfFailedProblems={this.props.amountOfFailedProblems}
+        amountOfFailedProblemsLeft={this.props.amountOfFailedProblemsLeft}
 
         randomizeProblems={this.props.randomizeProblems}
         switchQuestionAndAnswer={this.props.switchQuestionAndAnswer}
@@ -57,6 +62,7 @@ class ProblemBeingSolved extends React.Component {
 
       <Problem
         mode="review"
+        problemId={this.props.problem.id}
         problemContent={this.props.problem.content}
         problemType={this.props.problem.type}
         statusOfSolving={this.props.statusOfSolving}
@@ -65,7 +71,7 @@ class ProblemBeingSolved extends React.Component {
       />
 
       {
-        !this.props.ifReviewIsSimulated &&
+        // !this.props.ifReviewIsSimulated &&
         this.props.statusOfSolving.status === 'seeingAnswer' &&
         this.props.problem.type === 'separateAnswer' &&
         <SeparateAnswerSelfScore

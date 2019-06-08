@@ -146,7 +146,7 @@
               top: 1px;
               padding-right: 3px;
               font-size: 15px;
-              color: rgb(232, 0, 255);
+              color: $purple;
               text-shadow: 0 0 8px rgb(232, 0, 255);
             }
           }

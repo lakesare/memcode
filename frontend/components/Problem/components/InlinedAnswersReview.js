@@ -68,7 +68,9 @@ const _checkAnswer = (el, onRightAnswerGiven) => {
 
 const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
   arrayOfAnswerEls.forEach((el) => {
+    console.log(arrayOfAnswerEls);
     el.addEventListener('input', () => {
+      console.log('input!!!');
       _adjustWidthToInput(el);
       _checkAnswer(el, onRightAnswerGiven);
     });
@@ -77,6 +79,8 @@ const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
 
 class InlinedAnswersReview extends React.Component {
   static propTypes = {
+    problemId: PropTypes.number.isRequired,
+
     problemContent: PropTypes.object.isRequired,
 
     statusOfSolving: PropTypes.shape({
@@ -89,24 +93,37 @@ class InlinedAnswersReview extends React.Component {
   }
 
   componentDidMount() {
-    this.arrayOfAnswerEls = Array.from(this.refs.problem.querySelectorAll('.answer'));
-    focusOnTheFirstAnswer(this.arrayOfAnswerEls);
-    attachKeyup(this.arrayOfAnswerEls, this.props.onRightAnswerGiven);
+    this.attachOnchangeToInputs();
   }
 
   componentDidUpdate(prevProps) {
+    const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
+
     const prevStatus = prevProps.statusOfSolving.status;
     const nextStatus = this.props.statusOfSolving.status;
 
     const ifJustSuccumbed =
       prevStatus === 'solving' &&
       nextStatus === 'seeingAnswer';
-    if (ifJustSuccumbed) succumb(this.arrayOfAnswerEls);
+    if (ifJustSuccumbed) succumb(arrayOfAnswerEls);
 
     const ifJustDecidedToRetry =
       prevStatus === 'seeingAnswer' &&
       nextStatus === 'solving';
-    if (ifJustDecidedToRetry) retry(this.arrayOfAnswerEls);
+    if (ifJustDecidedToRetry) retry(arrayOfAnswerEls);
+
+    const ifProblemChanged =
+      prevProps.problemId !== this.props.problemId;
+    if (ifProblemChanged) this.attachOnchangeToInputs();
+  }
+
+  getArrayOfAnswerInputs = () =>
+    Array.from(this.refs.problem.querySelectorAll('.answer'));
+
+  attachOnchangeToInputs = () => {
+    const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
+    focusOnTheFirstAnswer(arrayOfAnswerEls);
+    attachKeyup(arrayOfAnswerEls, this.props.onRightAnswerGiven);
   }
 
   render = () => {
