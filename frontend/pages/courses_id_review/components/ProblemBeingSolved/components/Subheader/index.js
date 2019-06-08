@@ -72,10 +72,10 @@ class Subheader extends React.Component {
     <section className={`Subheader ${css.section} -failed-flashcards-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          We are repeating failed flashcards. Results will not be recorded.
+          <em className="red-emphasis">BY HEART</em> - we are repeating failed flashcards <em className="red-emphasis -darker">♥</em>. Results will not be recorded.
         </div>
         <div className="instructions -mobile">
-          Repeating failed flashcards.
+          <em className="red-emphasis">BY HEART</em> - repeating failed flashcards <em className="red-emphasis -darker">♥</em>
         </div>
 
         {this.renderProgressBar(this.props.amountOfFailedProblems - this.props.amountOfFailedProblemsLeft, this.props.amountOfFailedProblems)}

@@ -32,6 +32,17 @@
       text-shadow: 0 0 2px #f7f96d9e;
       text-transform: uppercase;
     }
+    em.red-emphasis{
+      color: rgb(245, 63, 63);
+      font-style: normal;
+      text-shadow: 0 0 1px #ff1d1d;
+      text-transform: uppercase;
+      &.-darker{
+        color: rgb(255, 29, 29);
+        text-shadow: none;
+        text-shadow: 0 0 8px #ff1d1d;
+      }
+    }
   }
   .amount-of-problems-left{
     width: 400px;
