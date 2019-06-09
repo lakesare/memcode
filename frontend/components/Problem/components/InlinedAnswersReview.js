@@ -21,6 +21,7 @@ const succumb = (arrayOfAnswerEls) => {
       el.value = el.getAttribute('data-answer');
       el.setAttribute('data-answered', 'wrong');
       el.readOnly = true;
+      el.setAttribute('tabindex', -1);
 
       _adjustWidthToInput(el);
     }
@@ -51,7 +52,7 @@ const _adjustWidthToInput = (el) => {
   }
 };
 
-const _checkAnswer = (el, onRightAnswerGiven) => {
+const _checkAnswer = (el, onRightAnswerGiven, nextInput) => {
   const answer = el.getAttribute('data-answer');
   const currentValue = el.value;
 
@@ -62,17 +63,20 @@ const _checkAnswer = (el, onRightAnswerGiven) => {
     el.setAttribute('value', answer);
     el.setAttribute('data-answered', 'right');
     el.readOnly = true;
+    el.setAttribute('tabindex', -1);
+
+    if (nextInput) nextInput.focus({ preventScroll: true });
+
     onRightAnswerGiven();
   }
 };
 
 const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
-  arrayOfAnswerEls.forEach((el) => {
-    console.log(arrayOfAnswerEls);
+  arrayOfAnswerEls.forEach((el, index) => {
     el.addEventListener('input', () => {
-      console.log('input!!!');
       _adjustWidthToInput(el);
-      _checkAnswer(el, onRightAnswerGiven);
+      const nextInput = arrayOfAnswerEls[index + 1] || null;
+      _checkAnswer(el, onRightAnswerGiven, nextInput);
     });
   });
 };

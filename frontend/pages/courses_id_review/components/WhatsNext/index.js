@@ -23,6 +23,18 @@ class WhatsNext extends React.Component {
     this.apiGetCourses();
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.courseId !== this.props.courseId) {
+      this.apiGetCourses();
+    }
+  }
+
+  // apiGetCourses = () =>
+  //   api.CourseApi.getPublicCourses(
+  //     { pageSize: 20 },
+  //     (spe) => this.setState({ speCourses: spe })
+  //   )
+
   apiGetCourses = () => {
     this.setState({ speCourses: createSpe.request() });
     Promise.all([

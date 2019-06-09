@@ -3,6 +3,7 @@ import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 class SeparateAnswerReview extends React.Component {
   static propTypes = {
+    problemId: PropTypes.number.isRequired,
     problemContent: PropTypes.object.isRequired,
 
     statusOfSolving: PropTypes.shape({
@@ -17,6 +18,15 @@ class SeparateAnswerReview extends React.Component {
     draft: '',
     ifDraftIsFocused: false
   }
+
+  componentDidUpdate(prevProps) {
+    const ifProblemChanged =
+      prevProps.problemId !== this.props.problemId;
+    if (ifProblemChanged) this.uiClearDraft();
+  }
+
+  uiClearDraft = () =>
+    this.setState({ draft: '' })
 
   render = () =>
     <section className="problem -withSeparateAnswer">

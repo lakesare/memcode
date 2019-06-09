@@ -103,10 +103,6 @@ class Page_courses_id_review extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    document.body.style.background = '';
-  }
-
   renderProblemContentCachingMechanism = (problems) =>
     <div style={{ display: 'none' }}>{
       problems.map((problem) =>
