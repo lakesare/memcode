@@ -25,10 +25,11 @@
 
     // color: rgb(206, 199, 245);
     // We need !important-s because we have to override styles copypasted by users
-    *:not(.answer-input){
+    code, span, em, strong, b, a, sup, sub, blockquote{
       color: rgb(206, 199, 245) !important;
       background: rgba(0, 0, 0, 0) !important;
     }
+
     strong{
       font-family: inherit;
       font-weight: 100;
