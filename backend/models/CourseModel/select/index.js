@@ -60,14 +60,21 @@ const select = {
         ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
       GROUP BY (course.id, "user".id, course_category.id)
       ${
-        sortBy === 'popular' ?
-          `
-          ORDER BY
-            amount_of_course_ratings DESC,
-            amount_of_users_learning_this_course DESC,
-            amount_of_problems DESC
-          ` :
-          `ORDER BY course.created_at DESC`
+        (() => {
+          switch (sortBy) {
+            case 'popular': return `ORDER BY
+              amount_of_course_ratings DESC,
+              amount_of_users_learning_this_course DESC,
+              amount_of_problems DESC
+            `;
+            case 'new': return `ORDER BY
+              course.created_at DESC
+            `;
+            case 'random': return `ORDER BY
+              random()
+            `;
+          }
+        })()
       }
       LIMIT ${limit}
       OFFSET ${offset}

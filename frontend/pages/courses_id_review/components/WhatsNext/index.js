@@ -82,7 +82,7 @@ class WhatsNext extends React.Component {
       {
         pageSize: 21,
         pageNumber: 1,
-        sortBy: 'popular'
+        sortBy: 'random'
       }
     )
 

@@ -3,7 +3,7 @@ import SelectDropdown from '~/components/SelectDropdown';
 
 class SortBySelect extends React.Component {
   static propTypes = {
-    sortBy: PropTypes.oneOf(['popular', 'new']).isRequired,
+    sortBy: PropTypes.oneOf(['random', 'popular', 'new']).isRequired,
     getUrlForNewSortBy: PropTypes.func.isRequired
   }
 
@@ -13,8 +13,9 @@ class SortBySelect extends React.Component {
       dropdownClassName="standard-dropdown -purple"
       value={this.props.sortBy}
       possibleValues={{
+        random: 'Random',
         popular: 'Most Popular',
-        new: 'Recently Created'
+        new: 'Recently Created',
       }}
       renderLi={(value, humanValue) =>
         <Link to={this.props.getUrlForNewSortBy(value)}>{humanValue}</Link>

@@ -25,7 +25,7 @@ const getCurrentPage = (props) => {
 
 const getSortBy = (props) => {
   const sortBy = getQuery(props).get('sortBy');
-  return sortBy ? sortBy : 'popular';
+  return sortBy ? sortBy : 'random';
 };
 
 const getQuery = (props) =>
@@ -42,8 +42,7 @@ import { AuthenticationActions } from '~/reducers/Authentication';
 class Page_courses extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
-    signIn: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired
+    signIn: PropTypes.func.isRequired
   }
 
   state = {
