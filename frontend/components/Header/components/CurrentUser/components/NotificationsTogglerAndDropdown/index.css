@@ -17,19 +17,19 @@
   // background: rgba(0, 0, 0, 0.2);
 
   position: relative;
-  > div.toggler > i{
+  > button.toggler > i{
     font-size: 19px;
   }
   &.-there-are-unread-notifications{
-    > div.toggler > i{
+    > button.toggler > i{
       color: rgb(212, 4, 236);
       text-shadow: 0px 0px 6px #b10acc;
     }
   }
   &.-there-are-no-unread-notifications{
-    > div.toggler > i{ color: rgba(255, 255, 255, 0.25); }
+    > button.toggler > i{ color: rgba(255, 255, 255, 0.25); }
   }
-  > div.toggler{
+  > button.toggler{
     cursor: pointer;
     position: relative;
     > div.amount-of-unread-notifications{

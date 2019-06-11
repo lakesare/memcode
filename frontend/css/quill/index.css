@@ -25,7 +25,7 @@
 
     // color: rgb(206, 199, 245);
     // We need !important-s because we have to override styles copypasted by users
-    *{
+    *:not(.answer-input){
       color: rgb(206, 199, 245) !important;
       background: rgba(0, 0, 0, 0) !important;
     }

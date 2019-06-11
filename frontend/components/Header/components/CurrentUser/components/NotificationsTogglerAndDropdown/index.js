@@ -112,7 +112,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
     this.setState({ ifDropdownIsOpen: false })
 
   renderToggler = () =>
-    <div
+    <button
+      type="button"
       className="toggler"
       style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
       onClick={() => this.setState({ ifDropdownIsOpen: !this.state.ifDropdownIsOpen })}
@@ -124,7 +125,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
         this.state.amountOfUnreadNotifications > 0 &&
         <div className="amount-of-unread-notifications">{this.state.amountOfUnreadNotifications}</div>
       }
-    </div>
+    </button>
 
   renderDropdownHeader = () =>
     <div className="header">

@@ -50,8 +50,6 @@
             width: 100%;
             &:focus{
               color: $purple;
-              border-color: transparent !important;
-              box-shadow: none;
             }
             &:hover{
               color: $purple;

@@ -18,7 +18,7 @@ $purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
       .ql-editor{
         box-shadow: $purple-question-box-shadow;
       }
-      input.answer{
+      input.answer-input{
         width: 120px;
         display: inline-block;
         // padding: 0 10px;

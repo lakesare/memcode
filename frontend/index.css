@@ -9,6 +9,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/variables';
 
 @import 'css/clear-default-css';
+@import 'css/focus-styles';
 
 @import 'css/quill/index';
 @import 'css/container';

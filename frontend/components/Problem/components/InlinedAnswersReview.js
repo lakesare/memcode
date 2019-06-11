@@ -122,7 +122,7 @@ class InlinedAnswersReview extends React.Component {
   }
 
   getArrayOfAnswerInputs = () =>
-    Array.from(this.refs.problem.querySelectorAll('.answer'));
+    Array.from(this.refs.problem.querySelectorAll('input.answer-input'));
 
   attachOnchangeToInputs = () => {
     const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
@@ -135,7 +135,7 @@ class InlinedAnswersReview extends React.Component {
     const content = this.props.problemContent.content
       .replace(/<mark class="answer">(.*?)<\/mark>/g,
         `<input
-          class="answer"
+          class="answer-input"
           data-answer="$1"
           data-answered="waiting"
           value=""
