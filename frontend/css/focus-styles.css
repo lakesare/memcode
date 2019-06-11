@@ -4,14 +4,20 @@
   outline: none;
 }
 
-input:not(.answer), textarea, button,
+input:not(.answer-input), textarea,
+button.toggler,
 .standard-course-card,
-ul.standard-dropdown a,
+.standard-dropdown a, .standard-dropdown button,
+.standard-input.-Select ul.groups button,
 ul.pagination a{
   &:focus{
     outline: none;
     box-shadow: inset 0 0 1px 1px $purple;
   }
+}
+
+.notifications-toggler-and-dropdown button.toggler:focus{
+  box-shadow: none;
 }
 
 input.answer-input:focus{
@@ -25,12 +31,16 @@ input.answer-input:focus{
 //   }
 // }
 
-.see-answer-button:focus, .see-answer-button:hover{
-  background: rgb(68, 245, 149) !important;
-  color: rgb(10, 80, 42) !important;
-  outline: none;
-  transition-duration: 150ms;
-}
+// .see-answer-button:focus, .see-answer-button:hover{
+//   // background: rgb(68, 245, 149) !important;
+//   // color: rgb(10, 80, 42) !important;
+
+//   // background: rgb(83, 210, 144) !important;
+//   // background: radial-gradient(circle, rgb(85, 204, 146) 10%, rgb(83, 210, 144) 40%, rgb(114, 249, 176) 100%) !important;
+//   // color: white !important;
+//   outline: none;
+//   transition-duration: 500ms;
+// }
 
 // a.avatar:focus{
 //   box-shadow: 0 0 1px 2px $purple;

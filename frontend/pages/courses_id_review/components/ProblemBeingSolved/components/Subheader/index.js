@@ -51,7 +51,7 @@ class Subheader extends React.Component {
 
         <div className="buttons">
           {
-            false &&
+            // false &&
             <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
               Term ⟷ definition
             </button>
