@@ -86,12 +86,12 @@ module.exports = {
         ]
       },
       { // for images
-        test: /\.(jpg|png|svg|gif)$/,
+        test: /\.(jpg|png|svg|gif|mp3)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              name: '[name]_v2.[ext]?[hash]',
+              name: '[name].[ext]?[hash]',
               publicPath: '/'
             }
           }

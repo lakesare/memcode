@@ -25,7 +25,7 @@ const getCurrentPage = (props) => {
 
 const getSortBy = (props) => {
   const sortBy = getQuery(props).get('sortBy');
-  return sortBy ? sortBy : 'random';
+  return sortBy ? sortBy : 'popular';
 };
 
 const getQuery = (props) =>

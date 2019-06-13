@@ -23,8 +23,22 @@ $course-in-list-height-mobile: 104px;
 
 // blue he offered for learn
 // $learn-button-color: rgb(31, 27, 134);
+
 $learn-button-color: rgb(34, 26, 230);
 $review-button-color: rgb(215, 37, 111);
 
+// $learn-button-color: rgb(8, 87, 185);
+// $review-button-color: $purple;
+
+// .my-courses-link{
+//   background: none !important;
+//   padding: 0;
+//   min-width: 0;
+//   padding-right: 17px;
+//   padding-left: 10px;
+// }
+// .button.-to-learn.-disabled, .button.-to-review.-disabled{
+//   display: none;
+// }
 
 $body-color: white;

@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import playShortSound from './services/playShortSound';
+import playLongSound from './services/playLongSound';
 
 const initialState = {
   speGetPage: {},
@@ -41,9 +43,18 @@ import selectors from './selectors';
 const reducer = (state = initialState, action) => {
   const currentProblem = selectors.deriveCurrentProblem(state);
   switch (action.type) {
+    // RIGHT inlined answer that is
     case 'INLINED_ANSWER_GIVEN': {
       const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven + 1;
       const wanted = amountOfAnswerInputsInProblem(currentProblem);
+
+      if (given !== wanted) {
+        console.log('given isnt equal to wanted');
+        playShortSound();
+      } else {
+        console.log('given is wanted');
+        playLongSound(5);
+      }
 
       return {
         ...state,
@@ -84,12 +95,19 @@ const reducer = (state = initialState, action) => {
       if (!nextProblem && state.indexesOfFailedProblems.length > 0) {
         const firstFailedIndex = state.indexesOfFailedProblems[0];
         const reReviewProblem = state.speGetPage.payload.problems[firstFailedIndex];
-        return {
-          ...state,
-          ifReviewingFailedProblems: true,
-          amountOfFailedProblems: state.indexesOfFailedProblems.length,
-          statusOfSolving: freshStatusOfSolving(reReviewProblem, firstFailedIndex)
-        };
+        if (state.ifReviewingFailedProblems) {
+          return {
+            ...state,
+            statusOfSolving: freshStatusOfSolving(reReviewProblem, firstFailedIndex)
+          };
+        } else {
+          return {
+            ...state,
+            ifReviewingFailedProblems: true,
+            amountOfFailedProblems: state.indexesOfFailedProblems.length,
+            statusOfSolving: freshStatusOfSolving(reReviewProblem, firstFailedIndex)
+          };
+        }
       } else {
         return {
           ...state,

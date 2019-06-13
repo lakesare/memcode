@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 :local(.section){
   background: rgb(14, 16, 49);
 
@@ -6,11 +8,36 @@
   .-desktop{ display: block; }
 
   > .container{
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 13px;
+    padding-bottom: 13px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  button.volume-button{
+    i{
+      font-size: 20px;
+      color: $purple;
+    }
+    &.-yes{
+      opacity: 0.9;
+      i.-yes{ display: block; }
+      i.-no{ display: none; }
+      // &:hover{
+      //   i.-yes{ display: none; }
+      //   i.-no{ display: block; }
+      // }
+    }
+    &.-no{
+      opacity: 0.5;
+      i.-yes{ display: none; }
+      i.-no{ display: block; }
+      // &:hover{
+      //   i.-yes{ display: block; }
+      //   i.-no{ display: none; }
+      // }
+    }
   }
 
   // may be shared
@@ -26,22 +53,33 @@
   }
 
   .instructions{
+    em{
+      font-style: normal;
+      text-transform: uppercase;
+    }
     em.yellow-emphasis{
       color: rgb(236, 236, 133);
-      font-style: normal;
       text-shadow: 0 0 2px #f7f96d9e;
-      text-transform: uppercase;
     }
     em.red-emphasis{
       color: rgb(245, 63, 63);
-      font-style: normal;
       text-shadow: 0 0 1px #ff1d1d;
-      text-transform: uppercase;
       &.-darker{
         color: rgb(255, 29, 29);
-        text-shadow: none;
         text-shadow: 0 0 8px #ff1d1d;
       }
+    }
+    em.review-emphasis{
+      color: $review-button-color;
+      text-shadow: 0 0 2px #d7256f7a;
+    }
+    em.white-emphasis{
+      color: white;
+      text-shadow: 0 0 4px #ffffff54;
+      font-size: 16px;
+    }
+    &.-desktop{
+      padding-bottom: 4px;
     }
   }
   .amount-of-problems-left{

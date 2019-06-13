@@ -23,7 +23,6 @@ class ProblemBeingSolved extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log('Mounting ProblemBeingSolved');
     document.addEventListener('keydown', this.onEnter, false);
   }
 

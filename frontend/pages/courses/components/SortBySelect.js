@@ -13,9 +13,9 @@ class SortBySelect extends React.Component {
       dropdownClassName="standard-dropdown -purple"
       value={this.props.sortBy}
       possibleValues={{
-        random: 'Random',
         popular: 'Most Popular',
         new: 'Recently Created',
+        random: 'Random'
       }}
       renderLi={(value, humanValue) =>
         <Link to={this.props.getUrlForNewSortBy(value)}>{humanValue}</Link>

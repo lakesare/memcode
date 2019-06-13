@@ -4,18 +4,24 @@ import { commonFetch } from '~/api/commonFetch';
 
 import selectors from './selectors';
 
+import playShortSound from './services/playShortSound';
+import playLongSound from './services/playLongSound';
+
 const enterPressed = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
     if (state.ifReviewingFailedProblems) {
       enterPressedInFailedMode()(dispatch, getState);
     } else {
+      const currentProblem = selectors.deriveCurrentProblem(state);
       switch (state.statusOfSolving.status) {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
+          // if (currentProblem.type === 'separateAnswer') {
+          //   playShortSound();
+          // }
           break;
         case 'seeingAnswer': {
-          const currentProblem = selectors.deriveCurrentProblem(state);
           const score = selectors.deriveScore(state);
           const currentIndex = state.statusOfSolving.index;
           CourseUserIsLearningApi.reviewProblem(
@@ -40,6 +46,7 @@ const enterPressed = () =>
               payload: currentIndex
             });
           }
+          currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
           dispatch({
             type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
             payload: -1
@@ -59,9 +66,13 @@ const enterPressed = () =>
 const enterPressedInFailedMode = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
+    const currentProblem = selectors.deriveCurrentProblem(state);
     switch (state.statusOfSolving.status) {
       case 'solving':
         dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
+        // if (currentProblem.type === 'separateAnswer') {
+        //   playShortSound();
+        // }
         break;
       case 'seeingAnswer': {
         const score = selectors.deriveScore(state);
@@ -79,6 +90,7 @@ const enterPressedInFailedMode = () =>
             payload: currentIndex
           });
         }
+        currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
 
         const ifNextReReviewProblem = state.indexesOfFailedProblems[0];
         if (ifNextReReviewProblem) {
@@ -102,9 +114,13 @@ const enterPressedInSimulatedReview = () =>
     if (state.ifReviewingFailedProblems) {
       enterPressedInFailedMode()(dispatch, getState);
     } else {
+      const currentProblem = selectors.deriveCurrentProblem(state);
       switch (state.statusOfSolving.status) {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
+          // if (currentProblem.type === 'separateAnswer') {
+          //   playShortSound();
+          // }
           break;
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state);
@@ -116,6 +132,7 @@ const enterPressedInSimulatedReview = () =>
               payload: currentIndex
             });
           }
+          currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
 
           dispatch({
             type: 'SET_NEXT_PROBLEM',

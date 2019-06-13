@@ -16,6 +16,20 @@ class Subheader extends React.Component {
     ifReviewingFailedProblems: PropTypes.bool.isRequired
   }
 
+  state = {
+    volume: localStorage.getItem('volume') || 'no'
+  }
+
+  updateVolume = () => {
+    if (this.state.volume === 'yes') {
+      localStorage.setItem('volume', 'no');
+      this.setState({ volume: 'no' });
+    } else {
+      localStorage.setItem('volume', 'yes');
+      this.setState({ volume: 'yes' });
+    }
+  }
+
   renderProgressBar = (current, max) =>
     <div className="amount-of-problems-left">
       <label>{current}/{max}</label>
@@ -39,19 +53,32 @@ class Subheader extends React.Component {
       </div>
     </section>
 
+  renderVolumeButton = () =>
+    <button
+      type="button"
+      className={`volume-button ${this.state.volume === 'yes' ? '-yes' : '-no'}`}
+      onClick={this.updateVolume}
+    >
+      <i className="material-icons -yes">volume_up</i>
+      <i className="material-icons -no">volume_off</i>
+    </button>;
+
   renderUsualReview = () =>
     <section className={`Subheader ${css.section} -usual-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          Press ENTER fo reveal answers
+          <em className="review-emphasis">REVIEW</em> - we are repeating due flashcards <em className="white-emphasis">🍬</em>.
+          Press ENTER fo reveal answers.
         </div>
 
         {/* for flexbox to float randomize buttons to the right */}
         <div className="instructions -mobile"/>
 
         <div className="buttons">
+          {this.renderVolumeButton()}
+
           {
-            // false &&
+            false &&
             <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
               Term ⟷ definition
             </button>
@@ -83,6 +110,7 @@ class Subheader extends React.Component {
     </section>
 
   render = () => {
+    console.log(this.props);
     if (!this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
       return this.renderUsualReview();
     } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
