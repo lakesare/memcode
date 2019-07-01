@@ -31,6 +31,9 @@ class Loading extends React.Component {
     enabledStatuses: ['request', 'success', 'failure']
   }
 
+  ifCurrentStatusIsNotEnabled = () =>
+    !this.props.enabledStatuses.includes(this.props.spe.status)
+
   getClassName = (status) =>
     `${css.loading} ${this.props.className} loading -${status}`
 
@@ -48,7 +51,7 @@ class Loading extends React.Component {
     <div className={this.getClassName(this.props.spe.status)}>{this.props.spe.error}</div>
 
   render = () => {
-    if (!this.props.enabledStatuses.includes(this.props.spe.status)) return null;
+    if (this.ifCurrentStatusIsNotEnabled()) return null;
 
     switch (this.props.spe.status) {
       case 'request': return this.renderRequest();
