@@ -67,7 +67,7 @@ class Subheader extends React.Component {
     <section className={`Subheader ${css.section} -usual-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          <em className="review-emphasis">REVIEW</em> - we are repeating due flashcards <em className="white-emphasis">🍬</em>.
+          <em className="review-emphasis">REVIEW</em> - we are repeating due flashcards <em className="white-emphasis">☘</em>.
           Press ENTER fo reveal answers.
         </div>
 

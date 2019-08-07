@@ -70,12 +70,12 @@
       }
     }
     em.review-emphasis{
-      color: $review-button-color;
+      color: rgb(90, 228, 153);
       text-shadow: 0 0 2px #d7256f7a;
     }
     em.white-emphasis{
-      color: white;
-      text-shadow: 0 0 4px #ffffff54;
+      // color: white;
+      // text-shadow: 0 0 4px #ffffff54;
       font-size: 16px;
     }
     &.-desktop{
