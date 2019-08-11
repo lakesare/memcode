@@ -33,10 +33,11 @@ class SeparateAnswerReview extends React.Component {
   }
 
   uiFocusOnSeeAnswerButton = () => {
-    const seeAnswerButton = document.querySelector('.see-answer-button');
-    if (seeAnswerButton) {
-      seeAnswerButton.focus();
-    }
+    // const seeAnswerButton = document.querySelector('.see-answer-button');
+    // if (seeAnswerButton) {
+    //   seeAnswerButton.focus();
+    // }
+    document.querySelector('body').click();
   }
 
   uiClearDraft = () =>
