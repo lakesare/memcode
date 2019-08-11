@@ -3,6 +3,9 @@
 :local(.old-problem){
   position: relative;
   border-radius: 2px;
+  margin-bottom: 15px;
+
+  padding: 8px;
 
   > .problem{
     &.-not-focused .ql-toolbar{ display: none; }
@@ -18,7 +21,7 @@
   > section.checkbox{
     position: absolute;
     right: -30px;
-    top: 0; bottom: 0;
+    top: 8px; bottom: 8px;
     width: 26px;
 
     cursor: pointer;
@@ -34,10 +37,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    transition-duration: 200ms;
+    transition-property: bottom, top;
   }
   &.-checked,
   &.-checked > section.checkbox,
   &.-not-checked > section.checkbox:hover{
-    background: rgba(136, 125, 220, 0.78);
+    background: $purple;
+  }
+
+  transition-duration: 300ms;
+  transition-property: background;
+  &.-checked{
+    > section.checkbox{
+      top: 0;
+      bottom: 0;
+    }
   }
 }

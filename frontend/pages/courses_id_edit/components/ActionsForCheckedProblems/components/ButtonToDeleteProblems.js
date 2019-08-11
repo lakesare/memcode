@@ -24,8 +24,8 @@ class ButtonToDeleteProblems extends React.Component {
     >
       {
         this.state.ifAskingForApproval ?
-          `Delete ${this.props.amount} flashcards?` :
-          `Delete (${this.props.amount})`
+          `Delete ${this.props.amount === 0 ? 1 : this.props.amount} flashcards?` :
+          `Delete (${this.props.amount === 0 ? 1 : this.props.amount})`
       }
     </button>
 }

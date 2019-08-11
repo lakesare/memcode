@@ -58,7 +58,7 @@ class ChooseCourseToMoveProblemsTo extends React.Component {
       response.length > 0 ?
         <section className="choose-course-to-move-problems-to">
           <label htmlFor="search-input">
-            Move <b className="amount">{this.props.amount}</b> flashcards to:
+            Move <b className="amount">{this.props.amount === 0 ? 1 : this.props.amount}</b> flashcards to:
           </label>
 
           <div className="standard-dropdown-wrapper standard-input -Select">

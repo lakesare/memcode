@@ -1,15 +1,6 @@
 @import 'css/variables';
 
 :local(main.main){
-  &.-if-showing-actions-for-selected-problems{
-    section.course-actions,
-    div.new-problem,
-    header,
-    footer,
-    section.instructions{
-      // filter: blur(4px);
-    }
-  }
   article.contact-us{
     padding: 3px;
     font-size: 13px;
@@ -20,14 +11,11 @@
   }
   // list of problems
   section.problems{
-    max-width: 960px;
+    max-width: 1000px;
     margin: 0 auto;
     margin-top: 30px;
   }
   section.problem{
-    padding: 0 4px;
-    // border-left: 2px solid $purple;
-    // background: rgb(1, 23, 4);
     &.-withInlinedAnswers{
       > .first-column{
         .ql-toolbar{
@@ -57,17 +45,14 @@
     }
     .ql-toolbar{}
   }
-  .old-problem-wrapper{
-    margin-bottom: 20px;
-    padding: 4px 0;
-  }
   .new-problem{
     position: relative;
-    max-width: 960px;
+    max-width: 1000px;
     margin: 0 auto;
     margin-top: 25px;
     // to avoid editing problem at the bottom of the screen
     margin-bottom: 200px;
+    padding: 0 8px;
     > section.how-to-create{
       margin-top: 10px;
       margin-right: 5px;
