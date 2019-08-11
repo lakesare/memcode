@@ -9,7 +9,6 @@ import knex from '~/db/knex';
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 import CourseModel from '~/models/CourseModel';
-import ProblemModel from '~/models/ProblemModel';
 
 router.get('/courses/:id/learn', authenticate, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
@@ -18,7 +17,7 @@ router.get('/courses/:id/learn', authenticate, catchAsync(async (request, respon
   const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
 
   // find problems
-  const problems = await ProblemModel.select.allByCourseId(courseId);
+  const problems = await knex('problem').where({ course_id: courseId }).orderBy('position', 'createdAt');
   const problemUserIsLearnings = await ProblemUserIsLearningModel.select.allByCuilId(courseUserIsLearning.id);
 
   response.status(200).json({ courseUserIsLearning, problems, problemUserIsLearnings });
@@ -34,14 +33,14 @@ router.get('/courses/:id/review', authenticate, catchAsync(async (request, respo
 
 router.get('/courses/:id/review/simulated', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
-  const problems = await knex('problem').where({ course_id: courseId }).orderBy('createdAt');
+  const problems = await knex('problem').where({ course_id: courseId }).orderBy('position', 'createdAt');
   response.status(200).json({ courseUserIsLearning: null, problems });
 }));
 
 router.get('/courses/:id/edit', authenticate, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
-  const problems = await knex('problem').where({ course_id: courseId }).orderBy('createdAt');
+  const problems = await knex('problem').where({ course_id: courseId }).orderBy('position', 'createdAt');
 
   response.status(200).json({ problems });
 }));
@@ -49,7 +48,7 @@ router.get('/courses/:id/edit', authenticate, catchAsync(async (request, respons
 router.get('/courses/:id', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
-  const problems = await ProblemModel.select.allByCourseId(courseId);
+  const problems = await knex('problem').where({ course_id: courseId }).orderBy('position', 'createdAt');
 
   response.status(200).json(problems);
 }));

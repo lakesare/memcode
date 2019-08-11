@@ -18,7 +18,7 @@ db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U postgres -f backend/db/migrations/8.sql
+	psql -v database=memcode -U postgres -f backend/db/migrations/9.sql
 
 # dump and restore data
 db-dump:

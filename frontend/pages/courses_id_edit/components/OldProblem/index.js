@@ -1,5 +1,6 @@
 import * as ProblemApi from '~/api/Problem';
 
+import { Draggable } from 'react-beautiful-dnd';
 import { Problem } from '~/components/Problem';
 import { Checkbox } from './components/Checkbox';
 
@@ -37,25 +38,33 @@ class OldProblem extends React.Component {
 
   render = () => (
     this.ifOptimistic() ?
-      <div className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'}`}>
-        <Checkbox
-          id={this.props.problem.id}
-          index={this.props.index}
-          problems={this.props.problems}
-          idsOfCheckedProblems={this.props.idsOfCheckedProblems}
-          updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
-          speSave={this.state.speSave}
-          ifChecked={this.ifChecked()}
-        />
+      <Draggable draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
+        <div
+          className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'}`}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          style={provided.draggableProps.style}
+        >
+          <Checkbox
+            id={this.props.problem.id}
+            index={this.props.index}
+            problems={this.props.problems}
+            idsOfCheckedProblems={this.props.idsOfCheckedProblems}
+            updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
+            speSave={this.state.speSave}
+            ifChecked={this.ifChecked()}
+            dragHandleProps={provided.dragHandleProps}
+          />
 
-        <Problem
-          mode="edit"
-          problemContent={this.props.problem.content}
-          updateProblemContent={this.updateProblemContent}
-          problemType={this.props.problem.type}
-          apiSave={this.apiSave}
-        />
-      </div> :
+          <Problem
+            mode="edit"
+            problemContent={this.props.problem.content}
+            updateProblemContent={this.updateProblemContent}
+            problemType={this.props.problem.type}
+            apiSave={this.apiSave}
+          />
+        </div>
+      }</Draggable> :
       <div className={`old-problem-wrapper ${css['old-problem']}`}>
         <Problem
           mode="show"

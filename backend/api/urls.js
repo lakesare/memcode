@@ -15,6 +15,7 @@ const getApiClass = (controllerName) => {
   switch (controllerName) {
     case 'NotificationApi': return NotificationApi;
     case 'CourseApi': return CourseApi;
+    case 'ProblemApi': return ProblemApi;
   }
 };
 

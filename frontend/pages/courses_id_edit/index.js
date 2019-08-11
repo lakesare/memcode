@@ -1,7 +1,12 @@
 import { update } from 'lodash';
+import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
+
+import api from '~/api';
+import { commonFetch } from '~/api/commonFetch';
 
 import Joyride from 'react-joyride';
 import { StickyContainer, Sticky } from 'react-sticky';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Header  from '~/components/Header';
 import Footer from '~/components/Footer';
 import { Loading } from '~/components/Loading';
@@ -11,8 +16,6 @@ import { NewProblem } from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
 // import { Instructions } from './components/Instructions';
 import ActionsForCheckedProblems from './components/ActionsForCheckedProblems';
-
-import { commonFetch } from '~/api/commonFetch';
 
 import css from './index.css';
 
@@ -174,22 +177,57 @@ class Page_courses_id_edit extends React.Component {
       />
     }</Sticky>
 
+  apiReorderProblems = () =>
+    api.ProblemApi.reorder(
+      this.state.speGetPage.payload.problems.map((problem, index) => ({
+        id: problem.id,
+        position: index
+      })),
+      false
+    )
+
+  onDragEnd = (result) => {
+    // if dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const from = result.source.index;
+    const to = result.destination.index;
+
+    this.setState({
+      speGetPage:
+      update(this.state.speGetPage, `payload.problems`,
+        (problems) => injectFromOldToNewIndex(problems, from, to)
+      )
+    }, this.apiReorderProblems);
+  }
+
   renderProblems = () =>
     <Loading spe={this.state.speGetPage}>{({ problems }) =>
-      <section className="problems">
-        {problems.map((problem, index) =>
-          <OldProblem
-            key={problem._optimistic_id ? problem._optimistic_id : problem.id}
-            problem={problem}
-            index={index}
-            updateOldProblem={this.updateOldProblem}
-            removeOldProblem={this.removeOldProblem}
-            problems={problems}
-            idsOfCheckedProblems={this.state.idsOfCheckedProblems}
-            updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
-          />
-        )}
-      </section>
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="problems">{(provided) =>
+          <section
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="problems"
+          >
+            {problems.map((problem, index) =>
+              <OldProblem
+                key={problem._optimistic_id ? problem._optimistic_id : problem.id}
+                problem={problem}
+                index={index}
+                updateOldProblem={this.updateOldProblem}
+                removeOldProblem={this.removeOldProblem}
+                problems={problems}
+                idsOfCheckedProblems={this.state.idsOfCheckedProblems}
+                updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
+              />
+            )}
+            {provided.placeholder}
+          </section>
+        }</Droppable>
+      </DragDropContext>
     }</Loading>
 
   render = () =>

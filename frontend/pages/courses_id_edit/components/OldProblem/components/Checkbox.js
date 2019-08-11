@@ -79,6 +79,7 @@ class Checkbox extends React.Component {
     <section
       className="checkbox"
       onClick={this.props.ifChecked ? this.uncheck : this.check}
+      {...this.props.dragHandleProps}
     >
       {this.props.index + 1}
     </section>

@@ -41,4 +41,7 @@ router.post('/moveToCourseMany', catchAsync(async (request, response) => {
   response.status(200).json({});
 }));
 
+import reorder from './reorder';
+router.reorder = reorder;
+
 export default router;

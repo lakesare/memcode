@@ -27,6 +27,7 @@ const select = {
             problem_user_is_learning.if_ignored = false
         )
       )
+      ORDER BY problem.position, problem.created_at
       `,
       { id }
     ),
