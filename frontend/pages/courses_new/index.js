@@ -69,7 +69,7 @@ class Page_courses_new extends React.Component {
 
         <form className="standard-form -bordered" onSubmit={this.apiCreateCourse}>
           <div className="form-insides">
-            <TextInput      {...this.inputProps()} label="* Title" name="title"/>
+            <TextInput      {...this.inputProps()} label="* Title" name="title" autoFocus/>
             <div className="two-form-lines-in-row">
               <CourseCategoryFormLine {...this.inputProps()} label="Category" name="courseCategoryId"/>
               <Select

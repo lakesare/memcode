@@ -10,11 +10,13 @@ class TextInput extends React.Component {
 
     formValidation: PropTypes.object.isRequired,
 
-    type: PropTypes.string
+    type: PropTypes.string,
+    autoFocus: PropTypes.boolean
   }
 
   static defaultProps = {
-    type: 'text'
+    type: 'text',
+    autoFocus: false
   }
 
   updateFormState = (event) =>
@@ -36,6 +38,7 @@ class TextInput extends React.Component {
         value={this.props.formState[this.props.name]}
         onChange={this.updateFormState}
         autoComplete="off"
+        autoFocus={this.props.autoFocus}
       />
     </FormLineLayout>
 }
