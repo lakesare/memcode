@@ -8,7 +8,7 @@
     margin-bottom: 100px;
 
     div.problem-wrapper{
-      margin-bottom: 50px;
+      margin-bottom: 30px;
       display: flex;
 
       > div.index{
@@ -19,6 +19,7 @@
         font-weight: 500;
         border-radius: 2px;
         background: radial-gradient(rgba(136, 125, 220, 0.91), $purple, $purple);
+
         display: flex;
         align-items: center;
         justify-content: center;

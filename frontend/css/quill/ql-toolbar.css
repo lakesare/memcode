@@ -1,7 +1,9 @@
 .quill > .ql-toolbar{
   border: none;
   padding: 2px 10px !important;
-  background: rgb(37, 40, 70);
+  background: rgb(34, 38, 74);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
   button:hover, button.ql-active{
     .ql-stroke{
       stroke: $purple !important;
