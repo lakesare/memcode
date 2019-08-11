@@ -19,10 +19,24 @@ class SeparateAnswerReview extends React.Component {
     ifDraftIsFocused: false
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidMount = () => {
+    this.uiFocusOnSeeAnswerButton();
+  }
+
+  componentDidUpdate = (prevProps) => {
     const ifProblemChanged =
       prevProps.problemId !== this.props.problemId;
-    if (ifProblemChanged) this.uiClearDraft();
+    if (ifProblemChanged) {
+      this.uiClearDraft();
+      this.uiFocusOnSeeAnswerButton();
+    }
+  }
+
+  uiFocusOnSeeAnswerButton = () => {
+    const seeAnswerButton = document.querySelector('.see-answer-button');
+    if (seeAnswerButton) {
+      seeAnswerButton.focus();
+    }
   }
 
   uiClearDraft = () =>
