@@ -7,6 +7,8 @@ import { Course } from './components/Course';
 
 import css from './index.css';
 
+const ESC_KEY = 27;
+
 @onClickOutside
 class Search extends React.Component {
   static propTypes = {
@@ -50,10 +52,22 @@ class Search extends React.Component {
   }
 
   clearAndCloseDropdown = () =>
-    this.setState({ ifDropdownIsOpen: false })
+    this.setState({ ifDropdownIsOpen: false, speSearch: {}, searchString: '' })
 
   onFocus = () => {
     this.setState({ ifDropdownIsOpen: true });
+
+    document.addEventListener('keydown', this.handleEsc);
+  }
+
+  onBlur = () => {
+    document.removeEventListener('keydown', this.handleEsc);
+  }
+
+  handleEsc = (event) => {
+    if (event.keyCode === ESC_KEY) {
+      this.clearAndCloseDropdown();
+    }
   }
 
   render = () =>
@@ -64,6 +78,7 @@ class Search extends React.Component {
           // placeholder="Find a course..."
           onChange={this.updateSearchString}
           onFocus={this.onFocus}
+          onBlur={this.onBlur}
           value={this.state.searchString}
           type="text"
 
