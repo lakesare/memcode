@@ -1,9 +1,19 @@
-[Memcode.com](http://www.memcode.com/)
-[Trello board](https://trello.com/b/UN0Vnv80/memcode)
+Site ❤️: http://www.memcode.com/
+
+Trello board: https://trello.com/b/UN0Vnv80/memcode (here you can see what we're working on, what feateres are to come, and what PRs are welcome)
 
 ___
 
-## Initial one-time steps for both development and testing:
+## Would you like some help with memcode?
+- Write me to contact@memcode.com
+- Open the issue in this repo
+
+## Can you offer some help with memcode yourself!
+You are very welcome to PR in to this repository.
+
+___
+
+## Initial one-time steps for both development:
 
 ### Create a database postgres user with a password.
 1. Install postgresql.
