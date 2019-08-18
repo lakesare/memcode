@@ -11,4 +11,4 @@ const standardToolbarContainer = [
   ['formula']
 ];
 
-export { standardToolbarContainer };
+export default standardToolbarContainer;

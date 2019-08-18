@@ -16,6 +16,14 @@
     margin-top: 30px;
   }
   section.problem{
+    .ql-editor:focus{
+      background: rgb(40, 45, 88);
+    }
+
+    .quill{
+      height: 100%;
+    }
+
     &.-withInlinedAnswers{
       > .first-column{
         .ql-toolbar{
@@ -53,6 +61,12 @@
     // to avoid editing problem at the bottom of the screen
     margin-bottom: 200px;
     padding: 0 8px;
+
+    .ql-container{
+      // minus the height of the toolbar
+      height: calc(100% - 28px);
+    }
+
     > section.how-to-create{
       margin-top: 10px;
       margin-right: 5px;

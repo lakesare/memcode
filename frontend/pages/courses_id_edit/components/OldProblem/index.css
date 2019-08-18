@@ -3,18 +3,22 @@
 :local(.old-problem){
   position: relative;
   border-radius: 2px;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 
   padding: 8px;
 
   > .problem{
-    &.-not-focused .ql-toolbar{ display: none; }
-    &.-focused .ql-toolbar{ display: block; }
-
     .ql-toolbar{
       position: absolute;
       left: 0; right: 0;
       bottom: 100%;
+      opacity: 0;
+    }
+
+    &:focus-within{
+      .ql-toolbar{
+        opacity: 1;
+      }
     }
   }
 

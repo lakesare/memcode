@@ -1,38 +1,39 @@
-import { standardToolbarContainer } from '~/services/quill/standardToolbarContainer';
-import uploadImageHandler from '~/services/quill/handlers/uploadImageHandler';
+import standardToolbarContainer from '~/services/quill/standardToolbarContainer';
 import dropOrPasteImageHandler from '~/services/quill/handlers/dropOrPasteImageHandler';
+import uploadImageHandler      from '~/services/quill/handlers/uploadImageHandler';
+import markAsAnswerHandler     from '~/services/quill/handlers/markAsAnswerHandler';
+import codeBlockHandler        from '~/services/quill/handlers/codeBlockHandler';
 
 import ReactQuill from 'react-quill';
 
 // ___Why is it not defined inside the render() function?
 //    We must define it here, otherwise we'll be getting infinite loops!
 const bindings = {
-  // 'what': {
-  //   key: 'K',
-  //   shiftKey: true,
-  //   format: { 'code-block': true },
-  //   // handler: (range) => {
-  //   //   console.log('k pressed!');
-  //   // }
-  // },
+  // all of these are making TAB only function in code blocks! (https://github.com/quilljs/quill/blob/develop/modules/keyboard.js#L184)
+  tab:          false,
+  outdent:      false,
+  indent:       false,
+  'remove tab': false,
 
-  tab: false,
+  codeBlockOnCmdK: {
+    key: 'K',
+    // CMD and CTRL
+    shortKey: true,
+    handler: codeBlockHandler
+  },
 
-  //   custom: {
-  //     key: 'Escape',
-  //     handler: (range, context, etc) => {
-  //       // Handle esc
-  //       console.log('esc');
-  //       console.log({range, context, etc});
-  // 
-  //       const quill = document.activeElement.closest('.quill');
-  // 
-  //       quill.focus()
-  //       // document.activeElement.blur()
-  // 
-  //       return false;
-  //     }
-  //   },
+  markAsAnswerOnCmdA: {
+    key: 'ENTER',
+    shortKey: true,
+    handler: markAsAnswerHandler
+  },
+
+  blurOnEsc: {
+    key: 'Escape',
+    handler: () => {
+      document.activeElement.blur();
+    }
+  }
 };
 
 class Editor extends React.Component {

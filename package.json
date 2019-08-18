@@ -137,7 +137,7 @@
     "quill-image-drop-and-paste": "^1.0.0",
     "quill-image-drop-module": "^1.0.3",
     "quill-image-resize-module": "^3.0.0",
-    "react": "^16.8.3",
+    "react": "^16.8.5",
     "react-animate-height": "^2.0.8",
     "react-beautiful-dnd": "^11.0.5",
     "react-dom": "^16.8.3",

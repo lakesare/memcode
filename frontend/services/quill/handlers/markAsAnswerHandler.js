@@ -1,4 +1,4 @@
-function handlerMarkAsAnswer() {
+function markAsAnswerHandler() {
   // Range {index: 25, length: 3}
   const range = this.quill.getSelection();
 
@@ -26,4 +26,4 @@ function handlerMarkAsAnswer() {
   }
 }
 
-export default handlerMarkAsAnswer;
+export default markAsAnswerHandler;

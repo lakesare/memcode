@@ -1,5 +1,5 @@
-import { standardToolbarContainer } from '~/services/quill/standardToolbarContainer';
-import handlerMarkAsAnswer from '~/services/quill/handlerMarkAsAnswer';
+import standardToolbarContainer from '~/services/quill/standardToolbarContainer';
+import markAsAnswerHandler from '~/services/quill/handlers/markAsAnswerHandler';
 
 import Editor from '~/components/Editor';
 
@@ -66,7 +66,7 @@ class InlinedAnswersEdit extends React.Component {
           onFocusChange={(value) => this.updateFocus('firstColumn', value)}
 
           toolbarContainer={[['answer'], ...standardToolbarContainer]}
-          toolbarHandlers={{ answer: handlerMarkAsAnswer }}
+          toolbarHandlers={{ answer: markAsAnswerHandler }}
         />
       </div>
 
