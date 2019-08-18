@@ -45,6 +45,14 @@ class OldProblem extends React.Component {
           {...provided.draggableProps}
           style={provided.draggableProps.style}
         >
+          <Problem
+            mode="edit"
+            problemContent={this.props.problem.content}
+            updateProblemContent={this.updateProblemContent}
+            problemType={this.props.problem.type}
+            apiSave={this.apiSave}
+          />
+
           <Checkbox
             id={this.props.problem.id}
             index={this.props.index}
@@ -54,14 +62,6 @@ class OldProblem extends React.Component {
             speSave={this.state.speSave}
             ifChecked={this.ifChecked()}
             dragHandleProps={provided.dragHandleProps}
-          />
-
-          <Problem
-            mode="edit"
-            problemContent={this.props.problem.content}
-            updateProblemContent={this.updateProblemContent}
-            problemType={this.props.problem.type}
-            apiSave={this.apiSave}
           />
         </div>
       }</Draggable> :
