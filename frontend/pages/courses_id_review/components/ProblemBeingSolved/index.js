@@ -24,10 +24,23 @@ class ProblemBeingSolved extends React.Component {
 
   componentDidMount = () => {
     document.addEventListener('keydown', this.onEnter, false);
+
+    this.blurRandomizeButtons();
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.problem.id !== this.props.problem.id) {
+      this.blurRandomizeButtons();
+    }
   }
 
   componentWillUnmount = () => {
     document.removeEventListener('keydown', this.onEnter);
+  }
+
+  // so that when we press ENTER we are not redirected to some random course/problem again
+  blurRandomizeButtons = () => {
+    document.activeElement.blur();
   }
 
   onEnter = (event) => {
