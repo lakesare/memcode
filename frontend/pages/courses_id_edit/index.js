@@ -4,7 +4,7 @@ import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
 import api from '~/api';
 import { commonFetch } from '~/api/commonFetch';
 
-import Joyride from 'react-joyride';
+// import Joyride from 'react-joyride';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Header  from '~/components/Header';
@@ -232,40 +232,40 @@ class Page_courses_id_edit extends React.Component {
 
   render = () =>
     <main className={css.main}>
-      <Joyride
-        steps={this.state.joyrideHowToCreateProblemSteps}
-        run={this.state.joyrideHowToCreateProblemRun}
-        showSkipButton
-        showProgress
-        continuous
-        hideBackButton
-        styles={{
-          options: {
-            arrowColor: '#ffffff',
-            backgroundColor: '#ffffff',
-            primaryColor: '#ec60ac',
-            textColor: '#004a14',
-            width: 200,
-          }
-        }}
-      />
-      <Joyride
-        steps={this.state.joyrideHowToReviewProblemSteps}
-        run={this.state.joyrideHowToReviewProblemRun}
-        showSkipButton
-        showProgress
-        continuous
-        hideBackButton
-        styles={{
-          options: {
-            arrowColor: '#ffffff',
-            backgroundColor: '#ffffff',
-            primaryColor: '#ec60ac',
-            textColor: '#004a14',
-            width: 200,
-          }
-        }}
-      />
+      {/* <Joyride */}
+      {/*   steps={this.state.joyrideHowToCreateProblemSteps} */}
+      {/*   run={this.state.joyrideHowToCreateProblemRun} */}
+      {/*   showSkipButton */}
+      {/*   showProgress */}
+      {/*   continuous */}
+      {/*   hideBackButton */}
+      {/*   styles={{ */}
+      {/*     options: { */}
+      {/*       arrowColor: '#ffffff', */}
+      {/*       backgroundColor: '#ffffff', */}
+      {/*       primaryColor: '#ec60ac', */}
+      {/*       textColor: '#004a14', */}
+      {/*       width: 200, */}
+      {/*     } */}
+      {/*   }} */}
+      {/* /> */}
+      {/* <Joyride */}
+      {/*   steps={this.state.joyrideHowToReviewProblemSteps} */}
+      {/*   run={this.state.joyrideHowToReviewProblemRun} */}
+      {/*   showSkipButton */}
+      {/*   showProgress */}
+      {/*   continuous */}
+      {/*   hideBackButton */}
+      {/*   styles={{ */}
+      {/*     options: { */}
+      {/*       arrowColor: '#ffffff', */}
+      {/*       backgroundColor: '#ffffff', */}
+      {/*       primaryColor: '#ec60ac', */}
+      {/*       textColor: '#004a14', */}
+      {/*       width: 200, */}
+      {/*     } */}
+      {/*   }} */}
+      {/* /> */}
       <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
 
       <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused ifWithDescriptionPlaceholder/>
