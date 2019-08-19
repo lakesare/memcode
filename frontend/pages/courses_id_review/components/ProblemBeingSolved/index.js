@@ -40,7 +40,9 @@ class ProblemBeingSolved extends React.Component {
 
   // so that when we press ENTER we are not redirected to some random course/problem again
   blurRandomizeButtons = () => {
-    document.activeElement.blur();
+    if (this.props.problem.type === 'inlinedAnswers') {
+      document.activeElement.blur();
+    }
   }
 
   onEnter = (event) => {
