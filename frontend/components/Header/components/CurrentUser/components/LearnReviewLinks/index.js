@@ -54,9 +54,9 @@ class LearnReviewLinks extends React.Component {
       );
 
     // if there are no other courser to learn/review except for the current one -
-    // pass undefined to props.to, so that we stay at the same page
+    // stay on the same page
     if (linkableCourseIds.length === 0) {
-      return `/courses/${this.props.dontLinkToLearnOrReview}/learn`;
+      return window.location.pathname;
     } else {
       const courseId = shuffle(linkableCourseIds)[0];
 
