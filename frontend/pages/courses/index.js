@@ -107,9 +107,17 @@ class Page_courses extends React.Component {
         )
       }
     )
-      .then(({ amountOfPages }) =>
-        this.setState({ amountOfPages })
-      )
+      .then(({ amountOfPages }) => {
+        this.setState({ amountOfPages });
+        this.uiFocusOnFirstCourseCard();
+      })
+
+  uiFocusOnFirstCourseCard = () => {
+    const courseCard = document.querySelector('a.standard-course-card');
+    if (courseCard) {
+      courseCard.focus();
+    }
+  }
 
   getUrlForNewPageNumber = (pageN) => {
     const newQuery = getQuery(this.props);

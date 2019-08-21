@@ -31,6 +31,19 @@ class Page_courses_learning extends React.Component {
     this.apiGetCategories();
   }
 
+  componentDidUpdate = (prevProps) => {
+    if (getCategoryId(prevProps) !== getCategoryId(this.props)) {
+      this.uiFocusOnFirstCourseCard();
+    }
+  }
+
+  uiFocusOnFirstCourseCard = () => {
+    const courseCard = document.querySelector('.standard-course-card a.go');
+    if (courseCard) {
+      courseCard.focus();
+    }
+  }
+
   apiGetCategories = () =>
     CourseCategoryApi.selectWithGroups(
       (spe) => this.setState({ speGetCategories: spe })
@@ -40,6 +53,9 @@ class Page_courses_learning extends React.Component {
     CourseApi.selectAllLearned(
       spe => this.setState({ speGetCourses: spe })
     )
+      .then(() => {
+        this.uiFocusOnFirstCourseCard();
+      })
 
   filterCoursesForCategory = (coursesData) => {
     const categoryId = getCategoryId(this.props);

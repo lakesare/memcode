@@ -27,6 +27,8 @@
     input{
       background: transparent;
       color: white;
+      transition-duration: 200ms;
+      transition-property: background;
       &::placeholder{
         color: rgba(255, 255, 255, 0.8);
       }

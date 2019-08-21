@@ -11,7 +11,7 @@ class TextInput extends React.Component {
     formValidation: PropTypes.object.isRequired,
 
     type: PropTypes.string,
-    autoFocus: PropTypes.boolean
+    autoFocus: PropTypes.bool
   }
 
   static defaultProps = {

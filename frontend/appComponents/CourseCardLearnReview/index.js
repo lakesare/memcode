@@ -33,10 +33,20 @@ class CourseCardLearnReview extends React.Component {
     this.props.courseDto.courseUserIsLearning &&
     this.props.courseDto.courseUserIsLearning.active === true
 
+  ifThereIsSomethingToLearnAndReview = () =>
+    this.ifCanLearnAndReview() &&
+    (
+      this.props.courseDto.amountOfProblemsToReview > 0 ||
+      this.props.courseDto.amountOfProblemsToLearn > 0
+    )
+
   renderGo = (course) =>
     <Link
       className="go"
       to={UrlCreator.courseEditOrShow(this.props.currentUser, course)}
+      // do not focus the entire card on tab if there is something to review or to learn,
+      // because it's faster to tab through learn/review links!
+      tabIndex={this.ifThereIsSomethingToLearnAndReview() ? -1 : 0}
     >
       <i className="fa fa-long-arrow-right"/>
     </Link>

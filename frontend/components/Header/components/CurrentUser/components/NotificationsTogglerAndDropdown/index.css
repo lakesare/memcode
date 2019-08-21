@@ -1,6 +1,7 @@
 @import 'css/variables';
 
 :local(.section){
+  height: 31px;
   .extendable-class-read-all_and_see-more{
     text-transform: uppercase;
     font-weight: 500;
@@ -32,6 +33,9 @@
   > button.toggler{
     cursor: pointer;
     position: relative;
+    // for :focus style
+    width: 100%;
+    height: 100%;
     > div.amount-of-unread-notifications{
       position: absolute;
       top: -8px; left: 9px;

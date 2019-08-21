@@ -4,28 +4,56 @@
   outline: none;
 }
 
-input:not(.answer-input), textarea,
+input.standard-input:not(.answer-input), textarea,
 button.toggler,
-.standard-course-card,
 .standard-dropdown a, .standard-dropdown button,
 .standard-input.-Select ul.groups button,
 ul.pagination a{
-  &:focus{
+  &:focus, &:hover{
     outline: none;
     box-shadow: inset 0 0 1px 1px $purple;
   }
 }
 
+.button.-purple, .button.purple{
+  &:focus{
+    border: 2px solid rgb(182, 173, 244);
+  }
+}
+
+.button.-to-learn, .button.-to-review,
+header a.avatar{
+  &:focus{
+    border: 2px solid $purple;
+  }
+}
+
+header{
+  section.search input{
+    &:focus, &:hover{
+      background: rgb(32, 35, 73) !important;
+    }
+  }
+
+  .notifications-toggler-and-dropdown{
+    button.toggler:focus, button.toggler:hover{
+      box-shadow: none;
+      i { color: $purple; }
+    }
+  }
+}
+
+.standard-course-card{
+  &:focus-within{
+    outline: none;
+    box-shadow: 0 0 1px 1px $purple;
+  }
+}
 
 .see-answer-button:hover, .see-answer-button:focus{
   border: 4px solid rgb(160, 247, 200) !important;
-  // box-shadow: none !important;
-  // text-shadow: 0 0 6px #a0f7c87d;
 }
 
-.notifications-toggler-and-dropdown button.toggler:focus{
-  box-shadow: none;
-}
 
 input.answer-input:focus{
   background: rgba(136, 125, 220, 0.16) !important;
@@ -53,11 +81,10 @@ input.answer-input:focus{
 //   box-shadow: 0 0 1px 2px $purple;
 // }
 
-// header ul.notifications button.mark-as-read-on-unread-button,
-// section.course-actions h1.title a{
-//   &:focus{
-//     background: rgb(29, 32, 53);
-//     outline: none;
-//     box-shadow: none;
-//   }
-// }
+section.course-actions h1.title a{
+  &:focus{
+    background: rgb(29, 32, 53);
+    outline: none;
+    box-shadow: none;
+  }
+}

@@ -77,9 +77,23 @@
           &.review{
             background: $review-button-color;
             &.-simulated{
-              color: $purple;
-              background: rgb(29, 31, 52);
+              color: white;
+              background: rgb(105, 96, 193);
+              padding: 5px;
               text-align: center;
+              // &:hover{
+              //   background: $purple;
+              // }
+
+              > div.text{
+                > div.review-text{
+                  font-size: 13px;
+                }
+                > div.without-text{
+                  margin-top: 4px;
+                  font-size: 11px;
+                }
+              }
             }
           }
         }
