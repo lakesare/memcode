@@ -27,6 +27,10 @@ class WhatsNext extends React.Component {
     if (prevProps.courseId !== this.props.courseId) {
       this.apiGetCourses();
     }
+
+    if (prevProps.ifDisplay === false && this.props.ifDisplay === true) {
+      this.uiFocusOnFirstCourseCard();
+    }
   }
 
   // apiGetCourses = () =>
@@ -68,9 +72,18 @@ class WhatsNext extends React.Component {
         ];
       }
       this.setState({ speCourses: createSpe.success(finalCourses) });
+    // does this even work? I'd think it doesn't.
     }).catch((error) => {
       this.setState({ speCourses: createSpe.failure(error) });
     });
+  }
+
+  uiFocusOnFirstCourseCard = () => {
+    // first <a/>, can be either an entire course card, or a.go link within
+    const courseCard = document.querySelector('.offered-courses a');
+    if (courseCard) {
+      courseCard.focus();
+    }
   }
 
   apiGetOwnCourses = () =>

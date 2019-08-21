@@ -89,12 +89,12 @@ class Page_courses extends React.Component {
         // if there are already some courses
         if (this.state.speGetCourses.payload) {
           if (spe.status === 'success') {
-            this.setState({ speGetCourses: spe, ifCoursesAreLoading: false });
+            this.setState({ speGetCourses: spe, ifCoursesAreLoading: false }, this.uiFocusOnFirstCourseCard);
           } else {
             this.setState({ ifCoursesAreLoading: true });
           }
         } else {
-          this.setState({ speGetCourses: spe });
+          this.setState({ speGetCourses: spe }, this.uiFocusOnFirstCourseCard);
         }
       },
       {
@@ -109,7 +109,6 @@ class Page_courses extends React.Component {
     )
       .then(({ amountOfPages }) => {
         this.setState({ amountOfPages });
-        this.uiFocusOnFirstCourseCard();
       })
 
   uiFocusOnFirstCourseCard = () => {
