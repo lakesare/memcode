@@ -90,6 +90,38 @@ class Editor extends React.Component {
     this.props.onFocusChange(true);
   }
 
+  modules = {
+    // formula: true,          // Include formula module
+    // maybe include syntax module sometime
+    // syntax: false,
+    toolbar: {
+      container: this.props.toolbarContainer,
+      handlers: {
+        ...this.props.toolbarHandlers,
+        // eslint-disable-next-line object-shorthand
+        image: function uploadImageHandlerWrapper() {
+          uploadImageHandler(this.quill, { onSuccess: this.onBlur });
+        }
+      }
+    },
+
+    keyboard: {
+      bindings
+    },
+
+    // https://github.com/zenoamaro/react-quill/issues/250
+    clipboard: { matchVisual: false },
+    imageResize: {
+      modules: ['Resize']
+    },
+    moduleDropOrPasteImage: {
+      // add a custom image handler
+      handler: (file, quill) => {
+        dropOrPasteImageHandler(file, quill, { onSuccess: this.onBlur });
+      }
+    }
+  }
+
   render = () =>
     <ReactQuill
       className={this.props.className}
@@ -99,32 +131,7 @@ class Editor extends React.Component {
 
       ref={this.quillRef}
 
-      modules={{
-        // formula: true,          // Include formula module
-        // maybe include syntax module sometime
-        // syntax: false,
-        toolbar: {
-          container: this.props.toolbarContainer,
-          handlers: {
-            ...this.props.toolbarHandlers,
-            image: uploadImageHandler
-          }
-        },
-
-        keyboard: {
-          bindings
-        },
-
-        // https://github.com/zenoamaro/react-quill/issues/250
-        clipboard: { matchVisual: false },
-        imageResize: {
-          modules: ['Resize']
-        },
-        moduleDropOrPasteImage: {
-          // add a custom image handler
-          handler: dropOrPasteImageHandler
-        }
-      }}
+      modules={this.modules}
 
       onBlur={this.onBlur}
       onFocus={this.onFocus}

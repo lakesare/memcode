@@ -134,7 +134,6 @@ class NewProblem extends React.Component {
         problemContent={this.state.problemContent}
         updateProblemContent={this.updateProblemContent}
         problemType={this.state.currentProblemType}
-        ifNewProblem
       />
 
       <section className="how-to-create">

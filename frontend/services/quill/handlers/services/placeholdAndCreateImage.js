@@ -6,7 +6,7 @@ import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 import preloadImage from '~/services/preloadImage';
 import FileApi from '~/api/FileApi';
 
-const placeholdAndCreateImage = (quill, file) => {
+const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => {
   // needed for quill.getSelection() to work
   quill.focus();
   const selectionAt = quill.getSelection() ?
@@ -37,6 +37,9 @@ const placeholdAndCreateImage = (quill, file) => {
               .delete(2) // delete the placeholder (I'm not sure why .delete(1) doesn't work)
               .insert({ image: response.url })
           );
+
+          console.log('calling on success');
+          onSuccess();
         });
       });
   });

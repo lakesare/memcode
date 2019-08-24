@@ -1,8 +1,7 @@
 import toArray from '~/services/toArray';
 import placeholdAndCreateImage from './services/placeholdAndCreateImage';
-// import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 
-function uploadImageHandler() {
+const uploadImageHandler = (quill, options) => {
   const input = document.createElement('input');
   input.setAttribute('type', 'file');
   input.setAttribute('multiple', true);
@@ -10,9 +9,9 @@ function uploadImageHandler() {
 
   input.onchange = () => {
     toArray(input.files).forEach((file) =>
-      placeholdAndCreateImage(this.quill, file)
+      placeholdAndCreateImage(file, quill, options)
     );
   };
-}
+};
 
 export default uploadImageHandler;
