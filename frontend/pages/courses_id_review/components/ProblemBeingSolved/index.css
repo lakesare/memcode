@@ -100,16 +100,21 @@ $purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
           .ql-editor{
             border: none !important;
             background: rgb(34, 38, 74);
+            min-height: 54px;
           }
           .ql-toolbar{
             height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
             transition-duration: 300ms;
-            transition-property: height, background;
+            transition-property: height, background, padding;
           }
           &:focus-within{
             .ql-toolbar{
               height: 31px;
               background: rgb(22, 25, 51);
+              padding-top: 2px;
+              padding-bottom: 2px;
             }
             .ql-editor{
               border-top-left-radius: 0;

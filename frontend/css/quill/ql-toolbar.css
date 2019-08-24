@@ -1,6 +1,6 @@
 .quill > .ql-toolbar{
   border: none;
-  padding: 2px 10px !important;
+  padding: 2px 10px;
   background: rgb(34, 38, 74);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
