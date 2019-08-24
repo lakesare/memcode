@@ -92,18 +92,31 @@ $purple-question-box-shadow: 0px 0px 6px 1px rgba(137, 94, 241, 0.62);
         display: flex;
         width: 100%;
         .quill{
-          margin-top: 5px;
+          margin-top: 20px;
+          // placeholder!
+          .ql-editor.ql-blank::before{
+            color: rgba(132, 155, 249, 0.48);
+          }
+          .ql-editor{
+            border: none !important;
+            background: rgb(34, 38, 74);
+          }
+          .ql-toolbar{
+            height: 0;
+            transition-duration: 300ms;
+            transition-property: height, background;
+          }
+          &:focus-within{
+            .ql-toolbar{
+              height: 31px;
+              background: rgb(22, 25, 51);
+            }
+            .ql-editor{
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+          }
         }
-        .ql-editor.ql-blank::before{
-          color: rgba(132, 155, 249, 0.48);
-        }
-        .ql-toolbar{ box-shadow: none; }
-        .ql-editor{
-          border: none !important;
-          background: rgba(34, 38, 74, 0.29);
-        }
-        &.-focused{ .ql-toolbar{ opacity: 1; } }
-        &.-not-focused{ .ql-toolbar{ opacity: 0; } }
       }
     }
   }
