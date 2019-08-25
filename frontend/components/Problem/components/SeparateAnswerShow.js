@@ -7,8 +7,12 @@ class SeparateAnswerShow extends React.Component {
 
   render = () =>
     <section className="problem -withSeparateAnswer ql-snow">
-      <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
-      <ReadonlyEditor className="second-column" html={this.props.problemContent.answer}/>
+      <div className="first-column">
+        <ReadonlyEditor html={this.props.problemContent.content}/>
+      </div>
+      <div className="second-column">
+        <ReadonlyEditor html={this.props.problemContent.answer}/>
+      </div>
     </section>
 }
 

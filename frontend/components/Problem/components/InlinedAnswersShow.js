@@ -7,8 +7,12 @@ class InlinedAnswersShow extends React.Component {
 
   render = () =>
     <section className="problem -withInlinedAnswers">
-      <ReadonlyEditor className="first-column" html={this.props.problemContent.content}/>
-      <ReadonlyEditor className="second-column" html={this.props.problemContent.explanation}/>
+      <div className="first-column">
+        <ReadonlyEditor html={this.props.problemContent.content}/>
+      </div>
+      <div className="second-column">
+        <ReadonlyEditor html={this.props.problemContent.explanation}/>
+      </div>
     </section>
 }
 

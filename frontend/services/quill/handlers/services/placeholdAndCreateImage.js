@@ -38,7 +38,6 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
               .insert({ image: response.url })
           );
 
-          console.log('calling on success');
           onSuccess();
         });
       });

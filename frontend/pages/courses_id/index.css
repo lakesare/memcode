@@ -28,6 +28,9 @@
         flex-grow: 1;
         flex-shrink: 1;
         margin-left: 12px;
+        .quill{
+          height: 100%;
+        }
       }
     }
   }
