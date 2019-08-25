@@ -11,7 +11,11 @@ import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 import CourseModel from '~/models/CourseModel';
 
 const getProblemsByCourseId = (courseId) =>
-  knex('problem').where({ course_id: courseId }).orderBy('position').orderBy('createdAt', 'desc');
+  knex('problem').where({ course_id: courseId })
+    // Put position-0 last (because it means they were created after the latest reordering!) (https://stackoverflow.com/a/3130216/3192470)
+    .orderByRaw('position=0')
+    .orderBy('position')
+    .orderBy('createdAt', 'asc');
 
 router.get('/courses/:id/learn', authenticate, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
