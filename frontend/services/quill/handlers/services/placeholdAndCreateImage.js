@@ -5,6 +5,17 @@ import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 import preloadImage from '~/services/preloadImage';
 import FileApi from '~/api/FileApi';
 
+window.findReactComponent = function(el) {
+  for (const key in el) {
+    if (key.startsWith('__reactInternalInstance$')) {
+      const fiberNode = el[key];
+
+      return fiberNode && fiberNode.return && fiberNode.return.stateNode;
+    }
+  }
+  return null;
+};
+
 const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => {
   // needed for quill.getSelection() to work
   quill.focus();
@@ -26,9 +37,12 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
       .then((response) => {
         preloadImage(response.url, () => {
           const placeholderEl = quill.container.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
+          console.log({placeholderEl});
+
 
           // Will be false when we save a new card, and quill container el changes.
           if (placeholderEl) {
+            // Find blot
             const blot = Parchment.find(placeholderEl);
             const index = blot.offset(quill.scroll);
 
@@ -40,7 +54,30 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
             );
 
             onSuccess();
+          } else {
+            const el = document.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
+            const newQuillEl = el.parentElement.parentElement.parentElement;
+            const newQuillReact = window.findReactComponent(newQuillEl);
+
+            const newQuill = newQuillReact.editor;
+
+            // Find blot
+            const blot = Parchment.find(el);
+            const index = blot.offset(newQuill.scroll);
+
+            newQuill.updateContents(
+              new Delta()
+                .retain(index)
+                .delete(2) // delete the placeholder (I'm not sure why .delete(1) doesn't work)
+                .insert({ image: response.url })
+            );
+
+
+            console.log({ newQuillReact, newQuill });
+            newQuillReact.props.onBlur();
+
           }
+
         });
       });
   });

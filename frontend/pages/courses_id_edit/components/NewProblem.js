@@ -58,13 +58,13 @@ class NewProblem extends React.Component {
       } else if (!problemContent.answer) {
         error = "Please add the answer to the question.";
       } else if (isImgLoading(problemContent.content) || isImgLoading(problemContent.answer)) {
-        error = imgIsLoadingError;
+        // error = imgIsLoadingError;
       }
     } else if (type === 'inlinedAnswers') {
       if (!problemContent.content) {
         error = "Please add some sentence with a word that you'll need to fill in on review (select words you'd like to fill in, and press Mark As Answer).";
       } else if (isImgLoading(problemContent.content) || isImgLoading(problemContent.explanation)) {
-        error = imgIsLoadingError;
+        // error = imgIsLoadingError;
       }
     }
 
