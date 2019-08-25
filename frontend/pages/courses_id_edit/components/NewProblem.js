@@ -49,17 +49,25 @@ class NewProblem extends React.Component {
     const type = this.state.currentProblemType;
     const problemContent = this.state.problemContent;
     let error = '';
+    const imgIsLoadingError = 'Please wait for the image to upload ❤️';
+    const isImgLoading = (text) => text.includes('placeholder-for-loading-image');
+
     if (type === 'separateAnswer') {
       if (!problemContent.content) {
         error = "Please add the question (you'll be asked it when you review the flashcard).";
       } else if (!problemContent.answer) {
         error = "Please add the answer to the question.";
+      } else if (isImgLoading(problemContent.content) || isImgLoading(problemContent.answer)) {
+        error = imgIsLoadingError;
       }
     } else if (type === 'inlinedAnswers') {
       if (!problemContent.content) {
         error = "Please add some sentence with a word that you'll need to fill in on review (select words you'd like to fill in, and press Mark As Answer).";
+      } else if (isImgLoading(problemContent.content) || isImgLoading(problemContent.explanation)) {
+        error = imgIsLoadingError;
       }
     }
+
     if (error) {
       this.setState({ speCreateProblem: speCreator.failure(error) });
       return false;

@@ -1,6 +1,5 @@
 import Delta from 'quill-delta';
 import Parchment from 'parchment';
-import _ from 'lodash';
 
 import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 import preloadImage from '~/services/preloadImage';
@@ -14,7 +13,8 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
     // when we are not focused on the editor (e.g. when we just drop something)
     quill.getLength();
 
-  const randomId = _.uniqueId();
+  // => 'placeholder-624608'
+  const randomId = 'placeholder-' + String(Math.floor(Math.random() * 1000000));
 
   fromFileToDataUrl(file, (dataUrl) => {
     quill.updateContents(
@@ -25,20 +25,22 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
     FileApi.upload(false, file)
       .then((response) => {
         preloadImage(response.url, () => {
-          console.log(quill);
           const placeholderEl = quill.container.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
 
-          const blot = Parchment.find(placeholderEl);
-          const index = blot.offset(quill.scroll);
+          // Will be false when we save a new card, and quill container el changes.
+          if (placeholderEl) {
+            const blot = Parchment.find(placeholderEl);
+            const index = blot.offset(quill.scroll);
 
-          quill.updateContents(
-            new Delta()
-              .retain(index)
-              .delete(2) // delete the placeholder (I'm not sure why .delete(1) doesn't work)
-              .insert({ image: response.url })
-          );
+            quill.updateContents(
+              new Delta()
+                .retain(index)
+                .delete(2) // delete the placeholder (I'm not sure why .delete(1) doesn't work)
+                .insert({ image: response.url })
+            );
 
-          onSuccess();
+            onSuccess();
+          }
         });
       });
   });

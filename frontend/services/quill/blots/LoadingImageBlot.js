@@ -15,9 +15,13 @@ class LoadingImageBlot extends BlockEmbed {
     return node;
   }
 
-  // I actually don't know what that's for
-  static value() {
-    return null;
+  // That's for reinitialising it from html (from backend) -> into Quill again
+  static value(node) {
+    return {
+      src: node.querySelector('img').getAttribute('src'),
+      className: node.getAttribute('class'),
+      id: node.getAttribute('data-id')
+    };
   }
 }
 LoadingImageBlot.blotName = 'loadingImage';
