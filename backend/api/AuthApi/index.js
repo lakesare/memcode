@@ -49,11 +49,11 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
 // after user goes to github.com/login/oauth/authorize?client_id=OUR_ID, she is redirected here
 // docs: https://developer.github.com/apps/building-integrations/setting-up-and-registering-oauth-apps/about-authorization-options-for-oauth-apps
 router.get('/github/callback', catchAsync(async (request, response) => {
-  createOauthCallbackRoute('github', request.query.code, response);
+  await createOauthCallbackRoute('github', request.query.code, response);
 }));
 
 router.get('/google/callback', catchAsync(async (request, response) => {
-  createOauthCallbackRoute('google', request.query.code, response);
+  await createOauthCallbackRoute('google', request.query.code, response);
 }));
 
 export default router;
