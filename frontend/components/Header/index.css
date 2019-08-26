@@ -9,7 +9,6 @@
     color: white;
   }
 
-
   nav{
     display: flex;
     align-items: center;
@@ -150,6 +149,7 @@
       .link{
         height: 31px;
         margin-right: 0;
+        min-width: auto;
         &.-active{
           background: rgb(51, 53, 78);
         }

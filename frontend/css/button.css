@@ -1,4 +1,6 @@
 .button{
+  min-width: 140px;
+
   font-weight: 300;
   text-transform: uppercase;
   font-size: 12px;
@@ -11,7 +13,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 140px;
+  // needed too, for responsive design!
+  text-align: center;
   &.-white{
     background: white;
     border: 1px solid $body-color;

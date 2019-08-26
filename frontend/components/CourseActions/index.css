@@ -218,14 +218,6 @@
 
 :local(section.actions){
   @media(max-width: 900px){
-    section.course-description-and-stats{
-      div.course-description{
-        .placeholder{ display: none; }
-      }
-      ul.course-stats{
-        margin-top: 0 !important;
-      }
-    }
     > section.title-and-buttons{
       > .container{
         flex-wrap: wrap;
@@ -284,23 +276,32 @@
         > div.course-description:not(.-empty){
           margin-bottom: 20px;
         }
+
+        div.course-description{
+          .placeholder{ display: none; }
+        }
+
         > ul.course-stats{
+          margin-top: 0 !important;
           width: 100%;
           display: flex;
           flex-wrap: wrap;
+          justify-content: flex-end;
           > li{
             width: 50%;
-            justify-content: flex-start;
-            div.stat{
-              order: 1;
-            }
+            padding: 6px 0;
             div.icon{
-              order: 0;
               padding-right: 5px;
             }
           }
         }
       }
+    }
+  }
+
+  @media(max-width: 365px){
+    section.course-description-and-stats{
+      ul.course-stats > li{ width: 100% !important; }
     }
   }
 }
