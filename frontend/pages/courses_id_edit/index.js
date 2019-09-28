@@ -181,7 +181,8 @@ class Page_courses_id_edit extends React.Component {
     api.ProblemApi.reorder(
       this.state.speGetPage.payload.problems.map((problem, index) => ({
         id: problem.id,
-        position: index
+        // position cannot be 0 (so we can never make any flashcard 0s), because then it will just move to the end of the queue
+        position: index + 1
       })),
       false
     )
