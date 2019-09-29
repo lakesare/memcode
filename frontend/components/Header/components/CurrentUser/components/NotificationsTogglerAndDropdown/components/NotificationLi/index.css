@@ -34,6 +34,7 @@
 
   // style for read vs not-read notifications
   &.-already-read{
+    // background: rgb(32, 29, 56);
     > button.mark-as-read-on-unread-button{
       cursor: pointer;
       > div.circle{
@@ -42,11 +43,12 @@
     }
   }
   &.-not-yet-read{
+    background: rgb(18, 18, 50);
     opacity: 1;
     > button.mark-as-read-on-unread-button{
       cursor: pointer;
       > div.circle{
-        background: rgb(212, 4, 236);
+        background: $purple;
       }
     }
   }
@@ -78,8 +80,11 @@
     flex-grow: 0; flex-shrink: 0;
     padding-left: 20px;
     padding-right: 20px;
+    &:hover{
+      opacity: 0.8;
+    }
     > div.circle{
-      $radius: 5px;
+      $radius: 7px;
       width: $radius; height: $radius;
       border-radius: 50%;
     }
