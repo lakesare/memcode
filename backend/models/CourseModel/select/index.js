@@ -4,6 +4,22 @@ import integerizeDbColumns from '~/services/integerizeDbColumns';
 import wherePublic from './services/wherePublic';
 import getCoursesWithStats from './services/getCoursesWithStats';
 
+const sortByWord = (sortBy) => {
+  switch (sortBy) {
+    case 'popular': return `ORDER BY
+      amount_of_course_ratings DESC,
+      amount_of_users_learning_this_course DESC,
+      amount_of_problems DESC
+    `;
+    case 'new': return `ORDER BY
+      course.created_at DESC
+    `;
+    case 'random': return `ORDER BY
+      random()
+    `;
+  }
+}
+
 const select = {
   allCreated: (userId) =>
     getCoursesWithStats({
@@ -29,7 +45,7 @@ const select = {
   // all public courses with 2 or more problems,
   // sorted by amount of learners
   // @sortBy = ['popular', 'new']
-  allPublic: ({ sortBy, limit, offset, courseCategoryId }) =>
+  allPublic: ({ sortBy, limit, offset, courseCategoryId, customWhere }) =>
     db.any(
       `
       SELECT
@@ -57,25 +73,10 @@ const select = {
         ON course.course_category_id = course_category.id
       WHERE
         ${wherePublic}
+        ${customWhere ? customWhere : ''}
         ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
       GROUP BY (course.id, "user".id, course_category.id)
-      ${
-        (() => {
-          switch (sortBy) {
-            case 'popular': return `ORDER BY
-              amount_of_course_ratings DESC,
-              amount_of_users_learning_this_course DESC,
-              amount_of_problems DESC
-            `;
-            case 'new': return `ORDER BY
-              course.created_at DESC
-            `;
-            case 'random': return `ORDER BY
-              random()
-            `;
-          }
-        })()
-      }
+      ${sortBy ? sortByWord(sortBy) : ''}
       LIMIT ${limit}
       OFFSET ${offset}
       `

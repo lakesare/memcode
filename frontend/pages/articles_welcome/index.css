@@ -1,66 +1,198 @@
 @import 'css/variables';
 
-:local(main.main){
+@import url('https://fonts.googleapis.com/css?family=Libre+Franklin|Montserrat:100,200,300,400,500,600,700&display=swap');
 
-  section.article-section.why-us{
-    padding-bottom: 0;
-    &.-continuation{
-      border-top: none;
+:local(main.main){
+  // Took it from sketch, add some other background #todo
+  background-image: url('./images/waves.jpg');
+  background-size: cover;
+  background-position: -200px -397px;
+  background-color: rgb(14, 13, 28);
+  background-size: auto;
+  background-repeat: no-repeat;
+
+  header .sign-in-links{
+    background: rgba(28, 33, 82, 0.53);
+  }
+
+  .standard-article-formatting{
+    max-width: 1300px;
+    padding-bottom: 200px;
+    padding-top: 130px;
+    h2.section-heading{
+      margin-bottom: 75px;
+      margin-top: 170px;
+      font-size: 48px;
+      text-align: center;
     }
-    ul{
+    div.section-explanation{
+      font-size: 20px;
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      margin-top: -36px;
+    }
+    a{
+      text-decoration: none;
+    }
+    section.article-section{
+      padding-top: 60px;
+    }
+  }
+
+  section.article-headings{
+    text-align: center;
+    margin-bottom: 170px;
+    h1{
+      font-size: 60px;
+      line-height: 48px;
+    }
+    h2.subtitle{
+      margin: 0;
+      margin-bottom: 100px;
+      margin-top: 35px;
+      // color: rgb(201, 195, 246);
+    }
+    h2.more{
+      line-height: 34px;
+      margin-top: 50px;
+    }
+    .button{
+      display: inline-flex;
+      margin: 0 auto;
+      font-size: 15px;
+      margin-top: 120px;
+    }
+  }
+
+  section.two-types-of-flashcards{
+    ol{
+      display: flex;
+
       li{
-        padding: 3px 26px;
-        line-height: 20px;
-        margin-bottom: 10px;
+        width: 50%;
+        border-radius: 5px;
+        background: rgba(136, 125, 220, 0.15);
+
+        section.problem{
+          min-height: 150px;
+          background: none;
+          box-shadow: none;
+          margin: 50px 7px;
+          .first-column{ margin-right: 7px; }
+          .second-column{ margin-left: 7px; }
+        }
+
+        div.instruction.-top{
+          padding: 10px 20px;
+          border-top-right-radius: 5px;
+          border-top-left-radius: 5px;
+          // color: $purple;
+          font-weight: 600;
+          font-family: 'Libre Franklin', sans-serif;
+          font-size: 18px;
+        }
+
+        div.instruction.-bottom{
+          padding: 10px 20px;
+          border-bottom-right-radius: 5px;
+          border-bottom-left-radius: 5px;
+        }
+      }
+      li.separate{
+        margin-right: 10px;
+        div.instruction.-top{ background: rgb(55, 51, 94); }
+        div.instruction.-bottom{ background: rgba(55, 51, 94, 0.5); }
+      }
+      li.inline{
+        margin-left: 10px;
+        div.instruction.-top{ background: rgb(176, 74, 13); }
+        div.instruction.-bottom{ background: rgba(55, 51, 94, 0.5); }
+
+        input.answer-input{
+          cursor: pointer !important;
+          &:hover{
+            background: rgba(136, 125, 220, 0.16);
+          }
+        }
+      }
+    }
+
+    button.reset-button{
+      margin: 0 auto;
+      margin-top: 40px;
+      border-radius: 2px;
+    }
+
+  }
+
+  section.creation{
+    text-align: center;
+    img{
+      width: 100%;
+      max-width: 970px;
+      margin: 0 auto;
+      display: block;
+      margin-top: 71px;
+    }
+    .button{
+      margin-top: 66px;
+      font-size: 15px;
+      display: inline-flex;
+    }
+  }
+
+  section.courses{
+    .list-of-courses{
+      display: flex;
+      justify-content: space-between;
+      max-width: 940px;
+      margin: 0 auto;
+      margin-top: 80px;
+      .standard-course-card{
+        transition-duration: 300ms;
+        .total-amount-of-flashcards{
+          transition-duration: 300ms;
+          background: $orange;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 21px;
+        }
+        &:hover{
+          background: rgb(33, 35, 61);
+          &:hover{
+            .total-amount-of-flashcards{
+              height: 35px;
+              font-size: 16px;
+            }
+          }
+        }
+        &:focus-within{
+          box-shadow: 0 0 1px 1px $orange;
+        }
       }
     }
   }
-  h3.table-caption{
-    font-weight: bold;
-    color: #424242;
-  }
-  table{
-    width: 100%;
-    max-width: 1250px;
-    margin: 0 auto;
-    margin-top: 20px;
 
-    line-height: 18px;
-    font-size: 12px;
-
-    background: $purple;
-    color: white;
-    box-shadow: 1px 3px 20px 3px rgba(54, 56, 53, 0.81);
-    border: 2px solid $deep-green;
-    tr{
-      border-bottom: 1px solid white;
+  section.sign-in{
+    img{
+      width: 50px;
+      position: relative;
+      top: 7px;
     }
-    td, th{
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 5px 10px;
-      vertical-align: top;
-    }
-    thead a{
-      color: #00ff1d;
-      font-size: 14px;
-      font-family: $heading-font;
-    }
-    tbody th{
-      color: rgb(236, 96, 172);
-    }
-    margin-bottom: 20px;
-
-    td{
-      width: 20%;
+    div.sign-in-buttons{
+      display: block;
+      max-width: 304px;
+      a.-github{
+        margin-top: 30px;
+      }
     }
   }
-}
 
-@media(max-width: 600px){
-  :local(main.main){
-    .table-caption,
-    table{
-      display: none;
-    }
+  .-glow {
+    text-align: center;
+    text-shadow: 0 0 10px rgba(136, 125, 220, 0.5), 0 0 20px rgba(136, 125, 220, 0.5), 0 0 30px rgba(136, 125, 220, 0.5), 0 0 40px rgba(136, 125, 220, 0.5), 0 0 50px rgba(136, 125, 220, 0.5), 0 0 60px rgba(136, 125, 220, 0.5), 0 0 70px rgba(136, 125, 220, 0.5);
   }
+  
 }

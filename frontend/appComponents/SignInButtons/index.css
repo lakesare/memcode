@@ -1,0 +1,24 @@
+:local(.local){
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin: 0 auto;
+  > .button{
+    border-radius: 2px;
+  }
+  > .button.sign-in{
+    flex-basis: 167px;
+    i{
+      font-size: 20px;
+      padding-left: 10px;
+    }
+    &.-gmail{
+      background: rgb(212, 70, 56);
+      color: white;
+    }
+    &.-github{
+      background: rgb(136, 125, 220);
+      color: white;
+    }
+  }
+}

@@ -91,4 +91,6 @@ import getRatings from './getRatings';
 router.getRatings = getRatings;
 import getMyEverything from './getMyEverything';
 router.getMyEverything = getMyEverything;
+import getBest4 from './getBest4';
+router.getBest4 = getBest4;
 export default router;

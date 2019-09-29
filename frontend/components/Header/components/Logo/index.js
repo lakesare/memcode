@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 // <img src={memcodeLogo}/>
 class Logo extends React.Component {
   render = () =>
-    <Link className="logo" to="/courses">
+    <Link className="logo" to="/">
       MEMCODE
     </Link>
 }

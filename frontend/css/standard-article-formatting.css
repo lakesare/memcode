@@ -3,10 +3,9 @@
 .standard-article-formatting{
   max-width: 1000px;
   margin: 0 auto;
-  margin-top: 80px;
-  margin-bottom: 50px;
+  padding-top: 80px;
+  padding-bottom: 50px;
 
-  line-height: 24px;
   font-size: 15px;
 
   font-family: 'Open Sans';
@@ -17,7 +16,7 @@
   a{
     text-decoration: underline;
   }
-  mark{ color: rgb(212, 4, 236); }
+  mark{ color: $purple; }
   ol.standard-list, ul.standard-list{
     list-style-type: initial;
     margin-left: 20px;

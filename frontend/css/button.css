@@ -40,6 +40,22 @@
     color: $purple;
     border: 1px solid $purple;
   }
+  &.-orange{
+    color: white;
+    background: $orange;
+    &:hover{
+      transition: background 60ms ease-in-out;
+      background: rgba(250, 100, 0, 0.9);
+    }
+  }
+  &.-orange-o{
+    color: rgb(244, 106, 13);
+    border: 2px solid $orange;
+    &:hover{
+      transition: border 60ms ease-in-out;
+      border: 2px solid rgb(250, 100, 0);
+    }
+  }
 
   &.-to-learn, &.-to-review{
     color: white;
@@ -89,6 +105,18 @@
     transition: opacity 60ms ease-in-out;
     opacity: 0.85;
     &:hover{ opacity: 1; }
+  }
+
+  &.-move-up-on-hover{
+    transform: translateY(0px);
+    transition: transform 60ms ease-in-out;
+    &:hover{
+      transform: translateY(-1px);
+    }
+  }
+
+  &.-with-radius{
+    border-radius: 5px;
   }
 
   &.-disabled{

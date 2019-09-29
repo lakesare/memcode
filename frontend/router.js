@@ -50,7 +50,7 @@ const router =
       <Route exact path="/test"           component={Page_test}/>
 
       {/* articles */}
-      <Route exact path="/"                    component={onEnters.redirectToOwnCoursesIfAuthenticated(Page_courses)}/>
+      <Route exact path="/"                    component={onEnters.redirectToOwnCoursesIfAuthenticated(Page_articles_welcome)}/>
       <Route exact path="/articles/comparison" component={Page_articles_comparison}/>
       <Route exact path="/articles/welcome"    component={Page_articles_welcome}/>
 

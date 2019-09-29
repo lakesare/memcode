@@ -1,13 +1,15 @@
+import { withRouter, Link } from 'react-router-dom';
+
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
-import { FakeProblemWithInlinedAnswers } from './components/FakeProblemWithInlinedAnswers';
-import { FakeProblemWithSeparateAnswer } from './components/FakeProblemWithSeparateAnswer';
-import { Table } from './components/Table';
+import SignInButtons from '~/appComponents/SignInButtons';
+import FakeFlashcards from './components/FakeFlashcards';
+import Courses from './components/Courses';
 
-import { withRouter } from "react-router-dom";
+import creationImage from './images/creation.jpg';
+import heartImage from './images/heart.png';
 
 import css from './index.css';
-
 import { AuthenticationActions } from '~/reducers/Authentication';
 @withRouter
 @connect(
@@ -35,10 +37,15 @@ class Page_articles_welcome extends React.Component {
     }
   }
 
-  renderHeading = (text) =>
-    <h2 className="section-heading">
+  renderHeading = (text, className) =>
+    <h2 className={`section-heading ${className}`}>
       {text}
     </h2>
+
+  renderExplanation = (text) =>
+    <div className="section-explanation">
+      {text}
+    </div>
 
   render = () =>
     <main className={css.main}>
@@ -47,75 +54,56 @@ class Page_articles_welcome extends React.Component {
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">
-            <h1>Welcome to Memcode.</h1>
+            <h1 className="-glow">Welcome to Memcode</h1>
+            <h2 className="subtitle">Memorizing is hard. Let's make everything else easy.</h2>
 
-            <h2>
+            <h2 className="more">
               Lightweight <mark>spaced repetition</mark>-based learning site.<br/>
+              {/* Thought-through to the detail.<br/> */}
+              <span style={{ color: 'rgba(39, 209, 158, 0.84)' }}>With formatting. </span>
+              <span style={{ color: 'rgb(244, 126, 177)' }}>With images. </span>
+              <span style={{ color: 'rgb(255, 255, 137)' }}>Accessible.</span>
             </h2>
+
+            <Link to="/please-sign-in" className="button -orange -move-up-on-hover -with-radius" type="button">Use for Free, Forever →</Link>
+
+            {/* <hr/> */}
           </section>
 
-          <section className="article-section">
-            {this.renderHeading('How do I use Memcode?')}
+          <section className="article-section two-types-of-flashcards">
+            {this.renderHeading('Two types of flashcards')}
 
-            <p>
-              Create a course with flashcards for a subject you’re interested in.<br/>
-              To keep it in your long term memory, we will be asking you to review the flashcards you’re starting to forget.
-            </p>
-
-            <b>Two types of flashcards:</b>
-            <ol>
-              <li>
-                Type in an answer and rate yourself according to your memory recall
-                <FakeProblemWithSeparateAnswer/>
-              </li>
-              <li>
-                Fill in the blank
-                <FakeProblemWithInlinedAnswers/>
-              </li>
-            </ol>
+            <FakeFlashcards/>
           </section>
 
-          <section className="article-section">
-            {this.renderHeading('How does it work?')}
-            <p>
-              We implement a variation of an <a href="https://www.supermemo.com/english/ol/sm2.htm">SM2</a> algorithm for <a href="https://en.wikipedia.org/wiki/Spaced_repetition">spaced repetition</a>.<br/>
-              It's based on repeating something you want to learn in ever increasing inervals.<br/>
-              <b>We learn the best when we just begin to forget</b>, and our purpose is to make you review your flashcards at the best timing.
+          <section className="article-section creation">
+            {this.renderHeading('Comfortable, blazingly fast course creation')}
 
-              First review will happen in about 4 hours, next one in 24 hours, next in 3 days and so on.
-            </p>
+            {this.renderExplanation(<>Course creators are first class citizens on Memcode.<br/> We made it fun and beautiful.</>)}
+
+            <img src={creationImage} alt="Two text editors with formatting options"/>
+
+            <Link to="/please-sign-in" className="button -orange -move-up-on-hover -with-radius" type="button">Create your own course →</Link>
           </section>
-        </div>
 
-        <div className="container -left-border">
-          <section className="article-section why-us">
-            {this.renderHeading('Why use MemCode instead of <insert website>?')}
-            <p>
-              You may not need to! This site is tailored for a pretty specific style of learning.
-              <br/>
-            </p>
-            It may be perfect for you though, if you:
-            <ul>
-              <li>
-                Tend to create courses yourself rather than search for the existing ones
-              </li>
-              <li>
-                Need formatting in a flashcard (eg code blocks, bold text, image addition)
-              </li>
-              <li>
-                Want fill-in-sentence tasks and self-rated questions with hidden answers
-              </li>
-            </ul>
-            <h3 className="table-caption">Here is a comparison table with popular flashcard-based learning sites:</h3>
+          <section className="article-section courses">
+            {this.renderHeading('Play selected courses')}
+
+            {this.renderExplanation(<>You can play all courses without signing in, - sign in as soon as you'd like us to offer you flashcards for review based on your progress!</>)}
+
+            <Courses/>
           </section>
-        </div>
 
-        <Table/>
+          <section className="article-section sign-in">
+            {this.renderHeading('Welcome', '')}
 
-        <div className="container -left-border">
-          <section className="article-section why-us -continuation">
-            Here is a more detailed comparison of Memcode, Memrise, Braincode and Quizlet: <a href="http://www.memcode.com/articles/comparison">memcode.com/articles/comparison</a>.
+            {/* <img src={heartImage} alt=""/></div> */}
+
+            {/* {this.renderExplanation(<>Sign in:</>)} */}
+
+            <SignInButtons text="Sign In With"/>
           </section>
+
         </div>
       </article>
 

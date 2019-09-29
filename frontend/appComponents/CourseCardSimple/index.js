@@ -18,12 +18,23 @@ class CourseCardSimple extends React.Component {
       author: PropTypes.object.isRequired,
       courseCategory: PropTypes.object.isRequired,
       averageCourseRating: PropTypes.string,
-    }).isRequired
+    }).isRequired,
+    ifShowSimulatedReviewButton: PropTypes.bool
   }
+
+  static defaultProps = {
+    ifShowSimulatedReviewButton: false
+  }
+
+  getUrl = () =>
+    this.props.ifShowSimulatedReviewButton ?
+      `/courses/${this.props.courseDto.course.id}/review/simulated` :
+      UrlCreator.courseEditOrShow(this.props.currentUser, this.props.courseDto.course);
 
   render = () =>
     <Link
-      to={UrlCreator.courseEditOrShow(this.props.currentUser, this.props.courseDto.course)}
+      to={this.getUrl()}
+      target={this.props.ifShowSimulatedReviewButton ? "_blank" : undefined}
       className={`standard-course-card -simple ${css.a}`}
     >
       <section className="category_and_author">
@@ -40,9 +51,20 @@ class CourseCardSimple extends React.Component {
         }}
       />
 
-      <section className="total-amount-of-flashcards">
-        {this.props.courseDto.amountOfProblems} flashcards
-      </section>
+      {
+        // this.props.ifShowSimulatedReviewButton &&
+        // <Link to={`/courses/${this.props.courseDto.course.id}/review/simulated`} className="button -orange play-button" type="button">PLAY</Link>
+      }
+
+      {
+        this.props.ifShowSimulatedReviewButton ?
+          <section className="total-amount-of-flashcards">
+            PLAY
+          </section> :
+          <section className="total-amount-of-flashcards">
+            {this.props.courseDto.amountOfProblems} flashcards
+          </section>
+      }
     </Link>
 }
 

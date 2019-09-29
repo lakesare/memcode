@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 :local(main.main){
   article{
     max-width: 350px;
@@ -5,43 +7,27 @@
     text-align: center;
 
     > h2{
-      font-size: 30px;
+      font-size: 27px;
+      color: $purple;
       font-weight: 100;
+      margin-top: 40px;
     }
 
     > p{
       line-height: 24px;
-      margin-top: 20px;
+      margin-top: 40px;
       font-weight: 100;
     }
 
-    section.buttons{
-      display: flex;
-      justify-content: space-between;
-      margin-top: 35px;
-      > .button.sign-in{
-        flex-basis: 167px;
-        box-sizing: border-box;
-        i{
-          font-size: 20px;
-          padding-left: 10px;
-        }
-        &.-gmail{
-          background: rgb(212, 70, 56);
-          color: white;
-        }
-        &.-github{
-          background: rgb(136, 125, 220);
-          color: white;
-        }
-      }
+    .sign-in-buttons{
+      margin-top: 50px;
     }
   }
 }
 
 :local(main.main){
   @media(max-width: 420px){
-    article section.buttons{
+    .sign-in-buttons{
       flex-wrap: wrap;
       > .button.sign-in{
         flex-basis: 100%;
