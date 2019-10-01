@@ -26,10 +26,7 @@ class CourseModal extends React.Component {
     />
 
   renderSelectedTab = (closeModal) => {
-    const props = {
-      closeModal,
-      tabNavigation: this.renderTabNavigation()
-    };
+    const props = { closeModal };
 
     return {
       'Course Details': () =>
@@ -53,7 +50,16 @@ class CourseModal extends React.Component {
 
   render = () =>
     <TogglerAndModal toggler={this.props.toggler} modalClassName={css.modal}>{(closeModal) =>
-      this.renderSelectedTab(closeModal)
+      <section className={"standard-modal " + css.tab}>
+        <div className="standard-modal__header">
+          <h2 className="standard-modal__title">Edit Course</h2>
+          {this.renderTabNavigation()}
+        </div>
+
+        <div className="standard-modal__main">
+          {this.renderSelectedTab(closeModal)}
+        </div>
+      </section>
     }</TogglerAndModal>
 }
 

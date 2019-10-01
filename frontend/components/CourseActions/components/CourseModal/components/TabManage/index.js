@@ -6,7 +6,6 @@ import css from './index.css';
 
 class TabManage extends React.Component {
   static propTypes = {
-    tabNavigation: PropTypes.element.isRequired,
     course: PropTypes.object.isRequired
   }
 
@@ -22,12 +21,7 @@ class TabManage extends React.Component {
       .then(() => window.location = '/courses/learning')
 
   render = () =>
-    <section className={"standard-white-heading_and_blue-content " + css.tab}>
-      <div className="background -white">
-        <h2 className="title">Edit Course</h2>
-        {this.props.tabNavigation}
-      </div>
-
+    <div className={css.tab}>
       <div className="background -blue">
         <section className="delete-course">
           <h2 className="title">Delete Course "{this.props.course.title}"</h2>
@@ -46,7 +40,7 @@ class TabManage extends React.Component {
           <Loading spe={this.state.speDelete}/>
         </section>
       </div>
-    </section>
+    </div>
 }
 
 export default TabManage;

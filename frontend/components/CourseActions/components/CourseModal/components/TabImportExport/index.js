@@ -4,23 +4,17 @@ import css from './index.css';
 
 class TabImportExport extends React.Component {
   static propTypes = {
-    course: PropTypes.object.isRequired,
-    tabNavigation: PropTypes.element.isRequired
+    course: PropTypes.object.isRequired
   }
 
   render = () =>
-    <section className={"standard-white-heading_and_blue-content " + css.tab}>
-      <div className="background -white">
-        <h2 className="title">Edit Course</h2>
-        {this.props.tabNavigation}
-      </div>
-
+    <div className={css.tab}>
       <div className="background -blue">
         <SectionImportFlashcards courseId={this.props.course.id}/>
         <hr/>
         <SectionExportFlashcards course={this.props.course}/>
       </div>
-    </section>
+    </div>
 }
 
 export default TabImportExport;

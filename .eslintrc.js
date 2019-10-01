@@ -88,6 +88,8 @@ module.exports = {
     // for "INSERT INTO problems (content, course_id, created_at) VALUES (${content}, ${courseId}, ${created_at}) RETURNING *",
     "quotes": "off",
 
+    "quote-props": ["error", "consistent-as-needed"],
+
     "no-plusplus": "off",
 
     // I know myseeelf when to use or not to use it.
@@ -258,7 +260,10 @@ module.exports = {
     // const WebpackNotifierPlugin = require('webpack-notifier');
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
 
-    'jsx-a11y/no-noninteractive-element-interactions': "off"
+    'jsx-a11y/no-noninteractive-element-interactions': "off",
+
+    // Sometimes unneeded () => {}{}{} are expressive!
+    "arrow-body-style": "off"
   },
   "globals": {
     "fetch": true,

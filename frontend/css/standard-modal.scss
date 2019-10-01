@@ -1,28 +1,32 @@
 .standard-modal{
-  overflow-y: auto;
-  position: fixed;
-  top: 0; bottom: 0;
-  left: 0; right: 0;
-  z-index: 2000;
+  // ___Why not 100% instead?
+  //    Because 100% would be 100% of the .modal-wrapper width, which is not 100%.
+  width: 100vw;
+  // Set width width by default
+  max-width: 1000px;
 
-  background: rgb(15, 17, 34);
-  > button.close-button{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 2001;
+  background: rgb(34, 38, 74);
+  border-radius: 4px;
 
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    transform: rotate(45deg);
-    color: rgb(145, 148, 179);
-
-    line-height: 0;
-    font-size: 40px;
-    padding-left: 1px;
-    padding-bottom: 1px;
-    cursor: pointer;
+  h2.standard-modal__title{
+    font-size: 30px;
     font-weight: 100;
+    margin-bottom: 20px;
+  }
+
+  .standard-modal__header{
+    padding: 20px;
+    padding-bottom: 0;
+    background: rgb(34, 39, 74);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  .standard-modal__main{
+    padding: 30px 20px;
+    background: rgba(25, 26, 46, 0.27);
+    background: rgb(48, 52, 96);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
   }
 }

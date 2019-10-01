@@ -1,0 +1,93 @@
+:local(.modalOverlay){
+  position: fixed;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1001;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  // Center the .modal
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // This is necesssary for long modals!
+  flex-wrap: wrap;
+
+  // Animate opacity!
+  opacity: 0;
+  transition: opacity 300ms cubic-bezier(0.4, 0, 0, 1.5);
+  &.ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
+  &.ReactModal__Overlay--before-close {
+    opacity: 0;
+  }
+
+  // background-color: rgba(0, 0, 0, 0);
+  // transition: background-color 300ms cubic-bezier(0.4, 0, 0, 1.5);
+  // &.ReactModal__Overlay--after-open {
+  //   background-color: rgba(0, 0, 0, 0.5);
+  // }
+  // &.ReactModal__Overlay--before-close {
+  //   background-color: rgba(0, 0, 0, 0);
+  // }
+
+  // for the .modal__close-button
+  button.close-button{
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    line-height: 0;
+    cursor: pointer;
+    font-size: 34px;
+    color: white;
+    opacity: 0.8;
+
+    font-family: Roboto;
+    font-weight: 100;
+
+
+    position: absolute;
+    right: 20px; top: 20px;
+    width: 32px; height: 32px;
+    z-index: 1002;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+  }
+}
+// We could live without this class, but it's expressive to write <div className="modal modal--s"> in react instead of just <div> (together with passing 'modal--s' in props). Besides, react-modal creates an excessive div anyway.
+:local(.modalWrapper) {
+  // Doesn't look cute on animations, and useless for accessiblity anyway.
+  &:focus{ outline: none; }
+}
+
+// Animate slide-in!
+// Animate .modal and .close-button separately, because they aren't nested in each other.
+.standard-modal {
+  transform: translateY( -30px);
+  transition: transform 300ms cubic-bezier(0.4, 0, 0, 1.5);
+}
+.ReactModal__Content--after-open{
+  .standard-modal { transform: translateY(0); }
+}
+.ReactModal__Content--before-close{
+  .standard-modal { transform: translateY(-30px); }
+}
+
+body.ReactModal__Body--open {
+  height: 100vh;
+  overflow-y: hidden;
+  // Otherwise footer will rise up!
+  footer{
+    position: initial;
+  }
+}
+

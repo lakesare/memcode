@@ -57,6 +57,12 @@ import router from './router';
 //   )
 // }
 
+import ReactModal from 'react-modal';
+
+const rootElement = document.getElementById('root');
+
+ReactModal.setAppElement(rootElement);
+
 ReactDOM.render(
   <GatewayProvider>
     <Provider store={store}>
@@ -66,7 +72,7 @@ ReactDOM.render(
       </div>
     </Provider>
   </GatewayProvider>,
-  document.getElementById('root')
+  rootElement
 );
 
 if (process.env.NODE_ENV === 'production') {

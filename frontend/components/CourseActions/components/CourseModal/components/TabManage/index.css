@@ -11,11 +11,13 @@
       text-align: center;
 
       // color: rgb(199, 196, 196);
-      font-size: 13px;
+
+      font-size: 15px;
+      line-height: 20px;
 
       b{
         font-weight: 300;
-        color: red;
+        color: rgb(246, 77, 77);
       }
 
     }

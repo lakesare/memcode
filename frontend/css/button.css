@@ -88,7 +88,7 @@
 
   &.-red{
     color: white;
-    background: red;
+    background: rgb(225, 65, 65);
   }
 
   &.-small{

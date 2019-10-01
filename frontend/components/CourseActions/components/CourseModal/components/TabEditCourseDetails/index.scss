@@ -7,5 +7,8 @@
       > label{ width: 200px; flex-shrink: 0; flex-grow: 1; }
       > div.input-and-validation-error{ width: 100%; flex-shrink: 1; flex-grow: 1; }
     }
+    .quill > .ql-container > .ql-editor p{
+      color: white !important;
+    }
   }
 }
