@@ -38,7 +38,7 @@ class CourseCategories extends React.Component {
   render = () =>
     <nav className={`course-categories-nav ${css.nav}`}>
       <ul className="groups">
-        {CourseCategoryGroupModel.sortByAmountOfCourses(this.props.courseCategoryGroups, this.props.courseCategories)
+        {CourseCategoryGroupModel.sort(this.props.courseCategoryGroups)
           .map((group) =>
             <li className="group" key={group.id}>
               <h2 className="group-name">{group.name}</h2>

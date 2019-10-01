@@ -83,7 +83,7 @@ class CourseCategorySelect extends React.Component {
 
   renderDropdown = (courseCategoryGroups, courseCategories) =>
     <ul className="groups">
-      {CourseCategoryGroupModel.sortByAmountOfCourses(courseCategoryGroups, courseCategories).map((group) =>
+      {CourseCategoryGroupModel.sort(courseCategoryGroups, courseCategories).map((group) =>
         <li className="group" key={group.id}>
           <span className="group-name">{group.name}</span>
           <ul className="categories">
