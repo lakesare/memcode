@@ -83,6 +83,8 @@ section.course-actions{
   }
 }
 
-.standard-tab-navigation button:focus{
-  background: rgba(48, 52, 96, 0.62);
+.standard-tab-navigation button, .ReactModal__Content .close-button{
+  &:focus{
+    background: rgba(48, 52, 96, 0.62);
+  }
 }

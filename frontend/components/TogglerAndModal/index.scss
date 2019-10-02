@@ -54,7 +54,12 @@
 
     position: absolute;
     right: 20px; top: 20px;
-    width: 32px; height: 32px;
+
+    padding: 0 9px;
+    padding-top: 13px;
+    padding-bottom: 22px;
+    border-radius: 2px;
+
     z-index: 1002;
 
     &:hover,

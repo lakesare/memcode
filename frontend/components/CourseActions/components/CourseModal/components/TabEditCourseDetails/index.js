@@ -49,7 +49,7 @@ class TabEditCourseDetails extends React.Component {
       <form className="standard-form" onSubmit={(e) => e.preventDefault()}>
 
         <div className="form-insides">
-          <TextInput      {...this.inputProps()} label="* Title" name="title"/>
+          <TextInput      {...this.inputProps()} label="* Title" name="title" autoFocus/>
 
           <EditorTextarea {...this.inputProps()} label="Description:"       name="description"/>
 
