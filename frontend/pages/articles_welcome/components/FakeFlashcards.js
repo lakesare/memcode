@@ -85,7 +85,7 @@ class FakeFlashcards extends React.Component {
 
   render = () =>
     <div>
-      <ol className={flashcardCss.section}>
+      <ol className={`two-types-of-flashcard ${flashcardCss.section}`}>
         <li className="separate">
           <div className="instruction -top">
             Question + Answer flashcard
