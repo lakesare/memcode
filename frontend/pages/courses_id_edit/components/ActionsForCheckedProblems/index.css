@@ -44,9 +44,10 @@
 
     // children styles
     > button.delete-button{
-      &.-approving{
-        color: #ec2727;
-        min-width: 250px;
+      color: rgb(255, 255, 255);
+      background: rgba(236, 39, 39, 0.27);
+      &:hover {
+        background: rgba(236, 39, 39, 0.7);
       }
     }
     button.button{

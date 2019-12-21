@@ -1,5 +1,4 @@
 import * as ProblemApi from '~/api/Problem';
-import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 
 import posed from 'react-pose';
 import Loading from '~/components/Loading';
@@ -32,13 +31,15 @@ class ActionsForCheckedProblems extends React.Component {
 
   onRemove = (spe) => this.setState({ speRemovingProblems: spe })
 
-  apiDeleteAllCheckedProblems = () =>
-    ProblemApi.deleteMany(this.onRemove, this.props.idsOfCheckedProblems)
-      .then(() => this.props.uiRemoveOldProblems(this.props.idsOfCheckedProblems))
+  apiDeleteAllCheckedProblems = () => {
+    this.props.uiRemoveOldProblems(this.props.idsOfCheckedProblems);
+    ProblemApi.deleteMany(this.onRemove, this.props.idsOfCheckedProblems);
+  }
 
-  apiMoveAllCheckedProblemsToCourse = (courseId) =>
-    ProblemApi.moveToCourseMany(this.onRemove, this.props.idsOfCheckedProblems, courseId)
-      .then(() => this.props.uiRemoveOldProblems(this.props.idsOfCheckedProblems))
+  apiMoveAllCheckedProblemsToCourse = (courseId) => {
+    this.props.uiRemoveOldProblems(this.props.idsOfCheckedProblems);
+    ProblemApi.moveToCourseMany(this.onRemove, this.props.idsOfCheckedProblems, courseId);
+  }
 
   uiClose = () =>
     this.props.updateIdsOfCheckedProblems([])
@@ -47,7 +48,6 @@ class ActionsForCheckedProblems extends React.Component {
     <Animation
       className={css['actions-for-checked-problems'] + ' ' + (this.props.isSticky ? '-sticky' : '-not-sticky') + ' ' + (this.props.idsOfCheckedProblems.length > 0 ? '-visible' : '-not-visible')}
       pose={this.props.idsOfCheckedProblems.length > 0 ? 'visible' : 'hidden'}
-      style={disableOnSpeRequest(this.state.speRemovingProblems)}
     >
       <div className="container">
         <ChooseCourseToMoveProblemsTo apiMoveAllCheckedProblemsToCourse={this.apiMoveAllCheckedProblemsToCourse} amount={this.props.idsOfCheckedProblems.length}/>
