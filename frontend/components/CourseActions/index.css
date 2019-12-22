@@ -92,6 +92,10 @@
               color: rgba(136, 125, 220, 0.9);
               text-shadow: 0 0 12px #fbfbfb52;
             }
+            > .in-or-by{
+              display: inline-block;
+              width: 20px;
+            }
           }
         }
         > button.edit-button{

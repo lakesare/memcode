@@ -108,14 +108,15 @@ class CourseActions extends React.Component {
             this.props.ifBreadcrumbsAreDisplayed &&
             <section className="category_and_author">
               <div className="category">
-                {`In `}
+                <span className="in-or-by">In</span>
                 <Link to={`/courses?categoryId=${courseDto.courseCategory.id}`}>
                   {courseDto.courseCategory.name}
                 </Link>
               </div>
 
               <div className="author">
-                By <span>{courseDto.author.username}</span>
+                <span className="in-or-by">By</span>
+                <span>{courseDto.author.username}</span>
               </div>
             </section>
           }
