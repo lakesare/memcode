@@ -79,8 +79,8 @@
           background: none;
           box-shadow: none;
           margin: 50px 7px;
-          .first-column{ margin-right: 7px; }
-          .second-column{ margin-left: 7px; }
+          .first-column{ padding-right: 7px; }
+          .second-column{ padding-left: 7px; }
         }
 
         display: flex;

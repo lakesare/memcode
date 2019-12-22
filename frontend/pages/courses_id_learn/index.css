@@ -97,8 +97,8 @@
 
           // color of buttons
           &.-ignore, &.-unignore{
-            background: rgb(23, 25, 29);
             color: rgb(255, 255, 255);
+            border: 1px solid $learn-button-color;
             // border: 1px solid rgba(75, 77, 80, 0.22);
           }
           &.-learn, &.-unlearn{
@@ -136,11 +136,11 @@
           width: 100%;
         }
         div.first-column{
-          margin-right: 0;
+          padding-right: 0;
         }
         div.second-column{
-          margin-left: 0;
-          margin-top: 20px;
+          padding-left: 0;
+          padding-top: 20px;
         }
       }
     }
