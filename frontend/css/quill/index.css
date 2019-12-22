@@ -26,7 +26,7 @@
     // color: rgb(206, 199, 245);
     // We need !important-s because we have to override styles copypasted by users
     code, span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol{
-      color: rgb(206, 199, 245) !important;
+      color: rgb(238, 236, 246) !important;
       background: rgba(0, 0, 0, 0) !important;
     }
 
@@ -36,7 +36,7 @@
       color: rgb(226, 148, 20) !important;
     }
     em{
-      color: $purple !important;
+      color: rgb(171, 127, 242) !important;
       font-style: normal;
     }
     a{
@@ -65,7 +65,7 @@
       color: $purple !important;
     }
     sup, sub{
-      font-size: 13px;
+      font-size: 12px;
       strong{ font-size: inherit; }
     }
     ul, ol{
@@ -79,7 +79,7 @@
     blockquote{
       font-size: 12px;
       border-left: 1px solid rgba(206, 199, 245, 0.62);
-      color: rgb(206, 199, 245) !important;
+      color: rgb(238, 236, 246) !important;
       background: rgba(21, 23, 45, 0.38) !important;
       padding: 4px 16px;
     }
