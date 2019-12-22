@@ -7,6 +7,15 @@
     display: flex;
     align-items: center;
     color: white;
+
+    position: relative;
+    top: 5px;
+    img.christmas-icon{
+      width: 23px;
+      position: absolute;
+      top: -3px;
+      left: -3px;
+    }
   }
 
   nav{
@@ -178,8 +187,14 @@
 }
 
 :local(header.header){
-  @media(min-width: 930px){ .container.-mobile{ display: none; } }
-  @media(max-width: 930px){
+  @media(min-width: 930px){
+    .container.-mobile{ display: none; }
+  }
+  @media(max-width: 931px){
+    .christmas-icon {
+      bottom: calc(100% - 3px);
+      top: unset !important;
+    }
     .container.-desktop{ display: none; }
     .notifications-toggler-and-dropdown{ display: none }
   }
