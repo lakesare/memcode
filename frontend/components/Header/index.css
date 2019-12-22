@@ -50,7 +50,7 @@
   section.current-user{
     display: flex;
     align-items: center;
-    > a.avatar{
+    .avatar{
       width: 31px; height: 31px;
       img{
         // border: 3px solid rgb(86, 11, 90);

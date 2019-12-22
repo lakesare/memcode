@@ -2,16 +2,15 @@
 
 // TODO move this
 .tippy-tooltip{
-  background-color: rgba(136, 125, 220, 1) !important;
+  background-color: rgb(64, 58, 110) !important;
 }
 
 .tippy-popper[x-placement^=top] [x-arrow] {
-  border-top-color: rgba(136, 125, 220, 1) !important;
+  border-top-color: rgb(64, 58, 110) !important;
 }
 .tippy-popper[x-placement^=bottom] [x-arrow] {
-  border-bottom-color: rgba(136, 125, 220, 1) !important;
+  border-bottom-color: rgb(64, 58, 110) !important;
 }
-
 
 .standard-tooltip{
   // position
@@ -31,7 +30,7 @@
     &.-standard-tooltip-list{
       // to avoid a breaking
       white-space: nowrap;
-      background: $purple;
+      background: rgb(64, 58, 110);
       border: 4px solid rgb(1, 23, 4);
       a{
         display: block;

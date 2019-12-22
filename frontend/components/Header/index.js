@@ -1,4 +1,5 @@
 import orFalse from '~/services/orFalse';
+import { AuthenticationActions } from '~/reducers/Authentication';
 import { NavLink } from 'react-router-dom';
 import { Search } from './components/Search';
 import { SignInLinks } from './components/SignInLinks';
@@ -7,12 +8,18 @@ import Logo from './components/Logo';
 
 import css from './index.css';
 
-@connect((state) => ({
-  currentUser: state.global.Authentication.currentUser
-}))
+@connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false
+  }),
+  (dispatch) => ({
+    signOut: () => AuthenticationActions.signOut(dispatch)
+  })
+)
 class Header extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
+    signOut: PropTypes.func.isRequired,
     dontLinkToLearnOrReview: PropTypes.string
   }
 
@@ -40,7 +47,11 @@ class Header extends React.Component {
 
   renderUser = () => (
     this.props.currentUser ?
-      <CurrentUser currentUser={this.props.currentUser} dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/> :
+      <CurrentUser
+        currentUser={this.props.currentUser}
+        dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}
+        signOut={this.props.signOut}
+      /> :
       <SignInLinks/>
   )
 

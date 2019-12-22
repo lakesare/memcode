@@ -1,20 +1,46 @@
 import { NavLink } from 'react-router-dom';
+import StandardTooltip from '~/components/StandardTooltip';
 import LearnReviewLinks from './components/LearnReviewLinks';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 
 class CurrentUser extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
+    signOut: PropTypes.func.isRequired,
     dontLinkToLearnOrReview: PropTypes.string
   }
 
+  renderDropdown = () =>
+    <div>
+      <div>Signed in as {this.props.currentUser.username} | via {this.props.currentUser.oauthProvider}</div>
+      <ul style={{ textAlign: 'right', marginTop: 10 }}>
+        <li>
+          <button
+            type="button"
+            onClick={this.props.signOut}
+          >
+            Sign Out
+          </button>
+        </li>
+      </ul>
+    </div>
+
   renderAvatar = () =>
-    <NavLink className="avatar" to="/courses/learning">
-      <img
-        src={this.props.currentUser.avatarUrl}
-        alt="Avatar of a current user"
-      />
-    </NavLink>
+    <StandardTooltip
+      tooltipEl={this.renderDropdown()}
+      tooltipProps={{
+        interactive: true,
+        position: 'bottom-end',
+        trigger: 'focus click'
+      }}
+    >
+      <div className="avatar">
+        <img
+          src={this.props.currentUser.avatarUrl}
+          alt="Avatar of a current user"
+        />
+      </div>
+    </StandardTooltip>
 
   render = () =>
     <section className="current-user">
