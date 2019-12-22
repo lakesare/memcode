@@ -10,12 +10,12 @@ class Logo extends React.Component {
 
       <img
         style={{
-          width: 62,
+          width: 44,
           position: 'absolute',
           opacity: 0.85,
-          transform: 'rotate(20deg)',
-          left: '-60px',
-          top: '-4px'
+          transform: 'rotate(10deg)',
+          right: -42,
+          top: 0
         }}
         src={missle}
       />
