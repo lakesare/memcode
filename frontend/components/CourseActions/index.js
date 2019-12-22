@@ -87,8 +87,9 @@ class CourseActions extends React.Component {
 
   renderRequestIcon = () => (
     this.props.ifCourseDescriptionIsDisplayed ?
-      <div className="container">
-        <div style={{ height: 130, background: 'rgb(20, 22, 45)', marginTop: 30 }}/>
+      <div>
+        <div style={{ height: 75, background: 'rgb(7, 9, 39)' }}/>
+        <div style={{ height: 120, background: 'rgb(14, 16, 49)' }}/>
       </div> :
       null
   )
