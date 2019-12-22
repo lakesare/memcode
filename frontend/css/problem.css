@@ -4,9 +4,11 @@ section.problem{
   display: flex;
   .first-column, .second-column{
     width: 50%;
+    flex-grow: 0;
+    flex-shrink: 0;
   }
-  .first-column{ margin-right: 10px; }
-  .second-column{ margin-left: 10px; }
+  .first-column{ padding-right: 10px; }
+  .second-column{ padding-left: 10px; }
 
   // Css for quill editors only in flashcards
   .ql-editor{

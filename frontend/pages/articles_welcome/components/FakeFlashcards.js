@@ -63,13 +63,15 @@ class FakeFlashcards extends React.Component {
         </div>
         {
           this.state.separate_mode === 'solving' ?
-            <button
-              type="button"
-              className="see-answer-button second-column"
-              onClick={() => this.setState({ separate_mode: 'seeingAnswer' })}
-            >
-              See answer
-            </button> :
+            <div className="second-column">
+              <button
+                type="button"
+                className="see-answer-button"
+                onClick={() => this.setState({ separate_mode: 'seeingAnswer' })}
+              >
+                See answer
+              </button>
+            </div> :
             <div className="quill -readOnly answer second-column">
               <div className="ql-container ql-snow">
                 <div className="ql-editor">

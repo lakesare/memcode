@@ -51,13 +51,15 @@ class SeparateAnswerReview extends React.Component {
         {
           this.props.statusOfSolving.status === 'seeingAnswer' ?
             <ReadonlyEditor className="answer second-column" html={this.props.problemContent.answer}/> :
-            <button
-              type="button"
-              className="see-answer-button second-column"
-              onClick={this.props.enterPressed}
-            >
-              See answer
-            </button>
+            <div className="second-column">
+              <button
+                type="button"
+                className="see-answer-button"
+                onClick={this.props.enterPressed}
+              >
+                See answer
+              </button>
+            </div>
         }
       </div>
 
