@@ -77,8 +77,13 @@ input.answer-input.focus-visible{
 }
 
 section.course-actions{
-  h1.title a, .category_and_author a, button.edit-button, .stop-learning-button{
+  .category_and_author a, button.edit-button, .stop-learning-button{
     &.focus-visible, &:hover{
+      background: rgba(32, 35, 73, 0.55);
+    }
+  }
+  h1.title a{
+    &.focus-visible{
       background: rgba(32, 35, 73, 0.55);
     }
   }
