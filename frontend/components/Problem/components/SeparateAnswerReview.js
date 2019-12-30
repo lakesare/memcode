@@ -15,8 +15,7 @@ class SeparateAnswerReview extends React.Component {
   }
 
   state = {
-    draft: '',
-    ifDraftIsFocused: false
+    draft: ''
   }
 
   componentDidMount = () => {
@@ -63,14 +62,13 @@ class SeparateAnswerReview extends React.Component {
         }
       </div>
 
-      <div className={`draft-answer ${this.state.ifDraftIsFocused ? '-focused' : '-not-focused'}`}>
+      <div className="draft-answer">
         <div className="first-column"/>
         <div className="second-column">
           <Editor
             placeholder="You can draft your answer here"
             editorState={this.state.draft}
             updateEditorState={(draft) => this.setState({ draft })}
-            onFocusChange={(value) => this.setState({ ifDraftIsFocused: value })}
           />
         </div>
       </div>

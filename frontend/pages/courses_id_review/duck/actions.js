@@ -9,6 +9,11 @@ import playLongSound from './services/playLongSound';
 
 const enterPressed = () =>
   (dispatch, getState) => {
+    // Do not react to ENTER if we're inside of the draf editor
+    if (document.querySelector('.draft-answer .ql-editor.focus-visible')) {
+      return true;
+    }
+
     const state = getState().pages.Page_courses_id_review;
     if (state.ifReviewingFailedProblems) {
       enterPressedInFailedMode()(dispatch, getState);
