@@ -6,10 +6,10 @@
   border-top-right-radius: 3px;
   button:hover, button.ql-active{
     .ql-stroke{
-      stroke: $purple !important;
+      stroke: rgb(226, 148, 20) !important;
     }
     .ql-fill{
-      fill: $purple !important;
+      fill: rgb(226, 148, 20) !important;
     }
   }
   .ql-formats{
