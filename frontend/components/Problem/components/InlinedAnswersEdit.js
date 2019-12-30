@@ -14,6 +14,15 @@ class InlinedAnswersEdit extends React.Component {
     apiSave: () => {}
   }
 
+  // Remember whenever parent rerenders, all of its children will rerender.
+  // Quill is insanely expensive to rerender.
+  shouldComponentUpdate = (nextProps) => {
+    return (
+      this.props.problemContent.content !== nextProps.problemContent.content ||
+      this.props.problemContent.explanation !== nextProps.problemContent.explanation
+    );
+  }
+
   updateProblemContent = (editorName, newEditorState) =>
     this.props.updateProblemContent({
       ...this.props.problemContent,

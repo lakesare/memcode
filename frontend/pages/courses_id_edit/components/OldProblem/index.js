@@ -17,7 +17,9 @@ class OldProblem extends React.Component {
     updateIdsOfCheckedProblems: PropTypes.func.isRequired
   }
 
-  state = { speSave: { status: 'success' } }
+  state = {
+    speSave: { status: 'success' }
+  }
 
   apiSave = () =>
     ProblemApi.update(
