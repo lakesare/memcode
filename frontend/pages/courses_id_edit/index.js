@@ -164,8 +164,19 @@ class Page_courses_id_edit extends React.Component {
   }
 
   // TODO is performance ok, are we not dying?
-  uiRemoveOldProblems = (problemIds) =>
-    problemIds.forEach(this.removeOldProblem)
+  uiRemoveOldProblems = (problemIds) => {
+    this.setState({
+      speGetPage:
+      update(this.state.speGetPage, `payload.problems`,
+        (problems) => problems.filter((problem) => !problemIds.includes(problem.id))
+      ),
+      idsOfCheckedProblems: []
+    });
+
+    problemIds.forEach((problemId) => {
+      this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(problemId);
+    });
+  }
 
   renderActionsForCheckedProblems = () =>
     <Sticky>{({ isSticky }) =>

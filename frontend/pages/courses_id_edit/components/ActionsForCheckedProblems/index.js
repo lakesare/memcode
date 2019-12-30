@@ -27,18 +27,16 @@ class ActionsForCheckedProblems extends React.Component {
     isSticky: PropTypes.bool.isRequired
   }
 
-  state = { speRemovingProblems: { status: 'success' } }
-
-  onRemove = (spe) => this.setState({ speRemovingProblems: spe })
-
   apiDeleteAllCheckedProblems = () => {
-    this.props.uiRemoveOldProblems(this.props.idsOfCheckedProblems);
-    ProblemApi.deleteMany(this.onRemove, this.props.idsOfCheckedProblems);
+    const ids = this.props.idsOfCheckedProblems;
+    this.props.uiRemoveOldProblems(ids);
+    ProblemApi.deleteMany(false, ids);
   }
 
   apiMoveAllCheckedProblemsToCourse = (courseId) => {
-    this.props.uiRemoveOldProblems(this.props.idsOfCheckedProblems);
-    ProblemApi.moveToCourseMany(this.onRemove, this.props.idsOfCheckedProblems, courseId);
+    const ids = this.props.idsOfCheckedProblems;
+    this.props.uiRemoveOldProblems(ids);
+    ProblemApi.moveToCourseMany(false, ids, courseId);
   }
 
   uiClose = () =>
@@ -60,8 +58,6 @@ class ActionsForCheckedProblems extends React.Component {
           <img src={closeButtonSvg} alt="Unselect selected flashcards"/>
         </button>
       </div>
-
-      <Loading enabledStatuses={['failure']} spe={this.state.speRemovingProblems}/>
     </Animation>
   )
 }
