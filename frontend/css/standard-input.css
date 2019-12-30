@@ -28,6 +28,8 @@
   }
   &.-Select{
     button.toggler{
+      font-size: 14px;
+
       cursor: pointer;
       // center text and an arrow
       display: flex;

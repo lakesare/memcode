@@ -9,6 +9,7 @@ class SortBySelect extends React.Component {
 
   render = () =>
     <SelectDropdown
+      key={this.props.sortBy}
       className="sort-by-dropdown-wrapper standard-dropdown-wrapper standard-input -Select"
       dropdownClassName="standard-dropdown -purple"
       value={this.props.sortBy}
