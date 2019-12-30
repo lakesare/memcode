@@ -18,7 +18,15 @@ class OldProblem extends React.Component {
   }
 
   state = {
-    speSave: { status: 'success' }
+    speSave: { status: 'success' },
+    mode: 'show'
+  }
+
+  // Change the mode to 'edit'
+  componentDidMount = () => {
+    setTimeout(() => {
+      this.setState({ mode: 'edit' });
+    }, 500);
   }
 
   apiSave = () =>
@@ -49,7 +57,7 @@ class OldProblem extends React.Component {
           style={provided.draggableProps.style}
         >
           <Problem
-            mode="edit"
+            mode={this.state.mode}
             problemContent={this.props.problem.content}
             updateProblemContent={this.updateProblemContent}
             problemType={this.props.problem.type}
