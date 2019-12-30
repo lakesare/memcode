@@ -1,14 +1,17 @@
-import { orFalse } from '~/services/orFalse';
-import { commonFetch } from '~/api/commonFetch';
+import orFalse from '~/services/orFalse';
+import commonFetch from '~/api/commonFetch';
 import UrlCreator from '~/services/UrlCreator';
+import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 
 import { Link } from 'react-router-dom';
-import { MetaTags } from './components/MetaTags';
+import MetaTags from './components/MetaTags';
 import Loading from '~/components/Loading';
 import CourseModal from './components/CourseModal';
 import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
 import { CuilActivityButtons } from './components/CuilActivityButtons';
 import { CourseDescriptionAndStats } from './components/CourseDescriptionAndStats';
+
+import CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 
 import css from './index.css';
 
@@ -33,7 +36,15 @@ import css from './index.css';
     seedSpeGetCourse: (spe) => dispatch({
       type: 'SEED_SPE_GET_COURSE',
       payload: spe
-    })
+    }),
+    seedSpeCourseUserIsLearning: (spe) => dispatch({
+      type: 'SEED_SPE_COURSE_USER_IS_LEARNING',
+      payload: spe
+    }),
+    IdsOfProblemsToLearnAndReviewPerCourseActions: {
+      stopLearningCourse: (courseId) => IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(dispatch, courseId),
+      apiSync: () => IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync(dispatch)
+    }
   })
 )
 class CourseActions extends React.Component {
@@ -79,6 +90,15 @@ class CourseActions extends React.Component {
       (spe) => this.props.seedSpeGetCourse(spe),
       'GET', `/api/pages/courseActions/${this.props.courseId}`
     )
+
+  apiStopLearning = () =>
+    CourseUserIsLearningApi.stopLearning(
+      (spe) => this.props.seedSpeCourseUserIsLearning(spe),
+      this.props.speCourseUserIsLearning.payload.id
+    )
+      .then(() => {
+        this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(this.props.courseId);
+      })
 
   uiUpdateCourse = (course) => {
     const spe = this.props.speGetCourse;
@@ -141,7 +161,12 @@ class CourseActions extends React.Component {
             <div className="buttons">
               {
                 this.props.ifCuilActivityButtonsAreDisplayed &&
-                <CuilActivityButtons speCourseUserIsLearning={this.props.speCourseUserIsLearning} courseId={courseDto.course.id}/>
+                <CuilActivityButtons
+                  speCourseUserIsLearning={this.props.speCourseUserIsLearning}
+                  courseId={courseDto.course.id}
+                  seedSpeCourseUserIsLearning={this.props.seedSpeCourseUserIsLearning}
+                  IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
+                />
               }
 
               <LearnAndReviewButtons
@@ -150,6 +175,9 @@ class CourseActions extends React.Component {
 
                 stats={courseDto.stats}
                 nextDueDateIn={courseDto.nextDueDateIn}
+                seedSpeCourseUserIsLearning={this.props.seedSpeCourseUserIsLearning}
+                IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
+                apiStopLearning={this.apiStopLearning}
               />
             </div> :
             <div className="please-sign-in_and_simulated-review-button">

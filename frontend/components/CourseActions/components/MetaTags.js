@@ -27,3 +27,4 @@ class MetaTags extends React.Component {
 }
 
 export { MetaTags };
+export default MetaTags;

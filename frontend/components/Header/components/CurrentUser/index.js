@@ -13,7 +13,7 @@ class CurrentUser extends React.Component {
   renderDropdown = () =>
     <div>
       <div>Signed in as {this.props.currentUser.username} | via {this.props.currentUser.oauthProvider}</div>
-      <ul style={{ textAlign: 'right', marginTop: 10 }}>
+      <ul style={{ marginTop: 10 }} className="standard-tooltip-dropdown">
         <li>
           <button
             type="button"

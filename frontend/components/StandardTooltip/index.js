@@ -11,22 +11,27 @@ class StandardTooltip extends React.Component {
     children: PropTypes.any,
 
     className: PropTypes.string,
-    tooltipProps: PropTypes.object
+    tooltipProps: PropTypes.object,
+    width: PropTypes.number
   }
 
   static defaultProps = {
     children: null,
     className: '',
-    tooltipProps: {}
+    tooltipProps: {},
+    width: 200
   }
 
   render = () =>
     <Tooltip
       className={`${this.props.className} ${css.div} ${this.props.children ? '-with-children' : '-without-children'}`}
-      html={<div className={css.html}>{this.props.tooltipEl}</div>}
+      html={
+        <div style={{ fontSize: 12, maxWidth: this.props.width }}>{this.props.tooltipEl}</div>
+      }
       position="top"
       trigger="mouseenter"
       arrow
+      useContext
       // open
       {...this.props.tooltipProps}
     >

@@ -1,25 +1,9 @@
-import { Loading } from '~/components/Loading';
+import Loading from '~/components/Loading';
 
-import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
-import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
+import CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
 
 import StandardTooltip from '~/components/StandardTooltip';
 
-@connect(
-  (state) => ({
-    speCourseUserIsLearning: state.components.CourseActions.speCourseUserIsLearning
-  }),
-  (dispatch) => ({
-    seedSpeCourseUserIsLearning: (spe) => dispatch({
-      type: 'SEED_SPE_COURSE_USER_IS_LEARNING',
-      payload: spe
-    }),
-    IdsOfProblemsToLearnAndReviewPerCourseActions: {
-      stopLearningCourse: (courseId) => IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(dispatch, courseId),
-      apiSync: () => IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync(dispatch)
-    }
-  })
-)
 class CuilActivityButtons extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -38,22 +22,12 @@ class CuilActivityButtons extends React.Component {
     )
       .then(this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync)
 
-  apiStopLearning = () =>
-    CourseUserIsLearningApi.stopLearning(
-      (spe) => this.props.seedSpeCourseUserIsLearning(spe),
-      this.props.speCourseUserIsLearning.payload.id
-    )
-      .then(() => {
-        this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(this.props.courseId);
-      })
-
   apiResumeLearning = () =>
     CourseUserIsLearningApi.resumeLearning(
       (spe) => this.props.seedSpeCourseUserIsLearning(spe),
       this.props.speCourseUserIsLearning.payload.id
     )
       .then(this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync)
-
 
   getTooltipProps = () => ({
     tooltipProps: {
@@ -70,13 +44,6 @@ class CuilActivityButtons extends React.Component {
       </button>
     </StandardTooltip>
 
-  renderStopLearningButton = () =>
-    <StandardTooltip {...this.getTooltipProps()} tooltipEl="You won't be asked to review flashcards from this course again.">
-      <button className="button stop-learning-button" type="button" onClick={this.apiStopLearning}>
-        STOP LEARNING
-      </button>
-    </StandardTooltip>
-
   renderResumeLearningButton = () =>
     <StandardTooltip {...this.getTooltipProps()} tooltipEl="All of your results are saved! Just click resume and return to learning a course.">
       <button className="button -purple resume-learning-button" type="button" onClick={this.apiResumeLearning}>
@@ -89,10 +56,10 @@ class CuilActivityButtons extends React.Component {
       <Loading spe={this.props.speCourseUserIsLearning} requestIcon={<i className="fa fa-circle-o-notch fa-spin fa-2x fa-fw"/>}>{(cuil) => {
         if (cuil === null) {
           return this.renderStartLearningButton();
-        } else if (cuil.active) {
-          return this.renderStopLearningButton();
         } else if (!cuil.active) {
           return this.renderResumeLearningButton();
+        } else {
+          return null;
         }
       }}</Loading>
     </section>

@@ -49,7 +49,7 @@ input[type="text"], input[type="search"], input[type="email"], textarea, button,
 
 input, textarea, select, button{
   // because mac makes it tiny 11px
-  font-size: 14px;
+  font-size: inherit;
   // because font defaults to system despite body style
   font-family: $body-font;
   font-weight: 300;

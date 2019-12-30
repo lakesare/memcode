@@ -3,7 +3,6 @@
 :local(.div){
   &.-with-children{}
   &.-without-children{
-
     position: relative;
     top: -2px;
     padding-bottom: 2px;
@@ -15,8 +14,4 @@
       font-size: 14px;
     }
   }
-}
-:local(.html){
-  font-size: 12px;
-  max-width: 200px;
 }

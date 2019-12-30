@@ -49,6 +49,13 @@
           .button{
             margin-left: 10px;
           }
+          .more-button{
+            padding-left: 5px;
+            text-align: right;
+            cursor: pointer;
+            &:hover{ opacity: 0.8; }
+            i{ font-size: 29px; }
+          }
         }
       }
 

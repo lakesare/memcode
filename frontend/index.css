@@ -27,6 +27,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/standard-dropdown-with-arrow';
 @import 'css/standard-navigation_and_courses';
 @import 'css/standard-course-card';
+@import 'css/standard-tooltip-dropdown';
 
 @import 'css/problem';
 

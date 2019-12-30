@@ -78,9 +78,7 @@ class LearnReviewLinks extends React.Component {
         LEARN ({amount})
       </Link>;
     } else {
-      return <div className="button -to-learn -disabled">
-        LEARN (0)
-      </div>;
+      return null;
     }
   }
 
@@ -91,9 +89,7 @@ class LearnReviewLinks extends React.Component {
         REVIEW ({amount})
       </Link>;
     } else {
-      return <div className="button -to-review -disabled">
-        REVIEW (0)
-      </div>;
+      return null;
     }
   }
 

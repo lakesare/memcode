@@ -43,3 +43,10 @@ export {
   learnProblem, reviewProblem,
   getProblemsToLearn, getProblemsToReview
 };
+
+export default {
+  create,
+  stopLearning, resumeLearning,
+  learnProblem, reviewProblem,
+  getProblemsToLearn, getProblemsToReview
+};

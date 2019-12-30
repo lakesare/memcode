@@ -1,5 +1,5 @@
 import { orFalse } from '~/services/orFalse';
-import humanizePostgresInterval from '~/services/humanizePostgresInterval';
+// import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 // import ifPositivePostgresInterval from '~/services/ifPositivePostgresInterval';
 
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ class LearnAndReviewButtons extends React.Component {
     courseUserIsLearning: PropTypes.object,
     amountOfProblems: orFalse(PropTypes.object).isRequired,
     nextDueDateIn: orFalse(PropTypes.object),
+    apiStopLearning: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -31,24 +32,16 @@ class LearnAndReviewButtons extends React.Component {
   //   else:
   //     // then it's most likely an Author
   //     There are no flashcards to review yet! CREATE, and then LEARN a few flashcards in order to get started.
-  getSimulatedReviewTooltip = () => {
-    if (this.props.nextDueDateIn) {
-      return `Wait until the next review! It will be in ${humanizePostgresInterval(this.props.nextDueDateIn)}.`;
-    // nextDueDateIn is null here (I think?)
-    } else if (this.props.amountOfProblems.toLearn > 0) {
-      return "You have nothing to review yet. Learn some flashcards first!";
-    } else {
-      return "There are no flashcards to review yet. Is this your course or not? Create some!";
-    }
-  }
-
-  getLearnButtonTooltip = () => {
-    if (this.props.amountOfProblems.toLearn > 0) {
-      return "Click LEARN to mark flashcards you are ready to review.";
-    } else {
-      return "Create some flashcards before learning them.";
-    }
-  }
+  // getSimulatedReviewTooltip = () => {
+  //   if (this.props.nextDueDateIn) {
+  //     return `Wait until the next review! It will be in ${humanizePostgresInterval(this.props.nextDueDateIn)}.`;
+  //   // nextDueDateIn is null here (I think?)
+  //   } else if (this.props.amountOfProblems.toLearn > 0) {
+  //     return "You have nothing to review yet. Learn some flashcards first!";
+  //   } else {
+  //     return "There are no flashcards to review yet. Is this your course or not? Create some!";
+  //   }
+  // }
 
   getTooltipProps = () => ({
     tooltipProps: {
@@ -59,40 +52,74 @@ class LearnAndReviewButtons extends React.Component {
   })
 
   renderLearnButton = () =>
-    <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getLearnButtonTooltip()}>
-      <Link
-        to={`/courses/${this.props.courseUserIsLearning.courseId}/learn`}
-        className={`button -to-learn ${this.props.amountOfProblems.toLearn === 0 ? '-disabled' : ''}`}
-      >LEARN ({this.props.amountOfProblems.toLearn})</Link>
-    </StandardTooltip>
+    <Link
+      to={`/courses/${this.props.courseUserIsLearning.courseId}/learn`}
+      className="button -to-learn"
+    >LEARN ({this.props.amountOfProblems.toLearn})</Link>
 
+  // You have ${this.props.amountOfProblems.toReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.
   renderReviewButton = () =>
-    <StandardTooltip {...this.getTooltipProps()} tooltipEl={`You have ${this.props.amountOfProblems.toReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.`}>
-      <Link
-        to={`/courses/${this.props.courseUserIsLearning.courseId}/review`}
-        className="button -to-review"
-      >REVIEW ({this.props.amountOfProblems.toReview})</Link>
-    </StandardTooltip>
+    <Link
+      to={`/courses/${this.props.courseUserIsLearning.courseId}/review`}
+      className="button -to-review"
+    >REVIEW ({this.props.amountOfProblems.toReview})</Link>
 
-  renderSimulatedReviewButton = () =>
-    <StandardTooltip {...this.getTooltipProps()} tooltipEl={this.getSimulatedReviewTooltip()}>
-      <Link
-        to={`/courses/${this.props.courseUserIsLearning.courseId}/review/simulated`}
-        className="button -to-review -disabled"
-      >REVIEW (0)</Link>
-    </StandardTooltip>
+  renderDropdown = () =>
+    <ul className="standard-tooltip-dropdown">
+      {
+        this.props.stats.amountOfProblems > 0 &&
+        <li>
+          <Link
+            to={`/courses/${this.props.courseUserIsLearning.courseId}/review/simulated`}
+            style={{ color: 'rgb(236, 236, 133)' }}
+          >
+            Test Drive
+          </Link>
+          <div className="comment -white">
+            Review all flashcards of this course without your results being recorded.
+          </div>
+        </li>
+      }
+
+      <li>
+        <button
+          type="button"
+          onClick={this.props.apiStopLearning}
+          style={{ color: 'rgb(252, 126, 126)' }}
+        >
+          Stop Learning
+        </button>
+        <div className="comment -white">
+          You won't be asked to review flashcards from this course again.
+        </div>
+      </li>
+    </ul>
 
   render = () =>
     this.ifCourseIsLearnedAndActive() &&
     this.props.amountOfProblems && // and therefore ToReview is ready too
     <div className="learn-and-review-buttons">
-      {this.renderLearnButton()}
+      {
+        this.props.amountOfProblems.toLearn > 0 &&
+        this.renderLearnButton()
+      }
 
       {
-        this.props.amountOfProblems.toReview > 0 ?
-          this.renderReviewButton() :
-          this.renderSimulatedReviewButton()
+        this.props.amountOfProblems.toReview > 0 &&
+        this.renderReviewButton()
       }
+
+      <StandardTooltip
+        className="more-button"
+        tooltipEl={this.renderDropdown()}
+        tooltipProps={{
+          interactive: true,
+          position: 'bottom-end',
+          trigger: 'focus click'
+        }}
+      >
+        <i className="material-icons">more_vert</i>
+      </StandardTooltip>
     </div>
 }
 

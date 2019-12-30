@@ -1,0 +1,22 @@
+@import 'css/variables';
+
+.standard-tooltip-dropdown{
+  text-align: right;
+  li{
+    font-size: 14px;
+    padding: 5px 0;
+    border-top: 1px solid rgba(135, 128, 190, 0.13);
+    button, a{
+      &:hover{ opacity: 0.8; }
+    }
+    .comment{
+      font-size: 11px;
+      color: rgb(186, 178, 248);
+      padding-top: 2px;
+      &.-white{
+        color: white;
+      }
+    }
+  }
+  li:first-child{ border-top: none; }
+}

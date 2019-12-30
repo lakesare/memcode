@@ -58,7 +58,7 @@
       text-transform: uppercase;
     }
     em.yellow-emphasis{
-      color: rgb(236, 236, 133);
+      color: $test-drive-button-color;
       text-shadow: 0 0 2px #f7f96d9e;
     }
     em.red-emphasis{

@@ -43,7 +43,7 @@ class ProfileNavigation extends React.Component {
             <i className="fa fa-cog"/>
           </span>
           <div className="modal -standard-tooltip-list">
-            <a onClick={this.props.signOut}>Sign Out</a>
+            <a onClick={this.props.signOut}>Log Out</a>
           </div>
         </section>
       </div>
