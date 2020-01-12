@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import Header  from '~/components/Header';
 import Footer from '~/components/Footer';
 import Loading from '~/components/Loading';
+import SelectDropdown from '~/components/SelectDropdown';
 import CourseCategories from '~/appComponents/CourseCategories';
 import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 import { ForBeginners } from './components/ForBeginners';
@@ -23,25 +24,14 @@ const getQuery = (props) =>
 class Page_courses_learning extends React.Component {
   state = {
     speGetCourses: {},
-    speGetCategories: {}
+    speGetCategories: {},
+    tab: 'learning'
   }
 
   componentDidMount = () => {
     this.apiGetCourses();
+    this.apiGetCreatedCourses();
     this.apiGetCategories();
-  }
-
-  componentDidUpdate = (prevProps) => {
-    if (getCategoryId(prevProps) !== getCategoryId(this.props)) {
-      this.uiFocusOnFirstCourseCard();
-    }
-  }
-
-  uiFocusOnFirstCourseCard = () => {
-    const courseCard = document.querySelector('.standard-course-card a.go');
-    if (courseCard) {
-      courseCard.focus();
-    }
   }
 
   apiGetCategories = () =>
@@ -53,9 +43,11 @@ class Page_courses_learning extends React.Component {
     CourseApi.selectAllLearned(
       spe => this.setState({ speGetCourses: spe })
     )
-      .then(() => {
-        this.uiFocusOnFirstCourseCard();
-      })
+
+  apiGetCreatedCourses = () =>
+    CourseApi.selectAllCreated(
+      spe => this.setState({ speGetCreatedCourses: spe })
+    )
 
   filterCoursesForCategory = (coursesData) => {
     const categoryId = getCategoryId(this.props);
@@ -69,7 +61,9 @@ class Page_courses_learning extends React.Component {
   }
 
   filterCourseCategoriesForUser = (courseCategories) => {
-    const coursesData = this.state.speGetCourses.payload;
+    const coursesData = this.state.tab === 'learning' ?
+      this.state.speGetCourses.payload :
+      this.state.speGetCreatedCourses.payload;
 
     return courseCategories.map((courseCategory) => ({
       ...courseCategory,
@@ -79,34 +73,75 @@ class Page_courses_learning extends React.Component {
     }));
   }
 
+  renderFilter = () =>
+    <SelectDropdown
+      className="sort-by-dropdown-wrapper standard-dropdown-wrapper standard-input -Select"
+      dropdownClassName="standard-dropdown -purple"
+      value={this.state.tab}
+      updateValue={(tab) => this.setState({ tab })}
+      possibleValues={{
+        learning: 'Learning',
+        created: 'Created'
+      }}
+      renderLi={(value, humanValue) => humanValue}
+    />
+
   render = () =>
     <main className={css.main}>
       <Header/>
 
       <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
-        <Loading spe={this.state.speGetCourses}>{(coursesData) =>
-          coursesData.length === 0 ?
-            <ForBeginners/> :
-            <div className="container standard-navigation_and_courses">
-              <CourseCategories
-                selectedCourseCategoryId={getCategoryId(this.props)}
-                courseCategoryGroups={courseCategoryGroups}
-                courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
-                ifShowAmountOfCoursesInCategory
-              />
-              <div className="title_and_sorting_and_courses">
-                <div className="title_and_sorting">
-                  <h1 className="title">My Courses</h1>
-                </div>
-
-                <ListOfCourseCards
-                  className="list-of-courses"
-                  type="learnReview"
-                  courseDtos={this.filterCoursesForCategory(coursesData)}
+        this.state.tab === 'learning' ?
+          <Loading spe={this.state.speGetCourses}>{(coursesData) =>
+            coursesData.length === 0 ?
+              <ForBeginners/> :
+              <div className="container standard-navigation_and_courses">
+                <CourseCategories
+                  selectedCourseCategoryId={getCategoryId(this.props)}
+                  courseCategoryGroups={courseCategoryGroups}
+                  courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
+                  ifShowAmountOfCoursesInCategory
                 />
+                <div className="title_and_sorting_and_courses">
+                  <div className="title_and_sorting">
+                    <h1 className="title">My Courses</h1>
+
+                    {this.renderFilter()}
+                  </div>
+
+                  <ListOfCourseCards
+                    className="list-of-courses"
+                    type="learnReview"
+                    courseDtos={this.filterCoursesForCategory(coursesData)}
+                  />
+                </div>
               </div>
-            </div>
-        }</Loading>
+          }</Loading> :
+          <Loading spe={this.state.speGetCreatedCourses}>{(coursesData) =>
+            coursesData.length === 0 ?
+              <ForBeginners/> :
+              <div className="container standard-navigation_and_courses">
+                <CourseCategories
+                  selectedCourseCategoryId={getCategoryId(this.props)}
+                  courseCategoryGroups={courseCategoryGroups}
+                  courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
+                  ifShowAmountOfCoursesInCategory
+                />
+                <div className="title_and_sorting_and_courses">
+                  <div className="title_and_sorting">
+                    <h1 className="title">My Courses</h1>
+
+                    {this.renderFilter()}
+                  </div>
+
+                  <ListOfCourseCards
+                    className="list-of-courses"
+                    type="simple"
+                    courseDtos={this.filterCoursesForCategory(coursesData)}
+                  />
+                </div>
+              </div>
+          }</Loading>
       }</Loading>
 
       <Footer/>
