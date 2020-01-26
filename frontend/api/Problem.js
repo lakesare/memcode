@@ -41,6 +41,7 @@ const moveToCourseMany = (dispatch, problemIds, courseId) =>
 export { create, update, deleteMany, moveToCourseMany };
 
 export default {
+  create, update, deleteMany, moveToCourseMany,
   index,
   createManyFromExcel
 };
