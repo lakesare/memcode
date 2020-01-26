@@ -4,6 +4,7 @@ import UrlCreator from '~/services/UrlCreator';
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 
 import { Link } from 'react-router-dom';
+import StandardTooltip from '~/components/StandardTooltip';
 import MetaTags from './components/MetaTags';
 import Loading from '~/components/Loading';
 import CourseModal from './components/CourseModal';
@@ -153,6 +154,17 @@ class CourseActions extends React.Component {
               course={courseDto.course}
               uiUpdateCourse={this.uiUpdateCourse}
             />
+          }
+
+          {
+            !courseDto.course.ifPublic &&
+            <StandardTooltip
+              className="course-is-private-label"
+              tooltipEl={"Your course isn't listed in /courses. Please consider making it public if you think someone else may want to study it."}
+              tooltipProps={{ position: 'bottom' }}
+            >
+              PRIVATE
+            </StandardTooltip>
           }
         </section>
 

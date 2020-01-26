@@ -117,6 +117,13 @@
           color: rgb(206, 199, 245);
           i{ padding-right: 3px; }
         }
+        .course-is-private-label{
+          padding: 6px;
+          align-self: flex-start;
+          font-size: 10px;
+          color: rgb(236, 76, 123);
+          cursor: default;
+        }
       }
     }
   }
