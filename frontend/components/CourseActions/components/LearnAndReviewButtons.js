@@ -110,15 +110,16 @@ class LearnAndReviewButtons extends React.Component {
       }
 
       <StandardTooltip
-        className="more-button"
         tooltipEl={this.renderDropdown()}
         tooltipProps={{
           interactive: true,
-          position: 'bottom-end',
-          trigger: 'focus click'
+          placement: 'bottom-end',
+          trigger: 'click'
         }}
       >
-        <i className="material-icons">more_vert</i>
+        <button type="button" className="more-button">
+          <i className="material-icons">more_vert</i>
+        </button>
       </StandardTooltip>
     </div>
 }

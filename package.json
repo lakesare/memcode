@@ -81,6 +81,7 @@
   },
   "dependencies": {
     "@redux-offline/redux-offline": "^2.5.1",
+    "@tippy.js/react": "^3.1.1",
     "acorn-dynamic-import": "^4.0.0",
     "acorn-jsx": "^5.0.1",
     "airbnb-browser-shims": "^3.2.0",
@@ -153,7 +154,6 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-sticky": "^6.0.3",
-    "react-tippy": "^1.2.3",
     "react-transition-group": "^4.0.0",
     "read-pkg-up": "^4.0.0",
     "redux": "^4.0.1",

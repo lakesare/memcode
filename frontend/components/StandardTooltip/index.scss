@@ -1,17 +1,16 @@
 @import 'css/variables';
 
-:local(.div){
-  &.-with-children{}
-  &.-without-children{
-    position: relative;
-    top: -2px;
-    padding-bottom: 2px;
+:local(.standardTooltipButton){
+  display: inline-block;
 
-    cursor: pointer;
-    > i{
-      color: $purple;
-      opacity: 0.9;
-      font-size: 14px;
-    }
+  position: relative;
+  top: -2px;
+  padding-bottom: 2px;
+
+  cursor: pointer;
+  > i{
+    color: $purple;
+    opacity: 0.9;
+    font-size: 14px;
   }
 }

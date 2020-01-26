@@ -157,13 +157,13 @@ class CourseActions extends React.Component {
           }
 
           {
+            this.props.ifEditCourseModalTogglerIsDisplayed &&
             !courseDto.course.ifPublic &&
             <StandardTooltip
-              className="course-is-private-label"
               tooltipEl={"Your course isn't listed in /courses. Please consider making it public if you think someone else may want to study it."}
-              tooltipProps={{ position: 'bottom' }}
+              tooltipProps={{ placement: 'bottom' }}
             >
-              PRIVATE
+              <div className="course-is-private-label">PRIVATE</div>
             </StandardTooltip>
           }
         </section>

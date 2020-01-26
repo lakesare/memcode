@@ -54,7 +54,7 @@ module.exports = {
         test: /\.(css|scss)$/,
         exclude: (modulePath) => (
           /node_modules/.test(modulePath) &&
-          !/node_modules\/react-tippy/.test(modulePath)
+          !/node_modules\/tippy.js/.test(modulePath)
         ),
         use: [
           MiniCssExtractPlugin.loader,

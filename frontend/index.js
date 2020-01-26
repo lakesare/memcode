@@ -22,8 +22,8 @@ import './index.css';
 
 
 // For the tooltip
-import 'react-tippy/dist/tippy.css';
-
+// import 'react-tippy/dist/tippy.css';
+import 'tippy.js/dist/tippy.css';
 
 import store from './store';
 import router from './router';

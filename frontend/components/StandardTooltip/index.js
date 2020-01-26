@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Tooltip } from 'react-tippy';
+import Tippy from '@tippy.js/react';
 
 import css from './index.scss';
 
@@ -11,8 +11,8 @@ class StandardTooltip extends React.Component {
     children: PropTypes.any,
 
     className: PropTypes.string,
+    width: PropTypes.number,
     tooltipProps: PropTypes.object,
-    width: PropTypes.number
   }
 
   static defaultProps = {
@@ -23,24 +23,18 @@ class StandardTooltip extends React.Component {
   }
 
   render = () =>
-    <Tooltip
-      className={`${this.props.className} ${css.div} ${this.props.children ? '-with-children' : '-without-children'}`}
-      html={
-        <div style={{ fontSize: 12, maxWidth: this.props.width }}>{this.props.tooltipEl}</div>
-      }
-      position="top"
-      trigger="mouseenter"
-      arrow
-      useContext
-      // open
+    <Tippy
+      content={<div style={{ fontSize: 12, maxWidth: this.props.width }}>{this.props.tooltipEl}</div>}
       {...this.props.tooltipProps}
     >
       {
         this.props.children ?
           this.props.children :
-          <i className="material-icons">info</i>
+          <button type="button" className={css.standardTooltipButton}>
+            <i className="material-icons">info</i>
+          </button>
       }
-    </Tooltip>
+    </Tippy>
 }
 
 export default StandardTooltip;

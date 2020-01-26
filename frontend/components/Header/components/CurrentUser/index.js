@@ -30,8 +30,8 @@ class CurrentUser extends React.Component {
       tooltipEl={this.renderDropdown()}
       tooltipProps={{
         interactive: true,
-        position: 'bottom-end',
-        trigger: 'focus click'
+        placement: 'bottom-end',
+        trigger: 'click'
       }}
     >
       <div className="avatar">
