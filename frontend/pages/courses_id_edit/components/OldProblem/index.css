@@ -60,4 +60,50 @@
       bottom: 0;
     }
   }
+
+  > section.save-changes{
+    position: absolute;
+    left: calc(100% + 40px);
+    top: 8px;
+    button.save-changes-button{
+      width: 70px;
+      font-size: 11px;
+      min-width: auto;
+      padding: 7px 15px;
+      background: rgb(30, 31, 57);
+      border-radius: 2px;
+      // border: 1px solid rgb(30, 31, 57);
+      &:hover, &:focus{
+        background: rgb(41, 42, 77);
+      }
+      // &:focus{
+      //   border: 1px solid rgb(45, 225, 83);
+      // }
+      &.-saving{
+        cursor: default;
+        pointer-events: none;
+
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), rgb(30, 31, 57);
+        background-size: 400% 100%,cover;
+        animation:change 1s linear infinite;
+      }
+      &.-just-saved{
+        color: rgb(33, 165, 153);
+      }
+    }
+    .shortcut{
+      font-size: 10px;
+      padding-top: 8px;
+      text-align: center;
+      // color: rgb(140, 143, 191);
+      color: rgb(33, 165, 153);
+    }
+  }
 }
+
+@keyframes change {
+  from { /*Use "to" to change the direction */
+    background-position: right, center;
+  }
+}
+

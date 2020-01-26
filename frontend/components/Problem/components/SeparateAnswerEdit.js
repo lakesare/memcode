@@ -4,11 +4,11 @@ class SeparateAnswerEdit extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired,
     updateProblemContent: PropTypes.func.isRequired,
-    apiSave: PropTypes.func
+    onFocusChange: PropTypes.func
   };
 
   static defaultProps = {
-    apiSave: () => {}
+    onFocusChange: () => {}
   }
 
   // Remember whenever parent rerenders, all of its children will rerender.
@@ -26,10 +26,8 @@ class SeparateAnswerEdit extends React.Component {
       [editorName]: newEditorState
     })
 
-  onFocusChange = (ifFocused) => {
-    if (ifFocused === false) {
-      this.props.apiSave();
-    }
+  onFocusChange = () => {
+    this.props.onFocusChange();
   }
 
   render = () =>
@@ -37,7 +35,7 @@ class SeparateAnswerEdit extends React.Component {
       <div className="first-column">
         <Editor
           placeholder="Enter a question"
-          editorState={this.props.problemContent.content}
+          editorState={this.props.problemContent['content']}
           updateEditorState={(newState) => this.updateProblemContent('content', newState)}
           onFocusChange={this.onFocusChange}
         />
@@ -46,7 +44,7 @@ class SeparateAnswerEdit extends React.Component {
       <div className="second-column">
         <Editor
           placeholder="Enter an answer"
-          editorState={this.props.problemContent.answer}
+          editorState={this.props.problemContent['answer']}
           updateEditorState={(newState) => this.updateProblemContent('answer', newState)}
           onFocusChange={this.onFocusChange}
         />

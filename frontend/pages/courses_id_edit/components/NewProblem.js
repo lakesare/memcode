@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
-import * as ProblemApi from '~/api/Problem';
-import * as speCreator from '~/services/spe';
-import { Problem } from '~/components/Problem';
-import { Loading } from '~/components/Loading';
+import ProblemApi from '~/api/Problem';
+import speCreator from '~/services/speCreator';
+import Problem from '~/components/Problem';
+import Loading from '~/components/Loading';
 
 const createEmptyEditorState = (type) => {
   switch (type) {
@@ -30,41 +30,50 @@ class NewProblem extends React.Component {
   }
 
   componentDidMount = () => {
-    document.addEventListener('keydown', this.saveOnCTRLS, false);
+    document.addEventListener('keydown', this.saveOnCmdS, false);
   }
 
   componentWillUnmount = () => {
-    document.removeEventListener('keydown', this.saveOnCTRLS, false);
+    document.removeEventListener('keydown', this.saveOnCmdS, false);
   }
 
-  saveOnCTRLS = (event) => {
+  saveOnCmdS = (event) => {
     // metaKey catches cmd in mac, ctrlKey catches ctrl in ubuntas
-    if ((event.ctrlKey || event.metaKey) && event.keyCode === 83) { // CTRL+S
+    // CTRL+S
+    const cmdS = (event.ctrlKey || event.metaKey) && event.keyCode === 83;
+    if (cmdS) {
       event.preventDefault();
-      this.apiSave();
+      if (!this.ifFocusedOnSomeOldProblem()) {
+        this.apiSave();
+      }
     }
+  }
+
+  ifFocusedOnSomeOldProblem = () => {
+    if (!document.activeElement) return false;
+    const focusingOnSomeOldProblem = document.activeElement.closest('.old-problem-wrapper');
+    return focusingOnSomeOldProblem;
   }
 
   uiValidate = () => {
     const type = this.state.currentProblemType;
     const problemContent = this.state.problemContent;
     let error = '';
-    const imgIsLoadingError = 'Please wait for the image to upload ❤️';
-    const isImgLoading = (text) => text.includes('placeholder-for-loading-image');
 
     if (type === 'separateAnswer') {
-      if (!problemContent.content) {
-        error = "Please add the question (you'll be asked it when you review the flashcard).";
-      } else if (!problemContent.answer) {
-        error = "Please add the answer to the question.";
-      } else if (isImgLoading(problemContent.content) || isImgLoading(problemContent.answer)) {
-        // error = imgIsLoadingError;
+      // Only bother them if they didn't include either!
+      if (!problemContent.content && !problemContent.answer) {
+        if (!problemContent.content) {
+          error = "Please add the question (you'll be asked it when you review the flashcard).";
+        } else if (!problemContent.answer) {
+          error = "Please add the answer to the question.";
+        }
       }
     } else if (type === 'inlinedAnswers') {
-      if (!problemContent.content) {
-        error = "Please add some sentence with a word that you'll need to fill in on review (select words you'd like to fill in, and press Mark As Answer).";
-      } else if (isImgLoading(problemContent.content) || isImgLoading(problemContent.explanation)) {
-        // error = imgIsLoadingError;
+      if (!problemContent.content && !problemContent.explanation) {
+        if (!problemContent.content) {
+          error = "Please add some sentence with a word that you'll need to fill in on review (select words you'd like to fill in, and press Mark As Answer).";
+        }
       }
     }
 

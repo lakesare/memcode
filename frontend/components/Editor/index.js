@@ -57,12 +57,12 @@ const bindings = {
     handler: markAsAnswerHandler
   },
 
-  blurOnEsc: {
-    key: 'Escape',
-    handler: () => {
-      document.activeElement.blur();
-    }
-  }
+  // blurOnEsc: {
+  //   key: 'Escape',
+  //   handler: () => {
+  //     document.activeElement.blur();
+  //   }
+  // }
 };
 
 const tip = (button, explanation, shortcut, instruction) => {
@@ -105,6 +105,10 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.quillRef = React.createRef();
+  }
+
+  state = {
+    focusedAtLeastOnce: false
   }
 
   componentDidMount = () => {
@@ -155,7 +159,16 @@ class Editor extends React.Component {
   }
 
   onFocus = () => {
+    this.setState({ focusedAtLeastOnce: true });
     this.props.onFocusChange(true);
+  }
+
+  // (content, delta, source, editor)
+  onChange = (content) => {
+    // This is needed because the 'SAVE/SAVED' label next to the problem depends on whether api version of content === state version. Quill changes the content on mount in some cases, which would result in 'SAVE' button appearing on load. We don't want it, so let's wait for the first focus event!
+    if (this.state.focusedAtLeastOnce) {
+      this.props.updateEditorState(content);
+    }
   }
 
   modules = {
@@ -194,7 +207,7 @@ class Editor extends React.Component {
     <ReactQuill
       className={this.props.className}
       value={this.props.editorState}
-      onChange={this.props.updateEditorState}
+      onChange={this.onChange}
       readOnly={this.props.readOnly}
 
       ref={this.quillRef}

@@ -7,11 +7,11 @@ class InlinedAnswersEdit extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired,
     updateProblemContent: PropTypes.func.isRequired,
-    apiSave: PropTypes.func
+    onFocusChange: PropTypes.func
   };
 
   static defaultProps = {
-    apiSave: () => {}
+    onFocusChange: () => {}
   }
 
   // Remember whenever parent rerenders, all of its children will rerender.
@@ -29,10 +29,8 @@ class InlinedAnswersEdit extends React.Component {
       [editorName]: newEditorState
     })
 
-  onFocusChange = (ifFocused) => {
-    if (ifFocused === false) {
-      this.props.apiSave();
-    }
+  onFocusChange = () => {
+    this.props.onFocusChange();
   }
 
   render = () =>
