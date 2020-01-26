@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 .quill > .ql-toolbar{
   border: none;
   padding: 2px 10px;
@@ -17,5 +19,31 @@
     &:last-child{
       margin-right: 0;
     }
+  }
+}
+.ql-tooltip{
+  input{
+    border-radius: 3px;
+    padding: 3px 10px;
+  }
+  input::-webkit-input-placeholder{
+    color: rgb(86, 90, 158);
+  }
+  .ql-action:hover{
+    color: rgb(187, 191, 234);
+  }
+}
+.quill-toolbar-tooltip{
+  text-align: center;
+  .explanation{
+    font-size: 11px;
+  }
+  .shortcut{
+    color: $orange;
+    font-size: 11px;
+  }
+  .instruction{
+    color: $purple;
+    font-size: 10px;
   }
 }
