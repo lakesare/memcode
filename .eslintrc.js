@@ -263,7 +263,9 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': "off",
 
     // Sometimes unneeded () => {}{}{} are expressive!
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+
+    "quote-props": "off"
   },
   "globals": {
     "fetch": true,

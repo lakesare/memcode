@@ -3,6 +3,9 @@ import dropOrPasteImageHandler from '~/services/quill/handlers/dropOrPasteImageH
 import uploadImageHandler      from '~/services/quill/handlers/uploadImageHandler';
 import markAsAnswerHandler     from '~/services/quill/handlers/markAsAnswerHandler';
 import codeBlockHandler        from '~/services/quill/handlers/codeBlockHandler';
+import quoteHandler            from '~/services/quill/handlers/quoteHandler';
+import superScriptHandler      from '~/services/quill/handlers/superScriptHandler';
+import subScriptHandler        from '~/services/quill/handlers/subScriptHandler';
 
 import ReactQuill from 'react-quill';
 
@@ -15,16 +18,40 @@ const bindings = {
   indent:       false,
   'remove tab': false,
 
-  codeBlockOnCmdK: {
+  superScriptHandlerOnDot: {
+    key: 190, // .
+    shortKey: true,
+    shiftKey: true,
+    handler: superScriptHandler
+  },
+
+  subScriptHandlerOnComma: {
+    key: 188, // ,
+    shortKey: true,
+    shiftKey: true,
+    handler: subScriptHandler
+  },
+
+  codeBlockOnCmdC: {
+    key: 'C',
+    // CMD and CTRL
+    shortKey: true,
+    shiftKey: true,
+    handler: codeBlockHandler
+  },
+
+  quoteOnCmdK: {
     key: 'K',
     // CMD and CTRL
     shortKey: true,
-    handler: codeBlockHandler
+    shiftKey: true,
+    handler: quoteHandler
   },
 
   markAsAnswerOnCmdA: {
     key: 'ENTER',
     shortKey: true,
+    shiftKey: true,
     handler: markAsAnswerHandler
   },
 
