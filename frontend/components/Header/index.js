@@ -55,31 +55,39 @@ class Header extends React.Component {
       <SignInLinks/>
   )
 
+  renderDesktop = () =>
+    <div className="container -desktop">
+      <Logo/>
+      <Search currentUser={this.props.currentUser}/>
+
+      <div className="nav-and-current-user">
+        {this.renderNavigation()}
+        {this.renderUser()}
+      </div>
+    </div>
+
+  renderMobile = () =>
+    <div className="container -mobile">
+      <div className="logo-and-user">
+        <Logo/>
+        {this.renderUser()}
+      </div>
+
+      {
+        !this.props.currentUser &&
+        this.renderNavigation()
+      }
+
+      <Search currentUser={this.props.currentUser}/>
+    </div>
+
   render = () =>
     <header className={css.header}>
-      <div className="container -desktop">
-        <Logo/>
-        <Search currentUser={this.props.currentUser}/>
-
-        <div className="nav-and-current-user">
-          {this.renderNavigation()}
-          {this.renderUser()}
-        </div>
-      </div>
-
-      <div className="container -mobile">
-        <div className="logo-and-user">
-          <Logo/>
-          {this.renderUser()}
-        </div>
-
-        {
-          !this.props.currentUser &&
-          this.renderNavigation()
-        }
-
-        <Search currentUser={this.props.currentUser}/>
-      </div>
+      {
+        window.innerWidth >= 930 ?
+          this.renderDesktop() :
+          this.renderMobile()
+      }
     </header>
 }
 

@@ -187,15 +187,11 @@
 }
 
 :local(header.header){
-  @media(min-width: 930px){
-    .container.-mobile{ display: none; }
-  }
   @media(max-width: 931px){
     .christmas-icon {
       bottom: calc(100% - 3px);
       top: unset !important;
     }
-    .container.-desktop{ display: none; }
     .notifications-toggler-and-dropdown{ display: none }
   }
   @media(max-width: 500px){
