@@ -22,7 +22,10 @@ class CourseCategories extends React.Component {
       key={category.id}
       className={`category ${this.ifCategoryIsSelected(category) ? '-active' : '-non-active'}`}
     >
-      <Link to={`${window.location.pathname}?categoryId=${category.id}`}>
+      <Link
+        className="name"
+        to={!this.ifCategoryIsSelected(category) ? `${window.location.pathname}?categoryId=${category.id}` : window.location.pathname}
+      >
         {category.name}
 
         {
@@ -33,6 +36,13 @@ class CourseCategories extends React.Component {
             null
         }
       </Link>
+
+      {
+        this.ifCategoryIsSelected(category) &&
+        <Link className="cross" to={window.location.pathname}>
+          <i className="material-icons">clear</i>
+        </Link>
+      }
     </li>
 
   render = () =>

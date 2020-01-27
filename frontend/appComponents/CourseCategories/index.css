@@ -38,29 +38,43 @@
         font-size: 14px;
         > li{
           padding-right: 5px;
-          &.-active a{
-            color: $purple;
+          position: relative;
+          &.-active a.name{
+            color: rgb(135, 125, 221) !important;
           }
-          a{
+
+          a.name{
             // to span entire width, so that entire li is clickable
             display: block;
             color: rgba(255, 255, 255, 0.9);
             padding: 6px 4px;
-            padding-left: 16px;
-            width: 100%;
-            &:focus{
-              color: $purple;
+            padding-left: 4px;
+            margin-left: 12px;
+            &.focus-visible, &:hover{
+              background: rgb(25, 26, 47);
             }
-            &:hover{
-              color: $purple;
-            }
-
             span.amount-of-courses{
               padding-left: 5px;
               font-size: 11px;
               position: relative;
-              bottom: 2px;
+              bottom: 1px;
               color: rgba(181, 213, 243, 0.35);
+            }
+          }
+          a.cross{
+            width: 30px;
+            position: absolute;
+            left: -12px;
+            top: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i{
+              font-size: 13px;
+            }
+            &:hover{
+              opacity: 0.8;
             }
           }
         }
