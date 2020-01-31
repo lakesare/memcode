@@ -1,8 +1,7 @@
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
+import Main from '~/appComponents/Main';
 
-import { CourseActions } from '~/components/CourseActions';
-import { Tabs } from './components/Tabs';
+import CourseActions from '~/components/CourseActions';
+import Tabs from './components/Tabs';
 
 import css from './index.css';
 
@@ -16,15 +15,11 @@ class Page extends React.Component {
   }
 
   render = () =>
-    <main className={css.main}>
-      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
-
+    <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
       <CourseActions courseId={this.props.match.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
 
       <Tabs courseId={this.props.match.params.id}/>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default Page;

@@ -2,7 +2,7 @@ import api from '~/api';
 
 import Loading from '~/components/Loading';
 import PageAdmin from '~/appComponents/PageAdmin';
-import NotificationLi from '~/components/Header/components/CurrentUser/components/NotificationsTogglerAndDropdown/components/NotificationLi';
+import NotificationLi from '~/appComponents/Header/components/CurrentUser/components/NotificationsTogglerAndDropdown/components/NotificationLi';
 
 import css from './index.css';
 

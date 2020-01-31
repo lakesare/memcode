@@ -1,10 +1,9 @@
 import { commonFetch } from '~/api/commonFetch';
 
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
-import { Loading } from '~/components/Loading';
-import { CourseActions } from '~/components/CourseActions';
-import { Problem } from '~/components/Problem';
+import Main from '~/appComponents/Main';
+import Loading from '~/components/Loading';
+import CourseActions from '~/components/CourseActions';
+import Problem from '~/components/Problem';
 
 import css from './index.css';
 
@@ -38,9 +37,7 @@ class Page_courses_id extends React.Component {
     )
 
   render = () =>
-    <main className={css.main} key={this.props.match.params.id}>
-      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
-
+    <Main className={css.main} key={this.props.match.params.id} dontLinkToLearnOrReview={this.props.match.params.id}>
       <CourseActions courseId={this.props.match.params.id} ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed/>
       <div className="container">
         <Loading spe={this.state.speGetPage}>{(problems) =>
@@ -58,9 +55,7 @@ class Page_courses_id extends React.Component {
           </section>
         }</Loading>
       </div>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default Page_courses_id;

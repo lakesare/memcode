@@ -7,10 +7,9 @@ import { commonFetch } from '~/api/commonFetch';
 // import Joyride from 'react-joyride';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import Header  from '~/components/Header';
-import Footer from '~/components/Footer';
-import { Loading } from '~/components/Loading';
-import { CourseActions } from '~/components/CourseActions';
+import Main from '~/appComponents/Main';
+import Loading from '~/components/Loading';
+import CourseActions from '~/components/CourseActions';
 import { OldProblem } from './components/OldProblem';
 import { NewProblem } from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
@@ -243,43 +242,7 @@ class Page_courses_id_edit extends React.Component {
     }</Loading>
 
   render = () =>
-    <main className={css.main}>
-      {/* <Joyride */}
-      {/*   steps={this.state.joyrideHowToCreateProblemSteps} */}
-      {/*   run={this.state.joyrideHowToCreateProblemRun} */}
-      {/*   showSkipButton */}
-      {/*   showProgress */}
-      {/*   continuous */}
-      {/*   hideBackButton */}
-      {/*   styles={{ */}
-      {/*     options: { */}
-      {/*       arrowColor: '#ffffff', */}
-      {/*       backgroundColor: '#ffffff', */}
-      {/*       primaryColor: '#ec60ac', */}
-      {/*       textColor: '#004a14', */}
-      {/*       width: 200, */}
-      {/*     } */}
-      {/*   }} */}
-      {/* /> */}
-      {/* <Joyride */}
-      {/*   steps={this.state.joyrideHowToReviewProblemSteps} */}
-      {/*   run={this.state.joyrideHowToReviewProblemRun} */}
-      {/*   showSkipButton */}
-      {/*   showProgress */}
-      {/*   continuous */}
-      {/*   hideBackButton */}
-      {/*   styles={{ */}
-      {/*     options: { */}
-      {/*       arrowColor: '#ffffff', */}
-      {/*       backgroundColor: '#ffffff', */}
-      {/*       primaryColor: '#ec60ac', */}
-      {/*       textColor: '#004a14', */}
-      {/*       width: 200, */}
-      {/*     } */}
-      {/*   }} */}
-      {/* /> */}
-      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
-
+    <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
       <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused ifWithDescriptionPlaceholder/>
       <StickyContainer>
         {this.renderActionsForCheckedProblems()}
@@ -292,9 +255,7 @@ class Page_courses_id_edit extends React.Component {
           />
         </div>
       </StickyContainer>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default Page_courses_id_edit;

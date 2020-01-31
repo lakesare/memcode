@@ -2,8 +2,7 @@ import { Helmet } from 'react-helmet';
 
 import { withRouter } from "react-router-dom";
 import StandardTooltip from '~/components/StandardTooltip';
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
+import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import { TextInput, Select } from '~/components/_standardForm';
 import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
@@ -53,9 +52,7 @@ class Page_profile extends React.Component {
   })
 
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <div className="space"/>
 
       <div className="container">
@@ -99,7 +96,7 @@ class Page_profile extends React.Component {
       <Helmet>
         <title>Profile</title>
       </Helmet>
-    </main>
+    </Main>
 }
 
 export default Page_profile;

@@ -1,6 +1,6 @@
 import orFalse from '~/services/orFalse';
 
-import Header  from '~/components/Header';
+import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import CourseActions from '~/components/CourseActions';
 import ProblemBeingSolved from './components/ProblemBeingSolved';
@@ -116,9 +116,7 @@ class Page_courses_id_review extends React.Component {
     }</div>
 
   render = () =>
-    <main className={css.main}>
-      <Header dontLinkToLearnOrReview={this.props.match.params.id}/>
-
+    <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
       <CourseActions
         courseId={this.props.match.params.id}
         ifCuilActivityButtonsAreDisplayed={false}
@@ -155,7 +153,7 @@ class Page_courses_id_review extends React.Component {
         this.props.speGetPage.status === 'success' &&
         this.renderProblemContentCachingMechanism(this.props.speGetPage.payload.problems)
       }
-    </main>
+    </Main>
 }
 
 export default Page_courses_id_review;

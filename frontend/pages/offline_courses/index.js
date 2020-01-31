@@ -1,19 +1,14 @@
 import React from 'react';
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
+import Main from '~/appComponents/Main';
 
 // import css from './index.css';
 
 class Page extends React.Component {
   render = () =>
-    <main className={`css.main`}>
-      <Header/>
-
+    <Main className={`css.main`}>
       <div className="container">
       </div>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default Page;

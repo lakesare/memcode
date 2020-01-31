@@ -1,9 +1,8 @@
 import { commonFetch } from '~/api/commonFetch';
 
 import { Helmet } from 'react-helmet';
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
-import { Loading } from '~/components/Loading';
+import Main from '~/appComponents/Main';
+import Loading from '~/components/Loading';
 import { TextInput, EditorTextarea } from '~/components/_standardForm';
 
 import css from './index.css';
@@ -71,8 +70,7 @@ class Page_contact extends React.Component {
   })
 
   render = () =>
-    <main className={css.main}>
-      <Header/>
+    <Main className={css.main}>
       <div className="container">
         <div className="standard-title-and-description">
           <h2 className="title">Send Us a Message</h2>
@@ -104,14 +102,12 @@ class Page_contact extends React.Component {
             </div>
           }
         </form>
-
       </div>
-      <Footer/>
 
       <Helmet>
         <title>Memcode | Contact</title>
       </Helmet>
-    </main>
+    </Main>
 }
 
 export default Page_contact;

@@ -48,3 +48,4 @@ class Tabs extends React.Component {
 }
 
 export { Tabs };
+export default Tabs

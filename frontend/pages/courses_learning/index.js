@@ -3,8 +3,7 @@ import CourseCategoryApi from '~/api/CourseCategoryApi';
 
 import { Helmet } from 'react-helmet';
 
-import Header  from '~/components/Header';
-import Footer from '~/components/Footer';
+import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import SelectDropdown from '~/components/SelectDropdown';
 import CourseCategories from '~/appComponents/CourseCategories';
@@ -87,9 +86,7 @@ class Page_courses_learning extends React.Component {
     />
 
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
         this.state.tab === 'learning' ?
           <Loading spe={this.state.speGetCourses}>{(coursesData) =>
@@ -144,12 +141,10 @@ class Page_courses_learning extends React.Component {
           }</Loading>
       }</Loading>
 
-      <Footer/>
-
       <Helmet>
         <title>Memcode | Learned Courses</title>
       </Helmet>
-    </main>
+    </Main>
 }
 
 export default Page_courses_learning;

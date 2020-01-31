@@ -1,15 +1,12 @@
 import React from 'react';
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
+import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';
 
 import css from './index.css';
 
 class Page_pleaseSignIn extends React.Component {
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <div className="container">
         <div className="space"/>
         <article>
@@ -21,9 +18,7 @@ class Page_pleaseSignIn extends React.Component {
           <SignInButtons/>
         </article>
       </div>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default Page_pleaseSignIn;

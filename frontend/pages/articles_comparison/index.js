@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet';
 
-import { Header } from '~/components/Header';
-import { Footer } from '~/components/Footer';
+import Main from '~/appComponents/Main';
 
 import { LearningAlgorithm } from './components/LearningAlgorithm';
 import { TypesOfTasks } from './components/TypesOfTasks';
@@ -13,9 +12,7 @@ import css from './index.css';
 
 class Page_articles_comparison extends React.Component {
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">
@@ -61,13 +58,11 @@ class Page_articles_comparison extends React.Component {
         </div>
       </article>
 
-      <Footer/>
-
       <Helmet>
         <title>Memrise VS  Quizlet VS Brainscape VS Memcode</title>
         <meta name="description" content="Memrise VS  Quizlet VS Brainscape VS Memcode: comparison of most popular flashcard-based learning sites."/> :
       </Helmet>
-    </main>
+    </Main>
 }
 
 export default Page_articles_comparison;

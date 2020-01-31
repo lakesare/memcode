@@ -1,5 +1,4 @@
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
+import Main from '~/appComponents/Main';
 import { FakeProblemWithInlinedAnswers } from './components/FakeProblemWithInlinedAnswers';
 import { FakeProblemWithSeparateAnswer } from './components/FakeProblemWithSeparateAnswer';
 import { Table } from './components/Table';
@@ -41,9 +40,7 @@ class Page_articles_home extends React.Component {
     </h2>
 
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">
@@ -118,9 +115,7 @@ class Page_articles_home extends React.Component {
           </section>
         </div>
       </article>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default Page_articles_home;

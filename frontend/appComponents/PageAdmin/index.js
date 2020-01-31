@@ -1,5 +1,4 @@
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
+import Main from '~/appComponents/Main';
 import NavigationAdmin from '~/appComponents/NavigationAdmin';
 
 import css from './index.css';
@@ -11,9 +10,7 @@ class PageAdmin extends React.Component {
   }
 
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <div className="container">
         <NavigationAdmin/>
 
@@ -23,9 +20,7 @@ class PageAdmin extends React.Component {
           {this.props.children}
         </section>
       </div>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default PageAdmin;

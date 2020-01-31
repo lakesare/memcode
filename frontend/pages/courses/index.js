@@ -3,8 +3,7 @@ import CourseCategoryApi from '~/api/CourseCategoryApi';
 
 import { withRouter } from "react-router-dom";
 import { Helmet } from 'react-helmet';
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
+import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import Pagination from '~/components/Pagination';
 import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
@@ -142,9 +141,7 @@ class Page_courses extends React.Component {
     />
 
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
         <div className="container standard-navigation_and_courses">
           <CourseCategories
@@ -177,13 +174,11 @@ class Page_courses extends React.Component {
         </div>
       }</Loading>
 
-      <Footer/>
-
       <Helmet>
         <title>Memcode | Courses</title>
         <meta name="description" content="Learn existing courses on programming, maths and physics, or create your own."/> :
       </Helmet>
-    </main>
+    </Main>
 }
 
 export default Page_courses;

@@ -1,13 +1,11 @@
 import { withRouter, Link } from 'react-router-dom';
 
-import Header from '~/components/Header';
-import Footer from '~/components/Footer';
+import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';
 import FakeFlashcards from './components/FakeFlashcards';
 import Courses from './components/Courses';
 
 import creationImage from './images/creation.jpg';
-import heartImage from './images/heart.png';
 
 import css from './index.css';
 import { AuthenticationActions } from '~/reducers/Authentication';
@@ -48,9 +46,7 @@ class Page_articles_welcome extends React.Component {
     </div>
 
   render = () =>
-    <main className={css.main}>
-      <Header/>
-
+    <Main className={css.main}>
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">
@@ -106,9 +102,7 @@ class Page_articles_welcome extends React.Component {
 
         </div>
       </article>
-
-      <Footer/>
-    </main>
+    </Main>
 }
 
 export default Page_articles_welcome;
