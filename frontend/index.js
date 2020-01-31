@@ -14,7 +14,6 @@ import '~/services/quill/registerModules';
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
-import { GatewayProvider, GatewayDest } from 'react-gateway';
 
 // common css
 import './index.css';
@@ -64,14 +63,9 @@ const rootElement = document.getElementById('root');
 ReactModal.setAppElement(rootElement);
 
 ReactDOM.render(
-  <GatewayProvider>
-    <Provider store={store}>
-      <div>
-        {router}
-        <GatewayDest name="main"/>
-      </div>
-    </Provider>
-  </GatewayProvider>,
+  <Provider store={store}>
+    {router}
+  </Provider>,
   rootElement
 );
 
