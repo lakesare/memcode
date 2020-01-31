@@ -16,8 +16,6 @@ class CourseCardLearnReview extends React.Component {
       course: PropTypes.object.isRequired,
       amountOfProblemsToLearn: PropTypes.number.isRequired,
       amountOfProblemsToReview: PropTypes.number.isRequired,
-      amountOfProblems: PropTypes.number.isRequired,
-      courseUserIsLearning: PropTypes.object,
       nextDueDateIn: PropTypes.object,
       courseCategory: PropTypes.object,
       author: PropTypes.object
@@ -30,8 +28,7 @@ class CourseCardLearnReview extends React.Component {
   }
 
   ifCanLearnAndReview = () =>
-    this.props.courseDto.courseUserIsLearning &&
-    this.props.courseDto.courseUserIsLearning.active === true
+    true
 
   ifThereIsSomethingToLearnAndReview = () =>
     this.ifCanLearnAndReview() &&

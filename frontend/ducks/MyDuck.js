@@ -1,33 +1,20 @@
 const namespace = 'global.my';
 
-const API_REQUEST = `${namespace}.API_REQUEST`;
-const API_SUCCESS = `${namespace}.API_SUCCESS`;
-const API_FAILURE = `${namespace}.API_FAILURE`;
+const SPE_COURSES = `${namespace}.SPE_COURSES`;
 
 const initialState = {
-  coursesUserIsLearning: [],
-  courses: [],
-  problems: [],
-  problemsUserIsLearning: [],
-
-  apiStatus: 'request', // success/request/failure
+  speCourses: {},
+  courses: []
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case API_REQUEST:
-      return { ...state, apiStatus: 'request' };
-    case API_FAILURE:
-      return { ...state, apiStatus: 'failure' };
-    case API_SUCCESS:
-      return {
-        ...state,
-        coursesUserIsLearning: action.payload.coursesUserIsLearning,
-        courses: action.payload.courses,
-        problems: action.payload.problems,
-        problemsUserIsLearning: action.payload.problemsUserIsLearning,
-
-        apiStatus: 'success'
-      };
+    case SPE_COURSES: {
+      if (action.spe.status === 'success') {
+        return { ...state, speCourses: { ...action.spe, payload: null }, courses: action.spe.payload };
+      } else {
+        return { ...state, speCourses: { ...action.spe, payload: null } };
+      }
+    }
     default:
       return state;
   }
@@ -36,18 +23,9 @@ const reducer = (state = initialState, action) => {
 import api from '~/api';
 
 const actions = {
-  apiGet: (dispatch) => {
-    dispatch({ type: API_REQUEST });
-    api.CourseApi.getMyEverything()
-      .then((payload) => {
-        console.log(payload);
-        dispatch({ type: API_SUCCESS, payload });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: API_FAILURE });
-      });
-  }
+  apiGetCourses: (dispatch) => {
+    api.CourseApi.getMyEverything(undefined, (spe) => dispatch({ type: SPE_COURSES, spe }));
+  },
   // deleteProblem: (dispatch, problemId) =>
   //   dispatch({
   //     type: `${namespace}.DELETE_PROBLEM`,
