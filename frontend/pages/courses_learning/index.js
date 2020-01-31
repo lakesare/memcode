@@ -37,7 +37,6 @@ class Page_courses_learning extends React.Component {
   }
 
   componentDidMount = () => {
-    this.apiGetCourses();
     this.apiGetCreatedCourses();
     this.apiGetCategories();
   }
@@ -45,11 +44,6 @@ class Page_courses_learning extends React.Component {
   apiGetCategories = () =>
     CourseCategoryApi.selectWithGroups(
       (spe) => this.setState({ speGetCategories: spe })
-    )
-
-  apiGetCourses = () =>
-    CourseApi.selectAllLearned(
-      spe => this.setState({ speGetCourses: spe })
     )
 
   apiGetCreatedCourses = () =>
