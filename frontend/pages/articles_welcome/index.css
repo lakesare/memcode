@@ -168,6 +168,12 @@
           justify-content: center;
           height: 21px;
         }
+        h2.title{
+          margin-top: 20px;
+        }
+        .description{
+          display: none;
+        }
         &:hover{
           background: rgb(33, 35, 61);
           &:hover{
