@@ -19,14 +19,19 @@ class Main extends React.Component {
   }
 
   componentDidMount = () => {
+    console.log('Mounted <Main>');
     this.props.apiGetCourses();
 
     // every 5 minutes
-    setInterval(() => {
+    this.apiSyncInterval = setInterval(() => {
       this.props.apiGetCourses();
     }, 5 * 60 * 1000);
 
     // this.apiGetCategories();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.apiSyncInterval);
   }
 
   render = () =>

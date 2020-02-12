@@ -31,9 +31,13 @@ class LearnReviewLinks extends React.Component {
     this.props.apiSync();
 
     // every 5 minutes
-    setInterval(() => {
+    this.apiSyncInterval = setInterval(() => {
       this.props.apiSync();
     }, 3 * 60 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.apiSyncInterval);
   }
 
   deriveAmountOfProblems = (toLearnOrToReview) => {
