@@ -90,6 +90,12 @@ class Page_articles_welcome extends React.Component {
             <Courses/>
           </section>
 
+{/*           <section className="article-section features"> */}
+{/*             <ul> */}
+{/*  */}
+{/*             </ul> */}
+{/*           </section> */}
+
           <section className="article-section sign-in">
             {this.renderHeading('Welcome', '')}
 

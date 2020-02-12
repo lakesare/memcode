@@ -57,7 +57,7 @@ class FakeFlashcards extends React.Component {
         <div className="quill -readOnly question first-column">
           <div className="ql-container ql-snow">
             <div className="ql-editor">
-              How would you interpolate a string in ES6?
+              What determines <strong>which element</strong> some <strong>atom</strong> is?
             </div>
           </div>
         </div>
@@ -75,9 +75,10 @@ class FakeFlashcards extends React.Component {
             <div className="quill -readOnly answer second-column">
               <div className="ql-container ql-snow">
                 <div className="ql-editor">
-                  <pre>
-                    <code>`Hello, ${"{name}"}`</code>
-                  </pre>
+                  <p>The <strong>number</strong> of <strong>protons</strong>.</p><br/>
+
+                  <blockquote>For example, number of protons in lithium is always 3.</blockquote>
+                  <blockquote>Proton number only changes when the nucleus undergoes alpha decay, where it essentially becomes a different element.</blockquote>
                 </div>
               </div>
             </div>
