@@ -72,7 +72,7 @@ const getNextDueProblem = (dto) => {
     if (!problem._learned) return;
 
     if (!due) {
-      due = problem.nextDueDate;
+      due = problem;
     } else if (due > problem.nextDueDate) {
       due = problem;
     }
