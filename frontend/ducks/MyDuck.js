@@ -9,10 +9,18 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SPE_COURSES: {
-      if (action.spe.status === 'success') {
-        return { ...state, speCourses: { ...action.spe, payload: null }, courses: action.spe.payload };
+      if (state.speCourses.status === 'success') {
+        if (action.spe.status === 'success') {
+          return { ...state, courses: action.spe.payload };
+        } else {
+          return state;
+        }
       } else {
-        return { ...state, speCourses: { ...action.spe, payload: null } };
+        if (action.spe.status === 'success') {
+          return { ...state, speCourses: { ...action.spe, payload: null }, courses: action.spe.payload };
+        } else {
+          return { ...state, speCourses: { ...action.spe, payload: null } };
+        }
       }
     }
     default:
