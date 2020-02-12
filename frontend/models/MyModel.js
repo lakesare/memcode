@@ -69,11 +69,11 @@ const sortByHowMuchToDo = (dtos) => {
 const getNextDueProblem = (dto) => {
   let due = null;
   dto.problems.forEach((problem) => {
-    if (!problem._learned) return;
+    if (!problem._learned || problem.ifIgnored) return;
 
     if (!due) {
       due = problem;
-    } else if (due > problem.nextDueDate) {
+    } else if (due.nextDueDate > problem.nextDueDate) {
       due = problem;
     }
   });

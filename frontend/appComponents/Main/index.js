@@ -4,7 +4,9 @@ import Footer from '~/appComponents/Footer';
 import MyDuck from '~/ducks/MyDuck';
 
 @connect(
-  () => ({}),
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser
+  }),
   (dispatch) => ({
     apiGetCourses: () => MyDuck.actions.apiGetCourses(dispatch)
   })
@@ -16,22 +18,22 @@ class Main extends React.Component {
     dontLinkToLearnOrReview: PropTypes.string,
 
     apiGetCourses: PropTypes.func.isRequired,
+    currentUser: PropTypes.object
   }
 
   componentDidMount = () => {
-    console.log('Mounted <Main>');
-    this.props.apiGetCourses();
-
-    // every 5 minutes
-    this.apiSyncInterval = setInterval(() => {
+    if (this.props.currentUser) {
       this.props.apiGetCourses();
-    }, 5 * 60 * 1000);
 
-    // this.apiGetCategories();
+      // every 5 minutes
+      this.apiSyncInterval = setInterval(() => {
+        this.props.apiGetCourses();
+      }, 5 * 60 * 1000);
+    }
   }
 
   componentWillUnmount() {
-    clearInterval(this.apiSyncInterval);
+    this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
   render = () =>
