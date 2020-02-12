@@ -29,11 +29,12 @@ class LearnReviewLinks extends React.Component {
 
   componentDidMount() {
     this.props.apiSync();
-  }
 
-  //   componentDidUpdate() {
-  //     this.props.apiSync();
-  //   }
+    // every 5 minutes
+    setInterval(() => {
+      this.props.apiSync();
+    }, 5 * 60 * 1000);
+  }
 
   deriveAmountOfProblems = (toLearnOrToReview) => {
     const response = this.props.idsOfProblemsToLearnAndReviewPerCourse;

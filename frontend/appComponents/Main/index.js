@@ -20,6 +20,12 @@ class Main extends React.Component {
 
   componentDidMount = () => {
     this.props.apiGetCourses();
+
+    // every 5 minutes
+    setInterval(() => {
+      this.props.apiGetCourses();
+    }, 5 * 60 * 1000);
+
     // this.apiGetCategories();
   }
 
