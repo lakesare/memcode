@@ -1,5 +1,6 @@
 import CourseApi from '~/api/CourseApi';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
+import MyModel from '~/models/MyModel';
 
 import { Helmet } from 'react-helmet';
 
@@ -89,55 +90,23 @@ class Page_courses_learning extends React.Component {
     />
 
   getCourseDtos = () => {
-    const courseDtos = this.props.My.courses.map((course) => {
-      let due = null;
-      const problemsToReview = course.problems.filter((p) => {
-        if (p._learned && Object.values(p.nextDueDateIn)[0] < 0 && !p.ifIgnored) {
-          return true;
-        } else {
-          if (p._learned && p.nextDueDateIn) {
-            if (!due) {
-              due = p.nextDueDateIn;
-            } else if (Object.values(due)[0] > Object.values(p.nextDueDateIn)[0]) {
-              due = p.nextDueDateIn;
-            }
-          }
-          return false;
-        }
-      });
-      const problemsToLearn = course.problems.filter((p) =>
-        !p._learned
-      );
+    const courseDtosWithAmounts = this.props.My.courses.map((dto) => {
+      const nextDueProblem = MyModel.getNextDueProblem(dto);
+      const problemsToLearn = dto.problems.filter(MyModel.isProblemToLearn);
+      const problemsToReview = dto.problems.filter(MyModel.isProblemToReview);
 
       return {
-        ...course,
+        ...dto,
         amountOfProblemsToLearn: problemsToLearn.length,
         amountOfProblemsToReview: problemsToReview.length,
-        nextDueDateIn: due
+        nextDueDate: nextDueProblem ? nextDueProblem.nextDueDate : null,
+        nextDueDateIn: nextDueProblem ? nextDueProblem.nextDueDateIn : null
       };
     });
 
-    courseDtos.sort((a, b) => {
-      if (a.amountOfProblemsToReview > b.amountOfProblemsToReview) {
-        return -1;
-      } else if (a.amountOfProblemsToReview < b.amountOfProblemsToReview) {
-        return 1;
-      } else {
-        if (a.amountOfProblemsToLearn > b.amountOfProblemsToLearn) {
-          return -1;
-        } else if (a.amountOfProblemsToLearn > b.amountOfProblemsToLearn) {
-          return 1;
-        } else {
-          if (a.nextDueDateIn > b.nextDueDateIn) {
-            return -1;
-          } else {
-            return 1;
-          }
-        }
-      }
-    });
+    MyModel.sortByHowMuchToDo(courseDtosWithAmounts);
 
-    return courseDtos;
+    return courseDtosWithAmounts;
   }
 
   filterCourseCategoriesForUserLearning = (courseCategories) => {
@@ -207,6 +176,10 @@ class Page_courses_learning extends React.Component {
               </div>
           }</Loading>
       }</Loading>
+
+      <Helmet>
+        <title>My Courses</title>
+      </Helmet>
     </Main>
 }
 

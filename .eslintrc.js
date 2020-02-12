@@ -265,7 +265,9 @@ module.exports = {
     // Sometimes unneeded () => {}{}{} are expressive!
     "arrow-body-style": "off",
 
-    "quote-props": "off"
+    "quote-props": "off",
+
+    "no-lonely-if": "off"
   },
   "globals": {
     "fetch": true,
