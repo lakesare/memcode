@@ -14,13 +14,13 @@ class Page extends React.Component {
 
   apiAnnounceAFeature = () =>
     api.NotificationApi.announceNewFeature(
+      (spe) => this.setState({ speAnnounceAFeature: spe }),
       {
         type: 'memcode_added_some_feature',
         content: {
           html: this.state.memcode_added_some_feature_notificationHtml
         }
       },
-      (spe) => this.setState({ speAnnounceAFeature: spe })
     )
 
   render = () =>

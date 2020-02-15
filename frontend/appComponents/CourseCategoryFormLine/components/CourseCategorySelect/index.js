@@ -1,5 +1,5 @@
 import orFalse from '~/services/orFalse';
-import CourseCategoryApi from '~/api/CourseCategoryApi';
+import api from '~/api';
 import CourseCategoryModel from '~/models/CourseCategoryModel';
 import CourseCategoryGroupModel from '~/models/CourseCategoryGroupModel';
 
@@ -29,7 +29,7 @@ class CourseCategorySelect extends React.Component {
     this.apiGetCategories()
 
   apiGetCategories = () =>
-    CourseCategoryApi.selectWithGroups(
+    api.CourseCategoryApi.getAll(
       (spe) => this.setState({ speGetCategories: spe })
     )
 

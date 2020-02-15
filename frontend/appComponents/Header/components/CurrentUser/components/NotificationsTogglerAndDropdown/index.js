@@ -41,7 +41,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
   }
 
   apiGetNotificationsStatsForUser = () =>
-    api.NotificationApi.getNotificationStatsForUser({ userId: this.props.currentUser.id })
+    api.NotificationApi.getNotificationStatsForUser(null, { userId: this.props.currentUser.id })
       .then((stats) => {
         this.setState({
           amountOfAllNotifications: stats.amountOfAllNotifications,
@@ -52,21 +52,21 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
   apiGetMostRecentNotifications = () =>
     api.NotificationApi.getNotificationsForUser(
+      (spe) => this.setState({ speGetNotifications: spe }),
       {
         userId: this.props.currentUser.id,
         limit: 15
-      },
-      (spe) => this.setState({ speGetNotifications: spe })
+      }
     )
 
   apiLoadMoreNotifications = () =>
     api.NotificationApi.getNotificationsForUser(
+      (spe) => this.setState({ speLoadMoreNotifications: spe }),
       {
         userId: this.props.currentUser.id,
         limit: 10,
         offset: this.state.speGetNotifications.payload.length
-      },
-      (spe) => this.setState({ speLoadMoreNotifications: spe })
+      }
     )
       .then((notifications) => {
         this.setState({
@@ -88,7 +88,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
     this.setState({ speGetNotifications, amountOfUnreadNotifications });
     localStorage.setItem('amountOfUnreadNotifications', amountOfUnreadNotifications);
-    return api.NotificationApi.markAsReadOrUnread({
+    return api.NotificationApi.markAsReadOrUnread(null, {
       id: notification.id,
       ifRead
     });
@@ -105,7 +105,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
       },
       amountOfUnreadNotifications: 0
     });
-    return api.NotificationApi.markAllNotificationsAsRead({ userId: this.props.currentUser.id });
+    return api.NotificationApi.markAllNotificationsAsRead(null, { userId: this.props.currentUser.id });
   }
 
   handleClickOutside = () =>

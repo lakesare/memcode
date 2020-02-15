@@ -25,8 +25,8 @@ class CourseStarRating extends React.Component {
 
   apiGetRatings = () =>
     api.CourseApi.getRatings(
-      { courseId: this.props.courseId },
-      (spe) => this.setState({ speGetRatings: spe })
+      (spe) => this.setState({ speGetRatings: spe }),
+      { courseId: this.props.courseId }
     )
       .then(({ ownRating }) => {
         this.setState({ rating: ownRating });
@@ -39,8 +39,8 @@ class CourseStarRating extends React.Component {
 
   apiRate = (rating) =>
     api.CourseApi.rate(
-      { courseId: this.props.courseId, rating },
-      (spe) => spe.status === 'success' && this.setState({ speGetRatings: spe })
+      (spe) => spe.status === 'success' && this.setState({ speGetRatings: spe }),
+      { courseId: this.props.courseId, rating }
     )
 
   renderSuccess = ({ averageRating, ratings, ownRating }) =>

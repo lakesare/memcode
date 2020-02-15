@@ -1,5 +1,5 @@
 import CourseApi from '~/api/CourseApi';
-import CourseCategoryApi from '~/api/CourseCategoryApi';
+import api from '~/api';
 
 import { withRouter } from "react-router-dom";
 import { Helmet } from 'react-helmet';
@@ -78,7 +78,7 @@ class Page_courses extends React.Component {
   }
 
   apiGetCategories = () =>
-    CourseCategoryApi.selectWithGroups(
+    api.CourseCategoryApi.getAll(
       (spe) => this.setState({ speGetCategories: spe })
     )
 

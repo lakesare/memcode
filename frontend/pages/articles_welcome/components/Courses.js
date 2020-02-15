@@ -10,7 +10,7 @@ class Courses extends React.Component {
   }
 
   componentDidMount = () => {
-    api.CourseApi.getBest4({}, (spe) => this.setState({ speCourses: spe }));
+    api.CourseApi.getBest4((spe) => this.setState({ speCourses: spe }));
   }
 
   render = () =>

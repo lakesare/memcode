@@ -5,7 +5,6 @@
 //   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 // );
 
-import select from './select';
 import insert from './insert';
 
-export default { select, insert };
+export default { insert };

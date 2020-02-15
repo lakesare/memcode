@@ -32,7 +32,7 @@ import api from '~/api';
 
 const actions = {
   apiGetCourses: (dispatch) => {
-    api.CourseApi.getMyEverything(undefined, (spe) => dispatch({ type: SPE_COURSES, spe }));
+    api.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }));
   },
   // deleteProblem: (dispatch, problemId) =>
   //   dispatch({

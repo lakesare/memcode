@@ -1,19 +1,14 @@
 import router from '~/router';
 
-import authenticate from '~/middlewares/authenticate';
 import catchAsync from '~/services/catchAsync';
 
-
-// TODO make all routes like CourseApi.rate()
-import CourseApi from '~/api/CourseApi';
-router.use('/api/courses', CourseApi);
-
 import NotificationApi from '~/api/NotificationApi';
-
+import CourseCategoryApi from '~/api/CourseCategoryApi';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
     case 'NotificationApi': return NotificationApi;
+    case 'CourseCategoryApi': return CourseCategoryApi;
     case 'CourseApi': return CourseApi;
     case 'ProblemApi': return ProblemApi;
   }
@@ -25,20 +20,15 @@ router.post('/api/:controllerName.:methodName', catchAsync(async (request, respo
   await SomeApi[request.params.methodName](request, response, next);
 }));
 
-
-
-
-
+// TODO make all routes like NotificationApi.rate() instead
+import CourseApi from '~/api/CourseApi';
+router.use('/api/courses', CourseApi);
 
 import ProblemApi from '~/api/ProblemApi';
 router.use('/api/problems', ProblemApi);
 
 import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
 router.use('/api/problemsUserIsLearning', ProblemUserIsLearningApi);
-
-import CourseCategoryApi from '~/api/CourseCategoryApi';
-router.use('/api/courseCategories', CourseCategoryApi);
-
 
 import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
 router.use('/api/coursesUserIsLearning', CourseUserIsLearningApi);
@@ -48,9 +38,6 @@ router.use('/api/auth', AuthApi);
 
 import PageApi from '~/api/PageApi';
 router.use('/api/pages', PageApi);
-
-// import AdminApi from '~/api/AdminApi';
-// router.use('/api/admin', AdminApi);
 
 import FileApi from '~/api/FileApi';
 router.use('/api/files', FileApi);

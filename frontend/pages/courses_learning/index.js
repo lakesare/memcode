@@ -1,5 +1,5 @@
 import CourseApi from '~/api/CourseApi';
-import CourseCategoryApi from '~/api/CourseCategoryApi';
+import api from '~/api';
 import MyModel from '~/models/MyModel';
 
 import { Helmet } from 'react-helmet';
@@ -43,7 +43,7 @@ class Page_courses_learning extends React.Component {
   }
 
   apiGetCategories = () =>
-    CourseCategoryApi.selectWithGroups(
+    api.CourseCategoryApi.getAll(
       (spe) => this.setState({ speGetCategories: spe })
     )
 
