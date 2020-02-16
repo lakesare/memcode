@@ -5,9 +5,7 @@ const Footer = () =>
   <footer className={css.footer}>
     <div className="container">
       <section className="blog-links">
-        <Link to="/articles/welcome">Welcome</Link>
-        <span className="pipe">|</span>
-        <Link to="/articles/comparison">Memcode VS Other Sites</Link>
+        <Link to="/articles/comparison">Blog</Link>
         <span className="pipe">|</span>
         <Link to="/contact">Contact</Link>
         <span className="pipe">|</span>
@@ -24,4 +22,5 @@ const Footer = () =>
 // <Link to="/articles/comparison">Memrise VS Quizlet VS Brainscape</Link>
 // <Link to="/articles/welcome">FAQ</Link>
 // <span className="pipe">|</span>
+export { Footer };
 export default Footer;
