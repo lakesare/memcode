@@ -1,4 +1,7 @@
 :local(.main){
+  footer{
+    display: none;
+  }
   .loading.loading-flashcards{
     margin-top: 100px;
   }

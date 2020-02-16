@@ -12,8 +12,11 @@ body{
   padding-bottom: 30px;
   box-sizing: border-box;
   font-weight: 300;
-
   background: $color-main-2;
+
+  @media(max-width: 530px) {
+    padding-bottom: 200px;    
+  }
 }
 a{
   text-decoration: none;

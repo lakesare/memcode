@@ -34,7 +34,7 @@
 }
 
 :local(footer.footer){
-  @media(max-width: 500px){
+  @media(max-width: 730px){
     > .container{
       flex-wrap: wrap;
       > section.blog-links{
@@ -43,6 +43,12 @@
       > section.email{
         margin-top: 15px;
       }
+    }
+  }
+  @media(max-width: 530px){
+    section.blog-links{
+      a{ width: 100%; padding-top: 10px; }
+      span.pipe{ display: none !important; }
     }
   }
 }
