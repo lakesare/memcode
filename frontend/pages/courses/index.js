@@ -33,7 +33,9 @@ const getQuery = (props) =>
 import { AuthenticationActions } from '~/reducers/Authentication';
 @withRouter
 @connect(
-  () => ({}),
+  (state) => ({
+    My: state.global.My
+  }),
   (dispatch) => ({
     signIn: (token) => AuthenticationActions.signIn(dispatch, token)
   })
@@ -41,12 +43,12 @@ import { AuthenticationActions } from '~/reducers/Authentication';
 class Page_courses extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
-    signIn: PropTypes.func.isRequired
+    signIn: PropTypes.func.isRequired,
+    My: PropTypes.object.isRequired
   }
 
   state = {
     speGetCourses: {},
-    speGetCategories: {},
     // to avoid blinking pagination
     amountOfPages: 1,
     ifCoursesAreLoading: false
@@ -54,7 +56,6 @@ class Page_courses extends React.Component {
 
   componentDidMount = () => {
     this.apiGetCourses();
-    this.apiGetCategories();
     this.tryToFindToken();
   }
 
@@ -76,11 +77,6 @@ class Page_courses extends React.Component {
       // this.props.history.push('/courses/learning');
     }
   }
-
-  apiGetCategories = () =>
-    api.CourseCategoryApi.getAll(
-      (spe) => this.setState({ speGetCategories: spe })
-    )
 
   apiGetCourses = () =>
     CourseApi.selectPublic(
@@ -142,7 +138,7 @@ class Page_courses extends React.Component {
 
   render = () =>
     <Main className={css.main}>
-      <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+      <Loading spe={this.props.My.speCategories}>{({ courseCategoryGroups, courseCategories }) =>
         <div className="container standard-navigation_and_courses">
           <CourseCategories
             selectedCourseCategoryId={getCategoryId(this.props)}

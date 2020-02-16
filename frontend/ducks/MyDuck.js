@@ -1,10 +1,12 @@
 const namespace = 'global.my';
 
 const SPE_COURSES = `${namespace}.SPE_COURSES`;
+const SPE_CATEGORIES = `${namespace}.SPE_CATEGORIES`;
 
 const initialState = {
   speCourses: {},
-  courses: []
+  courses: [],
+  speCategories: {}
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -23,6 +25,9 @@ const reducer = (state = initialState, action) => {
         }
       }
     }
+    case SPE_CATEGORIES: {
+      return { ...state, speCategories: action.spe };
+    }
     default:
       return state;
   }
@@ -34,6 +39,9 @@ const actions = {
   apiGetCourses: (dispatch) => {
     api.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }));
   },
+  apiGetCategories: (dispatch) => {
+    api.CourseCategoryApi.getAll((spe) => dispatch({ type: SPE_CATEGORIES, spe }));
+  }
   // deleteProblem: (dispatch, problemId) =>
   //   dispatch({
   //     type: `${namespace}.DELETE_PROBLEM`,

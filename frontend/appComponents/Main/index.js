@@ -5,10 +5,12 @@ import MyDuck from '~/ducks/MyDuck';
 
 @connect(
   (state) => ({
-    currentUser: state.global.Authentication.currentUser
+    currentUser: state.global.Authentication.currentUser,
+    My: state.global.My
   }),
   (dispatch) => ({
-    apiGetCourses: () => MyDuck.actions.apiGetCourses(dispatch)
+    apiGetCourses: () => MyDuck.actions.apiGetCourses(dispatch),
+    apiGetCategories: () => MyDuck.actions.apiGetCategories(dispatch)
   })
 )
 class Main extends React.Component {
@@ -18,7 +20,9 @@ class Main extends React.Component {
     dontLinkToLearnOrReview: PropTypes.string,
 
     apiGetCourses: PropTypes.func.isRequired,
-    currentUser: PropTypes.object
+    apiGetCategories: PropTypes.func.isRequired,
+    currentUser: PropTypes.object,
+    My: PropTypes.object.isRequired
   }
 
   componentDidMount = () => {
@@ -29,6 +33,10 @@ class Main extends React.Component {
       this.apiSyncInterval = setInterval(() => {
         this.props.apiGetCourses();
       }, 5 * 60 * 1000);
+    }
+
+    if (this.props.My.speCategories.status !== 'success') {
+      this.props.apiGetCategories();
     }
   }
 

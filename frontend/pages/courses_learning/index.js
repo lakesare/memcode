@@ -1,5 +1,4 @@
 import CourseApi from '~/api/CourseApi';
-import api from '~/api';
 import MyModel from '~/models/MyModel';
 
 import { Helmet } from 'react-helmet';
@@ -33,19 +32,12 @@ class Page_courses_learning extends React.Component {
 
   state = {
     speGetCourses: {},
-    speGetCategories: {},
     tab: 'learning'
   }
 
   componentDidMount = () => {
     this.apiGetCreatedCourses();
-    this.apiGetCategories();
   }
-
-  apiGetCategories = () =>
-    api.CourseCategoryApi.getAll(
-      (spe) => this.setState({ speGetCategories: spe })
-    )
 
   apiGetCreatedCourses = () =>
     CourseApi.selectAllCreated(
@@ -145,36 +137,39 @@ class Page_courses_learning extends React.Component {
         </div>
     }</Loading>
 
+  renderCreatedTab = (courseCategoryGroups, courseCategories) =>
+    <Loading spe={this.state.speGetCreatedCourses}>{(coursesData) =>
+      coursesData.length === 0 ?
+        <ForBeginners/> :
+        <div className="container standard-navigation_and_courses">
+          <CourseCategories
+            selectedCourseCategoryId={getCategoryId(this.props)}
+            courseCategoryGroups={courseCategoryGroups}
+            courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
+            ifShowAmountOfCoursesInCategory
+          />
+          <div className="title_and_sorting_and_courses">
+            <div className="title_and_sorting">
+              <h1 className="title">My Courses</h1>
+
+              {this.renderFilter()}
+            </div>
+
+            <ListOfCourseCards
+              className="list-of-courses"
+              type="simple"
+              courseDtos={this.filterCoursesForCategory(coursesData)}
+            />
+          </div>
+        </div>
+    }</Loading>
+
   render = () =>
     <Main className={css.main}>
-      <Loading spe={this.state.speGetCategories}>{({ courseCategoryGroups, courseCategories }) =>
+      <Loading spe={this.props.My.speCategories}>{({ courseCategoryGroups, courseCategories }) =>
         this.state.tab === 'learning' ?
           this.renderLearningTab(courseCategoryGroups, courseCategories) :
-          <Loading spe={this.state.speGetCreatedCourses}>{(coursesData) =>
-            coursesData.length === 0 ?
-              <ForBeginners/> :
-              <div className="container standard-navigation_and_courses">
-                <CourseCategories
-                  selectedCourseCategoryId={getCategoryId(this.props)}
-                  courseCategoryGroups={courseCategoryGroups}
-                  courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
-                  ifShowAmountOfCoursesInCategory
-                />
-                <div className="title_and_sorting_and_courses">
-                  <div className="title_and_sorting">
-                    <h1 className="title">My Courses</h1>
-
-                    {this.renderFilter()}
-                  </div>
-
-                  <ListOfCourseCards
-                    className="list-of-courses"
-                    type="simple"
-                    courseDtos={this.filterCoursesForCategory(coursesData)}
-                  />
-                </div>
-              </div>
-          }</Loading>
+          this.renderCreatedTab(courseCategoryGroups, courseCategories)
       }</Loading>
 
       <Helmet>
