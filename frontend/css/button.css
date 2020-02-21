@@ -71,7 +71,10 @@
       opacity: 1 !important;
     }
     @media(max-width: 400px){
-      min-width: 70px !important;
+      min-width: 85px !important;
+    }
+    @media(max-width: 350px){
+      min-width: 73px !important;
     }
   }
   &.-to-learn{

@@ -41,6 +41,14 @@
         margin-top: 70px;
       }
     }
+  }
 
-  }  
+  @media(max-width: 430px) {
+    .sort-by-dropdown-wrapper{
+      display: none;
+    }
+    .list-of-courses{
+      margin-top: 20px !important;
+    }
+  }
 }

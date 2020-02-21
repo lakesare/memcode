@@ -59,10 +59,12 @@ header{
   }
 }
 
-.standard-course-card{
-  &:focus-within{
-    outline: none;
-    box-shadow: 0 0 1px 1px $purple;
+@media(min-width: 460px){
+  .standard-course-card{
+    &:focus-within{
+      outline: none;
+      box-shadow: 0 0 1px 1px $purple;
+    }
   }
 }
 
