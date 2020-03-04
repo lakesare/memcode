@@ -4,7 +4,8 @@ const UrlCreator = {
 
     const ifCanEdit =
       currentUser &&
-      currentUser.id === course.userId;
+      // Temporary, fix case in db ||
+      currentUser.id === course.user_id || course.userId;
 
     return ifCanEdit && ifWideEnough ?
       `/courses/${course.id}/edit` :
