@@ -189,12 +189,12 @@ class Page_courses_id_edit extends React.Component {
 
   apiReorderProblems = () =>
     api.ProblemApi.reorder(
+      false,
       this.state.speGetPage.payload.problems.map((problem, index) => ({
         id: problem.id,
         // position cannot be 0 (so we can never make any flashcard 0s), because then it will just move to the end of the queue
         position: index + 1
-      })),
-      false
+      }))
     )
 
   onDragEnd = (result) => {
