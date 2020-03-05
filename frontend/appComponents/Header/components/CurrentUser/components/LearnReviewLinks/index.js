@@ -41,6 +41,9 @@ class LearnReviewLinks extends React.Component {
   }
 
   deriveAmountOfProblems = (toLearnOrToReview) => {
+    // I'm being ridiculous here, because we will switch to api/CourseApi.getMyEverything soon anyway.
+    localStorage.setItem('idsOfProblemsToLearnAndReviewPerCourse', JSON.stringify(this.props.idsOfProblemsToLearnAndReviewPerCourse));
+
     const response = this.props.idsOfProblemsToLearnAndReviewPerCourse;
     const courseIds = Object.keys(response);
     return courseIds.reduce((totalToLearn, courseId) => {

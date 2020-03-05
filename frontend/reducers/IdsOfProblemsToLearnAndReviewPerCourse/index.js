@@ -101,14 +101,26 @@ const IdsOfProblemsToLearnAndReviewPerCourseReducer = (state = initialState, act
 import { commonFetch } from '~/api/commonFetch';
 
 const actions = {
-  apiSync: (dispatch) =>
-    commonFetch(
+  apiSync: (dispatch) => {
+    const oldPayload = localStorage.getItem('idsOfProblemsToLearnAndReviewPerCourse');
+    if (oldPayload) {
+      try {
+        const parsedOldPayload = JSON.parse(oldPayload);
+        dispatch({ type: `${namespace}.SET`, payload: parsedOldPayload });
+      } catch (error) {
+        console.error(error);
+        console.log("Couldn't parse apiSync() payload from localStorage");
+        console.log(oldPayload);
+      }
+    }
+    return commonFetch(
       false,
       'GET', `/api/pages/idsOfProblemsToLearnAndReviewPerCourse`
     )
-      .then((payload) =>
-        dispatch({ type: `${namespace}.SET`, payload })
-      ),
+      .then((payload) => {
+        dispatch({ type: `${namespace}.SET`, payload });
+      });
+  },
   // ___edit actions. We will do nothing if we call them while not learning this course.
   //
   // === reviewProblem, ignoreProblem
