@@ -54,7 +54,7 @@ class ChooseCourseToMoveProblemsTo extends React.Component {
     })
 
   render = () =>
-    <Loading spe={this.state.speCourses}>{(response) =>
+    <Loading enabledStatuses={['failure', 'success']} spe={this.state.speCourses}>{(response) =>
       response.length > 0 ?
         <section className="choose-course-to-move-problems-to">
           <label htmlFor="search-input">
