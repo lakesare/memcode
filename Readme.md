@@ -1,6 +1,6 @@
 Site ❤️: http://www.memcode.com/
 
-Trello board: https://trello.com/b/UN0Vnv80/memcode (here you can see what we're working on, what feateres are to come, and what PRs are welcome)
+Trello board: https://trello.com/b/UN0Vnv80/memcode (here you can see what we're working on, what features are to come, and what PRs are welcome)
 
 ___
 
@@ -16,7 +16,7 @@ ___
 ## Initial one-time steps for both development:
 
 ### Create a database postgres user with a password.
-1. Install postgresql.
+1. Install PostgreSQL.
 2. Go to postgres console: `psql postgres`.
 3. Create a `postgres` user with password: CREATE ROLE postgres WITH LOGIN PASSWORD 'your password here'.
 4. Give them a permission to create dbs, own all extensions etc.: `ALTER ROLE postgres with superuser;`.
