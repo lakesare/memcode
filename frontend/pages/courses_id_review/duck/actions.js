@@ -5,7 +5,7 @@ import commonFetch from '~/api/commonFetch';
 import selectors from './selectors';
 
 import playShortSound from './services/playShortSound';
-import playLongSound from './services/playLongSound';
+// import playShortSound from './services/playShortSound';
 
 const enterPressed = () =>
   (dispatch, getState) => {
@@ -53,7 +53,7 @@ const enterPressed = () =>
               payload: currentIndex
             });
           }
-          currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
+          currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
           dispatch({
             type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
             payload: -1
@@ -97,7 +97,7 @@ const enterPressedInFailedMode = () =>
             payload: currentIndex
           });
         }
-        currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
+        currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
 
         const ifNextReReviewProblem = state.indexesOfFailedProblems[0];
         if (ifNextReReviewProblem) {
@@ -139,7 +139,7 @@ const enterPressedInSimulatedReview = () =>
               payload: currentIndex
             });
           }
-          currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
+          currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
 
           dispatch({
             type: 'SET_NEXT_PROBLEM',
