@@ -51,7 +51,6 @@ class CourseActions extends React.Component {
     IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
 
     ifCuilActivityButtonsAreDisplayed: PropTypes.bool,
-    ifConfused: PropTypes.bool,
 
     ifCourseDescriptionIsDisplayed: PropTypes.bool,
     ifEditCourseModalTogglerIsDisplayed: PropTypes.bool,
@@ -65,7 +64,6 @@ class CourseActions extends React.Component {
     ifCourseDescriptionIsDisplayed: false,
     ifEditCourseModalTogglerIsDisplayed: false,
     ifBreadcrumbsAreDisplayed: false,
-    ifConfused: false,
     ifWithDescriptionPlaceholder: false
   }
 

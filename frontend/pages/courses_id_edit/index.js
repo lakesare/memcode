@@ -243,7 +243,7 @@ class Page_courses_id_edit extends React.Component {
 
   render = () =>
     <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
-      <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifConfused ifWithDescriptionPlaceholder/>
+      <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifWithDescriptionPlaceholder/>
       <StickyContainer>
         {this.renderActionsForCheckedProblems()}
         <div className="container problems-container">
