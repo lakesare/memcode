@@ -1,13 +1,9 @@
 import { Link } from 'react-router-dom';
 import css from './index.css';
 
-import ToggleButton from '~/components/ToggleButton';
+import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 
 class Footer extends React.Component {
-  state = {
-    value: 'left'
-  }
-
   render = () =>
     <footer className={css.footer}>
       <div className="container">
@@ -19,14 +15,11 @@ class Footer extends React.Component {
           <a href="https://github.com/lakesare/memcode">Github</a>
         </section>
 
-        <ToggleButton
-          value={this.state.value}
-          updateValue={(value) => this.setState({ value })}
-        />
-
         <section className="email">
           {window.env.contactEmail}
           <i className="fa fa-heart"/>
+
+          <ThemeToggleButton/>
         </section>
       </div>
     </footer>

@@ -37,24 +37,71 @@ div.space{
 }
 
 
-// Move to some place if we'll be using joyride again
-//
-// joyride
-.__floater__body{
-  > div{
-    // padding: 0 !important;
-    > div:nth-child(1){
-      font-size: 13px !important;
-      > div{
-        color: rgb(140, 138, 138);
-      }
-    }
-    > div:nth-child(2){
-      margin-top: 0 !important;
+body.-bright-theme{
+  background: rgb(202, 218, 242);
+  filter: invert(1) hue-rotate(165deg);
+
+  img, .button, .toggle-button,
+  .standard-course-card .learn-and-review-buttons .links, .standard-course-card .amount-footer,
+  .answer-input{
+    filter: invert(1) hue-rotate(-165deg);
+  }
+  section.problem.-withInlinedAnswers input.answer-input[data-answered='waiting']{
+    color: rgb(79, 73, 108) !important;
+  }
+  section.problem .ql-editor{
+    background: black;
+  }
+
+  .button.-ignore, .button.-unignore{
+    color: black !important;
+  }
+
+  section.problem.-withInlinedAnswers mark.answer{
+    border: 2px solid rgba(17, 88, 30, 0.9);
+  }
+
+  header{
+    background: black !important;
+  }
+  header input{
+    background: rgb(32, 35, 73) !important;
+  }
+  .button.edit-button{
+    color: black !important;
+    &:hover{
+      color: white !important;
     }
   }
-}
-// to allow ESC on click, but to have no darkened bg
-.joyride-overlay{
-  opacity: 0;
+
+  *{
+    text-shadow: none !important;
+  }
+
+  .ProblemBeingSolved section.problem{
+    background: rgb(14, 16, 49) !important;
+  }
+  button.see-answer-button{
+    background: black !important;
+    border: 2px solid rgb(6, 94, 47) !important;
+    box-shadow: none !important;
+    &:hover, &.focus-visible{
+      border: 4px solid rgb(6, 94, 47) !important;
+    }
+  }
+  .ql-editor{
+    box-shadow: none !important;
+  }
+  .draft-answer .ql-editor{
+    background: black !important;
+  }
+
+  section.problem.-withSeparateAnswer .second-column .ql-editor,
+  section.problem.-withSeparateAnswer .answer .ql-editor{
+      border: 2px solid rgb(5, 79, 19) !important;
+  }
+
+  section.total-amount-of-flashcards{
+    color: black;
+  }
 }

@@ -7,18 +7,17 @@ class ToggleButton extends React.Component {
   }
 
   render = () =>
-    // <button
-    //   className={`switch ${this.props.value === 'right' ? "switch_is-on" : "switch_is-off"}`}
-    //   type="button"
-    //   onClick={() => this.props.updateValue(this.props.value === 'left' ? 'right' : 'left')}
-    // >
-    //   <div className={`toggle-button ${this.props.value === 'right' ? "toggle-button_position-right" : "toggle-button_position-left"}`}/>
-    // </button>
+    <button
+      // temp
+      style={{ paddingLeft: 10 }}
 
-    <div class="wrapper">
-      <input type="checkbox" name="checkbox" class="switch"/>
-    </div>
-
+      className={`${css.button} toggle-button ${this.props.value === 'right' ? "-left" : "-right"}`}
+      type="button"
+      onClick={() => this.props.updateValue(this.props.value === 'left' ? 'right' : 'left')}
+    >
+      <div className="toggle-button-label-left"/>
+      <div className="toggle-button-label"/>
+    </button>
 }
 
 export default ToggleButton;
