@@ -1,11 +1,14 @@
 
 $shine: 0 0 10px white;
+
 $on-bg: rgba(0, 0, 0, 0.15);
-$on-dot-color: #FFB200;
-$on-border: 1px solid #FFB200;
-$off-bg: rgba(255, 255, 255, 0.15);
-$off-dot-color: #eee;
-$off-border: 1px solid rgba(255, 255, 255, 0.41);
+$on-dot-color: white;
+$on-border: 1px solid rgba(108, 127, 206, 0.08);
+
+$off-bg: rgb(179, 207, 243);
+$off-dot-color: #aaa0f7;
+$off-border: 1px solid #aaa0f7;
+
 $togglebutton-size: 15px;
 $togglebutton-padding: 2px;
 $togglebutton-margin: 7px;
@@ -46,7 +49,6 @@ $togglebutton-label-active-weight: bold;
        bottom: $togglebutton-label-padding;
        background:$on-dot-color;
        transform: rotate(-45deg);
-       box-shadow: $shine;
   }
   .toggle-button-label-left:after{
       content: "";

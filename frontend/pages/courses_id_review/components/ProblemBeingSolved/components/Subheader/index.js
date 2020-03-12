@@ -1,6 +1,7 @@
 import css from './index.css';
 
 import ProgressBar from '~/components/ProgressBar';
+import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 
 class Subheader extends React.Component {
   static propTypes = {
@@ -77,6 +78,8 @@ class Subheader extends React.Component {
         <div className="buttons">
           {this.renderVolumeButton()}
 
+          <ThemeToggleButton/>
+
           {
             false &&
             <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
@@ -110,7 +113,6 @@ class Subheader extends React.Component {
     </section>
 
   render = () => {
-    console.log(this.props);
     if (!this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
       return this.renderUsualReview();
     } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
