@@ -4,6 +4,8 @@ import catchAsync from '~/services/catchAsync';
 
 import NotificationApi from '~/api/NotificationApi';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
+import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
+import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -11,6 +13,8 @@ const getApiClass = (controllerName) => {
     case 'CourseCategoryApi': return CourseCategoryApi;
     case 'CourseApi': return CourseApi;
     case 'ProblemApi': return ProblemApi;
+    case 'CourseUserIsLearningApi': return CourseUserIsLearningApi;
+    case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
   }
 };
 
@@ -26,12 +30,6 @@ router.use('/api/courses', CourseApi);
 
 import ProblemApi from '~/api/ProblemApi';
 router.use('/api/problems', ProblemApi);
-
-import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
-router.use('/api/problemsUserIsLearning', ProblemUserIsLearningApi);
-
-import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
-router.use('/api/coursesUserIsLearning', CourseUserIsLearningApi);
 
 import AuthApi from '~/api/AuthApi';
 router.use('/api/auth', AuthApi);

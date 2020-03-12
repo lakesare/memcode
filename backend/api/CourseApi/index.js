@@ -93,4 +93,6 @@ import getMyEverything from './getMyEverything';
 router.getMyEverything = getMyEverything;
 import getBest4 from './getBest4';
 router.getBest4 = getBest4;
+import duplicate from './duplicate';
+router.duplicate = duplicate;
 export default router;

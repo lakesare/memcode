@@ -1,6 +1,6 @@
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
-import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
-import { commonFetch } from '~/api/commonFetch';
+import api from '~/api';
+import commonFetch from '~/api/commonFetch';
 
 import selectors from './selectors';
 
@@ -29,11 +29,13 @@ const enterPressed = () =>
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state);
           const currentIndex = state.statusOfSolving.index;
-          CourseUserIsLearningApi.reviewProblem(
+          api.ProblemUserIsLearningApi.reviewProblem(
             false,
-            state.speGetPage.payload.courseUserIsLearning.id,
-            currentProblem.id,
-            score
+            {
+              id: state.speGetPage.payload.courseUserIsLearning.id,
+              problemId: currentProblem.id,
+              performanceRating: score
+            }
           )
             .then(() => {
               const lastIndex = state.speGetPage.payload.problems.length - 1;

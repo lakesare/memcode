@@ -2,17 +2,15 @@ import orFalse from '~/services/orFalse';
 import commonFetch from '~/api/commonFetch';
 import UrlCreator from '~/services/UrlCreator';
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
+import api from '~/api';
 
 import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
 import MetaTags from './components/MetaTags';
 import Loading from '~/components/Loading';
 import CourseModal from './components/CourseModal';
-import { LearnAndReviewButtons } from './components/LearnAndReviewButtons';
-import { CuilActivityButtons } from './components/CuilActivityButtons';
-import { CourseDescriptionAndStats } from './components/CourseDescriptionAndStats';
-
-import CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
+import CuilButtons from './components/CuilButtons';
+import CourseDescriptionAndStats from './components/CourseDescriptionAndStats';
 
 import css from './index.css';
 
@@ -20,8 +18,6 @@ import css from './index.css';
   (state, ownProps) => ({
     currentUser: state.global.Authentication.currentUser || false,
     speGetCourse: state.components.CourseActions.speGetCourse,
-    // speGetCourse: { status: 'request' },
-    speCourseUserIsLearning: state.components.CourseActions.speCourseUserIsLearning,
     amountOfProblems:
       (
         state.global.IdsOfProblemsToLearnAndReviewPerCourse &&
@@ -38,10 +34,6 @@ import css from './index.css';
       type: 'SEED_SPE_GET_COURSE',
       payload: spe
     }),
-    seedSpeCourseUserIsLearning: (spe) => dispatch({
-      type: 'SEED_SPE_COURSE_USER_IS_LEARNING',
-      payload: spe
-    }),
     IdsOfProblemsToLearnAndReviewPerCourseActions: {
       stopLearningCourse: (courseId) => IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(dispatch, courseId),
       apiSync: () => IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync(dispatch)
@@ -55,15 +47,15 @@ class CourseActions extends React.Component {
     amountOfProblems: orFalse(PropTypes.object).isRequired,
 
     speGetCourse: PropTypes.object.isRequired,
-    speCourseUserIsLearning: PropTypes.object.isRequired,
-
     seedSpeGetCourse: PropTypes.func.isRequired,
+    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
 
     ifCuilActivityButtonsAreDisplayed: PropTypes.bool,
+    ifConfused: PropTypes.bool,
+
     ifCourseDescriptionIsDisplayed: PropTypes.bool,
     ifEditCourseModalTogglerIsDisplayed: PropTypes.bool,
     ifBreadcrumbsAreDisplayed: PropTypes.bool,
-    ifConfused: PropTypes.bool,
     ifWithDescriptionPlaceholder: PropTypes.bool
   }
 
@@ -92,18 +84,44 @@ class CourseActions extends React.Component {
       'GET', `/api/pages/courseActions/${this.props.courseId}`
     )
 
-  apiStopLearning = () =>
-    CourseUserIsLearningApi.stopLearning(
-      (spe) => this.props.seedSpeCourseUserIsLearning(spe),
-      this.props.speCourseUserIsLearning.payload.id
+  apiStartLearning = () =>
+    api.CourseUserIsLearningApi.startLearningCourse(
+      false,
+      { courseId: this.props.courseId }
     )
-      .then(() => {
+      .then((payload) => {
+        this.uiUpdateCuil(payload);
+        this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync();
+      })
+
+  apiStopLearning = () =>
+    api.CourseUserIsLearningApi.stopLearningCourse(
+      false,
+      { courseId: this.props.courseId }
+    )
+      .then((payload) => {
+        this.uiUpdateCuil(payload);
         this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(this.props.courseId);
+      })
+
+  apiResumeLearning = () =>
+    api.CourseUserIsLearningApi.resumeLearningCourse(
+      false,
+      { courseId: this.props.courseId }
+    )
+      .then((payload) => {
+        this.uiUpdateCuil(payload);
+        this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync();
       })
 
   uiUpdateCourse = (course) => {
     const spe = this.props.speGetCourse;
     this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
+  }
+
+  uiUpdateCuil = (courseUserIsLearning) => {
+    const spe = this.props.speGetCourse;
+    this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
   }
 
   renderRequestIcon = () => (
@@ -168,53 +186,21 @@ class CourseActions extends React.Component {
           }
         </section>
 
-        {
-          this.props.currentUser ?
-            <div className="buttons">
-              {
-                this.props.ifCuilActivityButtonsAreDisplayed &&
-                <CuilActivityButtons
-                  speCourseUserIsLearning={this.props.speCourseUserIsLearning}
-                  courseId={courseDto.course.id}
-                  seedSpeCourseUserIsLearning={this.props.seedSpeCourseUserIsLearning}
-                  IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
-                />
-              }
+        <CuilButtons
+          amountOfProblems={this.props.amountOfProblems}
+          currentUser={this.props.currentUser}
+          courseDto={courseDto}
 
-              <LearnAndReviewButtons
-                courseUserIsLearning={this.props.speCourseUserIsLearning.payload}
-                amountOfProblems={this.props.amountOfProblems}
-
-                stats={courseDto.stats}
-                nextDueDateIn={courseDto.nextDueDateIn}
-                seedSpeCourseUserIsLearning={this.props.seedSpeCourseUserIsLearning}
-                IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
-                apiStopLearning={this.apiStopLearning}
-              />
-            </div> :
-            <div className="please-sign-in_and_simulated-review-button">
-              <label className="please-sign-in">Sign in to start recording results</label>
-
-              <Link
-                to={`/courses/${this.props.courseId}/review/simulated`}
-                className="button simulated-review-button"
-              >REVIEW ({courseDto.amountOfProblems})</Link>
-            </div>
-        }
+          apiStartLearning={this.apiStartLearning}
+          apiStopLearning={this.apiStopLearning}
+          apiResumeLearning={this.apiResumeLearning}
+        />
       </div>
     </section>
 
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
       <section className={`course-actions ${css.actions}`}>
-        {
-          false &&
-          this.props.ifConfused &&
-          <article className="contact-us">
-            Confused? Missing any features? <Link to="/contact">Contact us</Link>.
-          </article>
-        }
-
         {this.renderTitleAndButtons(courseDto)}
 
         {

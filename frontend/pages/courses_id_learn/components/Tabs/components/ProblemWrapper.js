@@ -1,8 +1,7 @@
 import { orFalse } from '~/services/orFalse';
-import * as ProblemUserIsLearningApi from '~/api/ProblemUserIsLearning';
+import api from '~/api';
 
-import { Problem } from '~/components/Problem';
-
+import Problem from '~/components/Problem';
 
 // TODO okay, looks like it was a bad idea to be naming these actions as eg createProblem, we should.../
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
@@ -40,28 +39,27 @@ class ProblemWrapper extends React.Component {
   }
 
   apiLearn = () =>
-    ProblemUserIsLearningApi.create(
+    api.ProblemUserIsLearningApi.learnProblem(
       (spe) => this.setState({ speLearn: spe }),
-      this.props.problem.id
+      { problemId: this.props.problem.id }
     )
       .then((puil) => this.setState({ puil }))
       .then(() => this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.learnProblem(this.props.problem.id))
 
   apiIgnore = async () => {
-    this.setState({ speIgnore: { status: 'request' } });
-    const puil = await ProblemUserIsLearningApi.create(false, this.props.problem.id);
-    const ignoredPuil = await ProblemUserIsLearningApi.ignore(false, puil.id);
-    this.setState({ speIgnore: { status: 'success' } });
+    const ignoredPuil = await api.ProblemUserIsLearningApi.ignoreProblem(
+      (spe) => this.setState({ speIgnore: spe }),
+      { problemId: this.props.problem.id }
+    );
 
     this.setState({ puil: ignoredPuil });
     this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(this.props.problem.id);
   }
 
-  // == unignore, unlearn
   apiDelete = () =>
-    ProblemUserIsLearningApi.ddelete(
+    api.ProblemUserIsLearningApi.unlearnUnignoreProblem(
       (spe) => this.setState({ speDelete: spe }),
-      this.state.puil.id
+      { id: this.state.puil.id }
     )
       .then(() => this.setState({ puil: false }))
       .then(this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync)

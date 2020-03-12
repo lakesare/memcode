@@ -1,9 +1,7 @@
-import * as Spe from '~/services/spe';
 import Immutable from 'immutable';
 
 const initialState = {
-  speGetCourse: {},
-  speCourseUserIsLearning: {}
+  speGetCourse: {}
 };
 
 const CourseActionsReducer = (state = initialState, action) => {
@@ -13,8 +11,7 @@ const CourseActionsReducer = (state = initialState, action) => {
       if (spe.status === 'success') {
         return {
           ...state,
-          speGetCourse: spe,
-          speCourseUserIsLearning: Spe.success(spe.payload.courseUserIsLearning)
+          speGetCourse: spe
         };
       } else {
         return {
@@ -23,11 +20,6 @@ const CourseActionsReducer = (state = initialState, action) => {
         };
       }
     }
-    case 'SEED_SPE_COURSE_USER_IS_LEARNING':
-      return {
-        ...state,
-        speCourseUserIsLearning: action.payload
-      };
     case 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY':
       return Immutable.fromJS(state)
         .updateIn(

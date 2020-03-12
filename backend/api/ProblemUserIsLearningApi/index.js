@@ -1,36 +1,11 @@
-import express from 'express';
-const router = express.Router();
+import ignoreProblem from './ignoreProblem';
+import learnProblem  from './learnProblem';
+import reviewProblem from './reviewProblem';
+import unlearnUnignoreProblem from './unlearnUnignoreProblem';
 
-import catchAsync from '~/services/catchAsync';
-import authenticate from '~/middlewares/authenticate';
-
-import ProblemModel from '~/models/ProblemModel';
-import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
-import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
-
-router.post('/', authenticate, catchAsync(async (request, response) => {
-  const problemId = request.body['problemId'];
-  const userId = request.currentUser.id;
-
-  const problem = await ProblemModel.select.one(problemId);
-  const cuil = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(problem.courseId, userId);
-
-  const createdPuil = await ProblemUserIsLearningModel.insert.create({
-    courseUserIsLearningId: cuil.id,
-    problemId
-  });
-  response.status(200).json(createdPuil);
-}));
-
-router.delete('/:id', authenticate, catchAsync(async (request, response) => {
-  const puilId = request.params['id'];
-  await ProblemUserIsLearningModel.delete.ddelete(puilId);
-  response.status(200).json({});
-}));
-
-router.put('/:id/ignore', authenticate, catchAsync(async (request, response) => {
-  const ignoredPuil = await ProblemUserIsLearningModel.update.ignore(request.params['id']);
-  response.status(200).json(ignoredPuil);
-}));
-
-export default router;
+export default {
+  ignoreProblem,
+  learnProblem,
+  reviewProblem,
+  unlearnUnignoreProblem
+};
