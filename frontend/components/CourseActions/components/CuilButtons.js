@@ -65,14 +65,14 @@ class CuilButtons extends React.Component {
 
   renderLearnButton = () =>
     <Link
-      to={`/courses/${this.props.courseDto.courseUserIsLearning.courseId}/learn`}
+      to={`/courses/${this.props.courseDto.course.id}/learn`}
       className="button -to-learn"
     >LEARN ({this.props.amountOfProblems.toLearn})</Link>
 
   // You have ${this.props.amountOfProblems.toReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.
   renderReviewButton = () =>
     <Link
-      to={`/courses/${this.props.courseDto.courseUserIsLearning.courseId}/review`}
+      to={`/courses/${this.props.courseDto.course.id}/review`}
       className="button -to-review"
     >REVIEW ({this.props.amountOfProblems.toReview})</Link>
 
@@ -126,7 +126,6 @@ class CuilButtons extends React.Component {
       }
     </ul>
 
-
   render = () =>
     this.props.currentUser ?
       <div className="buttons">
@@ -149,6 +148,7 @@ class CuilButtons extends React.Component {
           }
 
           {
+            this.props.courseDto.courseUserIsLearning &&
             this.props.amountOfProblems.toReview > 0 &&
             this.renderReviewButton()
           }

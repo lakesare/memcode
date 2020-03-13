@@ -50,8 +50,6 @@ class CourseActions extends React.Component {
     seedSpeGetCourse: PropTypes.func.isRequired,
     IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
 
-    ifCuilActivityButtonsAreDisplayed: PropTypes.bool,
-
     ifCourseDescriptionIsDisplayed: PropTypes.bool,
     ifEditCourseModalTogglerIsDisplayed: PropTypes.bool,
     ifBreadcrumbsAreDisplayed: PropTypes.bool,
@@ -60,7 +58,6 @@ class CourseActions extends React.Component {
 
   static defaultProps = {
     currentUser: false,
-    ifCuilActivityButtonsAreDisplayed: true,
     ifCourseDescriptionIsDisplayed: false,
     ifEditCourseModalTogglerIsDisplayed: false,
     ifBreadcrumbsAreDisplayed: false,

@@ -7,18 +7,10 @@ const initialState = {
 const CourseActionsReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SEED_SPE_GET_COURSE': {
-      const spe = action.payload;
-      if (spe.status === 'success') {
-        return {
-          ...state,
-          speGetCourse: spe
-        };
-      } else {
-        return {
-          ...state,
-          speGetCourse: spe
-        };
-      }
+      return {
+        ...state,
+        speGetCourse: action.payload
+      };
     }
     case 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY':
       return Immutable.fromJS(state)

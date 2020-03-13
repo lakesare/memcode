@@ -16,7 +16,7 @@ class Page extends React.Component {
 
   render = () =>
     <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
-      <CourseActions courseId={this.props.match.params.id} ifCuilActivityButtonsAreDisplayed={false}/>
+      <CourseActions courseId={this.props.match.params.id}/>
 
       <Tabs courseId={this.props.match.params.id}/>
     </Main>
