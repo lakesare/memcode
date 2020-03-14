@@ -126,7 +126,7 @@ class Editor extends React.Component {
     buttons.forEach((button) => {
       switch (button.className) {
         case 'ql-bold': { tip(button, 'Bold', '⌘ B'); break; }
-        case 'ql-code':       { tip(button, 'Inline code'); break; }
+        case 'ql-code':       { tip(button, 'Inline code', '⌘ Shift M'); break; }
         case 'ql-blockquote': { tip(button, 'Quote', '⌘ Shift K'); break; }
         case 'ql-code-block': { tip(button, 'Block of code', '⌘ Shift C'); break; }
         case 'ql-link':       { tip(button, 'Link', null, 'Select some text and click here'); break; }
