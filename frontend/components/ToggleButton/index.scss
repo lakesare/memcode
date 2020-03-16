@@ -1,0 +1,86 @@
+
+$shine: 0 0 10px white;
+
+$on-bg: rgba(0, 0, 0, 0.15);
+$on-dot-color: white;
+$on-border: 1px solid rgba(108, 127, 206, 0.08);
+
+$off-bg: rgb(179, 207, 243);
+$off-dot-color: #aaa0f7;
+$off-border: 1px solid #aaa0f7;
+
+$togglebutton-size: 15px;
+$togglebutton-padding: 2px;
+$togglebutton-margin: 7px;
+$togglebutton-label-padding: 0px;
+$togglebutton-label-color: rgba(149, 149, 149, 0.51);
+$togglebutton-label-active-color: rgba(250, 250, 250, 0.51);
+$togglebutton-label-weight: normal;
+$togglebutton-label-active-weight: bold;
+
+:local(.button) {
+
+  .toggle-button-label-left:before, .toggle-button-label-left:after{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    transition:.25s ease-in-out;
+    outline:none;
+  }
+
+
+  div{
+    display:inline-block;
+    position:relative;
+    cursor:pointer;
+  }
+   .toggle-button-label-left:before{
+       content:'';
+       display:block;
+       position:absolute;
+       z-index:1;
+       line-height:34px;
+       text-indent:40px;
+       height: $togglebutton-size - 2;
+       width: $togglebutton-size - 2;
+       margin: $togglebutton-padding + 1;
+       border-radius:100%;
+       right: 27px;
+       bottom: $togglebutton-label-padding;
+       background:$on-dot-color;
+       transform: rotate(-45deg);
+  }
+  .toggle-button-label-left:after{
+      content: "";
+      display: inline-block;
+      width: 40px;
+      height:$togglebutton-size + ($togglebutton-padding * 2);
+      border-radius: $togglebutton-size;
+      background: $off-bg;
+      vertical-align: middle;
+      margin: 0 $togglebutton-margin;
+      border: $on-border;
+  }
+  &.-left .toggle-button-label-left:before{
+      right: 13px;
+      box-shadow: 3px 3px 0 0 $off-dot-color;
+      background: transparent;
+  }
+  &.-left .toggle-button-label-left:after{
+      background: $on-bg;
+      border: $off-border;
+  }
+  .toggle-button-label-left{
+      color: $togglebutton-label-active-color;
+      font-weight: $togglebutton-label-active-weight;
+  }
+  &.-left .toggle-button-label-left{
+      color: $togglebutton-label-color;
+      font-weight: $togglebutton-label-weight;
+  }
+  &.-left .toggle-button-label-left + .toggle-button-label{
+      color: $togglebutton-label-active-color;
+      font-weight: $togglebutton-label-active-weight;
+  }
+
+}

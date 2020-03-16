@@ -1,66 +1,9 @@
-import express from 'express';
-const router = express.Router();
+import startLearningCourse  from './startLearningCourse';
+import stopLearningCourse   from './stopLearningCourse';
+import resumeLearningCourse from './resumeLearningCourse';
 
-import catchAsync from '~/services/catchAsync';
-import authenticate from '~/middlewares/authenticate';
-
-import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
-import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
-import NotificationModel from '~/models/NotificationModel';
-import CourseModel from '~/models/CourseModel';
-
-router.post('/', authenticate, catchAsync(async (request, response) => {
-  const courseId = request.body['courseId'];
-  const learner = request.currentUser;
-
-  const courseUserIsLearning = await CourseUserIsLearningModel.insert.create({
-    courseId,
-    userId: learner.id,
-    active: true
-  });
-
-  const course = await CourseModel.select.oneById(courseId);
-  const authorId = course.userId;
-
-  // console.log({ learnerId: learner.id, authorId });
-  if (learner.id !== authorId) {
-    // send author a notification that someone started learning their course!
-    await NotificationModel.insert.someone_started_learning_your_course({ learner, course });
-  }
-
-  response.status(200).json(courseUserIsLearning);
-}));
-
-router.put('/:id/resumeLearning', catchAsync(async (request, response) => {
-  const courseUserIsLearning = await CourseUserIsLearningModel.update.ifActive(request.params['id'], true);
-  // Notification.insert.create({
-  //   type: 'someone_started_learning_your_course',
-  //   content: `lakesare joined <a href="/courses/15/edit">Java Essentials</a>`,
-  //   userId: 1
-  // });
-  response.status(200).json(courseUserIsLearning);
-}));
-
-router.put('/:id/stopLearning', catchAsync(async (request, response) => {
-  const courseUserIsLearning = await CourseUserIsLearningModel.update.ifActive(request.params['id'], false);
-  response.status(200).json(courseUserIsLearning);
-}));
-
-router.put('/:id/problems/:problemId/review', authenticate, catchAsync(async (request, response) => {
-  await ProblemUserIsLearningModel.update.review(
-    request.params['id'],
-    request.params['problemId'],
-    request.body['performanceRating']
-  );
-  response.status(200).json({});
-}));
-
-router.post('/:id/problems/:problemId/learn', authenticate, catchAsync(async (request, response) => {
-  const puil = await ProblemUserIsLearningModel.insert.create({
-    courseUserIsLearningId: request.params['id'],
-    problemId: request.params['problemId']
-  });
-  response.status(200).json(puil);
-}));
-
-export default router;
+export default {
+  startLearningCourse,
+  stopLearningCourse,
+  resumeLearningCourse
+};

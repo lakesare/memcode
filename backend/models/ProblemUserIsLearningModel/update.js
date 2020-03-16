@@ -25,18 +25,7 @@ const update = {
         id: me.id
       }
     );
-  },
-
-  ignore: (id) =>
-    db.one(
-      `
-      UPDATE problem_user_is_learning
-      SET if_ignored = true
-      WHERE id = \${id}
-      RETURNING *
-      `,
-      { id }
-    )
+  }
 };
 
 export default update;

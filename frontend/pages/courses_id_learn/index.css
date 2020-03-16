@@ -83,7 +83,7 @@
         position: absolute;
         top: 2px; bottom: 0;
         right: 0;
-        &.-disabled{ opacity: 0.1; cursor: default; button{ cursor: default; } }
+        &.-disabled{ opacity: 0.3; cursor: default; button{ cursor: default; } }
 
         button{
           position: absolute;

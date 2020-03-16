@@ -109,4 +109,4 @@ class CourseDescriptionAndStats extends React.Component {
     </section>
 }
 
-export { CourseDescriptionAndStats };
+export default CourseDescriptionAndStats;

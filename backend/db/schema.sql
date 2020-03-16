@@ -81,8 +81,9 @@ CREATE TABLE problem (
   -- inlinedAnswers { content, explanation }
   -- separateAnswer { content, answer }
   content JSON,
+  position INTEGER DEFAULT 0,
 
-  created_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT timezone('UTC', now()),
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL
 );
 

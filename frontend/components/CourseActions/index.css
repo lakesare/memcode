@@ -40,8 +40,9 @@
           }
 
           div.loading.-request{
-            padding: 0;
             font-size: 7px;
+            width: 86px;
+            padding: 8px;
           }
         }
         > .learn-and-review-buttons{

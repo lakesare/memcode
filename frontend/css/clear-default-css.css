@@ -13,6 +13,10 @@ body{
   box-sizing: border-box;
   font-weight: 300;
 
+  // Really needed for my font, especially visible in light theme :-o
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   background: $color-main-2;
 }
 a{

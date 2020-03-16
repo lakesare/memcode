@@ -1,11 +1,11 @@
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
-import * as CourseUserIsLearningApi from '~/api/CourseUserIsLearning';
-import { commonFetch } from '~/api/commonFetch';
+import api from '~/api';
+import commonFetch from '~/api/commonFetch';
 
 import selectors from './selectors';
 
 import playShortSound from './services/playShortSound';
-import playLongSound from './services/playLongSound';
+// import playShortSound from './services/playShortSound';
 
 const enterPressed = () =>
   (dispatch, getState) => {
@@ -29,11 +29,13 @@ const enterPressed = () =>
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state);
           const currentIndex = state.statusOfSolving.index;
-          CourseUserIsLearningApi.reviewProblem(
+          api.ProblemUserIsLearningApi.reviewProblem(
             false,
-            state.speGetPage.payload.courseUserIsLearning.id,
-            currentProblem.id,
-            score
+            {
+              id: state.speGetPage.payload.courseUserIsLearning.id,
+              problemId: currentProblem.id,
+              performanceRating: score
+            }
           )
             .then(() => {
               const lastIndex = state.speGetPage.payload.problems.length - 1;
@@ -51,7 +53,7 @@ const enterPressed = () =>
               payload: currentIndex
             });
           }
-          currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
+          currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
           dispatch({
             type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
             payload: -1
@@ -95,7 +97,7 @@ const enterPressedInFailedMode = () =>
             payload: currentIndex
           });
         }
-        currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
+        currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
 
         const ifNextReReviewProblem = state.indexesOfFailedProblems[0];
         if (ifNextReReviewProblem) {
@@ -137,7 +139,7 @@ const enterPressedInSimulatedReview = () =>
               payload: currentIndex
             });
           }
-          currentProblem.type === 'separateAnswer' && playLongSound(score, currentProblem);
+          currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
 
           dispatch({
             type: 'SET_NEXT_PROBLEM',

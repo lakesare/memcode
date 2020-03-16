@@ -1,11 +1,11 @@
 import express from 'express';
+import knex from '~/db/knex';
 const router = express.Router();
 
 import catchAsync from '~/services/catchAsync';
 import authenticate from '~/middlewares/authenticate';
 
 import CourseModel from '~/models/CourseModel';
-import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 
 router.get('/public', catchAsync(async (request, response) => {
   const pageSize = request.query.pageSize;
@@ -63,14 +63,13 @@ router.get('/stats', catchAsync(async (request, response) => {
 }));
 
 router.post('/', authenticate, catchAsync(async (request, response) => {
-  const course = await CourseModel.insert.create({ ...request.body['course'], userId: request.currentUser.id });
+  const currentUser = request.currentUser;
+  const courseBody = request.body['course'];
 
-  // add to learned courses immediately
-  await CourseUserIsLearningModel.insert.create({
-    courseId: course.id,
-    userId: request.currentUser.id,
-    active: true
-  });
+  const course = await CourseModel.insert.create({ ...courseBody, userId: currentUser.id });
+
+  // Add to learned courses immediately
+  await knex('courseUserIsLearning').insert({ courseId: course.id, userId: currentUser.id, active: true });
 
   response.status(200).json(course);
 }));
@@ -93,4 +92,6 @@ import getMyEverything from './getMyEverything';
 router.getMyEverything = getMyEverything;
 import getBest4 from './getBest4';
 router.getBest4 = getBest4;
+import duplicate from './duplicate';
+router.duplicate = duplicate;
 export default router;

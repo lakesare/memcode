@@ -4,7 +4,7 @@ import { stripTags } from '~/services/stripTags';
 const getDescription = (title, description) => {
   const strippedDescription =
     (description && description.length > 0) ?
-    `(${stripTags(description)})` : '';
+      `(${stripTags(description)})` : '';
 
   return `Learn ${title} ${strippedDescription}`;
 };
