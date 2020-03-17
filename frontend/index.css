@@ -82,7 +82,7 @@ body.-bright-theme{
   header input{
     background: rgb(32, 35, 73) !important;
   }
-  .button.edit-button{
+  .course-actions .course-title_and_category_and_author .buttons .button{
     color: black !important;
     &:hover{
       color: white !important;

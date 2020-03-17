@@ -1,0 +1,21 @@
+:local(.li){
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  img{
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 30px;
+  }
+  .right{
+    margin-left: 10px;
+    color: black;
+    .name{
+      font-style: 13px;
+    }
+    .email{
+      font-size: 12px;
+    }
+  }
+}

@@ -152,6 +152,7 @@
     "react-redux": "^6.0.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-select": "^3.0.8",
     "react-sticky": "^6.0.3",
     "react-transition-group": "^4.0.0",
     "read-pkg-up": "^4.0.0",

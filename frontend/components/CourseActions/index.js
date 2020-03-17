@@ -9,6 +9,7 @@ import StandardTooltip from '~/components/StandardTooltip';
 import MetaTags from './components/MetaTags';
 import Loading from '~/components/Loading';
 import CourseModal from './components/CourseModal';
+import InviteCoauthorModal from './components/InviteCoauthorModal';
 import CuilButtons from './components/CuilButtons';
 import CourseDescriptionAndStats from './components/CourseDescriptionAndStats';
 
@@ -155,19 +156,34 @@ class CourseActions extends React.Component {
             </section>
           }
 
-          {
-            this.props.ifEditCourseModalTogglerIsDisplayed &&
-            this.props.currentUser &&
-            <CourseModal
-              toggler={
-                <button className="button edit-button" type="button">
-                  <i className="fa fa-hand-pointer-o"/> EDIT
-                </button>
-              }
-              course={courseDto.course}
-              uiUpdateCourse={this.uiUpdateCourse}
-            />
-          }
+          <div className="buttons">
+            {
+              this.props.ifEditCourseModalTogglerIsDisplayed &&
+              this.props.currentUser &&
+              <CourseModal
+                toggler={
+                  <button className="button edit-button" type="button">
+                    <i className="fa fa-hand-pointer-o"/> EDIT
+                  </button>
+                }
+                course={courseDto.course}
+                uiUpdateCourse={this.uiUpdateCourse}
+              />
+            }
+
+            {
+              this.props.ifEditCourseModalTogglerIsDisplayed &&
+              this.props.currentUser &&
+              <InviteCoauthorModal
+                course={courseDto.course}
+                toggler={
+                  <button className="button invite-coauthor-button" type="button">
+                    <i className="fa fa-users"/> INVITE COAUTHORS
+                  </button>
+                }
+              />
+            }
+          </div>
 
           {
             this.props.ifEditCourseModalTogglerIsDisplayed &&

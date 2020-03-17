@@ -106,18 +106,25 @@
             }
           }
         }
-        > button.edit-button{
+        > div.buttons{        
           margin-left: 10px;
-          margin-top: 4px;
-          align-self: flex-start;
-          min-width: auto;
-          padding: 2px 10px;
+          // margin-top: 2px;
+          > button.edit-button, > button.invite-coauthor-button{
+            align-self: flex-start;
+            min-width: auto;
+            padding: 2px 10px;
 
-          font-size: 10px;
-          align-items: flex-start;
-          color: rgb(206, 199, 245);
-          i{ padding-right: 3px; }
+            font-size: 10px;
+            align-items: flex-start;
+            color: rgb(206, 199, 245);
+            i{ padding-right: 3px; }
+          }
+
+          > button.invite-coauthor-button{
+            margin-top: 1px;
+          }
         }
+
         .course-is-private-label{
           padding: 6px;
           align-self: flex-start;
@@ -264,7 +271,7 @@
               margin-right: 5px;
             }
           }
-          > button.edit-button{
+          button.edit-button{
             display: none;
           }
         }
