@@ -3,6 +3,7 @@ import dropOrPasteImageHandler from '~/services/quill/handlers/dropOrPasteImageH
 import uploadImageHandler      from '~/services/quill/handlers/uploadImageHandler';
 import markAsAnswerHandler     from '~/services/quill/handlers/markAsAnswerHandler';
 import codeBlockHandler        from '~/services/quill/handlers/codeBlockHandler';
+import codeLineHandler         from '~/services/quill/handlers/codeLineHandler';
 import quoteHandler            from '~/services/quill/handlers/quoteHandler';
 import superScriptHandler      from '~/services/quill/handlers/superScriptHandler';
 import subScriptHandler        from '~/services/quill/handlers/subScriptHandler';
@@ -22,6 +23,7 @@ const bindings = {
 
   superScriptHandlerOnDot: {
     key: 190, // .
+    // CMD and CTRL
     shortKey: true,
     shiftKey: true,
     handler: superScriptHandler
@@ -36,15 +38,20 @@ const bindings = {
 
   codeBlockOnCmdC: {
     key: 'C',
-    // CMD and CTRL
     shortKey: true,
     shiftKey: true,
     handler: codeBlockHandler
   },
 
+  codeLineOnCmdM: {
+    key: 'M',
+    shortKey: true,
+    shiftKey: true,
+    handler: codeLineHandler
+  },
+
   quoteOnCmdK: {
     key: 'K',
-    // CMD and CTRL
     shortKey: true,
     shiftKey: true,
     handler: quoteHandler
@@ -125,7 +132,7 @@ class Editor extends React.Component {
 
     buttons.forEach((button) => {
       switch (button.className) {
-        case 'ql-bold': { tip(button, 'Bold', '⌘ B'); break; }
+        case 'ql-bold':       { tip(button, 'Bold', '⌘ B'); break; }
         case 'ql-code':       { tip(button, 'Inline code', '⌘ Shift M'); break; }
         case 'ql-blockquote': { tip(button, 'Quote', '⌘ Shift K'); break; }
         case 'ql-code-block': { tip(button, 'Block of code', '⌘ Shift C'); break; }
