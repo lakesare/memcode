@@ -11,6 +11,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/clear-default-css';
 @import 'css/focus-styles';
 
+@import 'css/react-select';
 @import 'css/quill/index';
 @import 'css/container';
 @import 'css/button';
@@ -28,6 +29,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/standard-navigation_and_courses';
 @import 'css/standard-course-card';
 @import 'css/standard-tooltip-dropdown';
+@import 'css/standard-table';
 
 @import 'css/problem';
 

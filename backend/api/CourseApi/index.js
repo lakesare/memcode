@@ -94,4 +94,6 @@ import getBest4 from './getBest4';
 router.getBest4 = getBest4;
 import duplicate from './duplicate';
 router.duplicate = duplicate;
+import updateCoauthors from './updateCoauthors';
+router.updateCoauthors = updateCoauthors;
 export default router;

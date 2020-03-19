@@ -43,7 +43,7 @@ header a.avatar{
 header{
   section.search input{
     &.focus-visible, &:hover{
-      background: rgb(32, 35, 73) !important;
+      // background: rgb(32, 35, 73) !important;
     }
   }
 

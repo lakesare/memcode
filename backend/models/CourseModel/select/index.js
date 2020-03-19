@@ -18,7 +18,7 @@ const sortByWord = (sortBy) => {
       random()
     `;
   }
-}
+};
 
 const select = {
   allCreated: (userId) =>

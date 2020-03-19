@@ -1,0 +1,22 @@
+.standard-table{
+  table-layout: fixed;
+  th{
+    font-weight: 300;
+    text-align: left;
+  }
+  thead{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  th, td{
+    padding: 10px;
+  }
+
+  tbody{
+    tr:nth-child(2n){
+      background: rgba(202, 204, 238, 0.04);
+    }
+    tr:nth-child(2n+1){
+      background: rgba(202, 204, 238, 0.07);
+    }
+  }
+}

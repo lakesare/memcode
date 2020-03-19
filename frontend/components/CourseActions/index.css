@@ -112,7 +112,7 @@
           > button.edit-button, > button.invite-coauthor-button{
             align-self: flex-start;
             min-width: auto;
-            padding: 2px 10px;
+            padding: 4px 10px;
 
             font-size: 10px;
             align-items: flex-start;

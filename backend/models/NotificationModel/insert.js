@@ -47,9 +47,20 @@ const someone_started_learning_your_course = ({ learner, course }) =>
     userId: course.userId
   });
 
+const someone_added_you_as_coauthor = ({ coauthorId, course, author }) =>
+  create({
+    type: 'someone_added_you_as_coauthor',
+    content: {
+      course,
+      author
+    },
+    userId: coauthorId
+  });
+
 export default {
   create,
   welcome_to_memcode,
   someone_rated_your_course,
-  someone_started_learning_your_course
+  someone_started_learning_your_course,
+  someone_added_you_as_coauthor
 };

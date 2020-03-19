@@ -4,6 +4,10 @@ import css from './index.scss';
 import api from '~/api';
 
 class UserSelect extends React.Component {
+  static propTypes = {
+    onSelect: PropTypes.func.isRequired,
+  }
+
   loadOptions = (inputValue) =>
     api.UserApi.findByString(false, {
       searchString: inputValue
@@ -24,7 +28,6 @@ class UserSelect extends React.Component {
       <img src={value.avatarUrl} alt="Avatar of a current user"/>
       <div className="right">
         <div className="name">{value.username}</div>
-        <div className="email">{value.email}</div>
       </div>
     </div>
 
@@ -50,13 +53,15 @@ class UserSelect extends React.Component {
           primary: 'rgb(222, 235, 255)',
           primary75: 'rgb(222, 235, 255)',
           primary50: 'rgb(222, 235, 255)',
+          // bg
           neutral0:  'white',
           neutral5:  'rgb(204, 204, 204)',
           neutral10: 'rgb(204, 204, 204)',
           neutral20: 'rgb(204, 204, 204)',
           neutral30: 'rgb(204, 204, 204)',
           neutral40: 'rgb(204, 204, 204)',
-          neutral50: 'rgb(204, 204, 204)',
+          // placeholder
+          neutral50: 'rgb(81, 83, 114)',
           neutral60: 'rgb(204, 204, 204)',
           neutral70: 'rgb(204, 204, 204)',
           // text

@@ -17,6 +17,7 @@ const getApiClass = (controllerName) => {
     case 'CourseUserIsLearningApi': return CourseUserIsLearningApi;
     case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
     case 'UserApi': return UserApi;
+    case 'PageApi': return PageApi;
   }
 };
 

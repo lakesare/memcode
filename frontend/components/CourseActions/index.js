@@ -1,5 +1,4 @@
 import orFalse from '~/services/orFalse';
-import commonFetch from '~/api/commonFetch';
 import UrlCreator from '~/services/UrlCreator';
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import api from '~/api';
@@ -75,9 +74,11 @@ class CourseActions extends React.Component {
   }
 
   apiGetCourseActions = () =>
-    commonFetch(
+    api.PageApi.getForCourseActions(
       (spe) => this.props.seedSpeGetCourse(spe),
-      'GET', `/api/pages/courseActions/${this.props.courseId}`
+      {
+        courseId: this.props.courseId
+      }
     )
 
   apiStartLearning = () =>
@@ -176,6 +177,8 @@ class CourseActions extends React.Component {
               this.props.currentUser &&
               <InviteCoauthorModal
                 course={courseDto.course}
+                coauthors={courseDto.coauthors}
+                currentUser={this.props.currentUser}
                 toggler={
                   <button className="button invite-coauthor-button" type="button">
                     <i className="fa fa-users"/> INVITE COAUTHORS

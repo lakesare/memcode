@@ -8,7 +8,6 @@ import knex from '~/db/knex';
 
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
-import CourseModel from '~/models/CourseModel';
 
 const getProblemsByCourseId = (courseId) =>
   knex('problem').where({ course_id: courseId })
@@ -60,19 +59,14 @@ router.get('/courses/:id', catchAsync(async (request, response) => {
   response.status(200).json(problems);
 }));
 
-// per-component routes (/api/pages/componentName/...)
-router.get('/courseActions/:courseId', catchAsync(async (request, response) => {
-  const course = await CourseModel.select.oneForActions(request.params.courseId, request.currentUser ? request.currentUser.id : null);
-  if (!course) throw new Error("Sorry, course with this id has not yet been created.");
-  const courseStats = await CourseModel.select.getCourseStats(request.params.courseId);
-
-  response.status(200).json({ ...course, stats: courseStats });
-}));
-
 // global state (?)
 router.get('/idsOfProblemsToLearnAndReviewPerCourse', authenticate, catchAsync(async (request, response) => {
   const idsOfProblemsToLearnAndReviewPerCourse = await CourseUserIsLearningModel.select.idsOfProblemsToLearnAndReviewPerCourse(request.currentUser.id);
   response.status(200).json(idsOfProblemsToLearnAndReviewPerCourse);
 }));
+
+
+import getForCourseActions from './getForCourseActions';
+router.getForCourseActions = getForCourseActions;
 
 export default router;
