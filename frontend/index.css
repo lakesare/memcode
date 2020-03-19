@@ -42,6 +42,14 @@ body.-bright-theme{
   filter: invert(1) hue-rotate(165deg);
   transition: background 200ms;
 
+  .ql-editor:focus{
+    background: black !important;
+  }
+
+  // Really needed for my font, especially visible in light theme :-o
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+
   img, .button, .toggle-button,
   .standard-course-card .learn-and-review-buttons .links, .standard-course-card .amount-footer,
   .answer-input, .stars .star{

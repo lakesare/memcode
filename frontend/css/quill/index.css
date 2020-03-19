@@ -44,12 +44,12 @@
       text-decoration: underline;
     }
 
+    pre.ql-syntax, code, code *{
+      background: rgb(49, 56, 114) !important;
+      color: rgb(208, 204, 238) !important;
+    }
     pre.ql-syntax, code{
-      background: rgb(13, 16, 49) !important;
-      color: $purple !important;
-
       font-size: 13px;
-
       white-space: pre-wrap;
       border-radius: 3px;
     }
@@ -58,12 +58,9 @@
       padding: 5px 10px;
     }
     code{
-      padding: 2px 6px;
+      padding: 2px 4px;
     }
-    code *{
-      background: rgb(13, 16, 49) !important;
-      color: $purple !important;
-    }
+
     sup, sub{
       font-size: 12px;
       strong{ font-size: inherit; }
