@@ -11,6 +11,10 @@
     color: $purple;
   }
 
+  .text-orange{
+    color: rgb(248, 125, 60);
+  }
+
   // styles for particular types
   &.-type-someone_started_learning_your_course{
     > div.title_and_content_and_created-at{
@@ -67,7 +71,7 @@
       color: rgb(106, 126, 171);
     }
     > div.content{
-      font-size: 12px;
+      font-size: 13px;
       margin-top: 3px;
       margin-bottom: 3px;
     }
