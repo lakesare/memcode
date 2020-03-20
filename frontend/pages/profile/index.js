@@ -39,7 +39,7 @@ class Page_profile extends React.Component {
         spe => this.setState({ speSave: spe }),
         this.state.formState
       )
-        .then((course) => this.props.history.push(`/courses/${course.id}/edit`));
+        .then((course) => this.props.history.push(`/courses/${course.id}`));
     } else {
       this.setState({ formValidation });
     }

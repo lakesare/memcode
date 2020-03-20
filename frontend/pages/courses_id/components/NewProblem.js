@@ -168,4 +168,4 @@ class NewProblem extends React.Component {
     </div>
 }
 
-export { NewProblem };
+export default NewProblem;
