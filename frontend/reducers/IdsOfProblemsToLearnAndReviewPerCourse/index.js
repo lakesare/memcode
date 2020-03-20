@@ -152,7 +152,57 @@ const actions = {
   // deleteCourse: we'll just get redirected and we will automatically refresh
 };
 
+const getAllActions = (dispatch) => ({
+  apiSync: () => {
+    const oldPayload = localStorage.getItem('idsOfProblemsToLearnAndReviewPerCourse');
+    if (oldPayload) {
+      try {
+        const parsedOldPayload = JSON.parse(oldPayload);
+        dispatch({ type: `${namespace}.SET`, payload: parsedOldPayload });
+      } catch (error) {
+        console.error(error);
+        console.log("Couldn't parse apiSync() payload from localStorage");
+        console.log(oldPayload);
+      }
+    }
+    return commonFetch(
+      false,
+      'GET', `/api/pages/idsOfProblemsToLearnAndReviewPerCourse`
+    )
+      .then((payload) => {
+        dispatch({ type: `${namespace}.SET`, payload });
+      });
+  },
+  // ___edit actions. We will do nothing if we call them while not learning this course.
+  //
+  // === reviewProblem, ignoreProblem
+  deleteProblem: (problemId) =>
+    dispatch({
+      type: `${namespace}.DELETE_PROBLEM`,
+      payload: { problemId }
+    }),
+  createProblem: (courseId, problemId) =>
+    dispatch({
+      type: `${namespace}.CREATE_PROBLEM`,
+      payload: { courseId, problemId }
+    }),
+
+  // just remove id all together
+  stopLearningCourse: (courseId) =>
+    dispatch({
+      type: `${namespace}.STOP_LEARNING_COURSE`,
+      payload: { courseId }
+    }),
+  // remove from learned, add to reviewed
+  learnProblem: (problemId) =>
+    dispatch({
+      type: `${namespace}.LEARN_PROBLEM`,
+      payload: { problemId }
+    })
+})
+
 export {
   IdsOfProblemsToLearnAndReviewPerCourseReducer,
-  actions as IdsOfProblemsToLearnAndReviewPerCourseActions
+  actions as IdsOfProblemsToLearnAndReviewPerCourseActions,
+  getAllActions
 };

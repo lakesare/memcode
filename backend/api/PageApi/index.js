@@ -48,7 +48,7 @@ router.get('/courses/:id', catchAsync(async (request, response) => {
 
   const problems = await getProblemsByCourseId(courseId);
 
-  response.status(200).json(problems);
+  response.status(200).json({ problems });
 }));
 
 // global state (?)

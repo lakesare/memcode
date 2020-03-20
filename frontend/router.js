@@ -4,10 +4,10 @@ import onEnters from '~/services/onEnters';
 
 import Page_courses from './pages/courses';
 import Page_courses_new from './pages/courses_new';
-import Page_courses_id from './pages/courses_id';
+// import Page_courses_id from './pages/courses_id';
 import Page_courses_id_review from './pages/courses_id_review';
 import Page_courses_id_learn from './pages/courses_id_learn';
-import Page_courses_id_edit from './pages/courses_id_edit';
+import Page_courses_id from './pages/courses_id_edit';
 import Page_courses_learning from './pages/courses_learning';
 
 import Page_profile from './pages/profile';
@@ -33,7 +33,6 @@ const router =
       <Route exact path="/courses/learning"   component={auth(Page_courses_learning)}/>
       <Route exact path="/courses/new"        component={auth(Page_courses_new)}/>
       <Route exact path="/courses/:id"        component={Page_courses_id}/>
-      <Route exact path="/courses/:id/edit"   component={auth(Page_courses_id_edit)}/>
       <Route exact path="/courses/:id/learn"  component={auth(Page_courses_id_learn)}/>
       <Route exact path="/courses/:id/review" component={auth(Page_courses_id_review)} simulated={false}/>
       <Route exact path="/courses/:id/review/simulated" component={(props) => <Page_courses_id_review {...props} simulated/>}/>

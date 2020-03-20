@@ -1,6 +1,5 @@
 import orFalse from '~/services/orFalse';
 import UrlCreator from '~/services/UrlCreator';
-import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import api from '~/api';
 
 import { Link } from 'react-router-dom';
@@ -15,40 +14,14 @@ import CourseDescriptionAndStats from './components/CourseDescriptionAndStats';
 
 import css from './index.css';
 
-@connect(
-  (state, ownProps) => ({
-    currentUser: state.global.Authentication.currentUser || false,
-    speGetCourse: state.components.CourseActions.speGetCourse,
-    amountOfProblems:
-      (
-        state.global.IdsOfProblemsToLearnAndReviewPerCourse &&
-        state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId]
-      ) ?
-        {
-          toLearn: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toLearn.length,
-          toReview: state.global.IdsOfProblemsToLearnAndReviewPerCourse[ownProps.courseId].toReview.length
-        } :
-        false
-  }),
-  (dispatch) => ({
-    seedSpeGetCourse: (spe) => dispatch({
-      type: 'SEED_SPE_GET_COURSE',
-      payload: spe
-    }),
-    IdsOfProblemsToLearnAndReviewPerCourseActions: {
-      stopLearningCourse: (courseId) => IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(dispatch, courseId),
-      apiSync: () => IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync(dispatch)
-    }
-  })
-)
 class CourseActions extends React.Component {
   static propTypes = {
     courseId: PropTypes.string.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    amountOfProblems: orFalse(PropTypes.object).isRequired,
+    idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
 
     speGetCourse: PropTypes.object.isRequired,
-    seedSpeGetCourse: PropTypes.func.isRequired,
+    setSpeGetCourse: PropTypes.func.isRequired,
     IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
 
     ifCourseDescriptionIsDisplayed: PropTypes.bool,
@@ -64,23 +37,6 @@ class CourseActions extends React.Component {
     ifBreadcrumbsAreDisplayed: false,
     ifWithDescriptionPlaceholder: false
   }
-
-  componentDidMount = () =>
-    this.apiGetCourseActions()
-
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.courseId !== this.props.courseId) {
-      this.apiGetCourseActions();
-    }
-  }
-
-  apiGetCourseActions = () =>
-    api.PageApi.getForCourseActions(
-      (spe) => this.props.seedSpeGetCourse(spe),
-      {
-        courseId: this.props.courseId
-      }
-    )
 
   apiStartLearning = () =>
     api.CourseUserIsLearningApi.startLearningCourse(
@@ -114,12 +70,12 @@ class CourseActions extends React.Component {
 
   uiUpdateCourse = (course) => {
     const spe = this.props.speGetCourse;
-    this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
+    this.props.setSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
   }
 
   uiUpdateCuil = (courseUserIsLearning) => {
     const spe = this.props.speGetCourse;
-    this.props.seedSpeGetCourse({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
+    this.props.setSpeGetCourse({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
   }
 
   renderRequestIcon = () => (
@@ -131,8 +87,16 @@ class CourseActions extends React.Component {
       null
   )
 
-  renderTitleAndButtons = (courseDto) =>
-    <section className="title-and-buttons">
+  renderTitleAndButtons = (courseDto) => {
+    const ids = this.props.idsOfProblemsToLearnAndReviewPerCourse;
+    const amountOfProblems = (ids && ids[this.props.courseId]) ?
+      {
+        toLearn: ids[this.props.courseId].toLearn.length,
+        toReview: ids[this.props.courseId].toReview.length
+      } :
+      false;
+
+    return <section className="title-and-buttons">
       <div className="container">
         <section className="course-title_and_category_and_author">
           <h1 className="title">
@@ -202,7 +166,7 @@ class CourseActions extends React.Component {
         </section>
 
         <CuilButtons
-          amountOfProblems={this.props.amountOfProblems}
+          amountOfProblems={amountOfProblems}
           currentUser={this.props.currentUser}
           courseDto={courseDto}
 
@@ -211,7 +175,8 @@ class CourseActions extends React.Component {
           apiResumeLearning={this.apiResumeLearning}
         />
       </div>
-    </section>
+    </section>;
+  }
 
   render = () =>
     <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>

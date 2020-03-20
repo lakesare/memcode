@@ -4,7 +4,6 @@ import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
 import api from '~/api';
 import { commonFetch } from '~/api/commonFetch';
 
-// import Joyride from 'react-joyride';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Main from '~/appComponents/Main';
@@ -27,15 +26,17 @@ import css from './index.css';
 //    - then we better still do the api call from the <Page/>, and pass data via speActions={}.
 // <CoursePage>
 
-import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
+import { getAllActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
+
 @connect(
-  () => ({}),
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false,
+    speGetCourse: state.components.CourseActions.speGetCourse,
+    idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
+  }),
   (dispatch) => ({
-    IdsOfProblemsToLearnAndReviewPerCourseActions: {
-      createProblem: (courseId, problemId) => IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(dispatch, courseId, problemId),
-      deleteProblem: (problemId) =>
-        IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, problemId)
-    }
+    setSpeGetCourse: (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+    IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
   })
 )
 class Page_courses_id_edit extends React.Component {
@@ -52,63 +53,73 @@ class Page_courses_id_edit extends React.Component {
   }
 
   state = {
-    speGetPage: {},
+    speGetProblems: {},
     idsOfCheckedProblems: []
   }
 
   componentDidMount = () => {
     this.apiGetPage();
+    this.apiGetCourseActions();
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.apiGetPage();
+      this.apiGetCourseActions();
     }
   }
 
   apiGetPage = () =>
     commonFetch(
-      (spe) => this.setState({ speGetPage: spe }),
+      (spe) => this.setState({ speGetProblems: spe }),
       'GET', `/api/pages/courses/${this.props.match.params.id}`
+    )
+
+  apiGetCourseActions = () =>
+    api.PageApi.getForCourseActions(
+      (spe) => this.props.setSpeGetCourse(spe),
+      {
+        courseId: this.props.match.params.id
+      }
     )
 
   uiAddOptimisticProblem = (optimisticProblem) => {
     this.setState({
-      speGetPage:
-      update(this.state.speGetPage, `payload.problems`,
+      speGetProblems:
+      update(this.state.speGetProblems, `payload.problems`,
         (problems) => [...problems, optimisticProblem]
       )
     });
   }
 
   uiUpdateOptimisticProblemIntoOld = (optimisticId, createdProblem) => {
-    const index = this.state.speGetPage.payload.problems.findIndex(
+    const index = this.state.speGetProblems.payload.problems.findIndex(
       (problem) => problem._optimistic_id === optimisticId
     );
 
     this.setState({
-      speGetPage:
-      update(this.state.speGetPage, `payload.problems[${index}]`, () => createdProblem)
+      speGetProblems:
+      update(this.state.speGetProblems, `payload.problems[${index}]`, () => createdProblem)
     });
 
     this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.match.params.id, createdProblem.id);
   }
 
   updateOldProblem = (updatedProblem) => {
-    const index = this.state.speGetPage.payload.problems.findIndex(
+    const index = this.state.speGetProblems.payload.problems.findIndex(
       (problem) => problem.id === updatedProblem.id
     );
 
     this.setState({
-      speGetPage:
-      update(this.state.speGetPage, `payload.problems[${index}]`, () => updatedProblem)
+      speGetProblems:
+      update(this.state.speGetProblems, `payload.problems[${index}]`, () => updatedProblem)
     });
   }
 
   removeOldProblem = (problemId) => {
     this.setState({
-      speGetPage:
-      update(this.state.speGetPage, `payload.problems`,
+      speGetProblems:
+      update(this.state.speGetProblems, `payload.problems`,
         (problems) => problems.filter((problem) => problem.id !== problemId)
       ),
       idsOfCheckedProblems: this.state.idsOfCheckedProblems.filter((id) => id !== problemId)
@@ -119,8 +130,8 @@ class Page_courses_id_edit extends React.Component {
   // TODO is performance ok, are we not dying?
   uiRemoveOldProblems = (problemIds) => {
     this.setState({
-      speGetPage:
-      update(this.state.speGetPage, `payload.problems`,
+      speGetProblems:
+      update(this.state.speGetProblems, `payload.problems`,
         (problems) => problems.filter((problem) => !problemIds.includes(problem.id))
       ),
       idsOfCheckedProblems: []
@@ -144,7 +155,7 @@ class Page_courses_id_edit extends React.Component {
   apiReorderProblems = () =>
     api.ProblemApi.reorder(
       false,
-      this.state.speGetPage.payload.problems.map((problem, index) => ({
+      this.state.speGetProblems.payload.problems.map((problem, index) => ({
         id: problem.id,
         // position cannot be 0 (so we can never make any flashcard 0s), because then it will just move to the end of the queue
         position: index + 1
@@ -161,15 +172,15 @@ class Page_courses_id_edit extends React.Component {
     const to = result.destination.index;
 
     this.setState({
-      speGetPage:
-      update(this.state.speGetPage, `payload.problems`,
+      speGetProblems:
+      update(this.state.speGetProblems, `payload.problems`,
         (problems) => injectFromOldToNewIndex(problems, from, to)
       )
     }, this.apiReorderProblems);
   }
 
   renderProblems = () =>
-    <Loading spe={this.state.speGetPage}>{({ problems }) =>
+    <Loading spe={this.state.speGetProblems}>{({ problems }) =>
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="problems">{(provided) =>
           <section
@@ -195,13 +206,37 @@ class Page_courses_id_edit extends React.Component {
       </DragDropContext>
     }</Loading>
 
+  canIEditCourse = () => {
+    const courseDto = this.state.speGetCourse.payload;
+
+    const currentUser = this.props.currentUser;
+    const course = courseDto.course;
+    const coauthorUsers = courseDto.coauthors;
+
+    if (!currentUser) return false;
+    const isAuthor = currentUser.id === course.userId;
+    const isCoauthor = coauthorUsers.find((coauthor) =>
+      coauthor.id === currentUser.id
+    );
+    return !(isAuthor || isCoauthor);
+  }
+
   render = () =>
     <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
       <CourseActions
         courseId={this.props.match.params.id}
-        ifEditCourseModalTogglerIsDisplayed
+        currentUser={this.props.currentUser}
+
+        speGetCourse={this.props.speGetCourse}
+        setSpeGetCourse={this.props.setSpeGetCourse}
+
+        idsOfProblemsToLearnAndReviewPerCourse={this.props.idsOfProblemsToLearnAndReviewPerCourse}
+        IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
+
         ifCourseDescriptionIsDisplayed
         ifBreadcrumbsAreDisplayed
+
+        ifEditCourseModalTogglerIsDisplayed
         ifWithDescriptionPlaceholder
       />
 
