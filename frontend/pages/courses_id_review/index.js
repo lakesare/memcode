@@ -1,4 +1,5 @@
 import orFalse from '~/services/orFalse';
+import { getAllActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
@@ -8,6 +9,7 @@ import WhatsNext from './components/WhatsNext';
 import Problem from '~/components/Problem';
 
 import css from './index.css';
+import MyDuck from '~/ducks/MyDuck';
 
 // person pressed ENTER,
 //   if there are answers in problem:
@@ -39,7 +41,10 @@ import actions from './duck/actions';
           amountOfProblems: pageState.speGetPage.payload.problems.length
         },
       amountOfFailedProblems: pageState.amountOfFailedProblems,
-      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length
+      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
+
+      speCourseForActions: state.global.My.speCourseForActions,
+      idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
     };
   },
   (dispatch, ownProps) => ({
@@ -58,7 +63,11 @@ import actions from './duck/actions';
       }),
     onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
     randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
-    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' })
+    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
+
+    setSpeCourseForActions: (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+    apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
+    IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
   })
 )
 class Page_courses_id_review extends React.Component {
@@ -86,7 +95,13 @@ class Page_courses_id_review extends React.Component {
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired,
     randomizeProblems: PropTypes.func.isRequired,
-    switchQuestionAndAnswer: PropTypes.func.isRequired
+    switchQuestionAndAnswer: PropTypes.func.isRequired,
+
+    idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
+    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
+    apiGetCourseForActions: PropTypes.func.isRequired,
+    speCourseForActions: PropTypes.object.isRequired,
+    setSpeCourseForActions: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -95,11 +110,13 @@ class Page_courses_id_review extends React.Component {
 
   componentDidMount() {
     this.props.getPage(this.props.match.params.id);
+    this.props.apiGetCourseForActions();
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.props.getPage(this.props.match.params.id);
+      this.props.apiGetCourseForActions();
     }
   }
 
@@ -117,7 +134,18 @@ class Page_courses_id_review extends React.Component {
 
   render = () =>
     <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
-      <CourseActions courseId={this.props.match.params.id}/>
+      <CourseActions
+        courseId={this.props.match.params.id}
+        currentUser={this.props.currentUser}
+
+        speCourseForActions={this.props.speCourseForActions}
+        setSpeCourseForActions={this.props.setSpeCourseForActions}
+
+        idsOfProblemsToLearnAndReviewPerCourse={this.props.idsOfProblemsToLearnAndReviewPerCourse}
+        IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
+
+        type="review"
+      />
 
       {
         this.props.currentProblem &&

@@ -6,10 +6,14 @@ const SPE_CATEGORIES = `${namespace}.SPE_CATEGORIES`;
 const initialState = {
   speCourses: {},
   courses: [],
-  speCategories: {}
+  speCategories: {},
+  speCourseForActions: {}
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SEED_SPE_GET_COURSE': {
+      return { ...state, speCourseForActions: action.payload };
+    }
     case SPE_COURSES: {
       if (state.speCourses.status === 'success') {
         if (action.spe.status === 'success') {
@@ -41,6 +45,20 @@ const actions = {
   },
   apiGetCategories: (dispatch) => {
     api.CourseCategoryApi.getAll((spe) => dispatch({ type: SPE_CATEGORIES, spe }));
+  },
+  apiGetCourseForActions: (courseId) => (dispatch, getState) => {
+    // console.log(getState());
+    const oldSpe = getState().global.My.speCourseForActions;
+    const isAlreadyLoadedCourse =
+      oldSpe.status === 'success' &&
+      oldSpe.payload.course.id.toString() === courseId;
+
+    if (!isAlreadyLoadedCourse) {
+      api.PageApi.getForCourseActions(
+        (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+        { courseId }
+      );
+    }
   }
   // deleteProblem: (dispatch, problemId) =>
   //   dispatch({

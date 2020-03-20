@@ -21,8 +21,8 @@ class CourseActions extends React.Component {
     currentUser: orFalse(PropTypes.object).isRequired,
     idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
 
-    speGetCourse: PropTypes.object.isRequired,
-    setSpeGetCourse: PropTypes.func.isRequired,
+    speCourseForActions: PropTypes.object.isRequired,
+    setSpeCourseForActions: PropTypes.func.isRequired,
     IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
 
     type: PropTypes.oneOf(['editOrShow', 'review', 'learn']),
@@ -59,13 +59,13 @@ class CourseActions extends React.Component {
       })
 
   uiUpdateCourse = (course) => {
-    const spe = this.props.speGetCourse;
-    this.props.setSpeGetCourse({ ...spe, payload: { ...spe.payload, course } });
+    const spe = this.props.speCourseForActions;
+    this.props.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, course } });
   }
 
   uiUpdateCuil = (courseUserIsLearning) => {
-    const spe = this.props.speGetCourse;
-    this.props.setSpeGetCourse({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
+    const spe = this.props.speCourseForActions;
+    this.props.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
   }
 
   renderRequestIcon = () => (
@@ -79,7 +79,7 @@ class CourseActions extends React.Component {
 
   canIEditCourse = () => {
     const currentUser = this.props.currentUser;
-    const spe = this.props.speGetCourse;
+    const spe = this.props.speCourseForActions;
     if (spe.status !== 'success') return false;
     const { coauthors, course } = spe.payload;
     return Roles.canIEditCourse({ currentUser, coauthors, course });
@@ -180,7 +180,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.speGetCourse} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
+    <Loading spe={this.props.speCourseForActions} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
       <section className={`course-actions ${css.actions}`}>
         {this.renderTitleAndButtons(courseDto)}
 

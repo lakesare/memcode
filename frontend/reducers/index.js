@@ -5,10 +5,6 @@ import { AuthenticationReducer } from '~/reducers/Authentication';
 import { IdsOfProblemsToLearnAndReviewPerCourseReducer } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import MyDuck from '~/ducks/MyDuck';
 
-// per-component state
-// [named like: component name + Reducer]
-import { CourseActionsReducer } from '~/components/CourseActions/reducer';
-
 // per-page state
 // [named like: page component name + _Reducer]
 // logic of naming is that _courses_id_review_ in the middle originates from url, and should be left alone from our usual camelCase.
@@ -20,12 +16,7 @@ const reducers = combineReducers({
     Authentication: AuthenticationReducer,
     IdsOfProblemsToLearnAndReviewPerCourse: IdsOfProblemsToLearnAndReviewPerCourseReducer,
 
-    My: MyDuck.reducer
-  }),
-
-  // per-component state
-  components: combineReducers({
-    CourseActions: CourseActionsReducer
+    My: MyDuck.reducer,
   }),
 
   // per-page state

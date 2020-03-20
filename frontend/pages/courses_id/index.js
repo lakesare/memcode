@@ -21,15 +21,17 @@ import ActionsForCheckedProblems from './components/ActionsForCheckedProblems';
 import css from './index.css';
 
 import { getAllActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
+import MyDuck from '~/ducks/MyDuck';
 
 @connect(
   (state) => ({
     currentUser: state.global.Authentication.currentUser || false,
-    speGetCourse: state.components.CourseActions.speGetCourse,
+    speCourseForActions: state.global.My.speCourseForActions,
     idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
   }),
-  (dispatch) => ({
-    setSpeGetCourse: (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+  (dispatch, ownProps) => ({
+    setSpeCourseForActions: (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+    apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
     IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
   })
 )
@@ -39,8 +41,9 @@ class Page_courses_id extends React.Component {
     idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
     IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    speGetCourse: PropTypes.object.isRequired,
-    setSpeGetCourse: PropTypes.func.isRequired,
+    apiGetCourseForActions: PropTypes.func.isRequired,
+    speCourseForActions: PropTypes.object.isRequired,
+    setSpeCourseForActions: PropTypes.func.isRequired,
   }
 
   state = {
@@ -50,29 +53,21 @@ class Page_courses_id extends React.Component {
 
   componentDidMount = () => {
     this.apiGetPage();
-    this.apiGetCourseActions();
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.apiGetPage();
-      this.apiGetCourseActions();
     }
   }
 
-  apiGetPage = () =>
+  apiGetPage = () => {
     commonFetch(
       (spe) => this.setState({ speGetProblems: spe }),
       'GET', `/api/pages/courses/${this.props.match.params.id}`
-    )
-
-  apiGetCourseActions = () =>
-    api.PageApi.getForCourseActions(
-      (spe) => this.props.setSpeGetCourse(spe),
-      {
-        courseId: this.props.match.params.id
-      }
-    )
+    );
+    this.props.apiGetCourseForActions();
+  }
 
   uiAddOptimisticProblem = (optimisticProblem) => {
     this.setState({
@@ -233,8 +228,8 @@ class Page_courses_id extends React.Component {
         courseId={this.props.match.params.id}
         currentUser={this.props.currentUser}
 
-        speGetCourse={this.props.speGetCourse}
-        setSpeGetCourse={this.props.setSpeGetCourse}
+        speCourseForActions={this.props.speCourseForActions}
+        setSpeCourseForActions={this.props.setSpeCourseForActions}
 
         idsOfProblemsToLearnAndReviewPerCourse={this.props.idsOfProblemsToLearnAndReviewPerCourse}
         IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
@@ -242,7 +237,7 @@ class Page_courses_id extends React.Component {
         type="editOrShow"
       />
 
-      <Loading spe={this.props.speGetCourse}>{({ course, coauthors }) =>
+      <Loading spe={this.props.speCourseForActions}>{({ course, coauthors }) =>
         Roles.canIEditCourse({ currentUser: this.props.currentUser, course, coauthors }) ?
           this.renderEditProblems() :
           this.renderShowProblems()
