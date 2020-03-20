@@ -1,7 +1,5 @@
 \c :database;
 
--- drop table coauthor;
-
 CREATE TABLE coauthor (
   id SERIAL PRIMARY KEY,
   created_at TIMESTAMP NOT NULL DEFAULT timezone('UTC', now()),
