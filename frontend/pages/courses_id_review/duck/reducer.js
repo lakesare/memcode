@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import playShortSound from './services/playShortSound';
-import playLongSound from './services/playLongSound';
 
 const initialState = {
   speGetPage: {},
@@ -53,7 +52,7 @@ const reducer = (state = initialState, action) => {
         playShortSound();
       } else {
         console.log('given is wanted');
-        playLongSound(5);
+        playShortSound(5);
       }
 
       return {
