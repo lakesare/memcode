@@ -55,7 +55,7 @@ class CuilButtons extends React.Component {
       { courseId: this.props.courseDto.course.id }
     )
       .then((payload) => {
-        this.props.history.push(`/courses/${payload.courseId}/edit`);
+        this.props.history.push(`/courses/${payload.courseId}`);
       })
 
   ifCourseIsLearnedAndActive = () => {

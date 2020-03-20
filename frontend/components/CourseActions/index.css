@@ -82,16 +82,23 @@
         display: flex;
         color: white;
         > h1.title{}
+
+        > section.category_and_author,
+        > section.edit-invite-buttons{
+          height: 40px;
+        }
         > section.category_and_author{
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-          padding: 2px 0;
           padding-left: 14px;
           margin-left: 14px;
           border-left: 1px solid rgb(28, 31, 62);
           > div.category, div.author{
             cursor: default;
+            height: 50%;
+            display: flex;
+            align-items: center;
 
             font-size: 10px;
             letter-spacing: 0.9px;
@@ -106,22 +113,19 @@
             }
           }
         }
-        > div.buttons{        
+        > section.edit-invite-buttons{        
           margin-left: 10px;
           // margin-top: 2px;
           > button.edit-button, > button.invite-coauthor-button{
             align-self: flex-start;
             min-width: auto;
-            padding: 4px 10px;
+            padding: 0 10px;
+            height: 50%;
 
             font-size: 10px;
             align-items: flex-start;
             color: rgb(206, 199, 245);
             i{ padding-right: 3px; }
-          }
-
-          > button.invite-coauthor-button{
-            margin-top: 1px;
           }
         }
 

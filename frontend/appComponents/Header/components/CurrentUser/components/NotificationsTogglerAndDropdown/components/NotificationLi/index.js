@@ -65,7 +65,7 @@ class NotificationLi extends React.Component {
           <div>
             <span className="learner-username">{notification.content.learnerUsername} </span>
             joined
-            <Link to={`/courses/${notification.content.courseId}/edit`}> {notification.content.courseTitle}</Link>
+            <Link to={`/courses/${notification.content.courseId}`}> {notification.content.courseTitle}</Link>
           </div>
         );
       case 'someone_rated_your_course':
@@ -76,7 +76,7 @@ class NotificationLi extends React.Component {
           <div>
             <span className="rater-username">{notification.content.raterUsername} </span>
             gave
-            <Link to={`/courses/${notification.content.courseId}/edit`}> {notification.content.courseTitle} </Link>
+            <Link to={`/courses/${notification.content.courseId}`}> {notification.content.courseTitle} </Link>
             {notification.content.rating} stars!
           </div>
         );
@@ -88,7 +88,7 @@ class NotificationLi extends React.Component {
           <div>
             <span className="text-orange">{notification.content.author.username} </span>
             invites you to edit their course:
-            <Link to={`/courses/${notification.content.course.id}/edit`}> {notification.content.course.title}</Link>.
+            <Link to={`/courses/${notification.content.course.id}`}> {notification.content.course.title}</Link>.
           </div>
         );
 

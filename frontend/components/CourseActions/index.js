@@ -123,7 +123,7 @@ class CourseActions extends React.Component {
             </section>
           }
 
-          <div className="buttons">
+          <section className="edit-invite-buttons">
             {
               this.props.type === 'editOrShow' &&
               this.canIEditCourse() &&
@@ -152,7 +152,7 @@ class CourseActions extends React.Component {
                 }
               />
             }
-          </div>
+          </section>
 
           {
             this.props.type === 'editOrShow' &&
