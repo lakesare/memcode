@@ -3,10 +3,11 @@ import CourseModel from '~/models/CourseModel';
 
 const getForCourseActions = async (request, response) => {
   const courseId = request.body['courseId'];
-  const currentUser = request.currentUser;
+  const currentUserId = request.currentUser ? request.currentUser.id : null;
 
-  const course = await CourseModel.select.oneForActions(courseId, currentUser ? currentUser.id : null);
-  if (!course) throw new Error("Sorry, course with this id has not yet been created.");
+  const course = await CourseModel.select.oneForActions(courseId, currentUserId);
+  if (!course) throw new Error("Sorry, this course doesn't exist.");
+
   const courseStats = await CourseModel.select.getCourseStats(courseId);
 
   // It's fine to expose emails of already-added users

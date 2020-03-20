@@ -18,6 +18,15 @@ import ActionsForCheckedProblems from './components/ActionsForCheckedProblems';
 
 import css from './index.css';
 
+// Either:
+// 1. extract apiGetCourseForActions() from <CourseActions/> into <Page/>
+//    - then we can pass <CourseActions speActions={}/> as props.
+//    - then we can decide whether to render edit/show page or not on <Page/>.
+//    - BUT then this speActions={} data isn't shared across multiple pages.
+// 2. extract apiGetCourseForActions() from <CourseActions/> into redux
+//    - then we better still do the api call from the <Page/>, and pass data via speActions={}.
+// <CoursePage>
+
 import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 @connect(
   () => ({}),
@@ -44,62 +53,11 @@ class Page_courses_id_edit extends React.Component {
 
   state = {
     speGetPage: {},
-    idsOfCheckedProblems: [],
-    joyrideHowToCreateProblemRun: false,
-    joyrideHowToCreateProblemSteps: [
-      {
-        target: 'section.choose-type',
-        content: 'You can create 2 types of flashcards',
-        placement: 'bottom'
-      },
-      {
-        target: '.new-problem .first-column',
-        content: "Enter the question, you will be asked this question when you're learning the flashcards (e.g. 'What's one and only Earth's satellite?')",
-        placement: 'bottom'
-      },
-      {
-        target: '.new-problem .second-column',
-        content: "Enter the answer (e.g. 'Moon')",
-        placement: 'bottom'
-      },
-      {
-        target: '.new-problem .how-to-create button',
-        content: "Save the new flashcard!",
-        placement: 'bottom'
-      }
-    ],
-    joyrideHowToReviewProblemRun: false,
-    joyrideHowToReviewProblemSteps: [
-      {
-        target: 'section.problems section.checkbox .index-and-mark',
-        content: "Yay, flashcard got saved! Now you can delete it by clicking on its number.",
-        placement: 'bottom'
-      },
-      {
-        target: 'section.problems .problem .first-column',
-        content: "To edit it - just type something, and click somewhere else - it will save automatically!",
-        placement: 'bottom'
-      },
-      {
-        target: 'section.title-and-buttons a.learn',
-        content: "Learn the created flashcard!",
-        placement: 'bottom'
-      },
-      {
-        target: 'section.title-and-buttons a.review',
-        content: 'After you learn the flashcards - we will offer you to Review them from time to time!',
-        placement: 'bottom'
-      }
-    ]
+    idsOfCheckedProblems: []
   }
 
   componentDidMount = () => {
     this.apiGetPage();
-    // .then(() => {
-    //   setTimeout(() => {
-    //     this.setState({ joyrideHowToCreateProblemRun: true });
-    //   }, 3000);
-    // });
   }
 
   componentDidUpdate = (prevProps) => {
@@ -111,7 +69,7 @@ class Page_courses_id_edit extends React.Component {
   apiGetPage = () =>
     commonFetch(
       (spe) => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/${this.props.match.params.id}/edit`
+      'GET', `/api/pages/courses/${this.props.match.params.id}`
     )
 
   uiAddOptimisticProblem = (optimisticProblem) => {
@@ -134,10 +92,6 @@ class Page_courses_id_edit extends React.Component {
     });
 
     this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.match.params.id, createdProblem.id);
-
-    setTimeout(() => {
-      this.setState({ joyrideHowToReviewProblemRun: true });
-    }, 3000);
   }
 
   updateOldProblem = (updatedProblem) => {
@@ -243,7 +197,14 @@ class Page_courses_id_edit extends React.Component {
 
   render = () =>
     <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
-      <CourseActions courseId={this.props.match.params.id} ifEditCourseModalTogglerIsDisplayed ifCourseDescriptionIsDisplayed ifBreadcrumbsAreDisplayed ifWithDescriptionPlaceholder/>
+      <CourseActions
+        courseId={this.props.match.params.id}
+        ifEditCourseModalTogglerIsDisplayed
+        ifCourseDescriptionIsDisplayed
+        ifBreadcrumbsAreDisplayed
+        ifWithDescriptionPlaceholder
+      />
+
       <StickyContainer>
         {this.renderActionsForCheckedProblems()}
         <div className="container problems-container">

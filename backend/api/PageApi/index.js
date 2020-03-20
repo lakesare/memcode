@@ -43,14 +43,6 @@ router.get('/courses/:id/review/simulated', catchAsync(async (request, response)
   response.status(200).json({ courseUserIsLearning: null, problems });
 }));
 
-router.get('/courses/:id/edit', authenticate, catchAsync(async (request, response) => {
-  const courseId = request.params['id'];
-
-  const problems = await getProblemsByCourseId(courseId);
-
-  response.status(200).json({ problems });
-}));
-
 router.get('/courses/:id', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
