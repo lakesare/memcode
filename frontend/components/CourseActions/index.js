@@ -5,11 +5,12 @@ import api from '~/api';
 
 import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
-import MetaTags from './components/MetaTags';
-import Loading from '~/components/Loading';
+import MetaTags        from './components/MetaTags';
+import Loading         from '~/components/Loading';
+
 import CourseModal from './components/CourseModal';
-import InviteCoauthorModal from './components/InviteCoauthorModal';
 import CuilButtons from './components/CuilButtons';
+import InviteCoauthorModal       from './components/InviteCoauthorModal';
 import CourseDescriptionAndStats from './components/CourseDescriptionAndStats';
 
 import css from './index.css';
@@ -224,7 +225,6 @@ class CourseActions extends React.Component {
             course={courseDto.course}
             stats={courseDto.stats}
             nextDueDateIn={courseDto.nextDueDateIn}
-            amountOfProblemsToReview={courseDto.amountOfProblemsToReview}
             courseUserIsLearning={courseDto.courseUserIsLearning}
             ifWithDescriptionPlaceholder={this.props.ifWithDescriptionPlaceholder}
           />

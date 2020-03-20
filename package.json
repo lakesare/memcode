@@ -108,7 +108,6 @@
     "generate-function": "^2.3.1",
     "generate-object-property": "^1.2.0",
     "heroku-ssl-redirect": "0.0.4",
-    "immutable": "^4.0.0-rc.12",
     "is-regex": "^1.0.4",
     "js-cookie": "^2.2.0",
     "jsesc": "^2.5.2",

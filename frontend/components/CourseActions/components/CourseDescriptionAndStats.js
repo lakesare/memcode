@@ -9,7 +9,6 @@ class CourseDescriptionAndStats extends React.Component {
     currentUser: orFalse(PropTypes.object).isRequired,
     course: PropTypes.object.isRequired,
     stats: PropTypes.object.isRequired,
-    amountOfProblemsToReview: PropTypes.number.isRequired,
     nextDueDateIn: PropTypes.object,
     courseUserIsLearning: PropTypes.object,
     ifWithDescriptionPlaceholder: PropTypes.bool.isRequired
@@ -40,11 +39,11 @@ class CourseDescriptionAndStats extends React.Component {
     </li>
 
   renderReviewInStat = () => {
-    const [amount, measure] = humanizePostgresInterval(this.props.nextDueDateIn, { asArray: true });
+    const [amount, measure] = humanizePostgresInterval(this.props.nextDueDateIn, { asArray: true, canBeNegative: true });
     return this.renderStat(
       <i className="fa fa-hourglass-start"/>,
       (
-        this.props.amountOfProblemsToReview > 0 ?
+        amount < 0 ?
           'Review now!' :
           <>
             Review in
