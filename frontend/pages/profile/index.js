@@ -91,8 +91,6 @@ class Page_profile extends React.Component {
         </form>
       </div>
 
-      <Footer/>
-
       <Helmet>
         <title>Profile</title>
       </Helmet>

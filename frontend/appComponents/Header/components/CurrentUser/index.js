@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
 import LearnReviewLinks from './components/LearnReviewLinks';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
@@ -14,6 +14,9 @@ class CurrentUser extends React.Component {
     <div>
       <div>Signed in as {this.props.currentUser.username} | via {this.props.currentUser.oauthProvider}</div>
       <ul style={{ marginTop: 10 }} className="standard-tooltip-dropdown">
+        <li>
+          <Link to={`/users/${this.props.currentUser.id}`}>Profile</Link>
+        </li>
         <li>
           <button
             type="button"

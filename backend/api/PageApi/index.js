@@ -61,4 +61,7 @@ router.get('/idsOfProblemsToLearnAndReviewPerCourse', authenticate, catchAsync(a
 import getForCourseActions from './getForCourseActions';
 router.getForCourseActions = getForCourseActions;
 
+import getUserPage from './getUserPage';
+router.getUserPage = getUserPage;
+
 export default router;

@@ -77,8 +77,8 @@ const select = {
         ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
       GROUP BY (course.id, "user".id, course_category.id)
       ${sortBy ? sortByWord(sortBy) : ''}
-      LIMIT ${limit}
-      OFFSET ${offset}
+      ${limit ? `LIMIT ${limit}` : ''}
+      ${offset ? `OFFSET ${offset}` : ''}
       `
     )
       .then((array) => camelizeDbColumns(array, ['course']))

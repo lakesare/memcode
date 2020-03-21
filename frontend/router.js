@@ -10,6 +10,7 @@ import Page_courses_id from './pages/courses_id';
 import Page_courses_learning from './pages/courses_learning';
 
 import Page_profile from './pages/profile';
+import Page_users_id from './pages/users_id';
 
 // import Page_offline_courses from './pages/offline_courses';
 // import Page_offline_courses_id_review from './pages/offline_courses_id_review';
@@ -36,7 +37,8 @@ const router =
       <Route exact path="/courses/:id/review" component={auth(Page_courses_id_review)} simulated={false}/>
       <Route exact path="/courses/:id/review/simulated" component={(props) => <Page_courses_id_review {...props} simulated/>}/>
 
-      <Route exact path="/profile"            component={Page_profile}/>
+      <Route exact path="/profile" component={Page_profile}/>
+      <Route exact path="/users/:id" component={Page_users_id}/>
 
       {/* offline */}
       {/* <Route exact path="/offline/courses" component={Page_offline_courses} onEnter={onEnters.requireAuthentication}/> */}

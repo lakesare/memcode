@@ -118,7 +118,9 @@ class CourseActions extends React.Component {
 
               <div className="author">
                 <span className="in-or-by">By</span>
-                <span>{courseDto.author.username}</span>
+                <Link to={`/users/${courseDto.author.id}`}>
+                  {courseDto.author.username}
+                </Link>
               </div>
             </section>
           }
