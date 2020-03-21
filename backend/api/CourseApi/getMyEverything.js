@@ -96,6 +96,7 @@ const getMyEverything = auth(async (request, response) => {
         })
         .map((myLearnedProblem) => ({
           id: myLearnedProblem.problemId,
+          // Problems I didn't click either 'learn' or 'ignore' for
           _learned: false
         }))
     ];

@@ -16,7 +16,7 @@ import MyDuck from '~/ducks/MyDuck';
     idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
   }),
   (dispatch, ownProps) => ({
-    setSpeCourseForActions: (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+    setSpeCourseForActions: (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
     apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
     IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
   })

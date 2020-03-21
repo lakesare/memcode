@@ -1,7 +1,7 @@
 
 const isProblemToReview = (problem) => {
   return problem._learned &&
-    Object.values(problem.nextDueDateIn)[0] < 0 &&
+    new Date(problem.nextDueDate).getTime() < new Date().getTime() &&
     !problem.ifIgnored;
 };
 

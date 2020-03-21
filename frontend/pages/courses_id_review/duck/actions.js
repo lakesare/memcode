@@ -1,11 +1,10 @@
-import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import api from '~/api';
 import commonFetch from '~/api/commonFetch';
+import MyDuck from '~/ducks/MyDuck';
 
 import selectors from './selectors';
 
 import playShortSound from './services/playShortSound';
-// import playShortSound from './services/playShortSound';
 
 const enterPressed = () =>
   (dispatch, getState) => {
@@ -55,15 +54,11 @@ const enterPressed = () =>
           }
           currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
           dispatch({
-            type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
-            payload: -1
-          });
-          dispatch({
             type: 'SET_NEXT_PROBLEM',
             payload: currentIndex + 1
           });
 
-          IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, currentProblem.id);
+          MyDuck.actions.reviewProblem(dispatch, currentProblem.id);
           break;
         }
       }

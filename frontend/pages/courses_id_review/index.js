@@ -65,7 +65,7 @@ import actions from './duck/actions';
     randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
     switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
 
-    setSpeCourseForActions: (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+    setSpeCourseForActions: (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
     apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
     IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
   })

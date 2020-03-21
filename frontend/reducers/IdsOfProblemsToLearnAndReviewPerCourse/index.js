@@ -199,7 +199,7 @@ const getAllActions = (dispatch) => ({
       type: `${namespace}.LEARN_PROBLEM`,
       payload: { problemId }
     })
-})
+});
 
 export {
   IdsOfProblemsToLearnAndReviewPerCourseReducer,

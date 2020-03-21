@@ -1,63 +1,24 @@
-import { orFalse } from '~/services/orFalse';
 import { shuffle } from 'lodash';
 import { Link } from 'react-router-dom';
 
-// every time we go to the other page - reload it in the background.
-// when we learn/review, delete/create a LEARNED COURSE problem - update this state.
+import MyModel from '~/models/MyModel';
 
-// LEARN (5)
-// REVIEW (12) - onClick goes to random course/:id/review
-import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 @connect(
   (state) => ({
-    idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
-  }),
-  (dispatch) => ({
-    apiSync: (payload) => IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync(dispatch, payload)
+    My: state.global.My
   })
 )
 class LearnReviewLinks extends React.Component {
   static propTypes = {
-    idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
-    apiSync: PropTypes.func.isRequired,
+    My: PropTypes.object.isRequired,
+    // apiSync: PropTypes.func.isRequired,
     dontLinkToLearnOrReview: PropTypes.string
   }
 
-  static defaultProps = {
-    idsOfProblemsToLearnAndReviewPerCourse: false
-  }
-
-  componentDidMount() {
-    this.props.apiSync();
-
-    // every 5 minutes
-    this.apiSyncInterval = setInterval(() => {
-      this.props.apiSync();
-    }, 3 * 60 * 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.apiSyncInterval);
-  }
-
-  deriveAmountOfProblems = (toLearnOrToReview) => {
-    // I'm being ridiculous here, because we will switch to api/CourseApi.getMyEverything soon anyway.
-    localStorage.setItem('idsOfProblemsToLearnAndReviewPerCourse', JSON.stringify(this.props.idsOfProblemsToLearnAndReviewPerCourse));
-
-    const response = this.props.idsOfProblemsToLearnAndReviewPerCourse;
-    const courseIds = Object.keys(response);
-    return courseIds.reduce((totalToLearn, courseId) => {
-      const toLearnInThisCourse = response[courseId][toLearnOrToReview].length;
-      return totalToLearn + toLearnInThisCourse;
-    }, 0);
-  }
-
-  generateLink = (toLearnOrToReview) => {
-    const response = this.props.idsOfProblemsToLearnAndReviewPerCourse;
-    const courseIds = Object.keys(response);
-    const linkableCourseIds =
-      courseIds.filter((courseId) =>
-        response[courseId][toLearnOrToReview].length > 0 &&
+  generateLink = (courses, toLearnOrToReview) => {
+    const linkableCourseIds = courses
+      .map((c) => c.course.id)
+      .filter((courseId) =>
         courseId !== this.props.dontLinkToLearnOrReview
       );
 
@@ -80,21 +41,23 @@ class LearnReviewLinks extends React.Component {
   }
 
   renderToLearnLink = () => {
-    const amount = this.deriveAmountOfProblems('toLearn');
-    if (amount > 0) {
-      return <Link to={this.generateLink('toLearn')} className="button -to-learn">
-        LEARN ({amount})
-      </Link>;
-    } else {
-      return null;
-    }
+    const dtosToLearn = MyModel.getDtosToLearn(this.props.My.courses);
+    const amountOfProblems = MyModel.countAllProblemsToLearn(dtosToLearn);
+
+    return dtosToLearn.length > 0 ?
+      <Link to={this.generateLink(dtosToLearn, 'toLearn')} className="button -to-learn">
+        LEARN ({amountOfProblems})
+      </Link> :
+      null;
   }
 
   renderToReviewLink = () => {
-    const amount = this.deriveAmountOfProblems('toReview');
-    if (amount > 0) {
-      return <Link to={this.generateLink('toReview')} className="button -to-review">
-        REVIEW ({amount})
+    const dtosToReview = MyModel.getDtosToReview(this.props.My.courses);
+    const amountOfProblems = MyModel.countAllProblemsToReview(dtosToReview);
+
+    if (dtosToReview.length > 0) {
+      return <Link to={this.generateLink(dtosToReview, 'toReview')} className="button -to-review">
+        REVIEW ({amountOfProblems})
       </Link>;
     } else {
       return null;
@@ -102,7 +65,6 @@ class LearnReviewLinks extends React.Component {
   }
 
   render = () => (
-    this.props.idsOfProblemsToLearnAndReviewPerCourse &&
     <section className="learn-review-links">
       {this.renderToLearnLink()}
       {this.renderToReviewLink()}

@@ -30,9 +30,10 @@ import MyDuck from '~/ducks/MyDuck';
     idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
   }),
   (dispatch, ownProps) => ({
-    setSpeCourseForActions: (spe) => dispatch({ type: 'SEED_SPE_GET_COURSE', payload: spe }),
+    setSpeCourseForActions: (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
     apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
-    IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
+    IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch),
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class Page_courses_id extends React.Component {
@@ -44,6 +45,7 @@ class Page_courses_id extends React.Component {
     apiGetCourseForActions: PropTypes.func.isRequired,
     speCourseForActions: PropTypes.object.isRequired,
     setSpeCourseForActions: PropTypes.func.isRequired,
+    MyActions: PropTypes.object.isRequired
   }
 
   state = {
@@ -59,6 +61,10 @@ class Page_courses_id extends React.Component {
     if (prevProps.match.params.id !== this.props.match.params.id) {
       this.apiGetPage();
     }
+  }
+
+  getCourseId = () => {
+    return Number.parseInt(this.props.match.params.id);
   }
 
   apiGetPage = () => {
@@ -88,7 +94,7 @@ class Page_courses_id extends React.Component {
       update(this.state.speGetProblems, `payload.problems[${index}]`, () => createdProblem)
     });
 
-    this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(this.props.match.params.id, createdProblem.id);
+    this.props.MyActions.createProblem(this.getCourseId(), createdProblem.id);
   }
 
   updateOldProblem = (updatedProblem) => {
@@ -110,7 +116,7 @@ class Page_courses_id extends React.Component {
       ),
       idsOfCheckedProblems: this.state.idsOfCheckedProblems.filter((id) => id !== problemId)
     });
-    this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(problemId);
+    this.props.MyActions.deleteProblem(this.getCourseId(), problemId);
   }
 
   // TODO is performance ok, are we not dying?
@@ -124,7 +130,7 @@ class Page_courses_id extends React.Component {
     });
 
     problemIds.forEach((problemId) => {
-      this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(problemId);
+      this.props.MyActions.deleteProblem(this.getCourseId(), problemId);
     });
   }
 

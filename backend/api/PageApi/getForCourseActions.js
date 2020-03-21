@@ -1,6 +1,7 @@
 import knex from '~/db/knex';
 import CourseModel from '~/models/CourseModel';
 
+// TODO: use getCourseStats()
 const getForCourseActions = async (request, response) => {
   const courseId = request.body['courseId'];
   const currentUserId = request.currentUser ? request.currentUser.id : null;
