@@ -77,9 +77,9 @@ const enterPressedInFailedMode = () =>
     switch (state.statusOfSolving.status) {
       case 'solving':
         dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-        // if (currentProblem.type === 'separateAnswer') {
-        //   playShortSound();
-        // }
+        if (currentProblem.type === 'separateAnswer') {
+          playShortSound();
+        }
         break;
       case 'seeingAnswer': {
         const score = selectors.deriveScore(state);
@@ -125,9 +125,9 @@ const enterPressedInSimulatedReview = () =>
       switch (state.statusOfSolving.status) {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-          // if (currentProblem.type === 'separateAnswer') {
-          //   playShortSound();
-          // }
+          if (currentProblem.type === 'separateAnswer') {
+            playShortSound();
+          }
           break;
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state);

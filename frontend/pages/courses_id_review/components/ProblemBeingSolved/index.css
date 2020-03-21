@@ -169,6 +169,11 @@
       }
       .-mobile{ display: block; text-align: right; }
       .-desktop{ display: none; }
+      &.-simulated-review .instructions.-mobile{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
       position: absolute;
       bottom: 0;
       width: 100%;
