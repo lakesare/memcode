@@ -51,13 +51,6 @@ router.get('/courses/:id', catchAsync(async (request, response) => {
   response.status(200).json({ problems });
 }));
 
-// global state (?)
-router.get('/idsOfProblemsToLearnAndReviewPerCourse', authenticate, catchAsync(async (request, response) => {
-  const idsOfProblemsToLearnAndReviewPerCourse = await CourseUserIsLearningModel.select.idsOfProblemsToLearnAndReviewPerCourse(request.currentUser.id);
-  response.status(200).json(idsOfProblemsToLearnAndReviewPerCourse);
-}));
-
-
 import getForCourseActions from './getForCourseActions';
 router.getForCourseActions = getForCourseActions;
 

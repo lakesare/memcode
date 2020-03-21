@@ -80,6 +80,38 @@ const reducer = (state = initialState, action) => {
       newState.courses[courseDtoIndex].problems = newProblems;
       return newState;
     }
+    case `${namespace}.LEARN_PROBLEM`: {
+      const problemId = action.payload.problemId;
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.courses.find((course) =>
+        course.problems.find((problem) => {
+          if (problem.id === problemId) {
+            // todo set actual nextDueDate?
+            problem._learned = true;
+            problem.nextDueDate = "2044-02-05T21:32:41.851Z";
+            problem.ifIgnored = false;
+            return true;
+          }
+        })
+      );
+      return newState;
+    }
+    case `${namespace}.IGNORE_PROBLEM`: {
+      const problemId = action.payload.problemId;
+      const newState = JSON.parse(JSON.stringify(state));
+      newState.courses.find((course) =>
+        course.problems.find((problem) => {
+          if (problem.id === problemId) {
+            // todo set actual nextDueDate?
+            problem._learned = true;
+            problem.nextDueDate = "2044-02-05T21:32:41.851Z";
+            problem.ifIgnored = true;
+            return true;
+          }
+        })
+      );
+      return newState;
+    }
     case `${namespace}.STOP_LEARNING_COURSE`: {
       const newState = JSON.parse(JSON.stringify(state));
       const courseId = action.payload.courseId;
@@ -149,6 +181,12 @@ const getActions = (dispatch, getState) => ({
   },
   deleteProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.DELETE_PROBLEM`, payload: { courseId, problemId } });
+  },
+  learnProblem: (courseId, problemId) => {
+    dispatch({ type: `${namespace}.LEARN_PROBLEM`, payload: { courseId, problemId } });
+  },
+  ignoreProblem: (courseId, problemId) => {
+    dispatch({ type: `${namespace}.IGNORE_PROBLEM`, payload: { courseId, problemId } });
   },
 });
 

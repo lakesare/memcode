@@ -7,7 +7,7 @@ class CurrentUser extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
     signOut: PropTypes.func.isRequired,
-    dontLinkToLearnOrReview: PropTypes.string
+    dontLinkToLearnOrReview: PropTypes.number
   }
 
   renderDropdown = () =>

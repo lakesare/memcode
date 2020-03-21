@@ -12,7 +12,7 @@ class LearnReviewLinks extends React.Component {
   static propTypes = {
     My: PropTypes.object.isRequired,
     // apiSync: PropTypes.func.isRequired,
-    dontLinkToLearnOrReview: PropTypes.string
+    dontLinkToLearnOrReview: PropTypes.number
   }
 
   generateLink = (courses, toLearnOrToReview) => {

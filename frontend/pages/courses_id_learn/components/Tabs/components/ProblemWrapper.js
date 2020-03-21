@@ -1,34 +1,20 @@
 import { orFalse } from '~/services/orFalse';
 import api from '~/api';
+import MyDuck from '~/ducks/MyDuck';
 
 import Problem from '~/components/Problem';
 
-// TODO okay, looks like it was a bad idea to be naming these actions as eg createProblem, we should.../
-import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 @connect(
   () => ({}),
   (dispatch) => ({
-    IdsOfProblemsToLearnAndReviewPerCourseActions: {
-      createProblem: (courseId, problemId) => IdsOfProblemsToLearnAndReviewPerCourseActions.createProblem(dispatch, courseId, problemId),
-      deleteProblem: (problemId) =>
-        IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, problemId),
-      learnProblem: (problemId) =>
-        IdsOfProblemsToLearnAndReviewPerCourseActions.learnProblem(dispatch, problemId),
-      apiSync: () =>
-        IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync(dispatch)
-    }
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class ProblemWrapper extends React.Component {
   static propTypes = {
     problem: PropTypes.object.isRequired,
     puil: orFalse(PropTypes.object).isRequired,
-    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.shape({
-      createProblem: PropTypes.func.isRequired,
-      deleteProblem: PropTypes.func.isRequired,
-      learnProblem: PropTypes.func.isRequired,
-      apiSync: PropTypes.func.isRequired
-    }).isRequired
+    MyActions: PropTypes.object.isRequired
   }
 
   state = {
@@ -44,7 +30,7 @@ class ProblemWrapper extends React.Component {
       { problemId: this.props.problem.id }
     )
       .then((puil) => this.setState({ puil }))
-      .then(() => this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.learnProblem(this.props.problem.id))
+      .then(() => this.props.MyActions.learnProblem(this.props.problem.courseId, this.props.problem.id))
 
   apiIgnore = async () => {
     const ignoredPuil = await api.ProblemUserIsLearningApi.ignoreProblem(
@@ -53,7 +39,7 @@ class ProblemWrapper extends React.Component {
     );
 
     this.setState({ puil: ignoredPuil });
-    this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(this.props.problem.id);
+    this.props.MyActions.ignoreProblem(this.props.problem.courseId, this.props.problem.id);
   }
 
   apiDelete = () =>
@@ -62,7 +48,7 @@ class ProblemWrapper extends React.Component {
       { id: this.state.puil.id }
     )
       .then(() => this.setState({ puil: false }))
-      .then(this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync)
+      .then(this.props.MyActions.apiGetCourses)
 
   renderProblem = () =>
     <Problem

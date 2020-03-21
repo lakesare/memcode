@@ -10,16 +10,6 @@ import NotificationLi from './components/NotificationLi';
 import css from './index.css';
 
 // every time we go to the other page - reload it in the background.
-
-// import NotificationsReducer from '~/reducers/NotificationsReducer';
-// @connect(
-//   (state) => ({
-//     idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
-//   }),
-//   (dispatch) => ({
-//     apiSync: (payload) => NotificationsReducer.actions.apiSync(dispatch, payload)
-//   })
-// )
 @onClickOutside
 class NotificationsTogglerAndDropdown extends React.Component {
   static propTypes = {

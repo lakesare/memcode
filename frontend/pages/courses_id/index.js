@@ -23,7 +23,8 @@ import css from './index.css';
 import MyDuck from '~/ducks/MyDuck';
 
 @connect(
-  (state) => ({
+  (state, ownProps) => ({
+    courseId: Number.parseInt(ownProps.match.params.id),
     currentUser: state.global.Authentication.currentUser || false,
     My: state.global.My
   }),
@@ -33,11 +34,10 @@ import MyDuck from '~/ducks/MyDuck';
 )
 class Page_courses_id extends React.Component {
   static propTypes = {
-    match: PropTypes.object.isRequired,
+    courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-
     MyActions: PropTypes.object.isRequired,
-    My: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired
   }
 
   state = {
@@ -50,21 +50,17 @@ class Page_courses_id extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
+    if (prevProps.courseId !== this.props.courseId) {
       this.apiGetPage();
     }
-  }
-
-  getCourseId = () => {
-    return Number.parseInt(this.props.match.params.id);
   }
 
   apiGetPage = () => {
     commonFetch(
       (spe) => this.setState({ speGetProblems: spe }),
-      'GET', `/api/pages/courses/${this.getCourseId()}`
+      'GET', `/api/pages/courses/${this.props.courseId}`
     );
-    this.props.MyActions.apiGetCourseForActions(this.getCourseId());
+    this.props.MyActions.apiGetCourseForActions(this.props.courseId);
   }
 
   uiAddOptimisticProblem = (optimisticProblem) => {
@@ -86,7 +82,7 @@ class Page_courses_id extends React.Component {
       update(this.state.speGetProblems, `payload.problems[${index}]`, () => createdProblem)
     });
 
-    this.props.MyActions.createProblem(this.getCourseId(), createdProblem.id);
+    this.props.MyActions.createProblem(this.props.courseId, createdProblem.id);
   }
 
   updateOldProblem = (updatedProblem) => {
@@ -108,7 +104,7 @@ class Page_courses_id extends React.Component {
       ),
       idsOfCheckedProblems: this.state.idsOfCheckedProblems.filter((id) => id !== problemId)
     });
-    this.props.MyActions.deleteProblem(this.getCourseId(), problemId);
+    this.props.MyActions.deleteProblem(this.props.courseId, problemId);
   }
 
   // TODO is performance ok, are we not dying?
@@ -122,7 +118,7 @@ class Page_courses_id extends React.Component {
     });
 
     problemIds.forEach((problemId) => {
-      this.props.MyActions.deleteProblem(this.getCourseId(), problemId);
+      this.props.MyActions.deleteProblem(this.props.courseId, problemId);
     });
   }
 
@@ -221,9 +217,9 @@ class Page_courses_id extends React.Component {
     </div>
 
   render = () =>
-    <Main dontLinkToLearnOrReview={this.props.match.params.id}>
+    <Main dontLinkToLearnOrReview={this.props.courseId}>
       <CourseActions
-        courseId={this.getCourseId()}
+        courseId={this.props.courseId}
         currentUser={this.props.currentUser}
         type="editOrShow"
         My={this.props.My}

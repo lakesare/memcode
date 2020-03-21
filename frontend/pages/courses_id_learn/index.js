@@ -1,8 +1,6 @@
 import orFalse from '~/services/orFalse';
-import { getAllActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 
 import Main from '~/appComponents/Main';
-
 import CourseActions from '~/components/CourseActions';
 import Tabs from './components/Tabs';
 
@@ -10,54 +8,44 @@ import css from './index.css';
 import MyDuck from '~/ducks/MyDuck';
 
 @connect(
-  (state) => ({
+  (state, ownProps) => ({
+    courseId: Number.parseInt(ownProps.match.params.id),
     currentUser: state.global.Authentication.currentUser || false,
-    speCourseForActions: state.global.My.speCourseForActions,
-    idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
+    My: state.global.My
   }),
-  (dispatch, ownProps) => ({
-    setSpeCourseForActions: (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
-    apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
-    IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class Page extends React.Component {
   static propTypes = {
-    match: PropTypes.object.isRequired,
-    idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
-    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
+    courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    apiGetCourseForActions: PropTypes.func.isRequired,
-    speCourseForActions: PropTypes.object.isRequired,
-    setSpeCourseForActions: PropTypes.func.isRequired,
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired
   }
 
   componentDidMount = () => {
-    this.props.apiGetCourseForActions();
+    this.props.MyActions.apiGetCourseForActions(this.props.courseId);
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.props.apiGetCourseForActions();
+    if (prevProps.courseId !== this.props.courseId) {
+      this.props.MyActions.apiGetCourseForActions(this.props.courseId);
     }
   }
 
   render = () =>
-    <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
+    <Main className={css.main} dontLinkToLearnOrReview={this.props.courseId}>
       <CourseActions
-        courseId={this.props.match.params.id}
+        courseId={this.props.courseId}
         currentUser={this.props.currentUser}
-
-        speCourseForActions={this.props.speCourseForActions}
-        setSpeCourseForActions={this.props.setSpeCourseForActions}
-
-        idsOfProblemsToLearnAndReviewPerCourse={this.props.idsOfProblemsToLearnAndReviewPerCourse}
-        IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
-
         type="learn"
+        My={this.props.My}
+        MyActions={this.props.MyActions}
       />
 
-      <Tabs courseId={this.props.match.params.id}/>
+      <Tabs courseId={this.props.courseId}/>
     </Main>
 }
 

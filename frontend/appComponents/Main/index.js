@@ -16,7 +16,7 @@ class Main extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     children: PropTypes.node.isRequired,
-    dontLinkToLearnOrReview: PropTypes.string,
+    dontLinkToLearnOrReview: PropTypes.number,
 
     MyActions: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,

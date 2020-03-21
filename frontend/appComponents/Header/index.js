@@ -20,7 +20,7 @@ class Header extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
     signOut: PropTypes.func.isRequired,
-    dontLinkToLearnOrReview: PropTypes.string
+    dontLinkToLearnOrReview: PropTypes.number
   }
 
   renderNavigation = () =>
