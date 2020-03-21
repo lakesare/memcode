@@ -58,7 +58,7 @@ const enterPressed = () =>
             payload: currentIndex + 1
           });
 
-          MyDuck.actions.reviewProblem(dispatch, currentProblem.id);
+          MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.id);
           break;
         }
       }

@@ -1,5 +1,3 @@
-import { update } from 'lodash';
-
 const namespace = 'global.my';
 
 const SPE_COURSES = `${namespace}.SPE_COURSES`;
@@ -82,9 +80,23 @@ const reducer = (state = initialState, action) => {
       newState.courses[courseDtoIndex].problems = newProblems;
       return newState;
     }
+    case `${namespace}.STOP_LEARNING_COURSE`: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const courseId = action.payload.courseId;
+
+      const courseDtoIndex = state.courses.findIndex((courseDto) =>
+        courseDto.course.id === courseId
+      );
+
+      newState.courses.splice(courseDtoIndex, 1);
+
+      return newState;
+    }
     case SPE_CATEGORIES: {
       return { ...state, speCategories: action.spe };
     }
+    case `${namespace}.SET`:
+      return action.payload;
     default:
       return state;
   }
@@ -92,19 +104,29 @@ const reducer = (state = initialState, action) => {
 
 import api from '~/api';
 
-const actions = {
-  apiGetCourses: (dispatch) => {
+const getActions = (dispatch, getState) => ({
+  apiGetCourses: () => {
+    // const oldPayload = localStorage.getItem('idsOfProblemsToLearnAndReviewPerCourse');
+    // if (oldPayload) {
+    //   try {
+    //     const parsedOldPayload = JSON.parse(oldPayload);
+    //     dispatch({ type: `${namespace}.SET`, payload: parsedOldPayload });
+    //   } catch (error) {
+    //     console.error(error);
+    //     console.log("Couldn't parse apiSync() payload from localStorage");
+    //   }
+    // }
     api.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }));
   },
-  apiGetCategories: (dispatch) => {
+  apiGetCategories: () => {
     api.CourseCategoryApi.getAll((spe) => dispatch({ type: SPE_CATEGORIES, spe }));
   },
-  apiGetCourseForActions: (courseId) => (dispatch, getState) => {
+  apiGetCourseForActions: (courseId) => {
     // console.log(getState());
     const oldSpe = getState().global.My.speCourseForActions;
     const isAlreadyLoadedCourse =
       oldSpe.status === 'success' &&
-      oldSpe.payload.course.id.toString() === courseId;
+      oldSpe.payload.course.id === courseId;
 
     if (!isAlreadyLoadedCourse) {
       api.PageApi.getForCourseActions(
@@ -113,22 +135,12 @@ const actions = {
       );
     }
   },
-  reviewProblem: (dispatch, problemId) => {
-    dispatch({ type: `${namespace}.JUST_REVIEWED`, payload: { problemId } });
-  }
-  // deleteProblem: (dispatch, problemId) =>
-  //   dispatch({
-  //     type: `${namespace}.DELETE_PROBLEM`,
-  //     payload: { problemId }
-  //   }),
-  // createProblem: (dispatch, courseId, problemId) =>
-  //   dispatch({
-  //     type: `${namespace}.CREATE_PROBLEM`,
-  //     payload: { courseId, problemId }
-  //   })
-};
-
-const getActions = (dispatch, getState) => ({
+  stopLearningCourse: (courseId) => {
+    dispatch({ type: `${namespace}.STOP_LEARNING_COURSE`, payload: { courseId } });
+  },
+  setSpeCourseForActions: (spe) => {
+    dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe });
+  },
   reviewProblem: (problemId) => {
     dispatch({ type: `${namespace}.JUST_REVIEWED`, payload: { problemId } });
   },
@@ -137,7 +149,7 @@ const getActions = (dispatch, getState) => ({
   },
   deleteProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.DELETE_PROBLEM`, payload: { courseId, problemId } });
-  }
+  },
 });
 
 // import { createSelector } from 'reselect'
@@ -162,4 +174,4 @@ const getActions = (dispatch, getState) => ({
 
 const selectors = {};
 
-export default { reducer, actions, getActions, selectors };
+export default { reducer, getActions, selectors };

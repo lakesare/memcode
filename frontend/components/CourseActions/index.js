@@ -1,7 +1,8 @@
 import UrlCreator from '~/services/UrlCreator';
 import orFalse from '~/services/orFalse';
-import Roles from '~/services/Roles';
 import api from '~/api';
+import Roles from '~/services/Roles';
+import MyModel from '~/models/MyModel';
 
 import { Link }        from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
@@ -17,15 +18,12 @@ import css from './index.css';
 
 class CourseActions extends React.Component {
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
+    courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
-
-    speCourseForActions: PropTypes.object.isRequired,
-    setSpeCourseForActions: PropTypes.func.isRequired,
-    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
-
     type: PropTypes.oneOf(['editOrShow', 'review', 'learn']),
+
+    My: PropTypes.object.isRequired,
+    MyActions: PropTypes.object.isRequired,
   }
 
   apiStartLearning = () =>
@@ -35,7 +33,7 @@ class CourseActions extends React.Component {
     )
       .then((payload) => {
         this.uiUpdateCuil(payload);
-        this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync();
+        this.props.MyActions.apiGetCourses();
       })
 
   apiStopLearning = () =>
@@ -45,7 +43,7 @@ class CourseActions extends React.Component {
     )
       .then((payload) => {
         this.uiUpdateCuil(payload);
-        this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.stopLearningCourse(this.props.courseId);
+        this.props.MyActions.stopLearningCourse(this.props.courseId);
       })
 
   apiResumeLearning = () =>
@@ -55,17 +53,17 @@ class CourseActions extends React.Component {
     )
       .then((payload) => {
         this.uiUpdateCuil(payload);
-        this.props.IdsOfProblemsToLearnAndReviewPerCourseActions.apiSync();
+        this.props.MyActions.apiGetCourses();
       })
 
   uiUpdateCourse = (course) => {
-    const spe = this.props.speCourseForActions;
-    this.props.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, course } });
+    const spe = this.props.My.speCourseForActions;
+    this.props.MyActions.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, course } });
   }
 
   uiUpdateCuil = (courseUserIsLearning) => {
-    const spe = this.props.speCourseForActions;
-    this.props.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
+    const spe = this.props.My.speCourseForActions;
+    this.props.MyActions.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
   }
 
   renderRequestIcon = () => (
@@ -79,18 +77,18 @@ class CourseActions extends React.Component {
 
   canIEditCourse = () => {
     const currentUser = this.props.currentUser;
-    const spe = this.props.speCourseForActions;
+    const spe = this.props.My.speCourseForActions;
     if (spe.status !== 'success') return false;
     const { coauthors, course } = spe.payload;
     return Roles.canIEditCourse({ currentUser, coauthors, course });
   }
 
   renderTitleAndButtons = (courseDto) => {
-    const ids = this.props.idsOfProblemsToLearnAndReviewPerCourse;
-    const amountOfProblems = (ids && ids[this.props.courseId]) ?
+    const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
+    const amountOfProblems = dto ?
       {
-        toLearn: ids[this.props.courseId].toLearn.length,
-        toReview: ids[this.props.courseId].toReview.length
+        toLearn: dto.problems.filter(MyModel.isProblemToLearn).length,
+        toReview: dto.problems.filter(MyModel.isProblemToReview).length
       } :
       false;
 
@@ -178,7 +176,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.speCourseForActions} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
+    <Loading spe={this.props.My.speCourseForActions} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
       <section className={`course-actions ${css.actions}`}>
         {this.renderTitleAndButtons(courseDto)}
 

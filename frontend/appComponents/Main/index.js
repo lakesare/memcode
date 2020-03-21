@@ -9,8 +9,7 @@ import MyDuck from '~/ducks/MyDuck';
     My: state.global.My
   }),
   (dispatch) => ({
-    apiGetCourses: () => MyDuck.actions.apiGetCourses(dispatch),
-    apiGetCategories: () => MyDuck.actions.apiGetCategories(dispatch)
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class Main extends React.Component {
@@ -19,24 +18,23 @@ class Main extends React.Component {
     children: PropTypes.node.isRequired,
     dontLinkToLearnOrReview: PropTypes.string,
 
-    apiGetCourses: PropTypes.func.isRequired,
-    apiGetCategories: PropTypes.func.isRequired,
-    currentUser: PropTypes.object,
-    My: PropTypes.object.isRequired
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
+    currentUser: PropTypes.object
   }
 
   componentDidMount = () => {
     if (this.props.currentUser) {
-      this.props.apiGetCourses();
+      this.props.MyActions.apiGetCourses();
 
       // every 5 minutes
       this.apiSyncInterval = setInterval(() => {
-        this.props.apiGetCourses();
+        this.props.MyActions.apiGetCourses();
       }, 5 * 60 * 1000);
     }
 
     if (this.props.My.speCategories.status !== 'success') {
-      this.props.apiGetCategories();
+      this.props.MyActions.apiGetCategories();
     }
   }
 

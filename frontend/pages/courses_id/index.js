@@ -20,32 +20,24 @@ import ActionsForCheckedProblems from './components/ActionsForCheckedProblems';
 
 import css from './index.css';
 
-import { getAllActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import MyDuck from '~/ducks/MyDuck';
 
 @connect(
   (state) => ({
     currentUser: state.global.Authentication.currentUser || false,
-    speCourseForActions: state.global.My.speCourseForActions,
-    idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
+    My: state.global.My
   }),
-  (dispatch, ownProps) => ({
-    setSpeCourseForActions: (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
-    apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
-    IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch),
+  (dispatch) => ({
     MyActions: dispatch(MyDuck.getActions)
   })
 )
 class Page_courses_id extends React.Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
-    idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
-    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    apiGetCourseForActions: PropTypes.func.isRequired,
-    speCourseForActions: PropTypes.object.isRequired,
-    setSpeCourseForActions: PropTypes.func.isRequired,
-    MyActions: PropTypes.object.isRequired
+
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
   }
 
   state = {
@@ -70,9 +62,9 @@ class Page_courses_id extends React.Component {
   apiGetPage = () => {
     commonFetch(
       (spe) => this.setState({ speGetProblems: spe }),
-      'GET', `/api/pages/courses/${this.props.match.params.id}`
+      'GET', `/api/pages/courses/${this.getCourseId()}`
     );
-    this.props.apiGetCourseForActions();
+    this.props.MyActions.apiGetCourseForActions(this.getCourseId());
   }
 
   uiAddOptimisticProblem = (optimisticProblem) => {
@@ -231,19 +223,14 @@ class Page_courses_id extends React.Component {
   render = () =>
     <Main dontLinkToLearnOrReview={this.props.match.params.id}>
       <CourseActions
-        courseId={this.props.match.params.id}
+        courseId={this.getCourseId()}
         currentUser={this.props.currentUser}
-
-        speCourseForActions={this.props.speCourseForActions}
-        setSpeCourseForActions={this.props.setSpeCourseForActions}
-
-        idsOfProblemsToLearnAndReviewPerCourse={this.props.idsOfProblemsToLearnAndReviewPerCourse}
-        IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
-
         type="editOrShow"
+        My={this.props.My}
+        MyActions={this.props.MyActions}
       />
 
-      <Loading spe={this.props.speCourseForActions}>{({ course, coauthors }) =>
+      <Loading spe={this.props.My.speCourseForActions}>{({ course, coauthors }) =>
         Roles.canIEditCourse({ currentUser: this.props.currentUser, course, coauthors }) ?
           this.renderEditProblems() :
           this.renderShowProblems()

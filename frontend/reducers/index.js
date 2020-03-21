@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 
 // global state
 import { AuthenticationReducer } from '~/reducers/Authentication';
-import { IdsOfProblemsToLearnAndReviewPerCourseReducer } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import MyDuck from '~/ducks/MyDuck';
 
 // per-page state
@@ -14,8 +13,6 @@ const reducers = combineReducers({
   // global state
   global: combineReducers({
     Authentication: AuthenticationReducer,
-    IdsOfProblemsToLearnAndReviewPerCourse: IdsOfProblemsToLearnAndReviewPerCourseReducer,
-
     My: MyDuck.reducer,
   }),
 
