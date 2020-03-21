@@ -329,6 +329,12 @@
     }
   }
 
+  @media(max-width: 900px){
+    .title-and-buttons .category_and_author{
+      height: auto !important;
+    }
+  }
+
   @media(max-width: 365px){
     section.course-description-and-stats{
       ul.course-stats > li{ width: 100% !important; }

@@ -123,10 +123,10 @@ class CourseActions extends React.Component {
             </section>
           }
 
-          <section className="edit-invite-buttons">
-            {
-              this.props.type === 'editOrShow' &&
-              this.canIEditCourse() &&
+          {
+            this.props.type === 'editOrShow' &&
+            this.canIEditCourse() &&
+            <section className="edit-invite-buttons">
               <CourseModal
                 toggler={
                   <button className="button edit-button" type="button">
@@ -136,11 +136,7 @@ class CourseActions extends React.Component {
                 course={courseDto.course}
                 uiUpdateCourse={this.uiUpdateCourse}
               />
-            }
 
-            {
-              this.props.type === 'editOrShow' &&
-              this.canIEditCourse() &&
               <InviteCoauthorModal
                 course={courseDto.course}
                 coauthors={courseDto.coauthors}
@@ -151,8 +147,8 @@ class CourseActions extends React.Component {
                   </button>
                 }
               />
-            }
-          </section>
+            </section>
+          }
 
           {
             this.props.type === 'editOrShow' &&
