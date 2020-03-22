@@ -20,7 +20,8 @@ class CuilButtons extends React.Component {
 
     apiStartLearning: PropTypes.func.isRequired,
     apiStopLearning: PropTypes.func.isRequired,
-    apiResumeLearning: PropTypes.func.isRequired
+    apiResumeLearning: PropTypes.func.isRequired,
+    MyActions: PropTypes.object.isRequired
   }
 
   state = {
@@ -55,6 +56,8 @@ class CuilButtons extends React.Component {
       { courseId: this.props.courseDto.course.id }
     )
       .then((payload) => {
+        // stuff needs to be refetched, as history.push() doesn't trigger a rerender
+        this.props.MyActions.apiGetCourses();
         this.props.history.push(`/courses/${payload.courseId}`);
       })
 
@@ -79,7 +82,7 @@ class CuilButtons extends React.Component {
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
       {
-        this.props.amountOfProblems > 0 &&
+        this.props.courseDto.amountOfProblems > 0 &&
         <li>
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
@@ -173,7 +176,7 @@ class CuilButtons extends React.Component {
         <Link
           to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
           className="button simulated-review-button"
-        >TEST DRIVE ({this.props.amountOfProblems})</Link>
+        >TEST DRIVE ({this.props.courseDto.amountOfProblems})</Link>
       </div>
 }
 

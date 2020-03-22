@@ -31,8 +31,8 @@ class CourseActions extends React.Component {
       false,
       { courseId: this.props.courseId }
     )
-      .then((payload) => {
-        this.uiUpdateCuil(payload);
+      .then((courseUserIsLearning) => {
+        this.props.MyActions.startLearningCourse(courseUserIsLearning, this.props.currentUser);
         this.props.MyActions.apiGetCourses();
       })
 
@@ -41,9 +41,8 @@ class CourseActions extends React.Component {
       false,
       { courseId: this.props.courseId }
     )
-      .then((payload) => {
-        this.uiUpdateCuil(payload);
-        this.props.MyActions.stopLearningCourse(this.props.courseId);
+      .then((courseUserIsLearning) => {
+        this.props.MyActions.stopLearningCourse(courseUserIsLearning, this.props.currentUser);
       })
 
   apiResumeLearning = () =>
@@ -51,19 +50,14 @@ class CourseActions extends React.Component {
       false,
       { courseId: this.props.courseId }
     )
-      .then((payload) => {
-        this.uiUpdateCuil(payload);
+      .then((courseUserIsLearning) => {
+        this.props.MyActions.resumeLearningCourse(courseUserIsLearning, this.props.currentUser);
         this.props.MyActions.apiGetCourses();
       })
 
   uiUpdateCourse = (course) => {
     const spe = this.props.My.speCourseForActions;
     this.props.MyActions.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, course } });
-  }
-
-  uiUpdateCuil = (courseUserIsLearning) => {
-    const spe = this.props.My.speCourseForActions;
-    this.props.MyActions.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, courseUserIsLearning } });
   }
 
   renderRequestIcon = () => (
@@ -170,6 +164,7 @@ class CourseActions extends React.Component {
           apiStartLearning={this.apiStartLearning}
           apiStopLearning={this.apiStopLearning}
           apiResumeLearning={this.apiResumeLearning}
+          MyActions={this.props.MyActions}
         />
       </div>
     </section>;

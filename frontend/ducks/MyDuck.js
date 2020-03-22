@@ -122,15 +122,38 @@ const reducer = (state = initialState, action) => {
       );
       return newState;
     }
+    case `${namespace}.START_LEARNING_COURSE`: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const currentUser = action.payload.currentUser;
+      const courseUserIsLearning = action.payload.courseUserIsLearning;
+
+      newState.speCourseForActions.payload.learners.push(currentUser);
+      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
+
+      return newState;
+    }
     case `${namespace}.STOP_LEARNING_COURSE`: {
       const newState = JSON.parse(JSON.stringify(state));
-      const courseId = action.payload.courseId;
+      const courseUserIsLearning = action.payload.courseUserIsLearning;
+      const currentUser = action.payload.currentUser;
 
       const courseDtoIndex = state.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseId
+        courseDto.course.id === courseUserIsLearning.courseId
       );
 
       newState.courses.splice(courseDtoIndex, 1);
+      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
+      newState.speCourseForActions.payload.learners = newState.speCourseForActions.payload.learners.filter((learner) => learner.id === currentUser.id);
+
+      return newState;
+    }
+    case `${namespace}.RESUME_LEARNING_COURSE`: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const courseUserIsLearning = action.payload.courseUserIsLearning;
+      const currentUser = action.payload.currentUser;
+
+      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
+      newState.speCourseForActions.payload.learners.push(currentUser);
 
       return newState;
     }
@@ -177,8 +200,14 @@ const getActions = (dispatch, getState) => ({
       );
     }
   },
-  stopLearningCourse: (courseId) => {
-    dispatch({ type: `${namespace}.STOP_LEARNING_COURSE`, payload: { courseId } });
+  startLearningCourse: (courseUserIsLearning, currentUser) => {
+    dispatch({ type: `${namespace}.START_LEARNING_COURSE`, payload: { courseUserIsLearning, currentUser } });
+  },
+  stopLearningCourse: (courseUserIsLearning, currentUser) => {
+    dispatch({ type: `${namespace}.STOP_LEARNING_COURSE`, payload: { courseUserIsLearning, currentUser } });
+  },
+  resumeLearningCourse: (courseUserIsLearning, currentUser) => {
+    dispatch({ type: `${namespace}.RESUME_LEARNING_COURSE`, payload: { courseUserIsLearning, currentUser } });
   },
   setSpeCourseForActions: (spe) => {
     dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe });

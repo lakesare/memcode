@@ -9,8 +9,7 @@ const getMyEverything = auth(async (request, response) => {
     `SELECT
       row_to_json(course.*)          AS course,
       row_to_json("user".*)          AS author,
-      row_to_json(course_category.*) AS course_category,
-      course_user_is_learning.active AS active
+      row_to_json(course_category.*) AS course_category
     FROM course
 
     INNER JOIN course_user_is_learning
