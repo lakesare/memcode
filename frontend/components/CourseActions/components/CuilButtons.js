@@ -9,7 +9,7 @@ import StandardTooltip from '~/components/StandardTooltip';
 class CuilButtons extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
-    currentUser: PropTypes.object,
+    currentUser: orFalse(PropTypes.object).isRequired,
 
     amountOfProblems: orFalse(PropTypes.object).isRequired,
     courseDto: PropTypes.shape({

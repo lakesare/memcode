@@ -190,7 +190,7 @@ class Page_courses_id extends React.Component {
             </DragDropContext>
           }</Loading>
           <NewProblem
-            courseId={this.props.match.params.id}
+            courseId={this.props.courseId}
             uiAddOptimisticProblem={this.uiAddOptimisticProblem}
             uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
           />

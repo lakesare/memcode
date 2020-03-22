@@ -1,11 +1,12 @@
+import orFalse from '~/services/orFalse';
+import MyDuck from '~/ducks/MyDuck';
+
 import Header from '~/appComponents/Header';
 import Footer from '~/appComponents/Footer';
 
-import MyDuck from '~/ducks/MyDuck';
-
 @connect(
   (state) => ({
-    currentUser: state.global.Authentication.currentUser,
+    currentUser: state.global.Authentication.currentUser || false,
     My: state.global.My
   }),
   (dispatch) => ({
@@ -20,7 +21,7 @@ class Main extends React.Component {
 
     MyActions: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
-    currentUser: PropTypes.object
+    currentUser: orFalse(PropTypes.object).isRequired
   }
 
   componentDidMount = () => {

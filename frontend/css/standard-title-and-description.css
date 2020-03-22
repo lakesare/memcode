@@ -8,11 +8,12 @@
     color: $purple;
   }
   > article.description{
-    color: rgba(255, 255, 255, 0.57);
+    color: rgb(141, 146, 209);
     font-weight: 100;
     font-size: 13px;
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
-  }  
+    line-height: 18px;
+  }
 }
