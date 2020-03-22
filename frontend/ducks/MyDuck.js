@@ -29,9 +29,11 @@ const reducer = (state = initialState, action) => {
         }
       }
     }
-    case `${namespace}.JUST_REVIEWED`: {
-      const problemId = action.payload.problemId;
+    case `${namespace}.REVIEW_PROBLEM`: {
       const newState = JSON.parse(JSON.stringify(state));
+      const courseId = action.payload.courseId;
+      const problemId = action.payload.problemId;
+
       newState.courses.find((course) =>
         course.problems.find((problem) => {
           if (problem.id === problemId) {
@@ -81,19 +83,22 @@ const reducer = (state = initialState, action) => {
       return newState;
     }
     case `${namespace}.LEARN_PROBLEM`: {
-      const problemId = action.payload.problemId;
       const newState = JSON.parse(JSON.stringify(state));
-      newState.courses.find((course) =>
-        course.problems.find((problem) => {
-          if (problem.id === problemId) {
-            // todo set actual nextDueDate?
-            problem._learned = true;
-            problem.nextDueDate = "2044-02-05T21:32:41.851Z";
-            problem.ifIgnored = false;
-            return true;
-          }
-        })
+      const courseId = action.payload.courseId;
+      const problemId = action.payload.problemId;
+
+      const courseDtoIndex = state.courses.findIndex((courseDto) =>
+        courseDto.course.id === courseId
       );
+      newState.courses[courseDtoIndex].problems.find((problem) => {
+        if (problem.id === problemId) {
+          // todo set actual nextDueDate?
+          problem._learned = true;
+          problem.nextDueDate = new Date().toISOString();
+          problem.ifIgnored = false;
+          return true;
+        }
+      });
       return newState;
     }
     case `${namespace}.IGNORE_PROBLEM`: {
@@ -173,8 +178,8 @@ const getActions = (dispatch, getState) => ({
   setSpeCourseForActions: (spe) => {
     dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe });
   },
-  reviewProblem: (problemId) => {
-    dispatch({ type: `${namespace}.JUST_REVIEWED`, payload: { problemId } });
+  reviewProblem: (courseId, problemId) => {
+    dispatch({ type: `${namespace}.REVIEW_PROBLEM`, payload: { problemId } });
   },
   createProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.CREATE_PROBLEM`, payload: { courseId, problemId } });

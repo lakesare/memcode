@@ -1,5 +1,4 @@
 import orFalse from '~/services/orFalse';
-import { getAllActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
@@ -26,9 +25,10 @@ import MyDuck from '~/ducks/MyDuck';
 import selectors from './duck/selectors';
 import actions from './duck/actions';
 @connect(
-  (state) => {
+  (state, ownProps) => {
     const pageState = state.pages.Page_courses_id_review;
     return {
+      courseId: Number.parseInt(ownProps.match.params.id),
       currentUser: state.global.Authentication.currentUser || false,
       currentProblem: selectors.deriveCurrentProblem(pageState),
       speGetPage: pageState.speGetPage,
@@ -43,8 +43,7 @@ import actions from './duck/actions';
       amountOfFailedProblems: pageState.amountOfFailedProblems,
       amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
 
-      speCourseForActions: state.global.My.speCourseForActions,
-      idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
+      My: state.global.My
     };
   },
   (dispatch, ownProps) => ({
@@ -65,18 +64,12 @@ import actions from './duck/actions';
     randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
     switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
 
-    setSpeCourseForActions: (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
-    apiGetCourseForActions: () => dispatch(MyDuck.actions.apiGetCourseForActions(ownProps.match.params.id)),
-    IdsOfProblemsToLearnAndReviewPerCourseActions: getAllActions(dispatch)
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class Page_courses_id_review extends React.Component {
   static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string
-      })
-    }).isRequired,
+    courseId: PropTypes.number.isRequired,
     simulated: PropTypes.bool,
     getPage: PropTypes.func.isRequired,
 
@@ -97,11 +90,8 @@ class Page_courses_id_review extends React.Component {
     randomizeProblems: PropTypes.func.isRequired,
     switchQuestionAndAnswer: PropTypes.func.isRequired,
 
-    idsOfProblemsToLearnAndReviewPerCourse: orFalse(PropTypes.object).isRequired,
-    IdsOfProblemsToLearnAndReviewPerCourseActions: PropTypes.object.isRequired,
-    apiGetCourseForActions: PropTypes.func.isRequired,
-    speCourseForActions: PropTypes.object.isRequired,
-    setSpeCourseForActions: PropTypes.func.isRequired,
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired
   }
 
   static defaultProps = {
@@ -109,14 +99,14 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPage(this.props.match.params.id);
-    this.props.apiGetCourseForActions();
+    this.props.getPage(this.props.courseId);
+    this.props.MyActions.apiGetCourseForActions(this.props.courseId);
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.props.getPage(this.props.match.params.id);
-      this.props.apiGetCourseForActions();
+    if (prevProps.courseId !== this.props.courseId) {
+      this.props.getPage(this.props.courseId);
+      this.props.MyActions.apiGetCourseForActions(this.props.courseId);
     }
   }
 
@@ -133,18 +123,13 @@ class Page_courses_id_review extends React.Component {
     }</div>
 
   render = () =>
-    <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
+    <Main className={css.main} dontLinkToLearnOrReview={this.props.courseId}>
       <CourseActions
-        courseId={this.props.match.params.id}
+        courseId={this.props.courseId}
         currentUser={this.props.currentUser}
-
-        speCourseForActions={this.props.speCourseForActions}
-        setSpeCourseForActions={this.props.setSpeCourseForActions}
-
-        idsOfProblemsToLearnAndReviewPerCourse={this.props.idsOfProblemsToLearnAndReviewPerCourse}
-        IdsOfProblemsToLearnAndReviewPerCourseActions={this.props.IdsOfProblemsToLearnAndReviewPerCourseActions}
-
         type="review"
+        My={this.props.My}
+        MyActions={this.props.MyActions}
       />
 
       {
@@ -168,7 +153,7 @@ class Page_courses_id_review extends React.Component {
       <Loading className="loading-flashcards" spe={this.props.speGetPage}/>
 
       <WhatsNext
-        courseId={parseInt(this.props.match.params.id)}
+        courseId={parseInt(this.props.courseId)}
         currentUser={this.props.currentUser}
         speNextReviewIn={this.props.speNextReviewIn}
         ifDisplay={this.props.speGetPage.status === 'success' && !this.props.currentProblem}

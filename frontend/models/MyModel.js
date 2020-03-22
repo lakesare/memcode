@@ -1,8 +1,12 @@
 
 const isProblemToReview = (problem) => {
-  return problem._learned &&
-    new Date(problem.nextDueDate).getTime() < new Date().getTime() &&
-    !problem.ifIgnored;
+  if (!problem._learned || problem.ifIgnored) return false;
+
+  const nowInUtc = new Date().getTime();
+  const dueTime = new Date(problem.nextDueDate).getTime();
+  const ifReadyForReview = dueTime < nowInUtc;
+
+  return ifReadyForReview;
 };
 
 const isProblemToLearn = (problem) => {

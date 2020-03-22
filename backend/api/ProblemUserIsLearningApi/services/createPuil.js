@@ -12,7 +12,7 @@ const createPuil = async (problemId, userId, { ifIgnored }) => {
       easiness: initialScore().easiness,
       consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers,
       ifIgnored,
-      nextDueDate: knex.raw("timezone('UTC', now())"),
+      nextDueDate: knex.raw("now()"),
       courseUserIsLearningId,
       problemId,
     })

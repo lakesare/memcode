@@ -91,6 +91,7 @@
     "chokidar": "^2.1.2",
     "contains-path": "^1.0.0",
     "convert-source-map": "^1.6.0",
+    "dayjs": "^1.8.23",
     "detect-indent": "^5.0.0",
     "dotenv": "^6.2.0",
     "es-to-primitive": "^1.2.0",

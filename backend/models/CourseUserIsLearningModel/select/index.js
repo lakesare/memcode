@@ -11,25 +11,22 @@ const select = {
       { courseId, userId }
     ),
 
-  problemsToReview: (id) =>
+  problemsToReview: (cuilId) =>
     db.any(
       `
-      SELECT *
+      SELECT problem.*
       FROM problem
-      WHERE problem.id IN (
-        SELECT problem_user_is_learning.problem_id
-        FROM problem_user_is_learning
-        WHERE (
-            problem_user_is_learning.course_user_is_learning_id = \${id}
-          AND
-            problem_user_is_learning.next_due_date < timezone('UTC', now())
-          AND
-            problem_user_is_learning.if_ignored = false
-        )
-      )
+      INNER JOIN problem_user_is_learning
+      ON problem_user_is_learning.problem_id = problem.id
+      WHERE
+          problem_user_is_learning.course_user_is_learning_id = \${cuilId}
+        AND
+          problem_user_is_learning.next_due_date < now()
+        AND
+          problem_user_is_learning.if_ignored = false
       ORDER BY problem.position, problem.created_at
       `,
-      { id }
+      { cuilId }
     )
 };
 

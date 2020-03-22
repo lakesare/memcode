@@ -33,11 +33,10 @@ const getMyEverything = auth(async (request, response) => {
     { userId }
   );
 
-
   const myLearnedProblems = await db.any(
     `
       SELECT
-        (problem_user_is_learning.next_due_date - timezone('UTC', now())) AS next_due_date_in,
+        (problem_user_is_learning.next_due_date - now()) AS next_due_date_in,
         problem_user_is_learning.next_due_date AS next_due_date,
         problem_user_is_learning.if_ignored AS if_ignored,
         problem_user_is_learning.problem_id AS problem_id,
@@ -86,6 +85,7 @@ const getMyEverything = auth(async (request, response) => {
         .map((myLearnedProblem) => ({
           id: myLearnedProblem.problemId,
           _learned: true,
+          ...myLearnedProblem,
           nextDueDateIn: myLearnedProblem.nextDueDateIn,
           nextDueDate: myLearnedProblem.nextDueDate,
           ifIgnored: myLearnedProblem.ifIgnored

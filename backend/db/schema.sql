@@ -5,6 +5,7 @@ CREATE DATABASE :database;
 \c :database;
 
 CREATE EXTENSION fuzzystrmatch;
+SET timezone TO 'Etc/UTC';
 
 -- always use "user" (double quotes) when you reference this table.
 -- because 'user' is a reserved word in postgres, and it will complain about user table.

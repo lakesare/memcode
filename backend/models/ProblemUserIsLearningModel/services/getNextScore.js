@@ -43,14 +43,14 @@ const getNextScore = (prevEasiness, prevConsecutiveCorrectAnswers, performanceRa
 
   const nextConsecutiveCorrectAnswers =
     isAnswerCorrect(performanceRating) ?
-    prevConsecutiveCorrectAnswers + 1 :
-    0;
+      prevConsecutiveCorrectAnswers + 1 :
+      0;
 
   const daysToNextReview = clipDaysToNextReview(
     isAnswerCorrect(performanceRating) ?
-    // 6 * (nextEasiness ** (nextConsecutiveCorrectAnswers - 1)) :
-    0.2 + (0.2 * ((nextEasiness ** 2.2) * ((nextConsecutiveCorrectAnswers - 1) ** 2.2))) :
-    0.2 // otherwise review it in 4 hours
+      // 6 * (nextEasiness ** (nextConsecutiveCorrectAnswers - 1)) :
+      0.2 + (0.2 * ((nextEasiness ** 2.2) * ((nextConsecutiveCorrectAnswers - 1) ** 2.2))) :
+      0.2 // otherwise review it in 4 hours
   );
 
   return {
