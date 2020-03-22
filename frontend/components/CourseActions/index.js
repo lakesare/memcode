@@ -184,10 +184,7 @@ class CourseActions extends React.Component {
           this.props.type === 'editOrShow' &&
           <CourseDescriptionAndStats
             currentUser={this.props.currentUser}
-            course={courseDto.course}
-            stats={courseDto.stats}
-            nextDueDateIn={courseDto.nextDueDateIn}
-            courseUserIsLearning={courseDto.courseUserIsLearning}
+            courseDto={courseDto}
             ifWithDescriptionPlaceholder={this.canIEditCourse()}
           />
         }

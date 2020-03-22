@@ -14,7 +14,7 @@ class CuilButtons extends React.Component {
     amountOfProblems: orFalse(PropTypes.object).isRequired,
     courseDto: PropTypes.shape({
       course: PropTypes.object.isRequired,
-      stats: PropTypes.object.isRequired,
+      amountOfProblems: PropTypes.number.isRequired,
       courseUserIsLearning: PropTypes.object
     }).isRequired,
 
@@ -79,7 +79,7 @@ class CuilButtons extends React.Component {
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
       {
-        this.props.courseDto.stats.amountOfProblems > 0 &&
+        this.props.amountOfProblems > 0 &&
         <li>
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
@@ -173,7 +173,7 @@ class CuilButtons extends React.Component {
         <Link
           to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
           className="button simulated-review-button"
-        >TEST DRIVE ({this.props.courseDto.stats.amountOfProblems})</Link>
+        >TEST DRIVE ({this.props.amountOfProblems})</Link>
       </div>
 }
 

@@ -1,15 +1,19 @@
 import knex from '~/db/knex';
-import CourseModel from '~/models/CourseModel';
 
-// TODO: use getCourseStats()
 const getForCourseActions = async (request, response) => {
   const courseId = request.body['courseId'];
-  const currentUserId = request.currentUser ? request.currentUser.id : null;
-
-  const course = await CourseModel.select.oneForActions(courseId, currentUserId);
+  const currentUser = request.currentUser;
+  const course = (await knex('course').where({ id: courseId }))[0];
   if (!course) throw new Error("Sorry, this course doesn't exist.");
 
-  const courseStats = await CourseModel.select.getCourseStats(courseId);
+  const author = (await knex('user').where({ id: course.userId }))[0];
+  const courseCategory = (await knex('courseCategory').where({ id: course.courseCategoryId }))[0];
+  const amountOfProblems = Number.parseInt((await knex('problem').count('id as amount').where({ courseId: course.id }))[0].amount);
+
+  const learners = await knex('user')
+    .select('user.*')
+    .join('courseUserIsLearning', { 'courseUserIsLearning.userId': 'user.id' })
+    .where({ 'courseUserIsLearning.courseId': courseId, active: true });
 
   // It's fine to expose emails of already-added users
   const coauthors = await knex('user')
@@ -18,7 +22,18 @@ const getForCourseActions = async (request, response) => {
     .where({ 'coauthor.courseId': courseId })
     .orderBy('coauthor.createdAt', 'asc');
 
-  response.success({ ...course, stats: courseStats, coauthors });
+  const courseUserIsLearning = currentUser ?
+    (await knex('courseUserIsLearning').where({ userId: currentUser.id, courseId }))[0] :
+    null;
+
+  const nextDueDateIn = {};
+
+  response.success({
+    course, author, courseUserIsLearning, courseCategory, amountOfProblems,
+    nextDueDateIn,
+    coauthors,
+    learners,
+  });
 };
 
 export default getForCourseActions;

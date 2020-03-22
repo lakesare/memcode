@@ -31,7 +31,7 @@ const reducer = (state = initialState, action) => {
     }
     case `${namespace}.REVIEW_PROBLEM`: {
       const newState = JSON.parse(JSON.stringify(state));
-      const courseId = action.payload.courseId;
+      // const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
 
       newState.courses.find((course) =>
@@ -54,8 +54,11 @@ const reducer = (state = initialState, action) => {
         courseDto.course.id === courseId
       );
 
+      // We need to be using .amountOfProblems too, because people who don't yet learn the current course don't have My.courses data structure :-)
+      newState.speCourseForActions.payload.amountOfProblems += 1;
+
       // Not learning course
-      if (courseDtoIndex === -1) return state;
+      if (courseDtoIndex === -1) return newState;
 
       const newProblem = {
         id: problemId,
@@ -70,12 +73,14 @@ const reducer = (state = initialState, action) => {
       const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
 
+      newState.speCourseForActions.payload.amountOfProblems -= 1;
+
       const courseDtoIndex = state.courses.findIndex((courseDto) =>
         courseDto.course.id === courseId
       );
 
       // Not learning course
-      if (courseDtoIndex === -1) return state;
+      if (courseDtoIndex === -1) return newState;
 
       const problems = newState.courses[courseDtoIndex].problems;
       const newProblems = problems.filter((problem) => problem.id !== problemId);

@@ -97,34 +97,6 @@ const select = {
     )
       .then((result) => result.amountOfPublicCourses),
 
-  oneForActions: (id, userId) =>
-    getCoursesWithStats({
-      where: 'WHERE course.id = ${courseId}',
-      params: { userId, courseId: id }
-    })
-      .then((array) => array[0]),
-
-  getCourseStats: (id) =>
-    db.one(
-      `
-      SELECT
-        COUNT(distinct course_user_is_learning.user_id) AS amount_of_users_learning_this_course,
-        COUNT(distinct problem.id) AS amount_of_problems
-      FROM course
-      LEFT JOIN course_user_is_learning
-        ON (
-          course_user_is_learning.active = true
-          AND
-          course.id = course_user_is_learning.course_id
-        )
-      LEFT JOIN problem
-        ON problem.course_id = course.id
-      WHERE course.id = \${id}
-      GROUP BY course.id
-      `,
-      { id }
-    ),
-
   oneById: (id) =>
     db.one(
       `
