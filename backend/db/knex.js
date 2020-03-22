@@ -7,8 +7,8 @@ const knex = Knex(knexStringcase({
   client: 'postgres',
   connection: getConnectionString(),
   pool: { min: 0, max: 7 },
-  debug: true,
-  asyncStackTraces: true
+  // debug: true,
+  // asyncStackTraces: true
 }));
 
 export default knex;
