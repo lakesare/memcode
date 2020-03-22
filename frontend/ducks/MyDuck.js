@@ -143,7 +143,7 @@ const reducer = (state = initialState, action) => {
 
       newState.courses.splice(courseDtoIndex, 1);
       newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-      newState.speCourseForActions.payload.learners = newState.speCourseForActions.payload.learners.filter((learner) => learner.id === currentUser.id);
+      newState.speCourseForActions.payload.learners = newState.speCourseForActions.payload.learners.filter((learner) => learner.id !== currentUser.id);
 
       return newState;
     }

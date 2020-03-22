@@ -26,11 +26,12 @@ const getForCourseActions = async (request, response) => {
     (await knex('courseUserIsLearning').where({ userId: currentUser.id, courseId }))[0] :
     null;
 
-  const nextDueDateIn = {};
-
   response.success({
-    course, author, courseUserIsLearning, courseCategory, amountOfProblems,
-    nextDueDateIn,
+    course,
+    author,
+    courseUserIsLearning,
+    courseCategory,
+    amountOfProblems,
     coauthors,
     learners,
   });

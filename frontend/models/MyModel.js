@@ -1,3 +1,21 @@
+import datetimeDiff from '~/services/datetimeDiff';
+import humanizePostgresInterval from '~/services/humanizePostgresInterval';
+
+// => null
+// => 'now'
+// => { amount: 5, measure: 'hours' }
+const getNextDueDateIn = (dto) => {
+  const nextDueProblem = getNextDueProblem(dto);
+  if (!nextDueProblem) return null;
+
+  if (isProblemToReview(nextDueProblem)) {
+    return 'now';
+  }
+
+  const diff = datetimeDiff(new Date(), new Date(nextDueProblem.nextDueDate));
+  const [amount, measure] = humanizePostgresInterval(diff, { asArray: true });
+  return { amount, measure };
+};
 
 const isProblemToReview = (problem) => {
   if (!problem._learned || problem.ifIgnored) return false;
@@ -89,5 +107,6 @@ export default {
   getDtosToLearn, countAllProblemsToLearn,
   getDtosToReview, countAllProblemsToReview,
   sortByHowMuchToDo,
-  getNextDueProblem
+  getNextDueProblem,
+  getNextDueDateIn
 };
