@@ -1,4 +1,5 @@
 import knex from '~/db/knex';
+import db from '~/db/init.js';
 
 const getForCourseActions = async (request, response) => {
   const courseId = request.body['courseId'];
@@ -26,12 +27,31 @@ const getForCourseActions = async (request, response) => {
     (await knex('courseUserIsLearning').where({ userId: currentUser.id, courseId }))[0] :
     null;
 
+  let nextDueDateIn = null;
+  if (courseUserIsLearning) {
+    nextDueDateIn = (await db.one(`
+      SELECT (
+        SELECT MIN(problem_user_is_learning.next_due_date)
+        FROM problem_user_is_learning
+        WHERE
+          (
+            problem_user_is_learning.course_user_is_learning_id = \${cuilId}
+              AND
+            problem_user_is_learning.if_ignored = false
+          )
+      ) - now() AS next_due_date_IN
+    `, {
+      cuilId: courseUserIsLearning.id
+    })).nextDueDateIn;
+  }
+
   response.success({
     course,
     author,
     courseUserIsLearning,
     courseCategory,
     amountOfProblems,
+    nextDueDateIn,
     coauthors,
     learners,
   });
