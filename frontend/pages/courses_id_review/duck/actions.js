@@ -40,9 +40,9 @@ const enterPressed = () =>
               const lastIndex = state.speGetPage.payload.problems.length - 1;
               const itWasLastReviewedProblem = lastIndex === currentIndex;
               if (itWasLastReviewedProblem) {
-                commonFetch(
+                api.PageApi.getForCourseActions(
                   (spe) => dispatch({ type: 'SET_SPE_NEXT_REVIEW_IN', payload: spe }),
-                  'GET', `/api/pages/courseActions/${currentProblem.courseId}`
+                  { courseId: currentProblem.courseId }
                 );
               }
             });
