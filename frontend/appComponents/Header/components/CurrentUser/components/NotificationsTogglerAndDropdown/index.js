@@ -26,8 +26,10 @@ class NotificationsTogglerAndDropdown extends React.Component {
   }
 
   componentDidMount() {
-    this.apiGetMostRecentNotifications();
-    this.apiGetNotificationsStatsForUser();
+    setTimeout(() => {
+      this.apiGetMostRecentNotifications();
+      this.apiGetNotificationsStatsForUser();
+    }, 2000);
   }
 
   apiGetNotificationsStatsForUser = () =>
