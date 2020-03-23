@@ -99,7 +99,9 @@ const reducer = (state = initialState, action) => {
         if (problem.id === problemId) {
           // todo set actual nextDueDate?
           problem._learned = true;
-          problem.nextDueDate = new Date().toISOString();
+          // review 10 seconds ago :-)
+          const date = new Date(new Date().getTime() - (10 * 1000));
+          problem.nextDueDate = date.toISOString();
           problem.ifIgnored = false;
           return true;
         }
