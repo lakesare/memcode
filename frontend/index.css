@@ -49,8 +49,10 @@ body.-bright-theme{
   }
 
   // Really needed for my font, especially visible in light theme :-o
-  // -webkit-font-smoothing: antialiased;
-  // -moz-osx-font-smoothing: grayscale;
+  // ___WHY did I remove it???
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
 
   img, .button, .toggle-button,
   .standard-course-card .learn-and-review-buttons .links, .standard-course-card .amount-footer,
