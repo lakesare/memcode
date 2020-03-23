@@ -13,6 +13,8 @@ $fa-font-path: "~font-awesome/fonts";
 
 @import 'css/react-select';
 @import 'css/quill/index';
+@import 'css/tippy-tooltip';
+
 @import 'css/container';
 @import 'css/button';
 @import 'css/action';

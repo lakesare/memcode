@@ -91,7 +91,7 @@ class Page_courses_new extends React.Component {
       </div>
 
       <Helmet>
-        <title>New Course</title>
+        <title>Create Course</title>
         <meta name="description" content="Create and memorize your personal flashcards."/> :
       </Helmet>
     </Main>

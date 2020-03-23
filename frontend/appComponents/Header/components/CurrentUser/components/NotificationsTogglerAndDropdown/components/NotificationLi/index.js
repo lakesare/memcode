@@ -40,8 +40,8 @@ class NotificationLi extends React.Component {
       case 'welcome_to_memcode':
         return this.renderLi(
           notification,
-          <i className="fa fa-heart" style={{ fontSize: 21, color: 'rgb(212, 4, 236)' }}/>,
-          'Welcome to Memcode!',
+          <i className="fa fa-heart" style={{ fontSize: 21, color: 'rgb(252, 46, 65)' }}/>,
+          <span style={{ color: 'rgb(252, 46, 65)' }}>Welcome to Memcode!</span>,
           <div>
             Create flashcards, review flashcards, move flashcards around - live your life to the fullest!
           </div>
@@ -54,25 +54,27 @@ class NotificationLi extends React.Component {
           // flask
           // bolt
           <i className="fa fa-flask" style={{ fontSize: 21, color: 'rgb(212, 4, 236)' }}/>,
-          'We added a new feature',
+          <span style={{ color: 'rgb(219, 16, 242)' }}>We added a new feature</span>,
           <div dangerouslySetInnerHTML={{ __html: notification.content.html }}/>
         );
       case 'someone_started_learning_your_course':
         return this.renderLi(
           notification,
-          <i className="fa fa-user-plus" style={{ fontSize: 21, color: 'white' }}/>,
-          'Someone started learning your course!',
+          <i className="fa fa-user-plus" style={{ fontSize: 21, color: 'rgb(86, 209, 103)' }}/>,
+          <span style={{ color: 'rgb(78, 215, 76)' }}>Someone started learning your course!</span>,
           <div>
-            <span className="learner-username">{notification.content.learnerUsername} </span>
-            joined
-            <Link to={`/courses/${notification.content.courseId}`}> {notification.content.courseTitle}</Link>
+            <Link className="learner-username" to={`/users/${notification.content.learnerId}`}>
+              {notification.content.learnerUsername}
+            </Link>
+            {` joined `}
+            <Link to={`/courses/${notification.content.courseId}`}>{notification.content.courseTitle}</Link>
           </div>
         );
       case 'someone_rated_your_course':
         return this.renderLi(
           notification,
-          <i className="fa fa-star" style={{ fontSize: 21, color: 'rgb(136, 125, 220)' }}/>,
-          'Someone rated your course!',
+          <i className="fa fa-star" style={{ fontSize: 21, color: 'rgb(223, 210, 54)' }}/>,
+          <span style={{ color: 'rgb(224, 210, 53)' }}>Someone rated your course!</span>,
           <div>
             <span className="rater-username">{notification.content.raterUsername} </span>
             gave
@@ -84,9 +86,9 @@ class NotificationLi extends React.Component {
         return this.renderLi(
           notification,
           <i className="fa fa-paw" style={{ fontSize: 21, color: 'rgb(248, 156, 43)' }}/>,
-          'Someone wants to collaborate with you!',
+          <span style={{ color: 'rgb(248, 156, 44)' }}>Someone wants to collaborate with you!</span>,
           <div>
-            <span className="text-orange">{notification.content.author.username} </span>
+            <Link className="learner-username" to={`/users/${notification.content.author.id}`}>{notification.content.author.username} </Link>
             invites you to edit their course:
             <Link to={`/courses/${notification.content.course.id}`}> {notification.content.course.title}</Link>.
           </div>
