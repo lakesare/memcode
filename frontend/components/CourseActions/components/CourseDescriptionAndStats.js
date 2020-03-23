@@ -81,6 +81,13 @@ class CourseDescriptionAndStats extends React.Component {
         }
 
         <ul className="course-stats">
+          {
+            this.props.courseDto.courseUserIsLearning &&
+            this.props.courseDto.courseUserIsLearning.active &&
+            this.props.courseDto.nextDueDateIn &&
+            this.renderReviewInStat()
+          }
+
           {this.renderStat(
             <i className="fa fa-users"/>,
             <div><span className="number">{this.props.courseDto.learners.length}</span> students</div>
@@ -90,13 +97,6 @@ class CourseDescriptionAndStats extends React.Component {
             <i className="fa fa-list"/>,
             <div><span className="number">{this.props.courseDto.amountOfProblems}</span> flashcards</div>
           )}
-
-          {
-            this.props.courseDto.courseUserIsLearning &&
-            this.props.courseDto.courseUserIsLearning.active &&
-            this.props.courseDto.nextDueDateIn &&
-            this.renderReviewInStat()
-          }
 
           <CourseStarRating
             courseId={this.props.courseDto.course.id}

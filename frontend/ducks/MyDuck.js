@@ -14,6 +14,25 @@ const reducer = (state = initialState, action) => {
     case 'SET_SPE_GET_COURSE': {
       return { ...state, speCourseForActions: action.payload };
     }
+    // This is temporary :-) Basically after the person reviewed everything, we are fetching the 'What's next' section. We fetch speNextReviewIn for that. We can also update our <Actions/> with that data.
+    case 'SET_SPE_NEXT_REVIEW_IN': {
+      const spe = action.payload;
+      if (spe.status === 'success') {
+        const nextDueDateIn = spe.payload.nextDueDateIn;
+        return {
+          ...state,
+          speCourseForActions: {
+            ...state.speCourseForActions,
+            payload: {
+              ...state.speCourseForActions.payload,
+              nextDueDateIn
+            }
+          }
+        };
+      } else {
+        return state;
+      }
+    }
     case SPE_COURSES: {
       if (state.speCourses.status === 'success') {
         if (action.spe.status === 'success') {
