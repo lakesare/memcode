@@ -124,6 +124,23 @@ const reducer = (state = initialState, action) => {
       );
       return newState;
     }
+    case `${namespace}.UNLEARN_UNIGNORE_PROBLEM`: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const courseId = action.payload.courseId;
+      const problemId = action.payload.problemId;
+
+      const courseDtoIndex = newState.courses.findIndex((courseDto) =>
+        courseDto.course.id === courseId
+      );
+      const problems = newState.courses[courseDtoIndex].problems;
+      const problemIndex = problems.findIndex((problem) => problem.id === problemId);
+
+      problems[problemIndex] = {
+        id: problems[problemIndex].id,
+        _learned: false
+      };
+      return newState;
+    }
     case `${namespace}.START_LEARNING_COURSE`: {
       const newState = JSON.parse(JSON.stringify(state));
       const currentUser = action.payload.currentUser;
@@ -229,6 +246,9 @@ const getActions = (dispatch, getState) => ({
   ignoreProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.IGNORE_PROBLEM`, payload: { courseId, problemId } });
   },
+  unlearnUnignoreProblem: (courseId, problemId) => {
+    dispatch({ type: `${namespace}.UNLEARN_UNIGNORE_PROBLEM`, payload: { courseId, problemId } });
+  }
 });
 
 // import { createSelector } from 'reselect'

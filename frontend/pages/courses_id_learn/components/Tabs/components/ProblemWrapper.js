@@ -24,31 +24,35 @@ class ProblemWrapper extends React.Component {
     speDelete: {}
   }
 
-  apiLearn = () =>
+  apiLearn = () => {
+    this.props.MyActions.learnProblem(this.props.problem.courseId, this.props.problem.id);
+
     api.ProblemUserIsLearningApi.learnProblem(
       (spe) => this.setState({ speLearn: spe }),
       { problemId: this.props.problem.id }
     )
-      .then((puil) => this.setState({ puil }))
-      .then(() => this.props.MyActions.learnProblem(this.props.problem.courseId, this.props.problem.id))
-
-  apiIgnore = async () => {
-    const ignoredPuil = await api.ProblemUserIsLearningApi.ignoreProblem(
-      (spe) => this.setState({ speIgnore: spe }),
-      { problemId: this.props.problem.id }
-    );
-
-    this.setState({ puil: ignoredPuil });
-    this.props.MyActions.ignoreProblem(this.props.problem.courseId, this.props.problem.id);
+      .then((puil) => this.setState({ puil }));
   }
 
-  apiDelete = () =>
+  apiIgnore = () => {
+    this.props.MyActions.ignoreProblem(this.props.problem.courseId, this.props.problem.id);
+
+    api.ProblemUserIsLearningApi.ignoreProblem(
+      (spe) => this.setState({ speIgnore: spe }),
+      { problemId: this.props.problem.id }
+    )
+      .then((puil) => { this.setState({ puil }); });
+  }
+
+  apiUnlearnUnignore = () => {
+    this.props.MyActions.unlearnUnignoreProblem(this.props.problem.courseId, this.props.problem.id);
+
     api.ProblemUserIsLearningApi.unlearnUnignoreProblem(
       (spe) => this.setState({ speDelete: spe }),
       { id: this.state.puil.id }
     )
-      .then(() => this.setState({ puil: false }))
-      .then(this.props.MyActions.apiGetCourses)
+      .then(() => { this.setState({ puil: false }); });
+  }
 
   renderProblem = () =>
     <Problem
@@ -105,11 +109,11 @@ class ProblemWrapper extends React.Component {
       return <div className="problem-wrapper -ignored">
         {this.renderButton('-learn', this.apiLearn, 'LEARN', { disabled: true })}
         {this.renderProblem()}
-        {this.renderButton('-unignore', this.apiDelete, 'UNIGNORE')}
+        {this.renderButton('-unignore', this.apiUnlearnUnignore, 'UNIGNORE')}
       </div>;
     } else if (puil) {
       return <div className="problem-wrapper -learned">
-        {this.renderButton('-unlearn', this.apiDelete, 'UNLEARN')}
+        {this.renderButton('-unlearn', this.apiUnlearnUnignore, 'UNLEARN')}
         {this.renderProblem()}
         {this.renderButton('-ignore', this.apiIgnore, 'IGNORE', { disabled: true })}
       </div>;
