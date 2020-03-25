@@ -1,9 +1,8 @@
-[![Gitter](https://badges.gitter.im/kgisl/srs.svg)](https://gitter.im/kgisl/srs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
-
 Site ❤️: http://www.memcode.com/
 
 Trello board: https://trello.com/b/UN0Vnv80/memcode (here you can see what we're working on, what features are to come, and what PRs are welcome)
+
+[![Gitter](https://badges.gitter.im/kgisl/srs.svg)](https://gitter.im/kgisl/srs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ___
 
