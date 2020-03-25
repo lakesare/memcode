@@ -151,3 +151,10 @@ CREATE TABLE coauthor (
 
   unique (user_id, course_id)
 );
+
+-- Default category values
+INSERT INTO course_category_group (name)
+VALUES ('Other');
+
+INSERT INTO course_category (name, course_category_group_id)
+VALUES ('Other', 1);
