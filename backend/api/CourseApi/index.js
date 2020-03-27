@@ -86,4 +86,6 @@ import duplicate from './duplicate';
 router.duplicate = duplicate;
 import updateCoauthors from './updateCoauthors';
 router.updateCoauthors = updateCoauthors;
+import find from './find';
+router.find = find;
 export default router;
