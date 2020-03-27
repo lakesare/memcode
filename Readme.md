@@ -31,7 +31,7 @@ ___
 
 ___
 
-## How to run a development site locally?
+## How to run a development site locally? 
 
 ### Set up database
 1. Create a new development database 'memcode': `make db-reset`.
