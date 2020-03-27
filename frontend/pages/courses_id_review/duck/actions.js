@@ -1,11 +1,10 @@
-import { IdsOfProblemsToLearnAndReviewPerCourseActions } from '~/reducers/IdsOfProblemsToLearnAndReviewPerCourse';
 import api from '~/api';
 import commonFetch from '~/api/commonFetch';
+import MyDuck from '~/ducks/MyDuck';
 
 import selectors from './selectors';
 
 import playShortSound from './services/playShortSound';
-// import playShortSound from './services/playShortSound';
 
 const enterPressed = () =>
   (dispatch, getState) => {
@@ -22,9 +21,9 @@ const enterPressed = () =>
       switch (state.statusOfSolving.status) {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-          // if (currentProblem.type === 'separateAnswer') {
-          //   playShortSound();
-          // }
+          if (currentProblem.type === 'separateAnswer') {
+            playShortSound();
+          }
           break;
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state);
@@ -41,9 +40,9 @@ const enterPressed = () =>
               const lastIndex = state.speGetPage.payload.problems.length - 1;
               const itWasLastReviewedProblem = lastIndex === currentIndex;
               if (itWasLastReviewedProblem) {
-                commonFetch(
+                api.PageApi.getForCourseActions(
                   (spe) => dispatch({ type: 'SET_SPE_NEXT_REVIEW_IN', payload: spe }),
-                  'GET', `/api/pages/courseActions/${currentProblem.courseId}`
+                  { courseId: currentProblem.courseId }
                 );
               }
             });
@@ -55,15 +54,11 @@ const enterPressed = () =>
           }
           currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
           dispatch({
-            type: 'CHANGE_AMOUNT_OF_PROBLEMS_TO_REVIEW_BY',
-            payload: -1
-          });
-          dispatch({
             type: 'SET_NEXT_PROBLEM',
             payload: currentIndex + 1
           });
 
-          IdsOfProblemsToLearnAndReviewPerCourseActions.deleteProblem(dispatch, currentProblem.id);
+          MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id);
           break;
         }
       }
@@ -77,9 +72,9 @@ const enterPressedInFailedMode = () =>
     switch (state.statusOfSolving.status) {
       case 'solving':
         dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-        // if (currentProblem.type === 'separateAnswer') {
-        //   playShortSound();
-        // }
+        if (currentProblem.type === 'separateAnswer') {
+          playShortSound();
+        }
         break;
       case 'seeingAnswer': {
         const score = selectors.deriveScore(state);
@@ -125,9 +120,9 @@ const enterPressedInSimulatedReview = () =>
       switch (state.statusOfSolving.status) {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-          // if (currentProblem.type === 'separateAnswer') {
-          //   playShortSound();
-          // }
+          if (currentProblem.type === 'separateAnswer') {
+            playShortSound();
+          }
           break;
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state);

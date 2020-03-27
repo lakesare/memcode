@@ -1,0 +1,55 @@
+:local(.main){
+  .wrapper{
+    display: flex;
+    align-items: flex-start;
+    .user{
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 200px;
+
+      h1{
+        margin-bottom: 20px;
+      }
+
+      .user-details{
+        padding: 15px;
+        background: rgb(24, 28, 57);
+        border-radius: 4px;
+        box-shadow: 0 1px 0 0 rgb(33, 37, 67), 0 0 0 1px rgb(32, 38, 71);
+
+
+        img{
+          border-radius: 2px;
+          width: 100%;
+        }
+
+        .username{
+          margin-top: 10px;
+        }
+
+        .email, .created-at{
+          color: rgb(144, 138, 186);
+        }
+
+        .email{
+          font-size: 12px;
+          margin-top: 10px;
+        }
+
+        .created-at{
+          font-size: 12px;
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .created-courses{
+      margin-left: 40px;
+      flex-shrink: 1;
+      flex-grow: 1;
+      .list-of-courses{
+        margin-top: 20px;
+      }
+    }
+  }
+}

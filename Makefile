@@ -18,7 +18,7 @@ db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U postgres -f backend/db/migrations/10.sql
+	psql -v database=memcode -U postgres -f backend/db/migrations/11.sql
 
 # dump and restore data
 db-dump:
@@ -61,7 +61,7 @@ DB_URL = $$(heroku config:get DATABASE_URL --app memcode)
 # ___Where is 7.sql taken from?
 #    From local files!
 heroku-db-migrate:
-	psql -v database=d9glthq2q1grjs $(DB_URL) -f backend/db/migrations/10.sql
+	psql -v database=d9glthq2q1grjs $(DB_URL) -f backend/db/migrations/11.sql
 heroku-db-console:
 	psql -v $(DB_URL)
 

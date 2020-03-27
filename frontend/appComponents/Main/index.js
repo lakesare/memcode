@@ -1,42 +1,41 @@
+import orFalse from '~/services/orFalse';
+import MyDuck from '~/ducks/MyDuck';
+
 import Header from '~/appComponents/Header';
 import Footer from '~/appComponents/Footer';
 
-import MyDuck from '~/ducks/MyDuck';
-
 @connect(
   (state) => ({
-    currentUser: state.global.Authentication.currentUser,
+    currentUser: state.global.Authentication.currentUser || false,
     My: state.global.My
   }),
   (dispatch) => ({
-    apiGetCourses: () => MyDuck.actions.apiGetCourses(dispatch),
-    apiGetCategories: () => MyDuck.actions.apiGetCategories(dispatch)
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class Main extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     children: PropTypes.node.isRequired,
-    dontLinkToLearnOrReview: PropTypes.string,
+    dontLinkToLearnOrReview: PropTypes.number,
 
-    apiGetCourses: PropTypes.func.isRequired,
-    apiGetCategories: PropTypes.func.isRequired,
-    currentUser: PropTypes.object,
-    My: PropTypes.object.isRequired
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
+    currentUser: orFalse(PropTypes.object).isRequired
   }
 
   componentDidMount = () => {
     if (this.props.currentUser) {
-      this.props.apiGetCourses();
+      this.props.MyActions.apiGetCourses();
 
       // every 5 minutes
       this.apiSyncInterval = setInterval(() => {
-        this.props.apiGetCourses();
+        this.props.MyActions.apiGetCourses();
       }, 5 * 60 * 1000);
     }
 
     if (this.props.My.speCategories.status !== 'success') {
-      this.props.apiGetCategories();
+      this.props.MyActions.apiGetCategories();
     }
   }
 

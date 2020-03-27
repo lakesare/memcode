@@ -9,18 +9,19 @@ import StandardTooltip from '~/components/StandardTooltip';
 class CuilButtons extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
-    currentUser: PropTypes.object,
+    currentUser: orFalse(PropTypes.object).isRequired,
 
     amountOfProblems: orFalse(PropTypes.object).isRequired,
     courseDto: PropTypes.shape({
       course: PropTypes.object.isRequired,
-      stats: PropTypes.object.isRequired,
+      amountOfProblems: PropTypes.number.isRequired,
       courseUserIsLearning: PropTypes.object
     }).isRequired,
 
     apiStartLearning: PropTypes.func.isRequired,
     apiStopLearning: PropTypes.func.isRequired,
-    apiResumeLearning: PropTypes.func.isRequired
+    apiResumeLearning: PropTypes.func.isRequired,
+    MyActions: PropTypes.object.isRequired
   }
 
   state = {
@@ -55,7 +56,9 @@ class CuilButtons extends React.Component {
       { courseId: this.props.courseDto.course.id }
     )
       .then((payload) => {
-        this.props.history.push(`/courses/${payload.courseId}/edit`);
+        // stuff needs to be refetched, as history.push() doesn't trigger a rerender
+        this.props.MyActions.apiGetCourses();
+        this.props.history.push(`/courses/${payload.courseId}`);
       })
 
   ifCourseIsLearnedAndActive = () => {
@@ -79,7 +82,7 @@ class CuilButtons extends React.Component {
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
       {
-        this.props.courseDto.stats.amountOfProblems > 0 &&
+        this.props.courseDto.amountOfProblems > 0 &&
         <li>
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
@@ -173,7 +176,7 @@ class CuilButtons extends React.Component {
         <Link
           to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
           className="button simulated-review-button"
-        >TEST DRIVE ({this.props.courseDto.stats.amountOfProblems})</Link>
+        >TEST DRIVE ({this.props.courseDto.amountOfProblems})</Link>
       </div>
 }
 

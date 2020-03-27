@@ -93,6 +93,9 @@
     color: white;
     background: rgb(225, 65, 65);
   }
+  &.-red-o{
+    color: rgb(225, 65, 65);
+  }
 
   &.-small{
     font-size: 9px;

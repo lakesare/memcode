@@ -10,12 +10,14 @@ class TogglerAndModal extends Component {
   static propTypes = {
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
     toggler: PropTypes.element.isRequired,
+    className: PropTypes.string,
 
     afterClose: PropTypes.func,
   }
 
   static defaultProps = {
     afterClose: () => {},
+    className: ''
   }
 
   state = {
@@ -80,7 +82,7 @@ class TogglerAndModal extends Component {
 
       // It's important that we use both of these 'className' props, because otherwise default styles will be used!
       overlayClassName={css.modalOverlay}
-      className={css.modalWrapper}
+      className={`${css.modalWrapper} ${this.props.className}`}
       // Otherwise close animations won't work (but open animations still will)
       closeTimeoutMS={300}
     >

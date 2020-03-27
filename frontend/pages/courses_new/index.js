@@ -38,7 +38,7 @@ class Page_courses_new extends React.Component {
         spe => this.setState({ speSave: spe }),
         this.state.formState
       )
-        .then((course) => this.props.history.push(`/courses/${course.id}/edit`));
+        .then((course) => this.props.history.push(`/courses/${course.id}`));
     } else {
       this.setState({ formValidation });
     }
@@ -91,7 +91,7 @@ class Page_courses_new extends React.Component {
       </div>
 
       <Helmet>
-        <title>New Course</title>
+        <title>Create Course</title>
         <meta name="description" content="Create and memorize your personal flashcards."/> :
       </Helmet>
     </Main>

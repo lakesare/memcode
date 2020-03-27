@@ -11,7 +11,10 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/clear-default-css';
 @import 'css/focus-styles';
 
+@import 'css/react-select';
 @import 'css/quill/index';
+@import 'css/tippy-tooltip';
+
 @import 'css/container';
 @import 'css/button';
 @import 'css/action';
@@ -28,6 +31,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/standard-navigation_and_courses';
 @import 'css/standard-course-card';
 @import 'css/standard-tooltip-dropdown';
+@import 'css/standard-table';
 
 @import 'css/problem';
 
@@ -41,6 +45,16 @@ body.-bright-theme{
   background: white;
   filter: invert(1) hue-rotate(165deg);
   transition: background 200ms;
+
+  .ql-editor:focus{
+    background: black !important;
+  }
+
+  // Really needed for my font, especially visible in light theme :-o
+  // ___WHY did I remove it???
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smoothing: antialiased;
 
   img, .button, .toggle-button,
   .standard-course-card .learn-and-review-buttons .links, .standard-course-card .amount-footer,
@@ -82,7 +96,7 @@ body.-bright-theme{
   header input{
     background: rgb(32, 35, 73) !important;
   }
-  .button.edit-button{
+  .course-actions .course-title_and_category_and_author .buttons .button{
     color: black !important;
     &:hover{
       color: white !important;

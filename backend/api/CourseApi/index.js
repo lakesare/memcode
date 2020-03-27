@@ -52,16 +52,6 @@ router.get('/search', catchAsync(async (request, response) => {
   response.status(200).json(courses);
 }));
 
-// const getStats = async (request, response) => {
-//   const courseStats = await CourseModel.select.getCourseStats(request.params.courseId);
-//   response.status(200).json(courseStats);
-// };
-
-router.get('/stats', catchAsync(async (request, response) => {
-  const courseStats = await CourseModel.select.getCourseStats(request.params.courseId);
-  response.status(200).json(courseStats);
-}));
-
 router.post('/', authenticate, catchAsync(async (request, response) => {
   const currentUser = request.currentUser;
   const courseBody = request.body['course'];
@@ -94,4 +84,6 @@ import getBest4 from './getBest4';
 router.getBest4 = getBest4;
 import duplicate from './duplicate';
 router.duplicate = duplicate;
+import updateCoauthors from './updateCoauthors';
+router.updateCoauthors = updateCoauthors;
 export default router;

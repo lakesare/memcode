@@ -8,6 +8,7 @@ import WhatsNext from './components/WhatsNext';
 import Problem from '~/components/Problem';
 
 import css from './index.css';
+import MyDuck from '~/ducks/MyDuck';
 
 // person pressed ENTER,
 //   if there are answers in problem:
@@ -24,9 +25,10 @@ import css from './index.css';
 import selectors from './duck/selectors';
 import actions from './duck/actions';
 @connect(
-  (state) => {
+  (state, ownProps) => {
     const pageState = state.pages.Page_courses_id_review;
     return {
+      courseId: Number.parseInt(ownProps.match.params.id),
       currentUser: state.global.Authentication.currentUser || false,
       currentProblem: selectors.deriveCurrentProblem(pageState),
       speGetPage: pageState.speGetPage,
@@ -39,7 +41,9 @@ import actions from './duck/actions';
           amountOfProblems: pageState.speGetPage.payload.problems.length
         },
       amountOfFailedProblems: pageState.amountOfFailedProblems,
-      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length
+      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
+
+      My: state.global.My
     };
   },
   (dispatch, ownProps) => ({
@@ -58,16 +62,14 @@ import actions from './duck/actions';
       }),
     onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
     randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
-    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' })
+    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
+
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class Page_courses_id_review extends React.Component {
   static propTypes = {
-    match: PropTypes.shape({
-      params: PropTypes.shape({
-        id: PropTypes.string
-      })
-    }).isRequired,
+    courseId: PropTypes.number.isRequired,
     simulated: PropTypes.bool,
     getPage: PropTypes.func.isRequired,
 
@@ -86,7 +88,10 @@ class Page_courses_id_review extends React.Component {
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired,
     randomizeProblems: PropTypes.func.isRequired,
-    switchQuestionAndAnswer: PropTypes.func.isRequired
+    switchQuestionAndAnswer: PropTypes.func.isRequired,
+
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired
   }
 
   static defaultProps = {
@@ -94,12 +99,14 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getPage(this.props.match.params.id);
+    this.props.getPage(this.props.courseId);
+    this.props.MyActions.apiGetCourseForActions(this.props.courseId);
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.props.getPage(this.props.match.params.id);
+    if (prevProps.courseId !== this.props.courseId) {
+      this.props.getPage(this.props.courseId);
+      this.props.MyActions.apiGetCourseForActions(this.props.courseId);
     }
   }
 
@@ -116,8 +123,14 @@ class Page_courses_id_review extends React.Component {
     }</div>
 
   render = () =>
-    <Main className={css.main} dontLinkToLearnOrReview={this.props.match.params.id}>
-      <CourseActions courseId={this.props.match.params.id}/>
+    <Main className={css.main} dontLinkToLearnOrReview={this.props.courseId}>
+      <CourseActions
+        courseId={this.props.courseId}
+        currentUser={this.props.currentUser}
+        type="review"
+        My={this.props.My}
+        MyActions={this.props.MyActions}
+      />
 
       {
         this.props.currentProblem &&
@@ -140,7 +153,7 @@ class Page_courses_id_review extends React.Component {
       <Loading className="loading-flashcards" spe={this.props.speGetPage}/>
 
       <WhatsNext
-        courseId={parseInt(this.props.match.params.id)}
+        courseId={parseInt(this.props.courseId)}
         currentUser={this.props.currentUser}
         speNextReviewIn={this.props.speNextReviewIn}
         ifDisplay={this.props.speGetPage.status === 'success' && !this.props.currentProblem}

@@ -7,26 +7,22 @@ import CourseStarRating from './CourseStarRating';
 class CourseDescriptionAndStats extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
-    course: PropTypes.object.isRequired,
-    stats: PropTypes.object.isRequired,
-    amountOfProblemsToReview: PropTypes.number.isRequired,
-    nextDueDateIn: PropTypes.object,
-    courseUserIsLearning: PropTypes.object,
+    courseDto: PropTypes.object.isRequired,
     ifWithDescriptionPlaceholder: PropTypes.bool.isRequired
   }
 
   ifCanRateCourse = () => (
     this.props.currentUser &&
-    this.props.course.userId !== this.props.currentUser.id
+    this.props.courseDto.course.userId !== this.props.currentUser.id
   )
 
   ifAuthor = () => (
     this.props.currentUser &&
-    this.props.course.userId === this.props.currentUser.id
+    this.props.courseDto.course.userId === this.props.currentUser.id
   )
 
   getCourseDescription = () => {
-    const description = this.props.course.description;
+    const description = this.props.courseDto.course.description;
     if (this.props.ifWithDescriptionPlaceholder && this.ifAuthor() && !description) {
       return '<div class="placeholder">Click [edit] to add some description to your course ♥</div>';
     }
@@ -40,11 +36,11 @@ class CourseDescriptionAndStats extends React.Component {
     </li>
 
   renderReviewInStat = () => {
-    const [amount, measure] = humanizePostgresInterval(this.props.nextDueDateIn, { asArray: true });
+    const [amount, measure] = humanizePostgresInterval(this.props.courseDto.nextDueDateIn, { asArray: true, canBeNegative: true });
     return this.renderStat(
       <i className="fa fa-hourglass-start"/>,
       (
-        this.props.amountOfProblemsToReview > 0 ?
+        amount < 0 ?
           'Review now!' :
           <>
             Review in
@@ -77,7 +73,7 @@ class CourseDescriptionAndStats extends React.Component {
               <div>Last updated: 3 months ago</div>
             )}
             {
-              this.props.course.ifPublic ?
+              this.props.courseDto.course.ifPublic ?
                 this.renderStat(<i className="fa fa-eye"/>, 'Public') :
                 this.renderStat(<i className="fa fa-eye-slash"/>, 'Private')
             }
@@ -85,23 +81,25 @@ class CourseDescriptionAndStats extends React.Component {
         }
 
         <ul className="course-stats">
-          {this.renderStat(
-            <i className="fa fa-users"/>,
-            <div><span className="number">{this.props.stats.amountOfUsersLearningThisCourse}</span> students</div>
-          )}
-          {this.renderStat(
-            <i className="fa fa-list"/>,
-            <div><span className="number">{this.props.stats.amountOfProblems}</span> flashcards</div>
-          )}
           {
-            this.props.courseUserIsLearning &&
-            this.props.courseUserIsLearning.active &&
-            this.props.nextDueDateIn &&
+            this.props.courseDto.courseUserIsLearning &&
+            this.props.courseDto.courseUserIsLearning.active &&
+            this.props.courseDto.nextDueDateIn &&
             this.renderReviewInStat()
           }
 
+          {this.renderStat(
+            <i className="fa fa-users"/>,
+            <div><span className="number">{this.props.courseDto.learners.length}</span> students</div>
+          )}
+
+          {this.renderStat(
+            <i className="fa fa-list"/>,
+            <div><span className="number">{this.props.courseDto.amountOfProblems}</span> flashcards</div>
+          )}
+
           <CourseStarRating
-            courseId={this.props.course.id}
+            courseId={this.props.courseDto.course.id}
             ifCanRateCourse={this.ifCanRateCourse()}
           />
         </ul>

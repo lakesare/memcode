@@ -4,6 +4,12 @@
   width: 100vw;
   // Set width width by default
   max-width: 1000px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  &.standard-modal--md{
+    max-width: 600px;
+  }
 
   background: rgb(34, 38, 74);
   border-radius: 4px;
@@ -12,6 +18,13 @@
     font-size: 30px;
     font-weight: 100;
     margin-bottom: 20px;
+  }
+
+  .standard-modal__description{
+    color: rgb(175, 180, 242);
+    font-weight: 100;
+    font-size: 14px;
+    padding-right: 100px;
   }
 
   .standard-modal__header{
