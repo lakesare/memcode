@@ -154,14 +154,12 @@ CREATE TABLE coauthor (
 
 -- Default category values
 INSERT INTO "public"."course_category_group" ("id", "name") VALUES
-('1', 'Other'),
 ('2', 'Hard Sciences'),
 ('3', 'Soft Sciences'),
 ('4', 'Languages');
 
 
 INSERT INTO "public"."course_category" ("id", "name", "course_category_group_id") VALUES
-('1', 'Other', '1'),
 ('2', 'Mathematics', '2'),
 ('3', 'Physics', '2'),
 ('4', 'Biology', '2'),
