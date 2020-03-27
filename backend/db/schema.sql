@@ -153,8 +153,29 @@ CREATE TABLE coauthor (
 );
 
 -- Default category values
-INSERT INTO course_category_group (name)
-VALUES ('Other');
+INSERT INTO "public"."course_category_group" ("id", "name") VALUES
+('1', 'Other'),
+('2', 'Hard Sciences'),
+('3', 'Soft Sciences'),
+('4', 'Languages');
 
-INSERT INTO course_category (name, course_category_group_id)
-VALUES ('Other', 1);
+
+INSERT INTO "public"."course_category" ("id", "name", "course_category_group_id") VALUES
+('1', 'Other', '1'),
+('2', 'Mathematics', '2'),
+('3', 'Physics', '2'),
+('4', 'Biology', '2'),
+('6', 'Programming Languages', '2'),
+('7', 'Computer Science', '2'),
+('8', 'Politics', '3'),
+('9', 'Economics', '3'),
+('10', 'Psychology', '3'),
+('11', 'Law', '3'),
+('12', 'History', '3'),
+('13', 'Music', '3'),
+('14', 'Literature', '3'),
+('15', 'English', '4'),
+('16', 'German', '4'),
+('18', 'Spanish', '4'),
+('19', 'Other', '4'),
+('20', 'Philosophy', '3');
