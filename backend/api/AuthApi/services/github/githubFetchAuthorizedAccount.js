@@ -16,4 +16,17 @@ const githubFetchAuthorizedAccount = (accessToken) =>
       }
     });
 
-export { githubFetchAuthorizedAccount };
+const githubUpdateEmailForAll = (accessToken) => 
+  fetch('https://api.github.com/user/emails', {
+    headers: { 
+      Authorization: `token ${accessToken}`
+    }
+  }).then((response)=> {
+    if (response.ok) {
+      return response.json();
+    } else {
+      return response.json()
+        .then((res) => Promise.reject(res));
+    }
+  });
+export { githubFetchAuthorizedAccount,  githubUpdateEmailForAll};
