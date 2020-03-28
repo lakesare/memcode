@@ -5,22 +5,16 @@
   &.-bright{
     background-color: rgb(64, 58, 110);
 
-    &[data-placement^=top] .tippy-arrow{
-      border-top-color: rgb(64, 58, 110);
-    }
-    &[data-placement^=bottom] .tippy-arrow{
-      border-bottom-color: rgb(64, 58, 110);
+    .tippy-arrow{
+      color: rgb(64, 58, 110);
     }
   }
 
   &.-dark{
     background-color: rgb(33, 36, 73);
 
-    &[data-placement^=top] .tippy-arrow{
-      border-top-color: rgb(33, 36, 73);
-    }
-    &[data-placement^=bottom] .tippy-arrow{
-      border-bottom-color: rgb(33, 36, 73);
+    .tippy-arrow{
+      color: rgb(33, 36, 73);
     }
   }
 

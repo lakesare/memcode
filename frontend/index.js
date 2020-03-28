@@ -22,8 +22,6 @@ import 'tippy.js/dist/tippy.css';
 import './index.css';
 // import './fonts/font-awesome/scss/font-awesome.scss';
 
-
-
 import store from './store';
 import router from './router';
 

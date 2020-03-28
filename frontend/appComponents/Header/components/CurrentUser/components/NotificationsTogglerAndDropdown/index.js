@@ -101,6 +101,11 @@ class NotificationsTogglerAndDropdown extends React.Component {
   handleClickOutside = () =>
     this.setState({ ifDropdownIsOpen: false })
 
+  isFooterShown = () => {
+    const notifications = this.state.speGetNotifications.payload;
+    return this.state.amountOfAllNotifications > notifications.length;
+  }
+
   renderToggler = () =>
     <button
       type="button"
@@ -128,7 +133,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
         Latest Notifications
       </div>
       {
-        this.state.amountOfUnreadNotifications > 2 &&
+        // this.state.amountOfUnreadNotifications > 2 &&
         <button
           className="read-all-button"
           type="button"
@@ -137,8 +142,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
       }
     </div>
 
-  renderDropdownFooter = (notifications) => (
-    this.state.amountOfAllNotifications > notifications.length &&
+  renderDropdownFooter = () => (
+    this.isFooterShown() &&
     <div className="footer" onClick={this.apiLoadMoreNotifications} style={disableOnSpeRequest(this.state.speLoadMoreNotifications)}>
       See More...
     </div>
@@ -148,7 +153,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
     <Loading enabledStatuses={['success']} spe={this.state.speGetNotifications}>{(notifications) =>
       <div className={css.dropdown}>
         {this.renderDropdownHeader()}
-        <ul className="notifications">
+        <ul className={`notifications ${this.isFooterShown() ? '' : '-no-footer'}`}>
           {notifications.map((notification) =>
             <NotificationLi
               key={notification.id}
@@ -157,7 +162,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
             />
           )}
         </ul>
-        {this.renderDropdownFooter(notifications)}
+        {this.renderDropdownFooter()}
       </div>
     }</Loading>
 
