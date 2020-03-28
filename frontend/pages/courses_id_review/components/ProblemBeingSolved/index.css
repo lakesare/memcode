@@ -142,7 +142,7 @@
 
   button.reveal{
     color: rgba(251, 250, 242, 0.85);
-    background: rgb(23, 23, 42);
+    background: rgb(43, 47, 82);
     max-width: 150px;
     margin: 0 auto;
     margin-top: 60px;
@@ -169,6 +169,11 @@
       }
       .-mobile{ display: block; text-align: right; }
       .-desktop{ display: none; }
+      &.-simulated-review .instructions.-mobile{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
       position: absolute;
       bottom: 0;
       width: 100%;

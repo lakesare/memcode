@@ -50,10 +50,10 @@
     }
   }
 
-  .standard-submit-button{
-    margin: 0 auto;
-    margin-top: 50px;
-  }
+}
+.standard-submit-button{
+  margin: 0 auto;
+  margin-top: 50px;
 }
 
 .standard-form{

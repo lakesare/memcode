@@ -17,11 +17,11 @@
   &:before{
     border-width: 6px;
     margin: 0 -6px;
-    border-bottom-color: rgb(14, 16, 34);
+    border-bottom-color: rgb(26, 29, 57);
   }
   &:after{
     border-width: 5px;
     margin: 0 -5px;
-    border-bottom-color: rgb(14, 16, 34);
+    border-bottom-color: rgb(26, 29, 57);
   }
 }

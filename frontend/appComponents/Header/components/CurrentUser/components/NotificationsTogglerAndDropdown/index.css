@@ -1,106 +1,96 @@
 @import 'css/variables';
 
-:local(.section){
+:local(.toggler){
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 31px;
+  width: 50px;
+  position: relative;
+
+  &:hover, &:focus, &[aria-expanded=true]{
+    text-shadow: 0 0 10px rgba(136, 125, 220, 0.5), 0 0 20px rgba(136, 125, 220, 0.5), 0 0 30px rgba(136, 125, 220, 0.5), 0 0 40px rgba(136, 125, 220, 0.5), 0 0 50px rgba(136, 125, 220, 0.5), 0 0 60px rgba(136, 125, 220, 0.5), 0 0 70px rgba(136, 125, 220, 0.5);
+  }
+  &.-there-are-unread-notifications{
+    i{
+      color: $purple;
+      animation: shake 8s 1s ease-in-out infinite;
+      transform-origin: 50% 4px;
+    }
+  }
+  &.-there-are-no-unread-notifications{
+    i{ color: rgba(136, 124, 220, 0.52); }
+  }
+
+  i{
+    font-size: 19px;
+  }
+  > div.amount-of-unread-notifications{
+    position: absolute;
+    top: -5px; right: 9px;
+    border-radius: 50%;
+
+    width: 15px; height: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+    // text-shadow: 0px 0px 7px rgba(255, 255, 255, 0.5);
+    color: rgb(226, 115, 63);
+  }
+}
+
+:local(.dropdown){
   .extendable-class-read-all_and_see-more{
     text-transform: uppercase;
-    font-weight: 500;
     letter-spacing: 1px;
     font-size: 9px;
     cursor: pointer;
   }
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  // background: rgba(255, 255, 255, 0.06);
-  // background: rgba(0, 0, 0, 0.2);
-
-  &.-dropdown-is-open{
-    button.toggler{
-      text-shadow: 0 0 10px rgba(136, 125, 220, 0.5), 0 0 20px rgba(136, 125, 220, 0.5), 0 0 30px rgba(136, 125, 220, 0.5), 0 0 40px rgba(136, 125, 220, 0.5), 0 0 50px rgba(136, 125, 220, 0.5), 0 0 60px rgba(136, 125, 220, 0.5), 0 0 70px rgba(136, 125, 220, 0.5);
-    }
-  }
-
-  position: relative;
-  > button.toggler{
-    &:hover, &:focus, & .-dropdown-is-open{
-      text-shadow: 0 0 10px rgba(136, 125, 220, 0.5), 0 0 20px rgba(136, 125, 220, 0.5), 0 0 30px rgba(136, 125, 220, 0.5), 0 0 40px rgba(136, 125, 220, 0.5), 0 0 50px rgba(136, 125, 220, 0.5), 0 0 60px rgba(136, 125, 220, 0.5), 0 0 70px rgba(136, 125, 220, 0.5);
-    }
-    i{
-      font-size: 19px;
-    }
-  }
-  &.-there-are-unread-notifications{
-    > button.toggler{
-
-      > i{
-        color: $purple;
-        animation: shake 8s 1s ease-in-out infinite;
-        transform-origin: 50% 4px;
-        &:hover {
-        }
-      }
-    }
-  }
-  &.-there-are-no-unread-notifications{
-    button.toggler{
-      > i{ color: rgba(136, 124, 220, 0.52); }
-    }
-  }
-  > button.toggler{
-    cursor: pointer;
-    position: relative;
-    // for :focus style
-    width: 100%;
-    height: 100%;
-    > div.amount-of-unread-notifications{
-      position: absolute;
-      top: -5px; right: 9px;
-      border-radius: 50%;
-
-      width: 15px; height: 15px;
-
+  > div.header{
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    border-bottom: 1px solid rgb(39, 43, 86);
+    > div.title{
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 9px;
       display: flex;
+      height: 100%;
+      padding: 0 15px;
       align-items: center;
-      justify-content: center;
-
-      font-size: 10px;
-      // text-shadow: 0px 0px 7px rgba(255, 255, 255, 0.5);
-      color: rgb(141, 127, 242);
+      cursor: default;
     }
-
-  }
-  > div.dropdown{
-    top: calc(100% + 8px);
-    right: 4px;
-    width: 405px;
-
-    background: rgb(15, 17, 34);
-    box-shadow: 0px 6px 9px 0px #181a2e;
-    outline: 1px solid rgb(23, 27, 55);
-
-    > div.header{
-      display: flex;
-      justify-content: flex-end;
-      > button.read-all-button{
-        padding: 5px 15px;
-        color: white;
-        @extend .extendable-class-read-all_and_see-more;
+    > button.read-all-button{
+      height: 100%;
+      padding: 0 15px;
+      color: rgb(240, 122, 62);
+      font-weight: 400;
+      &:hover{
+        opacity: 0.8;
       }
-    }
-    > div.footer{
-      padding: 10px 0;
-      text-align: center;
-      border-radius: 0 0 4px 4px;
-
       @extend .extendable-class-read-all_and_see-more;
     }
-    > ul.notifications{
-      max-height: 400px;
-      overflow-y: scroll;
+  }
+  > div.footer{
+    padding: 10px 0;
+    text-align: center;
+    border-radius: 0 0 4px 4px;
+    border-top: 1px solid rgba(135, 128, 190, 0.15);
+
+    &:hover{
+      background: rgb(48, 49, 90);
     }
+
+    @extend .extendable-class-read-all_and_see-more;
+  }
+  > ul.notifications{
+    max-height: 400px;
+    overflow-y: scroll;
   }
 }
 

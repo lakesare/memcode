@@ -4,11 +4,18 @@
   display: flex;
   padding: 5px 5px;
   padding-left: 0;
-  border-top: 1px solid rgb(32, 35, 54);
+  border-bottom: 1px solid rgba(135, 128, 190, 0.15);
   cursor: default;
   a{
     cursor: pointer;
     color: $purple;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+  .text-orange{
+    color: rgb(248, 125, 60);
   }
 
   // styles for particular types
@@ -38,17 +45,17 @@
     > button.mark-as-read-on-unread-button{
       cursor: pointer;
       > div.circle{
-        background: rgb(222, 222, 222);
+        background: rgb(48, 49, 90);
       }
     }
   }
   &.-not-yet-read{
-    background: rgb(18, 18, 50);
+    background: rgb(39, 43, 86);
     opacity: 1;
     > button.mark-as-read-on-unread-button{
       cursor: pointer;
       > div.circle{
-        background: $purple;
+        background: $orange;
       }
     }
   }
@@ -64,10 +71,10 @@
     flex-grow: 1; flex-shrink: 1;
     > div.title{
       font-size: 12px;
-      color: rgb(106, 126, 171);
+      color: rgb(78, 215, 76);
     }
     > div.content{
-      font-size: 12px;
+      font-size: 13px;
       margin-top: 3px;
       margin-bottom: 3px;
     }

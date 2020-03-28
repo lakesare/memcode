@@ -6,7 +6,7 @@ const insert = {
   create: requireKeys(['type', 'content', 'courseId'],
     ({ type, content, courseId }) =>
       db.one(
-        "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, timezone('UTC', now())) RETURNING *",
+        "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, now()) RETURNING *",
         {
           type,
           content,
@@ -19,7 +19,7 @@ const insert = {
     db.tx((transaction) => {
       const queries = problems.map((problem) =>
         transaction.none(
-          "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, timezone('UTC', now()))",
+          "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, now())",
           {
             type: 'separateAnswer',
             content: {

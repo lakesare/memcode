@@ -14,7 +14,7 @@ self.addEventListener('activate', (event) => {
 });
 
 workbox.precaching.precache([
-  { url: '/index.html', revision: 'v2' }
+  { url: '/index.html', revision: 'v5' }
 ]);
 workbox.routing.registerNavigationRoute(
   '/index.html',
@@ -29,14 +29,14 @@ workbox.routing.registerNavigationRoute(
 workbox.routing.registerRoute(
   new RegExp('.*/api/courseCategories/withGroups'),
   workbox.strategies.staleWhileRevalidate({
-    cacheName: 'api_v2'
+    cacheName: 'api_v5'
   })
 );
 
 workbox.routing.registerRoute(
   new RegExp('.*/api/courses/public.*'),
   workbox.strategies.staleWhileRevalidate({
-    cacheName: 'api_v2'
+    cacheName: 'api_v5'
   })
 );
 

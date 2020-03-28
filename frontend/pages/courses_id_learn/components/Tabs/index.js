@@ -9,7 +9,7 @@ import { TabContent } from './components/TabContent';
 //   https://stackoverflow.com/questions/6899582/i-change-the-capitalization-of-a-directory-and-git-doesnt-seem-to-pick-up-on-it
 class Tabs extends React.Component {
   static propTypes = {
-    courseId: PropTypes.string.isRequired
+    courseId: PropTypes.number.isRequired
   }
 
   state = {

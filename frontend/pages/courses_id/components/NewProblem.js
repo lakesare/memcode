@@ -18,7 +18,7 @@ const createEmptyEditorState = (type) => {
 
 class NewProblem extends React.Component {
   static propTypes = {
-    courseId: PropTypes.string.isRequired,
+    courseId: PropTypes.number.isRequired,
     uiAddOptimisticProblem: PropTypes.func.isRequired,
     uiUpdateOptimisticProblemIntoOld: PropTypes.func.isRequired
   }
@@ -168,4 +168,4 @@ class NewProblem extends React.Component {
     </div>
 }
 
-export { NewProblem };
+export default NewProblem;

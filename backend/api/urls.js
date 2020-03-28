@@ -6,6 +6,7 @@ import NotificationApi from '~/api/NotificationApi';
 import CourseCategoryApi from '~/api/CourseCategoryApi';
 import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
 import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
+import UserApi from '~/api/UserApi';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -15,6 +16,8 @@ const getApiClass = (controllerName) => {
     case 'ProblemApi': return ProblemApi;
     case 'CourseUserIsLearningApi': return CourseUserIsLearningApi;
     case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
+    case 'UserApi': return UserApi;
+    case 'PageApi': return PageApi;
   }
 };
 

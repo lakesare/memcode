@@ -49,7 +49,7 @@ class CourseModal extends React.Component {
   }
 
   render = () =>
-    <TogglerAndModal toggler={this.props.toggler} modalClassName={css.modal}>{(closeModal) =>
+    <TogglerAndModal toggler={this.props.toggler} className={css.modal}>{(closeModal) =>
       <section className={"standard-modal " + css.tab}>
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Edit Course</h2>

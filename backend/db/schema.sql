@@ -5,6 +5,7 @@ CREATE DATABASE :database;
 \c :database;
 
 CREATE EXTENSION fuzzystrmatch;
+SET timezone TO 'Etc/UTC';
 
 -- always use "user" (double quotes) when you reference this table.
 -- because 'user' is a reserved word in postgres, and it will complain about user table.
@@ -140,3 +141,20 @@ CREATE TABLE course_rating (
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );
+
+CREATE TABLE coauthor (
+  id SERIAL PRIMARY KEY,
+  created_at TIMESTAMP NOT NULL DEFAULT timezone('UTC', now()),
+
+  user_id INTEGER REFERENCES "user" (id) NOT NULL,
+  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
+
+  unique (user_id, course_id)
+);
+
+-- Default category values
+INSERT INTO course_category_group (name)
+VALUES ('Other');
+
+INSERT INTO course_category (name, course_category_group_id)
+VALUES ('Other', 1);

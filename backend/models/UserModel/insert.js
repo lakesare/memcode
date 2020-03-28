@@ -39,7 +39,7 @@ const insert = {
           (
             \${oauthProvider}, \${oauthId},
             \${username}, \${avatarUrl}, \${email},
-            timezone('UTC', now())
+            now()
           )
         RETURNING *
         `,

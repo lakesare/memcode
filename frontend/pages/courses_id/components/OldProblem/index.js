@@ -164,4 +164,4 @@ class OldProblem extends React.Component {
   )
 }
 
-export { OldProblem };
+export default OldProblem;
