@@ -22,7 +22,7 @@ const html = `
     <title>Memcode</title>
 
     <!-- css -->
-    <link href="/index.css?cacheBust-2" rel="stylesheet">
+    <link href="/index.css" rel="stylesheet">
 
     <!-- katex support -->
     <link rel="stylesheet" href="/nonNpmLibraries/katex.min.css"/>
@@ -58,7 +58,7 @@ const html = `
     </script>
 
     <!-- main js file -->
-    <script type="text/javascript" src="/index.js?cacheBust-2" defer></script>
+    <script type="text/javascript" src="/index.js" defer></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 
