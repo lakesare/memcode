@@ -5,10 +5,9 @@ const findByString = async (request, response) => {
 
   const users = await knex('user')
     .select('id', 'username', 'avatar_url', 'created_at')
-    .where('username', 'like', `%${searchString}}%`)
-    .orWhere('email', 'like', `%${searchString}%`)
-    .limit(30)
-    .orderBy('createdAt', 'desc');
+    .where('username', 'ilike', `%${searchString}%`)
+    .orWhere('email', 'ilike', `%${searchString}%`)
+    .limit(30);
 
   response.success(users);
 };
