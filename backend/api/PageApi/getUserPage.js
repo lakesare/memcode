@@ -4,6 +4,11 @@ import CourseModel from '~/models/CourseModel';
 const getUserPage = async (request, response) => {
   const userId = request.body['userId'];
   const user = (await knex('user').where({ id: userId }))[0];
+  //Only authenticated user should see the emails of other users
+  const currentUser = request.currentUser || null;
+  if(currentUser === null){
+   user.email = null;
+  }
 
   // const coursesCreated = await knex('course').where({ userId });
 

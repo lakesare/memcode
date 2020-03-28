@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tippy from '@tippy.js/react';
+import Tippy from '@tippyjs/react';
 
 import css from './index.scss';
 

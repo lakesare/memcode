@@ -91,6 +91,10 @@
   > ul.notifications{
     max-height: 400px;
     overflow-y: scroll;
+    &.-no-footer{
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
   }
 }
 
