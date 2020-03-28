@@ -1,7 +1,6 @@
 import CourseApi from '~/api/CourseApi';
-import api from '~/api';
 
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';

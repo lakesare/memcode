@@ -1,4 +1,3 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/lakesare/memcode) 
 [![Open Source Helpers](https://www.codetriage.com/lakesare/memcode/badges/users.svg)](https://www.codetriage.com/lakesare/memcode)
 
 Site ❤️: http://www.memcode.com/
@@ -21,7 +20,7 @@ ___
 ### Create a database postgres user with a password.
 1. Install PostgreSQL.
 2. Go to postgres console: `psql postgres`.
-3. Create a `postgres` user with password: CREATE ROLE postgres WITH LOGIN PASSWORD 'your password here'.
+3. Create a `postgres` user with password: `CREATE ROLE postgres WITH LOGIN PASSWORD 'your password here'`.
 4. Give them a permission to create dbs, own all extensions etc.: `ALTER ROLE postgres with superuser;`.
 
 ### Copypaste environment variables.
@@ -34,7 +33,7 @@ ___
 
 ## How to run a development site locally? 
 
-### Set up database
+### Set up the database.
 1. Create a new development database 'memcode': `make db-reset`.
 
 ### Start code compilers and server.

@@ -10,7 +10,7 @@ import subScriptHandler        from '~/services/quill/handlers/subScriptHandler'
 
 import ReactQuill from 'react-quill';
 
-import { tippy } from '@tippy.js/react';
+import { tippy } from '@tippyjs/react';
 
 // ___Why is it not defined inside the render() function?
 //    We must define it here, otherwise we'll be getting infinite loops!
