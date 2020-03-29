@@ -133,7 +133,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
         Latest Notifications
       </div>
       {
-        // this.state.amountOfUnreadNotifications > 2 &&
+        this.state.amountOfUnreadNotifications > 0 &&
         <button
           className="read-all-button"
           type="button"
