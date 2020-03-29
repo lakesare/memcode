@@ -95,6 +95,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
       },
       amountOfUnreadNotifications: 0
     });
+    localStorage.setItem('amountOfUnreadNotifications', 0);
     return api.NotificationApi.markAllNotificationsAsRead(null, { userId: this.props.currentUser.id });
   }
 
