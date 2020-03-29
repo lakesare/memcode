@@ -5,6 +5,7 @@ CREATE DATABASE :database;
 \c :database;
 
 CREATE EXTENSION fuzzystrmatch;
+SET timezone TO 'Etc/UTC';
 
 -- always use "user" (double quotes) when you reference this table.
 -- because 'user' is a reserved word in postgres, and it will complain about user table.
@@ -140,3 +141,39 @@ CREATE TABLE course_rating (
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );
+
+CREATE TABLE coauthor (
+  id SERIAL PRIMARY KEY,
+  created_at TIMESTAMP NOT NULL DEFAULT timezone('UTC', now()),
+
+  user_id INTEGER REFERENCES "user" (id) NOT NULL,
+  course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
+
+  unique (user_id, course_id)
+);
+
+-- Default category values
+INSERT INTO "public"."course_category_group" ("id", "name") VALUES
+('2', 'Hard Sciences'),
+('3', 'Soft Sciences'),
+('4', 'Languages');
+
+
+INSERT INTO "public"."course_category" ("id", "name", "course_category_group_id") VALUES
+('2', 'Mathematics', '2'),
+('3', 'Physics', '2'),
+('4', 'Biology', '2'),
+('6', 'Programming Languages', '2'),
+('7', 'Computer Science', '2'),
+('8', 'Politics', '3'),
+('9', 'Economics', '3'),
+('10', 'Psychology', '3'),
+('11', 'Law', '3'),
+('12', 'History', '3'),
+('13', 'Music', '3'),
+('14', 'Literature', '3'),
+('15', 'English', '4'),
+('16', 'German', '4'),
+('18', 'Spanish', '4'),
+('19', 'Other', '4'),
+('20', 'Philosophy', '3');

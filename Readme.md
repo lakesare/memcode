@@ -1,13 +1,16 @@
-Site ❤️: http://www.memcode.com/
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/lakesare/memcode) 
+[![Open Source Helpers](https://www.codetriage.com/lakesare/memcode/badges/users.svg)](https://www.codetriage.com/lakesare/memcode)
+
+Site ❤️: http://www.memcode.com
 
 Trello board: https://trello.com/b/UN0Vnv80/memcode (here you can see what we're working on, what features are to come, and what PRs are welcome)
 
-[![Gitter](https://badges.gitter.im/kgisl/srs.svg)](https://gitter.im/kgisl/srs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+Slack board: write to `contact@memcode.com` to request access.
 
 ___
 
 ## Would you like some help with memcode?
-- Write me at contact@memcode.com
+- Write us at contact@memcode.com
 - Open the issue in this repo
 
 ## Can you offer some help with memcode yourself?
@@ -17,10 +20,12 @@ ___
 
 ## Initial setup for development:
 
+Note: if you'd like to use online development environment, see https://github.com/lakesare/memcode/blob/master/Gitpod.md. Steps below are for local setup.
+
 ### Create a database postgres user with a password.
 1. Install PostgreSQL.
 2. Go to postgres console: `psql postgres`.
-3. Create a `postgres` user with password: CREATE ROLE postgres WITH LOGIN PASSWORD 'your password here'.
+3. Create a `postgres` user with password: `CREATE ROLE postgres WITH LOGIN PASSWORD 'your password here'`.
 4. Give them a permission to create dbs, own all extensions etc.: `ALTER ROLE postgres with superuser;`.
 
 ### Copypaste environment variables.
@@ -31,16 +36,16 @@ ___
 
 ___
 
-## How to run a development site locally?
+## How to run a development site locally? 
 
-### Set up database
+### Set up the database.
 1. Create a new development database 'memcode': `make db-reset`.
 
 ### Start code compilers and server.
 1. Run `npm install`.
-2. `make start`, `make backend-webpack`, `make frontend-webpack`
+2. Run `make backend-webpack`, `make frontend-webpack`, `make start`. If you are on windows - you can use equivalent npm commands.
 
-### Optionally: populate database.
+### Optionally: populate database (please request access to heroku from the owner if you truly need access to production database for some reason).
 1. Install heroku cli.
 2. `heroku login`.
 3. Make sure heroku knows about our app: `heroku git:remote -a memcode`.

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tippy from '@tippy.js/react';
+import Tippy from '@tippyjs/react';
 
 import css from './index.scss';
 
@@ -10,14 +10,12 @@ class StandardTooltip extends React.Component {
     tooltipEl: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
     children: PropTypes.any,
 
-    className: PropTypes.string,
     width: PropTypes.number,
     tooltipProps: PropTypes.object,
   }
 
   static defaultProps = {
     children: null,
-    className: '',
     tooltipProps: {},
     width: 200
   }
@@ -25,6 +23,7 @@ class StandardTooltip extends React.Component {
   render = () =>
     <Tippy
       content={<div style={{ fontSize: 12, maxWidth: this.props.width }}>{this.props.tooltipEl}</div>}
+      className="standard-tooltip -bright"
       {...this.props.tooltipProps}
     >
       {

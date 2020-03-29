@@ -15,14 +15,12 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 
+// For the tooltip
+import 'tippy.js/dist/tippy.css';
+
 // common css
 import './index.css';
 // import './fonts/font-awesome/scss/font-awesome.scss';
-
-
-// For the tooltip
-// import 'react-tippy/dist/tippy.css';
-import 'tippy.js/dist/tippy.css';
 
 import store from './store';
 import router from './router';

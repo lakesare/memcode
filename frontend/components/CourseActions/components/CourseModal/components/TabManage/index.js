@@ -29,7 +29,7 @@ class TabManage extends React.Component {
           <article className="instructions">
             <p>
               <b>Please be careful.</b><br/>
-              Upon pressing delete button, this course will get <b>immediately deleted with all of its flashcards</b> and users' progress, without the chance for restoration.
+              Upon pressing the delete button, this course will get <b>immediately deleted with all of its flashcards</b> and users' progress, without the chance for restoration.
               <br/>There will be no warnings or second chances.
             </p>
           </article>

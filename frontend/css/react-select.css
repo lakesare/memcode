@@ -1,0 +1,10 @@
+.react-select-container{
+  *{
+    cursor: pointer !important;
+  }
+
+  .react-select__control{
+    border: none;
+    box-shadow: none;
+  }
+}

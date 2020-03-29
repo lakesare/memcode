@@ -40,7 +40,7 @@ const getCoursesWithStats = ({ where = '', orderBy = '', params = {} } = {}) =>
             )
         )
           -
-        timezone('UTC', now())
+        now()
       )                                      AS next_due_date_in
 
     FROM course
@@ -58,7 +58,7 @@ const getCoursesWithStats = ({ where = '', orderBy = '', params = {} } = {}) =>
       ON (
         course_user_is_learning.id = problem_user_is_learning.course_user_is_learning_id
         AND
-        problem_user_is_learning.next_due_date < timezone('UTC', now())
+        problem_user_is_learning.next_due_date < now()
         AND
         problem_user_is_learning.if_ignored = false
       )

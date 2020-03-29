@@ -1,49 +1,26 @@
 @import 'css/variables';
 
-// TODO move this
-.tippy-tooltip{
-  background-color: rgb(64, 58, 110) !important;
-}
-
-.tippy-popper[x-placement^=top] .tippy-arrow{
-  border-top-color: rgb(64, 58, 110) !important;
-}
-.tippy-popper[x-placement^=bottom] .tippy-arrow{
-  border-bottom-color: rgb(64, 58, 110) !important;
-}
-
 .standard-tooltip{
-  // position
-  position: relative;
-  &:hover{ > .modal{ display: block; } }
-  > .modal{
-    display: none;
-    position: absolute;
-    top: 100%; left: 0;
+
+  &.-bright{
+    background-color: rgb(64, 58, 110);
+
+    .tippy-arrow{
+      color: rgb(64, 58, 110);
+    }
   }
-  > .toggler{ cursor: pointer; }
-  > .modal{
-    z-index: 10;
-    background: #333333;
-    border: 1px solid rgba(121, 122, 125, 0.66);
-    color: white;
-    &.-standard-tooltip-list{
-      // to avoid a breaking
-      white-space: nowrap;
-      background: rgb(64, 58, 110);
-      border: 4px solid rgb(1, 23, 4);
-      a{
-        display: block;
-        box-sizing: border-box;
-        color: white;
-        font-size: 11px;
-        padding: 10px 5px;
-        // border-bottom: 1px solid rgba(28, 218, 21, 0.23);
-        &:hover{ opacity: 0.9; }
-        &:last-child{
-          // border-bottom: none;
-        }
-      }
+
+  &.-dark{
+    background-color: rgb(33, 36, 73);
+
+    .tippy-arrow{
+      color: rgb(33, 36, 73);
+    }
+  }
+
+  &.-no-padding{
+    .tippy-content{
+      padding: 0;
     }
   }
 }

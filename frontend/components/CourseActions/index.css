@@ -82,16 +82,23 @@
         display: flex;
         color: white;
         > h1.title{}
+
+        > section.category_and_author,
+        > section.edit-invite-buttons{
+          height: 40px;
+        }
         > section.category_and_author{
           display: flex;
           flex-direction: column;
           justify-content: space-around;
-          padding: 2px 0;
           padding-left: 14px;
           margin-left: 14px;
           border-left: 1px solid rgb(28, 31, 62);
           > div.category, div.author{
             cursor: default;
+            height: 50%;
+            display: flex;
+            align-items: center;
 
             font-size: 10px;
             letter-spacing: 0.9px;
@@ -106,24 +113,32 @@
             }
           }
         }
-        > button.edit-button{
+        > section.edit-invite-buttons{        
           margin-left: 10px;
-          margin-top: 4px;
-          align-self: flex-start;
-          min-width: auto;
-          padding: 2px 10px;
+          // margin-top: 2px;
+          > button.edit-button, > button.invite-coauthor-button{
+            align-self: flex-start;
+            min-width: auto;
+            padding: 0 10px;
+            height: 50%;
 
-          font-size: 10px;
-          align-items: flex-start;
-          color: rgb(206, 199, 245);
-          i{ padding-right: 3px; }
+            font-size: 10px;
+            align-items: flex-start;
+            color: rgb(206, 199, 245);
+            i{ padding-right: 3px; }
+          }
         }
+
         .course-is-private-label{
           padding: 6px;
           align-self: flex-start;
           font-size: 10px;
           color: rgb(236, 76, 123);
           cursor: default;
+
+          background: rgba(236, 76, 123, 0.18);
+          border-radius: 2px;
+          margin-left: 10px;
         }
       }
     }
@@ -264,7 +279,7 @@
               margin-right: 5px;
             }
           }
-          > button.edit-button{
+          button.edit-button{
             display: none;
           }
         }
@@ -315,6 +330,12 @@
           }
         }
       }
+    }
+  }
+
+  @media(max-width: 900px){
+    .title-and-buttons .category_and_author{
+      height: auto !important;
     }
   }
 

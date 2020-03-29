@@ -5,9 +5,9 @@
       text-align: center;
     }
     > article.instructions{
-      margin-top: 26px;
       max-width: 500px;
       margin: 0 auto;
+      margin-top: 60px;
       text-align: center;
 
       // color: rgb(199, 196, 196);
@@ -23,7 +23,7 @@
     }
     > button.delete-course-button{
       margin: 0 auto;
-      margin-top: 30px;
+      margin-top: 60px;
     }
   }
 }

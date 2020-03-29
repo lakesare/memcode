@@ -1,7 +1,7 @@
 import SpeImmutable from '~/services/SpeImmutable';
 import api from '~/api';
 
-import onClickOutside from 'react-onclickoutside';
+import StandardTooltip from '~/components/StandardTooltip';
 import Loading from '~/components/Loading';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 
@@ -9,18 +9,6 @@ import NotificationLi from './components/NotificationLi';
 
 import css from './index.css';
 
-// every time we go to the other page - reload it in the background.
-
-// import NotificationsReducer from '~/reducers/NotificationsReducer';
-// @connect(
-//   (state) => ({
-//     idsOfProblemsToLearnAndReviewPerCourse: state.global.IdsOfProblemsToLearnAndReviewPerCourse
-//   }),
-//   (dispatch) => ({
-//     apiSync: (payload) => NotificationsReducer.actions.apiSync(dispatch, payload)
-//   })
-// )
-@onClickOutside
 class NotificationsTogglerAndDropdown extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired
@@ -36,8 +24,10 @@ class NotificationsTogglerAndDropdown extends React.Component {
   }
 
   componentDidMount() {
-    this.apiGetMostRecentNotifications();
-    this.apiGetNotificationsStatsForUser();
+    setTimeout(() => {
+      this.apiGetMostRecentNotifications();
+      this.apiGetNotificationsStatsForUser();
+    }, 2000);
   }
 
   apiGetNotificationsStatsForUser = () =>
@@ -111,10 +101,20 @@ class NotificationsTogglerAndDropdown extends React.Component {
   handleClickOutside = () =>
     this.setState({ ifDropdownIsOpen: false })
 
+  isFooterShown = () => {
+    const notifications = this.state.speGetNotifications.payload;
+    return this.state.amountOfAllNotifications > notifications.length;
+  }
+
   renderToggler = () =>
     <button
       type="button"
-      className="toggler"
+      className={`
+        notifications-toggler
+        ${css.toggler}
+        ${this.state.ifDropdownIsOpen ? '-dropdown-is-open' : '-dropdown-is-closed'}
+        ${this.state.amountOfUnreadNotifications > 0 ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
+      `}
       style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
       onClick={() => this.setState({ ifDropdownIsOpen: !this.state.ifDropdownIsOpen })}
     >
@@ -129,46 +129,56 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
   renderDropdownHeader = () =>
     <div className="header">
-      <button
-        className="read-all-button"
-        type="button"
-        onClick={this.apiMarkAllNotificationsAsRead}
-      >Read All</button>
+      <div className="title">
+        Latest Notifications
+      </div>
+      {
+        this.state.amountOfUnreadNotifications > 0 &&
+        <button
+          className="read-all-button"
+          type="button"
+          onClick={this.apiMarkAllNotificationsAsRead}
+        >Read All</button>
+      }
     </div>
 
-  renderDropdownFooter = (notifications) => (
-    this.state.amountOfAllNotifications > notifications.length &&
+  renderDropdownFooter = () => (
+    this.isFooterShown() &&
     <div className="footer" onClick={this.apiLoadMoreNotifications} style={disableOnSpeRequest(this.state.speLoadMoreNotifications)}>
       See More...
     </div>
   )
 
+  renderDropdown = () =>
+    <Loading enabledStatuses={['success']} spe={this.state.speGetNotifications}>{(notifications) =>
+      <div className={css.dropdown}>
+        {this.renderDropdownHeader()}
+        <ul className={`notifications ${this.isFooterShown() ? '' : '-no-footer'}`}>
+          {notifications.map((notification) =>
+            <NotificationLi
+              key={notification.id}
+              notification={notification}
+              apiMarkAsReadOrUnread={this.apiMarkAsReadOrUnread}
+            />
+          )}
+        </ul>
+        {this.renderDropdownFooter()}
+      </div>
+    }</Loading>
+
   render = () =>
-    <section
-      className={`
-        notifications-toggler-and-dropdown
-        ${css.section}
-        ${this.state.ifDropdownIsOpen ? '-dropdown-is-open' : '-dropdown-is-closed'}
-        ${this.state.amountOfUnreadNotifications > 0 ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
-      `}
+    <StandardTooltip
+      tooltipEl={this.renderDropdown()}
+      tooltipProps={{
+        className: 'standard-tooltip -no-padding -dark',
+        interactive: true,
+        placement: 'bottom-end',
+        trigger: 'click'
+      }}
+      width={600}
     >
       {this.renderToggler()}
-      <Loading enabledStatuses={['success']} spe={this.state.speGetNotifications}>{(notifications) =>
-        <div className="dropdown standard-dropdown-with-arrow" style={{ display: this.state.ifDropdownIsOpen ? 'block' : 'none' }}>
-          {this.renderDropdownHeader()}
-          <ul className="notifications">
-            {notifications.map((notification) =>
-              <NotificationLi
-                key={notification.id}
-                notification={notification}
-                apiMarkAsReadOrUnread={this.apiMarkAsReadOrUnread}
-              />
-            )}
-          </ul>
-          {this.renderDropdownFooter(notifications)}
-        </div>
-      }</Loading>
-    </section>
+    </StandardTooltip>
 }
 
 export default NotificationsTogglerAndDropdown;

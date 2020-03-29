@@ -49,7 +49,9 @@ class Subheader extends React.Component {
         </div>
         <div className="instructions -mobile">
           <p><em className="yellow-emphasis">Test drive</em> - results are not recorded.</p>
+          {this.renderVolumeButton()}
         </div>
+
         {this.renderProgressBar(this.props.statusOfSolving.index, this.props.amountOfProblems)}
       </div>
     </section>
@@ -105,7 +107,9 @@ class Subheader extends React.Component {
           <em className="red-emphasis">BY HEART</em> - we are repeating failed flashcards <em className="red-emphasis -darker">♥</em>. Results will not be recorded.
         </div>
         <div className="instructions -mobile">
-          <em className="red-emphasis">BY HEART</em> - repeating failed flashcards <em className="red-emphasis -darker">♥</em>
+          <p>
+            <em className="red-emphasis">BY HEART</em> - repeating failed flashcards <em className="red-emphasis -darker">♥</em>
+          </p>
         </div>
 
         {this.renderProgressBar(this.props.amountOfFailedProblems - this.props.amountOfFailedProblemsLeft, this.props.amountOfFailedProblems)}
