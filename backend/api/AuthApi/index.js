@@ -5,7 +5,6 @@ import jwt from 'jsonwebtoken';
 import catchAsync from '~/services/catchAsync';
 import { githubFetchAccessToken } from './services/github/githubFetchAccessToken';
 import { githubFetchAuthorizedAccount } from './services/github/githubFetchAuthorizedAccount';
-import { githubUpdateEmailForAll } from './services/github/githubFetchAuthorizedAccount';
 import { googleFetchAccessToken } from './services/google/googleFetchAccessToken';
 import { googleFetchAuthorizedAccount } from './services/google/googleFetchAuthorizedAccount';
 import NotificationModel from '~/models/NotificationModel';
@@ -17,7 +16,6 @@ const createOauthProvider = (oauthProviderName) => {
       return {
         fetchAccessToken: githubFetchAccessToken,
         fetchProfile: githubFetchAuthorizedAccount,
-        fetchEmail: githubUpdateEmailForAll,
         oauthId: process.env['GITHUB_OAUTH_ID'],
         oauthSecret: process.env['GITHUB_OAUTH_SECRET']
       };
@@ -36,17 +34,13 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   const oauthProvider = createOauthProvider(oauthProviderName);
   const accessToken = await oauthProvider.fetchAccessToken(oauthProvider.oauthId, oauthProvider.oauthSecret, code);
   const oauthProfile = await oauthProvider.fetchProfile(accessToken);
-  const userEmail = await oauthProvider.fetchEmail(accessToken);
 
-  oauthProfile.email = userEmail[0]['email'];
   let dbUser = await UserModel.select.oneByOauth(oauthProviderName, oauthProfile.id);
   if (!dbUser) {
     dbUser = await UserModel.insert.createFrom(oauthProviderName, oauthProfile);
     await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
   }
-  else {
-    await UserModel.update.update(dbUser.id, oauthProfile.email)
-  }
+
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
 
   const redirectUrl = `/?token=${encodeURIComponent(token)}`;
