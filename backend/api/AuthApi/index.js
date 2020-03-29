@@ -40,6 +40,7 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
     dbUser = await UserModel.insert.createFrom(oauthProviderName, oauthProfile);
     await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
   }
+
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
 
   const redirectUrl = `/?token=${encodeURIComponent(token)}`;
