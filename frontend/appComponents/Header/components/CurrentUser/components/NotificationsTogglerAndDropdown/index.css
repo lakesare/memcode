@@ -27,7 +27,7 @@
   }
   > div.amount-of-unread-notifications{
     position: absolute;
-    top: -5px; right: 9px;
+    top: -3px; right: 8px;
     border-radius: 50%;
 
     width: 15px; height: 15px;
@@ -38,7 +38,8 @@
 
     font-size: 10px;
     // text-shadow: 0px 0px 7px rgba(255, 255, 255, 0.5);
-    color: rgb(226, 115, 63);
+    color: $purple;
+    font-weight: bold;
   }
 }
 
