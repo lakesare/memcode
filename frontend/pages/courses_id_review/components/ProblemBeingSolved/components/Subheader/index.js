@@ -52,7 +52,7 @@ class Subheader extends React.Component {
           {this.renderVolumeButton()}
         </div>
 
-        {this.renderProgressBar(this.props.statusOfSolving.index, this.props.amountOfProblems)}
+        {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
       </div>
     </section>
 
@@ -112,7 +112,7 @@ class Subheader extends React.Component {
           </p>
         </div>
 
-        {this.renderProgressBar(this.props.amountOfFailedProblems - this.props.amountOfFailedProblemsLeft, this.props.amountOfFailedProblems)}
+        {this.renderProgressBar(1 + this.props.amountOfFailedProblems - this.props.amountOfFailedProblemsLeft, this.props.amountOfFailedProblems)}
       </div>
     </section>
 
