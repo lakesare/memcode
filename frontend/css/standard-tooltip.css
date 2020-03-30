@@ -10,7 +10,7 @@
     }
   }
 
-  &.-dark{
+  &.-dark, &[data-theme='-dark']{
     background-color: rgb(33, 36, 73);
 
     .tippy-arrow{

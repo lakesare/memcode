@@ -79,7 +79,6 @@ const tip = (button, explanation, shortcut, instruction) => {
   tippy(button, {
     content: `<div class="quill-toolbar-tooltip">${explanationDiv} ${shortcutDiv} ${instructionDiv}</div>`,
     allowHTML: true,
-    trigger: 'click',
     theme: '-bright'
   });
 };
