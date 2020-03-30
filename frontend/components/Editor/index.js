@@ -77,7 +77,10 @@ const tip = (button, explanation, shortcut, instruction) => {
   const shortcutDiv = shortcut ? `<div class="shortcut">${shortcut}</div>` : '';
   const instructionDiv = instruction ? `<div class="instruction">${instruction}</div>` : '';
   tippy(button, {
-    content: `<div class="quill-toolbar-tooltip">${explanationDiv} ${shortcutDiv} ${instructionDiv}</div>`
+    content: `<div class="quill-toolbar-tooltip">${explanationDiv} ${shortcutDiv} ${instructionDiv}</div>`,
+    allowHTML: true,
+    trigger: 'click',
+    theme: '-bright'
   });
 };
 
