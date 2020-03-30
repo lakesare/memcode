@@ -8,9 +8,9 @@ class Footer extends React.Component {
     <footer className={css.footer}>
       <div className="container">
         <section className="blog-links">
-          <Link to="/articles/comparison" target="_blank" rel="noopener noreferrer" >Blog</Link>
+          <Link to="/articles/comparison">Blog</Link>
           <span className="pipe">|</span>
-          <Link to="/contact" target="_blank" rel="noopener noreferrer">Contact</Link>
+          <Link to="/contact">Contact</Link>
           <span className="pipe">|</span>
           <a href="https://github.com/lakesare/memcode" target="_blank" rel="noopener noreferrer">Github</a>
         </section>
