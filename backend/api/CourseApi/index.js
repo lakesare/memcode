@@ -16,10 +16,20 @@ router.get('/public', catchAsync(async (request, response) => {
     offset: (pageNumber - 1) * pageSize,
     courseCategoryId: request.query.courseCategoryId
   });
-  const amountOfAllCourses = await CourseModel.select.countAllPublic({
-    courseCategoryId: request.query.courseCategoryId
-  });
 
+  var amountOfAllCourses;
+  var subquery = knex('problem').count('id').whereRaw('problem.course_id = course.id');
+  if(request.query.courseCategoryId) {
+    amountOfAllCourses = await knex('course').count('id', {as: 'amount_of_public_courses'})
+    .where('if_public', 'true')
+    .andWhere(2, "<=", subquery)
+    .andWhere('course_category_id', request.query.courseCategoryId);
+  } else {
+    amountOfAllCourses = await knex('course').count('id', {as: 'amount_of_public_courses'})
+    .where('if_public', 'true')
+    .andWhere(2, "<=", subquery); 
+  }
+  s
   response.status(200).json({
     onePageOfCourses,
     amountOfPages: Math.ceil(amountOfAllCourses / pageSize)
