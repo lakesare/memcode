@@ -29,7 +29,7 @@ router.get('/public', catchAsync(async (request, response) => {
     .where('if_public', 'true')
     .andWhere(2, "<=", subquery); 
   }
-  s
+  
   response.status(200).json({
     onePageOfCourses,
     amountOfPages: Math.ceil(amountOfAllCourses / pageSize)
