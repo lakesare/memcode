@@ -40,6 +40,7 @@ router.get('/public', catchAsync(async (request, response) => {
 
   const courseCategoryId = request.query.courseCategoryId;
   const subquery = knex('problem').count('id').whereRaw('problem.course_id = course.id');
+
   let  amountofAllCoursesQuery = knex('course').count('id', {as: 'amount_of_public_courses'})
   .where('if_public', 'true')
   .andWhere(2, "<=", subquery);
@@ -48,7 +49,8 @@ router.get('/public', catchAsync(async (request, response) => {
     amountofAllCoursesQuery = amountofAllCoursesQuery.andWhere('course_category_id', courseCategoryId);
   }
 
-  const amountOfAllCourses = await amountofAllCoursesQuery;
+  let amountOfAllCourses = await amountofAllCoursesQuery;
+  amountOfAllCourses = amountOfAllCourses[0].amountOfPublicCourses;
 
   response.status(200).json({
     onePageOfCourses,
