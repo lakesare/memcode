@@ -84,18 +84,18 @@ const select = {
       .then((array) => camelizeDbColumns(array, ['course']))
       .then((array) => integerizeDbColumns(array, ['amountOfUsersLearningThisCourse', 'amountOfProblems'])),
 
-  countAllPublic: ({ courseCategoryId }) =>
-    db.one(
-      `
-      SELECT
-        COUNT(course.id) as amount_of_public_courses
-      FROM course
-      WHERE
-        ${wherePublic}
-        ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
-      `
-    )
-      .then((result) => result.amountOfPublicCourses),
+  // countAllPublic: ({ courseCategoryId }) =>
+  //   db.one(
+  //     `
+  //     SELECT
+  //       COUNT(course.id) as amount_of_public_courses
+  //     FROM course
+  //     WHERE
+  //       ${wherePublic}
+  //       ${courseCategoryId ? `AND course.course_category_id = ${courseCategoryId}` : ''}
+  //     `
+  //   )
+  //     .then((result) => result.amountOfPublicCourses),
 
   oneById: (id) =>
     db.one(
