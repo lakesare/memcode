@@ -1,0 +1,21 @@
+\c :database;
+
+-- 1. Making coauthors ON DELETE CASCADE if user is deleted
+-- From https://stackoverflow.com/a/53214728/3192470
+ALTER TABLE coauthor
+  DROP CONSTRAINT "coauthor_user_id_fkey",
+  ADD CONSTRAINT "coauthor_user_id_fkey"
+    FOREIGN KEY ("user_id")
+    REFERENCES "public"."user"("id")
+    ON DELETE CASCADE;
+
+-- 2. Changing all timezone('UTC', now()) to simple now()
+ALTER TABLE "user" ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE "course" ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE "problem" ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE "course_user_is_learning" ALTER COLUMN started_learning_at SET DEFAULT now();
+ALTER TABLE "problem_user_is_learning" ALTER COLUMN last_reviewed_at SET DEFAULT now();
+ALTER TABLE "notification" ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE "course_rating" ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE "course_rating" ALTER COLUMN updated_at SET DEFAULT now();
+ALTER TABLE "coauthor" ALTER COLUMN created_at SET DEFAULT now();
