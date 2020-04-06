@@ -12,7 +12,7 @@ router.get('/public', catchAsync(async (request, response) => {
   const pageNumber = request.query.pageNumber;
 
 
-  // Conversion effort -  Raw SQL to Knex like syntax 
+  // Conversion effort -  Raw SQL to Knex like syntax
   // Can be used later when support for some functions like count, camelize column names are available from knex
 
   // let query = knex().select(knex.raw('row_to_json(course.*) AS course, row_to_json("user".*) AS author, row_to_json(course_category.*) AS course_category, COUNT(distinct course_user_is_learning.user_id) AS amount_of_users_learning_this_course, ROUND(AVG(course_rating.rating),1) AS average_course_rating, COUNT(distinct problem.id) AS amount_of_problems, COUNT(distinct course_rating.id) AS amount_of_course_ratings'))
@@ -28,7 +28,7 @@ router.get('/public', catchAsync(async (request, response) => {
   // .orderByRaw(sortByQuery) // This function to be copied from model
   // pageSize ? query.limit(pageSize) : '';
   // pageNumber && pageSize ? query.offset((pageNumber - 1) * pageSize) : '';
-  
+
   // const OnePageOfCourses = await query;
 
   const onePageOfCourses = await CourseModel.select.allPublic({
@@ -89,18 +89,14 @@ router.post('/', authenticate, catchAsync(async (request, response) => {
   const currentUser = request.currentUser;
   const courseBody = request.body['course'];
 
-  //const course = await CourseModel.insert.create({ ...courseBody, userId: currentUser.id });
-
-  const courseIns = await knex('course').insert({
-    title: courseBody.title, 
-    description: courseBody.description, 
-    if_public: courseBody.ifPublic, 
-    course_category_id: courseBody.courseCategoryId,  
-    user_id: currentUser.id, 
-    created_at: 'now()'
-  }, ['*'])
-
-  const course = courseIns[0];
+  const course = (await knex('course').insert({
+    title: courseBody.title,
+    description: courseBody.description,
+    if_public: courseBody.ifPublic,
+    course_category_id: courseBody.courseCategoryId,
+    user_id: currentUser.id
+  })
+    .returning('*'))[0];
 
   // Add to learned courses immediately
   await knex('courseUserIsLearning').insert({ courseId: course.id, userId: currentUser.id, active: true });
