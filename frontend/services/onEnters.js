@@ -17,7 +17,7 @@ const redirectToOwnCoursesIfAuthenticated = (Component) => {
     //This sets the lastpage information from sesssionStorage to lastpage
     let pageHistory = sessionStorage.getItem("lastpage");
     sessionStorage.removeItem("lastpage");
-    return (props) => <Redirect to={pageHistory ? pageHistory : "/courses/learning"} {...props}/>;
+    return (props) => <Redirect to={pageHistory ? pageHistory : "/courses/new"} {...props}/>;
   } else {
     return (props) => <Component {...props}/>;
   }
