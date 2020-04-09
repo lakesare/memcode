@@ -7,8 +7,6 @@ import Courses from './components/Courses';
 
 import creationImage from './images/creation.jpg';
 import heartImage from './images/redheart.png';
-import likeImage from './images/like.png'
-import faceImage from './images/faces.png'
 import darkModeImage from './images/darkmode.png'
 import rainbowImage from './images/rainbow.png'
 
