@@ -15,6 +15,37 @@
     background: rgba(28, 33, 82, 0.53);
   }
 
+  /* feature boxes */
+ .feature-box   {
+    display: inline-block;
+    width: 33%;
+    padding: 20px 30px;
+    border: antiquewhite;
+  }
+
+  .feature-box img  {
+    display: block;
+    margin-bottom: 12px;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
+
+  .feature-box h5   {
+    font-size: 20px;
+    color: #999;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .feature-box p {
+    text-align: center;
+  }
+  
   .standard-article-formatting{
     max-width: 1300px;
     padding-bottom: 200px;

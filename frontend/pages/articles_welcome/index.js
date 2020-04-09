@@ -6,6 +6,11 @@ import FakeFlashcards from './components/FakeFlashcards';
 import Courses from './components/Courses';
 
 import creationImage from './images/creation.jpg';
+import heartImage from './images/redheart.png';
+import likeImage from './images/like.png'
+import faceImage from './images/faces.png'
+import darkModeImage from './images/darkmode.png'
+import rainbowImage from './images/rainbow.png'
 
 import css from './index.css';
 import { AuthenticationActions } from '~/reducers/Authentication';
@@ -90,11 +95,28 @@ class Page_articles_welcome extends React.Component {
             <Courses/>
           </section>
 
-{/*           <section className="article-section features"> */}
-{/*             <ul> */}
-{/*  */}
-{/*             </ul> */}
-{/*           </section> */}
+          <section className="article-section features">
+            {this.renderHeading('Key Features')}
+            
+            <div class="feature-box">
+                <img src={heartImage} alt="We love GIF"/>
+                <h5>We love GIF</h5>
+                <p>One of the very few sites with GIF enabled!</p>
+            </div>
+
+            <div class="feature-box">
+                <img src={darkModeImage} alt="Fun to Use"/>
+                <h5>Dark Mode</h5>
+                <p>Good to study at night time. Look at our colours!</p>
+            </div>
+
+            <div class="feature-box">
+                <img src={rainbowImage} alt="Beautiful"/>
+                <h5>Beautiful</h5>
+                <p>Beautiful and Elegant!</p>
+            </div>
+            
+          </section>
 
           <section className="article-section sign-in">
             {this.renderHeading('Welcome', '')}
