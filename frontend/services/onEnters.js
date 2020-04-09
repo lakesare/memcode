@@ -1,7 +1,5 @@
 import store from '~/store';
 import { Redirect } from 'react-router';
-import currentwindow from '~/components/SigninLink';
-/* I am trying to import the function from the SignInLinks.js for pathname*/
 
 const getCurrentUser = () =>
   store.getState().global.Authentication.currentUser;
@@ -16,8 +14,10 @@ const requireAuthentication = (Component) => {
 
 const redirectToOwnCoursesIfAuthenticated = (Component) => {
   if (getCurrentUser()) {
-/*Here i would like to redirect back to the pathname which i have collected in the SignInLinnks.js*/
-    return (props) => <Redirect to={currentwindow.redirect_back_to} {...props}/>;
+    //This sets the lastpage information from sesssionStorage to lastpage
+    let lastPage = sessionStorage.getItem("lastpage");
+    sessionStorage.removeItem("lastpage");
+    return (props) => <Redirect to={lastPage ? lastPage : "/courses/learning"} {...props}/>;
   } else {
     return (props) => <Component {...props}/>;
   }
