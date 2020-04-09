@@ -14,7 +14,10 @@ const requireAuthentication = (Component) => {
 
 const redirectToOwnCoursesIfAuthenticated = (Component) => {
   if (getCurrentUser()) {
-    return (props) => <Redirect to="/courses/learning" {...props}/>;
+    //This sets the lastpage information from sesssionStorage to lastpage
+    let pageHistory = sessionStorage.getItem("lastpage");
+    sessionStorage.removeItem("lastpage");
+    return (props) => <Redirect to={pageHistory ? pageHistory : "/courses/learning"} {...props}/>;
   } else {
     return (props) => <Component {...props}/>;
   }
