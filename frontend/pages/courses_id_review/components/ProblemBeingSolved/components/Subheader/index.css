@@ -87,7 +87,8 @@
     max-width: 100%;
   }
 
-  .span_align {     vertical-align: middle;   }
+  
+  .span_align {    vertical-align: middle;   }
 
   // types of headers
   &.-simulated-review > .container{
