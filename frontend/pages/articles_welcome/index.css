@@ -15,6 +15,115 @@
     background: rgba(28, 33, 82, 0.53);
   }
 
+
+  .feature-list{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .feature-box{
+      width: 47%;
+      display: flex;
+      max-width: 560px;
+      align-items: flex-start;
+      padding: 20px;
+      background: rgb(14, 16, 34);
+      border-radius: 10px;
+      margin-bottom: 20px;
+
+      .image{
+        width: 50px;
+        margin-right: 40px;
+        img{
+          max-width: 100%;
+        }
+
+        span, i{
+          color: white; // !important;
+          font-size: 46px;
+          text-shadow: 0 0 10px rgba(136, 125, 220, 0.5), 0 0 20px rgba(136, 125, 220, 0.2), 0 0 30px rgba(136, 125, 220, 0.2), 0 0 40px rgba(136, 125, 220, 0.2), 0 0 50px rgba(136, 125, 220, 0.2), 0 0 60px rgba(136, 125, 220, 0.2), 0 0 70px rgba(136, 125, 220, 0.2) !important;
+          // text-shadow: none !important;
+        }
+
+      }
+      h5{
+        font-size: 20px;
+        text-transform: uppercase;
+        font-weight: 300;
+        letter-spacing: 2px;
+        margin: 0;
+      }
+      p{
+        line-height: 23px;
+      }
+
+      &.shortcuts{
+        i, h5{
+          color: rgb(69, 120, 204);
+        }
+        i{
+          text-shadow: 0 0 10px rgba(99, 82, 234, 0.28), 0 0 20px rgba(136, 125, 220, 0.2), 0 0 30px rgba(136, 125, 220, 0.3), 0 0 40px rgba(136, 125, 220, 0.5), 0 0 50px rgba(70, 48, 236, 0.5), 0 0 60px rgba(59, 38, 215, 0.5), 0 0 70px rgba(67, 45, 232, 0.5);
+        }
+      }
+
+      &.formulas{
+        i, h5{
+          color: rgb(99, 246, 232);
+        }
+      }
+
+      &.gifs{
+        span, h5{
+          color: rgb(194, 101, 118);
+        }
+        span{
+          text-shadow: 0 0 10px rgba(238, 84, 84, 0.58), 0 0 70px #ee5454;
+        }
+      }
+
+      &.creations{
+        span, h5{ color: rgb(133, 210, 135); }
+      }
+
+      &.comfortable{
+        span{
+          text-shadow: 0 0 10px rgba(55, 160, 221, 0.36), 0 0 20px rgba(55, 160, 221, 0.27), 0 0 30px rgb(44, 122, 168), 0 0 40px rgb(56, 119, 156), 0 0 50px rgba(55, 160, 221, 0.55), 0 0 60px rgb(31, 52, 82), 0 0 70px rgb(32, 65, 97);
+        }
+        span, h5{
+          color: rgb(55, 160, 221);
+        }
+      }
+
+      &.free{
+        span, h5{
+          color: rgb(133, 210, 135);
+        }
+      }
+
+      &.open-source{
+        i, h5{
+          color: rgb(201, 137, 250);
+        }
+        i{
+          position: relative;
+          left: 10px;
+        }
+        a{
+          color: rgb(239, 117, 248);
+          text-decoration: underline;
+        }
+      }
+
+      &.algorithm{
+        span, h5{
+          color: rgb(250, 97, 210);
+        }
+      }
+
+    }
+
+  }
+  
   .standard-article-formatting{
     max-width: 1300px;
     padding-bottom: 200px;
@@ -136,18 +245,110 @@
   }
 
   section.creation{
-    text-align: center;
-    img{
-      width: 100%;
+    .button.-orange{
+      font-size: 15px;
+      margin: 0 auto;
+      max-width: 300px;
+      margin-top: 150px;
+    }
+
+    .how-to-create{
+      display: none;
+    }
+    section.problem{
+      margin-top: 100px;
+      .ql-editor:focus{
+        background: rgb(40, 45, 88);
+      }
+      .quill > .ql-container > .ql-editor{
+        min-height: 63px;
+      }
+
+      .quill{
+        height: 100%;
+      }
+
+      &.-withInlinedAnswers{
+        > .first-column{
+          .ql-toolbar{
+            .ql-formats{ margin-right: 9px !important; }
+            .ql-formats:first-child{ margin-right: 2px !important; }
+            padding-right: 0;
+            button.ql-answer{
+              font-size: 10px;
+              width: 50px !important;
+              padding: 0;
+              text-align: center;
+              border-radius: 2px;
+              line-height: 10px;
+              border: 1px solid rgb(44, 225, 83);
+              color: rgb(166, 241, 182);
+              font-weight: 300;
+              &.ql-active, &:hover{
+                // box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+                text-shadow: 0 0 1px rgba(243, 243, 243, 0.5);
+              }
+              &::after{
+                content: "Mark As Answer";
+              }
+            }
+          }
+        }
+      }
+      .ql-toolbar{}
+    }
+    .new-problem{
+      position: relative;
       max-width: 970px;
       margin: 0 auto;
-      display: block;
-      margin-top: 71px;
-    }
-    .button{
-      margin-top: 66px;
-      font-size: 15px;
-      display: inline-flex;
+      margin-top: 25px;
+      padding: 0 8px;
+
+      .ql-container{
+        // minus the height of the toolbar
+        height: calc(100% - 28px);
+      }
+
+      > section.choose-type{
+        position: absolute;
+        top: 0; right: -90px;
+        // for react-joyride
+        padding-bottom: 20px;
+        > label{
+          display: block;
+          font-size: 10px;
+          padding-bottom: 8px;
+          text-align: center;
+          color: rgb(226, 230, 246);
+          letter-spacing: 0.2px;
+        }
+        > button.button{
+          font-size: 9px;
+          padding: 7px 4px;
+          opacity: 0.5;
+          width: 84px;
+          min-width: auto;
+          background: $orange;
+          color: white;
+          font-weight: 300;
+          border-radius: 3px;
+          &.-active{
+            opacity: 1;
+            cursor: default;
+          }
+          &:not(.-active):hover{
+            opacity: 0.7;
+          }
+          &:nth-child(2){
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          &:last-child{
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
+        }
+      }
     }
   }
 
@@ -207,7 +408,7 @@
 
   .-glow {
     text-align: center;
-    text-shadow: 0 0 10px rgba(136, 125, 220, 0.5), 0 0 20px rgba(136, 125, 220, 0.5), 0 0 30px rgba(136, 125, 220, 0.5), 0 0 40px rgba(136, 125, 220, 0.5), 0 0 50px rgba(136, 125, 220, 0.5), 0 0 60px rgba(136, 125, 220, 0.5), 0 0 70px rgba(136, 125, 220, 0.5);
+    // text-shadow: 0 0 10px rgba(136, 125, 220, 0.5), 0 0 20px rgba(136, 125, 220, 0.5), 0 0 30px rgba(136, 125, 220, 0.5), 0 0 40px rgba(136, 125, 220, 0.5), 0 0 50px rgba(136, 125, 220, 0.5), 0 0 60px rgba(136, 125, 220, 0.5), 0 0 70px rgba(136, 125, 220, 0.5);
   }
 
 
@@ -252,6 +453,18 @@
 
   @media(max-width: 750px) {
     section.creation{ display: none; }
+
+    section.article-section.features{
+      .feature-box{
+        width: 100%;
+      }
+    }
+  }
+
+  @media(max-width: 1200px) {
+    section.creation{
+      section.choose-type{ display: none; }
+    }
   }
 }
 
