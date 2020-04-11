@@ -87,15 +87,19 @@
     max-width: 100%;
   }
 
-  
-  .span_align {    vertical-align: middle;   }
-
   // types of headers
   &.-simulated-review > .container{
     padding-top: 10px;
     padding-bottom: 10px;
     > div.instructions{
       font-size: 14px;
+      &.-desktop p{
+        display: flex;
+        align-items: center;
+        .volume-button{
+          padding-left: 10px;
+        }
+      }
     }
     > div.instructions.-mobile{
       // display: flex;

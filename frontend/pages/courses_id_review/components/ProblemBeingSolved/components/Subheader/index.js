@@ -46,8 +46,8 @@ class Subheader extends React.Component {
     <section className={`Subheader ${css.section} -simulated-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          <p><em className="yellow-emphasis">Test drive</em> - results will not be recorded. Press ENTER to reveal answers<span class="span_align"> {this.renderVolumeButton()}</span></p>
-          </div>
+          <p><em className="yellow-emphasis">Test drive</em> - results will not be recorded. Press ENTER to reveal answers {this.renderVolumeButton()}</p>
+        </div>
         <div className="instructions -mobile">
           <p><em className="yellow-emphasis">Test drive</em> - results are not recorded.</p>
           {this.renderVolumeButton()}
