@@ -35,14 +35,27 @@ class Page_articles_welcome extends React.Component {
     }
   }
 
-  renderHeading = (text, className) =>
-    <h2 className={`section-heading ${className}`}>
+  renderHeading = (text) =>
+    <h2 className="section-heading">
       {text}
     </h2>
 
   renderExplanation = (text) =>
     <div className="section-explanation">
       {text}
+    </div>
+
+  renderFeature = (heading, comment, image, className) =>
+    <div className={`feature-box ${className}`}>
+      <div className="image">
+        {image}
+        {/* <img src={heartImage} alt="heart"/> */}
+      </div>
+
+      <div className="text">
+        <h5>{heading}</h5>
+        <p>{comment}</p>
+      </div>
     </div>
 
   render = () =>
@@ -90,14 +103,23 @@ class Page_articles_welcome extends React.Component {
             <Courses/>
           </section>
 
-{/*           <section className="article-section features"> */}
-{/*             <ul> */}
-{/*  */}
-{/*             </ul> */}
-{/*           </section> */}
+          <section className="article-section features">
+            {this.renderHeading('Key Features')}
+
+            <ul className="feature-list">
+              {this.renderFeature('Bold text, code, formulas', <>Rich formatting, - for free, for all.<br/> LaTeX formulas, code highlighting, bold text, and many more options.</>, <i className="material-icons">code</i>, 'formulas')}
+              {this.renderFeature('Shortcuts', <>Blind? A hacker? Whatever your deal is, Memcode cares about you.<br/> You can navigate Memcode via shortcuts and tabs.</>, <i className="fa fa-keyboard-o"/>, 'shortcuts')}
+              {this.renderFeature('Smooth course creation', 'Course creators are first class citizens on Memcode.', <span className="material-icons">dynamic_feed</span>, 'creations')}
+              {this.renderFeature('Comfortable', 'We\'re really trying. Spaced-repetition software tends to become a part of your brain, and we want you to feel like returning to Memcode.', <span className="material-icons">bathtube</span>, 'comfortable')}
+              {this.renderFeature('Open Source', <>Check us out on <a target="blank" href="https://github.com/lakesare/memcode">Github</a>!</>, <i className="fa fa-code-fork"/>, 'open-source')}
+              {this.renderFeature('SM2 algorithm', 'Custom SM2 algorithm, honed', <span className="material-icons">linear_scale</span>, 'algorithm')}
+              {this.renderFeature('We love gif', 'One of the only sites with the gifs allowed!', <span className="material-icons">favorite</span>, 'gifs')}
+              {this.renderFeature('Forever free', 'We won\'t charge. Not at any point.', <span className="material-icons">insert_emoticon</span>, 'free')}
+            </ul>
+          </section>
 
           <section className="article-section sign-in">
-            {this.renderHeading('Welcome', '')}
+            {this.renderHeading('Welcome')}
 
             {/* <img src={heartImage} alt=""/></div> */}
 
