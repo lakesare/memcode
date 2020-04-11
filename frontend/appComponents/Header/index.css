@@ -203,4 +203,9 @@
       }
     }
   }
+  @media(max-width: 400px){
+    .notifications-toggler{
+      display: none;
+    }
+  }
 }

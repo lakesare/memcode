@@ -95,27 +95,27 @@ class Page_articles_welcome extends React.Component {
             <Link to="/please-sign-in" className="button -orange -move-up-on-hover -with-radius" type="button">Create your own course →</Link>
           </section>
 
+          <section className="article-section features">
+            {this.renderHeading('Key features')}
+
+            <ul className="feature-list">
+              {this.renderFeature('Bold text, code, formulas', <>Rich formatting, - for free, for all.<br/> LaTeX formulas, code highlighting, bold text, and many more options.</>, <i className="material-icons">code</i>, 'formulas')}
+              {this.renderFeature('Shortcuts', <>Blind? A hacker? Whatever your deal is, Memcode cares about you.<br/> You can navigate Memcode via shortcuts and tabs.</>, <i className="fa fa-keyboard-o"/>, 'shortcuts')}
+              {this.renderFeature('Smooth course creation', 'Course creators are first class citizens on Memcode.', <span className="material-icons">dynamic_feed</span>, 'creations')}
+              {this.renderFeature('Comfortable', 'We\'re really trying. Spaced-repetition software tends to become a part of your brain, and we want you to feel like being here.', <span className="material-icons">bathtube</span>, 'comfortable')}
+              {this.renderFeature('Open Source', <>Check us out on <a target="blank" href="https://github.com/lakesare/memcode">Github</a>!</>, <i className="fa fa-code-fork"/>, 'open-source')}
+              {this.renderFeature('SM2 algorithm', 'Custom SM2 algorithm, honed', <span className="material-icons">linear_scale</span>, 'algorithm')}
+              {this.renderFeature('We love gif', 'One of the only sites with the gifs allowed!', <span className="material-icons">favorite</span>, 'gifs')}
+              {this.renderFeature('Forever free', 'We won\'t charge. Not at any point.', <span className="material-icons">insert_emoticon</span>, 'free')}
+            </ul>
+          </section>
+
           <section className="article-section courses">
             {this.renderHeading('Play selected courses')}
 
             {this.renderExplanation(<>You can play all courses without signing in, - sign in as soon as you'd like us to offer you flashcards for review based on your progress!</>)}
 
             <Courses/>
-          </section>
-
-          <section className="article-section features">
-            {this.renderHeading('Key Features')}
-
-            <ul className="feature-list">
-              {this.renderFeature('Bold text, code, formulas', <>Rich formatting, - for free, for all.<br/> LaTeX formulas, code highlighting, bold text, and many more options.</>, <i className="material-icons">code</i>, 'formulas')}
-              {this.renderFeature('Shortcuts', <>Blind? A hacker? Whatever your deal is, Memcode cares about you.<br/> You can navigate Memcode via shortcuts and tabs.</>, <i className="fa fa-keyboard-o"/>, 'shortcuts')}
-              {this.renderFeature('Smooth course creation', 'Course creators are first class citizens on Memcode.', <span className="material-icons">dynamic_feed</span>, 'creations')}
-              {this.renderFeature('Comfortable', 'We\'re really trying. Spaced-repetition software tends to become a part of your brain, and we want you to feel like returning to Memcode.', <span className="material-icons">bathtube</span>, 'comfortable')}
-              {this.renderFeature('Open Source', <>Check us out on <a target="blank" href="https://github.com/lakesare/memcode">Github</a>!</>, <i className="fa fa-code-fork"/>, 'open-source')}
-              {this.renderFeature('SM2 algorithm', 'Custom SM2 algorithm, honed', <span className="material-icons">linear_scale</span>, 'algorithm')}
-              {this.renderFeature('We love gif', 'One of the only sites with the gifs allowed!', <span className="material-icons">favorite</span>, 'gifs')}
-              {this.renderFeature('Forever free', 'We won\'t charge. Not at any point.', <span className="material-icons">insert_emoticon</span>, 'free')}
-            </ul>
           </section>
 
           <section className="article-section sign-in">
