@@ -392,14 +392,15 @@
   }
 
   section.sign-in{
+    text-align: center;
     img{
       width: 50px;
-      position: relative;
-      top: 7px;
+      margin-top: 100px;
     }
     div.sign-in-buttons{
       display: block;
       max-width: 304px;
+      a{ font-size: 16px; }
       a.-github{
         margin-top: 30px;
       }
