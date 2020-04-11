@@ -80,7 +80,10 @@
       background: rgba(21, 23, 45, 0.38) !important;
       padding: 4px 16px;
     }
-
+    span{
+      font-style: normal;
+      font-size: normal;
+    }
     img{
       background: white !important;
       max-width: 100%;
