@@ -5,6 +5,8 @@ import SignInButtons from '~/appComponents/SignInButtons';
 import FakeFlashcards from './components/FakeFlashcards';
 import Courses from './components/Courses';
 
+import NewProblem from '~/pages/courses_id/components/NewProblem';
+
 import creationImage from './images/creation.jpg';
 
 import css from './index.css';
@@ -88,9 +90,9 @@ class Page_articles_welcome extends React.Component {
           <section className="article-section creation">
             {this.renderHeading('Comfortable, blazingly fast course creation')}
 
-            {this.renderExplanation(<>Course creators are first class citizens on Memcode.<br/> We made it fun and beautiful.</>)}
+            {this.renderExplanation(<>Course creators are first class citizens on Memcode.<br/> Try it live.</>)}
 
-            <img src={creationImage} alt="Two text editors with formatting options"/>
+            <NewProblem courseId={0} uiAddOptimisticProblem={() => {}} uiUpdateOptimisticProblemIntoOld={() => {}}/>
 
             <Link to="/please-sign-in" className="button -orange -move-up-on-hover -with-radius" type="button">Create your own course →</Link>
           </section>

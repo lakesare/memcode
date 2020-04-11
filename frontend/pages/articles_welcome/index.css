@@ -245,18 +245,110 @@
   }
 
   section.creation{
-    text-align: center;
-    img{
-      width: 100%;
+    .button.-orange{
+      font-size: 15px;
+      margin: 0 auto;
+      max-width: 300px;
+      margin-top: 150px;
+    }
+
+    .how-to-create{
+      display: none;
+    }
+    section.problem{
+      margin-top: 100px;
+      .ql-editor:focus{
+        background: rgb(40, 45, 88);
+      }
+      .quill > .ql-container > .ql-editor{
+        min-height: 63px;
+      }
+
+      .quill{
+        height: 100%;
+      }
+
+      &.-withInlinedAnswers{
+        > .first-column{
+          .ql-toolbar{
+            .ql-formats{ margin-right: 9px !important; }
+            .ql-formats:first-child{ margin-right: 2px !important; }
+            padding-right: 0;
+            button.ql-answer{
+              font-size: 10px;
+              width: 50px !important;
+              padding: 0;
+              text-align: center;
+              border-radius: 2px;
+              line-height: 10px;
+              border: 1px solid rgb(44, 225, 83);
+              color: rgb(166, 241, 182);
+              font-weight: 300;
+              &.ql-active, &:hover{
+                // box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+                text-shadow: 0 0 1px rgba(243, 243, 243, 0.5);
+              }
+              &::after{
+                content: "Mark As Answer";
+              }
+            }
+          }
+        }
+      }
+      .ql-toolbar{}
+    }
+    .new-problem{
+      position: relative;
       max-width: 970px;
       margin: 0 auto;
-      display: block;
-      margin-top: 71px;
-    }
-    .button{
-      margin-top: 66px;
-      font-size: 15px;
-      display: inline-flex;
+      margin-top: 25px;
+      padding: 0 8px;
+
+      .ql-container{
+        // minus the height of the toolbar
+        height: calc(100% - 28px);
+      }
+
+      > section.choose-type{
+        position: absolute;
+        top: 0; right: -90px;
+        // for react-joyride
+        padding-bottom: 20px;
+        > label{
+          display: block;
+          font-size: 10px;
+          padding-bottom: 8px;
+          text-align: center;
+          color: rgb(226, 230, 246);
+          letter-spacing: 0.2px;
+        }
+        > button.button{
+          font-size: 9px;
+          padding: 7px 4px;
+          opacity: 0.5;
+          width: 84px;
+          min-width: auto;
+          background: $orange;
+          color: white;
+          font-weight: 300;
+          border-radius: 3px;
+          &.-active{
+            opacity: 1;
+            cursor: default;
+          }
+          &:not(.-active):hover{
+            opacity: 0.7;
+          }
+          &:nth-child(2){
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          &:last-child{
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
+        }
+      }
     }
   }
 
@@ -366,6 +458,12 @@
       .feature-box{
         width: 100%;
       }
+    }
+  }
+
+  @media(max-width: 1200px) {
+    section.creation{
+      section.choose-type{ display: none; }
     }
   }
 }
