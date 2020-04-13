@@ -27,7 +27,7 @@ const createOauthProvider = (oauthProviderName) => {
         oauthSecret: process.env['GOOGLE_OAUTH_SECRET']
       };
   }
-};
+}; 
 
 // @param referrerUrl - e.g. http://memcode.com/please-sign-in
 const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
@@ -39,6 +39,19 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   if (!dbUser) {
     dbUser = await UserModel.insert.createFrom(oauthProviderName, oauthProfile);
     await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env['SENDGRID_API_KEY']); 
+    const msg = {
+    to: oauthProfile.email,
+    from: '',//To be filled
+    templateId: 'd-2377f8efa905441c82e67d18793029df',
+    dynamic_template_data: {
+      subject: 'Welcome to Memcode',
+      name: 'Memcode',
+      city: 'Coimbatore',
+    },
+  };
+  sgMail.send(msg);
   }
 
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
