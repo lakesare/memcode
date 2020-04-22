@@ -85,7 +85,7 @@ class OldProblem extends React.Component {
     });
   }
 
-  ifOptimistic = () =>
+  ifNotOptimistic = () =>
     !this.props.problem._optimistic_id
 
   ifChecked = () =>
@@ -105,7 +105,7 @@ class OldProblem extends React.Component {
   }
 
   render = () => (
-    this.ifOptimistic() ?
+    this.ifNotOptimistic() ?
       <Draggable draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
         <div
           className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'}`}

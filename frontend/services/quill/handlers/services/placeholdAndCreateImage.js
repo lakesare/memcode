@@ -5,11 +5,10 @@ import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 import preloadImage from '~/services/preloadImage';
 import FileApi from '~/api/FileApi';
 
-window.findReactComponent = function(el) {
+window.findReactComponent = (el) => {
   for (const key in el) {
     if (key.startsWith('__reactInternalInstance$')) {
       const fiberNode = el[key];
-
       return fiberNode && fiberNode.return && fiberNode.return.stateNode;
     }
   }
@@ -37,8 +36,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
       .then((response) => {
         preloadImage(response.url, () => {
           const placeholderEl = quill.container.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
-          console.log({placeholderEl});
-
+          console.log({ placeholderEl });
 
           // Will be false when we save a new card, and quill container el changes.
           if (placeholderEl) {
@@ -56,7 +54,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
             onSuccess();
           } else {
             const el = document.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
-            const newQuillEl = el.parentElement.parentElement.parentElement;
+            const newQuillEl = el.closest('.quill');
             const newQuillReact = window.findReactComponent(newQuillEl);
 
             const newQuill = newQuillReact.editor;
@@ -72,12 +70,8 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {} } = {}) => 
                 .insert({ image: response.url })
             );
 
-
-            console.log({ newQuillReact, newQuill });
             newQuillReact.props.onBlur();
-
           }
-
         });
       });
   });

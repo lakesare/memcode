@@ -175,7 +175,7 @@ class Editor extends React.Component {
   // (content, delta, source, editor)
   onChange = (content) => {
     // This is needed because the 'SAVE/SAVED' label next to the problem depends on whether api version of content === state version. Quill changes the content on mount in some cases, which would result in 'SAVE' button appearing on load. We don't want it, so let's wait for the first focus event!
-    if (this.state.focusedAtLeastOnce) {
+    if (this.state.focusedAtLeastOnce || this.props.editorState.includes('placeholder-for-loading-image')) {
       this.props.updateEditorState(content);
     }
   }
