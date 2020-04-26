@@ -1,6 +1,5 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import sendgrid from '@sendgrid/mail';
 
 import catchAsync from '~/services/catchAsync';
 import { githubFetchAccessToken } from './services/github/githubFetchAccessToken';
@@ -11,8 +10,6 @@ import NotificationModel from '~/models/NotificationModel';
 import UserModel from '~/models/UserModel';
 
 const router = express.Router();
-
-sendgrid.setApiKey(process.env['SENDGRID_API_KEY']);
 
 const createOauthProvider = (oauthProviderName) => {
   switch (oauthProviderName) {
@@ -31,16 +28,6 @@ const createOauthProvider = (oauthProviderName) => {
         oauthSecret: process.env['GOOGLE_OAUTH_SECRET']
       };
   }
-};
-
-const sendWelcomeEmail = (email) => {
-  const msg = {
-    to: email,
-    from: 'contact@memcode.com',
-    subject: 'Sending with Twilio SendGrid is Fun',
-    html: 'RIIIGHT??? <strong>and easy to do anywhere, even with Node.js</strong>',
-  };
-  return sendgrid.send(msg);
 };
 
 // @param referrerUrl - e.g. http://memcode.com/please-sign-in
