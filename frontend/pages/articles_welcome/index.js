@@ -1,4 +1,5 @@
 import { withRouter, Link } from 'react-router-dom';
+import orFalse from '~/services/orFalse';
 
 import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';
@@ -22,9 +23,9 @@ import { AuthenticationActions } from '~/reducers/Authentication';
 )
 class Page_articles_welcome extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object,
+    currentUser: orFalse(PropTypes.object).isRequired,
     signIn: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired
+    // history: PropTypes.object.isRequired
   }
 
   componentDidMount = () => {
@@ -38,7 +39,7 @@ class Page_articles_welcome extends React.Component {
     const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-      this.props.history.push('/courses/learning');
+      window.location = '/courses/learning';
     }
   }
 
