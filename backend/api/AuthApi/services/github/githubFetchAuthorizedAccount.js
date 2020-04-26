@@ -1,9 +1,8 @@
 import fetch from 'node-fetch';
 
-
 // getting the profile details
 const fetchProfile = (accessToken) => fetch('https://api.github.com/user', {
-  headers: {  
+  headers: {
     Authorization: `token ${accessToken}`
   }
 }).then((response) => {
@@ -17,7 +16,7 @@ const fetchProfile = (accessToken) => fetch('https://api.github.com/user', {
 
 // fetching the user email in case if it is not available public as part of profile details
 const fetchEmail = (accessToken) => fetch('https://api.github.com/user/emails', {
-  headers: { 
+  headers: {
     Authorization: `token ${accessToken}`
   }
 }).then((response) => {
@@ -30,12 +29,12 @@ const fetchEmail = (accessToken) => fetch('https://api.github.com/user/emails', 
 });
 
 // fetching our profile info signed in as a user (access token)
-const githubFetchAuthorizedAccount = (accessToken) => 
+const githubFetchAuthorizedAccount = (accessToken) =>
   Promise.all([fetchProfile(accessToken), fetchEmail(accessToken)])
     .then(([profile, emails]) => {
       const email = emails[0].email;
-      profile.email = email; 
+      profile.email = email;
       return profile;
-});
+    });
 
 export { githubFetchAuthorizedAccount };

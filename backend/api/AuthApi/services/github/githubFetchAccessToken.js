@@ -11,14 +11,14 @@ const githubFetchAccessToken = async (oauthId, oauthSecret, code) => {
 
   // 'access_token=0bc4d5757978a90d8e9bc96fac795c876179f2ba&scope=&token_type=bearer'
   const stringWithAccessToken = await
-    fetch('https://github.com/login/oauth/access_token', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json'
-      },
-      body: data
-    })
-      .then((response) => response.json());
+  fetch('https://github.com/login/oauth/access_token', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json'
+    },
+    body: data
+  })
+    .then((response) => response.json());
 
   // {"error":"bad_verification_code","error_description":"The code passed is incorrect or expired.",
   if (stringWithAccessToken.error) {
