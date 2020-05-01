@@ -6,12 +6,15 @@
 
 # Memcode
 
+Flashcards: for coders, mathematicians, and physicists. Open-source, free for all.
+
 ## Links
 
 **Site ❤️**: http://www.memcode.com  
+**Email**: [contact@memcode.com](mailto:contact@memcode.com)  
 **Twitter**: https://twitter.com/memcodeapp  
-**Slack**: write to [contact@memcode.com](mailto:contact@memcode.com?subject=[Slack access]) to request access
-**Email**: contact@memcode.com
+**Slack**: write to  [contact@memcode.com](mailto:contact@memcode.com) to request access  
+**Alternative.to**: https://alternativeto.net/software/memcode
 
 ## Contributing
 
