@@ -53,13 +53,3 @@ Note: if you'd like to use online development environment, see https://github.co
 2. `heroku login`.
 3. Make sure heroku knows about our app: `heroku git:remote -a memcode`.
 4. Pull courses from the database with `make heroku-db-pull`.
-
-
-### How to run tests?
-
-#### Set up database.
-1. Create a new test database 'memcode_test': `make test-db-reset`.
-
-#### Start test-runners.
-1. Run `npm install`.
-2. `make test-backend` for backend, and `make test-frontend`. Both will be automatically compiling code in the runtime, so you don't need to bother with code compilers. Both run code in `**/*/... .test.js` file inside of, respectively, backend and frontend folders.
