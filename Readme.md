@@ -4,18 +4,12 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/lakesare/memcode/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
+# Links
+
 **Site ❤️**: http://www.memcode.com  
 **Twitter**: https://twitter.com/memcodeapp  
 **Slack**: write to [contact@memcode.com](mailto:contact@memcode.com?subject=[Slack access]) to request access
 **Email**: contact@memcode.com
-
-___
-
-## Would you like some help with memcode?
-- Write us at contact@memcode.com
-- Open the issue in this repo
-
-___
 
 # Contributing
 
