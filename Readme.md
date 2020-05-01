@@ -1,11 +1,13 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/lakesare/memcode) 
-[![Open Source Helpers](https://www.codetriage.com/lakesare/memcode/badges/users.svg)](https://www.codetriage.com/lakesare/memcode)
+[![Website memcode.com](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://memcode.com)
+[![GitHub contributors](https://img.shields.io/github/contributors/lakesare/memcode)](https://GitHub.com/Naereen/lakesare/memcode/contributors/)
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/lakesare/memcode)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/lakesare/memcode/blob/master/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
-Site ❤️: http://www.memcode.com
-
-Trello board: https://trello.com/b/UN0Vnv80/memcode (here you can see what we're working on, what features are to come, and what PRs are welcome)
-
-Slack board: write to `contact@memcode.com` to request access.
+**Site ❤️**: http://www.memcode.com  
+**Twitter**: https://twitter.com/memcodeapp  
+**Slack**: write to [contact@memcode.com](mailto:contact@memcode.com?subject=[Slack access]) to request access
+**Email**: contact@memcode.com
 
 ___
 
@@ -13,10 +15,9 @@ ___
 - Write us at contact@memcode.com
 - Open the issue in this repo
 
-## Can you offer some help with memcode yourself?
-You are very welcome to send a PR to this repository.
-
 ___
+
+# Contributing
 
 ## Initial setup for development:
 
