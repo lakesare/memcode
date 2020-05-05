@@ -20,7 +20,6 @@ class NotificationsTogglerAndDropdown extends React.Component {
     amountOfAllNotifications: 0,
     // should be stored in the local storage before we implement global state via the reducer
     amountOfUnreadNotifications: localStorage.getItem('amountOfUnreadNotifications') || 0,
-    ifDropdownIsOpen: false
   }
 
   componentDidMount() {
@@ -99,9 +98,6 @@ class NotificationsTogglerAndDropdown extends React.Component {
     return api.NotificationApi.markAllNotificationsAsRead(null, { userId: this.props.currentUser.id });
   }
 
-  handleClickOutside = () =>
-    this.setState({ ifDropdownIsOpen: false })
-
   isFooterShown = () => {
     const notifications = this.state.speGetNotifications.payload;
     return this.state.amountOfAllNotifications > notifications.length;
@@ -113,11 +109,9 @@ class NotificationsTogglerAndDropdown extends React.Component {
       className={`
         notifications-toggler
         ${css.toggler}
-        ${this.state.ifDropdownIsOpen ? '-dropdown-is-open' : '-dropdown-is-closed'}
         ${this.state.amountOfUnreadNotifications > 0 ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
       `}
       style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
-      onClick={() => this.setState({ ifDropdownIsOpen: !this.state.ifDropdownIsOpen })}
     >
       <i className="material-icons">
         notifications_none
