@@ -1,6 +1,5 @@
 import * as customPropTypes from '~/services/customPropTypes';
 import requestIcon from './requestIcon.svg';
-import css from './index.css';
 
 // spe stands for Request Success Failure
 //
@@ -35,7 +34,7 @@ class Loading extends React.Component {
     !this.props.enabledStatuses.includes(this.props.spe.status)
 
   getClassName = (status) =>
-    `${css.loading} ${this.props.className} loading -${status}`
+    `${this.props.className} loading -${status}`
 
   renderSuccess = () => {
     switch (typeof this.props.children) {

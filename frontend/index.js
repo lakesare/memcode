@@ -24,6 +24,7 @@ import './index.css';
 
 import store from './store';
 import router from './router';
+import ErrorBoundary from '~/components/ErrorBoundary';
 
 // class ModalTellingUserAboutOfflineMode extends React.Component {
 //   state = {
@@ -62,7 +63,9 @@ ReactModal.setAppElement(rootElement);
 
 ReactDOM.render(
   <Provider store={store}>
-    {router}
+    <ErrorBoundary>
+      {router}
+    </ErrorBoundary>
   </Provider>,
   rootElement
 );

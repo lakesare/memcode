@@ -32,6 +32,7 @@ $fa-font-path: "~font-awesome/fonts";
 @import 'css/standard-course-card';
 @import 'css/standard-tooltip-dropdown';
 @import 'css/standard-table';
+@import 'css/loading';
 
 @import 'css/problem';
 

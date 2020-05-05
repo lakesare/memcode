@@ -1,6 +1,7 @@
 import orFalse from '~/services/orFalse';
 import MyDuck from '~/ducks/MyDuck';
 
+import ErrorBoundary from '~/components/ErrorBoundary';
 import Header from '~/appComponents/Header';
 import Footer from '~/appComponents/Footer';
 
@@ -45,9 +46,13 @@ class Main extends React.Component {
 
   render = () =>
     <main className={this.props.className}>
-      <Header dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
+      <ErrorBoundary>
+        <Header dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
+      </ErrorBoundary>
 
-      {this.props.children}
+      <ErrorBoundary>
+        {this.props.children}
+      </ErrorBoundary>
 
       <Footer/>
     </main>

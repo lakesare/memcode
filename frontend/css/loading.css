@@ -1,4 +1,4 @@
-:local(.loading){
+.loading{
   &.-request{
     text-align: center;
     img{
