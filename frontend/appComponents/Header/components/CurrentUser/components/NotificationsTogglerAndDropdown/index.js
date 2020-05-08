@@ -99,6 +99,9 @@ class NotificationsTogglerAndDropdown extends React.Component {
   }
 
   isFooterShown = () => {
+    if (this.state.speGetNotifications.status !== 'success') {
+      return false;
+    }
     const notifications = this.state.speGetNotifications.payload;
     return this.state.amountOfAllNotifications > notifications.length;
   }
@@ -145,21 +148,21 @@ class NotificationsTogglerAndDropdown extends React.Component {
   )
 
   renderDropdown = () =>
-    <Loading enabledStatuses={['success']} spe={this.state.speGetNotifications}>{(notifications) =>
-      <div className={css.dropdown}>
-        {this.renderDropdownHeader()}
-        <ul className={`notifications ${this.isFooterShown() ? '' : '-no-footer'}`}>
-          {notifications.map((notification) =>
+    <div className={css.dropdown}>
+      {this.renderDropdownHeader()}
+      <ul className={`notifications ${this.isFooterShown() ? '' : '-no-footer'}`}>
+        <Loading enabledStatuses={['success']} spe={this.state.speGetNotifications}>{(notifications) =>
+          notifications.map((notification) =>
             <NotificationLi
               key={notification.id}
               notification={notification}
               apiMarkAsReadOrUnread={this.apiMarkAsReadOrUnread}
             />
-          )}
-        </ul>
-        {this.renderDropdownFooter()}
-      </div>
-    }</Loading>
+          )
+        }</Loading>
+      </ul>
+      {this.renderDropdownFooter()}
+    </div>
 
   render = () =>
     <StandardTooltip
