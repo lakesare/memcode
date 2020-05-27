@@ -129,16 +129,23 @@
           }
         }
 
-        .course-is-private-label{
+        .course-label{
           padding: 6px;
           align-self: flex-start;
           font-size: 10px;
-          color: rgb(236, 76, 123);
           cursor: default;
-
-          background: rgba(236, 76, 123, 0.18);
           border-radius: 2px;
           margin-left: 10px;
+        }
+
+        .-private{
+          color: rgb(236, 76, 123);
+          background: rgba(236, 76, 123, 0.18);
+        }
+
+        .-duplicated{
+          color: rgb(120, 175, 244);
+          background: rgba(76, 138, 236, 0.18);
         }
       }
     }
@@ -336,6 +343,9 @@
   @media(max-width: 900px){
     .title-and-buttons .category_and_author{
       height: auto !important;
+    }
+    .course-label{
+      display: none;
     }
   }
 

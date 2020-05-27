@@ -1,11 +1,14 @@
 import knex from '~/db/knex';
 import auth from '~/middlewares/auth';
+import canAccessCourse from '~/services/canAccessCourse';
 
-// course, but with a different .created and .authorId
-// and all problems
 const duplicate = auth(async (request, response) => {
   const userId = request.currentUser.id;
   const courseId = request.body['courseId'];
+
+  if (!(await canAccessCourse(courseId, request.currentUser))) {
+    return response.error(`Sorry, you can't duplicate a private course.`);
+  }
 
   const oldCourseSql = await knex('course').where({ id: courseId });
   const oldCourse = oldCourseSql[0];
@@ -16,6 +19,7 @@ const duplicate = auth(async (request, response) => {
       title: oldCourse.title,
       description: oldCourse.description,
       ifPublic: true,
+      duplicatedFromCourseId: oldCourse.id,
       userId,
       courseCategoryId: oldCourse.courseCategoryId
     })
@@ -39,7 +43,7 @@ const duplicate = auth(async (request, response) => {
     active: true
   });
 
-  response.success({ courseId: newCourse.id });
+  return response.success({ courseId: newCourse.id });
 });
 
 export default duplicate;
