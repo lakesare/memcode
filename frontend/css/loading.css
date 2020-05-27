@@ -8,11 +8,15 @@
   }
   &.-failure{
     padding: 20px;
+
+    max-width: 600px;
+    margin: 0 auto;
     margin-top: 30px;
 
-    background: rgba(25, 26, 46, 0.27);
     border-radius: 2px;
     text-align: center;
+    // This is a privacy color, maybe we should differentiate between different error colors.
+    background: rgb(48, 21, 54);
     color: rgb(236, 76, 123);
     font-size: 14px;
   }
