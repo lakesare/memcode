@@ -9,6 +9,21 @@ import knex from '~/db/knex';
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 
+// Todo move these somewhere when PageApi.js is refactored, likely to the middleware
+const canAccessCourse = async (courseId, currentUser) => {
+  const course = (await knex('course').where({ id: courseId }))[0];
+  if (course.ifPublic) return true;
+  if (!currentUser) return false;
+
+  const isAuthor = course.userId === currentUser.id;
+  if (isAuthor) return true;
+
+  const isCoauthor = (await knex('coauthor').where({ courseId, userId: currentUser.id }))[0];
+  if (isCoauthor) return true;
+};
+
+const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
+
 const getProblemsByCourseId = (courseId) =>
   knex('problem').where({ course_id: courseId })
     // Put position-0 last (because it means they were created after the latest reordering!) (https://stackoverflow.com/a/3130216/3192470)
@@ -18,6 +33,10 @@ const getProblemsByCourseId = (courseId) =>
 
 router.get('/courses/:id/learn', authenticate, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
+
+  if (!(await canAccessCourse(courseId, request.currentUser))) {
+    return response.error(cantAccessError);
+  }
 
   // find cuil
   const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
@@ -32,6 +51,10 @@ router.get('/courses/:id/learn', authenticate, catchAsync(async (request, respon
 router.get('/courses/:id/review', authenticate, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
+  if (!(await canAccessCourse(courseId, request.currentUser))) {
+    return response.error(cantAccessError);
+  }
+
   const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
   const problems = await CourseUserIsLearningModel.select.problemsToReview(courseUserIsLearning.id);
   response.status(200).json({ courseUserIsLearning, problems });
@@ -39,12 +62,21 @@ router.get('/courses/:id/review', authenticate, catchAsync(async (request, respo
 
 router.get('/courses/:id/review/simulated', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
+
+  if (!(await canAccessCourse(courseId, request.currentUser))) {
+    return response.error(cantAccessError);
+  }
+
   const problems = await getProblemsByCourseId(courseId);
   response.status(200).json({ courseUserIsLearning: null, problems });
 }));
 
 router.get('/courses/:id', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
+
+  if (!(await canAccessCourse(courseId, request.currentUser))) {
+    return response.error(cantAccessError);
+  }
 
   const problems = await getProblemsByCourseId(courseId);
 
