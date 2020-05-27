@@ -59,7 +59,7 @@ class TabEditCourseDetails extends React.Component {
               {...this.inputProps()}
               label={
                 <span>
-                  Public/Private <StandardTooltip tooltipEl="Private courses won't be listed in /courses. Consider making your course public if other people may want to use it!"/>
+                  Public/Private <StandardTooltip tooltipEl="Only you will be able to access this course. Please consider making your course public if you think other people may find it helpful!"/>
                 </span>
               }
               name="ifPublic"
