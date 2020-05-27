@@ -1,27 +1,14 @@
 import express from 'express';
 const router = express.Router();
 
+import knex from '~/db/knex';
 import catchAsync from '~/services/catchAsync';
 import authenticate from '~/middlewares/authenticate';
-
-import knex from '~/db/knex';
-
+import canAccessCourse from '~/services/canAccessCourse';
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 
 // Todo move these somewhere when PageApi.js is refactored, likely to the middleware
-const canAccessCourse = async (courseId, currentUser) => {
-  const course = (await knex('course').where({ id: courseId }))[0];
-  if (course.ifPublic) return true;
-  if (!currentUser) return false;
-
-  const isAuthor = course.userId === currentUser.id;
-  if (isAuthor) return true;
-
-  const isCoauthor = (await knex('coauthor').where({ courseId, userId: currentUser.id }))[0];
-  if (isCoauthor) return true;
-};
-
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
 
 const getProblemsByCourseId = (courseId) =>
