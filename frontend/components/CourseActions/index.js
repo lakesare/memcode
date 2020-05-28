@@ -151,7 +151,18 @@ class CourseActions extends React.Component {
               tooltipEl={"Only you and coauthors of this course can access this course. Please consider making it public if you think someone else may want to study it."}
               tooltipProps={{ placement: 'bottom' }}
             >
-              <div className="course-is-private-label">PRIVATE</div>
+              <div className="course-label -private">PRIVATE</div>
+            </StandardTooltip>
+          }
+
+          {
+            this.props.type === 'editOrShow' &&
+            courseDto.course.duplicatedFromCourseId &&
+            <StandardTooltip
+              tooltipEl={<>This course was duplicated, see the <Link style={{ color: 'rgb(120, 175, 244)' }} to={`/courses/${courseDto.course.duplicatedFromCourseId}`} target="_blank">original course</Link>.</>}
+              tooltipProps={{ placement: 'bottom', interactive: true }}
+            >
+              <div className="course-label -duplicated">DUPLICATED</div>
             </StandardTooltip>
           }
         </section>
@@ -171,7 +182,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.My.speCourseForActions} requestIcon={this.renderRequestIcon()}>{(courseDto) =>
+    <Loading spe={this.props.My.speCourseForActions} requestIcon={this.renderRequestIcon()} enabledStatuses={['request', 'success']}>{(courseDto) =>
       <section className={`course-actions ${css.actions}`}>
         {this.renderTitleAndButtons(courseDto)}
 

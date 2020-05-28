@@ -48,6 +48,7 @@ CREATE TABLE course (
   if_public BOOLEAN DEFAULT true,
   created_at TIMESTAMP NOT NULL DEFAULT now(),
 
+  duplicated_from_course_id INTEGER REFERENCES course (id) ON DELETE SET NULL DEFAULT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
   course_category_id INTEGER REFERENCES course_category (id) ON DELETE SET DEFAULT DEFAULT 1
 );
