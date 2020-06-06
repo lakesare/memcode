@@ -58,6 +58,9 @@
 
       border-radius: 5px;
       box-shadow: 0px 0px 32px 4px rgba(224, 174, 234, 0.08);
+      .quill{
+        height: 100%;
+      }
       .ql-editor{ cursor: default; }
       &.-ignored{
         background: rgb(23, 23, 22);
