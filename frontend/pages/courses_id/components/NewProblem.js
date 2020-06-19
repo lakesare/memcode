@@ -154,7 +154,7 @@ class NewProblem extends React.Component {
       />
 
       <section className="how-to-create">
-        <span>CTRL+S to save a new flashcard</span>
+        <span>CMD+S to save a new flashcard</span>
         <button className="button -pink -fade-out-on-hover" onClick={this.apiSave}>SAVE</button>
       </section>
 
@@ -162,8 +162,10 @@ class NewProblem extends React.Component {
 
       <section className="choose-type">
         <label>FLASHCARD TYPE</label>
-        {this.renderTypeButton('separateAnswer', 'question answer')}
-        {this.renderTypeButton('inlinedAnswers', 'fill-in answer')}
+        <div className="buttons">
+          {this.renderTypeButton('separateAnswer', 'question answer')}
+          {this.renderTypeButton('inlinedAnswers', 'fill-in answer')}
+        </div>
       </section>
     </div>
 }

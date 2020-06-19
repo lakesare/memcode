@@ -60,14 +60,14 @@
     }
 
     > section.how-to-create{
-      margin-top: 10px;
-      margin-right: 5px;
+      margin-top: 15px;
       color: rgb(172, 181, 218);
       text-align: right;
       font-size: 12px;
       button.button{
         display: inline-block;
         margin-left: 10px;
+        border-radius: 3px;
       }
     }
     > section.choose-type{
@@ -82,7 +82,7 @@
         font-weight: 300;
         color: rgb(172, 181, 218);
       }
-      > button.button{
+      > .buttons > button.button{
         font-size: 9px;
         padding: 7px 4px;
         opacity: 0.5;
@@ -91,6 +91,17 @@
         background: $purple;
         color: white;
         font-weight: 300;
+
+        border-radius: 3px;
+        &:first-child{
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        &:last-child{
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+        }
+
         &.-active{
           opacity: 1;
           cursor: default;
