@@ -15,6 +15,8 @@
   align-items: center;
   // needed too, for responsive design!
   text-align: center;
+
+  border-radius: 2px;
   &.-white{
     background: white;
     border: 1px solid $body-color;

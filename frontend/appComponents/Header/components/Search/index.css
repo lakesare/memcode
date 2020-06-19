@@ -24,6 +24,7 @@
     // looks
     background: rgb(24, 27, 57);
     font-size: 13px;
+    border-radius: 2px;
     input{
       background: transparent;
       color: white;
