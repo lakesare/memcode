@@ -81,7 +81,10 @@
       > section.course-title_and_category_and_author{
         display: flex;
         color: white;
-        > h1.title{}
+        > h1.title{
+          word-break: break-all;
+          max-width: 700px;
+        }
 
         > section.category_and_author,
         > section.edit-invite-buttons{
