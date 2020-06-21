@@ -31,7 +31,7 @@ class TabEditCourseDetails extends React.Component {
       )
         .then(this.props.uiUpdateCourse)
         .then(() => {
-          setTimeout(this.props.closeModal, 2000);
+          this.props.closeModal();
         });
     } else {
       this.setState({ formValidation });
@@ -74,11 +74,7 @@ class TabEditCourseDetails extends React.Component {
           onClick={this.apiUpdateCourse}
         >Update</button>
 
-        <Loading spe={this.state.speSave}>{() =>
-          <div className="standard-success-message">
-            Course was successfully updated.
-          </div>
-        }</Loading>
+        <Loading spe={this.state.speSave}/>
       </form>
     </div>
 }
