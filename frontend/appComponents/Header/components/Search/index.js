@@ -75,7 +75,7 @@ class Search extends React.Component {
       <div className="toggler">
         <i className="fa fa-search"/>
         <input
-          // placeholder="Find a course..."
+          placeholder="Find a course"
           onChange={this.updateSearchString}
           onFocus={this.onFocus}
           onBlur={this.onBlur}

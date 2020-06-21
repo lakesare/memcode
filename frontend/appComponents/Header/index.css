@@ -135,7 +135,7 @@
     }
 
     section.search{
-      flex-basis: 410px;
+      flex-basis: 310px;
       flex-shrink: 1;
       flex-grow: 0;
       display: flex;

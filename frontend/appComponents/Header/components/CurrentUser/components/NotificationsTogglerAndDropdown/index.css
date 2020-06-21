@@ -21,7 +21,7 @@
     }
   }
   &.-there-are-no-unread-notifications{
-    i{ color: rgba(136, 124, 220, 0.52); }
+    i{ color: $faint-blue; }
   }
 
   i{

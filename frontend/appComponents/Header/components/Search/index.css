@@ -31,12 +31,12 @@
       transition-duration: 200ms;
       transition-property: background;
       &::placeholder{
-        color: rgba(255, 255, 255, 0.8);
+        color: $faint-blue;
       }
     }
     i{
       font-size: 16px;
-      color: white;
+      color: $faint-blue;
     }
   }
   > div.standard-dropdown{
