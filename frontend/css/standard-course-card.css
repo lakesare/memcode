@@ -1,4 +1,6 @@
 .standard-course-card{
+  border-radius: 2px;
+
   // instead of global padding
   h2.title,
   section.category_and_author,

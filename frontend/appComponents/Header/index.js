@@ -28,20 +28,28 @@ class Header extends React.Component {
       <NavLink
         exact
         to="/courses"
-        className="link courses"
-      >courses</NavLink>
+        className="button link courses"
+      >Courses</NavLink>
       <NavLink
         exact
         to="/courses/new"
-        className="link create"
-      >create</NavLink>
+        className="button link create"
+      >Create</NavLink>
+      {
+        this.props.currentUser &&
+        <NavLink
+          exact
+          to="/courses/learning"
+          className="button link my-courses"
+        >My courses</NavLink>
+      }
       {
         !this.props.currentUser &&
         <NavLink
           exact
           to="/contact"
-          className="link"
-        >contact</NavLink>
+          className="button link contact"
+        >Contact</NavLink>
       }
     </nav>
 

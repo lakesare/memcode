@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
 import LearnReviewLinks from './components/LearnReviewLinks';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
@@ -47,10 +47,6 @@ class CurrentUser extends React.Component {
 
   render = () =>
     <section className="current-user">
-      <NavLink
-        to="/courses/learning"
-        className="button -purple my-courses-link"
-      >MY COURSES</NavLink>
       <NotificationsTogglerAndDropdown currentUser={this.props.currentUser}/>
       <LearnReviewLinks currentUser={this.props.currentUser} dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
       {this.renderAvatar()}
