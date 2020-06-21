@@ -1,3 +1,4 @@
+@import 'css/variables';
 
 $shine: 0 0 10px white;
 
@@ -5,7 +6,7 @@ $on-bg: rgba(0, 0, 0, 0.15);
 $on-dot-color: white;
 $on-border: 1px solid rgba(108, 127, 206, 0.08);
 
-$off-bg: rgb(179, 207, 243);
+$off-bg: $purple;
 $off-dot-color: #aaa0f7;
 $off-border: 1px solid #aaa0f7;
 

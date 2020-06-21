@@ -1,0 +1,52 @@
+@import 'css/variables';
+
+body.-bright-theme{
+  // background: rgb(179, 207, 243);
+  // header .notifications-toggler i{
+  //   color: white !important;
+  // }
+  section.problem{
+    // font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+    font-weight: 600;
+    .ql-editor{
+      background: white !important;
+    }
+    .quill > .ql-container > .ql-editor{
+      // color: rgb(206, 199, 245);
+      // We need !important-s because we have to override styles copypasted by users
+      code, span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol{
+        color: rgb(49, 51, 54) !important;
+        background: white !important;
+      }
+
+      strong{
+        color: $orange !important;
+        font-weight: inherit;
+      }
+      em{
+        color: $purple !important;
+        font-weight: inherit;
+      }
+      a{
+        color: $purple !important;
+      }
+
+      pre.ql-syntax, code, code *{
+        background: white !important;
+        color: rgb(49, 51, 54) !important;
+      }
+
+      blockquote, blockquote span{
+        color: rgb(49, 51, 54) !important;
+        background: rgb(248, 248, 248) !important;
+      }
+      blockquote{
+        border-left: 2px solid rgb(235, 235, 235);
+      }
+    }
+    // placeholder!
+    > .ql-container > .ql-editor.ql-blank::before{
+      color: rgb(49, 51, 54);
+    }
+  }
+}
