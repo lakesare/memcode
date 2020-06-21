@@ -322,7 +322,7 @@
           color: rgb(226, 230, 246);
           letter-spacing: 0.2px;
         }
-        > button.button{
+        > .buttons > button.button{
           font-size: 9px;
           padding: 7px 4px;
           opacity: 0.5;
@@ -339,7 +339,7 @@
           &:not(.-active):hover{
             opacity: 0.7;
           }
-          &:nth-child(2){
+          &:first-child{
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
           }
@@ -376,7 +376,7 @@
           display: none;
         }
         &:hover{
-          background: rgb(33, 35, 61);
+          background: rgb(29, 34, 69);
           &:hover{
             .total-amount-of-flashcards{
               height: 35px;
