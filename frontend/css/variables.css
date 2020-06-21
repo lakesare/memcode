@@ -1,4 +1,4 @@
-$purple: rgb(136, 125, 220);
+$purple: rgb(105, 122, 180);
 $blue: rgb(21, 23, 58);
 $orange: rgba(250, 100, 0, 0.84);
 
@@ -9,7 +9,7 @@ $color-main-1: rgb(15, 17, 34); // header
 $color-main-2: rgb(15, 17, 34); // bg
 $color-main-3: rgb(24, 27, 57); // course
 $faint-blue: rgb(53, 65, 105);
-
+$not-so-faint-blue: rgb(90, 102, 141);
 
 // old colors
 $whale-tail-blue: rgb(236, 96, 100);

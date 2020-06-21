@@ -1,9 +1,12 @@
 .standard-form{
-  margin-top: 40px;
   margin-bottom: 40px;
   padding: 25px 15px;
+
+  max-width: 800px;
+  margin: 40px auto;
   &.-bordered{
-    background: rgba(25, 26, 46, 0.27);
+    background: rgb(20, 23, 46);
+    border-radius: 3px;
   }
 
   .form-insides{
@@ -41,15 +44,15 @@
       > div.standard-input{}
       > div.validation-error{
         padding: 10px 20px;
-        background: rgba(25, 26, 46, 0.27);
-        border-radius: 0px 0px 5px 5px;
+        border-radius: 0px 0px 2px 2px;
         text-align: left;
-        color: $purple;
         font-size: 12px;
+
+        background: rgb(48, 21, 54);
+        color: rgb(236, 76, 123);
       }
     }
   }
-
 }
 .standard-submit-button{
   margin: 0 auto;

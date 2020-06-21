@@ -4,9 +4,9 @@
   width: 100%;
   padding: 10px 20px;
   background: $color-main-3;
-  border-bottom: 1px solid rgb(33, 35, 54);
   color: white;
   font-size: 13px;
+  border-radius: 2px;
   &::placeholder{
     color: rgb(136, 140, 202);
   }

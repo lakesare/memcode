@@ -5,15 +5,16 @@
     margin: 20px 0;
     text-align: center;
     font-weight: 300;
-    color: $purple;
+    color: rgb(105, 122, 180);
+    font-size: 27px;
   }
   > article.description{
-    color: rgb(141, 146, 209);
+    color: rgb(105, 122, 180);
     font-weight: 100;
-    font-size: 13px;
+    font-size: 15px;
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
-    line-height: 18px;
+    line-height: 20px;
   }
 }
