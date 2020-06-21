@@ -71,6 +71,8 @@ class Page_contact extends React.Component {
 
   render = () =>
     <Main className={css.main}>
+      <div className="space"/>
+
       <div className="container">
         <div className="standard-title-and-description">
           <h2 className="title">Send Us a Message</h2>

@@ -70,6 +70,7 @@ class ChooseCourseToMoveProblemsTo extends React.Component {
               onChange={this.updateSearchString}
               onFocus={() => this.setState({ ifDropdownIsOpen: true })}
               placeholder="Another course..."
+              autoComplete="off"
             />
 
             {
