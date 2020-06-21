@@ -112,8 +112,9 @@ class NewProblem extends React.Component {
     }
   }
 
-  updateProblemContent = (problemContent) =>
-    this.setState({ problemContent })
+  updateProblemContent = (problemContent) => {
+    this.setState({ problemContent, speCreateProblem: {} })
+  }
 
   updateType = (newType) => {
     const oldContent = this.state.problemContent;
