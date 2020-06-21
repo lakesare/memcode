@@ -1,3 +1,5 @@
+@import 'css/variables';
+
 $color_1: #777;
 $color_2: #fff;
 $color_3: #e60000;
@@ -694,7 +696,7 @@ $border_color_1: #000;
       height: 26px;
       padding: 3px 5px;
       width: 300px;
-      background: rgb(25, 26, 46);
+      background: $color-main-3;
       border-bottom: 1px solid rgb(33, 35, 54);
       color: white;
     }

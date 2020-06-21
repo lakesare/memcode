@@ -3,7 +3,7 @@
 :local(.CourseCardLearnReview){
   width: 199px;
   height: 213px;
-  background: rgb(25, 26, 46);
+  background: $color-main-3;
   overflow: hidden;
 
   display: flex;
@@ -15,7 +15,7 @@
     flex-shrink: 0;
 
     width: 100%;
-    background: rgb(29, 31, 52);
+    background: rgba(86, 91, 130, 0.08);
     text-align: right;
     color: white;
     opacity: 0.8;

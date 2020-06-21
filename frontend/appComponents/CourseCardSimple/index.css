@@ -3,7 +3,7 @@
 :local(.a){
   width: 199px;
   height: 213px;
-  background: rgb(25, 26, 46);
+  background: $color-main-3;
   overflow: hidden;
 
   h2.title{

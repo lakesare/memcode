@@ -1,8 +1,9 @@
+@import 'css/variables';
 
 .extendable-pretty-input{
   width: 100%;
   padding: 10px 20px;
-  background: rgb(25, 26, 46);
+  background: $color-main-3;
   border-bottom: 1px solid rgb(33, 35, 54);
   color: white;
   font-size: 13px;
