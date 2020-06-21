@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet';
 
+import api from '~/api';
+import capitalize from '~/services/capitalize';
+
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
-
-import api from '~/api';
 
 import css from './index.css';
 
@@ -46,7 +47,7 @@ class Page_courses_id extends React.Component {
         <div className="container">
           <div className="wrapper">
             <div className="user">
-              <h1>Profile</h1>
+              <h1>{capitalize(user.username)}'s Profile</h1>
               <div className="user-details">
                 <img src={user.avatarUrl} alt="avatar"/>
                 <div className="right">
@@ -73,13 +74,11 @@ class Page_courses_id extends React.Component {
               />
             </section>
           </div>
+          <Helmet>
+            <title>{capitalize(user.username)}</title>
+          </Helmet>
         </div>
       }</Loading>
-
-      <Helmet>
-        <title>User</title>
-        <meta name="description" content="Create and memorize your personal flashcards."/>
-      </Helmet>
     </Main>
 }
 
