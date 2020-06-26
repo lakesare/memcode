@@ -1,6 +1,11 @@
 @import 'css/variables';
 
 :local(.edit){
+
+  section.problems, div.new-problem{
+    margin-left: 110px !important;
+  }
+
   // list of problems
   section.problems{
     max-width: 1000px;
@@ -72,7 +77,7 @@
     }
     > section.choose-type{
       position: absolute;
-      top: 0; right: -90px;
+      top: 0; left: -90px;
       // for react-joyride
       padding-bottom: 20px;
       > label{
