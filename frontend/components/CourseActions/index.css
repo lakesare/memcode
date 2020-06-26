@@ -173,15 +173,14 @@
           align-items: center;
           justify-content: flex-end;
           > div.icon{
-            color: $purple;
-            text-shadow: 0 0 6px #fbfbfb47;
+            color: rgba(136, 125, 220, 0.9);
+            // text-shadow: 0 0 6px #fbfbfb47;
             font-size: 17px;
             width: 27px;
             text-align: center;
           }
           > div.stat{
             font-size: 10px;
-            text-shadow: 0 0 6px #fff8fff0;
             padding-right: 10px;
             letter-spacing: 0.5px;
             text-transform: uppercase;
@@ -190,8 +189,7 @@
               top: 1px;
               padding-right: 3px;
               font-size: 15px;
-              color: $purple;
-              text-shadow: 0 0 8px rgb(232, 0, 255);
+              color: rgba(136, 125, 220, 0.9);
             }
             span.number.review-in-stat-number{
               padding-left: 5px;
