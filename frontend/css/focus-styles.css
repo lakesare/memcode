@@ -4,13 +4,6 @@
   outline: none;
 }
 
-ul.pagination a{
-  &.focus-visible{
-    outline: none;
-    box-shadow: inset 0 0 1px 1px $purple;
-  }
-}
-
 input.standard-input:not(.answer-input):not(.toggler),
 .standard-input.-Select button.toggler,
 .standard-dropdown a, .standard-dropdown button,

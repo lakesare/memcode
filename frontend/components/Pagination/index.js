@@ -39,11 +39,13 @@ class Pagination extends React.Component {
 
   renderPage = (pageN) =>
     <li key={pageN} className={pageN === this.props.currentPage ? 'page-n -current' : 'page-n'}>
-      <Link
-        to={this.props.getUrlForNewPageNumber(pageN)}
-      >
-        {pageN}
-      </Link>
+      {
+        pageN === this.props.currentPage ?
+          pageN :
+          <Link to={this.props.getUrlForNewPageNumber(pageN)}>
+            {pageN}
+          </Link>
+      }
     </li>
 
   render = () => {
