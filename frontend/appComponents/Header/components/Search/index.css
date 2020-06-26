@@ -22,7 +22,7 @@
     }
 
     // looks
-    background: rgb(24, 27, 57);
+    
     font-size: 13px;
     border-radius: 2px;
     input{
@@ -32,6 +32,11 @@
       transition-property: background;
       &::placeholder{
         color: $faint-blue;
+      }
+      border-radius: 2px;
+      background: rgb(24, 27, 57);
+      &:focus, &:hover{
+        background: rgb(27, 30, 63);
       }
     }
     i{

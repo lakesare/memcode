@@ -5,7 +5,7 @@
 }
 
 header .avatar{
-  &:hover{
+  &:hover, &:focus{
     opacity: 0.7;
   }
 }
@@ -78,7 +78,7 @@ header{
 
 @media(min-width: 460px){
   .standard-course-card{
-    &:focus-within{
+    &:focus-within, &:hover{
       outline: none;
       background: rgb(32, 35, 73);
     }
