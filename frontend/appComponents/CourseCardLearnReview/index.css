@@ -10,7 +10,17 @@
   flex-direction: column;
   justify-content: space-between;
 
-  > a.go{
+  &.-focusable-link{
+    &:hover, &:focus{
+      background: rgb(32, 35, 73);
+      a{
+        opacity: 1;
+        text-shadow: 0 0 6px rgba(243, 243, 243, 0.5);
+      }
+    }
+  }
+
+  > .go{
     flex-grow: 0;
     flex-shrink: 0;
 

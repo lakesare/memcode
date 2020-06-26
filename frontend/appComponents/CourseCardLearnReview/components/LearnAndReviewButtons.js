@@ -40,7 +40,7 @@ class LearnAndReviewButtons extends React.Component {
       {this.renderAmountOfProblemsToReview(amountOfProblemsToReview, nextDueDateIn)}
     </section>
 
-  renderLinks = (amountOfProblemsToLearn, amountOfProblemsToReview, courseId, nextDueDateIn) =>
+  renderLinks = (amountOfProblemsToLearn, amountOfProblemsToReview, courseId) =>
     <section className="links">
       <Link
         className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
@@ -51,17 +51,6 @@ class LearnAndReviewButtons extends React.Component {
         amountOfProblemsToReview > 0 &&
         <Link className="review" to={`/courses/${courseId}/review`}>
           REVIEW
-        </Link>
-      }
-      {
-        amountOfProblemsToReview === 0 &&
-        // if there are no problems at all, - don't show the link to an empty review page.
-        nextDueDateIn &&
-        <Link className="review -simulated" to={`/courses/${courseId}/review/simulated`}>
-          <div className="text">
-            <div className="review-text">REVIEW</div>
-            <div className="without-text">without recording results</div>
-          </div>
         </Link>
       }
     </section>

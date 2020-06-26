@@ -6,7 +6,7 @@
   // instead of global padding
   h2.title,
   section.category_and_author,
-  a.go,
+  .go,
   div.description{
     padding: 0 10px;
   }

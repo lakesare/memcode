@@ -48,29 +48,49 @@ class CourseCardLearnReview extends React.Component {
       <i className="fa fa-long-arrow-right"/>
     </Link>
 
-  render = () =>
-    <div className={"standard-course-card -learnReviewCourse " + css.CourseCardLearnReview}>
-      {this.renderGo(this.props.courseDto.course)}
+  renderMain = (courseDto) =>
+    <div className="main">
+      <section className="category_and_author">
+        <div className="category">{courseDto.courseCategory.name === 'Programming Languages' ? 'Programming' : courseDto.courseCategory.name}</div>
+        <div className="author">{courseDto.author.username}</div>
+      </section>
 
-      <div className="main">
-        <section className="category_and_author">
-          <div className="category">{this.props.courseDto.courseCategory.name === 'Programming Languages' ? 'Programming' : this.props.courseDto.courseCategory.name}</div>
-          <div className="author">{this.props.courseDto.author.username}</div>
-        </section>
+      <h2 className="title">{courseDto.course.title}</h2>
 
-        <h2 className="title">{this.props.courseDto.course.title}</h2>
-
-        {
-          this.ifCanLearnAndReview() &&
-          <LearnAndReviewButtons
-            courseId={this.props.courseDto.course.id}
-            amountOfProblemsToReview={this.props.courseDto.amountOfProblemsToReview}
-            amountOfProblemsToLearn={this.props.courseDto.amountOfProblemsToLearn}
-            nextDueDateIn={this.props.courseDto.nextDueDateIn}
-          />
-        }
-      </div>
+      {
+        this.ifCanLearnAndReview() &&
+        <LearnAndReviewButtons
+          courseId={courseDto.course.id}
+          amountOfProblemsToReview={courseDto.amountOfProblemsToReview}
+          amountOfProblemsToLearn={courseDto.amountOfProblemsToLearn}
+          nextDueDateIn={courseDto.nextDueDateIn}
+        />
+      }
     </div>
+
+  render = () => {
+    const className = "standard-course-card -learnReviewCourse " + css.CourseCardLearnReview;
+    const courseDto = this.props.courseDto;
+
+    if (courseDto.amountOfProblemsToReview === 0 && courseDto.amountOfProblemsToLearn === 0) {
+      return (
+        <Link
+          className={className + ' -focusable-link'}
+          to={UrlCreator.courseEditOrShow(this.props.currentUser, courseDto.course)}
+        >
+          <div className="go"><i className="fa fa-long-arrow-right"/></div>
+          {this.renderMain(courseDto)}
+        </Link>
+      );
+    } else {
+      return (
+        <div className={className}>
+          {this.renderGo(courseDto.course)}
+          {this.renderMain(courseDto)}
+        </div>
+      );
+    }
+  }
 }
 
 export default CourseCardLearnReview;
