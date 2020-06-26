@@ -3,6 +3,19 @@
 :local(.header){
   background: rgba(34, 38, 74, 0.27);
 
+  .logo-and-search{
+    display: flex;
+    flex-grow: 1;
+    .logo{
+      flex-shrink: 0;
+      flex-grow: 0;
+      margin-right: 30px;
+    }
+    .search{
+      max-width: 300px;
+    }
+  }
+
   a.logo{
     display: flex;
     align-items: center;

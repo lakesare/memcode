@@ -65,8 +65,10 @@ class Header extends React.Component {
 
   renderDesktop = () =>
     <div className="container -desktop">
-      <Logo/>
-      <Search currentUser={this.props.currentUser}/>
+      <div className="logo-and-search">
+        <Logo/>
+        <Search currentUser={this.props.currentUser}/>
+      </div>
 
       <div className="nav-and-current-user">
         {this.renderNavigation()}
