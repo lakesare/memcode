@@ -34,15 +34,15 @@ class CurrentUser extends React.Component {
       tooltipProps={{
         interactive: true,
         placement: 'bottom-end',
-        trigger: 'click'
+        trigger: 'click',
       }}
     >
-      <div className="avatar">
+      <button type="button" className="avatar">
         <img
           src={this.props.currentUser.avatarUrl}
           alt="Avatar of a current user"
         />
-      </div>
+      </button>
     </StandardTooltip>
 
   render = () =>

@@ -51,10 +51,9 @@
             margin-left: 10px;
           }
           .more-button{
-            padding-left: 5px;
-            text-align: right;
-            cursor: pointer;
-            &:hover{ opacity: 0.8; }
+            margin-left: 5px;
+            min-width: 0;
+            padding: 0;
             i{ font-size: 29px; }
           }
         }

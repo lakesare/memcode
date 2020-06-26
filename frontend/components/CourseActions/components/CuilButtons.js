@@ -164,7 +164,7 @@ class CuilButtons extends React.Component {
               trigger: 'click'
             }}
           >
-            <button type="button" className="more-button">
+            <button type="button" className="button more-button">
               <i className="material-icons">more_vert</i>
             </button>
           </StandardTooltip>
