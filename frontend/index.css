@@ -37,16 +37,7 @@ $fa-font-path: "~font-awesome/fonts";
 
 @import 'css/problem';
 
-// Let's probably get rid of this class?
+// probably useless, get rid of this?
 div.space{
   margin-top: 35px;
-}
-
-// Increase the size of everything for desktop screens!
-@media(min-width: 930px) {
-  main:not(.welcome-article), .welcome-article header{
-    zoom: 1.2; 
-    -moz-transform: scale(1.2); 
-    -moz-transform-origin: 0 0;
-  }
 }

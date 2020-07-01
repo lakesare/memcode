@@ -67,7 +67,7 @@ class Page_articles_welcome extends React.Component {
     </div>
 
   render = () =>
-    <Main className={`${css.main} welcome-article`}>
+    <Main className={css.main}>
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">
