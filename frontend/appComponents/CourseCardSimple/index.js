@@ -34,7 +34,6 @@ class CourseCardSimple extends React.Component {
   render = () =>
     <Link
       to={this.getUrl()}
-      target={this.props.ifShowSimulatedReviewButton ? "_blank" : undefined}
       className={`standard-course-card -simple ${css.a}`}
     >
       <section className="category_and_author">
