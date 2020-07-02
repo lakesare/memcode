@@ -71,6 +71,8 @@ class Page_articles_welcome extends React.Component {
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">
+            <a className="Header-github" target="_blank" rel="noopener noreferrer" href="https://github.com/lakesare/memcode">★ Star on GitHub</a>
+
             <h1 className="-glow">Welcome to Memcode</h1>
             <h2 className="subtitle">Memorizing is hard. Let's make everything else easy.</h2>
 
@@ -83,7 +85,6 @@ class Page_articles_welcome extends React.Component {
             </h2>
 
             <Link to="/courses/new" className="button -orange -move-up-on-hover -with-radius" type="button">Use for Free, Forever →</Link>
-
             {/* <hr/> */}
           </section>
 

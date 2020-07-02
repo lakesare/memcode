@@ -5,15 +5,74 @@
 :local(main.main){
   // Took it from sketch, add some other background #todo
   background-image: url('./images/waves.jpg');
-  background-size: cover;
+  // background-size: cover;
+  // After the chrome update stopped working in chrome :-/
   background-position: -200px -397px;
   background-color: rgb(14, 13, 28);
   background-size: auto;
   background-repeat: no-repeat;
 
+  header .search input{
+    background: rgb(23, 26, 63);
+  }
   header .sign-in-links{
     background: rgba(28, 33, 82, 0.53);
   }
+  header{
+    background: rgb(15, 11, 44);
+  }
+
+
+
+  overflow: hidden;
+  position: relative;
+  header{
+    position: relative;
+    z-index: 1;
+  }
+
+  .Header-github{
+    &:hover{
+      background: rgb(250, 92, 18);
+    }
+    z-index: 0;
+    top: 97px;
+    right: -67px;
+    display: block;
+    position: absolute;
+    width: 282px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $orange;
+    font-family: "Sentinel SSm A", "Sentinel SSm B", "Sentinel", "Georgia", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: white;
+    text-decoration: none;
+    white-space: nowrap;
+    transform: rotate(45deg);
+    transform-origin: 50% 50%;
+  }
+
+  @media(max-width: 930px){
+    .Header-github{
+      display: none;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   .feature-list{
