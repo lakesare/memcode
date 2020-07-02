@@ -18,13 +18,15 @@
     letter-spacing: 2px;
 
     > section.blog-links{
-      > a{
-        display: inline-block;
-      }
+      display: flex;
+      align-items: center;
       > span.pipe{
-        display: inline-block;
         padding: 0 15px;
-        opacity: 0.3;
+        color: $faint-blue;
+      }
+      .star-us{
+        display: inline-block;
+        margin-bottom: -2px;
       }
     }
     > section.email{

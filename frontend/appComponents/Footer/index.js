@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import css from './index.css';
 
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
+import GitHubButton from 'react-github-btn';
 
 class Footer extends React.Component {
   render = () =>
@@ -12,7 +13,10 @@ class Footer extends React.Component {
           <span className="pipe">|</span>
           <Link to="/contact">Contact</Link>
           <span className="pipe">|</span>
-          <a href="https://github.com/lakesare/memcode" target="_blank" rel="noopener noreferrer">Github</a>
+
+          <div className="star-us">
+            <GitHubButton href="https://github.com/lakesare/memcode" data-icon="octicon-star" data-show-count="true" aria-label="Star lakesare/memcode on GitHub">Star</GitHubButton>
+          </div>
         </section>
 
         <section className="email">
