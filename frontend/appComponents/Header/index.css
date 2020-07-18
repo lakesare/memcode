@@ -138,7 +138,7 @@
   .container.-desktop{
     display: flex;
     justify-content: space-between;
-    height: 50px;
+    height: 55px;
     > div.nav-and-current-user{
       display: flex;
     }

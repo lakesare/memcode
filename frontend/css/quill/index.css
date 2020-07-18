@@ -10,8 +10,8 @@
     *:not(a) { cursor: default !important; }
   }
   > .ql-container > .ql-editor{
-    min-height: 58px;
-    font-size: 15px;
+    min-height: 70px;
+    font-size: 17px;
 
     height: 100%;
     outline: none;
@@ -49,7 +49,7 @@
       color: rgb(208, 204, 238) !important;
     }
     pre.ql-syntax, code{
-      font-size: 13px;
+      font-size: 15px;
       white-space: pre-wrap;
       border-radius: 3px;
     }
@@ -62,7 +62,7 @@
     }
 
     sup, sub{
-      font-size: 12px;
+      font-size: 14px;
       strong{ font-size: inherit; }
     }
     ul, ol{
@@ -74,7 +74,7 @@
     ul{ padding-left: 15px; }
     ol{ padding-left: 21px; }
     blockquote{
-      font-size: 12px;
+      font-size: 14px;
       border-left: 1px solid rgba(206, 199, 245, 0.62);
       color: rgb(238, 236, 246) !important;
       background: rgba(21, 23, 45, 0.38) !important;
@@ -88,6 +88,7 @@
   }
   // placeholder!
   > .ql-container > .ql-editor.ql-blank::before{
+    font-size: 15px;
     font-style: normal;
     padding-right: 10px;
     line-height: 20px;
