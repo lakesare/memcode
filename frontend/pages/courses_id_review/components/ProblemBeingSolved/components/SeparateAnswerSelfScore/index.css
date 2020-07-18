@@ -22,9 +22,21 @@
       padding-bottom: 45px;
       padding-top: 20px;
       width: 25%;
+      &:first-child{
+        div.star{
+          border-top-left-radius: 2px;
+          border-bottom-left-radius: 2px;
+        }
+      }
+      &:last-child{
+        div.star{
+          border-top-right-radius: 2px;
+          border-bottom-right-radius: 2px;
+        }
+      }
       > div.star{
         padding-right: 3px; padding-left: 3px;
-        width: 100%; height: 10px;
+        width: 100%; height: 13px;
         transition-property: background;
         transition-duration: .4s;
       }
