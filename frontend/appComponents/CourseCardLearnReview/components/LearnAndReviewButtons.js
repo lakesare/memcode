@@ -42,10 +42,16 @@ class LearnAndReviewButtons extends React.Component {
 
   renderLinks = (amountOfProblemsToLearn, amountOfProblemsToReview, courseId) =>
     <section className="links">
-      <Link
-        className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
-        to={`/courses/${courseId}/learn`}
-      >LEARN</Link>
+      {
+        amountOfProblemsToLearn > 0 ?
+          <Link
+            className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
+            to={`/courses/${courseId}/learn`}
+          >
+            LEARN
+          </Link> :
+          <div/>
+      }
 
       {
         amountOfProblemsToReview > 0 &&
