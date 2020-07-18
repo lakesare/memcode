@@ -5,6 +5,8 @@ import ErrorBoundary from '~/components/ErrorBoundary';
 import Header from '~/appComponents/Header';
 import Footer from '~/appComponents/Footer';
 
+let alreadyFetched = false;
+
 @connect(
   (state) => ({
     currentUser: state.global.Authentication.currentUser || false,
@@ -27,7 +29,11 @@ class Main extends React.Component {
 
   componentDidMount = () => {
     if (this.props.currentUser) {
-      this.props.MyActions.apiGetCourses();
+      // Can't make the component not rerender
+      if (!alreadyFetched) {
+        this.props.MyActions.apiGetCourses();
+      }
+      alreadyFetched = true;
 
       // every 5 minutes
       this.apiSyncInterval = setInterval(() => {
