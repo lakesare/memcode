@@ -1,15 +1,19 @@
 @import 'css/variables';
 
+$yellowish: rgb(247, 248, 228);
+
 body.-bright-theme{
-  // background: rgb(179, 207, 243);
+  background: rgb(179, 207, 243);
   // header .notifications-toggler i{
   //   color: white !important;
   // }
   section.problem{
     // font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
-    font-weight: 600;
+    font-weight: 400;
+    background: $yellowish;
     .ql-editor{
       background: white !important;
+      box-shadow: none !important;
     }
     .quill > .ql-container > .ql-editor{
       // color: rgb(206, 199, 245);
@@ -42,6 +46,28 @@ body.-bright-theme{
       }
       blockquote{
         border-left: 2px solid rgb(235, 235, 235);
+      }
+    }
+    .ql-toolbar{
+      background: rgb(170, 160, 247) !important;
+    }
+    button.see-answer-button{
+      box-shadow: none !important;
+      border: none !important;
+      background: rgb(133, 236, 180) !important;
+      color: white !important;
+      font-weight: 400 !important;
+      &:hover, &:focus{
+        background: rgb(110, 211, 156) !important;
+      }
+    }
+    &.-withInlinedAnswers{
+      input.answer-input[data-answered='waiting']{
+        color: rgb(49, 51, 54) !important;
+        border: 2px solid rgb(170, 160, 247);
+        &:hover, &:focus{
+          background: none !important;
+        }
       }
     }
     // placeholder!

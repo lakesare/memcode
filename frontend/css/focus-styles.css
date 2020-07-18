@@ -90,7 +90,7 @@ header{
 }
 
 
-input.answer-input.focus-visible{
+input.answer-input:focus{
   background: rgba(136, 125, 220, 0.16) !important;
   box-shadow: none;
 }

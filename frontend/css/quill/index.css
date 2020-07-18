@@ -7,7 +7,10 @@
 .quill{
   position: relative;
   &.-readOnly{
-    *:not(a) { cursor: default !important; }
+    cursor: default;
+    a, input {
+      cursor: pointer;
+    }
   }
   > .ql-container > .ql-editor{
     min-height: 70px;
