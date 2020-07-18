@@ -36,7 +36,7 @@
     font-size: 12px;
     font-weight: 500;
     border-radius: 2px;
-    background: rgba(136, 125, 220, 0.12);
+    background: rgb(123, 114, 203);
     color: white;
 
     display: flex;
@@ -49,7 +49,7 @@
   &.-checked,
   &.-checked > section.checkbox,
   &.-not-checked > section.checkbox:hover{
-    background: $purple;
+    background: rgb(153, 63, 13);
   }
 
   transition-duration: 300ms;
