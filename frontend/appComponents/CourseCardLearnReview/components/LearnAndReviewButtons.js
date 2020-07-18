@@ -21,9 +21,6 @@ class LearnAndReviewButtons extends React.Component {
         <i className="material-icons timer-icon">timer</i>
         in {humanizePostgresInterval(nextDueDateIn)}
       </div>;
-    // user hasn't learned anything from this course yet
-    } else if (amountOfProblemsToReview === 0 && !nextDueDateIn) {
-      return <div className="review -empty"/>;
     // user has problems to review
     } else if (amountOfProblemsToReview > 0) {
       return <div className="review -nonzero">
@@ -34,23 +31,25 @@ class LearnAndReviewButtons extends React.Component {
 
   renderAmountFooter = (amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn) =>
     <section className="amount-footer">
-      <div className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}>
-        {amountOfProblemsToLearn} to learn
-      </div>
+      {
+        amountOfProblemsToLearn > 0 &&
+        <div className="learn -nonzero">
+          {amountOfProblemsToLearn} to learn
+        </div>
+      }
       {this.renderAmountOfProblemsToReview(amountOfProblemsToReview, nextDueDateIn)}
     </section>
 
   renderLinks = (amountOfProblemsToLearn, amountOfProblemsToReview, courseId) =>
     <section className="links">
       {
-        amountOfProblemsToLearn > 0 ?
-          <Link
-            className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
-            to={`/courses/${courseId}/learn`}
-          >
-            LEARN
-          </Link> :
-          <div/>
+        amountOfProblemsToLearn > 0 &&
+        <Link
+          className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
+          to={`/courses/${courseId}/learn`}
+        >
+          LEARN
+        </Link>
       }
 
       {

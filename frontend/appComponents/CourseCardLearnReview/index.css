@@ -66,15 +66,18 @@
         bottom: 22px; top: 0;
         display: flex;
 
-        > a, > div{
+        > a{
           opacity: 0;
-          width: 50%;
+          font-size: 12px;
+          
+          flex-grow: 1;
+          flex-basis: 50%;
+
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 12px;
           &:hover, &:focus{
-            opacity: 1;
+            opacity: 0.9;
             box-shadow: none;
             border: none !important;
           }
@@ -117,7 +120,8 @@
         height: 22px;
         cursor: default;
         > div.learn, > div.review{
-          width: 50%;
+          flex-basis: 50%;
+          flex-grow: 1;
           font-size: 10px;
           padding: 4px 0;
           text-align: center;
@@ -128,11 +132,6 @@
         }
         > div.learn{
           background: $learn-button-color;
-          &.-zero{
-            opacity: 0;
-            pointer-events: none;
-            cursor: default;
-          }
         }
         > div.review{
           &.-nonzero{
@@ -145,9 +144,6 @@
               font-size: 14px;
               padding-right: 5px;
             }
-          }
-          &.-empty{
-            visibility: hidden;
           }
         }
       }
