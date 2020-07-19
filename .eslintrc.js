@@ -303,6 +303,8 @@ module.exports = {
     "self": true,
     "caches": true,
 
+    "Audio": true
+
     // "DefinePlugin": true
   }
 }

@@ -1,12 +1,10 @@
-import longSound from '../../shimmer.mp3';
+import playSound from '~/services/playSound';
+import longSound from '../../short_shimmer.mp3';
 
 const playLongSound = (score, currentProblem) => {
-  if (score === 5) {
-    if (localStorage.getItem('volume') === 'yes') {
-      const audio = new Audio(longSound);
-      audio.volume = 0.1;
-      audio.play();
-    }
+  if (score === undefined || (currentProblem.type === 'separateAnswer' && score === 5)) {
+    // console.error('playing long sound');
+    playSound(longSound, { volume: 0.1 });
   }
 };
 

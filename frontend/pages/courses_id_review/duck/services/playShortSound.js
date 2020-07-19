@@ -1,12 +1,9 @@
-import shortMusic from '../../short_shimmer.mp3';
+import playSound from '~/services/playSound';
+import shortMusic from '../../real_short.mp3';
 
 const playShortSound = () => {
-  console.log('playing short sound');
-  if (localStorage.getItem('volume') === 'yes') {
-    const audio = new Audio(shortMusic);
-    audio.volume = 0.1;
-    audio.play();
-  }
+  // console.error('playing short sound');
+  playSound(shortMusic, { volume: 0.12 });
 };
 
 export default playShortSound;

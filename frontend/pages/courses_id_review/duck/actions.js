@@ -5,6 +5,7 @@ import MyDuck from '~/ducks/MyDuck';
 import selectors from './selectors';
 
 import playShortSound from './services/playShortSound';
+import playLongSound from './services/playLongSound';
 
 const enterPressed = () =>
   (dispatch, getState) => {
@@ -52,7 +53,7 @@ const enterPressed = () =>
               payload: currentIndex
             });
           }
-          currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
+          playLongSound(score, currentProblem);
           dispatch({
             type: 'SET_NEXT_PROBLEM',
             payload: currentIndex + 1
@@ -92,7 +93,7 @@ const enterPressedInFailedMode = () =>
             payload: currentIndex
           });
         }
-        currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
+        playLongSound(score, currentProblem);
 
         const ifNextReReviewProblem = state.indexesOfFailedProblems[0];
         if (ifNextReReviewProblem) {
@@ -134,7 +135,7 @@ const enterPressedInSimulatedReview = () =>
               payload: currentIndex
             });
           }
-          currentProblem.type === 'separateAnswer' && playShortSound(score, currentProblem);
+          playLongSound(score, currentProblem);
 
           dispatch({
             type: 'SET_NEXT_PROBLEM',
