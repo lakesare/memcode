@@ -87,6 +87,7 @@
     img{
       background: white !important;
       max-width: 100%;
+      border-radius: 2px;
     }
   }
   // placeholder!

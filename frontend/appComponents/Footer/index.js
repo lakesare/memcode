@@ -13,10 +13,13 @@ class Footer extends React.Component {
           <span className="pipe">|</span>
           <Link to="/contact">Contact</Link>
           <span className="pipe">|</span>
-
           <div className="star-us">
             <GitHubButton href="https://github.com/lakesare/memcode" data-icon="octicon-star" data-show-count="true" aria-label="Star lakesare/memcode on GitHub">Star</GitHubButton>
           </div>
+          <span className="pipe">|</span>
+          <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/memcodeapp" className="twitter-link">
+            Follow <i className="fa fa-twitter" aria-hidden="true"/>
+          </a>
         </section>
 
         <section className="email">

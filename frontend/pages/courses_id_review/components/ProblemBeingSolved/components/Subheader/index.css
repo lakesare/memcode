@@ -24,19 +24,11 @@
       opacity: 0.9;
       i.-yes{ display: block; }
       i.-no{ display: none; }
-      // &:hover{
-      //   i.-yes{ display: none; }
-      //   i.-no{ display: block; }
-      // }
     }
     &.-no{
       opacity: 0.5;
       i.-yes{ display: none; }
       i.-no{ display: block; }
-      // &:hover{
-      //   i.-yes{ display: block; }
-      //   i.-no{ display: none; }
-      // }
     }
   }
 
@@ -50,12 +42,14 @@
       right: 8px;
       top: 2px;
     }
-  }
+  }  
 
-  .instructions{
+  div.instructions{
+    font-size: 15px;
     em{
       font-style: normal;
       text-transform: uppercase;
+      padding-right: 5px;
     }
     em.yellow-emphasis{
       color: $test-drive-button-color;
@@ -92,12 +86,13 @@
     padding-top: 10px;
     padding-bottom: 10px;
     > div.instructions{
-      font-size: 14px;
       &.-desktop p{
         display: flex;
         align-items: center;
         .volume-button{
           padding-left: 10px;
+          padding-right: 10px;
+          margin-left: 6px;
         }
       }
     }
@@ -108,7 +103,6 @@
   }
   &.-usual-review > .container{
     > div.instructions{
-      font-size: 14px;
       p{
         margin-top: 10px;
         margin-bottom: 0;
@@ -128,9 +122,6 @@
         margin-left: 10px;
       }
     }
-  }
-  &.-failed-flashcards-review > .container{
-    > div.instructions{ font-size: 14px; }
   }
 }
 

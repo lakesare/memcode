@@ -28,6 +28,10 @@
         display: inline-block;
         margin-bottom: -2px;
       }
+      .twitter-link{
+        color: rgb(29, 161, 242);
+        font-size: 15px;
+      }
     }
     > section.email{
       i{ padding-left: 10px; }

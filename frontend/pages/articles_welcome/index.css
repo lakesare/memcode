@@ -22,15 +22,11 @@
     background: rgb(15, 11, 44);
   }
 
-
-
-  overflow: hidden;
-  position: relative;
+  // For Header-github
   header{
     position: relative;
     z-index: 1;
   }
-
   .Header-github{
     &:hover{
       background: rgb(250, 92, 18);
