@@ -18,7 +18,7 @@ class Footer extends React.Component {
           </div>
           <span className="pipe">|</span>
           <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/memcodeapp" className="twitter-link">
-            Follow <i className="fa fa-twitter" aria-hidden="true"/>
+            <i className="fa fa-twitter" aria-hidden="true"/>
           </a>
         </section>
 
