@@ -71,6 +71,12 @@
       }
       &.-learned{
         background: $learn-button-color;
+        .button-wrapper.-unlearn{
+          // overlay with -learn wrapper so that whole problem is clickable
+          width: 100%;
+          cursor: pointer;
+          z-index: 1001;
+        }
       }
       &.-yet-to-learn{
         .button-wrapper.-learn{
