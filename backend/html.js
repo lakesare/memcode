@@ -26,7 +26,7 @@ const html = `
 
     <!-- katex support -->
     <link rel="stylesheet" href="/nonNpmLibraries/katex.min.css"/>
-    <script src="/nonNpmLibraries/katex.min.js"></script>
+    <script defer src="/nonNpmLibraries/katex.min.js"></script>
 
     <!-- to verify google webmasters -->
     <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>

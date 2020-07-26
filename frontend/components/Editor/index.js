@@ -17,8 +17,8 @@ import { tippy } from '@tippyjs/react';
 const bindings = {
   // all of these are making TAB only function in code blocks! (https://github.com/quilljs/quill/blob/develop/modules/keyboard.js#L184)
   tab:          false,
-  outdent:      false,
-  indent:       false,
+  // outdent:      false,
+  // indent:       false,
   'remove tab': false,
 
   superScriptHandlerOnDot: {

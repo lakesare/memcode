@@ -28,7 +28,7 @@
 
     // color: rgb(206, 199, 245);
     // We need !important-s because we have to override styles copypasted by users
-    code, span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol{
+    code, span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol, u{
       color: rgb(238, 236, 246) !important;
       background: rgba(0, 0, 0, 0) !important;
     }
@@ -70,9 +70,9 @@
     }
     ul, ol{
       list-style-type: initial;
-      li{
-        padding-left: 0;
-      }
+      // li{
+      //   padding-left: 0;
+      // }
     }
     ul{ padding-left: 15px; }
     ol{ padding-left: 21px; }
