@@ -169,7 +169,7 @@
         }
       }
       .-mobile{ display: block; text-align: right; }
-      .-desktop{ display: none; }
+      .-desktop{ display: none !important; }
       &.-simulated-review .instructions.-mobile{
         width: 100%;
         display: flex;
