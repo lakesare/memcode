@@ -236,7 +236,10 @@
           > .ql-editor{
             padding: 0;
             font-size: 14px;
-            min-height: auto;
+            min-height: initial;
+            height: auto;
+            overflow-y: hidden;
+            cursor: default;
             .placeholder{
               padding-right: 10px;
               line-height: 20px;
