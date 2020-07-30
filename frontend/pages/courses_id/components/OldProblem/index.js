@@ -128,7 +128,7 @@ class OldProblem extends React.Component {
             problems={this.props.problems}
             idsOfCheckedProblems={this.props.idsOfCheckedProblems}
             updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
-            speSave={this.state.speSave}
+            apiSave={this.apiSave}
             ifChecked={this.ifChecked()}
             dragHandleProps={provided.dragHandleProps}
           />

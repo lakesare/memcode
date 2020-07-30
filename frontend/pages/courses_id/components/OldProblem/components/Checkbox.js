@@ -13,18 +13,24 @@ class Checkbox extends React.Component {
     problems: PropTypes.array.isRequired,
     idsOfCheckedProblems: PropTypes.array.isRequired,
     updateIdsOfCheckedProblems: PropTypes.func.isRequired,
-    speSave: PropTypes.object.isRequired,
+    apiSave: PropTypes.func.isRequired,
     ifChecked: PropTypes.bool.isRequired,
     dragHandleProps: PropTypes.object.isRequired
   }
 
-  uncheck = () =>
+  uncheck = (event) => {
+    event.currentTarget.focus();
+    this.props.apiSave();
+
     this.props.updateIdsOfCheckedProblems(
       this.props.idsOfCheckedProblems.filter((id) => id !== this.props.id)
-    )
+    );
+  }
 
   check = (event) => {
-    event.preventDefault();
+    event.currentTarget.focus();
+    this.props.apiSave();
+
     const idsOfCheckedProblems = this.props.idsOfCheckedProblems;
     const problems = this.props.problems;
     const idsOfProblemsToCheck = [];
