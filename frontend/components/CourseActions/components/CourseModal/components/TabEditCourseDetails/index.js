@@ -51,7 +51,7 @@ class TabEditCourseDetails extends React.Component {
         <div className="form-insides">
           <TextInput      {...this.inputProps()} label="* Title" name="title" autoFocus/>
 
-          <EditorTextarea {...this.inputProps()} label="Description:"       name="description"/>
+          <EditorTextarea {...this.inputProps()} label="Description" name="description"/>
 
           <div className="two-form-lines-in-row">
             <CourseCategoryFormLine {...this.inputProps()} label="Category" name="courseCategoryId"/>

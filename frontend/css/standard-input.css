@@ -5,7 +5,7 @@
   padding: 10px 20px;
   background: $color-main-3;
   color: white;
-  font-size: 13px;
+  font-size: 15px;
   border-radius: 2px;
   &::placeholder{
     color: rgb(136, 140, 202);

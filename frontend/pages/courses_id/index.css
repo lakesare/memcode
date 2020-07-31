@@ -1,15 +1,65 @@
 @import 'css/variables';
 
 :local(.edit){
+  // For mobile
+  // section.problems, div.new-problem{
+  //   margin-left: 93px !important;
+  //   margin-right: 92px !important;
+  // }
 
-  section.problems, div.new-problem{
-    margin-left: 110px !important;
+  // Pretty red for erroneous SAVE
+  // rgb(162 20 20 / 84%)
+
+  section.checkbox, section.choose-type{
+    right: calc(100% + 6px);
+  }
+  section.how-to-create, section.save-changes{
+    left: calc(100% + 6px);
+  }
+  section.how-to-create, section.choose-type, section.save-changes{
+    width: 92px;
+  }
+
+  .choose-type button, .save-changes-button, .how-to-create button, .checkbox{
+    background: $orange;
+  }
+  .how-to-create button{
+    &:not(:hover){
+      opacity: 0.9;
+    }
+  }
+  .there-are-checked-problems .-not-checked .checkbox{
+    opacity: 0.4;
+  }
+
+  .old-problem-wrapper{
+    &.-not-checked > section.checkbox:hover{
+      // background: rgb(153, 63, 13);
+      background: $orange;
+    }
+    &.-checked,
+    &.-checked > section.checkbox{
+      // rgb(139 34 56)
+      background-color: rgb(212, 86, 15);
+      transition-property: background-color;
+      transition-duration: 100ms;
+    }
   }
 
   // list of problems
-  section.problems{
-    max-width: 1000px;
+  .problems-container{
+    // to avoid editing problem at the bottom of the screen
+    margin-bottom: 200px;
+    &.-newest-first section.problems{
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+  section.problems, .new-problem{
+    max-width: 1015px;
     margin: 0 auto;
+  }
+  section.problems{
     margin-top: 30px;
   }
   section.problem{
@@ -52,51 +102,55 @@
   }
   .new-problem{
     position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
     margin-top: 25px;
-    // to avoid editing problem at the bottom of the screen
-    margin-bottom: 200px;
     padding: 0 8px;
 
     .ql-container{
       // minus the height of the toolbar
       height: calc(100% - 28px);
     }
-
+    section.how-to-create, section.choose-type{
+      label{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 3px;
+        height: 28px;
+        font-size: 11px;
+        color: rgb(172, 181, 218);
+      }
+    }
     > section.how-to-create{
-      margin-top: 15px;
-      color: rgb(172, 181, 218);
-      text-align: right;
-      font-size: 12px;
-      button.button{
-        display: inline-block;
-        margin-left: 10px;
-        border-radius: 3px;
+      position: absolute;
+      top: 0;
+      button{
+        width: 100%;
+        height: 70px;
+        min-width: 0;
+        padding-top: 0;
+        .shortcut{
+          position: absolute;
+          bottom: 9px;
+          color: rgba(246, 232, 224, 0.78);
+        }
       }
     }
     > section.choose-type{
       position: absolute;
-      top: 0; left: -90px;
-      // for react-joyride
-      padding-bottom: 20px;
-      > label{
-        display: block;
-        font-size: 11px;
-        padding-bottom: 8px;
-        padding-top: 5px;
-        font-weight: 300;
-        color: rgb(172, 181, 218);
+      top: 0;
+      > .buttons{
+        height: 70px;
+        width: 100%;
       }
+
       > .buttons > button.button{
         font-size: 10px;
-        padding: 7px 4px;
+        height: 50%;
         opacity: 0.5;
-        width: 90px;
+        width: 100%;
         min-width: auto;
-        background: $orange;
         color: white;
-        font-weight: 300;
 
         border-radius: 3px;
         &:first-child{

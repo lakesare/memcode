@@ -7,7 +7,9 @@
     padding: 5px 0;
     border-top: 1px solid rgba(135, 128, 190, 0.13);
     button, a{
-      &:hover{ opacity: 0.8; }
+      &:hover .text{ opacity: 0.8; }
+      width: 100%;
+      text-align: right;
     }
     .comment{
       font-size: 11px;

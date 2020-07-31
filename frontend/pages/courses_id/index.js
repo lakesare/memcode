@@ -6,7 +6,6 @@ import api from '~/api';
 import { commonFetch } from '~/api/commonFetch';
 import Roles from '~/services/Roles';
 
-import { StickyContainer, Sticky } from 'react-sticky';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
@@ -16,7 +15,6 @@ import OldProblem from './components/OldProblem';
 import NewProblem from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
 // import { Instructions } from './components/Instructions';
-import ActionsForCheckedProblems from './components/ActionsForCheckedProblems';
 
 import css from './index.css';
 
@@ -122,16 +120,6 @@ class Page_courses_id extends React.Component {
     });
   }
 
-  renderActionsForCheckedProblems = () =>
-    <Sticky>{({ isSticky }) =>
-      <ActionsForCheckedProblems
-        idsOfCheckedProblems={this.state.idsOfCheckedProblems}
-        updateIdsOfCheckedProblems={(idsOfCheckedProblems) => this.setState({ idsOfCheckedProblems })}
-        uiRemoveOldProblems={this.uiRemoveOldProblems}
-        isSticky={isSticky}
-      />
-    }</Sticky>
-
   apiReorderProblems = () =>
     api.ProblemApi.reorder(
       false,
@@ -159,43 +147,63 @@ class Page_courses_id extends React.Component {
     }, this.apiReorderProblems);
   }
 
+  renderOldProblemsToEdit = () => {
+    const createdCoursesForSelect = this.props.My.courses
+      .filter((courseDto) => {
+        const ifAuthor = courseDto.course.user_id === this.props.currentUser.id;
+        const ifCurrentCourse = courseDto.course.id === this.props.courseId;
+        return ifAuthor && !ifCurrentCourse;
+      })
+      .map((courseDto) => ({ value: courseDto.course.id, label: courseDto.course.title }))
+
+    return <Loading spe={this.state.speGetProblems}>{({ problems }) =>
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="problems">{(provided) =>
+          <section
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className="problems"
+          >
+            {problems.map((problem, index) =>
+              <OldProblem
+                key={problem._optimistic_id ? problem._optimistic_id : problem.id}
+                problem={problem}
+                index={index}
+                updateOldProblem={this.updateOldProblem}
+                problems={problems}
+                idsOfCheckedProblems={this.state.idsOfCheckedProblems}
+                updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
+                uiRemoveOldProblems={this.uiRemoveOldProblems}
+                createdCoursesForSelect={createdCoursesForSelect}
+              />
+            )}
+            {provided.placeholder}
+          </section>
+        }</Droppable>
+      </DragDropContext>
+    }</Loading>;
+  }
+
+  renderNewProblemToEdit = () =>
+    <NewProblem
+      courseId={this.props.courseId}
+      uiAddOptimisticProblem={this.uiAddOptimisticProblem}
+      uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
+    />
+
   renderEditProblems = () =>
     <div className={css.edit}>
-      <StickyContainer>
-        {this.renderActionsForCheckedProblems()}
-        <div className="container problems-container">
-          <Loading spe={this.state.speGetProblems}>{({ problems }) =>
-            <DragDropContext onDragEnd={this.onDragEnd}>
-              <Droppable droppableId="problems">{(provided) =>
-                <section
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className="problems"
-                >
-                  {problems.map((problem, index) =>
-                    <OldProblem
-                      key={problem._optimistic_id ? problem._optimistic_id : problem.id}
-                      problem={problem}
-                      index={index}
-                      updateOldProblem={this.updateOldProblem}
-                      removeOldProblem={this.removeOldProblem}
-                      problems={problems}
-                      idsOfCheckedProblems={this.state.idsOfCheckedProblems}
-                      updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
-                    />
-                  )}
-                  {provided.placeholder}
-                </section>
-              }</Droppable>
-            </DragDropContext>
-          }</Loading>
-          <NewProblem
-            courseId={this.props.courseId}
-            uiAddOptimisticProblem={this.uiAddOptimisticProblem}
-            uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
-          />
-        </div>
-      </StickyContainer>
+      <div className={`container problems-container ${this.props.My.flashcardOrder ? '-newest-first' : ''} ${this.state.idsOfCheckedProblems.length === 0 ? '-there-are-no-checked-problems' : 'there-are-checked-problems'}`}>
+        {
+          this.props.My.flashcardOrder &&
+          this.renderNewProblemToEdit()
+        }
+        {this.renderOldProblemsToEdit()}
+        {
+          !this.props.My.flashcardOrder &&
+          this.renderNewProblemToEdit()
+        }
+      </div>
     </div>
 
   renderShowProblems = () =>

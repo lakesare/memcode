@@ -155,8 +155,15 @@ class NewProblem extends React.Component {
       />
 
       <section className="how-to-create">
-        <span>CMD + S to save a new flashcard</span>
-        <button className="button -orange -fade-out-on-hover" onClick={this.apiSave}>SAVE</button>
+        <label>NEW FLASHCARD</label>
+        <button
+          type="button"
+          className="button"
+          onClick={this.apiSave}
+        >
+          SAVE
+          <div className="shortcut">⌘ + S</div>
+        </button>
       </section>
 
       <Loading enabledStatuses={['failure']} spe={this.state.speCreateProblem}/>
