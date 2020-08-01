@@ -8,7 +8,7 @@ const initialState = {
   courses: [],
   speCategories: {},
   speCourseForActions: {},
-  flashcardOrder: localStorage.getItem('flashcardOrder')
+  flashcardOrder: localStorage.getItem('flashcardOrder') === 'true' ? true : false
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
