@@ -55,6 +55,7 @@ class ExportFlashcardsModal extends React.Component {
             type="button"
             className="button -orange standard-submit-button -move-up-on-hover"
             onClick={() => this.apiMove(closeModal)}
+            disabled={!this.state.courseId}
           >
             Move <i style={{ paddingLeft: 6 }} className="fa fa-exchange"/>
           </button>

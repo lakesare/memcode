@@ -21,13 +21,13 @@ class Select extends Component {
       PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string.isRequired,
         options: PropTypes.arrayOf(PropTypes.shape({
-          value: PropTypes.string.isRequired,
+          value: PropTypes.any.isRequired,
           label: PropTypes.string.isRequired,
         })),
       })),
     ]).isRequired,
 
-    value: PropTypes.string,
+    value: PropTypes.any,
     updateValue: PropTypes.func.isRequired,
 
     withGroups: PropTypes.bool,

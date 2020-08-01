@@ -98,6 +98,10 @@ class OldProblem extends React.Component {
   ifLastChecked = () =>
     this.props.idsOfCheckedProblems[this.props.idsOfCheckedProblems.length - 1] === this.props.problem.id
 
+  uiCheck = (id) => {
+    this.props.updateIdsOfCheckedProblems([...this.props.idsOfCheckedProblems, id]);
+  }
+
   onFocusChange = () => {
     if (!this.ifFocusedInEditor()) {
       this.apiSave();
@@ -117,14 +121,14 @@ class OldProblem extends React.Component {
         {/* <button className="button" style={{ background: 'rgb(58, 116, 205)' }}>Draft</button> */}
 
         <ExportFlashcardsModal
-          toggler={<button type="button" className="button" style={{ background: 'rgb(9, 99, 120)' }}>Export</button>}
+          toggler={<button type="button" onClick={() => this.uiCheck(this.props.problem.id)} className="button" style={{ background: 'rgb(9, 99, 120)' }}>Export</button>}
           uiRemoveOldProblems={this.props.uiRemoveOldProblems}
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
           createdCoursesForSelect={this.props.createdCoursesForSelect}
         />
 
         <DeleteFlashcardsModal
-          toggler={<button type="button" className="button" style={{ background: 'rgb(139, 33, 55)' }}>Delete</button>}
+          toggler={<button type="button" onClick={() => this.uiCheck(this.props.problem.id)} className="button" style={{ background: 'rgb(139, 33, 55)' }}>Delete</button>}
           uiRemoveOldProblems={this.props.uiRemoveOldProblems}
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
         />
