@@ -1,5 +1,5 @@
 import orFalse from '~/services/orFalse';
-import { update } from 'lodash';
+import _update from 'lodash/update';
 import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
 
 import api from '~/api';
@@ -64,7 +64,7 @@ class Page_courses_id extends React.Component {
   uiAddOptimisticProblem = (optimisticProblem) => {
     this.setState({
       speGetProblems:
-      update(this.state.speGetProblems, `payload.problems`,
+      _update(this.state.speGetProblems, `payload.problems`,
         (problems) => [...problems, optimisticProblem]
       )
     });
@@ -77,7 +77,7 @@ class Page_courses_id extends React.Component {
 
     this.setState({
       speGetProblems:
-      update(this.state.speGetProblems, `payload.problems[${index}]`, () => createdProblem)
+      _update(this.state.speGetProblems, `payload.problems[${index}]`, () => createdProblem)
     });
 
     this.props.MyActions.createProblem(this.props.courseId, createdProblem.id);
@@ -90,14 +90,14 @@ class Page_courses_id extends React.Component {
 
     this.setState({
       speGetProblems:
-      update(this.state.speGetProblems, `payload.problems[${index}]`, () => updatedProblem)
+      _update(this.state.speGetProblems, `payload.problems[${index}]`, () => updatedProblem)
     });
   }
 
   removeOldProblem = (problemId) => {
     this.setState({
       speGetProblems:
-      update(this.state.speGetProblems, `payload.problems`,
+      _update(this.state.speGetProblems, `payload.problems`,
         (problems) => problems.filter((problem) => problem.id !== problemId)
       ),
       idsOfCheckedProblems: this.state.idsOfCheckedProblems.filter((id) => id !== problemId)
@@ -109,7 +109,7 @@ class Page_courses_id extends React.Component {
   uiRemoveOldProblems = (problemIds) => {
     this.setState({
       speGetProblems:
-      update(this.state.speGetProblems, `payload.problems`,
+      _update(this.state.speGetProblems, `payload.problems`,
         (problems) => problems.filter((problem) => !problemIds.includes(problem.id))
       ),
       idsOfCheckedProblems: []
@@ -141,7 +141,7 @@ class Page_courses_id extends React.Component {
 
     this.setState({
       speGetProblems:
-      update(this.state.speGetProblems, `payload.problems`,
+      _update(this.state.speGetProblems, `payload.problems`,
         (problems) => injectFromOldToNewIndex(problems, from, to)
       )
     }, this.apiReorderProblems);
