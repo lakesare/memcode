@@ -28,20 +28,13 @@ router.put('/:id', catchAsync(async (request, response) => {
   response.status(200).json(updatedProblem);
 }));
 
-router.delete('/deleteMany', catchAsync(async (request, response) => {
-  await ProblemModel.delete.deleteMany(request.body['problemIds']);
-  response.status(200).json({});
-}));
-
-router.post('/moveToCourseMany', catchAsync(async (request, response) => {
-  await ProblemModel.insert.moveToCourseMany(
-    request.body['problemIds'],
-    request.body['courseId']
-  );
-  response.status(200).json({});
-}));
-
 import reorder from './reorder';
 router.reorder = reorder;
+
+import deleteMany from './deleteMany';
+router.deleteMany = deleteMany;
+
+import moveToCourseMany from './moveToCourseMany';
+router.moveToCourseMany = moveToCourseMany;
 
 export default router;

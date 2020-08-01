@@ -93,11 +93,13 @@ class TogglerAndModal extends Component {
       </ErrorBoundary>
     </ReactModal>
 
-  renderToggler = () =>
-    React.cloneElement(
+  renderToggler = () => {
+    const onClick = this.props.toggler.props.onClick || (() => {});
+    return React.cloneElement(
       this.props.toggler,
-      { onClick: this.openModal }
-    )
+      { onClick: () => { onClick(); this.openModal(); } }
+    );
+  }
 
   render = () =>
     <React.Fragment>

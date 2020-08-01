@@ -176,6 +176,8 @@ class CourseActions extends React.Component {
           apiStopLearning={this.apiStopLearning}
           apiResumeLearning={this.apiResumeLearning}
           MyActions={this.props.MyActions}
+          My={this.props.My}
+          type={this.props.type}
         />
       </div>
     </section>;

@@ -7,7 +7,8 @@ const initialState = {
   speCourses: {},
   courses: [],
   speCategories: {},
-  speCourseForActions: {}
+  speCourseForActions: {},
+  flashcardOrder: localStorage.getItem('flashcardOrder') === 'true' ? true : false
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -200,6 +201,8 @@ const reducer = (state = initialState, action) => {
     }
     case `${namespace}.SET`:
       return action.payload;
+    case `${namespace}.SWITCH_FLASHCARD_ORDER`:
+      return { ...state, flashcardOrder: action.payload.flashcardOrder };
     default:
       return state;
   }
@@ -267,6 +270,12 @@ const getActions = (dispatch, getState) => ({
   },
   unlearnUnignoreProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.UNLEARN_UNIGNORE_PROBLEM`, payload: { courseId, problemId } });
+  },
+  switchFlashcardOrder: () => {
+    const state = getState().global.My;
+    const flashcardOrder = !state.flashcardOrder;
+    localStorage.setItem('flashcardOrder', flashcardOrder);
+    dispatch({ type: `${namespace}.SWITCH_FLASHCARD_ORDER`, payload: { flashcardOrder } });
   }
 });
 

@@ -95,4 +95,4 @@ class Checkbox extends React.Component {
     </section>
 }
 
-export { Checkbox };
+export default Checkbox;

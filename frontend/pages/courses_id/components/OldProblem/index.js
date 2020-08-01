@@ -5,7 +5,9 @@ import isProblemContentTheSame from '~/services/isProblemContentTheSame';
 import { Draggable } from 'react-beautiful-dnd';
 
 import Problem from '~/components/Problem';
-import { Checkbox } from './components/Checkbox';
+import Checkbox from './components/Checkbox';
+import DeleteFlashcardsModal from './components/DeleteFlashcardsModal';
+import ExportFlashcardsModal from './components/ExportFlashcardsModal';
 
 import css from './index.css';
 
@@ -16,7 +18,10 @@ class OldProblem extends React.Component {
     updateOldProblem: PropTypes.func.isRequired,
     problems: PropTypes.array.isRequired,
     idsOfCheckedProblems: PropTypes.array.isRequired,
-    updateIdsOfCheckedProblems: PropTypes.func.isRequired
+    updateIdsOfCheckedProblems: PropTypes.func.isRequired,
+    uiRemoveOldProblems: PropTypes.func.isRequired,
+    createdCoursesForSelect: PropTypes.array.isRequired,
+    flashcardOrder: PropTypes.bool.isRequired
   }
 
   constructor(props) {
@@ -91,6 +96,15 @@ class OldProblem extends React.Component {
   ifChecked = () =>
     this.props.idsOfCheckedProblems.includes(this.props.problem.id)
 
+  ifLastChecked = () =>
+    this.props.idsOfCheckedProblems[this.props.idsOfCheckedProblems.length - 1] === this.props.problem.id
+
+  uiCheck = () => {
+    if (!this.ifChecked()) {
+      this.props.updateIdsOfCheckedProblems([...this.props.idsOfCheckedProblems, this.props.problem.id]);
+    }
+  }
+
   onFocusChange = () => {
     if (!this.ifFocusedInEditor()) {
       this.apiSave();
@@ -104,16 +118,43 @@ class OldProblem extends React.Component {
     return focusingInThisEditor;
   }
 
+  renderButtons = () =>
+    <section className="flashcard-buttons">
+      <div className="first">
+        {/* <button className="button" style={{ background: 'rgb(58, 116, 205)' }}>Draft</button> */}
+
+        <ExportFlashcardsModal
+          toggler={<button type="button" onClick={this.uiCheck} className="button export-button">Export</button>}
+          uiRemoveOldProblems={this.props.uiRemoveOldProblems}
+          idsOfCheckedProblems={this.props.idsOfCheckedProblems}
+          createdCoursesForSelect={this.props.createdCoursesForSelect}
+        />
+
+        <DeleteFlashcardsModal
+          toggler={<button type="button" onClick={this.uiCheck} className="button delete-button">Delete</button>}
+          uiRemoveOldProblems={this.props.uiRemoveOldProblems}
+          idsOfCheckedProblems={this.props.idsOfCheckedProblems}
+        />
+      </div>
+
+      {/* <div className="second"> */}
+      {/*   <button className="button" style={{ background: 'rgb(29, 65, 104)' }}>Switch Type</button> */}
+      {/*   <button className="button" style={{ background: 'rgb(143, 83, 138)' }}>Duplicate</button> */}
+      {/*   <button className="button" style={{ background: 'rgb(42, 100, 76)' }}>Add New</button> */}
+      {/* </div> */}
+    </section>
+
   render = () => (
     this.ifNotOptimistic() ?
-      <Draggable draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
+      <Draggable isDragDisabled={this.props.flashcardOrder} draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
         <div
-          className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'}`}
+          className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'} ${this.ifLastChecked() ? '-last-checked' : ''}`}
           id={this.uniqueId}
           ref={provided.innerRef}
           {...provided.draggableProps}
           style={provided.draggableProps.style}
         >
+
           <Problem
             mode={this.state.mode}
             problemContent={this.props.problem.content}
@@ -132,6 +173,8 @@ class OldProblem extends React.Component {
             ifChecked={this.ifChecked()}
             dragHandleProps={provided.dragHandleProps}
           />
+
+          {this.renderButtons()}
 
           <section className="save-changes">
             {

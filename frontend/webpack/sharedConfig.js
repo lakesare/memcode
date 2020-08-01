@@ -6,6 +6,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const querystring = require('querystring');
+
+require('../../env.js');
 
 module.exports = {
   entry: {
@@ -124,7 +128,15 @@ module.exports = {
       // places it into /webpackedFiles/webpacked-service-worker.js,
       // useless-subdirectory is needed for node'd express.static() route.
       swDest: './webpacked-service-worker.js'
-    })
+    }),
+    // new HtmlWebpackPlugin({
+    //   template: path.resolve(__dirname, '../index.html'),
+    //   hash: true,
+    //   templateParameters: {
+    //     env: process.env,
+    //     escapedGoogleOauthCallback: querystring.escape(process.env['GOOGLE_OAUTH_CALLBACK'])
+    //   }
+    // })
   ],
 
   // allows to import from the deep nested folders:

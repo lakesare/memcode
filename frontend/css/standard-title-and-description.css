@@ -5,11 +5,11 @@
     margin: 20px 0;
     text-align: center;
     font-weight: 300;
-    color: rgb(105, 122, 180);
+    color: $purple;
     font-size: 27px;
   }
   > article.description{
-    color: rgb(105, 122, 180);
+    color: $purple;
     font-weight: 100;
     font-size: 15px;
     max-width: 400px;

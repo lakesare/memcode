@@ -21,7 +21,9 @@ class CuilButtons extends React.Component {
     apiStartLearning: PropTypes.func.isRequired,
     apiStopLearning: PropTypes.func.isRequired,
     apiResumeLearning: PropTypes.func.isRequired,
-    MyActions: PropTypes.object.isRequired
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
+    type: PropTypes.string.isRequired
   }
 
   state = {
@@ -88,11 +90,11 @@ class CuilButtons extends React.Component {
             to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
             style={{ color: 'rgb(236, 236, 133)' }}
           >
-            Test Drive
+            <div className="text">Test Drive</div>
+            <div className="comment -white">
+              Review all flashcards of this course without your results being recorded.
+            </div>
           </Link>
-          <div className="comment -white">
-            Review all flashcards of this course without your results being recorded.
-          </div>
         </li>
       }
 
@@ -104,11 +106,11 @@ class CuilButtons extends React.Component {
             onClick={this.props.apiStopLearning}
             style={{ color: 'rgb(252, 126, 126)' }}
           >
-            Stop Learning
+            <div className="text">Stop Learning</div>
+            <div className="comment -white">
+              You won't be asked to review flashcards from this course again.
+            </div>
           </button>
-          <div className="comment -white">
-            You won't be asked to review flashcards from this course again.
-          </div>
         </li>
       }
 
@@ -120,11 +122,30 @@ class CuilButtons extends React.Component {
             onClick={this.apiDuplicateCourse}
             style={{ color: 'rgb(120, 175, 244)', ...disableOnSpeRequest(this.state.speDuplicate) }}
           >
-            Duplicate
+            <div className="text">Duplicate</div>
+            <div className="comment -white">
+              Create own course with flashcards from this course.
+            </div>
           </button>
-          <div className="comment -white">
-            Create own course with flashcards from this course.
-          </div>
+        </li>
+      }
+
+      {
+        this.props.type === 'editOrShow' &&
+        this.props.courseDto.course.userId === this.props.currentUser.id &&
+        <li>
+          <button
+            type="button"
+            onClick={this.props.MyActions.switchFlashcardOrder}
+            style={{ color: 'rgb(120, 175, 244)' }}
+          >
+            <div className="text">
+              {this.props.My.flashcardOrder ? 'Oldest First' : 'Newest First'}
+            </div>
+            <div className="comment -white">
+              Switch order of flashcards
+            </div>
+          </button>
         </li>
       }
     </ul>

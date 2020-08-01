@@ -1,5 +1,7 @@
 @import 'css/variables';
 
+$wow_color: rgba(136, 125, 220, 0.9);
+
 :local(section.actions){
   > section.title-and-buttons{
     background: rgb(7, 9, 39);
@@ -106,7 +108,7 @@
             letter-spacing: 0.9px;
             text-transform: uppercase;
             span, a{
-              color: rgba(136, 125, 220, 0.9);
+              color: $wow_color;
               text-shadow: 0 0 12px #fbfbfb52;
             }
             > .in-or-by{
@@ -162,7 +164,7 @@
       > ul.course-stats{
         width: 311px;
         flex-grow: 0;
-        flex-shrink: 0;
+        flex-shrink: 1;
 
         cursor: default;
         > li{
@@ -172,7 +174,7 @@
           align-items: center;
           justify-content: flex-end;
           > div.icon{
-            color: rgba(136, 125, 220, 0.9);
+            color: $wow_color;
             // text-shadow: 0 0 6px #fbfbfb47;
             font-size: 17px;
             width: 27px;
@@ -188,7 +190,7 @@
               top: 1px;
               padding-right: 3px;
               font-size: 15px;
-              color: rgba(136, 125, 220, 0.9);
+              color: $wow_color;
             }
             span.number.review-in-stat-number{
               padding-left: 5px;
@@ -313,8 +315,19 @@
       width: 100%;
       justify-content: flex-end;
     }
+  }
 
-    > section.course-description-and-stats{
+  @media(max-width: 900px){
+    .title-and-buttons .category_and_author{
+      height: auto !important;
+    }
+    .course-label{
+      display: none;
+    }
+  }
+
+  @media(max-width: 500px){
+    section.course-description-and-stats{
       > div.container{
         flex-wrap: wrap;
         > div.course-description:not(.-empty){
@@ -340,15 +353,6 @@
           }
         }
       }
-    }
-  }
-
-  @media(max-width: 900px){
-    .title-and-buttons .category_and_author{
-      height: auto !important;
-    }
-    .course-label{
-      display: none;
     }
   }
 

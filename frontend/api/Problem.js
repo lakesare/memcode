@@ -25,23 +25,8 @@ const update = (dispatch, problemId, values) =>
     { problem: values }
   );
 
-const deleteMany = (dispatch, problemIds) =>
-  commonFetch(dispatch,
-    'DELETE', '/api/problems/deleteMany',
-    { problemIds }
-  );
-
-const moveToCourseMany = (dispatch, problemIds, courseId) =>
-  commonFetch(dispatch,
-    'POST', `/api/problems/moveToCourseMany`,
-    { problemIds, courseId }
-  );
-
-// import * as ProblemApi from '~/api/Problem';
-export { create, update, deleteMany, moveToCourseMany };
-
 export default {
-  create, update, deleteMany, moveToCourseMany,
+  create, update,
   index,
   createManyFromExcel
 };
