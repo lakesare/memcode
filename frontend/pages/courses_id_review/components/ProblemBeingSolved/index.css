@@ -33,6 +33,7 @@
         &[data-answered='right']{
           box-shadow: $green-answer-box-shadow;
           border: $green-answer-border;
+          border-width: 2px;
           background: rgb(68, 245, 149) !important;
           color: rgb(10, 80, 42) !important;
         }
