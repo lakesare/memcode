@@ -142,7 +142,7 @@ class Page_courses_id extends React.Component {
     this.setState({
       speGetProblems:
       _update(this.state.speGetProblems, `payload.problems`,
-        (problems) => injectFromOldToNewIndex(problems, from, to)
+        (problems) => injectFromOldToNewIndex(problems, from, to, { direction: this.props.My.flashcardOrder })
       )
     }, this.apiReorderProblems);
   }
@@ -154,7 +154,7 @@ class Page_courses_id extends React.Component {
         const ifCurrentCourse = courseDto.course.id === this.props.courseId;
         return ifAuthor && !ifCurrentCourse;
       })
-      .map((courseDto) => ({ value: courseDto.course.id, label: courseDto.course.title }))
+      .map((courseDto) => ({ value: courseDto.course.id, label: courseDto.course.title }));
 
     return <Loading spe={this.state.speGetProblems}>{({ problems }) =>
       <DragDropContext onDragEnd={this.onDragEnd}>
@@ -175,6 +175,7 @@ class Page_courses_id extends React.Component {
                 updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
                 uiRemoveOldProblems={this.uiRemoveOldProblems}
                 createdCoursesForSelect={createdCoursesForSelect}
+                flashcardOrder={this.props.My.flashcardOrder}
               />
             )}
             {provided.placeholder}

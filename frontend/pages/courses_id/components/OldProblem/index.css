@@ -36,6 +36,18 @@
       width: 100%;
       min-width: 0;
     }
+    .delete-button{
+      background: rgba(139, 33, 55, 0.47);
+      &:hover{
+        background: rgb(139, 33, 55);
+      }
+    }
+    .export-button{
+      background: rgba(9, 99, 120, 0.67);
+      &:hover{
+        background: rgb(9, 99, 120);
+      }
+    }
 
     div.first, div.second{
       top: 8px;

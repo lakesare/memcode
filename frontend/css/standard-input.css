@@ -30,7 +30,7 @@
   }
   &.-Select{
     button.toggler{
-      font-size: 14px;
+      font-size: 15px;
 
       cursor: pointer;
       // center text and an arrow
