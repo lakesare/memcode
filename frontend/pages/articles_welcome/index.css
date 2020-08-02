@@ -22,12 +22,14 @@
     background: rgb(15, 11, 44);
   }
 
-  // For Header-github
+  // For github-ribbon
+  position: relative;
+  overflow: hidden;
   header{
     position: relative;
     z-index: 1;
   }
-  .Header-github{
+  .github-ribbon{
     &:hover{
       background: rgb(250, 92, 18);
     }
@@ -53,23 +55,10 @@
   }
 
   @media(max-width: 930px){
-    .Header-github{
+    .github-ribbon{
       display: none;
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   .feature-list{
     display: flex;
