@@ -76,40 +76,42 @@ class ProblemBeingSolved extends React.Component {
         ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
       />
 
-      <Problem
-        mode="review"
-        problemId={this.props.problem.id}
-        problemContent={this.props.problem.content}
-        problemType={this.props.problem.type}
-        statusOfSolving={this.props.statusOfSolving}
-        enterPressed={this.props.enterPressed}
-        onRightAnswerGiven={this.props.onRightAnswerGiven}
-      />
-
-      {
-        // !this.props.ifReviewIsSimulated &&
-        this.props.statusOfSolving.status === 'seeingAnswer' &&
-        this.props.problem.type === 'separateAnswer' &&
-        <SeparateAnswerSelfScore
-          giveScore={this.props.separateAnswerSelfScoreGiven}
-          score={this.props.statusOfSolving.typeSpecific.selfScore}
+      <div className="container review-container">
+        <Problem
+          mode="review"
+          problemId={this.props.problem.id}
+          problemContent={this.props.problem.content}
+          problemType={this.props.problem.type}
+          statusOfSolving={this.props.statusOfSolving}
+          enterPressed={this.props.enterPressed}
+          onRightAnswerGiven={this.props.onRightAnswerGiven}
         />
-      }
 
-      {
-        this.props.statusOfSolving.status === 'solving' &&
-        this.props.problem.type === 'inlinedAnswers' &&
-        <button type="button" className="button reveal" onClick={this.props.enterPressed}>
-          SEE ANSWER
-        </button>
-      }
+        {
+          // !this.props.ifReviewIsSimulated &&
+          this.props.statusOfSolving.status === 'seeingAnswer' &&
+          this.props.problem.type === 'separateAnswer' &&
+          <SeparateAnswerSelfScore
+            giveScore={this.props.separateAnswerSelfScoreGiven}
+            score={this.props.statusOfSolving.typeSpecific.selfScore}
+          />
+        }
 
-      {
-        this.props.statusOfSolving.status === 'seeingAnswer' &&
-        <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
-          NEXT
-        </button>
-      }
+        {
+          this.props.statusOfSolving.status === 'solving' &&
+          this.props.problem.type === 'inlinedAnswers' &&
+          <button type="button" className="button reveal" onClick={this.props.enterPressed}>
+            SEE ANSWER
+          </button>
+        }
+
+        {
+          this.props.statusOfSolving.status === 'seeingAnswer' &&
+          <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
+            NEXT
+          </button>
+        }
+      </div>
     </section>
 }
 

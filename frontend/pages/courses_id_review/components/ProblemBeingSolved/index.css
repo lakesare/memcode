@@ -181,6 +181,9 @@
       width: 100%;
     }
 
+    .review-container{
+      padding: 0;
+    }
     // Must be not >, for /articles/welcome!
     section.problem{
       margin-right: 20px;

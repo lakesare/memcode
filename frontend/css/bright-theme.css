@@ -7,10 +7,20 @@ body.-bright-theme{
   // header .notifications-toggler i{
   //   color: white !important;
   // }
+  .ProblemBeingSolved{
+    section.problem{
+      background: $yellowish;
+
+      @media(max-width: 900px){
+        background: transparent;
+      }
+    }
+  }
   section.problem{
     // font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
     font-weight: 400;
-    background: $yellowish;
+
+
     .ql-editor{
       background: white !important;
       box-shadow: none !important;
