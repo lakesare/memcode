@@ -80,20 +80,20 @@ class ProblemWrapper extends React.Component {
     if (this.state.speLearn.status === 'request') {
       return <div className="problem-wrapper -learned">
         {this.renderButton('-unlearn', null, 'UNLEARN', { disabled: true })}
-        {this.renderProblem()}
         {this.renderButton('-ignore', null, 'IGNORE', { disabled: true })}
+        {this.renderProblem()}
       </div>;
     } else if (this.state.speIgnore.status === 'request') {
       return <div className="problem-wrapper -ignored">
         {this.renderButton('-learn', null, 'LEARN', { disabled: true })}
-        {this.renderProblem()}
         {this.renderButton('-unignore', null, 'UNIGNORE', { disabled: true })}
+        {this.renderProblem()}
       </div>;
     } else if (this.state.speDelete.status === 'request') {
       return <div className="problem-wrapper -yet-to-learn">
         {this.renderButton('-learn', null, 'LEARN', { disabled: true })}
-        {this.renderProblem()}
         {this.renderButton('-ignore', null, 'IGNORE', { disabled: true })}
+        {this.renderProblem()}
       </div>;
     }
 
@@ -102,20 +102,20 @@ class ProblemWrapper extends React.Component {
     if (puil === false) {
       return <div className="problem-wrapper -yet-to-learn">
         {this.renderButton('-learn', this.apiLearn, 'LEARN')}
-        {this.renderProblem()}
         {this.renderButton('-ignore', this.apiIgnore, 'IGNORE')}
+        {this.renderProblem()}
       </div>;
     } else if (puil && puil.ifIgnored === true) {
       return <div className="problem-wrapper -ignored">
         {this.renderButton('-learn', this.apiLearn, 'LEARN', { disabled: true })}
-        {this.renderProblem()}
         {this.renderButton('-unignore', this.apiUnlearnUnignore, 'UNIGNORE')}
+        {this.renderProblem()}
       </div>;
     } else if (puil) {
       return <div className="problem-wrapper -learned">
         {this.renderButton('-unlearn', this.apiUnlearnUnignore, 'UNLEARN')}
-        {this.renderProblem()}
         {this.renderButton('-ignore', this.apiIgnore, 'IGNORE', { disabled: true })}
+        {this.renderProblem()}
       </div>;
     }
   }
