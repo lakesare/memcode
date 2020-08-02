@@ -17,7 +17,7 @@ module.exports = {
     index: ['babel-polyfill', './index']
   },
   output: {
-    filename: 'index.js',
+    filename: 'index_2.js',
     path: path.join(__dirname, '../webpackedFiles')
   },
   module: {
@@ -115,7 +115,7 @@ module.exports = {
       copyUnmodified: true
     }),
     new MiniCssExtractPlugin({
-      filename: '/index.css'
+      filename: '/index_2.css'
     }),
     new webpack.ProvidePlugin({
       React: 'react',
