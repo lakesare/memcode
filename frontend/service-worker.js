@@ -14,7 +14,7 @@ self.addEventListener('activate', (event) => {
 });
 
 workbox.precaching.precache([
-  { url: '/index.html', revision: 'v5' }
+  { url: '/index.html', revision: 'v6' }
 ]);
 workbox.routing.registerNavigationRoute(
   '/index.html',
