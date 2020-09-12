@@ -23,6 +23,35 @@ class Rating extends React.Component {
     temporaryRating: this.props.rating
   }
 
+  componentDidMount = () => {
+    document.addEventListener('keydown', this.updateRatingOnArrows, false);
+  }
+
+  componentWillUnmount = () => {
+    document.removeEventListener('keydown', this.updateRatingOnArrows, false);
+  }
+
+  updateRatingOnArrows = (e) => {
+    switch (e.which) {
+      case 37: { // left
+        if (this.props.rating > 1) {
+          const newRating = this.props.rating - 1;
+          this.props.updateRating(newRating);
+          this.setState({ temporaryRating: newRating });
+        }
+        break;
+      }
+      case 39: { // right
+        if (this.props.rating < 5) {
+          const newRating = this.props.rating + 1;
+          this.props.updateRating(newRating);
+          this.setState({ temporaryRating: newRating });
+        }
+        break;
+      }
+    }
+  }
+
   renderStar = (starN) =>
     <li
       key={starN}
