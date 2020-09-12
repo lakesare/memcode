@@ -12,7 +12,7 @@
     position: relative;
     i{
       position: absolute;
-      top: 11px;
+      top: 10px;
       left: 16px;
     }
     input{
@@ -30,8 +30,10 @@
       color: white;
       transition-duration: 200ms;
       transition-property: background;
+      font-family: 'Open Sans';
       &::placeholder{
-        color: $faint-blue;
+        color: $not-so-faint-blue;
+        font-family: 'Open Sans';
       }
       border-radius: 2px;
       background: rgb(24, 27, 57);
@@ -41,7 +43,7 @@
     }
     i{
       font-size: 16px;
-      color: $faint-blue;
+      color: $not-so-faint-blue;
     }
   }
   > div.standard-dropdown{
