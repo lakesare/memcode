@@ -3,7 +3,6 @@ import playLongSound from './services/playLongSound';
 
 const initialState = {
   speGetPage: {},
-  speNextReviewIn: {},
   // {
   //   index: 2, // speGetPage.payload.problems[2] - signifies current flashcard
   //   status: 'seeingAnswer', // or 'solving'
@@ -146,8 +145,6 @@ const reducer = (state = initialState, action) => {
           ...state,
           speGetPage: spe,
           statusOfSolving: freshStatusOfSolving(firstProblem, 0),
-          // um because it won't get reloaded if we come from /:id/review to another /:id/review
-          speNextReviewIn: {},
           ifReviewingFailedProblems: false,
           indexesOfFailedProblems: [],
           amountOfFailedProblems: 0
@@ -155,10 +152,6 @@ const reducer = (state = initialState, action) => {
       } else {
         return { ...state, speGetPage: spe };
       }
-    }
-
-    case 'SET_SPE_NEXT_REVIEW_IN': {
-      return { ...state, speNextReviewIn: action.payload };
     }
 
     case 'RANDOMIZE_PROBLEMS': {
