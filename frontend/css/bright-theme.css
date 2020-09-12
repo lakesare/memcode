@@ -3,13 +3,13 @@
 $yellowish: rgb(247, 248, 228);
 
 body.-bright-theme{
-  background: rgb(179, 207, 243);
+  // background: rgb(179, 207, 243);
   // header .notifications-toggler i{
   //   color: white !important;
   // }
   .ProblemBeingSolved{
     section.problem{
-      background: $yellowish;
+      // background: $yellowish;
 
       @media(max-width: 900px){
         background: transparent;
