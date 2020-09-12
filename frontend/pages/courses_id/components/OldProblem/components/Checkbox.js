@@ -15,7 +15,8 @@ class Checkbox extends React.Component {
     updateIdsOfCheckedProblems: PropTypes.func.isRequired,
     apiSave: PropTypes.func.isRequired,
     ifChecked: PropTypes.bool.isRequired,
-    dragHandleProps: PropTypes.object.isRequired
+    // Sometimes not provided!
+    dragHandleProps: PropTypes.object
   }
 
   uncheck = (event) => {
@@ -87,7 +88,7 @@ class Checkbox extends React.Component {
     <section
       className="checkbox"
       onClick={this.props.ifChecked ? this.uncheck : this.check}
-      {...this.props.dragHandleProps}
+      {...(this.props.dragHandleProps || {})}
       // disable checkbox for keyboard navigation, it's more easily done via the mouse anyway!
       tabIndex={-1}
     >
