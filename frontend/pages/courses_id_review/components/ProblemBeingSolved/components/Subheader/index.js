@@ -73,7 +73,8 @@ class Subheader extends React.Component {
       <div className="container">
         <div className="instructions -desktop">
           <em className="review-emphasis">REVIEW</em> - we are repeating due flashcards <em className="white-emphasis">☘</em>.
-          Press ENTER to reveal answers.
+          Press <span style={{ color: 'rgb(134, 244, 159)' }}>ENTER</span> to reveal answers.
+          Use arrows <span style={{ color: 'rgb(242, 112, 110)' }}>◄</span> <span style={{ color: 'rgb(134, 244, 159)' }}>►</span> to rate yourself.
         </div>
 
         {/* for flexbox to float randomize buttons to the right */}
