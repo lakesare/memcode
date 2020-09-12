@@ -127,13 +127,14 @@
       top: 0;
       button{
         width: 100%;
-        height: 70px;
+        height: 35px;
         min-width: 0;
-        padding-top: 0;
         .shortcut{
           position: absolute;
-          bottom: 9px;
-          color: rgba(246, 232, 224, 0.78);
+          color: rgb(213, 105, 49);
+          bottom: -41px;
+          // This is transparent padding that enables clicking on a wide area to safe the flashcard.
+          padding: 15px 25px;
         }
       }
     }
