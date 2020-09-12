@@ -37,16 +37,6 @@ const enterPressed = () =>
               performanceRating: score
             }
           )
-            .then(() => {
-              const lastIndex = state.speGetPage.payload.problems.length - 1;
-              const itWasLastReviewedProblem = lastIndex === currentIndex;
-              if (itWasLastReviewedProblem) {
-                api.PageApi.getForCourseActions(
-                  (spe) => dispatch({ type: 'SET_SPE_NEXT_REVIEW_IN', payload: spe }),
-                  { courseId: currentProblem.courseId }
-                );
-              }
-            });
           if (score < 5) {
             dispatch({
               type: 'ADD_TO_FAILED_PROBLEMS',
