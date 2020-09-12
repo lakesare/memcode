@@ -19,7 +19,7 @@ CREATE TABLE "user" (
   username VARCHAR NOT NULL,
   avatar_url VARCHAR,
   email TEXT,
-  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   unique (oauth_provider, oauth_id)
 );
 
@@ -46,7 +46,7 @@ CREATE TABLE course (
   title VARCHAR NOT NULL CHECK (char_length(title) >= 2),
   description TEXT,
   if_public BOOLEAN DEFAULT true,
-  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
   duplicated_from_course_id INTEGER REFERENCES course (id) ON DELETE SET NULL DEFAULT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE problem (
   content JSON,
   position INTEGER DEFAULT 0,
 
-  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL
 );
 
@@ -93,7 +93,7 @@ CREATE TABLE course_user_is_learning (
   id SERIAL PRIMARY KEY,
 
   active BOOLEAN NOT NULL, -- whether it's shown in /courses/learning
-  started_learning_at TIMESTAMP NOT NULL DEFAULT now(),
+  started_learning_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
@@ -106,9 +106,9 @@ CREATE TABLE problem_user_is_learning (
 
   easiness REAL NOT NULL,
   consecutive_correct_answers SMALLINT NOT NULL,
-  next_due_date TIMESTAMP NOT NULL,
+  next_due_date TIMESTAMPTZ NOT NULL,
   if_ignored BOOLEAN DEFAULT false,
-  last_reviewed_at TIMESTAMP NOT NULL DEFAULT now(),
+  last_reviewed_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
   problem_id INTEGER REFERENCES problem (id) ON DELETE CASCADE NOT NULL,
   course_user_is_learning_id INTEGER REFERENCES "course_user_is_learning" (id) ON DELETE CASCADE NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE notification (
   type VARCHAR NOT NULL,
   content JSON NOT NULL,
   if_read BOOLEAN NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 );
@@ -136,8 +136,8 @@ CREATE TABLE course_rating (
 
   rating INTEGER CHECK (rating >= 1 AND rating <= 5),
 
-  created_at TIMESTAMP NOT NULL DEFAULT now(),
-  updated_at TIMESTAMP NOT NULL DEFAULT now(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
@@ -145,7 +145,7 @@ CREATE TABLE course_rating (
 
 CREATE TABLE coauthor (
   id SERIAL PRIMARY KEY,
-  created_at TIMESTAMP NOT NULL DEFAULT now(),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
   user_id INTEGER REFERENCES "user" (id) NOT NULL,
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
