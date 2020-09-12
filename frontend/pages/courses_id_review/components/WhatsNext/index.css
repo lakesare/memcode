@@ -5,21 +5,38 @@
     margin-top: 30px;
     h2{
       font-weight: 100;
-      font-size: 27px;
+      font-size: 37px;
       letter-spacing: 0.4px;
+      color: rgb(81, 229, 190);
     }
     div.next-review-time{
-      color: rgba(181, 213, 243, 0.35);
+      color: rgba(181, 213, 243, 1);
       font-size: 14px;
       margin-top: 13px;
+      letter-spacing: 0.4px;
+
+      text-transform: uppercase;
+      margin-top: 20px;
+      font-size: 12px;
+
+      height: 41px;
+
+      i{
+        margin-right: 5px;
+        font-size: 21px;
+        width: 100%;
+        margin-bottom: 6px;
+        color: rgb(33, 165, 130);
+      }
     }
     h3.whats-next{
       width: 150px;
       margin: 0 auto;
-      margin-top: 35px;
-      font-weight: 300;
+      margin-top: 40px;
       text-align: center;
-      // border-bottom: 2px solid rgb(255, 192, 203);
+      color: rgb(181, 213, 243);
+      font-weight: 100;
+      font-size: 25px;
     }
   }
   > section.offered-courses{

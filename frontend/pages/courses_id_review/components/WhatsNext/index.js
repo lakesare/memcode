@@ -106,12 +106,11 @@ class WhatsNext extends React.Component {
 
         {
           this.props.currentUser &&
-          this.props.speNextReviewIn.status &&
+          this.props.speNextReviewIn.status === 'success' &&
           <div className="next-review-time">
+            <i className="material-icons timer-icon">timer</i>
             Next review:
-            <Loading enabledStatuses={['success']} spe={this.props.speNextReviewIn}>{({ nextDueDateIn }) =>
-              <span> in {humanizePostgresInterval(nextDueDateIn)}</span>
-            }</Loading>
+            <span> in {humanizePostgresInterval(this.props.speNextReviewIn.payload.nextDueDateIn)}</span>
           </div>
         }
 
