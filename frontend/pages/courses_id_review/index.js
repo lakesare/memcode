@@ -74,6 +74,7 @@ class Page_courses_id_review extends React.Component {
     getPage: PropTypes.func.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
+    speNextReviewIn: PropTypes.object.isRequired,
 
     currentUser: orFalse(PropTypes.object).isRequired,
     currentProblem: PropTypes.object,
@@ -154,8 +155,8 @@ class Page_courses_id_review extends React.Component {
       <WhatsNext
         courseId={parseInt(this.props.courseId)}
         currentUser={this.props.currentUser}
+        speNextReviewIn={this.props.speNextReviewIn}
         ifDisplay={this.props.speGetPage.status === 'success' && !this.props.currentProblem}
-        My={this.props.My}
       />
 
       {

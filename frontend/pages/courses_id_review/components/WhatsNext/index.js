@@ -2,7 +2,6 @@ import { orFalse } from '~/services/orFalse';
 import * as createSpe from '~/services/spe';
 import CourseApi from '~/api/CourseApi';
 import humanizePostgresInterval from '~/services/humanizePostgresInterval';
-import MyModel from '~/models/MyModel';
 
 import Loading from '~/components/Loading';
 import CourseCardLearnReview from '~/appComponents/CourseCardLearnReview';
@@ -14,8 +13,8 @@ class WhatsNext extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    ifDisplay: PropTypes.bool.isRequired,
-    My: PropTypes.object.isRequired,
+    speNextReviewIn: PropTypes.object.isRequired,
+    ifDisplay: PropTypes.bool.isRequired
   }
 
   state = { speCourses: {} }
@@ -100,24 +99,6 @@ class WhatsNext extends React.Component {
       }
     )
 
-  getNextDueDateIn = () => {
-    const dto = this.props.My.courses.find((c) => c.course.id === this.props.courseId);
-    console.log({dto});
-    // If we're not learning this course (maybe it's just a test drive)
-    if (!dto) {
-      return null;
-    }
-    const nextDueDateIn = MyModel.getNextDueDateIn(dto);
-    console.log({nextDueDateIn});
-    if (nextDueDateIn === null) {
-      return null;
-    } else if (nextDueDateIn === 'now') {
-      return 'Now';
-    } else {
-      return `In ${nextDueDateIn.amount} ${nextDueDateIn.measure}`;
-    }
-  }
-
   render = () =>
     <section className={`${css.section} container`} style={this.props.ifDisplay ? {} : { display: 'none' }}>
       <section className="congratulations">
@@ -125,10 +106,11 @@ class WhatsNext extends React.Component {
 
         {
           this.props.currentUser &&
+          this.props.speNextReviewIn.status === 'success' &&
           <div className="next-review-time">
             <i className="material-icons timer-icon">timer</i>
-            Next review: {` `}
-            <span>{this.getNextDueDateIn()}</span>
+            Next review:
+            <span> in {humanizePostgresInterval(this.props.speNextReviewIn.payload.nextDueDateIn)}</span>
           </div>
         }
 
