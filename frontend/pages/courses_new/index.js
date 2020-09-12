@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import MyDuck from '~/ducks/MyDuck';
 
 import { withRouter } from "react-router-dom";
 import StandardTooltip from '~/components/StandardTooltip';
@@ -14,9 +15,16 @@ import CourseApi from '~/api/CourseApi';
 import css from './index.css';
 
 @withRouter
+@connect(
+  () => ({}),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)
 class Page_courses_new extends React.Component {
   static propTypes = {
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    MyActions: PropTypes.object.isRequired,
   }
 
   state = {
@@ -38,7 +46,11 @@ class Page_courses_new extends React.Component {
         spe => this.setState({ speSave: spe }),
         this.state.formState
       )
-        .then((course) => this.props.history.push(`/courses/${course.id}`));
+        .then((course) => {
+          this.props.history.push(`/courses/${course.id}`);
+          // Very important to refetch the courses, - otherwise the first problem will not be visibly 'to learn'.
+          this.props.MyActions.apiGetCourses();
+        });
     } else {
       this.setState({ formValidation });
     }
