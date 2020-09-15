@@ -44,11 +44,13 @@
       margin: 0 auto;
       margin-top: 34px;
 
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      // Must be the width of the card to center well.
+      grid-template-columns: repeat(auto-fill, 199px);
+      column-gap: 15px;
       justify-content: space-between;
       .standard-course-card{
-        margin-bottom: 25px;
+        margin-bottom: 40px;
       }
       .layout-div{ display: none; }
     }

@@ -166,7 +166,7 @@ class WhatsNext extends React.Component {
       <section className="whats-next">
         <h2>What's next?</h2>
 
-        <div className="offered-courses">
+        <div className="offered-courses list-of-courses">
           {this.renderCourses()}
         </div>
       </section>

@@ -34,6 +34,10 @@
 }
 
 @media(max-width: 470px){
+  .list-of-courses{
+    display: flex !important;
+    flex-wrap: wrap;
+  }
   .standard-course-card{
     width: 100% !important;
     height: 112px !important;
