@@ -11,6 +11,10 @@ import 'proxy-polyfill/proxy.min.js';
 import '~/services/quill/registerBlots';
 import '~/services/quill/registerModules';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
 import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';

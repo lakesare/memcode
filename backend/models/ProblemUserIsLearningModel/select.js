@@ -11,13 +11,6 @@ const select = {
       `,
       { cuilId }
     ),
-
-  findByCuilIdAndProblemId: (cuilId, problemId) =>
-    db.one(
-      `SELECT * FROM problem_user_is_learning
-      WHERE course_user_is_learning_id = \${cuilId} AND problem_id = \${problemId}`,
-      { cuilId, problemId }
-    )
 };
 
 export default select;

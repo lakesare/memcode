@@ -1,7 +1,6 @@
 import { orFalse } from '~/services/orFalse';
 import * as createSpe from '~/services/spe';
 import CourseApi from '~/api/CourseApi';
-import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 import MyModel from '~/models/MyModel';
 
 import Loading from '~/components/Loading';
@@ -21,12 +20,12 @@ class WhatsNext extends React.Component {
   state = { speCourses: {} }
 
   componentDidMount() {
-    this.apiGetCourses();
+    // this.apiGetCourses();
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.courseId !== this.props.courseId) {
-      this.apiGetCourses();
+      // this.apiGetCourses();
     }
 
     if (prevProps.ifDisplay === false && this.props.ifDisplay === true) {
@@ -34,12 +33,8 @@ class WhatsNext extends React.Component {
     }
   }
 
-  // apiGetCourses = () =>
-  //   api.CourseApi.getPublicCourses(
-  //     { pageSize: 20 },
-  //     (spe) => this.setState({ speCourses: spe })
-  //   )
-
+  // Let's get apiGetPopularCourses popular courses, but only if we don't have any other own courses.
+  // First of all, let's render 20 courses of ours, starting from the least-flashcards-to-review.
   apiGetCourses = () => {
     this.setState({ speCourses: createSpe.request() });
     Promise.all([
@@ -49,7 +44,7 @@ class WhatsNext extends React.Component {
       const filteredOwnCourses = ownCourses.filter(({ course }) => course.id !== this.props.courseId);
 
       // um, 8 actually
-      const amountOfCoursesToShow = 20;
+      const numberOfCoursesToShow = 20;
 
       let finalCourses = filteredOwnCourses
         .slice(0, amountOfCoursesToShow)
@@ -102,20 +97,54 @@ class WhatsNext extends React.Component {
 
   getNextDueDateIn = () => {
     const dto = this.props.My.courses.find((c) => c.course.id === this.props.courseId);
-    console.log({dto});
     // If we're not learning this course (maybe it's just a test drive)
     if (!dto) {
       return null;
     }
-    const nextDueDateIn = MyModel.getNextDueDateIn(dto);
-    console.log({nextDueDateIn});
-    if (nextDueDateIn === null) {
-      return null;
-    } else if (nextDueDateIn === 'now') {
-      return 'Now';
-    } else {
-      return `In ${nextDueDateIn.amount} ${nextDueDateIn.measure}`;
-    }
+    return MyModel.nextDueDateInToString(MyModel.getNextDueDateIn(dto));
+  }
+
+  renderCourses = () => {
+    const courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
+
+    const toReview = MyModel.getDtosToReview(courseDtos);
+    // Also from the same category is a sweet idea.
+    toReview.sort((a, b) => {
+      if (a.amountOfProblemsToReview < b.amountOfProblemsToReview) {
+        return -1;
+      } else if (a.amountOfProblemsToReview > b.amountOfProblemsToReview) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    const toLearn = MyModel.getDtosToLearn(courseDtos)
+      .filter((courseDto) => !toReview.find((c) => c.course.id === courseDto.course.id));
+    toLearn.sort((a, b) => {
+      if (a.amountOfProblemsToLearn > b.amountOfProblemsToLearn) {
+        return -1;
+      } else if (a.amountOfProblemsToLearn < b.amountOfProblemsToLearn) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+
+    const reviewNext = courseDtos
+      .filter((courseDto) =>
+        !(
+          toReview.find((c) => c.course.id === courseDto.course.id) ||
+          toLearn.find((c) => c.course.id === courseDto.course.id)
+        )
+      );
+    MyModel.sortByHowMuchToDo(reviewNext);
+
+    const dtos = [...toReview, ...toLearn, ...reviewNext].slice(0, 20);
+
+    return dtos.map((courseDto) =>
+      <CourseCardLearnReview key={courseDto.course.id} courseDto={courseDto}/>
+    );
   }
 
   render = () =>
@@ -132,18 +161,24 @@ class WhatsNext extends React.Component {
           </div>
         }
 
-        <h3 className="whats-next">What's next?</h3>
       </section>
 
-      <Loading spe={this.state.speCourses}>{(coursesData) => (
-        <section className="offered-courses list-of-courses">
-          {coursesData.map((courseData) => (
-            courseData._type === 'simpleCourse' ?
-              <CourseCardSimple key={courseData.course.id} courseDto={courseData}/> :
-              <CourseCardLearnReview key={courseData.course.id} courseDto={courseData}/>
-          ))}
-        </section>
-      )}</Loading>
+      <section className="whats-next">
+        <h2>What's next?</h2>
+
+        <div className="offered-courses">
+          {this.renderCourses()}
+        </div>
+      </section>
+      {/* <Loading spe={this.state.speCourses}>{(coursesData) => ( */}
+      {/*   <section className="offered-courses list-of-courses"> */}
+      {/*     {coursesData.map((courseData) => ( */}
+      {/*       courseData._type === 'simpleCourse' ? */}
+      {/*         <CourseCardSimple key={courseData.course.id} courseDto={courseData}/> : */}
+      {/*         <CourseCardLearnReview key={courseData.course.id} courseDto={courseData}/> */}
+      {/*     ))} */}
+      {/*   </section> */}
+      {/* )}</Loading> */}
     </section>
 }
 

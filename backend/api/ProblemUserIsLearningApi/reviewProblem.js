@@ -1,14 +1,28 @@
+import knex from '~/db/knex';
+import dayjs from 'dayjs';
+
 import auth from '~/middlewares/auth';
-import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
+import getNextScore from '~/../services/getNextScore';
 
 const reviewProblem = auth(async (request, response) => {
-  const puil = await ProblemUserIsLearningModel.update.review(
-    request.body['id'],
-    request.body['problemId'],
-    request.body['performanceRating']
-  );
+  const courseUserIsLearningId = request.body['id'];
+  const problemId = request.body['problemId'];
+  const performanceRating = request.body['performanceRating'];
 
-  response.success(puil);
+  const puil = (await knex('problemUserIsLearning').where({ courseUserIsLearningId, problemId }))[0];
+  const nextScore = getNextScore(puil.easiness, puil.consecutiveCorrectAnswers, performanceRating);
+  const now = dayjs();
+  const updatedPuil = (await knex('problemUserIsLearning')
+    .where({ id: puil.id })
+    .update({
+      easiness: nextScore.easiness,
+      consecutiveCorrectAnswers: nextScore.consecutiveCorrectAnswers,
+      nextDueDate: now.add(nextScore.msToNextReview, 'ms').format(),
+      lastReviewedAt: now.format()
+    })
+    .returning('*'))[0];
+
+  response.success(updatedPuil);
 });
 
 export default reviewProblem;

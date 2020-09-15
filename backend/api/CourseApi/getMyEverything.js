@@ -35,10 +35,7 @@ const getMyEverything = auth(async (request, response) => {
   const myLearnedProblems = await db.any(
     `
       SELECT
-        (problem_user_is_learning.next_due_date - now()) AS next_due_date_in,
-        problem_user_is_learning.next_due_date AS next_due_date,
-        problem_user_is_learning.if_ignored AS if_ignored,
-        problem_user_is_learning.problem_id AS problem_id,
+        problem_user_is_learning.*,
         course_user_is_learning.course_id AS course_id
       FROM problem_user_is_learning
       INNER JOIN course_user_is_learning
@@ -84,10 +81,11 @@ const getMyEverything = auth(async (request, response) => {
         .map((myLearnedProblem) => ({
           id: myLearnedProblem.problemId,
           _learned: true,
-          ...myLearnedProblem,
-          nextDueDateIn: myLearnedProblem.nextDueDateIn,
+          courseId: myLearnedProblem.courseId,
           nextDueDate: myLearnedProblem.nextDueDate,
-          ifIgnored: myLearnedProblem.ifIgnored
+          ifIgnored: myLearnedProblem.ifIgnored,
+          easiness: myLearnedProblem.easiness,
+          consecutiveCorrectAnswers: myLearnedProblem.consecutiveCorrectAnswers
         })),
       ...allProblemsNotLearned
         .filter((myNotLearnedProblem) => {

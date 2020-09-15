@@ -29,8 +29,9 @@
         color: rgb(33, 165, 130);
       }
     }
-    h3.whats-next{
-      width: 150px;
+  }
+  section.whats-next{
+    > h2{
       margin: 0 auto;
       margin-top: 40px;
       text-align: center;
@@ -38,18 +39,18 @@
       font-weight: 100;
       font-size: 25px;
     }
-  }
-  > section.offered-courses{
-    max-width: 915px;
-    margin: 0 auto;
-    margin-top: 25px;
+    > div.offered-courses{
+      max-width: 915px;
+      margin: 0 auto;
+      margin-top: 34px;
 
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .standard-course-card{
-      margin-bottom: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .standard-course-card{
+        margin-bottom: 25px;
+      }
+      .layout-div{ display: none; }
     }
-    .layout-div{ display: none; }
   }
 }

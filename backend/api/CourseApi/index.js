@@ -41,11 +41,11 @@ router.get('/public', catchAsync(async (request, response) => {
   const courseCategoryId = request.query.courseCategoryId;
   const subquery = knex('problem').count('id').whereRaw('problem.course_id = course.id');
 
-  let  amountofAllCoursesQuery = knex('course').count('id', {as: 'amount_of_public_courses'})
-  .where('if_public', 'true')
-  .andWhere(2, "<=", subquery);
+  let amountofAllCoursesQuery = knex('course').count('id', { as: 'amount_of_public_courses' })
+    .where('if_public', 'true')
+    .andWhere(2, "<=", subquery);
 
-  if(courseCategoryId) {
+  if (courseCategoryId) {
     amountofAllCoursesQuery = amountofAllCoursesQuery.andWhere('course_category_id', courseCategoryId);
   }
 
@@ -56,23 +56,6 @@ router.get('/public', catchAsync(async (request, response) => {
     onePageOfCourses,
     amountOfPages: Math.ceil(amountOfAllCourses / pageSize)
   });
-}));
-
-// => [{
-//   course: {},
-//   courseUserIsLearning: {},
-//   amountOfProblemsToReview: 3
-//   amountOfProblemsToLearn: 1
-// }], active, filtered by amount of due problems
-
-router.get('/allLearned', authenticate, catchAsync(async (request, response) => {
-  const courseCategoryId = request.query.courseCategoryId;
-  let courses = await CourseModel.select.allLearned(request.currentUser.id);
-
-  if (courseCategoryId) {
-    courses = courses.filter((course) => course.course.courseCategoryId.toString() === courseCategoryId.toString());
-  }
-  response.status(200).json(courses);
 }));
 
 router.get('/allCreated', authenticate, catchAsync(async (request, response) => {

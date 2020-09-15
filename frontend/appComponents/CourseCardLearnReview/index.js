@@ -16,15 +16,10 @@ class CourseCardLearnReview extends React.Component {
       course: PropTypes.object.isRequired,
       amountOfProblemsToLearn: PropTypes.number.isRequired,
       amountOfProblemsToReview: PropTypes.number.isRequired,
-      nextDueDateIn: PropTypes.object,
+      nextDueDate: PropTypes.string,
       courseCategory: PropTypes.object,
       author: PropTypes.object
     })
-  }
-
-  static defaultProps = {
-    courseUserIsLearning: null,
-    nextDueDateIn: null // because courseUserIsLearning can be null
   }
 
   ifCanLearnAndReview = () =>
@@ -59,12 +54,7 @@ class CourseCardLearnReview extends React.Component {
 
       {
         this.ifCanLearnAndReview() &&
-        <LearnAndReviewButtons
-          courseId={courseDto.course.id}
-          amountOfProblemsToReview={courseDto.amountOfProblemsToReview}
-          amountOfProblemsToLearn={courseDto.amountOfProblemsToLearn}
-          nextDueDateIn={courseDto.nextDueDateIn}
-        />
+        <LearnAndReviewButtons courseDto={courseDto}/>
       }
     </div>
 

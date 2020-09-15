@@ -36,7 +36,7 @@ const enterPressed = () =>
               problemId: currentProblem.id,
               performanceRating: score
             }
-          )
+          );
           if (score < 5) {
             dispatch({
               type: 'ADD_TO_FAILED_PROBLEMS',
@@ -49,7 +49,9 @@ const enterPressed = () =>
             payload: currentIndex + 1
           });
 
-          MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id);
+          console.log({ currentProblem, score });
+
+          MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id, score);
           break;
         }
       }

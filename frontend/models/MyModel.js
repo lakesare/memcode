@@ -1,5 +1,4 @@
-import datetimeDiff from '~/services/datetimeDiff';
-import humanizePostgresInterval from '~/services/humanizePostgresInterval';
+import dayjs from 'dayjs';
 
 // => null
 // => 'now'
@@ -12,9 +11,19 @@ const getNextDueDateIn = (dto) => {
     return 'now';
   }
 
-  const diff = datetimeDiff(new Date(), new Date(nextDueProblem.nextDueDate));
-  const [amount, measure] = humanizePostgresInterval(diff, { asArray: true });
-  return { amount, measure };
+  const string = dayjs(nextDueProblem.nextDueDate).from(dayjs(), true);
+  const [amount, measure] = string.split(' ');
+  return { amount: (amount === 'a' || amount === 'an') ? 1 : amount, measure };
+};
+
+const nextDueDateInToString = (nextDueDateIn) => {
+  if (nextDueDateIn === null) {
+    return null;
+  } else if (nextDueDateIn === 'now') {
+    return 'Now';
+  } else {
+    return `In ${nextDueDateIn.amount} ${nextDueDateIn.measure}`;
+  }
 };
 
 const isProblemToReview = (problem) => {
@@ -102,11 +111,26 @@ const getNextDueProblem = (dto) => {
   return due;
 };
 
+const dtoToCourseCardProps = (dto) => {
+  const nextDueProblem = getNextDueProblem(dto);
+  const problemsToLearn = dto.problems.filter(isProblemToLearn);
+  const problemsToReview = dto.problems.filter(isProblemToReview);
+
+  return {
+    ...dto,
+    amountOfProblemsToLearn: problemsToLearn.length,
+    amountOfProblemsToReview: problemsToReview.length,
+    nextDueDate: nextDueProblem ? nextDueProblem.nextDueDate : null,
+  };
+};
+
 export default {
   isProblemToReview, isProblemToLearn,
   getDtosToLearn, countAllProblemsToLearn,
   getDtosToReview, countAllProblemsToReview,
   sortByHowMuchToDo,
   getNextDueProblem,
-  getNextDueDateIn
+  getNextDueDateIn,
+  nextDueDateInToString,
+  dtoToCourseCardProps
 };

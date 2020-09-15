@@ -1,5 +1,9 @@
 import 'source-map-support/register';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
+
 // load environment variables.
 import '../env.js';
 

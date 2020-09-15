@@ -1,7 +1,28 @@
+import dayjs from 'dayjs';
+import getNextScore from '~/../services/getNextScore';
+import initialScore from '~/../services/initialScore';
+
 const namespace = 'global.my';
 
 const SPE_COURSES = `${namespace}.SPE_COURSES`;
 const SPE_CATEGORIES = `${namespace}.SPE_CATEGORIES`;
+
+const setProblem = (state, courseId, problemId, setFn) => {
+  const newState = JSON.parse(JSON.stringify(state));
+
+  const courseDtoIndex = newState.courses.findIndex((courseDto) =>
+    courseDto.course.id === courseId
+  );
+
+  const problems = newState.courses[courseDtoIndex].problems;
+  const problemIndex = problems.findIndex((problem) =>
+    problem.id === problemId
+  );
+  const oldProblem = problems[problemIndex];
+  problems[problemIndex] = setFn(oldProblem);
+
+  return newState;
+};
 
 const initialState = {
   speCourses: {},
@@ -12,27 +33,16 @@ const initialState = {
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    // SPE
+    case SPE_CATEGORIES: {
+      return { ...state, speCategories: action.spe };
+    }
+    case `${namespace}.SET`:
+      return action.payload;
+    case `${namespace}.SWITCH_FLASHCARD_ORDER`:
+      return { ...state, flashcardOrder: action.payload.flashcardOrder };
     case 'SET_SPE_GET_COURSE': {
       return { ...state, speCourseForActions: action.payload };
-    }
-    // This is temporary :-) Basically after the person reviewed everything, we are fetching the 'What's next' section. We fetch speNextReviewIn for that. We can also update our <Actions/> with that data.
-    case 'SET_SPE_NEXT_REVIEW_IN': {
-      const spe = action.payload;
-      if (spe.status === 'success') {
-        const nextDueDateIn = spe.payload.nextDueDateIn;
-        return {
-          ...state,
-          speCourseForActions: {
-            ...state.speCourseForActions,
-            payload: {
-              ...state.speCourseForActions.payload,
-              nextDueDateIn
-            }
-          }
-        };
-      } else {
-        return state;
-      }
     }
     case SPE_COURSES: {
       if (state.speCourses.status === 'success') {
@@ -49,22 +59,43 @@ const reducer = (state = initialState, action) => {
         }
       }
     }
-    case `${namespace}.REVIEW_PROBLEM`: {
+    // COURSES
+    case `${namespace}.START_LEARNING_COURSE`: {
       const newState = JSON.parse(JSON.stringify(state));
-      // const courseId = action.payload.courseId;
-      const problemId = action.payload.problemId;
+      const currentUser = action.payload.currentUser;
+      const courseUserIsLearning = action.payload.courseUserIsLearning;
 
-      newState.courses.find((course) =>
-        course.problems.find((problem) => {
-          if (problem.id === problemId) {
-            // todo set actual nextDueDate?
-            problem.nextDueDate = "2044-02-05T21:32:41.851Z";
-            return true;
-          }
-        })
-      );
+      newState.speCourseForActions.payload.learners.push(currentUser);
+      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
+
       return newState;
     }
+    case `${namespace}.STOP_LEARNING_COURSE`: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const courseUserIsLearning = action.payload.courseUserIsLearning;
+      const currentUser = action.payload.currentUser;
+
+      const courseDtoIndex = state.courses.findIndex((courseDto) =>
+        courseDto.course.id === courseUserIsLearning.courseId
+      );
+
+      newState.courses.splice(courseDtoIndex, 1);
+      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
+      newState.speCourseForActions.payload.learners = newState.speCourseForActions.payload.learners.filter((learner) => learner.id !== currentUser.id);
+
+      return newState;
+    }
+    case `${namespace}.RESUME_LEARNING_COURSE`: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const courseUserIsLearning = action.payload.courseUserIsLearning;
+      const currentUser = action.payload.currentUser;
+
+      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
+      newState.speCourseForActions.payload.learners.push(currentUser);
+
+      return newState;
+    }
+    // PROBLEM CRUD
     case `${namespace}.CREATE_PROBLEM`: {
       const newState = JSON.parse(JSON.stringify(state));
       const courseId = action.payload.courseId;
@@ -107,102 +138,61 @@ const reducer = (state = initialState, action) => {
       newState.courses[courseDtoIndex].problems = newProblems;
       return newState;
     }
+    // PROBLEM REVIEW
     case `${namespace}.LEARN_PROBLEM`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
-
-      const courseDtoIndex = state.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseId
-      );
-      newState.courses[courseDtoIndex].problems.find((problem) => {
-        if (problem.id === problemId) {
-          // todo set actual nextDueDate?
-          problem._learned = true;
-          // review 10 seconds ago :-)
-          const date = new Date(new Date().getTime() - (10 * 1000));
-          problem.nextDueDate = date.toISOString();
-          problem.ifIgnored = false;
-          return true;
-        }
-      });
+      const newState = setProblem(state, courseId, problemId, (problem) => ({
+        id: problem.id,
+        _learned: true,
+        ifIgnored: false,
+        nextDueDate: dayjs().format(),
+        easiness: initialScore().easiness,
+        consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers
+      }));
       return newState;
     }
     case `${namespace}.IGNORE_PROBLEM`: {
+      const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
-      const newState = JSON.parse(JSON.stringify(state));
-      newState.courses.find((course) =>
-        course.problems.find((problem) => {
-          if (problem.id === problemId) {
-            // todo set actual nextDueDate?
-            problem._learned = true;
-            problem.nextDueDate = "2044-02-05T21:32:41.851Z";
-            problem.ifIgnored = true;
-            return true;
-          }
-        })
-      );
+      const newState = setProblem(state, courseId, problemId, (problem) => ({
+        id: problem.id,
+        _learned: true,
+        ifIgnored: true,
+        nextDueDate: dayjs().format(),
+        easiness: initialScore().easiness,
+        consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers
+      }));
       return newState;
     }
     case `${namespace}.UNLEARN_UNIGNORE_PROBLEM`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
-
-      const courseDtoIndex = newState.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseId
-      );
-      const problems = newState.courses[courseDtoIndex].problems;
-      const problemIndex = problems.findIndex((problem) => problem.id === problemId);
-
-      problems[problemIndex] = {
-        id: problems[problemIndex].id,
+      const newState = setProblem(state, courseId, problemId, (problem) => ({
+        id: problem.id,
         _learned: false
-      };
+      }));
       return newState;
     }
-    case `${namespace}.START_LEARNING_COURSE`: {
-      const newState = JSON.parse(JSON.stringify(state));
-      const currentUser = action.payload.currentUser;
-      const courseUserIsLearning = action.payload.courseUserIsLearning;
+    case `${namespace}.REVIEW_PROBLEM`: {
+      const courseId = action.payload.courseId;
+      const problemId = action.payload.problemId;
+      const score = action.payload.score;
 
-      newState.speCourseForActions.payload.learners.push(currentUser);
-      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-
+      const newState = setProblem(state, courseId, problemId, (problem) => {
+        const newScore = getNextScore(problem.easiness, problem.consecutiveCorrectAnswers, score);
+        return {
+          id: problem.id,
+          _learned: true,
+          ifIgnored: false,
+          nextDueDate: dayjs().add(newScore.msToNextReview, 'ms').format(),
+          easiness: newScore.easiness,
+          consecutiveCorrectAnswers: newScore.consecutiveCorrectAnswers
+        };
+      });
       return newState;
     }
-    case `${namespace}.STOP_LEARNING_COURSE`: {
-      const newState = JSON.parse(JSON.stringify(state));
-      const courseUserIsLearning = action.payload.courseUserIsLearning;
-      const currentUser = action.payload.currentUser;
 
-      const courseDtoIndex = state.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseUserIsLearning.courseId
-      );
-
-      newState.courses.splice(courseDtoIndex, 1);
-      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-      newState.speCourseForActions.payload.learners = newState.speCourseForActions.payload.learners.filter((learner) => learner.id !== currentUser.id);
-
-      return newState;
-    }
-    case `${namespace}.RESUME_LEARNING_COURSE`: {
-      const newState = JSON.parse(JSON.stringify(state));
-      const courseUserIsLearning = action.payload.courseUserIsLearning;
-      const currentUser = action.payload.currentUser;
-
-      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-      newState.speCourseForActions.payload.learners.push(currentUser);
-
-      return newState;
-    }
-    case SPE_CATEGORIES: {
-      return { ...state, speCategories: action.spe };
-    }
-    case `${namespace}.SET`:
-      return action.payload;
-    case `${namespace}.SWITCH_FLASHCARD_ORDER`:
-      return { ...state, flashcardOrder: action.payload.flashcardOrder };
     default:
       return state;
   }
@@ -253,8 +243,8 @@ const getActions = (dispatch, getState) => ({
   setSpeCourseForActions: (spe) => {
     dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe });
   },
-  reviewProblem: (courseId, problemId) => {
-    dispatch({ type: `${namespace}.REVIEW_PROBLEM`, payload: { problemId } });
+  reviewProblem: (courseId, problemId, score) => {
+    dispatch({ type: `${namespace}.REVIEW_PROBLEM`, payload: { courseId, problemId, score } });
   },
   createProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.CREATE_PROBLEM`, payload: { courseId, problemId } });

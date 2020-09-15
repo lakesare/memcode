@@ -82,23 +82,9 @@ class Page_courses_learning extends React.Component {
     />
 
   getCourseDtos = () => {
-    const courseDtosWithAmounts = this.props.My.courses.map((dto) => {
-      const nextDueProblem = MyModel.getNextDueProblem(dto);
-      const problemsToLearn = dto.problems.filter(MyModel.isProblemToLearn);
-      const problemsToReview = dto.problems.filter(MyModel.isProblemToReview);
-
-      return {
-        ...dto,
-        amountOfProblemsToLearn: problemsToLearn.length,
-        amountOfProblemsToReview: problemsToReview.length,
-        nextDueDate: nextDueProblem ? nextDueProblem.nextDueDate : null,
-        nextDueDateIn: nextDueProblem ? nextDueProblem.nextDueDateIn : null
-      };
-    });
-
-    MyModel.sortByHowMuchToDo(courseDtosWithAmounts);
-
-    return courseDtosWithAmounts;
+    const courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
+    MyModel.sortByHowMuchToDo(courseDtos);
+    return courseDtos;
   }
 
   filterCourseCategoriesForUserLearning = (courseCategories) => {

@@ -56,7 +56,7 @@ const getNextScore = (prevEasiness, prevConsecutiveCorrectAnswers, performanceRa
   return {
     easiness: nextEasiness,
     consecutiveCorrectAnswers: nextConsecutiveCorrectAnswers,
-    daysToNextReview
+    msToNextReview: daysToNextReview * 86400000
   };
 };
 

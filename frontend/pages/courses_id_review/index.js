@@ -32,7 +32,6 @@ import actions from './duck/actions';
       currentUser: state.global.Authentication.currentUser || false,
       currentProblem: selectors.deriveCurrentProblem(pageState),
       speGetPage: pageState.speGetPage,
-      speNextReviewIn: pageState.speNextReviewIn,
       ifReviewingFailedProblems: pageState.ifReviewingFailedProblems,
 
       ...pageState.speGetPage.status === 'success' &&

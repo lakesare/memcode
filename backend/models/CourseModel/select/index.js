@@ -2,7 +2,6 @@ import db from '~/db/init.js';
 import { camelizeDbColumns } from '~/services/camelizeDbColumns';
 import integerizeDbColumns from '~/services/integerizeDbColumns';
 import wherePublic from './services/wherePublic';
-import getCoursesWithStats from './services/getCoursesWithStats';
 
 const sortByWord = (sortBy) => {
   switch (sortBy) {
@@ -22,25 +21,25 @@ const sortByWord = (sortBy) => {
 
 const select = {
   allCreated: (userId) =>
-    getCoursesWithStats({
-      where: `WHERE course.user_id = \${userId}`,
-      params: { userId }
-    }),
-
-  // for /profile. returns all courses userId is currently learning.
-  // only active,
-  // filtered by amount of due problems (TODO)
-  allLearned: (userId) =>
-    getCoursesWithStats({
-      where: ` WHERE course_user_is_learning.user_id = \${userId} AND course_user_is_learning.active = true`,
-      orderBy: `
-        ORDER BY
-          amount_of_problems_to_review DESC,
-          amount_of_problems_to_learn DESC,
-          next_due_date_in ASC
+    db.any(
+      `
+      SELECT
+        row_to_json(course.*) AS course,
+        row_to_json("user".*) AS author,
+        row_to_json(course_category.*) AS course_category,
+        COUNT(distinct problem.id) AS amount_of_problems
+      FROM course
+      INNER JOIN problem
+        ON problem.course_id = course.id
+      INNER JOIN "user"
+        ON "user".id = \${userId}
+      INNER JOIN course_category
+        ON course.course_category_id = course_category.id
+      WHERE course.user_id = \${userId}
+      GROUP BY (course.id, "user".id, course_category.id)
       `,
-      params: { userId }
-    }),
+      { userId }
+    ),
 
   // all public courses with 2 or more problems,
   // sorted by amount of learners

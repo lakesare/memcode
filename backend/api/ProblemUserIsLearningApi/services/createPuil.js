@@ -1,5 +1,6 @@
 import knex from '~/db/knex';
-import initialScore from '~/models/ProblemUserIsLearningModel/services/initialScore';
+import dayjs from 'dayjs';
+import initialScore from '~/../services/initialScore';
 
 const createPuil = async (problemId, userId, { ifIgnored }) => {
   const problem = (await knex('problem').where({ id: problemId }))[0];
@@ -12,7 +13,7 @@ const createPuil = async (problemId, userId, { ifIgnored }) => {
       easiness: initialScore().easiness,
       consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers,
       ifIgnored,
-      nextDueDate: knex.raw("now()"),
+      nextDueDate: dayjs().format(),
       courseUserIsLearningId,
       problemId,
     })

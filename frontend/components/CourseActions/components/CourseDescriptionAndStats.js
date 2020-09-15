@@ -1,5 +1,5 @@
 import orFalse from '~/services/orFalse';
-import humanizePostgresInterval from '~/services/humanizePostgresInterval';
+import MyModel from '~/models/MyModel';
 
 import ReadonlyEditor from '~/components/ReadonlyEditor';
 import CourseStarRating from './CourseStarRating';
@@ -8,7 +8,8 @@ class CourseDescriptionAndStats extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
     courseDto: PropTypes.object.isRequired,
-    ifWithDescriptionPlaceholder: PropTypes.bool.isRequired
+    ifWithDescriptionPlaceholder: PropTypes.bool.isRequired,
+    My: PropTypes.object.isRequired
   }
 
   ifCanRateCourse = () => (
@@ -35,18 +36,28 @@ class CourseDescriptionAndStats extends React.Component {
       <div className="icon">{icon}</div>
     </li>
 
+  // lakesare:here
   renderReviewInStat = () => {
-    const [amount, measure] = humanizePostgresInterval(this.props.courseDto.nextDueDateIn, { asArray: true, canBeNegative: true });
+    const dto = this.props.My.courses.find((c) => c.course.id === this.props.courseDto.course.id);
+    // If we're not learning this course (maybe it's just a test drive)
+    if (!dto) {
+      return null;
+    }
+    const nextDueDateIn = MyModel.getNextDueDateIn(dto);
+
+    if (nextDueDateIn === null) {
+      return null;
+    }
     return this.renderStat(
       <i className="fa fa-hourglass-start"/>,
       (
-        amount < 0 ?
+        nextDueDateIn === 'now' ?
           'Review now!' :
           <>
             Review in
             <span className="number review-in-stat-number">
-              {amount}
-              <span className="measure">{measure}</span>
+              {nextDueDateIn.amount}
+              <span className="measure">{nextDueDateIn.measure}</span>
             </span>
           </>
       )
@@ -84,7 +95,6 @@ class CourseDescriptionAndStats extends React.Component {
           {
             this.props.courseDto.courseUserIsLearning &&
             this.props.courseDto.courseUserIsLearning.active &&
-            this.props.courseDto.nextDueDateIn &&
             this.renderReviewInStat()
           }
 

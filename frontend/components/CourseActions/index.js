@@ -194,6 +194,7 @@ class CourseActions extends React.Component {
             currentUser={this.props.currentUser}
             courseDto={courseDto}
             ifWithDescriptionPlaceholder={this.canIEditCourse()}
+            My={this.props.My}
           />
         }
 

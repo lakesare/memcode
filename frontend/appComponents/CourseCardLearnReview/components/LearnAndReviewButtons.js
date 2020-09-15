@@ -1,60 +1,60 @@
-import humanizePostgresInterval from '~/services/humanizePostgresInterval';
-
 import { Link } from 'react-router-dom';
+import MyModel from '~/models/MyModel';
 
 class LearnAndReviewButtons extends React.Component {
   static propTypes = {
-    courseId: PropTypes.number.isRequired,
-    amountOfProblemsToLearn: PropTypes.number.isRequired,
-    amountOfProblemsToReview: PropTypes.number.isRequired,
-    nextDueDateIn: PropTypes.object
+    courseDto: PropTypes.shape({
+      course: PropTypes.object.isRequired,
+      amountOfProblemsToLearn: PropTypes.number.isRequired,
+      amountOfProblemsToReview: PropTypes.number.isRequired,
+      nextDueDate: PropTypes.string
+    })
   }
 
-  static defaultProps = {
-    nextDueDateIn: null // can be null if we haven't learned any problems yet
-  }
-
-  renderAmountOfProblemsToReview = (amountOfProblemsToReview, nextDueDateIn) => {
+  renderAmountOfProblemsToReview = (courseDto) => {
+    const nextDueDateIn = MyModel.getNextDueDateIn(courseDto);
     // user will have to review some problems soon
-    if (amountOfProblemsToReview === 0 && nextDueDateIn) {
+    if (courseDto.amountOfProblemsToReview === 0 && nextDueDateIn) {
       return <div className="review -zero">
         <i className="material-icons timer-icon">timer</i>
-        in {humanizePostgresInterval(nextDueDateIn)}
+        {MyModel.nextDueDateInToString(nextDueDateIn)}
       </div>;
     // user has problems to review
-    } else if (amountOfProblemsToReview > 0) {
+    } else if (courseDto.amountOfProblemsToReview > 0) {
       return <div className="review -nonzero">
-        {amountOfProblemsToReview} to review
+        {courseDto.amountOfProblemsToReview} to review
       </div>;
+    } else {
+      return null;
     }
   }
 
-  renderAmountFooter = (amountOfProblemsToLearn, amountOfProblemsToReview, nextDueDateIn) =>
+  renderAmountFooter = (courseDto) =>
     <section className="amount-footer">
       {
-        amountOfProblemsToLearn > 0 &&
+        courseDto.amountOfProblemsToLearn > 0 &&
         <div className="learn -nonzero">
-          {amountOfProblemsToLearn} to learn
+          {courseDto.amountOfProblemsToLearn} to learn
         </div>
       }
-      {this.renderAmountOfProblemsToReview(amountOfProblemsToReview, nextDueDateIn)}
+      {this.renderAmountOfProblemsToReview(courseDto)}
     </section>
 
-  renderLinks = (amountOfProblemsToLearn, amountOfProblemsToReview, courseId) =>
+  renderLinks = (courseDto) =>
     <section className="links">
       {
-        amountOfProblemsToLearn > 0 &&
+        courseDto.amountOfProblemsToLearn > 0 &&
         <Link
-          className={`learn ${amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
-          to={`/courses/${courseId}/learn`}
+          className={`learn ${courseDto.amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
+          to={`/courses/${courseDto.course.id}/learn`}
         >
           LEARN
         </Link>
       }
 
       {
-        amountOfProblemsToReview > 0 &&
-        <Link className="review" to={`/courses/${courseId}/review`}>
+        courseDto.amountOfProblemsToReview > 0 &&
+        <Link className="review" to={`/courses/${courseDto.course.id}/review`}>
           REVIEW
         </Link>
       }
@@ -62,8 +62,8 @@ class LearnAndReviewButtons extends React.Component {
 
   render = () =>
     <div className="learn-and-review-buttons">
-      {this.renderLinks(this.props.amountOfProblemsToLearn, this.props.amountOfProblemsToReview, this.props.courseId, this.props.nextDueDateIn)}
-      {this.renderAmountFooter(this.props.amountOfProblemsToLearn, this.props.amountOfProblemsToReview, this.props.nextDueDateIn)}
+      {this.renderLinks(this.props.courseDto)}
+      {this.renderAmountFooter(this.props.courseDto)}
     </div>
 }
 
