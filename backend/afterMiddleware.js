@@ -1,7 +1,8 @@
 import router from '~/router';
+import nocache from '~/middlewares/nocache';
 
 import html from '~/html';
-router.get('*', (request, response) => response.send(html));
+router.get('*', nocache(), (request, response) => response.send(html));
 
 import handleErrors from '~/middlewares/handleErrors';
 router.use(handleErrors);
