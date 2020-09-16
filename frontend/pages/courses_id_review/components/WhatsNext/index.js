@@ -1,11 +1,7 @@
 import { orFalse } from '~/services/orFalse';
-import * as createSpe from '~/services/spe';
-import CourseApi from '~/api/CourseApi';
 import MyModel from '~/models/MyModel';
 
-import Loading from '~/components/Loading';
 import CourseCardLearnReview from '~/appComponents/CourseCardLearnReview';
-import CourseCardSimple from '~/appComponents/CourseCardSimple';
 
 import css from './index.css';
 
@@ -20,58 +16,12 @@ class WhatsNext extends React.Component {
   state = { speCourses: {} }
 
   componentDidMount() {
-    // this.apiGetCourses();
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.courseId !== this.props.courseId) {
-      // this.apiGetCourses();
-    }
-
     if (prevProps.ifDisplay === false && this.props.ifDisplay === true) {
       this.uiFocusOnFirstCourseCard();
     }
-  }
-
-  // Let's get apiGetPopularCourses popular courses, but only if we don't have any other own courses.
-  // First of all, let's render 20 courses of ours, starting from the least-flashcards-to-review.
-  apiGetCourses = () => {
-    this.setState({ speCourses: createSpe.request() });
-    Promise.all([
-      this.apiGetPopularCourses(),
-      (this.props.currentUser ? this.apiGetOwnCourses() : [])
-    ]).then(([popularCourses, ownCourses]) => {
-      const filteredOwnCourses = ownCourses.filter(({ course }) => course.id !== this.props.courseId);
-
-      // um, 8 actually
-      const numberOfCoursesToShow = 20;
-
-      let finalCourses = filteredOwnCourses
-        .slice(0, amountOfCoursesToShow)
-        .map((courseData) => ({ ...courseData, _type: 'learnReviewCourse' }));
-
-      if (finalCourses.length < amountOfCoursesToShow) {
-        const filteredPopularCourses = popularCourses
-          .onePageOfCourses
-          .filter(({ course }) =>
-            (course.id !== this.props.courseId) &&
-            // ignore those courses which are already in filteredOwnCourses
-            !filteredOwnCourses.find((ownCourseData) => ownCourseData.course.id === course.id)
-          );
-        const neededAmountOfCourses = amountOfCoursesToShow - finalCourses.length;
-
-        finalCourses = [
-          ...finalCourses,
-          ...filteredPopularCourses
-            .slice(0, neededAmountOfCourses)
-            .map((courseData) => ({ ...courseData, _type: 'simpleCourse' }))
-        ];
-      }
-      this.setState({ speCourses: createSpe.success(finalCourses) });
-    // does this even work? I'd think it doesn't.
-    }).catch((error) => {
-      this.setState({ speCourses: createSpe.failure(error) });
-    });
   }
 
   uiFocusOnFirstCourseCard = () => {
@@ -81,19 +31,6 @@ class WhatsNext extends React.Component {
       courseCard.focus();
     }
   }
-
-  apiGetOwnCourses = () =>
-    CourseApi.selectAllLearned(false)
-
-  apiGetPopularCourses = () =>
-    CourseApi.selectPublic(
-      false,
-      {
-        pageSize: 21,
-        pageNumber: 1,
-        sortBy: 'popular'
-      }
-    )
 
   getNextDueDateIn = () => {
     const dto = this.props.My.courses.find((c) => c.course.id === this.props.courseId);
