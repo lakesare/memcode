@@ -19,6 +19,11 @@ class Rating extends React.Component {
     readOnly: false
   }
 
+  constructor(props) {
+    super(props);
+    this.ratingRef = React.createRef();
+  }
+
   state = {
     temporaryRating: this.props.rating
   }
@@ -39,6 +44,8 @@ class Rating extends React.Component {
           this.props.updateRating(newRating);
           this.setState({ temporaryRating: newRating });
         }
+        // { behavior: 'smooth' } doesn't work in chrome no matter what I do, polyfill doesn't help.
+        this.ratingRef.current.scrollIntoView();
         break;
       }
       case 39: { // right
@@ -47,6 +54,7 @@ class Rating extends React.Component {
           this.props.updateRating(newRating);
           this.setState({ temporaryRating: newRating });
         }
+        this.ratingRef.current.scrollIntoView();
         break;
       }
     }
@@ -64,6 +72,7 @@ class Rating extends React.Component {
 
   render = () =>
     <ul
+      ref={this.ratingRef}
       className={this.props.className}
       onMouseOut={() => this.setState({ temporaryRating: this.props.rating })}
       style={this.props.readOnly ? { cursor: 'not-allowed', pointerEvents: 'none' } : {}}

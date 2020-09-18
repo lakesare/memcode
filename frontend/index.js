@@ -6,6 +6,9 @@ import 'whatwg-fetch';
 import 'url-search-params-polyfill';
 // `Proxy` polyfill
 import 'proxy-polyfill/proxy.min.js';
+// .scrollIntoView() polyfil
+import smoothscroll from 'smoothscroll-polyfill';
+smoothscroll.polyfill();
 
 // globally setting up quill text editor
 import '~/services/quill/registerBlots';
