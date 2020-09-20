@@ -124,14 +124,14 @@ class OldProblem extends React.Component {
         {/* <button className="button" style={{ background: 'rgb(58, 116, 205)' }}>Draft</button> */}
 
         <ExportFlashcardsModal
-          toggler={<button type="button" onClick={this.uiCheck} className="button export-button">Export</button>}
+          toggler={<button type="button" tabIndex={-1} onClick={this.uiCheck} className="button export-button">Export</button>}
           uiRemoveOldProblems={this.props.uiRemoveOldProblems}
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
           createdCoursesForSelect={this.props.createdCoursesForSelect}
         />
 
         <DeleteFlashcardsModal
-          toggler={<button type="button" onClick={this.uiCheck} className="button delete-button">Delete</button>}
+          toggler={<button type="button" tabIndex={-1} onClick={this.uiCheck} className="button delete-button">Delete</button>}
           uiRemoveOldProblems={this.props.uiRemoveOldProblems}
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
         />
