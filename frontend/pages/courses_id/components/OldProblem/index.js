@@ -203,6 +203,10 @@ class OldProblem extends React.Component {
           problemContent={this.props.problem.content}
           problemType={this.props.problem.type}
         />
+
+        <section className="checkbox">
+          {this.props.index + 1}
+        </section>
       </div>
   )
 }
