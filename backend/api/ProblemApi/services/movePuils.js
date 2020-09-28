@@ -30,7 +30,8 @@ const movePuil = async (mappedPuil, courseId) => {
   //find the old course the user is learning
   const oldCuil = (await knex('courseUserIsLearning').where({ id: oldCuilId }))[0];
   //use the user id and new course id to find the new course the user is learning
-  const newCuil = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, oldCuil.userId);
+  const newCuil = (await knex('courseUserIsLearning').where({ courseId: courseId, userId: oldCuil.userId }))[0];
+
   if (newCuil) {
     //insert new puil, old one will be deleted due to cascade on delete of problem in old course it is linked to
     await knex('problemUserIsLearning')
