@@ -1,4 +1,5 @@
 import knex from '~/db/knex';
+import movePuils from './services/movePuils';
 
 const moveToCourseMany = async (request, response) => {
   const problemIds = request.body['problemIds'];
@@ -13,7 +14,10 @@ const moveToCourseMany = async (request, response) => {
     }));
 
   // 2. Insert the flashcards into the new course
-  await knex('problem').insert(flashcards);
+  const insertedProblems = await knex('problem').insert(flashcards).returning('*');
+
+  //2.1 Move the problems user is learning to new course as well (needs to be done before deletion to avoid constraint violation)
+  await movePuils(problemIds, insertedProblems, courseId);
 
   // 3. Delete the flashcards from the original course
   await knex('problem').whereIn('id', problemIds).del();
