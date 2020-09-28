@@ -21,7 +21,7 @@ const movePuils = async (problemIds, insertedProblems, courseId) => {
   });
 
   //move each puil
-  await Promise.all(mappedPuils.map(async (mappedPuil, i) => await movePuil(mappedPuil, courseId)));
+  await Promise.all(mappedPuils.map(async (mappedPuil) => await movePuil(mappedPuil, courseId)));
 };
 
 const movePuil = async (mappedPuil, courseId) => {
@@ -40,7 +40,7 @@ const movePuil = async (mappedPuil, courseId) => {
         ifIgnored: mappedPuil.puil.ifIgnored,
         nextDueDate: mappedPuil.puil.nextDueDate,
         courseUserIsLearningId: newCuil.id,
-        problemId:  mappedPuil.insertedProblem.id,
+        problemId: mappedPuil.insertedProblem.id,
       });
   }
 }
