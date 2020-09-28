@@ -52,95 +52,69 @@
     margin-bottom: 80px;
 
     div.problem-wrapper{
-      padding: 23px;
-      margin: 0 auto;
-      margin-bottom: 10px;
-      margin-right: 117px;
-      margin-left: 70px;
+      position: relative;
+      button{
+        position: absolute;
+        left: calc(100% + 15px);
+        padding: 10px 5px;
+        font-size: 10px;
+        min-width: 92px;
+        margin-top: 23px;
+        &.-ignore, &.-unignore{
+          top: 42px;
+        }
 
-      border-radius: 5px;
-      // box-shadow: 0px 0px 32px 4px rgba(224, 174, 234, 0.08);
-      box-shadow: 0px 0px 32px 4px rgba(23, 68, 68, 0.39);
-      .quill{
-        height: 100%;
+        // color of buttons
+        &.-ignore, &.-unignore{
+          color: rgb(169, 177, 223);
+          background: rgb(33, 37, 67);
+        }
+        &.-learn, &.-unlearn{
+          background: rgb(25, 70, 71);
+          // color: rgb(167, 242, 244);
+          color: white;
+          top: 0;
+          &:hover{
+            background: $learn-button-color;
+            transition-duration: 300ms;
+          }
+        }
+
+        // for the undo icon
+        display: flex;
+        align-items: center;
+        > i.fa-undo{ padding-right: 5px; }
       }
-      .ql-editor{ cursor: default; }
-      &.-ignored{
+
+      &.-ignored .problem{
         background: rgb(23, 23, 22);
         section.problem{
           opacity: 0.4;
           filter: grayscale(100%);
         }
       }
-      &.-learned{
+      &.-learned .problem{
         background: $learn-button-color;
-        .button-wrapper.-unlearn{
-          // overlay with -learn wrapper so that whole problem is clickable
-          width: 100%;
-          cursor: pointer;
-          z-index: 1001;
-        }
       }
-      &.-yet-to-learn{
+      &.-yet-to-learn .problem{
         &:hover{
           background: rgb(25, 70, 71);
           transition-duration: 300ms;
         }
-        .button-wrapper.-learn{
-          // overlay with -learn wrapper so that whole problem is clickable
-          width: 100%;
-          cursor: pointer;
-          z-index: 1001;
-        }
       }
+      .problem{
+        padding: 23px;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        margin-right: 117px;
+        margin-left: 70px;
 
-      position: relative;
-      .button-wrapper{
-        position: absolute;
-        top: 0; bottom: 0;
-        right: 0;
-        &.-disabled{
-          // opacity: 0.3;
-          cursor: default;
-          button{ cursor: default; }
+        border-radius: 5px;
+        box-shadow: 0px 0px 32px 4px rgba(23, 68, 68, 0.39);
+        .quill{
+          height: 100%;
         }
-
-        // &.-learn:hover{
-        //   button{
-        //     background: $learn-button-color !important;
-        //   }
-        // }
-        button{
-          position: absolute;
-          left: calc(100% + 15px);
-          padding: 10px 5px;
-          font-size: 10px;
-          min-width: 92px;
-          margin-top: 23px;
-          &.-ignore, &.-unignore{
-            top: 42px;
-          }
-
-          // color of buttons
-          &.-ignore, &.-unignore{
-            color: rgb(169, 177, 223);
-            background: rgb(33, 37, 67);
-          }
-          &.-learn, &.-unlearn{
-            background: rgb(25, 70, 71);
-            // color: rgb(167, 242, 244);
-            color: white;
-            &:hover{
-              background: $learn-button-color;
-              transition-duration: 300ms;
-            }
-          }
-
-          // for the undo icon
-          display: flex;
-          align-items: center;
-          > i.fa-undo{ padding-right: 5px; }
-        }
+        .ql-editor{ cursor: default; }
       }
     }
   }
@@ -166,7 +140,7 @@
     }
     nav ul.tab-links{ display: none; }
     .problem-wrapper{
-      .button-wrapper button{ display: none !important; }
+      button{ display: none !important; }
       section.problem{
         display: block;
         div.first-column,
