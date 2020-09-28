@@ -41,6 +41,7 @@ const movePuil = async (mappedPuil, courseId) => {
         ifIgnored: mappedPuil.puil.ifIgnored,
         nextDueDate: mappedPuil.puil.nextDueDate,
         courseUserIsLearningId: newCuil.id,
+        lastReviewedAt: mappedPuil.puil.lastReviewedAt,
         problemId: mappedPuil.insertedProblem.id,
       });
   }
