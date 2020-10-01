@@ -15,7 +15,6 @@ Made with love 💘
 **Site ❤️**: www.memcode.com  
 **Email**: [contact@memcode.com](mailto:contact@memcode.com)  
 **Twitter**: https://twitter.com/memcodeapp  
-**Buy me a coffee**: https://www.buymeacoffee.com/memcode
 
 **Alternative.to**: https://alternativeto.net/software/memcode  
 **Slack**: please write to [contact@memcode.com](mailto:contact@memcode.com) to request access  
