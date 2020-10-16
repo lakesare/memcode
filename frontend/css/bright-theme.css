@@ -10,6 +10,9 @@ body.-bright-theme{
   .ProblemBeingSolved{
     section.problem{
       // background: $yellowish;
+      .ql-editor{
+        border: 5px solid rgb(37, 176, 139) !important;
+      }
 
       @media(max-width: 900px){
         background: transparent;
@@ -63,12 +66,12 @@ body.-bright-theme{
     }
     button.see-answer-button{
       box-shadow: none !important;
-      border: none !important;
-      background: rgb(133, 236, 180) !important;
-      color: white !important;
+      border: 3px solid rgb(37, 176, 139) !important;
+      background: rgb(161, 221, 205) !important;
+      color: rgb(50, 50, 50) !important;
       font-weight: 400 !important;
       &:hover, &:focus{
-        background: rgb(110, 211, 156) !important;
+        background: rgb(144, 221, 200) !important;
       }
     }
     &.-withInlinedAnswers{
