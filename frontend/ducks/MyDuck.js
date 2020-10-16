@@ -29,7 +29,8 @@ const initialState = {
   courses: [],
   speCategories: {},
   speCourseForActions: {},
-  flashcardOrder: localStorage.getItem('flashcardOrder') === 'true' ? true : false
+  flashcardOrder: localStorage.getItem('flashcardOrder') === 'true' ? true : false,
+  ifShowDraft: localStorage.getItem('ifShowDraft') === 'false' ? false : true,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -41,6 +42,8 @@ const reducer = (state = initialState, action) => {
       return action.payload;
     case `${namespace}.SWITCH_FLASHCARD_ORDER`:
       return { ...state, flashcardOrder: action.payload.flashcardOrder };
+    case `${namespace}.SWITCH_IF_SHOW_DRAFT`:
+      return { ...state, ifShowDraft: action.payload.ifShowDraft };
     case 'SET_SPE_GET_COURSE': {
       return { ...state, speCourseForActions: action.payload };
     }
@@ -268,7 +271,13 @@ const getActions = (dispatch, getState) => ({
     const flashcardOrder = !state.flashcardOrder;
     localStorage.setItem('flashcardOrder', flashcardOrder);
     dispatch({ type: `${namespace}.SWITCH_FLASHCARD_ORDER`, payload: { flashcardOrder } });
-  }
+  },
+  switchIfShowDraft: () => {
+    const state = getState().global.My;
+    const ifShowDraft = !state.ifShowDraft;
+    localStorage.setItem('ifShowDraft', ifShowDraft);
+    dispatch({ type: `${namespace}.SWITCH_IF_SHOW_DRAFT`, payload: { ifShowDraft } });
+  },
 });
 
 // import { createSelector } from 'reselect'

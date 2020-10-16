@@ -1,4 +1,9 @@
 :local(.main){
+  &.-hide-draft{
+    .ProblemBeingSolved .draft-answer{
+      display: none !important;
+    }
+  }
   footer{
     display: none;
   }

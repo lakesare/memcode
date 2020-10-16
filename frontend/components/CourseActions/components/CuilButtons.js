@@ -11,8 +11,8 @@ class CuilButtons extends React.Component {
     history: PropTypes.object.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
 
-    nOfProblemsToLearn: PropTypes.object.isRequired,
-    nOfProblemsToReview: PropTypes.object.isRequired,
+    nOfProblemsToLearn: PropTypes.number.isRequired,
+    nOfProblemsToReview: PropTypes.number.isRequired,
     courseDto: PropTypes.shape({
       course: PropTypes.object.isRequired,
       amountOfProblems: PropTypes.number.isRequired,
@@ -137,6 +137,21 @@ class CuilButtons extends React.Component {
           </button>
         </li>
       }
+
+      <li>
+        <button
+          type="button"
+          onClick={this.props.MyActions.switchIfShowDraft}
+          style={{ color: 'rgb(181, 184, 239)' }}
+        >
+          <div className="text">
+            {this.props.My.ifShowDraft ? 'Hide Draft' : 'Show Draft'}
+          </div>
+          <div className="comment -white">
+            Whether to show the draft text area for Question+Answer flashcards.
+          </div>
+        </button>
+      </li>
     </ul>
 
   render = () =>

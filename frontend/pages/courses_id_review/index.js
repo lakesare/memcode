@@ -121,7 +121,7 @@ class Page_courses_id_review extends React.Component {
     }</div>
 
   render = () =>
-    <Main className={css.main} dontLinkToLearnOrReview={this.props.courseId}>
+    <Main className={`${css.main} ${!this.props.My.ifShowDraft ? '-hide-draft' : ''}`} dontLinkToLearnOrReview={this.props.courseId}>
       <CourseActions
         courseId={this.props.courseId}
         currentUser={this.props.currentUser}
