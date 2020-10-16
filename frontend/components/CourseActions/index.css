@@ -1,7 +1,5 @@
 @import 'css/variables';
 
-$wow_color: rgba(136, 125, 220, 0.9);
-
 :local(section.actions){
   > section.title-and-buttons{
     background: rgb(7, 9, 39);
@@ -106,7 +104,7 @@ $wow_color: rgba(136, 125, 220, 0.9);
             letter-spacing: 0.9px;
             text-transform: uppercase;
             span, a{
-              color: $wow_color;
+              color: $purple;
               text-shadow: 0 0 12px #fbfbfb52;
             }
             > .in-or-by{
@@ -172,7 +170,7 @@ $wow_color: rgba(136, 125, 220, 0.9);
           align-items: center;
           justify-content: flex-end;
           > div.icon{
-            color: $wow_color;
+            color: $purple;
             // text-shadow: 0 0 6px #fbfbfb47;
             font-size: 17px;
             width: 27px;
@@ -188,7 +186,7 @@ $wow_color: rgba(136, 125, 220, 0.9);
               top: 1px;
               padding-right: 3px;
               font-size: 15px;
-              color: $wow_color;
+              color: $purple;
             }
             span.number.review-in-stat-number{
               padding-left: 5px;
