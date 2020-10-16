@@ -2,6 +2,10 @@ $purple: rgb(136, 125, 220);
 $blue: rgb(21, 23, 58);
 $orange: rgba(250, 100, 0, 0.84);
 
+// Awesome new color for <strong/> in editor.
+// color: rgb(56, 190, 155) !important;
+// font-size: 400;
+
 $body-font: 'Roboto';
 $heading-font: 'Roboto';
 
