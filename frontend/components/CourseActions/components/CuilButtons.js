@@ -31,27 +31,15 @@ class CuilButtons extends React.Component {
     speDuplicate: {}
   }
 
-  getTooltipProps = () => ({
-    tooltipProps: {
-      delay: 1000,
-      animation: 'fade',
-      duration: 600
-    }
-  })
-
   renderStartLearningButton = () =>
-    <StandardTooltip {...this.getTooltipProps()} tooltipEl="We will be recording your results, and asking you to repeat flashcards when necessary!">
-      <button className="button -purple start-learning-button" type="button" onClick={this.props.apiStartLearning}>
-        <i className="fa fa-plus"/> TO LEARNED COURSES
-      </button>
-    </StandardTooltip>
+    <button className="button -orange start-learning-button" type="button" onClick={this.props.apiStartLearning}>
+      Start Learning
+    </button>
 
   renderResumeLearningButton = () =>
-    <StandardTooltip {...this.getTooltipProps()} tooltipEl="All of your results are saved! Just click resume and return to learning a course.">
-      <button className="button -purple resume-learning-button" type="button" onClick={this.props.apiResumeLearning}>
-        RESUME LEARNING
-      </button>
-    </StandardTooltip>
+    <button className="button -orange resume-learning-button" type="button" onClick={this.props.apiResumeLearning}>
+      Resume Learning
+    </button>
 
   apiDuplicateCourse = () =>
     api.CourseApi.duplicate(
