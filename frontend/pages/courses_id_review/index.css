@@ -1,4 +1,7 @@
 :local(.main){
+  .ProblemBeingSolved{
+    padding-bottom: 90px;
+  }
   &.-hide-draft{
     .ProblemBeingSolved .draft-answer{
       display: none !important;

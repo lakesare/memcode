@@ -22,7 +22,7 @@
     display: flex;
     > li{
       cursor: pointer;
-      padding-bottom: 45px;
+      padding-bottom: 27px;
       padding-top: 27px;
       width: 25%;
       &:first-child{

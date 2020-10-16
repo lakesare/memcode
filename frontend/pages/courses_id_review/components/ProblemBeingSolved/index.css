@@ -157,7 +157,7 @@
 
 @media(max-width: 900px) {
   :local(.section){
-    padding-bottom: 80px;
+    padding-bottom: 133px !important;
     > section.Subheader{
       > .container{
         flex-wrap: wrap;
