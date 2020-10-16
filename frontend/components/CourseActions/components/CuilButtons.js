@@ -11,7 +11,8 @@ class CuilButtons extends React.Component {
     history: PropTypes.object.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
 
-    amountOfProblems: orFalse(PropTypes.object).isRequired,
+    nOfProblemsToLearn: PropTypes.object.isRequired,
+    nOfProblemsToReview: PropTypes.object.isRequired,
     courseDto: PropTypes.shape({
       course: PropTypes.object.isRequired,
       amountOfProblems: PropTypes.number.isRequired,
@@ -64,6 +65,7 @@ class CuilButtons extends React.Component {
       })
 
   ifCourseIsLearnedAndActive = () => {
+    // this.props.My.speCourses.status === 'request'
     const cuil = this.props.courseDto.courseUserIsLearning;
     return cuil && cuil.active;
   }
@@ -72,14 +74,14 @@ class CuilButtons extends React.Component {
     <Link
       to={`/courses/${this.props.courseDto.course.id}/learn`}
       className="button -to-learn"
-    >LEARN ({this.props.amountOfProblems.toLearn})</Link>
+    >LEARN ({this.props.nOfProblemsToLearn})</Link>
 
-  // You have ${this.props.amountOfProblems.toReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.
+  // You have ${this.props.nOfProblemsToReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.
   renderReviewButton = () =>
     <Link
       to={`/courses/${this.props.courseDto.course.id}/review`}
       className="button -to-review"
-    >REVIEW ({this.props.amountOfProblems.toReview})</Link>
+    >REVIEW ({this.props.nOfProblemsToReview})</Link>
 
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
@@ -132,7 +134,6 @@ class CuilButtons extends React.Component {
 
       {
         this.props.type === 'editOrShow' &&
-        this.props.courseDto.course.userId === this.props.currentUser.id &&
         <li>
           <button
             type="button"
@@ -167,13 +168,13 @@ class CuilButtons extends React.Component {
         <div className="learn-and-review-buttons">
           {
             this.props.courseDto.courseUserIsLearning &&
-            this.props.amountOfProblems.toLearn > 0 &&
+            this.props.nOfProblemsToLearn > 0 &&
             this.renderLearnButton()
           }
 
           {
             this.props.courseDto.courseUserIsLearning &&
-            this.props.amountOfProblems.toReview > 0 &&
+            this.props.nOfProblemsToReview > 0 &&
             this.renderReviewButton()
           }
 

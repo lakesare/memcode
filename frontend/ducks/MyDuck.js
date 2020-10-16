@@ -45,12 +45,14 @@ const reducer = (state = initialState, action) => {
       return { ...state, speCourseForActions: action.payload };
     }
     case SPE_COURSES: {
+      // If we already have courses fetched - simply refresh .courses
       if (state.speCourses.status === 'success') {
         if (action.spe.status === 'success') {
           return { ...state, courses: action.spe.payload };
         } else {
           return state;
         }
+      // If this is the first time we are fetching our courses - set .courses, AND set .speCourses to 'request'.
       } else {
         if (action.spe.status === 'success') {
           return { ...state, speCourses: { ...action.spe, payload: null }, courses: action.spe.payload };

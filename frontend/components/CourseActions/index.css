@@ -7,6 +7,7 @@ $wow_color: rgba(136, 125, 220, 0.9);
     background: rgb(7, 9, 39);
     padding-top: 20px;
     padding-bottom: 20px;
+    min-height: 80px;
     > .container{
       display: flex;
       justify-content: space-between;
@@ -82,15 +83,12 @@ $wow_color: rgba(136, 125, 220, 0.9);
       > section.course-title_and_category_and_author{
         display: flex;
         color: white;
+        min-height: 40px;
         > h1.title{
           word-break: break-all;
           max-width: 700px;
         }
 
-        > section.category_and_author,
-        > section.edit-invite-buttons{
-          height: 40px;
-        }
         > section.category_and_author{
           display: flex;
           flex-direction: column;

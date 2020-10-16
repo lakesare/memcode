@@ -60,14 +60,62 @@ class CourseActions extends React.Component {
     this.props.MyActions.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, course } });
   }
 
-  renderRequestIcon = () => (
-    this.props.type === 'editOrShow' ?
-      <div>
-        <div style={{ height: 75, background: 'rgb(7, 9, 39)' }}/>
-        <div style={{ height: 120, background: 'rgb(14, 16, 49)' }}/>
-      </div> :
-      null
-  )
+  // renderPlaceholder = () => (
+  //   this.props.type === 'editOrShow' ?
+  //     <div>
+  //       <div style={{ height: 75, background: 'rgb(7, 9, 39)' }}/>
+  //       <div style={{ height: 120, background: 'rgb(14, 16, 49)' }}/>
+  //     </div> :
+  //     null
+  // )
+
+  renderPlaceholder = () => {
+    const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
+    // const nOfProblemsToLearn = dto && dto.problems.filter(MyModel.isProblemToLearn).length;
+    // const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
+
+    return <section className={`course-actions ${css.actions}`}>
+      <section className="title-and-buttons">
+        <div className="container">
+          <section className="course-title_and_category_and_author">
+            <h1 className="title">
+              {
+                dto ?
+                  <Link to={`/courses/${dto.course.id}`}>
+                    {dto.course.title}
+                  </Link> :
+                  ''
+              }
+            </h1>
+          </section>
+
+{/*           <CuilButtons */}
+{/*             nOfProblemsToLearn={nOfProblemsToLearn} */}
+{/*             nOfProblemsToReview={nOfProblemsToReview} */}
+{/*             currentUser={this.props.currentUser} */}
+{/*             // courseDto={courseDto} */}
+{/*  */}
+{/*             apiStartLearning={this.apiStartLearning} */}
+{/*             apiStopLearning={this.apiStopLearning} */}
+{/*             apiResumeLearning={this.apiResumeLearning} */}
+{/*             MyActions={this.props.MyActions} */}
+{/*             My={this.props.My} */}
+{/*             type={this.props.type} */}
+{/*           /> */}
+        </div>
+      </section>
+
+      {
+        // this.props.type === 'editOrShow' &&
+        // <CourseDescriptionAndStats
+        //   currentUser={this.props.currentUser}
+        //   courseDto={courseDto}
+        //   ifWithDescriptionPlaceholder={this.canIEditCourse()}
+        //   My={this.props.My}
+        // />
+      }
+    </section>;
+  }
 
   canIEditCourse = () => {
     const currentUser = this.props.currentUser;
@@ -79,12 +127,8 @@ class CourseActions extends React.Component {
 
   renderTitleAndButtons = (courseDto) => {
     const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
-    const amountOfProblems = dto ?
-      {
-        toLearn: dto.problems.filter(MyModel.isProblemToLearn).length,
-        toReview: dto.problems.filter(MyModel.isProblemToReview).length
-      } :
-      false;
+    const nOfProblemsToLearn = dto && dto.problems.filter(MyModel.isProblemToLearn).length;
+    const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
 
     return <section className="title-and-buttons">
       <div className="container">
@@ -168,7 +212,8 @@ class CourseActions extends React.Component {
         </section>
 
         <CuilButtons
-          amountOfProblems={amountOfProblems}
+          nOfProblemsToLearn={nOfProblemsToLearn}
+          nOfProblemsToReview={nOfProblemsToReview}
           currentUser={this.props.currentUser}
           courseDto={courseDto}
 
@@ -184,7 +229,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.My.speCourseForActions} requestIcon={this.renderRequestIcon()} enabledStatuses={['request', 'success']}>{(courseDto) =>
+    <Loading spe={this.props.My.speCourseForActions} requestIcon={this.renderPlaceholder()} enabledStatuses={['request', 'success']}>{(courseDto) =>
       <section className={`course-actions ${css.actions}`}>
         {this.renderTitleAndButtons(courseDto)}
 
