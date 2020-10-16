@@ -9,7 +9,6 @@ body{
   font-family: $body-font, serif;
   color: $body-color;
   margin: 0;
-  padding-bottom: 30px;
   box-sizing: border-box;
   font-weight: 300;
 
