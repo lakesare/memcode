@@ -19,22 +19,26 @@ body.-bright-theme{
   section.problem{
     font-weight: 400;
 
+    .ql-toolbar{
+      background: none;
+    }
 
-    .ql-editor{
+    .quill > .ql-container > .ql-editor{
       background: white !important;
       box-shadow: none !important;
-    }
-    .quill > .ql-container > .ql-editor{
+      mark.answer{
+        border-width: 3px;
+      }
+      border-width: 3px !important;
       // color: rgb(206, 199, 245);
       // We need !important-s because we have to override styles copypasted by users
-      code, span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol{
+      span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol{
         color: rgb(49, 51, 54) !important;
-        background: white !important;
+        background: transparent !important;
       }
-
       strong{
-        color: $orange !important;
-        font-weight: inherit;
+        // color: rgb(33 165 130) !important;
+        font-weight: 600 !important;
       }
       em{
         color: $purple !important;
@@ -45,8 +49,8 @@ body.-bright-theme{
       }
 
       pre.ql-syntax, code, code *{
-        background: white !important;
-        color: rgb(49, 51, 54) !important;
+        background: rgba(223, 221, 221, 0.37) !important;
+        color: rgb(67, 67, 69) !important;
       }
 
       blockquote, blockquote span{
@@ -56,9 +60,6 @@ body.-bright-theme{
       blockquote{
         border-left: 2px solid rgb(235, 235, 235);
       }
-    }
-    .ql-toolbar{
-      background: rgb(170, 160, 247) !important;
     }
     button.see-answer-button{
       box-shadow: none !important;
