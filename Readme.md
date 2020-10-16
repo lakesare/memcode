@@ -13,6 +13,7 @@ Made with love 💘
 ## Links
 
 **Site ❤️**: www.memcode.com  
+**Patreon**: www.patreon.com/memcode  
 **Email**: [contact@memcode.com](mailto:contact@memcode.com)  
 **Twitter**: https://twitter.com/memcodeapp  
 
