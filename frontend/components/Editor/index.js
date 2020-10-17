@@ -142,7 +142,7 @@ class Editor extends React.Component {
         case 'ql-image':      { tip(button, 'Image', null, 'You can also paste/drop your image'); break; }
         case 'ql-clean':      { tip(button, 'Clear formatting'); break; }
         case 'ql-formula':    { tip(button, 'Insert KaTeX formula'); break; }
-        case 'ql-answer':     { tip(button, 'Answer', '⌘ Shift ENTER', 'Select some text, and mark it as an answer'); break; }
+        case 'ql-answer':     { tip(button, 'Answer', '⌘ Shift ENTER', 'Select some text, and mark it as an answer.<br/>Use | to provide alternative answers.'); break; }
         case 'ql-list': {
           if (button.value === 'ordered') {
             tip(button, 'Ordered List', null, 'Type \'1.\'');
