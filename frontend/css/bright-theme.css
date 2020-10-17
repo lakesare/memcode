@@ -18,6 +18,13 @@ body.-bright-theme{
         background: transparent;
       }
     }
+
+    section.problem.-withInlinedAnswers input.answer-input[data-answered='right'] {
+      box-shadow: none;
+      border: 2px solid rgb(153, 233, 212);
+      background: rgb(175, 246, 227) !important;
+      color: rgb(44, 65, 59) !important;
+    }
   }
   section.problem{
     font-weight: 400;
