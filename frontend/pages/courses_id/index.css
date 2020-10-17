@@ -50,7 +50,7 @@
   .problems-container{
     margin: 0 100px;
     // to avoid editing problem at the bottom of the screen
-    margin-bottom: 200px;
+    padding-bottom: 200px;
     &.-newest-first section.problems{
       display: flex;
       flex-direction: column-reverse;
@@ -194,7 +194,7 @@
     // max-width: 960px;
     margin: 0 auto;
     margin-top: 50px;
-    margin-bottom: 100px;
+    padding-bottom: 100px;
 
     div.problem-wrapper{
       margin-bottom: 30px;

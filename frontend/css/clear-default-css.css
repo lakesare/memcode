@@ -5,6 +5,16 @@ body{
   min-height: 100%;
   padding-bottom: 1px;
 }
+#root{
+  // height: 100%;
+}
+main{
+  min-height: 100vh;
+  // background: url(https://images.unsplash.com/photo-1545427782-c1ba83cbb692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80);
+  background-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+}
 
 body{
   font-family: $body-font, serif;

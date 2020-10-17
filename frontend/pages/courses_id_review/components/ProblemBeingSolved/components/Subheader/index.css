@@ -32,6 +32,15 @@
     }
   }
 
+  button.bg-image-button{
+    margin-right: 10px;
+    color: $purple;
+    font-size: 15px !important;
+    &.-off{
+      opacity: 0.5;
+    }
+  }
+
   // may be shared
   div.amount-of-problems-left{
     position: relative;

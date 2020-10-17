@@ -50,8 +50,10 @@ class Main extends React.Component {
     this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
+  url = 'https://images6.alphacoders.com/744/thumb-1920-744566.jpg'
+
   render = () =>
-    <main className={this.props.className}>
+    <main className={this.props.className} style={this.props.My.backgroundImage ? { backgroundImage: `url(${this.url})` } : {}}>
       <ErrorBoundary>
         <Header dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
       </ErrorBoundary>

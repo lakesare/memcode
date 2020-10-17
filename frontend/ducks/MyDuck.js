@@ -31,6 +31,7 @@ const initialState = {
   speCourseForActions: {},
   flashcardOrder: localStorage.getItem('flashcardOrder') === 'true' ? true : false,
   ifShowDraft: localStorage.getItem('ifShowDraft') === 'false' ? false : true,
+  backgroundImage: localStorage.getItem('backgroundImage') === 'true' ? true : false,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -44,6 +45,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, flashcardOrder: action.payload.flashcardOrder };
     case `${namespace}.SWITCH_IF_SHOW_DRAFT`:
       return { ...state, ifShowDraft: action.payload.ifShowDraft };
+    case `${namespace}.SWITCH_BACKGROUND_IMAGE`:
+      return { ...state, backgroundImage: action.payload.backgroundImage };
     case 'SET_SPE_GET_COURSE': {
       return { ...state, speCourseForActions: action.payload };
     }
@@ -278,6 +281,12 @@ const getActions = (dispatch, getState) => ({
     localStorage.setItem('ifShowDraft', ifShowDraft);
     dispatch({ type: `${namespace}.SWITCH_IF_SHOW_DRAFT`, payload: { ifShowDraft } });
   },
+  switchBackgroundImage: () => {
+    const state = getState().global.My;
+    const backgroundImage = !state.backgroundImage;
+    localStorage.setItem('backgroundImage', backgroundImage);
+    dispatch({ type: `${namespace}.SWITCH_BACKGROUND_IMAGE`, payload: { backgroundImage } });
+  }
 });
 
 // import { createSelector } from 'reselect'

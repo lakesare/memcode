@@ -1,8 +1,17 @@
-import css from './index.css';
+import MyDuck from '~/ducks/MyDuck';
 
 import ProgressBar from '~/components/ProgressBar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
+import css from './index.css';
 
+@connect(
+  (state) => ({
+    My: state.global.My
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)
 class Subheader extends React.Component {
   static propTypes = {
     statusOfSolving: PropTypes.object.isRequired,
@@ -14,7 +23,10 @@ class Subheader extends React.Component {
     switchQuestionAndAnswer: PropTypes.func.isRequired,
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
-    ifReviewingFailedProblems: PropTypes.bool.isRequired
+    ifReviewingFailedProblems: PropTypes.bool.isRequired,
+
+    MyActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
   }
 
   state = {
@@ -66,7 +78,16 @@ class Subheader extends React.Component {
     >
       <i className="material-icons -yes">volume_up</i>
       <i className="material-icons -no">volume_off</i>
-    </button>;
+    </button>
+
+  renderBgImageButton = () =>
+    <button
+      type="button"
+      className={`bg-image-button ${this.props.My.backgroundImage === true ? '-on' : '-off'}`}
+      onClick={() => this.props.MyActions.switchBackgroundImage()}
+    >
+      <i className="fa fa-picture-o"/>
+    </button>
 
   renderUsualReview = () =>
     <section className={`Subheader ${css.section} -usual-review`}>
@@ -81,6 +102,8 @@ class Subheader extends React.Component {
         <div className="instructions -mobile"/>
 
         <div className="buttons">
+          {this.renderBgImageButton()}
+
           {this.renderVolumeButton()}
 
           <ThemeToggleButton/>
