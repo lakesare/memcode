@@ -53,7 +53,7 @@
     padding-bottom: 200px;
     &.-newest-first section.problems{
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
     }
   }
   section.problems, .new-problem{

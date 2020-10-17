@@ -7,10 +7,11 @@ const injectFromOldToNewIndex = (array, oldIndex, newIndex, { direction }) => {
   console.log({ oldIndex, newIndex, direction });
   // If direction is reversed!
   if (direction) {
-    // oldIndex = array.length - 1 - oldIndex;
-    // newIndex = array.length - 1 - newIndex;
+     oldIndex = array.length - 1 - oldIndex;
+     newIndex = array.length - 1 - newIndex;
   }
 
+  console.log("Adjusted to direction: ", { oldIndex, newIndex, direction });
   let newArray = array.filter((x, index) => index !== oldIndex);
   const movedElement = array[oldIndex];
 
