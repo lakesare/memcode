@@ -5,6 +5,8 @@ import ErrorBoundary from '~/components/ErrorBoundary';
 import Header from '~/appComponents/Header';
 import Footer from '~/appComponents/Footer';
 
+import download from './image-1.jpg';
+
 let alreadyFetched = false;
 
 @connect(
@@ -50,10 +52,10 @@ class Main extends React.Component {
     this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
-  url = 'https://images6.alphacoders.com/744/thumb-1920-744566.jpg'
+  url = 'https://images.alphacoders.com/876/thumb-1920-876923.jpg'
 
   render = () =>
-    <main className={this.props.className} style={this.props.My.backgroundImage ? { backgroundImage: `url(${this.url})` } : {}}>
+    <main className={this.props.className} style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.url}")` } : {}}>
       <ErrorBoundary>
         <Header dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
       </ErrorBoundary>

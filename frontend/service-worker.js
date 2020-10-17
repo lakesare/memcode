@@ -12,10 +12,10 @@ self.addEventListener('activate', (event) => {
     caches.delete('api')
   );
 });
-
-workbox.precaching.precache([
-  { url: 'https://images6.alphacoders.com/744/thumb-1920-744566.jpg' }
-]);
+// 
+// workbox.precaching.precache([
+//   { url: 'https://images6.alphacoders.com/744/thumb-1920-744566.jpg' }
+// ]);
 
 workbox.precaching.precache([
   { url: '/index.html', revision: 'v6' }
