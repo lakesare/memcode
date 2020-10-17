@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 // because there is no alternative to el.readOnly
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
+import splitAltAnswers from './utils/splitAltAnswers';
 
 const focusOnTheFirstAnswer = (arrayOfAnswerEls) => {
   const answers = arrayOfAnswerEls;
@@ -18,7 +19,7 @@ const succumb = (arrayOfAnswerEls) => {
       //   because in HTML (unlike in react)
       //   value attribute is just the default value
       //   https://stackoverflow.com/a/29929977/3192470
-      el.value = el.getAttribute('data-answer');
+      el.value = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
       el.setAttribute('data-answered', 'wrong');
       el.readOnly = true;
       el.setAttribute('tabindex', -1);
@@ -53,14 +54,15 @@ const _adjustWidthToInput = (el) => {
 };
 
 const _checkAnswer = (el, onRightAnswerGiven, nextInput) => {
-  const answer = el.getAttribute('data-answer');
+  const answers = splitAltAnswers(el.getAttribute('data-answer'));
   const currentValue = el.value;
 
-  const ifCanMarkAsRight =
-    currentValue.toLocaleLowerCase() === answer.toLocaleLowerCase();
+  const ifCanMarkAsRight = answers.find((answer) =>
+    answer.toLowerCase() === currentValue.toLowerCase()
+  );
 
   if (ifCanMarkAsRight) {
-    el.setAttribute('value', answer);
+    el.setAttribute('value', currentValue.toLowerCase());
     el.setAttribute('data-answered', 'right');
     el.readOnly = true;
     el.setAttribute('tabindex', -1);
@@ -133,7 +135,8 @@ class InlinedAnswersReview extends React.Component {
   render = () => {
     // '<mark class="answer">' => '</mark>'
     const content = this.props.problemContent.content
-      .replace(/<mark class="answer">(.*?)<\/mark>/g,
+      .replace(
+        /<mark class="answer">(.*?)<\/mark>/g,
         `<input
           class="answer-input"
           data-answer="$1"
