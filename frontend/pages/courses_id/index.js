@@ -164,7 +164,7 @@ class Page_courses_id extends React.Component {
             ref={provided.innerRef}
             className="problems"
           >
-            {problems.map((problem, index) =>
+            {(!this.props.My.flashcardOrder ? problems : problems.slice(0).reverse()).map((problem, index) =>
               <OldProblem
                 key={problem._optimistic_id ? problem._optimistic_id : problem.id}
                 problem={problem}

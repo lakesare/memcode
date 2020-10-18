@@ -146,7 +146,7 @@ class OldProblem extends React.Component {
 
   render = () => (
     this.ifNotOptimistic() ?
-      <Draggable isDragDisabled={this.props.flashcardOrder} draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
+      <Draggable draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
         <div
           className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'} ${this.ifLastChecked() ? '-last-checked' : ''}`}
           id={this.uniqueId}
