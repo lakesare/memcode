@@ -52,8 +52,7 @@
     // to avoid editing problem at the bottom of the screen
     padding-bottom: 200px;
     &.-newest-first section.problems{
-      display: flex;
-      flex-direction: column;
+      margin-top: 26px;
     }
   }
   section.problems, .new-problem{

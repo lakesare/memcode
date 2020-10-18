@@ -29,7 +29,7 @@ const initialState = {
   courses: [],
   speCategories: {},
   speCourseForActions: {},
-  flashcardOrder: localStorage.getItem('flashcardOrder') === 'true' ? true : false,
+  flashcardOrder: localStorage.getItem('flashcardOrder') === 'false' ? false : true,
   ifShowDraft: localStorage.getItem('ifShowDraft') === 'false' ? false : true,
   backgroundImage: localStorage.getItem('backgroundImage') === 'true' ? true : false,
 };

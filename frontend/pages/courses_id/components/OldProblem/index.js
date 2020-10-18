@@ -165,7 +165,7 @@ class OldProblem extends React.Component {
 
           <Checkbox
             id={this.props.problem.id}
-            index={this.props.index}
+            index={this.props.flashcardOrder ? this.props.problems.length - this.props.index - 1 : this.props.index}
             problems={this.props.problems}
             idsOfCheckedProblems={this.props.idsOfCheckedProblems}
             updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
