@@ -7,64 +7,54 @@ class LearnAndReviewButtons extends React.Component {
       course: PropTypes.object.isRequired,
       amountOfProblemsToLearn: PropTypes.number.isRequired,
       amountOfProblemsToReview: PropTypes.number.isRequired,
-      nextDueDate: PropTypes.string
     })
   }
 
-  renderAmountOfProblemsToReview = (courseDto) => {
-    const nextDueDateIn = MyModel.getNextDueDateIn(courseDto);
-    // user will have to review some problems soon
-    if (courseDto.amountOfProblemsToReview === 0 && nextDueDateIn) {
-      return <div className="review -zero">
+  renderToReview = (n) =>
+    <div className="learn-and-review-buttons">
+      <Link className="link -review" to={`/courses/${this.props.courseDto.course.id}/review`}>
+        REVIEW
+      </Link>
+      <section className="amount-footer -review">
+        {n} to review
+      </section>
+    </div>
+
+  renderToLearn = (n) =>
+    <div className="learn-and-review-buttons">
+      <Link
+        className="link -learn"
+        to={`/courses/${this.props.courseDto.course.id}/learn`}
+      >
+        LEARN
+      </Link>
+      <section className="amount-footer -learn">
+        {n} to learn
+      </section>
+    </div>
+
+  renderNextDue = (nextDueDateIn) =>
+    <div className="learn-and-review-buttons">
+      <section className="amount-footer -next-due">
         <i className="material-icons timer-icon">timer</i>
         {MyModel.nextDueDateInToString(nextDueDateIn)}
-      </div>;
-    // user has problems to review
-    } else if (courseDto.amountOfProblemsToReview > 0) {
-      return <div className="review -nonzero">
-        {courseDto.amountOfProblemsToReview} to review
-      </div>;
+      </section>
+    </div>
+
+  render = () => {
+    const courseDto = this.props.courseDto;
+    const nextDueDateIn = MyModel.getNextDueDateIn(courseDto);
+
+    if (courseDto.amountOfProblemsToReview) {
+      return this.renderToReview(courseDto.amountOfProblemsToReview);
+    } else if (courseDto.amountOfProblemsToLearn) {
+      return this.renderToLearn(courseDto.amountOfProblemsToLearn);
+    } else if (nextDueDateIn) {
+      return this.renderNextDue(nextDueDateIn);
     } else {
       return null;
     }
   }
-
-  renderAmountFooter = (courseDto) =>
-    <section className="amount-footer">
-      {
-        courseDto.amountOfProblemsToLearn > 0 &&
-        <div className="learn -nonzero">
-          {courseDto.amountOfProblemsToLearn} to learn
-        </div>
-      }
-      {this.renderAmountOfProblemsToReview(courseDto)}
-    </section>
-
-  renderLinks = (courseDto) =>
-    <section className="links">
-      {
-        courseDto.amountOfProblemsToLearn > 0 &&
-        <Link
-          className={`learn ${courseDto.amountOfProblemsToLearn === 0 ? '-zero' : '-nonzero'}`}
-          to={`/courses/${courseDto.course.id}/learn`}
-        >
-          LEARN
-        </Link>
-      }
-
-      {
-        courseDto.amountOfProblemsToReview > 0 &&
-        <Link className="review" to={`/courses/${courseDto.course.id}/review`}>
-          REVIEW
-        </Link>
-      }
-    </section>
-
-  render = () =>
-    <div className="learn-and-review-buttons">
-      {this.renderLinks(this.props.courseDto)}
-      {this.renderAmountFooter(this.props.courseDto)}
-    </div>
 }
 
 export default LearnAndReviewButtons;

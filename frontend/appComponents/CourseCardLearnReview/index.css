@@ -50,65 +50,32 @@
     }
 
     &:hover{
-      > div.learn-and-review-buttons > section.links{
-        > a{
-          opacity: 0.8;
-        }
-        > a.review.-simulated{
-          opacity: 1;
-        }
+      > div.learn-and-review-buttons > a.link{
+        opacity: 0.8;
       }
     }
     > div.learn-and-review-buttons{
-      > section.links{
+      > a.link{
         position: absolute;
         left: 0; right: 0;
         bottom: 22px; top: 0;
+
+        opacity: 0;
+        font-size: 12px;
+
         display: flex;
-
-        > a{
-          opacity: 0;
-          font-size: 12px;
-          
-          flex-grow: 1;
-          flex-basis: 50%;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          &:hover, &:focus{
-            opacity: 0.9;
-            box-shadow: none;
-            border: none !important;
-          }
-          &.learn{
-            background: $learn-button-color;
-            &.-zero{
-              visibility: hidden;
-            }
-          }
-          &.review{
-            background: $review-button-color;
-            &.-simulated{
-              color: white;
-              background: rgb(105, 96, 193);
-              padding: 5px;
-              text-align: center;
-              // &:hover{
-              //   background: $purple;
-              // }
-
-              > div.text{
-                > div.review-text{
-                  font-size: 13px;
-                }
-                > div.without-text{
-                  margin-top: 4px;
-                  font-size: 11px;
-                }
-              }
-            }
-          }
+        align-items: center;
+        justify-content: center;
+        &:hover, &:focus{
+          opacity: 0.9;
+          box-shadow: none;
+          border: none !important;
+        }
+        &.-learn{
+          background: $learn-button-color;
+        }
+        &.-review{
+          background: $review-button-color;
         }
       }
       > section.amount-footer{
@@ -119,31 +86,28 @@
         display: flex;
         height: 22px;
         cursor: default;
-        > div.learn, > div.review{
-          flex-basis: 50%;
-          flex-grow: 1;
-          font-size: 10px;
-          padding: 4px 0;
-          text-align: center;
-          text-transform: uppercase;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        > div.learn{
+
+        flex-basis: 100%;
+        font-size: 10px;
+        padding: 4px 0;
+        text-align: center;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.-learn{
           background: $learn-button-color;
         }
-        > div.review{
-          &.-nonzero{
-            background: $review-button-color;
-          }
-          &.-zero{
-            color: white;
-            i.timer-icon{
-              color: $purple;
-              font-size: 14px;
-              padding-right: 5px;
-            }
+        &.-review{
+          background: $review-button-color;
+        }
+        &.-next-due{
+          color: white;
+          i.timer-icon{
+            color: $purple;
+            font-size: 14px;
+            padding-right: 5px;
           }
         }
       }
