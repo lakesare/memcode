@@ -7,10 +7,11 @@
   background-image: url('./images/waves.jpg');
   // background-size: cover;
   // After the chrome update stopped working in chrome :-/
-  background-position: -200px -397px;
+  background-position: 0 -370px;
   background-color: rgb(14, 13, 28);
   background-size: auto;
   background-repeat: no-repeat;
+  background-attachment: initial;
 
   header .search input{
     background: rgb(23, 26, 63);
