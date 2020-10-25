@@ -7,15 +7,16 @@
   overflow: hidden;
 
   h2.title{
-    margin-top: 10px;
+    margin-top: 27px;
   }
 
   div.description{
-    margin-top: 10px;
-    line-height: 15px;
-    word-break: break-word;
-    font-size: 12px;
-    color: $not-so-faint-blue;
+    display: none;
+    // margin-top: 10px;
+    // line-height: 15px;
+    // word-break: break-word;
+    // font-size: 12px;
+    // color: $not-so-faint-blue;
   }
 
   position: relative;
