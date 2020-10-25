@@ -21,11 +21,11 @@
     }
   }
   &.-there-are-no-unread-notifications{
-    i{ color: $faint-blue; }
+    i{ color: rgb(216, 221, 239); }
   }
 
   i{
-    font-size: 19px;
+    font-size: 17px;
   }
   > div.amount-of-unread-notifications{
     position: absolute;

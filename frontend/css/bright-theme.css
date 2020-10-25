@@ -84,7 +84,6 @@ body.-bright-theme{
     &.-withInlinedAnswers{
       input.answer-input[data-answered='waiting']{
         color: rgb(49, 51, 54) !important;
-        border: 2px solid rgb(170, 160, 247);
         &:hover, &:focus{
           background: none !important;
         }

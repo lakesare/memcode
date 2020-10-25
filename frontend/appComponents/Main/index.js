@@ -52,7 +52,7 @@ class Main extends React.Component {
     this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
-  url = 'https://images.alphacoders.com/876/thumb-1920-876923.jpg'
+  url = 'https://eskipaper.com/images/dark-universe-hd-1.jpg'
 
   render = () =>
     <main className={this.props.className} style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.url}")` } : {}}>
