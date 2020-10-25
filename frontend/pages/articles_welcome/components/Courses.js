@@ -1,7 +1,6 @@
-import Loading from '~/components/Loading';
-
 import api from '~/api';
 
+import Loading from '~/components/Loading';
 import CourseCardSimple from '~/appComponents/CourseCardSimple';
 
 class Courses extends React.Component {

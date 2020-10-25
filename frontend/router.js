@@ -22,6 +22,7 @@ import Page_articles_comparison from './pages/articles_comparison';
 import Page_articles_welcome from './pages/articles_welcome';
 import Page_contact from './pages/contact';
 import Page_search from './pages/search';
+import Page_home from './pages/home';
 
 import Page_admin_notifications from './pages/admin_notifications';
 
@@ -41,6 +42,7 @@ const router =
       <Route exact path="/profile" component={Page_profile}/>
       <Route exact path="/users/:id" component={Page_users_id}/>
       <Route exact path="/our-search" component={Page_search}/>
+      <Route exact path="/home" component={Page_home}/>
 
       {/* offline */}
       {/* <Route exact path="/offline/courses" component={Page_offline_courses} onEnter={onEnters.requireAuthentication}/> */}
