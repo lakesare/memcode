@@ -48,7 +48,7 @@ class Page_contact extends React.Component {
         // send a form from http://testformspree.com/ to check.
         //
         // gets successfully sent to lakesare@gmail.com, eugekrns@yandex.ru (here including confirmation email)
-        'POST', '//formspree.io/lakesare@gmail.com', // `//formspree.io/${window.env.contactEmail}`,
+        'POST', '//formspree.io/f/lakesare@gmail.com', // `//formspree.io/${window.env.contactEmail}`,
         this.state.formState
       ).then(() => this.setState({ ifJustSent: true }));
     }
