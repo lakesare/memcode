@@ -41,14 +41,10 @@ class Page_contact extends React.Component {
       commonFetch((spe) => this.setState({ speSend: spe }),
         // can't receive email from a webform advices to contact my web host (and it is google)
         // https://support.google.com/a/answer/55299?hl=en
-        // disabled securite in memcode's GSuite synthetic record
-        //
-        // THIS: they are having some bug now with gmail, told on 8th they're trying to fix it. try sending a form when they fix it.
-        // https://admin.google.com/memcode.com/AdminHome?fral=1#Domains: Affected products: Gmail
-        // send a form from http://testformspree.com/ to check.
+        // disabled security in memcode's GSuite synthetic record
         //
         // gets successfully sent to lakesare@gmail.com, eugekrns@yandex.ru (here including confirmation email)
-        'POST', '//formspree.io/f/lakesare@gmail.com', // `//formspree.io/${window.env.contactEmail}`,
+        'POST', 'https://formspree.io/f/mbjpkape',
         this.state.formState
       ).then(() => this.setState({ ifJustSent: true }));
     }
