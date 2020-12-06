@@ -71,8 +71,10 @@ class CourseActions extends React.Component {
 
   renderPlaceholder = () => {
     const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
-    // const nOfProblemsToLearn = dto && dto.problems.filter(MyModel.isProblemToLearn).length;
-    // const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
+//     const nOfProblemsToLearn = dto && dto.problems.filter(MyModel.isProblemToLearn).length;
+//     const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
+// 
+//     console.log(dto);
 
     return <section className={`course-actions ${css.actions}`}>
       <section className="title-and-buttons">
@@ -89,19 +91,22 @@ class CourseActions extends React.Component {
             </h1>
           </section>
 
-{/*           <CuilButtons */}
-{/*             nOfProblemsToLearn={nOfProblemsToLearn} */}
-{/*             nOfProblemsToReview={nOfProblemsToReview} */}
-{/*             currentUser={this.props.currentUser} */}
-{/*             // courseDto={courseDto} */}
-{/*  */}
-{/*             apiStartLearning={this.apiStartLearning} */}
-{/*             apiStopLearning={this.apiStopLearning} */}
-{/*             apiResumeLearning={this.apiResumeLearning} */}
-{/*             MyActions={this.props.MyActions} */}
-{/*             My={this.props.My} */}
-{/*             type={this.props.type} */}
-{/*           /> */}
+          {
+//             dto &&
+//             <CuilButtons
+//               nOfProblemsToLearn={nOfProblemsToLearn}
+//               nOfProblemsToReview={nOfProblemsToReview}
+//               currentUser={this.props.currentUser}
+//               courseDto={dto}
+// 
+//               apiStartLearning={this.apiStartLearning}
+//               apiStopLearning={this.apiStopLearning}
+//               apiResumeLearning={this.apiResumeLearning}
+//               MyActions={this.props.MyActions}
+//               My={this.props.My}
+//               type={this.props.type}
+//             />
+          }
         </div>
       </section>
 
