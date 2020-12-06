@@ -45,6 +45,10 @@ class NewProblem extends React.Component {
       event.preventDefault();
       if (!this.ifFocusedOnSomeOldProblem()) {
         this.apiSave();
+
+        // Refocus on the first editor
+        const firstEditor = document.querySelector('.new-problem .ql-editor');
+        firstEditor.focus();
       }
     }
   }
@@ -113,7 +117,7 @@ class NewProblem extends React.Component {
   }
 
   updateProblemContent = (problemContent) => {
-    this.setState({ problemContent, speCreateProblem: {} })
+    this.setState({ problemContent, speCreateProblem: {} });
   }
 
   updateType = (newType) => {
@@ -143,6 +147,7 @@ class NewProblem extends React.Component {
       type="button"
       className={`button ${this.state.currentProblemType === type ? '-active' : ''}`}
       onClick={() => this.state.currentProblemType !== type && this.updateType(type)}
+      tabIndex={-1}
     >{typeInHuman}</button>
 
   render = () =>
@@ -160,6 +165,7 @@ class NewProblem extends React.Component {
           type="button"
           className="button"
           onClick={this.apiSave}
+          tabIndex={-1}
         >
           SAVE
           <div className="shortcut">⌘ + S</div>
