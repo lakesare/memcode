@@ -62,18 +62,13 @@ class ProblemWrapper extends React.Component {
     />
 
   renderButton = (className, onClick, text, { disabled = false } = {}) =>
-    <div
-      className={`button-wrapper ${className} ${disabled ? '-disabled' : ''}`}
-      onClick={disabled ? () => {} : onClick}
-    >
-      <button className={`button ${className}`} type="button">
-        {
-          (className === '-unlearn' || className === '-unignore') &&
-          <i className="fa fa-undo"/>
-        }
-        {text}
-      </button>
-    </div>
+    <button className={`button ${className}`} type="button" onClick={disabled ? () => {} : onClick}>
+      {
+        (className === '-unlearn' || className === '-unignore') &&
+        <i className="fa fa-undo"/>
+      }
+      {text}
+    </button>
 
   render = () => {
     // pretend that request is already received right after we send it
