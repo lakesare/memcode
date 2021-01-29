@@ -64,9 +64,13 @@ class CourseStarRating extends React.Component {
       </div>
     </li>
 
+  renderPlaceholder = () =>
+    <li className="course-star-rating"/>
+
   render = () =>
-    this.state.speGetRatings.status === 'success' &&
-    this.renderSuccess(this.state.speGetRatings.payload)
+    this.state.speGetRatings.status === 'success' ?
+      this.renderSuccess(this.state.speGetRatings.payload) :
+      this.renderPlaceholder()
 }
 
 export default CourseStarRating;

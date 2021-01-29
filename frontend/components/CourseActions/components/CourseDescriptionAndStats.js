@@ -72,25 +72,6 @@ class CourseDescriptionAndStats extends React.Component {
           html={this.getCourseDescription()}
         />
 
-        {
-          false &&
-          <ul className="course-stats">
-            {this.renderStat(
-              <i className="fa fa-user"/>,
-              <div>By Evgenia Karunus</div>
-            )}
-            {this.renderStat(
-              <i className="fa fa-calendar"/>,
-              <div>Last updated: 3 months ago</div>
-            )}
-            {
-              this.props.courseDto.course.ifPublic ?
-                this.renderStat(<i className="fa fa-eye"/>, 'Public') :
-                this.renderStat(<i className="fa fa-eye-slash"/>, 'Private')
-            }
-          </ul>
-        }
-
         <ul className="course-stats">
           {
             this.props.courseDto.courseUserIsLearning &&

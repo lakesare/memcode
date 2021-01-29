@@ -199,6 +199,7 @@
           }
         }
         > li.course-star-rating{
+          min-height: 28px;
           > div.stat{
             > i.fa-user-o{
               font-size: 11px;
