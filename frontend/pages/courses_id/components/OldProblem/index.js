@@ -124,8 +124,13 @@ class OldProblem extends React.Component {
       this.props.index;
   }
 
+  isContentEmpty = () => {
+    const content = this.props.problem.content;
+    return !content.explanation && !content.answer && !content.content;
+  }
+
   renderButtons = () =>
-    <section className="flashcard-buttons">
+    <section className={`flashcard-buttons ${this.isContentEmpty() ? '-empty' : ''}`}>
       <div className="first">
         {/* <button className="button" style={{ background: 'rgb(58, 116, 205)' }}>Draft</button> */}
 

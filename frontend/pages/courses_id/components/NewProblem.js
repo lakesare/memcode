@@ -59,61 +59,29 @@ class NewProblem extends React.Component {
     return focusingOnSomeOldProblem;
   }
 
-  uiValidate = () => {
-    const type = this.state.currentProblemType;
-    const problemContent = this.state.problemContent;
-    let error = '';
-
-    if (type === 'separateAnswer') {
-      // Only bother them if they didn't include either!
-      if (!problemContent.content && !problemContent.answer) {
-        if (!problemContent.content) {
-          error = "Please add the question (you'll be asked it when you review the flashcard).";
-        } else if (!problemContent.answer) {
-          error = "Please add the answer to the question.";
-        }
-      }
-    } else if (type === 'inlinedAnswers') {
-      if (!problemContent.content && !problemContent.explanation) {
-        if (!problemContent.content) {
-          error = "Please add some sentence with a word that you'll need to fill in on review (select words you'd like to fill in, and press Mark As Answer).";
-        }
-      }
-    }
-
-    if (error) {
-      this.setState({ speCreateProblem: speCreator.failure(error) });
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   apiSave = () => {
-    if (this.uiValidate()) {
-      const optimisticId = _.uniqueId();
-      const problemHash = {
-        type:     this.state.currentProblemType,
-        content:  this.state.problemContent,
-        courseId: this.props.courseId
-      };
-      const optimisticProblem = {
-        ...problemHash,
-        _optimistic_id: optimisticId
-      };
-      this.props.uiAddOptimisticProblem(optimisticProblem);
-      this.setState({
-        problemContent: createEmptyEditorState(this.state.currentProblemType)
-      });
+    const optimisticId = _.uniqueId();
+    const problemHash = {
+      type:     this.state.currentProblemType,
+      content:  this.state.problemContent,
+      courseId: this.props.courseId
+    };
+    const optimisticProblem = {
+      ...problemHash,
+      _optimistic_id: optimisticId
+    };
+    this.props.uiAddOptimisticProblem(optimisticProblem);
+    this.setState({
+      problemContent: createEmptyEditorState(this.state.currentProblemType)
+    });
 
-      ProblemApi.create(
-        (spe) => this.setState({ speCreateProblem: spe }),
-        problemHash
-      )
-        .then((createdProblem) => {
-          this.props.uiUpdateOptimisticProblemIntoOld(optimisticId, createdProblem);
-        });
-    }
+    ProblemApi.create(
+      (spe) => this.setState({ speCreateProblem: spe }),
+      problemHash
+    )
+      .then((createdProblem) => {
+        this.props.uiUpdateOptimisticProblemIntoOld(optimisticId, createdProblem);
+      });
   }
 
   updateProblemContent = (problemContent) => {

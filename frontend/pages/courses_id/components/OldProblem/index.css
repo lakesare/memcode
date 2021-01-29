@@ -2,7 +2,7 @@
 
 .-there-are-no-checked-problems{
   .checkbox:hover + section.flashcard-buttons{
-    opacity: 0.5;
+    opacity: 1;
   }
   section.flashcard-buttons:hover{
     opacity: 1;
@@ -15,7 +15,8 @@
   margin-bottom: 18px;
   padding: 8px;
 
-  &.-checked.-last-checked section.flashcard-buttons{
+  &.-checked.-last-checked section.flashcard-buttons,
+  section.flashcard-buttons.-empty{
     opacity: 1 !important;
   }
 
