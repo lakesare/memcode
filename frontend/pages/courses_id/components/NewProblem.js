@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import ProblemApi from '~/api/Problem';
-import speCreator from '~/services/speCreator';
 import Problem from '~/components/Problem';
 import Loading from '~/components/Loading';
 
@@ -18,6 +17,7 @@ const createEmptyEditorState = (type) => {
 
 class NewProblem extends React.Component {
   static propTypes = {
+    index: PropTypes.number,
     courseId: PropTypes.number.isRequired,
     uiAddOptimisticProblem: PropTypes.func.isRequired,
     uiUpdateOptimisticProblemIntoOld: PropTypes.func.isRequired
@@ -120,6 +120,11 @@ class NewProblem extends React.Component {
 
   render = () =>
     <div className="new-problem">
+      {/* Looks better without the checkbox admittedly */}
+      {/* <section className="checkbox"> */}
+      {/*   {this.props.index} */}
+      {/* </section> */}
+
       <Problem
         mode="edit"
         ifWithPlaceholder

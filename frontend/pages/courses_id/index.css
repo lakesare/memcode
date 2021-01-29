@@ -1,6 +1,7 @@
 @import 'css/variables';
 
 :local(.edit){
+
   // For mobile
   // section.problems, div.new-problem{
   //   margin-left: 93px !important;
@@ -100,10 +101,36 @@
     }
     .ql-toolbar{}
   }
+  section.checkbox{
+    position: absolute;
+    top: 8px; bottom: 8px;
+    width: 26px;
+
+    cursor: pointer;
+    // this prevents all flashcard texts from being selected when we click cmd+shift!
+    user-select: none;
+
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 2px;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition-duration: 200ms;
+    transition-property: bottom, top;
+  }
   .new-problem{
     position: relative;
     margin-top: 25px;
     padding: 0 8px;
+
+    section.checkbox{
+      top: 29px;
+      bottom: 0;
+    }
 
     .ql-container{
       // minus the height of the toolbar
@@ -140,6 +167,8 @@
     > section.choose-type{
       position: absolute;
       top: 0;
+      // This if for the checkbox
+      // right: calc(100% + 47px);
       > .buttons{
         height: 70px;
         width: 100%;

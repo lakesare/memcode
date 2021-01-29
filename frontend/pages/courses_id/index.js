@@ -185,12 +185,17 @@ class Page_courses_id extends React.Component {
     }</Loading>;
   }
 
-  renderNewProblemToEdit = () =>
-    <NewProblem
+  renderNewProblemToEdit = () => {
+    const spe = this.state.speGetProblems;
+    const index = spe.status === 'success' ? spe.payload.problems.length + 1 : null;
+
+    return <NewProblem
+      index={index}
       courseId={this.props.courseId}
       uiAddOptimisticProblem={this.uiAddOptimisticProblem}
       uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
-    />
+    />;
+  }
 
   renderEditProblems = () =>
     <div className={css.edit}>

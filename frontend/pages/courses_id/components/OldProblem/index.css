@@ -96,29 +96,6 @@
     }
   }
 
-  > section.checkbox{
-    position: absolute;
-    top: 8px; bottom: 8px;
-    width: 26px;
-
-    cursor: pointer;
-    // this prevents all flashcard texts from being selected when we click cmd+shift!
-    user-select: none;
-
-    font-size: 12px;
-    font-weight: 500;
-    border-radius: 2px;
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition-duration: 200ms;
-    transition-property: bottom, top;
-  }
-
-
   transition-duration: 300ms;
   transition-property: background;
   &.-checked{
