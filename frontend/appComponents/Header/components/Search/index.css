@@ -12,13 +12,15 @@
     position: relative;
     i{
       position: absolute;
-      top: 10px;
-      left: 16px;
+      top: 9px;
+      left: 20px;
+      font-size: 19px;
+      color: $not-so-faint-blue;
     }
     input{
       width: 100%;
       height: 100%;
-      padding-left: 45px;
+      padding-left: 52px;
     }
 
     // looks
@@ -35,15 +37,11 @@
         color: $not-so-faint-blue;
         font-family: 'Open Sans';
       }
-      border-radius: 2px;
+      border-radius: 4px;
       background: rgb(24, 27, 57);
       &:focus, &:hover{
         background: rgb(27, 30, 63);
       }
-    }
-    i{
-      font-size: 16px;
-      color: $not-so-faint-blue;
     }
   }
   > div.standard-dropdown{

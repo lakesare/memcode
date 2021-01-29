@@ -73,7 +73,7 @@ class Search extends React.Component {
   render = () =>
     <section className={`${css.search} search standard-dropdown-wrapper`}>
       <div className="toggler">
-        <i className="fa fa-search"/>
+        <i className="material-icons">search</i>
         <input
           placeholder="Find a course"
           onChange={this.updateSearchString}
