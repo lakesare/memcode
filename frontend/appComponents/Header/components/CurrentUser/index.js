@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
+import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 import LearnReviewLinks from './components/LearnReviewLinks';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 
@@ -24,6 +25,9 @@ class CurrentUser extends React.Component {
           >
             Sign Out
           </button>
+        </li>
+        <li style={{ borderTop: 'none', marginRight: -7 }}>
+          <ThemeToggleButton/>
         </li>
       </ul>
     </div>

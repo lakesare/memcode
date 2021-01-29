@@ -8,9 +8,6 @@ class ToggleButton extends React.Component {
 
   render = () =>
     <button
-      // temp
-      style={{ paddingLeft: 10 }}
-
       className={`${css.button} toggle-button ${this.props.value === 'right' ? "-left" : "-right"}`}
       type="button"
       onClick={() => this.props.updateValue(this.props.value === 'left' ? 'right' : 'left')}

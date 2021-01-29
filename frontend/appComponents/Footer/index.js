@@ -25,8 +25,6 @@ class Footer extends React.Component {
         <section className="email">
           {window.env.contactEmail}
           <i className="fa fa-heart"/>
-
-          <ThemeToggleButton/>
         </section>
       </div>
     </footer>
