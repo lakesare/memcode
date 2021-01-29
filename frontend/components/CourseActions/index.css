@@ -259,13 +259,28 @@
   }
 }
 
+
 :local(section.actions){
   @media(max-width: 900px){
-    > section.title-and-buttons{
+    section.title-and-buttons{
+      padding-top: 10px;
+      padding-bottom: 10px;
+      .container{
+        justify-content: flex-end;
+        .learn-and-review-buttons{
+          a.button.learn{ margin-left: 0 !important; }
+        }
+        h1.title{
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
       > .container{
         flex-wrap: wrap;
         > section.course-title_and_category_and_author{
           flex-wrap: wrap;
+          width: 100%;
 
           > h1.title{
             order: 1;
@@ -274,6 +289,7 @@
             text-align: right;
           }
           > section.category_and_author{
+            display: none;
             order: 0;
             width: 100%;
             flex-direction: row;
@@ -305,17 +321,10 @@
       }
     }
 
-    section.course-title_and_category_and_author{
-      width: 100%;
-    }
-
     .please-sign-in_and_simulated-review-button{
       width: 100%;
       justify-content: flex-end;
     }
-  }
-
-  @media(max-width: 900px){
     .title-and-buttons .category_and_author{
       height: auto !important;
     }

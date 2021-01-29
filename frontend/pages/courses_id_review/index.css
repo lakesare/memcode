@@ -18,23 +18,5 @@
     > header nav{
       display: none;
     }
-
-    > section.course-actions{
-      > section.title-and-buttons{
-        padding-top: 10px;
-        padding-bottom: 10px;
-        .container{
-          justify-content: flex-end;
-          .learn-and-review-buttons{
-            a.button.learn{ margin-left: 0 !important; }
-          }
-          h1.title{
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-          }
-        }
-      }
-    }
   }
 }

@@ -152,20 +152,12 @@
   }
 
   @media(max-width: 900px){
-    .problem-wrapper{
-      margin-right: 0 !important;
-    }
     > header section.search{
       display: none;
     }
-    > section.course-actions{
-      > section.title-and-buttons{
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-    }
     nav ul.tab-links{ display: none; }
     .problem-wrapper{
+      margin-right: 0 !important;
       .button-wrapper button{ display: none !important; }
       section.problem{
         display: block;
