@@ -51,15 +51,15 @@ body.-bright-theme{
         font-weight: 600 !important;
       }
       em{
-        color: $purple !important;
+        color: rgb(124, 134, 147) !important;
         font-weight: inherit;
       }
       a{
-        color: $purple !important;
+        color: rgb(124, 134, 147) !important;
       }
 
       pre.ql-syntax, code, code *{
-        background: rgba(223, 221, 221, 0.37) !important;
+        background: rgb(243, 243, 243) !important;
         color: rgb(67, 67, 69) !important;
       }
 
