@@ -17,6 +17,15 @@
   text-align: center;
 
   border-radius: 2px;
+  &.-clear{
+    font-size: inherit;
+    text-transform: none;
+    padding: 0;
+    letter-spacing: inherit;
+    min-width: none;
+    text-align: inherit;
+    display: block;
+  }
   &.-white{
     background: white;
     border: 1px solid $body-color;

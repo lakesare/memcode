@@ -11,6 +11,32 @@ class CurrentUser extends React.Component {
     dontLinkToLearnOrReview: PropTypes.number
   }
 
+  state = {
+    hideSearchBox: localStorage.getItem('hideSearchBox') === 'true' ? true : false,
+    hideLinks: localStorage.getItem('hideLinks') === 'true' ? true : false,
+  }
+
+  componentDidMount = () => {
+    this.uiUpdateBody('hideSearchBox', this.state.hideSearchBox);
+    this.uiUpdateBody('hideLinks', this.state.hideLinks);
+  }
+
+  uiUpdateBody = (what, value) => {
+    const bodyEl = document.body;
+    if (value) {
+      bodyEl.classList.add('-' + what);
+    } else {
+      bodyEl.classList.remove('-' + what);
+    }
+  }
+
+  toggleValue = (what) => {
+    const newValue = !this.state[what];
+    localStorage.setItem(what, newValue);
+    this.setState({ [what]: newValue });
+    this.uiUpdateBody(what, newValue);
+  }
+
   renderDropdown = () =>
     <div>
       <div>Signed in as {this.props.currentUser.username} | via {this.props.currentUser.oauthProvider}</div>
@@ -24,6 +50,24 @@ class CurrentUser extends React.Component {
             onClick={this.props.signOut}
           >
             Sign Out
+          </button>
+        </li>
+        <li>
+          <button className="button -clear" onClick={() => this.toggleValue('hideSearchBox')} type="button">
+            {
+              this.state.hideSearchBox ?
+                'Show search box' :
+                'Hide search box'
+            }
+          </button>
+        </li>
+        <li>
+          <button className="button -clear" onClick={() => this.toggleValue('hideLinks')} type="button">
+            {
+              this.state.hideLinks ?
+                'Show Review links' :
+                'Hide Review links'
+            }
           </button>
         </li>
         <li style={{ borderTop: 'none', marginRight: -7 }}>

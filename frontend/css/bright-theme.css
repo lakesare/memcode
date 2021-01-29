@@ -2,6 +2,19 @@
 
 $yellowish: rgb(247, 248, 228);
 
+// Throwing a couple more themes here temporarily
+body.-hideSearchBox{
+  header .logo-and-search .search{
+    display: none !important;
+  }
+}
+
+body.-hideLinks{
+  header .learn-review-links{
+    display: none !important;
+  }
+}
+
 body.-bright-theme{
   // background: rgb(179, 207, 243);
   // header .notifications-toggler i{
