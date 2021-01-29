@@ -25,11 +25,14 @@ class Header extends React.Component {
 
   renderNavigation = () =>
     <nav>
-      <NavLink
-        exact
-        to="/courses"
-        className="button link courses"
-      >Courses</NavLink>
+      {
+        !this.props.currentUser &&
+        <NavLink
+          exact
+          to="/courses"
+          className="button link courses"
+        >Courses</NavLink>
+      }
       <NavLink
         exact
         to="/courses/new"
@@ -41,7 +44,7 @@ class Header extends React.Component {
           exact
           to="/courses/learning"
           className="button link my-courses"
-        >My courses</NavLink>
+        >Courses</NavLink>
       }
       {
         !this.props.currentUser &&
