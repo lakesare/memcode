@@ -16,12 +16,8 @@ class ExportFlashcardsModal extends React.Component {
     courseId: null
   }
 
-  apiMove = (closeModal) => {
+  apiMove = () => {
     const ids = this.props.idsOfCheckedProblems;
-    closeModal()
-      .then(() => {
-        this.props.uiRemoveOldProblems(ids);
-      });
     api.ProblemApi.moveToCourseMany(
       (spe) => this.setState({ speExport: spe }),
       {
@@ -29,6 +25,7 @@ class ExportFlashcardsModal extends React.Component {
         courseId: this.state.courseId
       }
     );
+    this.props.uiRemoveOldProblems(ids);
   }
 
   renderSelect = () =>

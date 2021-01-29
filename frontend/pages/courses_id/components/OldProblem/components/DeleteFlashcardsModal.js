@@ -8,17 +8,14 @@ class DeleteFlashcardsModal extends React.Component {
     idsOfCheckedProblems: PropTypes.array.isRequired
   }
 
-  apiDeleteAllCheckedProblems = (closeModal) => {
+  apiDeleteAllCheckedProblems = () => {
     const ids = this.props.idsOfCheckedProblems;
-    closeModal()
-      .then(() => {
-        this.props.uiRemoveOldProblems(ids);
-      });
+    this.props.uiRemoveOldProblems(ids);
     api.ProblemApi.deleteMany(false, { ids });
   }
 
   render = () =>
-    <TogglerAndModal toggler={this.props.toggler}>{(closeModal) =>
+    <TogglerAndModal toggler={this.props.toggler}>{() =>
       <section className={"standard-modal standard-modal--md "}>
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Delete {this.props.idsOfCheckedProblems.length} Flashcards</h2>
@@ -30,7 +27,7 @@ class DeleteFlashcardsModal extends React.Component {
           <button
             type="button"
             className="button -red standard-submit-button -move-up-on-hover"
-            onClick={() => this.apiDeleteAllCheckedProblems(closeModal)}
+            onClick={this.apiDeleteAllCheckedProblems}
           >
             Delete
           </button>
