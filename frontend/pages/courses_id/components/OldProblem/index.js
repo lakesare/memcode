@@ -118,6 +118,12 @@ class OldProblem extends React.Component {
     return focusingInThisEditor;
   }
 
+  getCheckboxIndex = () => {
+    return this.props.flashcardOrder ?
+      this.props.problems.length - this.props.index - 1 :
+      this.props.index;
+  }
+
   renderButtons = () =>
     <section className="flashcard-buttons">
       <div className="first">
@@ -165,7 +171,7 @@ class OldProblem extends React.Component {
 
           <Checkbox
             id={this.props.problem.id}
-            index={this.props.flashcardOrder ? this.props.problems.length - this.props.index - 1 : this.props.index}
+            index={this.getCheckboxIndex()}
             problems={this.props.problems}
             idsOfCheckedProblems={this.props.idsOfCheckedProblems}
             updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
@@ -205,7 +211,7 @@ class OldProblem extends React.Component {
         />
 
         <section className="checkbox">
-          {this.props.index + 1}
+          {this.getCheckboxIndex()}
         </section>
       </div>
   )
