@@ -700,7 +700,7 @@ $border_color_1: #000;
       overflow-x: hidden;
       text-overflow: ellipsis;
       vertical-align: top;
-      color: rgb(255, 165, 0) !important;
+      color: rgb(204, 197, 250) !important;
     }
     a.ql-action {
       &::after {
