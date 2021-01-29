@@ -76,6 +76,7 @@ class CourseActions extends React.Component {
 // 
 //     console.log(dto);
 
+
     return <section className={`course-actions ${css.actions}`}>
       <section className="title-and-buttons">
         <div className="container">
@@ -90,6 +91,8 @@ class CourseActions extends React.Component {
               }
             </h1>
           </section>
+
+          <div className="buttons"/>
 
           {
 //             dto &&
@@ -234,7 +237,7 @@ class CourseActions extends React.Component {
   }
 
   render = () =>
-    <Loading spe={this.props.My.speCourseForActions} requestIcon={this.renderPlaceholder()} enabledStatuses={['request', 'success']}>{(courseDto) =>
+    <Loading spe={this.props.My.speCourseForActions} placeholder={this.renderPlaceholder()}>{(courseDto) =>
       <section className={`course-actions ${css.actions}`}>
         {this.renderTitleAndButtons(courseDto)}
 

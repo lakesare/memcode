@@ -293,9 +293,10 @@
           }
         }
         > div.buttons{
+          height: 31px;
           width: 100%;
-          margin-top: 10px;
           justify-content: flex-end;
+          margin-bottom: 6px;
         }
         .please-sign-in_and_simulated-review-button{
           margin-top: 10px;

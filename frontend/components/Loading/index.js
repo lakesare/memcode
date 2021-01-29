@@ -18,16 +18,16 @@ class Loading extends React.Component {
   static propTypes = {
     spe: customPropTypes.spe.isRequired,
     children: PropTypes.any, // can be null, or false, or element
-    requestIcon: PropTypes.any,
     className: PropTypes.string,
-    enabledStatuses: PropTypes.array
+    enabledStatuses: PropTypes.array,
+    placeholder: PropTypes.node
   }
 
   static defaultProps = {
     children: null,
-    requestIcon: <img src={requestIcon} alt="Loading"/>,
     className: '',
-    enabledStatuses: ['request', 'success', 'failure']
+    enabledStatuses: ['request', 'success', 'failure'],
+    placeholder: null
   }
 
   ifCurrentStatusIsNotEnabled = () =>
@@ -43,11 +43,18 @@ class Loading extends React.Component {
     }
   }
 
-  renderRequest = () =>
-    <div className={this.getClassName(this.props.spe.status)}>{this.props.requestIcon}</div>
+  renderRequest = () => (
+    this.props.placeholder ?
+      this.props.placeholder :
+      <div className={this.getClassName(this.props.spe.status)}>
+        <img src={requestIcon} alt="loading"/>
+      </div>
+  )
 
   renderFailure = () =>
-    <div className={this.getClassName(this.props.spe.status)}>{this.props.spe.error}</div>
+    <div className={this.getClassName(this.props.spe.status)}>
+      {this.props.spe.error}
+    </div>
 
   render = () => {
     if (this.ifCurrentStatusIsNotEnabled()) return null;
