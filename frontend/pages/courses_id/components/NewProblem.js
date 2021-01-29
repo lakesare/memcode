@@ -154,6 +154,7 @@ class NewProblem extends React.Component {
     <div className="new-problem">
       <Problem
         mode="edit"
+        ifWithPlaceholder
         problemContent={this.state.problemContent}
         updateProblemContent={this.updateProblemContent}
         problemType={this.state.currentProblemType}

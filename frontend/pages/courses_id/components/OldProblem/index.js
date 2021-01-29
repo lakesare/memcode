@@ -160,7 +160,6 @@ class OldProblem extends React.Component {
           {...provided.draggableProps}
           style={provided.draggableProps.style}
         >
-
           <Problem
             mode={this.state.mode}
             problemContent={this.props.problem.content}

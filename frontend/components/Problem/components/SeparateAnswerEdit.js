@@ -4,7 +4,8 @@ class SeparateAnswerEdit extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired,
     updateProblemContent: PropTypes.func.isRequired,
-    onFocusChange: PropTypes.func
+    onFocusChange: PropTypes.func,
+    ifWithPlaceholder: PropTypes.bool
   };
 
   static defaultProps = {
@@ -34,7 +35,7 @@ class SeparateAnswerEdit extends React.Component {
     <section className="problem -withSeparateAnswer">
       <div className="first-column">
         <Editor
-          placeholder="Enter a question"
+          placeholder={this.props.ifWithPlaceholder ? 'Enter a question' : ''}
           editorState={this.props.problemContent['content']}
           updateEditorState={(newState) => this.updateProblemContent('content', newState)}
           onFocusChange={this.onFocusChange}
@@ -43,7 +44,7 @@ class SeparateAnswerEdit extends React.Component {
 
       <div className="second-column">
         <Editor
-          placeholder="Enter an answer"
+          placeholder={this.props.ifWithPlaceholder ? 'Enter an answer' : ''}
           editorState={this.props.problemContent['answer']}
           updateEditorState={(newState) => this.updateProblemContent('answer', newState)}
           onFocusChange={this.onFocusChange}

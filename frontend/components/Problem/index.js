@@ -9,7 +9,9 @@ import { InlinedAnswersReview } from './components/InlinedAnswersReview';
 class Problem extends React.Component {
   static propTypes = {
     problemType: PropTypes.string.isRequired,
-    mode: PropTypes.string.isRequired
+    mode: PropTypes.string.isRequired,
+    // Only useful for 'mode: edit'
+    ifWithPlaceholder: PropTypes.bool
   }
 
   render = () => {

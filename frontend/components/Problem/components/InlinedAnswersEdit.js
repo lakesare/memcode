@@ -7,7 +7,8 @@ class InlinedAnswersEdit extends React.Component {
   static propTypes = {
     problemContent: PropTypes.object.isRequired,
     updateProblemContent: PropTypes.func.isRequired,
-    onFocusChange: PropTypes.func
+    onFocusChange: PropTypes.func,
+    ifWithPlaceholder: PropTypes.bool
   };
 
   static defaultProps = {
@@ -37,7 +38,7 @@ class InlinedAnswersEdit extends React.Component {
     <section className="problem -withInlinedAnswers">
       <div className="first-column">
         <Editor
-          placeholder="Enter a sentence, and mark words you'd like to learn As Answers"
+          placeholder={this.props.ifWithPlaceholder ? "Enter a sentence, and mark the words you'd like to learn" : ''}
           editorState={this.props.problemContent.content}
           updateEditorState={(newState) => this.updateProblemContent('content', newState)}
           onFocusChange={this.onFocusChange}
@@ -49,7 +50,7 @@ class InlinedAnswersEdit extends React.Component {
 
       <div className="second-column">
         <Editor
-          placeholder="Enter some additional information/hint"
+          placeholder={this.props.ifWithPlaceholder ? "Enter some additional information/hint" : ''}
           editorState={this.props.problemContent.explanation}
           updateEditorState={(newState) => this.updateProblemContent('explanation', newState)}
           onFocusChange={this.onFocusChange}
