@@ -60,7 +60,7 @@
         }
       }
 
-      > .please-sign-in_and_simulated-review-button{
+      .please-sign-in_and_simulated-review-button{
         display: flex;
         align-items: center;
         > label.please-sign-in{

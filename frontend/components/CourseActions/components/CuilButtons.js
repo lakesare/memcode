@@ -196,7 +196,6 @@ class CuilButtons extends React.Component {
         </div>
       </div> :
       <div className="buttons">
-        
         <div className="please-sign-in_and_simulated-review-button">
           <label className="please-sign-in">Sign in to start recording results</label>
 
