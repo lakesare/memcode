@@ -9,9 +9,9 @@ class Footer extends React.Component {
     <footer className={css.footer}>
       <div className="container">
         <section className="blog-links">
-          <Link to="/articles/comparison">Blog</Link>
-          <span className="pipe">|</span>
           <Link to="/contact">Contact</Link>
+          <span className="pipe">|</span>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/memcode">Patreon</a>
           <span className="pipe">|</span>
           <div className="star-us">
             <GitHubButton href="https://github.com/lakesare/memcode" data-icon="octicon-star" data-show-count="true" aria-label="Star lakesare/memcode on GitHub">Star</GitHubButton>
