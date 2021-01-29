@@ -1,5 +1,5 @@
 import stripTags from '~/services/stripTags';
-import UrlCreator from '~/services/UrlCreator';
+import Urls from '~/services/Urls';
 
 import { Link } from 'react-router-dom';
 
@@ -19,13 +19,7 @@ class Course extends React.Component {
   }
 
   getEditOrShowUrl = () =>
-    UrlCreator.courseEditOrShow(
-      this.props.currentUser,
-      {
-        ...this.props.courseData.course,
-        userId: this.props.courseData.course.user_id
-      }
-    )
+    Urls.courseShow(this.props.courseData.course.id)
 
   boldenTitle = (title, searchString) => {
     // "hello", "ll" => 2

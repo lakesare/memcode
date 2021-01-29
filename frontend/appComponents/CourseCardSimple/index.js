@@ -1,17 +1,12 @@
-import orFalse from '~/services/orFalse';
 import stripTags from '~/services/stripTags';
-import UrlCreator from '~/services/UrlCreator';
+import Urls from '~/services/Urls';
 
 import { Link } from 'react-router-dom';
 
 import css from './index.css';
 
-@connect((state) => ({
-  currentUser: state.global.Authentication.currentUser
-}))
 class CourseCardSimple extends React.Component {
   static propTypes = {
-    currentUser: orFalse(PropTypes.object).isRequired,
     courseDto: PropTypes.shape({
       course: PropTypes.object.isRequired,
       amountOfProblems: PropTypes.number.isRequired,
@@ -28,8 +23,8 @@ class CourseCardSimple extends React.Component {
 
   getUrl = () =>
     this.props.ifShowSimulatedReviewButton ?
-      `/courses/${this.props.courseDto.course.id}/review/simulated` :
-      UrlCreator.courseEditOrShow(this.props.currentUser, this.props.courseDto.course);
+      Urls.courseReviewSimulated(this.props.courseDto.course.id) :
+      Urls.courseShow(this.props.courseDto.course.id);
 
   render = () =>
     <Link

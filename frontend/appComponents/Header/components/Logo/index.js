@@ -1,11 +1,33 @@
+import orFalse from '~/services/orFalse';
+import Urls from '~/services/Urls';
 import { Link } from 'react-router-dom';
-
-// import missle from './missle.svg';
 
 // <img src={memcodeLogo}/>
 class Logo extends React.Component {
+  static propTypes = {
+    currentUser: orFalse(PropTypes.object).isRequired,
+    ifMobile: PropTypes.bool,
+  }
+
+  getLink = () => {
+    const currentUser = this.props.currentUser;
+    const ifMobile = this.props.ifMobile;
+    const ifDesktop = !ifMobile;
+
+    // Signed-in
+    if (currentUser && ifMobile) {
+      return Urls.myCourses();
+    } else if (currentUser && ifDesktop) {
+      return Urls.courses();
+    // Not signed-in
+    } else {
+      // This renders to the '/articles/welcome', but with a nice '/' link
+      return '/';
+    }
+  }
+
   render = () =>
-    <Link className="logo" to={window.innerWidth >= 930 ? '/courses' : '/courses/learning'}>
+    <Link className="logo" to={this.getLink()}>
       MEMCODE
     </Link>
 }

@@ -69,7 +69,7 @@ class Header extends React.Component {
   renderDesktop = () =>
     <div className="container -desktop">
       <div className="logo-and-search">
-        <Logo/>
+        <Logo currentUser={this.props.currentUser}/>
         <Search currentUser={this.props.currentUser}/>
       </div>
 
@@ -82,7 +82,7 @@ class Header extends React.Component {
   renderMobile = () =>
     <div className="container -mobile">
       <div className="logo-and-user">
-        <Logo/>
+        <Logo currentUser={this.props.currentUser} ifMobile/>
         {this.renderUser()}
       </div>
 

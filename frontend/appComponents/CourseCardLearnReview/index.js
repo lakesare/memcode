@@ -1,4 +1,4 @@
-import UrlCreator from '~/services/UrlCreator';
+import Urls from '~/services/Urls';
 
 import { Link } from 'react-router-dom';
 import LearnAndReviewButtons from './components/LearnAndReviewButtons';
@@ -35,7 +35,7 @@ class CourseCardLearnReview extends React.Component {
   renderGo = (course) =>
     <Link
       className="go"
-      to={UrlCreator.courseEditOrShow(this.props.currentUser, course)}
+      to={Urls.courseShow(course.id)}
       // do not focus the entire card on tab if there is something to review or to learn,
       // because it's faster to tab through learn/review links!
       tabIndex={this.ifThereIsSomethingToLearnAndReview() ? -1 : 0}
@@ -66,7 +66,7 @@ class CourseCardLearnReview extends React.Component {
       return (
         <Link
           className={className + ' -focusable-link'}
-          to={UrlCreator.courseEditOrShow(this.props.currentUser, courseDto.course)}
+          to={Urls.courseShow(courseDto.course.id)}
         >
           <div className="go"><i className="fa fa-long-arrow-right"/></div>
           {this.renderMain(courseDto)}

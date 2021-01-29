@@ -1,4 +1,4 @@
-import UrlCreator from '~/services/UrlCreator';
+import Urls from '~/services/Urls';
 import orFalse from '~/services/orFalse';
 import api from '~/api';
 import Roles from '~/services/Roles';
@@ -142,7 +142,7 @@ class CourseActions extends React.Component {
       <div className="container">
         <section className="course-title_and_category_and_author">
           <h1 className="title">
-            <Link to={UrlCreator.courseEditOrShow(this.props.currentUser, courseDto.course)}>
+            <Link to={Urls.courseShow(courseDto.course.id)}>
               {courseDto.course.title}
             </Link>
           </h1>
