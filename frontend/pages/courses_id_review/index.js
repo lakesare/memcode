@@ -7,6 +7,9 @@ import ProblemBeingSolved from './components/ProblemBeingSolved';
 import WhatsNext from './components/WhatsNext';
 import Problem from '~/components/Problem';
 
+import Subheader from './components/ProblemBeingSolved/components/Subheader';
+import MyModel from '~/models/MyModel';
+
 import css from './index.css';
 import MyDuck from '~/ducks/MyDuck';
 
@@ -120,6 +123,30 @@ class Page_courses_id_review extends React.Component {
       )
     }</div>
 
+  renderPlaceholder = () => {
+    const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
+    const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
+
+    return <section className="ProblemBeingSolved">
+      <Subheader
+        statusOfSolving={{
+          index: 0,
+          status: 'solving',
+          typeSpecific: { selfScore: 5 }
+        }}
+        amountOfProblems={dto ? nOfProblemsToReview : 1}
+        amountOfFailedProblems={0}
+        amountOfFailedProblemsLeft={0}
+
+        randomizeProblems={() => {}}
+        switchQuestionAndAnswer={() => {}}
+
+        ifReviewIsSimulated={this.props.simulated}
+        ifReviewingFailedProblems={false}
+      />
+    </section>;
+  }
+
   render = () =>
     <Main className={`${css.main} ${!this.props.My.ifShowDraft ? '-hide-draft' : ''}`} dontLinkToLearnOrReview={this.props.courseId}>
       <CourseActions
@@ -148,7 +175,7 @@ class Page_courses_id_review extends React.Component {
           switchQuestionAndAnswer={this.props.switchQuestionAndAnswer}
         />
       }
-      <Loading className="loading-flashcards" spe={this.props.speGetPage}/>
+      <Loading className="loading-flashcards" placeholder={this.renderPlaceholder()} spe={this.props.speGetPage}/>
 
       <WhatsNext
         courseId={parseInt(this.props.courseId)}
