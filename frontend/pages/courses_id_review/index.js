@@ -11,6 +11,7 @@ import Subheader from './components/ProblemBeingSolved/components/Subheader';
 import MyModel from '~/models/MyModel';
 
 import css from './index.css';
+import cssProblemBeingSolved from './components/ProblemBeingSolved/index.css';
 import MyDuck from '~/ducks/MyDuck';
 
 // person pressed ENTER,
@@ -127,7 +128,7 @@ class Page_courses_id_review extends React.Component {
     const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
     const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
 
-    return <section className="ProblemBeingSolved">
+    return <section className={`ProblemBeingSolved ${cssProblemBeingSolved.section}`}>
       <Subheader
         statusOfSolving={{
           index: 0,
