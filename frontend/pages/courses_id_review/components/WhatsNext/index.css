@@ -56,3 +56,11 @@
     }
   }
 }
+
+:local(.section){
+  @media(max-width: 400px) {
+    section.congratulations h2{
+      font-size: 28px;
+    }
+  }
+}
