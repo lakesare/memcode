@@ -1,1 +1,0 @@
-"db": "psql -U postgres -f backend/db/schema.sql; node backend/webpacked/seed.js", // must close all sessions with db while running it, otherwise it will silently fail 
