@@ -180,10 +180,9 @@
             letter-spacing: 0.5px;
             text-transform: uppercase;
             span.number{
-              position: relative;
-              top: 1px;
-              padding-right: 3px;
-              font-size: 15px;
+              padding-right: 2px;
+              font-size: 13px;
+              color: rgba(255, 255, 255, 0.92);
             }
             span.number.review-in-stat-number{
               padding-left: 5px;
