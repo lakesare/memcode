@@ -13,6 +13,9 @@ const getNextDueDateIn = (dto) => {
 
   const string = dayjs(nextDueProblem.nextDueDate).from(dayjs(), true);
   const [amount, measure] = string.split(' ');
+  if (string === 'a few seconds') {
+    return { amount: '', measure: 'a few seconds' };
+  }
   return { amount: (amount === 'a' || amount === 'an') ? 1 : amount, measure };
 };
 
