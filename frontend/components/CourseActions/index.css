@@ -104,7 +104,6 @@
             letter-spacing: 0.9px;
             text-transform: uppercase;
             span, a{
-              color: $purple;
               text-shadow: 0 0 12px #fbfbfb52;
             }
             > .in-or-by{
@@ -124,7 +123,6 @@
 
             font-size: 10px;
             align-items: center;
-            color: rgb(206, 199, 245);
             i{ padding-right: 3px; }
           }
         }
@@ -170,8 +168,8 @@
           align-items: center;
           justify-content: flex-end;
           > div.icon{
-            color: $purple;
             // text-shadow: 0 0 6px #fbfbfb47;
+            color: rgb(184, 198, 239);
             font-size: 17px;
             width: 27px;
             text-align: center;
@@ -186,7 +184,6 @@
               top: 1px;
               padding-right: 3px;
               font-size: 15px;
-              color: $purple;
             }
             span.number.review-in-stat-number{
               padding-left: 5px;
