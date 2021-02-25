@@ -4,9 +4,10 @@ $yellowish: rgb(247, 248, 228);
 
 // Throwing a couple more themes here temporarily
 body.-hideSearchBox{
-  header .logo-and-search .search{
+  header section.search{
     display: none !important;
   }
+
 }
 
 body.-hideLinks{
