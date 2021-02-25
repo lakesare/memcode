@@ -31,7 +31,12 @@ const nextDueDateInToString = (nextDueDateIn) => {
 
 const isProblemToReview = (problem) => {
   if (!problem._learned || problem.ifIgnored) return false;
-  return dayjs(problem.nextDueDate).isBefore(dayjs());
+
+  const nowInUtc = new Date().getTime();
+  const dueTime = new Date(problem.nextDueDate).getTime();
+  const ifReadyForReview = dueTime < nowInUtc;
+
+  return ifReadyForReview;
 };
 
 const isProblemToLearn = (problem) => {
@@ -102,55 +107,11 @@ const getNextDueProblem = (dto) => {
 
     if (!due) {
       due = problem;
-    } else if (dayjs(problem.nextDueDate).isBefore(due.nextDueDate)) {
+    } else if (due.nextDueDate > problem.nextDueDate) {
       due = problem;
     }
   });
   return due;
-};
-
-const dateToAmountAndMeasure = (nextDueDate) => {
-  const string = dayjs(nextDueDate).from(dayjs(), true);
-
-  if (string === 'a few seconds') {
-    return 'a few seconds';
-  }
-
-  const [amount, measure] = string.split(' ');
-  return `${(amount === 'a' || amount === 'an') ? 1 : amount} ${measure}`;
-};
-
-// If nothing to review yet (closest due problem is in the future) - return 'review in 20 hours'
-// If we already have problems to review, but we have more soon - return 'more in 3 hours'
-const getMoreIn = (dto) => {
-  let ifAlreadyDue = false;
-  let nextToReview = null;
-
-  const now = dayjs();
-
-  dto.problems.forEach((problem) => {
-    if (!problem._learned || problem.ifIgnored) return;
-
-    // Is flashcard already due?
-    if (dayjs(problem.nextDueDate).isBefore(now)) {
-      ifAlreadyDue = true;
-    // Is flashcard not yet due, but will be due in the future?
-    } else {
-      if (!nextToReview || dayjs(problem.nextDueDate).isBefore(nextToReview.nextDueDate)) {
-        nextToReview = problem;
-      }
-    }
-  });
-
-  if (ifAlreadyDue && nextToReview) {
-    return `More in ${dateToAmountAndMeasure(nextToReview.nextDueDate)}`;
-  } else if (ifAlreadyDue && !nextToReview) {
-    return 'Review now';
-  } else if (!ifAlreadyDue && nextToReview) {
-    return `Review in ${dateToAmountAndMeasure(nextToReview.nextDueDate)}`;
-  } else if (!ifAlreadyDue && !nextToReview) {
-    return null;
-  }
 };
 
 const dtoToCourseCardProps = (dto) => {
@@ -174,6 +135,5 @@ export default {
   getNextDueProblem,
   getNextDueDateIn,
   nextDueDateInToString,
-  dtoToCourseCardProps,
-  getMoreIn
+  dtoToCourseCardProps
 };

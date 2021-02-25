@@ -43,14 +43,24 @@ class CourseDescriptionAndStats extends React.Component {
     if (!dto) {
       return null;
     }
-    const nextDueDateIn = MyModel.getMoreIn(dto);
+    const nextDueDateIn = MyModel.getNextDueDateIn(dto);
 
     if (nextDueDateIn === null) {
       return null;
     }
     return this.renderStat(
       <i className="fa fa-hourglass-start"/>,
-      nextDueDateIn
+      (
+        nextDueDateIn === 'now' ?
+          'Review now!' :
+          <>
+            Review in
+            <span className="number review-in-stat-number">
+              {nextDueDateIn.amount}
+              <span className="measure">{nextDueDateIn.measure}</span>
+            </span>
+          </>
+      )
     );
   }
 
