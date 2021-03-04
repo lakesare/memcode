@@ -47,6 +47,17 @@ router.get('/courses/:id/review', authenticate, catchAsync(async (request, respo
   response.status(200).json({ courseUserIsLearning, problems });
 }));
 
+router.get('/courses/:id/review/persistent', authenticate, catchAsync(async (request, response) => {
+  const courseId = request.params['id'];
+
+  if (!(await canAccessCourse(courseId, request.currentUser))) {
+    return response.error(cantAccessError);
+  }
+
+  const problems = await getProblemsByCourseId(courseId);
+  response.status(200).json({ courseUserIsLearning: null, problems });
+}));
+
 router.get('/courses/:id/review/simulated', catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 

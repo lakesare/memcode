@@ -89,6 +89,21 @@ class CuilButtons extends React.Component {
       }
 
       {
+        this.props.courseDto.amountOfProblems > 0 &&  this.ifCourseIsLearnedAndActive() &&
+        <li>
+          <Link
+            to={`/courses/${this.props.courseDto.course.id}/review/persistent`}
+            style={{ color: 'rgb(255, 165, 0)' }}
+          >
+            <div className="text">Review All</div>
+            <div className="comment -white">
+              Review all flashcards of this course with your results being recorded.
+            </div>
+          </Link>
+        </li>
+      }
+
+      {
         this.ifCourseIsLearnedAndActive() &&
         <li>
           <button

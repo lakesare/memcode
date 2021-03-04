@@ -153,12 +153,68 @@ const enterPressedInSimulatedReview = () =>
     }
   };
 
-const getPage = (courseId, ifSimulated) =>
+const enterPressedInPersistentReview = () =>
+  (dispatch, getState) => {
+    const state = getState().pages.Page_courses_id_review;
+    if (state.ifReviewingFailedProblems) {
+      enterPressedInFailedMode()(dispatch, getState);
+    } else {
+      const currentProblem = selectors.deriveCurrentProblem(state);
+      switch (state.statusOfSolving.status) {
+        case 'solving':
+          dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
+          if (currentProblem.type === 'separateAnswer') {
+            playShortSound();
+          }
+          break;
+        case 'seeingAnswer': {
+          const score = selectors.deriveScore(state);
+          const currentIndex = state.statusOfSolving.index;
+        
+          //basically a mix between simulated review and real review
+          //if score = 5 -> like simulated
+          //if score < 5 -> like real review -> report to api
+
+          if (score < 5) {
+            api.ProblemUserIsLearningApi.reviewProblem(
+                false,
+                {
+                id: state.speGetPage.payload.courseUserIsLearning.id,
+                problemId: currentProblem.id,
+                performanceRating: score
+                }
+            );
+  
+            dispatch({
+              type: 'ADD_TO_FAILED_PROBLEMS',
+              payload: currentIndex
+            });
+
+            console.log({ currentProblem, score });
+            MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id, score);
+          }
+          playLongSound(score, currentProblem);
+       
+          dispatch({
+            type: 'SET_NEXT_PROBLEM',
+            payload: currentIndex + 1
+          });
+       
+          break;
+        }
+      }
+    }
+  };
+
+const getPage = (courseId, ifSimulated, ifPersistent) =>
   (dispatch) =>
     commonFetch(
       (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe }),
       'GET',
-      ifSimulated ? `/api/pages/courses/${courseId}/review/simulated` : `/api/pages/courses/${courseId}/review`
+        ifSimulated ?
+            `/api/pages/courses/${courseId}/review/simulated` :
+            (ifPersistent ? `/api/pages/courses/${courseId}/review/persistent` : 
+            `/api/pages/courses/${courseId}/review`)
     );
 
-export default { enterPressed, enterPressedInSimulatedReview, getPage };
+export default { enterPressed, enterPressedInSimulatedReview, enterPressedInReviewAll, getPage };

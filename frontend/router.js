@@ -36,8 +36,9 @@ const router =
       <Route exact path="/courses/new"        component={auth(Page_courses_new)}/>
       <Route exact path="/courses/:id"        component={Page_courses_id}/>
       <Route exact path="/courses/:id/learn"  component={auth(Page_courses_id_learn)}/>
-      <Route exact path="/courses/:id/review" component={auth(Page_courses_id_review)} simulated={false}/>
+      <Route exact path="/courses/:id/review" component={auth(Page_courses_id_review)} simulated={false} persistent={false}/>
       <Route exact path="/courses/:id/review/simulated" component={(props) => <Page_courses_id_review {...props} simulated/>}/>
+      <Route exact path="/courses/:id/review/persistent" component={(props) => <Page_courses_id_review {...props} persistent/>}/>
 
       <Route exact path="/profile" component={Page_profile}/>
       <Route exact path="/users/:id" component={Page_users_id}/>

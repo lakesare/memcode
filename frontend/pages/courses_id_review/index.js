@@ -49,31 +49,33 @@ import actions from './duck/actions';
       My: state.global.My
     };
   },
-  (dispatch, ownProps) => ({
-    getPage: (courseId) => dispatch(
-      actions.getPage(courseId, ownProps.simulated)
-    ),
-    enterPressed: () => {
-      ownProps.simulated ?
-        dispatch(actions.enterPressedInSimulatedReview()) :
-        dispatch(actions.enterPressed());
-    },
-    separateAnswerSelfScoreGiven: (selfScore) =>
-      dispatch({
-        type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
-        payload: selfScore
-      }),
-    onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
-    randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
-    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
+    (dispatch, ownProps) => ({
+        getPage: (courseId) => dispatch(
+            actions.getPage(courseId, ownProps.simulated, ownProps.persistent)
+        ),
+        enterPressed: () => {
+            ownProps.simulated ?
+                dispatch(actions.enterPressedInReviewAll()) :
+                (ownProps.persistent ? dispatch(actions.enterPressedInSimulatedReview()) : 
+                dispatch(actions.enterPressed()));
+        },
+        separateAnswerSelfScoreGiven: (selfScore) =>
+            dispatch({
+                type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
+                payload: selfScore
+            }),
+        onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
+        randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
+        switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
 
-    MyActions: dispatch(MyDuck.getActions)
-  })
+        MyActions: dispatch(MyDuck.getActions)
+    })
 )
 class Page_courses_id_review extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
     simulated: PropTypes.bool,
+    persistent: PropTypes.bool,
     getPage: PropTypes.func.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
@@ -97,7 +99,8 @@ class Page_courses_id_review extends React.Component {
   }
 
   static defaultProps = {
-    simulated: false
+    simulated: false,
+    persistent: false
   }
 
   componentDidMount() {
@@ -143,6 +146,7 @@ class Page_courses_id_review extends React.Component {
         switchQuestionAndAnswer={() => {}}
 
         ifReviewIsSimulated={this.props.simulated}
+        ifReviewIsPersistent={this.props.persistent}
         ifReviewingFailedProblems={false}
       />
     </section>;
@@ -163,6 +167,7 @@ class Page_courses_id_review extends React.Component {
         <ProblemBeingSolved
           problem={this.props.currentProblem}
           ifReviewIsSimulated={this.props.simulated}
+          ifReviewIsPersistent={this.props.persistent}
           ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
           statusOfSolving={this.props.statusOfSolving}
           amountOfProblems={this.props.amountOfProblems}

@@ -23,6 +23,7 @@ class Subheader extends React.Component {
     switchQuestionAndAnswer: PropTypes.func.isRequired,
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
+    ifReviewIsPersistent: PropTypes.bool.isRequired,
     ifReviewingFailedProblems: PropTypes.bool.isRequired,
 
     MyActions: PropTypes.object.isRequired,
@@ -63,6 +64,22 @@ class Subheader extends React.Component {
         </div>
         <div className="instructions -mobile">
           <p><em className="yellow-emphasis">Test drive</em> - results are not recorded.</p>
+          {this.renderVolumeButton()}
+        </div>
+
+        {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
+      </div>
+    </section>
+
+  renderPersistentReview = () =>
+    <section className={`Subheader ${css.section} -persistent-review`}>
+      <div className="container">
+        <div className="instructions -desktop">
+          <p><em className="review-emphasis">Review All</em> - results will be recoded. Press ENTER to reveal answers</p>
+          {this.renderVolumeButton()}
+        </div>
+        <div className="instructions -mobile">
+          <p><em className="review-emphasis">Review All</em> - results will be recorded.</p>
           {this.renderVolumeButton()}
         </div>
 
