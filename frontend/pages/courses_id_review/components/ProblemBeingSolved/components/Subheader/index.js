@@ -160,9 +160,11 @@ class Subheader extends React.Component {
     </section>
 
   render = () => {
-    if (!this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
+    if (!this.props.ifReviewIsSimulated && !this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
       return this.renderUsualReview();
-    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
+    } else if (this.props.ifReviewIsPersistent && !this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
+      return this.renderPersistentReview();
+    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
       return this.renderSimulatedReview();
     } else if (this.props.ifReviewingFailedProblems) {
       return this.renderFailedFlashcardsReview();
