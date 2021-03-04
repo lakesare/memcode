@@ -217,4 +217,4 @@ const getPage = (courseId, ifSimulated, ifPersistent) =>
             `/api/pages/courses/${courseId}/review`)
     );
 
-export default { enterPressed, enterPressedInSimulatedReview, enterPressedInReviewAll, getPage };
+export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage };

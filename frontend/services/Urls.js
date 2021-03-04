@@ -12,5 +12,5 @@ const courseReviewPersistent = (id) => `/courses/${id}/review/persistent`;
 export default {
   courses,
   myCourses,
-  courseShow, courseLearn, courseReview, courseReviewSimulated, courseReviewAll
+  courseShow, courseLearn, courseReview, courseReviewSimulated, courseReviewPersistent
 };
