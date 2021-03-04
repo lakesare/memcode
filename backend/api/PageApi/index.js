@@ -54,8 +54,9 @@ router.get('/courses/:id/review/persistent', authenticate, catchAsync(async (req
     return response.error(cantAccessError);
   }
 
+  const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
   const problems = await getProblemsByCourseId(courseId);
-  response.status(200).json({ courseUserIsLearning: null, problems });
+  response.status(200).json({ courseUserIsLearning, problems });
 }));
 
 router.get('/courses/:id/review/simulated', catchAsync(async (request, response) => {
