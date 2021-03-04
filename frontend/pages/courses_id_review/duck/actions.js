@@ -179,9 +179,9 @@ const enterPressedInPersistentReview = () =>
             api.ProblemUserIsLearningApi.reviewProblem(
                 false,
                 {
-                id: state.speGetPage.payload.courseUserIsLearning.id,
-                problemId: currentProblem.id,
-                performanceRating: score
+                    id: state.speGetPage.payload.courseUserIsLearning.id,
+                    problemId: currentProblem.id,
+                    performanceRating: score
                 }
             );
   
