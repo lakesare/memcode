@@ -93,7 +93,7 @@ class CuilButtons extends React.Component {
         <li>
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/persistent`}
-            style={{ color: 'rgb(255, 165, 0)' }}
+            style={{ color: 'rgb(212, 85, 18)' }}
           >
             <div className="text">Review All</div>
             <div className="comment -white">
