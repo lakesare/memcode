@@ -55,8 +55,8 @@ import actions from './duck/actions';
         ),
         enterPressed: () => {
             ownProps.simulated ?
-                dispatch(actions.enterPressedInPersistentReview()) :
-                (ownProps.persistent ? dispatch(actions.enterPressedInSimulatedReview()) : 
+                dispatch(actions.enterPressedInSimulatedReview()) :
+                (ownProps.persistent ? dispatch(actions.enterPressedInPersistentReview()) : 
                 dispatch(actions.enterPressed()));
         },
         separateAnswerSelfScoreGiven: (selfScore) =>
