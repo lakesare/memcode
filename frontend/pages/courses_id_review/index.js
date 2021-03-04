@@ -54,10 +54,13 @@ import actions from './duck/actions';
             actions.getPage(courseId, ownProps.simulated, ownProps.persistent)
         ),
         enterPressed: () => {
-            ownProps.simulated ?
-                dispatch(actions.enterPressedInSimulatedReview()) :
-                (ownProps.persistent ? dispatch(actions.enterPressedInPersistentReview()) : 
-                dispatch(actions.enterPressed()));
+            if(ownProps.simulated){
+                dispatch(actions.enterPressedInSimulatedReview());
+            } else if (ownProps.persistent){
+                dispatch(actions.enterPressedInPersistentReview());
+            } else {
+                 dispatch(actions.enterPressed());
+            }
         },
         separateAnswerSelfScoreGiven: (selfScore) =>
             dispatch({

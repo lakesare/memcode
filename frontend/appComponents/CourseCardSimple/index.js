@@ -23,11 +23,16 @@ class CourseCardSimple extends React.Component {
     ifShowPersistentReviewButton: false
   }
 
-  getUrl = () =>
-    this.props.ifShowSimulatedReviewButton ?
-      Urls.courseReviewSimulated(this.props.courseDto.course.id) :
-      (this.props.ifShowPersistentReviewButton ? Urls.courseReviewPersistent(this.props.courseDto.course.id) : 
-      Urls.courseShow(this.props.courseDto.course.id));
+  getUrl = () => {
+      if (this.props.ifShowSimulatedReviewButton) {
+          return Urls.courseReviewSimulated(this.props.courseDto.course.id)
+      } else if (this.props.ifShowPersistentReviewButton) {
+          return Urls.courseReviewPersistent(this.props.courseDto.course.id)
+      } else {
+          return Urls.courseShow(this.props.courseDto.course.id)
+      }
+  }
+
 
   render = () =>
     <Link

@@ -206,15 +206,19 @@ const enterPressedInPersistentReview = () =>
     }
   };
 
-const getPage = (courseId, ifSimulated, ifPersistent) =>
-  (dispatch) =>
+const getPage = (courseId, simulated, persistent) =>
+  (dispatch) =>{
+    var url;
+    if(simulated){
+        url =  `/api/pages/courses/${courseId}/review/simulated`;
+    } else if(persistent){
+        url = `/api/pages/courses/${courseId}/review/persistent`;
+    } else {
+        url =  `/api/pages/courses/${courseId}/review`;
+    }
     commonFetch(
       (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe }),
-      'GET',
-        ifSimulated ?
-            `/api/pages/courses/${courseId}/review/simulated` :
-            (ifPersistent ? `/api/pages/courses/${courseId}/review/persistent` : 
-            `/api/pages/courses/${courseId}/review`)
-    );
+      'GET', url);
+  }
 
 export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage };
