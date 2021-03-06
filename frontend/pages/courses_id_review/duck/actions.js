@@ -105,7 +105,7 @@ const enterPressedInPersistentReview = () => {
   // basically a mix between simulated review and real review
   // if score = 5 -> like simulated
   // if score < 5 -> like real review -> report to api
-  enterPressedInSimulatedReview(true);
+  return enterPressedInSimulatedReview(true);
 };
 
 const enterPressedInSimulatedReview = (isPersistentReview = false) =>
