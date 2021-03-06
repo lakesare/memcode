@@ -75,12 +75,10 @@ class Subheader extends React.Component {
     <section className={`Subheader ${css.section} -persistent-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          <p><em className="review-emphasis">Review All</em> - results will be recoded. Press ENTER to reveal answers</p>
-          {this.renderVolumeButton()}
+          <p><em className="yellow-emphasis">Review All</em> - repeat all flashcards, and record which flashcards were most difficult.</p>
         </div>
         <div className="instructions -mobile">
-          <p><em className="review-emphasis">Review All</em> - results will be recorded.</p>
-          {this.renderVolumeButton()}
+          <p><em className="yellow-emphasis">Review All</em> - difficult ones are recorded.</p>
         </div>
 
         {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
