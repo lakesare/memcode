@@ -36,7 +36,8 @@ router.get('/courses/:id/learn', authenticate, catchAsync(async (request, respon
   }
 
   // find cuil
-  const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
+  const courseUserIsLearning = (await knex('courseUserIsLearning')
+    .where({ courseId, userId: request.currentUser.id }))[0];
 
   // find problems
   const problems = await getProblemsByCourseId(courseId);
@@ -52,7 +53,8 @@ router.get('/courses/:id/review', authenticate, catchAsync(async (request, respo
     return response.error(cantAccessError);
   }
 
-  const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
+  const courseUserIsLearning = (await knex('courseUserIsLearning')
+    .where({ courseId, userId: request.currentUser.id }))[0];
   const problems = await CourseUserIsLearningModel.select.problemsToReview(courseUserIsLearning.id);
   response.status(200).json({ courseUserIsLearning, problems });
 }));
@@ -64,7 +66,8 @@ router.get('/courses/:id/review/persistent', authenticate, catchAsync(async (req
     return response.error(cantAccessError);
   }
 
-  const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
+  const courseUserIsLearning = (await knex('courseUserIsLearning')
+    .where({ courseId, userId: request.currentUser.id }))[0];
   const problems = await getLearnedProblemsByCuilId(courseUserIsLearning.id);
   response.status(200).json({ courseUserIsLearning, problems });
 }));
