@@ -20,9 +20,11 @@ const getProblemsByCourseId = (courseId) =>
 
 const getLearnedProblemsByCuilId = (cuilId) =>
   knex('problem').select('problem.*')
-    .innerJoin('problemUserIsLearning', {'problemUserIsLearning.problemId' : 'problem.id'})
-    .where({'problemUserIsLearning.courseUserIsLearningId' : cuilId})
-    .andWhere({'problemUserIsLearning.ifIgnored' : false})
+    .innerJoin('problemUserIsLearning', { 'problemUserIsLearning.problemId': 'problem.id' })
+    .where({
+      'problemUserIsLearning.courseUserIsLearningId': cuilId,
+      'problemUserIsLearning.ifIgnored': false
+    })
     .orderBy('problem.position', 'asc')
     .orderBy('problem.createdAt', 'asc');
 
@@ -63,7 +65,7 @@ router.get('/courses/:id/review/persistent', authenticate, catchAsync(async (req
   }
 
   const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
-  const problems = await getLearnedProblemsByCuilId(courseId);
+  const problems = await getLearnedProblemsByCuilId(courseUserIsLearning.id);
   response.status(200).json({ courseUserIsLearning, problems });
 }));
 
