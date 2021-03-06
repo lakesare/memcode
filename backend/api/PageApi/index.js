@@ -18,6 +18,16 @@ const getProblemsByCourseId = (courseId) =>
     .orderBy('position')
     .orderBy('createdAt', 'asc');
 
+const getLearnedProblemsByCuilId = (cuilId) =>
+  knex('problem').select('problem.*')
+    .innerJoin('problemUserIsLearning', { 'problemUserIsLearning.problemId': 'problem.id' })
+    .where({
+      'problemUserIsLearning.courseUserIsLearningId': cuilId,
+      'problemUserIsLearning.ifIgnored': false
+    })
+    .orderBy('problem.position', 'asc')
+    .orderBy('problem.createdAt', 'asc');
+
 router.get('/courses/:id/learn', authenticate, catchAsync(async (request, response) => {
   const courseId = request.params['id'];
 
@@ -26,7 +36,8 @@ router.get('/courses/:id/learn', authenticate, catchAsync(async (request, respon
   }
 
   // find cuil
-  const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
+  const courseUserIsLearning = (await knex('courseUserIsLearning')
+    .where({ courseId, userId: request.currentUser.id }))[0];
 
   // find problems
   const problems = await getProblemsByCourseId(courseId);
@@ -42,8 +53,22 @@ router.get('/courses/:id/review', authenticate, catchAsync(async (request, respo
     return response.error(cantAccessError);
   }
 
-  const courseUserIsLearning = await CourseUserIsLearningModel.select.oneByCourseIdAndUserId(courseId, request.currentUser.id);
+  const courseUserIsLearning = (await knex('courseUserIsLearning')
+    .where({ courseId, userId: request.currentUser.id }))[0];
   const problems = await CourseUserIsLearningModel.select.problemsToReview(courseUserIsLearning.id);
+  response.status(200).json({ courseUserIsLearning, problems });
+}));
+
+router.get('/courses/:id/review/persistent', authenticate, catchAsync(async (request, response) => {
+  const courseId = request.params['id'];
+
+  if (!(await canAccessCourse(courseId, request.currentUser))) {
+    return response.error(cantAccessError);
+  }
+
+  const courseUserIsLearning = (await knex('courseUserIsLearning')
+    .where({ courseId, userId: request.currentUser.id }))[0];
+  const problems = await getLearnedProblemsByCuilId(courseUserIsLearning.id);
   response.status(200).json({ courseUserIsLearning, problems });
 }));
 

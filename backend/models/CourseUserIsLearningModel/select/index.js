@@ -1,16 +1,6 @@
 import db from '~/db/init.js';
 
 const select = {
-  oneByCourseIdAndUserId: (courseId, userId) =>
-    db.one(
-      `
-        SELECT *
-        FROM course_user_is_learning
-        WHERE course_id = \${courseId} AND user_id = \${userId}
-      `,
-      { courseId, userId }
-    ),
-
   problemsToReview: (cuilId) =>
     db.any(
       `

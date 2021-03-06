@@ -18,6 +18,7 @@ class ProblemBeingSolved extends React.Component {
     switchQuestionAndAnswer: PropTypes.func.isRequired,
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
+    ifReviewIsPersistent: PropTypes.bool.isRequired,
     ifReviewingFailedProblems: PropTypes.bool.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired,
   }
@@ -73,6 +74,7 @@ class ProblemBeingSolved extends React.Component {
         switchQuestionAndAnswer={this.props.switchQuestionAndAnswer}
 
         ifReviewIsSimulated={this.props.ifReviewIsSimulated}
+        ifReviewIsPersistent={this.props.ifReviewIsPersistent}
         ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
       />
 

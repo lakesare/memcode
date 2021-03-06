@@ -74,7 +74,7 @@ class CuilButtons extends React.Component {
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
       {
-        this.props.courseDto.amountOfProblems > 0 &&
+        this.props.courseDto.amountOfProblems > 0 && !this.ifCourseIsLearnedAndActive() &&
         <li>
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
@@ -82,7 +82,22 @@ class CuilButtons extends React.Component {
           >
             <div className="text">Test Drive</div>
             <div className="comment -white">
-              Review all flashcards of this course without your results being recorded.
+              Review all flashcards of this course (results won't be recorded).
+            </div>
+          </Link>
+        </li>
+      }
+
+      {
+        this.props.courseDto.amountOfProblems > 0 && this.ifCourseIsLearnedAndActive() &&
+        <li>
+          <Link
+            to={`/courses/${this.props.courseDto.course.id}/review/persistent`}
+            style={{ color: 'rgb(236, 236, 133)' }}
+          >
+            <div className="text">Review All</div>
+            <div className="comment -white">
+              Review all the flashcards you learned without waiting for their due time.
             </div>
           </Link>
         </li>
@@ -132,7 +147,7 @@ class CuilButtons extends React.Component {
               {this.props.My.flashcardOrder ? 'Oldest First' : 'Newest First'}
             </div>
             <div className="comment -white">
-              Switch order of flashcards
+              Switch the order of flashcards.
             </div>
           </button>
         </li>

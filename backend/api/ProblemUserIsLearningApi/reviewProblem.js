@@ -21,7 +21,6 @@ const reviewProblem = auth(async (request, response) => {
       lastReviewedAt: now.format()
     })
     .returning('*'))[0];
-
   response.success(updatedPuil);
 });
 

@@ -14,17 +14,25 @@ class CourseCardSimple extends React.Component {
       courseCategory: PropTypes.object.isRequired,
       averageCourseRating: PropTypes.string,
     }).isRequired,
-    ifShowSimulatedReviewButton: PropTypes.bool
+    ifShowSimulatedReviewButton: PropTypes.bool,
+    ifShowPersistentReviewButton: PropTypes.bool
   }
 
   static defaultProps = {
-    ifShowSimulatedReviewButton: false
+    ifShowSimulatedReviewButton: false,
+    ifShowPersistentReviewButton: false
   }
 
-  getUrl = () =>
-    this.props.ifShowSimulatedReviewButton ?
-      Urls.courseReviewSimulated(this.props.courseDto.course.id) :
-      Urls.courseShow(this.props.courseDto.course.id);
+  getUrl = () => {
+      if (this.props.ifShowSimulatedReviewButton) {
+          return Urls.courseReviewSimulated(this.props.courseDto.course.id)
+      } else if (this.props.ifShowPersistentReviewButton) {
+          return Urls.courseReviewPersistent(this.props.courseDto.course.id)
+      } else {
+          return Urls.courseShow(this.props.courseDto.course.id)
+      }
+  }
+
 
   render = () =>
     <Link
@@ -51,7 +59,7 @@ class CourseCardSimple extends React.Component {
       }
 
       {
-        this.props.ifShowSimulatedReviewButton ?
+        this.props.ifShowSimulatedReviewButton || this.props.ifShowPersistentReviewButton ?
           <section className="total-amount-of-flashcards">
             PLAY
           </section> :

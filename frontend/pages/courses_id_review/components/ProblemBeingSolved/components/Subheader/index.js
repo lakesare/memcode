@@ -23,6 +23,7 @@ class Subheader extends React.Component {
     switchQuestionAndAnswer: PropTypes.func.isRequired,
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
+    ifReviewIsPersistent: PropTypes.bool.isRequired,
     ifReviewingFailedProblems: PropTypes.bool.isRequired,
 
     MyActions: PropTypes.object.isRequired,
@@ -64,6 +65,20 @@ class Subheader extends React.Component {
         <div className="instructions -mobile">
           <p><em className="yellow-emphasis">Test drive</em> - results are not recorded.</p>
           {this.renderVolumeButton()}
+        </div>
+
+        {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
+      </div>
+    </section>
+
+  renderPersistentReview = () =>
+    <section className={`Subheader ${css.section} -persistent-review`}>
+      <div className="container">
+        <div className="instructions -desktop">
+          <p><em className="yellow-emphasis">Review All</em> - repeat all flashcards, and record which flashcards were most difficult.</p>
+        </div>
+        <div className="instructions -mobile">
+          <p><em className="yellow-emphasis">Review All</em> - difficult ones are recorded.</p>
         </div>
 
         {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
@@ -143,9 +158,11 @@ class Subheader extends React.Component {
     </section>
 
   render = () => {
-    if (!this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
+    if (!this.props.ifReviewIsSimulated && !this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
       return this.renderUsualReview();
-    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
+    } else if (this.props.ifReviewIsPersistent && !this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
+      return this.renderPersistentReview();
+    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
       return this.renderSimulatedReview();
     } else if (this.props.ifReviewingFailedProblems) {
       return this.renderFailedFlashcardsReview();

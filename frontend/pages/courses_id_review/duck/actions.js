@@ -9,7 +9,7 @@ import playLongSound from './services/playLongSound';
 
 const enterPressed = () =>
   (dispatch, getState) => {
-    // Do not react to ENTER if we're inside of the draf editor
+    // Do not react to ENTER if we're inside of the draft editor
     if (document.querySelector('.draft-answer .ql-editor.focus-visible')) {
       return true;
     }
@@ -48,8 +48,6 @@ const enterPressed = () =>
             type: 'SET_NEXT_PROBLEM',
             payload: currentIndex + 1
           });
-
-          console.log({ currentProblem, score });
 
           MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id, score);
           break;
@@ -103,7 +101,14 @@ const enterPressedInFailedMode = () =>
     }
   };
 
-const enterPressedInSimulatedReview = () =>
+const enterPressedInPersistentReview = () => {
+  // basically a mix between simulated review and real review
+  // if score = 5 -> like simulated
+  // if score < 5 -> like real review -> report to api
+  enterPressedInSimulatedReview(true);
+};
+
+const enterPressedInSimulatedReview = (isPersistentReview = false) =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
     if (state.ifReviewingFailedProblems) {
@@ -127,38 +132,43 @@ const enterPressedInSimulatedReview = () =>
               payload: currentIndex
             });
           }
-          playLongSound(score, currentProblem);
 
+          if (isPersistentReview && score < 5) {
+            api.ProblemUserIsLearningApi.reviewProblem(
+              false,
+              {
+                id: state.speGetPage.payload.courseUserIsLearning.id,
+                problemId: currentProblem.id,
+                performanceRating: score
+              }
+            );
+          }
+
+          playLongSound(score, currentProblem);
           dispatch({
             type: 'SET_NEXT_PROBLEM',
             payload: state.statusOfSolving.index + 1
           });
-
-          // if (smth) {
-          //   setTimeout(() => {
-          //     dispatch({
-          //       type: 'SET_IF_WHATS_NEXT'
-          //     })
-          //   }, 600)
-          // } else if (smth_else) {
-          //   setTimeout(() => {
-          //     dispatch({
-          //       type: 'SET_IF_FAILED_PROBLEMS'
-          //     })
-          //   })
-          // }
           break;
         }
       }
     }
   };
 
-const getPage = (courseId, ifSimulated) =>
-  (dispatch) =>
-    commonFetch(
+const getPage = (courseId, simulated, persistent) =>
+  (dispatch) => {
+    let url;
+    if (simulated) {
+      url = `/api/pages/courses/${courseId}/review/simulated`;
+    } else if (persistent) {
+      url = `/api/pages/courses/${courseId}/review/persistent`;
+    } else {
+      url = `/api/pages/courses/${courseId}/review`;
+    }
+    return commonFetch(
       (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe }),
-      'GET',
-      ifSimulated ? `/api/pages/courses/${courseId}/review/simulated` : `/api/pages/courses/${courseId}/review`
+      'GET', url
     );
+  };
 
-export default { enterPressed, enterPressedInSimulatedReview, getPage };
+export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage };
