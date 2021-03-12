@@ -142,6 +142,7 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
                 performanceRating: score
               }
             );
+            MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id, score);
           }
 
           playLongSound(score, currentProblem);
