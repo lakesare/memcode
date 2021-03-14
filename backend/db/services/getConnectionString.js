@@ -19,7 +19,7 @@ const getConnectionString = () => {
       };
     case 'production':
       // this variable is set automatically after we do heroku addons:create heroku-postgresql:hobby-dev
-      return process.env.DATABASE_URL + '?sslmode=require';
+      return process.env.DATABASE_URL + '?ssl=true&sslmode=require';
   }
 };
 
