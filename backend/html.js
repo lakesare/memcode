@@ -25,8 +25,8 @@ const html = `
     <link href="/index_2.css" rel="stylesheet">
 
     <!-- katex support -->
-    <link rel="stylesheet" href="/nonNpmLibraries/katex.min.css"/>
-    <script defer src="/nonNpmLibraries/katex.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css"/>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js"></script>
 
     <!-- to verify google webmasters -->
     <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>
