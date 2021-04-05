@@ -9,7 +9,10 @@ import superScriptHandler      from '~/services/quill/handlers/superScriptHandle
 import subScriptHandler        from '~/services/quill/handlers/subScriptHandler';
 import formulaHandler        from '~/services/quill/handlers/formulaHandler';
 
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
+
+import mathquill4quill from 'mathquill4quill';
+//import 'mathquill4quill/mathquill4quill.css';
 
 import { tippy } from '@tippyjs/react';
 
@@ -130,6 +133,7 @@ class Editor extends React.Component {
   }
 
   componentDidMount = () => {
+    this.enableMathQuill();
     this.uiMakeToolbarButtonsUnfocusable();
   }
 
@@ -172,6 +176,13 @@ class Editor extends React.Component {
     });
   }
 
+  enableMathQuill = () => {
+    const enableMathQuillFormulaAuthoring = mathquill4quill({ Quill });
+    enableMathQuillFormulaAuthoring(this.quillRef.current.editor, {
+        //options
+    });
+  }
+
   onBlur = () => {
     this.props.onFocusChange(false);
   }
@@ -190,6 +201,7 @@ class Editor extends React.Component {
   }
 
   modules = {
+    formula: true,
     // formula: true,          // Include formula module
     // maybe include syntax module sometime
     // syntax: false,

@@ -28,6 +28,14 @@ const html = `
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css"/>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.js"></script>
 
+    <!-- mathquill (for mathquill4quill) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.min.css"/>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathquill@0.10.1-a/build/mathquill.min.js"></script>
+
+    <!-- mathquill4quill -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mathquill4quill@2.2.0/mathquill4quill.min.css"/>
+
     <!-- to verify google webmasters -->
     <meta name="google-site-verification" content="Cv256pnTnFWM0T6qi3SXK1u1K-B6W7IJQ9JoOQ_1I_E"/>
     <!-- to make site look bigger on mobiles -->
