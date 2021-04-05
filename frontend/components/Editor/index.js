@@ -7,6 +7,7 @@ import codeLineHandler         from '~/services/quill/handlers/codeLineHandler';
 import quoteHandler            from '~/services/quill/handlers/quoteHandler';
 import superScriptHandler      from '~/services/quill/handlers/superScriptHandler';
 import subScriptHandler        from '~/services/quill/handlers/subScriptHandler';
+import formulaHandler        from '~/services/quill/handlers/formulaHandler';
 
 import ReactQuill from 'react-quill';
 
@@ -62,6 +63,14 @@ const bindings = {
     shortKey: true,
     shiftKey: true,
     handler: markAsAnswerHandler
+  },
+
+  insertFormulaOnCmdF: {
+    key: 'F', // .
+    // CMD and CTRL
+    shortKey: true,
+    shiftKey: true,
+    handler: formulaHandler
   },
 
   // blurOnEsc: {
