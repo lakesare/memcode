@@ -128,7 +128,7 @@
     padding: 0 8px;
 
     section.checkbox{
-      top: 29px;
+      top: 0;
       bottom: 0;
     }
 
@@ -202,16 +202,49 @@
       }
     }
   }
-}
 
-:local(main.main){
+  @media(min-width: 1160px){
+    .new-problem .checkbox{ display: none; }
+  }
+
   @media(max-width: 1160px){
     .container.problems-container{
-      padding-right: 112px;
+      margin: 0;
+      margin-left: 40px;
+    }
+
+    section.problem{
+      display: block;
+      div.first-column,
+      div.second-column{
+        width: 100%;
+      }
+      div.first-column{
+        padding-right: 0;
+      }
+      div.second-column{
+        padding-left: 0;
+        padding-top: 20px;
+      }
+    }
+
+    .new-problem{
+      margin-top: 65px;
+      .how-to-create, .choose-type{
+        top: -50px !important;
+        label{ display: none !important; }
+      }
+      .choose-type{
+        // left: 10px;
+        display: none;
+      }
+      .how-to-create{
+        left: auto;
+        right: 10px;
+        .shortcut{ display: none; }
+      }
     }
   }
-  // @media(max-width: 900px) is unimportant!
-  // because we're redirecting everyone to /courses/:id at that width!
 }
 
 

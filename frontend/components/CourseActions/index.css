@@ -258,6 +258,9 @@
 
 :local(section.actions){
   @media(max-width: 900px){
+    .edit-invite-buttons{
+      display: none;
+    }
     section.title-and-buttons{
       padding-top: 10px;
       padding-bottom: 10px;
@@ -336,32 +339,22 @@
         > div.course-description:not(.-empty){
           margin-bottom: 20px;
         }
+        .course-description .ql-editor{
+          text-align: right;
+        }
 
         div.course-description{
           .placeholder{ display: none; }
         }
-
-        > ul.course-stats{
-          margin-top: 0 !important;
+        ul.course-stats{
           width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: flex-end;
-          > li{
-            width: 50%;
-            padding: 6px 0;
-            div.icon{
-              padding-right: 5px;
-            }
-          }
+          li{ width: 100% !important; }
         }
       }
     }
-  }
 
-  @media(max-width: 365px){
-    section.course-description-and-stats{
-      ul.course-stats > li{ width: 100% !important; }
+    .course-title_and_category_and_author{
+      button.invite-coauthor-button{ display: none; }
     }
   }
 }

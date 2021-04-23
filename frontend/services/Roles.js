@@ -2,8 +2,7 @@ const canIEditCourse = ({ currentUser, course, coauthors }) => {
   if (!currentUser) return false;
   const isAuthor = amICourseAuthor({ currentUser, course });
   const isCoauthor = amICourseCoauthor({ currentUser, coauthors });
-  const wideEnough = window.innerWidth > 900;
-  return (isAuthor || isCoauthor) && wideEnough;
+  return isAuthor || isCoauthor;
 };
 
 const amICourseAuthor = ({ currentUser, course }) => {

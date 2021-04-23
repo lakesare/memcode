@@ -121,9 +121,9 @@ class NewProblem extends React.Component {
   render = () =>
     <div className="new-problem">
       {/* Looks better without the checkbox admittedly */}
-      {/* <section className="checkbox"> */}
-      {/*   {this.props.index} */}
-      {/* </section> */}
+      <section className="checkbox">
+        {this.props.index}
+      </section>
 
       <Problem
         mode="edit"
