@@ -4,6 +4,7 @@ import onEnters from '~/services/onEnters';
 
 import Page_courses from './pages/courses';
 import Page_courses_new from './pages/courses_new';
+import Page_courses_id_review_print from './pages/courses_id_review_print';
 import Page_courses_id_review from './pages/courses_id_review';
 import Page_courses_id_learn from './pages/courses_id_learn';
 import Page_courses_id from './pages/courses_id';
@@ -37,6 +38,7 @@ const router =
       <Route exact path="/courses/:id"        component={Page_courses_id}/>
       <Route exact path="/courses/:id/learn"  component={auth(Page_courses_id_learn)}/>
       <Route exact path="/courses/:id/review" component={auth(Page_courses_id_review)} simulated={false} persistent={false}/>
+      <Route exact path="/courses/:id/review/print" component={auth(Page_courses_id_review_print)}/>
       <Route exact path="/courses/:id/review/simulated" component={(props) => <Page_courses_id_review {...props} simulated/>}/>
       <Route exact path="/courses/:id/review/persistent" component={(props) => <Page_courses_id_review {...props} persistent/>}/>
 

@@ -101,4 +101,7 @@ router.getForCourseActions = getForCourseActions;
 import getUserPage from './getUserPage';
 router.getUserPage = getUserPage;
 
+import getReviewPage from './getReviewPage';
+router.getReviewPage = getReviewPage;
+
 export default router;
