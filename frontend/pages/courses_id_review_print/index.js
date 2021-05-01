@@ -53,7 +53,7 @@ class Page_courses_id_review extends React.Component {
   }
 
   render = () =>
-    <Main className={`${css.main} ${!this.props.My.ifShowDraft ? '-hide-draft' : ''}`} dontLinkToLearnOrReview={this.props.courseId}>
+    <Main className={`${css.main} -bright-theme`}>
       <CourseActions
         courseId={this.props.courseId}
         currentUser={this.props.currentUser}
