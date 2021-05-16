@@ -17,7 +17,7 @@ Made with love 💘
 **Email**: [contact@memcode.com](mailto:contact@memcode.com)  
 **Twitter**: https://twitter.com/memcodeapp  
 
-**Alternative.to**: https://alternativeto.net/software/memcode  
+**Alternative.to**: https://alternativeto.net/software/memcode/about/ 
 **Slack**: please write to [contact@memcode.com](mailto:contact@memcode.com) to request access  
 
 
