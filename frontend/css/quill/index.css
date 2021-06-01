@@ -47,13 +47,14 @@
     }
 
     pre.ql-syntax, code, code *{
-      background: rgb(49, 56, 114) !important;
-      color: rgb(208, 204, 238) !important;
+      background: rgba(183, 225, 246, 0.06) !important;
+      color: rgb(167, 209, 219) !important;
     }
     pre.ql-syntax, code{
-      font-size: 15px;
+      font-size: 16px;
       white-space: pre-wrap;
       border-radius: 3px;
+      font-family: 'Open Sans';
     }
     pre.ql-syntax{
       margin: 5px 0;
