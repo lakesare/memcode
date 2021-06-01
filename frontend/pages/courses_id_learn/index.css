@@ -49,7 +49,7 @@
 
   > section.tab-content{
     margin-top: 40px;
-    margin-bottom: 80px;
+    padding-bottom: 80px;
 
     div.problem-wrapper{
       padding: 23px;
