@@ -14,11 +14,13 @@ class CurrentUser extends React.Component {
   state = {
     hideSearchBox: localStorage.getItem('hideSearchBox') === 'true' ? true : false,
     hideLinks: localStorage.getItem('hideLinks') === 'true' ? true : false,
+    hideFooter: localStorage.getItem('hideFooter') === 'true' ? true : false
   }
 
   componentDidMount = () => {
     this.uiUpdateBody('hideSearchBox', this.state.hideSearchBox);
     this.uiUpdateBody('hideLinks', this.state.hideLinks);
+    this.uiUpdateBody('hideFooter', this.state.hideFooter);
   }
 
   uiUpdateBody = (what, value) => {
@@ -67,6 +69,15 @@ class CurrentUser extends React.Component {
               this.state.hideLinks ?
                 'Show Review links' :
                 'Hide Review links'
+            }
+          </button>
+        </li>
+        <li>
+          <button className="button -clear" onClick={() => this.toggleValue('hideFooter')} type="button">
+            {
+              this.state.hideFooter ?
+                'Show Footer' :
+                'Hide Footer'
             }
           </button>
         </li>
