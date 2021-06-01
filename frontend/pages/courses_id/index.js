@@ -156,7 +156,7 @@ class Page_courses_id extends React.Component {
       })
       .map((courseDto) => ({ value: courseDto.course.id, label: courseDto.course.title }));
 
-    return <Loading spe={this.state.speGetProblems}>{({ problems }) =>
+    return <Loading spe={this.state.speGetProblems} enabledStatuses={['success', 'failure']}>{({ problems }) =>
       <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="problems">{(provided) =>
           <section
