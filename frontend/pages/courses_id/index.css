@@ -161,6 +161,8 @@
           bottom: -41px;
           // This is transparent padding that enables clicking on a wide area to safe the flashcard.
           padding: 15px 25px;
+          // For firefox
+          width: 100%;
         }
       }
     }

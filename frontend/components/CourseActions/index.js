@@ -170,7 +170,10 @@ class CourseActions extends React.Component {
           }
 
           {
-            this.props.type === 'editOrShow' &&
+            (
+              this.props.type === 'editOrShow' ||
+              this.props.type === 'learn'
+            ) &&
             this.canIEditCourse() &&
             <section className="edit-invite-buttons">
               <CourseModal

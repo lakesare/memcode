@@ -8,10 +8,10 @@
   border-top-right-radius: 3px;
   button:hover, button.ql-active{
     .ql-stroke{
-      stroke: rgb(226, 148, 20) !important;
+      stroke: rgb(56, 190, 155) !important;
     }
     .ql-fill{
-      fill: rgb(226, 148, 20) !important;
+      fill: rgb(56, 190, 155) !important;
     }
   }
   .ql-formats{
@@ -39,7 +39,7 @@
     font-size: 11px;
   }
   .shortcut{
-    color: $orange;
+    color: rgb(56, 190, 155);
     font-size: 11px;
   }
   .instruction{
