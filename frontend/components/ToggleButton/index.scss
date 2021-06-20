@@ -2,13 +2,13 @@
 
 $shine: 0 0 10px white;
 
-$on-bg: rgba(0, 0, 0, 0.15);
-$on-dot-color: white;
-$on-border: 1px solid rgba(108, 127, 206, 0.08);
+$off-bg: none;
+$off-dot-color: white;
+$off-border: 1px solid rgba(255, 255, 255, 0.74);
 
-$off-bg: $purple;
-$off-dot-color: $purple;
-$off-border: 1px solid $purple;
+$on-bg: none;
+$on-dot-color: white;
+$on-border: 1px solid rgba(255, 255, 255, 0.74);
 
 $togglebutton-size: 15px;
 $togglebutton-padding: 2px;

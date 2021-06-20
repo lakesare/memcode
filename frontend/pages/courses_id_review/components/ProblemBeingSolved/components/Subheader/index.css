@@ -18,15 +18,12 @@
   button.volume-button{
     i{
       font-size: 20px;
-      color: $purple;
     }
     &.-yes{
-      opacity: 0.9;
       i.-yes{ display: block; }
       i.-no{ display: none; }
     }
     &.-no{
-      opacity: 0.5;
       i.-yes{ display: none; }
       i.-no{ display: block; }
     }
@@ -34,11 +31,17 @@
 
   button.bg-image-button{
     margin-right: 10px;
-    color: $purple;
     font-size: 15px !important;
-    &.-off{
-      opacity: 0.5;
-    }
+  }
+
+  button.bg-image-button,
+  button.volume-button i {
+    color: white;
+  }
+
+  button.bg-image-button.-off,
+  button.volume-button.-no{
+    opacity: 0.8;
   }
 
   // may be shared

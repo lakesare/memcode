@@ -25,18 +25,20 @@ input.standard-input:not(.answer-input):not(.toggler),
   }
 }
 
-.button.-purple-o, button.volume-button, button.bg-image-button, .more-button{
+.button.-white, button.volume-button, button.bg-image-button, .more-button{
   &:focus, &:hover{
-    background: rgba(32, 35, 73, 0.55);
+    background: rgba(255, 255, 255, 0.09);
   }
 }
-button.volume-button{
+button.volume-button, button.bg-image-button{
   border-radius: 3px;
 }
 
-.toggle-button.-left.focus-visible, .toggle-button.-left:hover{
-  .toggle-button-label-left:after{
-    background: rgba(32, 35, 73, 0.55) !important;
+.toggle-button.-left{
+  &.focus-visible, &:hover{
+    .toggle-button-label-left:after{
+      background: rgba(255, 255, 255, 0.09);
+    }
   }
 }
 

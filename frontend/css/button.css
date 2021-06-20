@@ -26,10 +26,6 @@
     text-align: inherit;
     display: block;
   }
-  &.-white{
-    background: white;
-    border: 1px solid $body-color;
-  }
   &.-black{
     color: white;
     background: #333030;
@@ -50,6 +46,10 @@
   &.-purple-o{
     color: $purple;
     border: 1px solid $purple;
+  }
+  &.-white{
+    color: white;
+    background: rgba(255, 255, 255, 0.07);
   }
   &.-orange{
     color: white;

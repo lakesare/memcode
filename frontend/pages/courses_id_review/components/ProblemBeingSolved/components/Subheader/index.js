@@ -125,7 +125,7 @@ class Subheader extends React.Component {
 
           {
             false &&
-            <button type="button" className="button -purple-o switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
+            <button type="button" className="button -white switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
               Term ⟷ definition
             </button>
           }
@@ -133,7 +133,7 @@ class Subheader extends React.Component {
           {
             // if it's not the last problem we're reviewing - randomize
             this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
-            <button type="button" className="button -purple-o randomize-button" onClick={this.props.randomizeProblems}>
+            <button type="button" className="button -white randomize-button" onClick={this.props.randomizeProblems}>
               Randomize
             </button>
           }
