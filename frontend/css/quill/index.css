@@ -36,7 +36,7 @@
     strong{
       font-family: inherit;
       font-weight: 100;
-      color: rgb(56, 190, 155) !important;
+      color: $green !important;
     }
     em{
       color: rgb(171, 127, 242) !important;
