@@ -6,11 +6,6 @@ const select = {
       'SELECT * FROM problem WHERE id = ${id}',
       { id }
     ),
-  allByCourseId: (courseId) =>
-    db.any(
-      'SELECT * FROM problem WHERE course_id = ${courseId} ORDER BY problem.position',
-      { courseId }
-    ),
   all: () =>
     db.any('SELECT * FROM problem')
 };

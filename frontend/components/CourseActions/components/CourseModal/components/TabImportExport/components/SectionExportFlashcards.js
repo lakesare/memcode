@@ -1,5 +1,5 @@
 import createAndDownloadExcelFile from '~/services/createAndDownloadExcelFile';
-import ProblemApi from '~/api/Problem';
+import api from '~/api';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 
 import Loading from '~/components/Loading';
@@ -16,11 +16,9 @@ class SectionExportFlahscards extends React.Component {
   }
 
   apiExportFlashcards = () =>
-    ProblemApi.index(
+    api.ProblemApi.exportToExcel(
       (spe) => this.setState({ speGetFlashcards: spe }),
-      {
-        courseId: this.props.course.id
-      }
+      { courseId: this.props.course.id }
     )
       .then((flashcards) => {
         const arrayOfHashes = flashcards.map((flashcard) => {
