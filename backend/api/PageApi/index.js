@@ -7,16 +7,10 @@ import authenticate from '~/middlewares/authenticate';
 import canAccessCourse from '~/services/canAccessCourse';
 import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
+import getProblemsByCourseId from '~/api/services/getProblemsByCourseId';
 
 // Todo move these somewhere when PageApi.js is refactored, likely to the middleware
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
-
-const getProblemsByCourseId = (courseId) =>
-  knex('problem').where({ course_id: courseId })
-    // Put position-0 last (because it means they were created after the latest reordering!) (https://stackoverflow.com/a/3130216/3192470)
-    .orderByRaw('position=0')
-    .orderBy('position')
-    .orderBy('createdAt', 'asc');
 
 const getLearnedProblemsByCuilId = (cuilId) =>
   knex('problem').select('problem.*')
