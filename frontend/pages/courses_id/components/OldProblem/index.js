@@ -217,7 +217,7 @@ class OldProblem extends React.Component {
         />
 
         <section className="checkbox">
-          {this.getCheckboxIndex()}
+          {this.getCheckboxIndex() + 1}
         </section>
       </div>
   )
