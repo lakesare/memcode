@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import ProblemApi from '~/api/Problem';
+import api from '~/api';
 import Problem from '~/components/Problem';
 import Loading from '~/components/Loading';
 
@@ -75,9 +75,9 @@ class NewProblem extends React.Component {
       problemContent: createEmptyEditorState(this.state.currentProblemType)
     });
 
-    ProblemApi.create(
+    api.ProblemApi.create(
       (spe) => this.setState({ speCreateProblem: spe }),
-      problemHash
+      { problem: problemHash }
     )
       .then((createdProblem) => {
         this.props.uiUpdateOptimisticProblemIntoOld(optimisticId, createdProblem);

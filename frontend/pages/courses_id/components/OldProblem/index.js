@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import ProblemApi from '~/api/Problem';
+import api from '~/api';
 import isProblemContentTheSame from '~/services/isProblemContentTheSame';
 
 import { Draggable } from 'react-beautiful-dnd';
@@ -72,10 +72,12 @@ class OldProblem extends React.Component {
   }
 
   apiSave = () => {
-    ProblemApi.update(
+    api.ProblemApi.update(
       (spe) => this.setState({ speSave: spe }),
-      this.props.problem.id,
-      this.props.problem
+      {
+        id: this.props.problem.id,
+        problem: this.props.problem
+      }
     )
       .then(() => {
         setTimeout(() => {

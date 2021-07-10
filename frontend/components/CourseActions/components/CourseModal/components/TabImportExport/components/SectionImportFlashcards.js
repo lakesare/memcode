@@ -1,5 +1,5 @@
 import readUploadedExcelFile from '~/services/readUploadedExcelFile';
-import ProblemApi from '~/api/Problem';
+import api from '~/api';
 
 import Loading from '~/components/Loading';
 
@@ -16,10 +16,12 @@ class SectionImportFlashcards extends React.Component {
   }
 
   apiImportFlashcards = () =>
-    ProblemApi.createManyFromExcel(
+    api.ProblemApi.importFromExcel(
       (spe) => this.setState({ speImport: spe }),
-      this.props.courseId,
-      this.state.flashcardsToBeImported
+      {
+        courseId: this.props.courseId,
+        problems: this.state.flashcardsToBeImported
+      }
     )
       .then(() => {
         this.setState({ flashcardsToBeImported: [] });

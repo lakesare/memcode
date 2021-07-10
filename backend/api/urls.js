@@ -7,6 +7,7 @@ import CourseCategoryApi from '~/api/CourseCategoryApi';
 import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
 import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
 import UserApi from '~/api/UserApi';
+import ProblemApi from '~/api/ProblemApi';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -27,12 +28,10 @@ router.post('/api/:controllerName.:methodName', catchAsync(async (request, respo
   await SomeApi[request.params.methodName](request, response, next);
 }));
 
-// TODO make all routes like NotificationApi.rate() instead
+// TODO make all routes like NotificationApi.rate() instead.
+// Everything that's below this line should be deleted eventually.
 import CourseApi from '~/api/CourseApi';
 router.use('/api/courses', CourseApi);
-
-import ProblemApi from '~/api/ProblemApi';
-router.use('/api/problems', ProblemApi);
 
 import AuthApi from '~/api/AuthApi';
 router.use('/api/auth', AuthApi);
