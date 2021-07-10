@@ -162,15 +162,15 @@
 
         cursor: default;
         > li{
-          padding: 2px 0;
+          padding: 3px 0;
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: flex-end;
           > div.icon{
             // text-shadow: 0 0 6px #fbfbfb47;
-            color: rgb(184, 198, 239);
-            font-size: 17px;
+            color: white;
+            font-size: 15px;
             width: 27px;
             text-align: center;
           }
