@@ -38,9 +38,9 @@ class Main extends React.Component {
       alreadyFetched = true;
 
       // every 5 minutes
-      this.apiSyncInterval = setInterval(() => {
-        this.props.MyActions.apiGetCourses();
-      }, 5 * 60 * 1000);
+      // this.apiSyncInterval = setInterval(() => {
+      //   this.props.MyActions.apiGetCourses();
+      // }, 5 * 60 * 1000);
     }
 
     if (this.props.My.speCategories.status !== 'success') {
@@ -49,7 +49,7 @@ class Main extends React.Component {
   }
 
   componentWillUnmount() {
-    this.apiSyncInterval && clearInterval(this.apiSyncInterval);
+    // this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
   url = 'https://eskipaper.com/images/dark-universe-hd-1.jpg'
