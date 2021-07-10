@@ -89,10 +89,10 @@ class CourseDescriptionAndStats extends React.Component {
             <div><span className="number">{this.props.courseDto.amountOfProblems}</span> flashcards</div>
           )}
 
-          <CourseStarRating
-            courseId={this.props.courseDto.course.id}
-            ifCanRateCourse={this.ifCanRateCourse()}
-          />
+          {/* <CourseStarRating */}
+          {/*   courseId={this.props.courseDto.course.id} */}
+          {/*   ifCanRateCourse={this.ifCanRateCourse()} */}
+          {/* /> */}
         </ul>
       </div>
     </section>
