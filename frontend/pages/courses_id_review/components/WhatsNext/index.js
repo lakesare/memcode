@@ -20,15 +20,14 @@ class WhatsNext extends React.Component {
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.ifDisplay === false && this.props.ifDisplay === true) {
-      this.uiFocusOnFirstCourseCard();
+      this.uiFocusWithinOurSection();
     }
   }
 
-  uiFocusOnFirstCourseCard = () => {
-    // first <a/>, can be either an entire course card, or a.go link within
-    const courseCard = document.querySelector('.offered-courses a');
-    if (courseCard) {
-      courseCard.focus();
+  uiFocusWithinOurSection = () => {
+    const title = document.querySelector('#focus-on-me');
+    if (title) {
+      title.focus();
     }
   }
 
@@ -100,7 +99,7 @@ class WhatsNext extends React.Component {
 
       </section>
 
-      <section className="whats-next">
+      <section className="whats-next" id="focus-on-me" tabIndex={-1}>
         <h2>What's next?</h2>
 
         <div className="offered-courses list-of-courses">
