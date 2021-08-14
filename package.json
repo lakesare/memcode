@@ -176,6 +176,6 @@
     "undefsafe": "^2.0.3",
     "url-search-params-polyfill": "^5.1.0",
     "whatwg-fetch": "^3.0.0",
-    "xlsx": "^0.14.5"
+    "xlsx": "^0.17.0"
   }
 }
