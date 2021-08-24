@@ -52,7 +52,7 @@ class Main extends React.Component {
     // this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
-  url = 'https://eskipaper.com/images/dark-universe-hd-1.jpg'
+  url = 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'
 
   render = () =>
     <main

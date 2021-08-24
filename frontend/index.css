@@ -54,7 +54,7 @@ main.-with-bg{
     box-shadow: none !important;
   }
 
-  section.problem .ql-editor, .ql-toolbar{
+  section.problem .ql-editor, .ql-toolbar, .see-answer-button{
     background: #22264ac2 !important;
     &:focus{
       background: #22264aed !important;
