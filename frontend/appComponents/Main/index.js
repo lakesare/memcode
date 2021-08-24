@@ -55,7 +55,10 @@ class Main extends React.Component {
   url = 'https://eskipaper.com/images/dark-universe-hd-1.jpg'
 
   render = () =>
-    <main className={this.props.className} style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.url}")` } : {}}>
+    <main
+      className={this.props.className + ` ${this.props.My.backgroundImage ? '-with-bg' : ''}`}
+      style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.url}")` } : {}}
+    >
       <ErrorBoundary>
         <Header dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
       </ErrorBoundary>

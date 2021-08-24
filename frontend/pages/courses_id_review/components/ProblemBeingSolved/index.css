@@ -42,7 +42,7 @@
           color: #f9637d !important;
         }
         &[data-answered='waiting']{
-          color: rgb(206, 199, 245) !important;
+          color: rgb(206, 199, 245);
           // font-weight: 500;
           // border: 2px solid #FFEB3B;
           border: 2px solid $purple;

@@ -105,6 +105,7 @@ body.-hideFooter{
     &.-withInlinedAnswers{
       input.answer-input[data-answered='waiting']{
         color: rgb(49, 51, 54) !important;
+        border: 2px solid #71e3c5 !important;
         &:hover, &:focus{
           background: none !important;
         }

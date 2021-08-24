@@ -41,3 +41,46 @@ $fa-font-path: "~font-awesome/fonts";
 div.space{
   margin-top: 35px;
 }
+// experimental good-for-bg design
+main.-with-bg{
+  .ProblemBeingSolved .Subheader,
+  .course-description-and-stats,
+  .title-and-buttons{
+    background: none !important;
+  }
+
+  .ProblemBeingSolved .problem, header{
+    background: rgba(247, 247, 253, 0.04) !important;
+    box-shadow: none !important;
+  }
+
+  section.problem .ql-editor, .ql-toolbar{
+    background: #22264ac2 !important;
+    &:focus{
+      background: #22264aed !important;
+    }
+  }
+
+  ul.categories a.name,
+  section.sign-in-links,
+  .notifications-toggler,
+  button.edit-button, button.invite-coauthor-button, .stop-learning-button,
+  section.course-actions h1.title a{
+    &:hover, &:focus{
+      background: rgba(243, 243, 249, 0.05) !important;
+    }
+  }
+
+  a.logo.focus-visible{
+    background: rgba(243, 243, 249, 0.05) !important;
+  }
+
+  header nav .button.link{
+    &.active{
+      background: rgba(243, 243, 249, 0.07);
+    }
+    &:hover:not(.active), &:focus:not(.active){
+      background: rgba(243, 243, 249, 0.05) !important;
+    }
+  }
+}
