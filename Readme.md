@@ -4,6 +4,8 @@
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/lakesare/memcode/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 
+<img width="1312" alt="image" src="https://user-images.githubusercontent.com/7578559/130649843-9703cd30-51fd-40ef-9249-9aaca869f8ca.png">
+
 # Memcode
 
 Flashcards: for coders, mathematicians, and physicists. Open-source, free for all.  
