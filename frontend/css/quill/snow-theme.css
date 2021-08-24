@@ -666,13 +666,14 @@ $border_color_1: #000;
     visibility: hidden;
   }
   .ql-tooltip {
+    z-index: 100;
     position: absolute;
     transform: translateY(10px);
     box-shadow: 0px 0px 4px #0303062e;
     color: rgb(255, 255, 255);
     padding: 5px 12px;
     white-space: nowrap;
-    background-color: rgb(37, 39, 70);
+    background-color: #35375e;
     border-radius: 3px;
     a {
       cursor: pointer;
@@ -700,7 +701,8 @@ $border_color_1: #000;
       overflow-x: hidden;
       text-overflow: ellipsis;
       vertical-align: top;
-      color: rgb(204, 197, 250) !important;
+      // color: $green !important;
+      text-decoration: underline;
     }
     a.ql-action {
       &::after {

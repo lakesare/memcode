@@ -29,8 +29,9 @@
   input::-webkit-input-placeholder{
     color: rgb(86, 90, 158);
   }
-  .ql-action:hover{
-    color: rgb(187, 191, 234);
+  .ql-action:hover, .ql-remove:hover{
+    // color: rgb(187, 191, 234);
+    opacity: 0.9;
   }
 }
 .quill-toolbar-tooltip{
