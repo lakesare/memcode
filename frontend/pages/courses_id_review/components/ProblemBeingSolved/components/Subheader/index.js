@@ -108,7 +108,7 @@ class Subheader extends React.Component {
     <section className={`Subheader ${css.section} -usual-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          <em className="review-emphasis">REVIEW</em> - we are repeating due flashcards <em className="white-emphasis">☘</em>.
+          <em className="review-emphasis">REVIEW</em> - we are repeating due flashcards.
           Press <em className="review-emphasis">ENTER</em> to reveal answers.
           Use arrows <span style={{ color: 'rgb(242, 112, 110)' }}>◄</span> <span style={{ color: 'rgb(134, 244, 159)' }}>►</span> to rate yourself.
         </div>
