@@ -8,8 +8,7 @@
   .-desktop{ display: block; }
 
   > .container{
-    padding-top: 13px;
-    padding-bottom: 13px;
+    min-height: 57px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -76,7 +75,6 @@
     }
     em.review-emphasis{
       color: rgb(90, 228, 153);
-      text-shadow: 0 0 2px #d7256f7a;
     }
     em.white-emphasis{
       // color: white;
