@@ -188,6 +188,7 @@ class CourseActions extends React.Component {
 
               <InviteCoauthorModal
                 course={courseDto.course}
+                author={courseDto.author}
                 coauthors={courseDto.coauthors}
                 currentUser={this.props.currentUser}
                 toggler={

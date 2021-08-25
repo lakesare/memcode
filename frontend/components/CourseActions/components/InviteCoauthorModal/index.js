@@ -11,7 +11,8 @@ class InviteCoauthorModal extends React.Component {
     toggler: PropTypes.element.isRequired,
     course: PropTypes.object.isRequired,
     coauthors: PropTypes.array.isRequired,
-    currentUser: PropTypes.object.isRequired
+    currentUser: PropTypes.object.isRequired,
+    author: PropTypes.object.isRequired
   }
 
   state = {
@@ -57,8 +58,8 @@ class InviteCoauthorModal extends React.Component {
       <tbody>
         <tr>
           <td className="user">
-            <img src={this.props.currentUser.avatarUrl} alt="Coauthor avatar"/>
-            <div className="username">{this.props.currentUser.username}</div>
+            <img src={this.props.author.avatarUrl} alt="Coauthor avatar"/>
+            <div className="username">{this.props.author.username}</div>
           </td>
 
           <td>Author</td>
