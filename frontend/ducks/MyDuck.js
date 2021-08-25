@@ -31,7 +31,10 @@ const initialState = {
   speCourseForActions: {},
   flashcardOrder: localStorage.getItem('flashcardOrder') === 'false' ? false : true,
   ifShowDraft: localStorage.getItem('ifShowDraft') === 'false' ? false : true,
-  backgroundImage: localStorage.getItem('backgroundImage') === 'true' ? true : false,
+  backgroundImage:
+    (localStorage.getItem('backgroundImage') &&
+    localStorage.getItem('backgroundImage') !== 'false') ?
+      localStorage.getItem('backgroundImage') : false,
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -41,7 +44,7 @@ const reducer = (state = initialState, action) => {
     }
     case `${namespace}.SET`:
       return action.payload;
-    case `${namespace}.SWITCH_FLASHCARD_ORDER`:
+    case `${namespace}.SET_FLASHCARD_ORDER`:
       return { ...state, flashcardOrder: action.payload.flashcardOrder };
     case `${namespace}.SWITCH_IF_SHOW_DRAFT`:
       return { ...state, ifShowDraft: action.payload.ifShowDraft };
@@ -273,7 +276,7 @@ const getActions = (dispatch, getState) => ({
     const state = getState().global.My;
     const flashcardOrder = !state.flashcardOrder;
     localStorage.setItem('flashcardOrder', flashcardOrder);
-    dispatch({ type: `${namespace}.SWITCH_FLASHCARD_ORDER`, payload: { flashcardOrder } });
+    dispatch({ type: `${namespace}.SET_FLASHCARD_ORDER`, payload: { flashcardOrder } });
   },
   switchIfShowDraft: () => {
     const state = getState().global.My;
@@ -281,9 +284,9 @@ const getActions = (dispatch, getState) => ({
     localStorage.setItem('ifShowDraft', ifShowDraft);
     dispatch({ type: `${namespace}.SWITCH_IF_SHOW_DRAFT`, payload: { ifShowDraft } });
   },
-  switchBackgroundImage: () => {
+  setBackgroundImage: (urlOrFalse) => {
     const state = getState().global.My;
-    const backgroundImage = !state.backgroundImage;
+    const backgroundImage = urlOrFalse;
     localStorage.setItem('backgroundImage', backgroundImage);
     dispatch({ type: `${namespace}.SWITCH_BACKGROUND_IMAGE`, payload: { backgroundImage } });
   }

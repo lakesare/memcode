@@ -10,7 +10,7 @@ class StandardTooltip extends React.Component {
     tooltipEl: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
     children: PropTypes.any,
 
-    width: PropTypes.number,
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     tooltipProps: PropTypes.object,
   }
 

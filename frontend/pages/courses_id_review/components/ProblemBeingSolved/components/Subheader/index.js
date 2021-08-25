@@ -2,11 +2,13 @@ import MyDuck from '~/ducks/MyDuck';
 
 import ProgressBar from '~/components/ProgressBar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
+import StandardTooltip from '~/components/StandardTooltip';
 import css from './index.css';
 
 @connect(
   (state) => ({
-    My: state.global.My
+    My: state.global.My,
+    currentUser: state.global.Authentication.currentUser
   }),
   (dispatch) => ({
     MyActions: dispatch(MyDuck.getActions)
@@ -28,6 +30,7 @@ class Subheader extends React.Component {
 
     MyActions: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
+    currentUser: PropTypes.object
   }
 
   state = {
@@ -95,14 +98,77 @@ class Subheader extends React.Component {
       <i className="material-icons -no">volume_off</i>
     </button>
 
-  renderBgImageButton = () =>
-    <button
-      type="button"
-      className={`bg-image-button ${this.props.My.backgroundImage === true ? '-on' : '-off'}`}
-      onClick={() => this.props.MyActions.switchBackgroundImage()}
+  renderInaccessibleElement = (element) =>
+    <StandardTooltip
+      tooltipEl={
+        <div className="needs-patreon">
+          Support Memcode on {' '}
+          <a target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/memcode">
+            Patreon
+          </a> <br/> to enable new elements!
+        </div>
+      }
+      tooltipProps={{
+        className: 'standard-tooltip -transparent',
+        interactive: true,
+        placement: 'bottom-end',
+        trigger: 'click',
+        distance: 11
+        // arrow: false
+      }}
+      width="none"
     >
-      <i className="fa fa-picture-o"/>
-    </button>
+      <button type="button" className="button -white">{element}</button>
+    </StandardTooltip>
+
+  renderElement = (element, url, needsPatreon) =>
+    !needsPatreon ||
+    (
+      this.props.currentUser &&
+      ['lakesare', 'charlie42', 'daniel-eder', 'inoryy', 'Dhruv B'].includes(this.props.currentUser.username)
+    ) ?
+      <button
+        type="button"
+        className={`button -white ${url === this.props.My.backgroundImage ? '-active' : ''}`}
+        onClick={() =>
+          url === this.props.My.backgroundImage ?
+            this.props.MyActions.setBackgroundImage(false) :
+            this.props.MyActions.setBackgroundImage(url)
+        }
+      >
+        {element}
+      </button> :
+      this.renderInaccessibleElement(element)
+
+  renderBgImageButton = () =>
+    <div>
+      <StandardTooltip
+        tooltipEl={
+          <div className="elements">
+            {this.renderElement('Plasma', 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80', true)}
+            {this.renderElement('Earth', 'https://images.unsplash.com/photo-1502485019198-a625bd53ceb7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80', true)}
+            {this.renderElement('Water', 'https://images.unsplash.com/photo-1607073766544-c39cd621baa7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80', true)}
+            {this.renderElement('Air', 'https://images.unsplash.com/photo-1476970980147-71209edbfa4f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80')}
+            {this.renderElement('╳', false)}
+          </div>
+        }
+        tooltipProps={{
+          className: 'standard-tooltip -no-padding -dark bg-button-dropdown',
+          interactive: true,
+          placement: 'bottom-end',
+          trigger: 'click',
+          arrow: false
+        }}
+        width="none"
+      >
+        <button
+          type="button"
+          className={`bg-image-button ${this.props.My.backgroundImage ? '-on' : '-off'}`}
+        >
+          <i className="fa fa-picture-o"/>
+        </button>
+      </StandardTooltip>
+    </div>
 
   renderUsualReview = () =>
     <section className={`Subheader ${css.section} -usual-review`}>

@@ -52,12 +52,12 @@ class Main extends React.Component {
     // this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
-  url = 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'
+  // url = 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'
 
   render = () =>
     <main
       className={this.props.className + ` ${this.props.My.backgroundImage ? '-with-bg' : ''}`}
-      style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.url}")` } : {}}
+      style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.props.My.backgroundImage}")` } : {}}
     >
       <ErrorBoundary>
         <Header dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>

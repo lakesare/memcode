@@ -32,6 +32,29 @@
     margin-right: 10px;
     font-size: 15px !important;
   }
+  .bg-button-dropdown{
+    background-color: transparent;
+    .elements{
+      display: flex;
+      margin-top: -7px;
+      button{
+        text-transform: uppercase;
+        width: 100%;
+        margin-left: 2px;
+        &.-active{
+          background: rgba(255, 255, 255, 0.24);
+        }
+      }
+    }
+
+    .needs-patreon{
+      padding: 10px;
+      text-align: right;
+      a{
+        text-decoration: underline;
+      }
+    }
+  }
 
   button.bg-image-button,
   button.volume-button i {
