@@ -4,7 +4,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/lakesare/memcode)
 <span class="badge-patreon">
-<a href="https://patreon.com/USER" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a>
+<a href="https://patreon.com/memcode" title="Donate to Memcode project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a>
 </span>
 
 <img width="1312" alt="image" src="https://user-images.githubusercontent.com/7578559/130649843-9703cd30-51fd-40ef-9249-9aaca869f8ca.png">
