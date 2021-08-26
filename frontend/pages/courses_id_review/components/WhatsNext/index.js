@@ -5,6 +5,8 @@ import CourseCardLearnReview from '~/appComponents/CourseCardLearnReview';
 
 import css from './index.css';
 
+// import GitHubButton from 'react-github-btn';
+
 class WhatsNext extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -83,6 +85,15 @@ class WhatsNext extends React.Component {
     );
   }
 
+  //   clickedOnSocial = (name) => {
+  //     if (name === 'github') {
+  //       localStorage.setItem('clickedOnGithub', true)
+  //       this.setState({ clickedOnGithub: true })
+  //     } else if (name === 'patreon') {
+  //       localStorage.setItem
+  //     }
+  //   }
+
   render = () =>
     <section className={`${css.section} container`} style={this.props.ifDisplay ? {} : { display: 'none' }}>
       <section className="congratulations">
@@ -96,8 +107,28 @@ class WhatsNext extends React.Component {
             <span>{this.getNextDueDateIn()}</span>
           </div>
         }
-
       </section>
+
+
+      <div className="social-buttons">
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/lakesare/memcode" className="github social button -move-up-on-hover">
+          <i className="fa fa-github"/>
+          <div className="text">Star us on Github</div>
+        </a>
+
+        {/* <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/memcodeapp" className="twitter social button -move-up-on-hover"> */}
+        {/*   <i className="fa fa-twitter"/> */}
+        {/*   <div className="text">Follow on Twitter</div> */}
+        {/* </a> */}
+
+        <a target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/memcode" className="patreon social button -move-up-on-hover">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor" d="M14.82 2.41C18.78 2.41 22 5.65 22 9.62C22 13.58 18.78 16.8 14.82 16.8C10.85 16.8 7.61 13.58 7.61 9.62C7.61 5.65 10.85 2.41 14.82 2.41M2 21.6H5.5V2.41H2V21.6Z" />
+          </svg>
+          <div className="text">Support us on Patreon</div>
+        </a>
+      </div>
+
 
       <section className="whats-next" id="focus-on-me" tabIndex={-1}>
         <h2>What's next?</h2>

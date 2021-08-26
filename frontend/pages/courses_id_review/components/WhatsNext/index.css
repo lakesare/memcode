@@ -2,7 +2,7 @@
   > section.congratulations{
     color: white;
     text-align: center;
-    margin-top: 30px;
+    // margin-top: 30px;
     h2{
       font-weight: 100;
       font-size: 37px;
@@ -55,12 +55,64 @@
       .layout-div{ display: none; }
     }
   }
+
+  .social-buttons{
+    display: flex;
+    // width: 597px;
+    max-width: 386px;
+    margin: 0 auto;
+    justify-content: space-around;
+    margin-top: 33px;
+    .social.button{
+      text-transform: none;
+      min-width: 180px;
+      background: #21a582d1;
+      padding: 8px 10px;
+      // transition: background 300ms ease-in-out;
+      // &:hover{
+      //   background: #1cbb91f0; //#23b08bcc;
+      // }
+
+      svg, i{
+        margin-right: 6px;
+      }
+      .text{
+        font-size: 13px;
+        letter-spacing: initial;
+      }
+      &.twitter{
+        i{
+          font-size: 18px;
+        }
+      }
+      &.github{
+        i{
+          font-size: 20px;
+          margin-top: -3px;
+        }
+      }
+      &.patreon{
+        svg{
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+  }
+
 }
 
 :local(.section){
   @media(max-width: 400px) {
     section.congratulations h2{
       font-size: 28px;
+    }
+
+    .social-buttons{
+      flex-wrap: wrap;
+      .patreon{
+        margin-top: 20px;
+      }
     }
   }
 }
