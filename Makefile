@@ -22,7 +22,7 @@ db-migrate:
 
 # dump and restore data
 db-dump:
-	pg_dump -o memcode -U postgres > backend/db/dump.sql
+	pg_dump -d memcode -U postgres > backend/db/dump.sql
 db-restore:
 	psql -d memcode -U postgres < backend/db/dump.sql
 
