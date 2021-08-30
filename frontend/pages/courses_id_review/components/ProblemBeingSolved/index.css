@@ -153,6 +153,30 @@
       color: white;
     }
   }
+
+  .n-of-problems-left{
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    margin: 30px 0;
+    // background: rgba(247, 247, 253, 0.04);
+
+    &.-failed div.inner{
+      background-color: #ff1d1d;
+    }
+
+
+    // position: fixed;
+    // bottom: 0;
+    // max-width: inherit;
+    // width: 100%;
+    // background: #0f1122ed;
+    // width: 100%;
+    // padding: 25px 101px;
+    // left: 0;
+    // right: 0;
+    // max-width: none;
+  }
 }
 
 @media(max-width: 900px) {
@@ -179,6 +203,10 @@
       position: absolute;
       bottom: 0;
       width: 100%;
+    }
+
+    .n-of-problems-left{
+      bottom: 30px;
     }
 
     .review-container{

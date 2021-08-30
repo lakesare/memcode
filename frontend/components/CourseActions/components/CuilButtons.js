@@ -4,6 +4,7 @@ import api from '~/api';
 import { withRouter, Link } from 'react-router-dom';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import StandardTooltip from '~/components/StandardTooltip';
+import TogglerAndModal from '~/components/TogglerAndModal';
 
 @withRouter
 class CuilButtons extends React.Component {
@@ -183,7 +184,40 @@ class CuilButtons extends React.Component {
           </div>
         </button>
       </li>
+
+      <li>
+        <TogglerAndModal
+          toggler={
+            <button
+              type="button"
+              style={{ color: 'rgb(232, 141, 230)' }}
+            >
+              <div className="text">
+                Embed
+              </div>
+              <div className="comment -white">
+                Embed the flashcards from this course into an iframe (useful if you use genial.ly)
+              </div>
+            </button>
+          }
+        >
+          {this.renderModal()}
+        </TogglerAndModal>
+      </li>
     </ul>
+
+  renderModal = () =>
+    <section className={"standard-modal standard-modal--md "}>
+      <div className="standard-modal__header">
+        <h2 className="standard-modal__title">Embed this course</h2>
+      </div>
+
+      <div className="standard-modal__main">
+        <p>
+          {`<iframe src="https://www.memcode.com/courses/${this.props.courseDto.course.id}/review/simulated?embed=true" scrolling="yes" style="width: 100%; height: 100%;"></iframe>`}
+        </p>
+      </div>
+    </section>
 
   render = () =>
     this.props.currentUser ?

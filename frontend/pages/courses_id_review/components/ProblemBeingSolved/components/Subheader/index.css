@@ -3,7 +3,7 @@
 :local(.section){
   background: rgb(14, 16, 49);
 
-  // hide shit on mobile, show shit on desktop
+  // hide stuff on mobile, show stuff on desktop
   .-mobile{ display: none; }
   .-desktop{ display: block; }
 
@@ -66,27 +66,19 @@
     opacity: 0.8;
   }
 
-  // may be shared
-  div.amount-of-problems-left{
-    position: relative;
-    label{
-      position: absolute;
-      text-transform: uppercase;
-      font-size: 10px;
-      right: 8px;
-      top: 2px;
-    }
-  }  
-
   div.instructions{
     font-size: 15px;
+    p{
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
     em{
       font-style: normal;
       text-transform: uppercase;
     }
     em.yellow-emphasis{
-      color: $test-drive-button-color;
-      text-shadow: 0 0 2px #f7f96d9e;
+      color: #f4f4a3;
+      // text-shadow: 0 0 2px #f7f96d9e;
     }
     em.red-emphasis{
       color: rgb(245, 63, 63);
@@ -108,69 +100,19 @@
       padding-bottom: 4px;
     }
   }
-  .amount-of-problems-left{
-    width: 400px;
-    max-width: 100%;
-  }
 
-  // types of headers
-  &.-simulated-review > .container{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    > div.instructions{
-      &.-desktop{
-        display: flex;
-        .volume-button{
-          padding-left: 8px;
-          padding-right: 8px;
-          margin-left: 6px;
-        }
-      }
+  div.buttons{
+    display: flex;
+    align-items: center;
+    button{
+      font-size: 9px;
+      padding: 0 8px;
+      height: 31px;
+      min-width: auto;
+      letter-spacing: 0.9px;
     }
-    > div.instructions.-mobile{
-      // display: flex;
-      // justify-content: space-between;
-    }
-  }
-  &.-usual-review > .container{
-    > div.instructions{
-      p{
-        margin-top: 10px;
-        margin-bottom: 0;
-      }
-    }
-    > div.buttons{
-      display: flex;
-      align-items: center;
-      button{
-        font-size: 9px;
-        padding: 0 8px;
-        height: 31px;
-        min-width: auto;
-        letter-spacing: 0.9px;
-      }
-      button.randomize-button{
-        margin-left: 10px;
-      }
+    button.randomize-button{
+      margin-left: 10px;
     }
   }
 }
-
-// @media(max-width: 700px){
-//   :local(.section){
-//     .container{
-//       display: block;
-//       .amount-of-problems-left{
-//         margin-top: 15px;
-//         width: 100%;
-//       }
-//     }
-
-//     .-mobile{
-//       display: block;
-//     }
-//     .-desktop{
-//       display: none;
-//     }
-//   }
-// }

@@ -106,9 +106,19 @@ class Page_courses_id_review extends React.Component {
     persistent: false
   }
 
+  state = {
+    isEmbed: false
+  }
+
   componentDidMount() {
     this.props.getPage(this.props.courseId);
     this.props.MyActions.apiGetCourseForActions(this.props.courseId);
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const isEmbed = queryParams.get('embed');
+    if (isEmbed) {
+      this.setState({ isEmbed: true });
+    }
   }
 
   componentDidUpdate = (prevProps) => {
@@ -156,7 +166,7 @@ class Page_courses_id_review extends React.Component {
   }
 
   render = () =>
-    <Main className={`${css.main} ${!this.props.My.ifShowDraft ? '-hide-draft' : ''}`} dontLinkToLearnOrReview={this.props.courseId}>
+    <Main className={`${css.main} ${!this.props.My.ifShowDraft ? '-hide-draft' : ''} ${this.state.isEmbed ? '-is-embed' : ''}`} dontLinkToLearnOrReview={this.props.courseId}>
       <CourseActions
         courseId={this.props.courseId}
         currentUser={this.props.currentUser}

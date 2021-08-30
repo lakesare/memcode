@@ -1,6 +1,7 @@
 import Problem from '~/components/Problem';
 import SeparateAnswerSelfScore from './components/SeparateAnswerSelfScore';
 import Subheader from './components/Subheader';
+import ProgressBar from '~/components/ProgressBar';
 
 import css from './index.css';
 
@@ -62,6 +63,13 @@ class ProblemBeingSolved extends React.Component {
     }
   }
 
+  renderProgressBar = (current, max) =>
+    <div className={`n-of-problems-left ${this.props.ifReviewingFailedProblems ? '-failed' : ''}`}>
+      <div className="container">
+        <ProgressBar currentAmount={current} maxAmount={max}/>
+      </div>
+    </div>
+
   render = () =>
     <section className={`ProblemBeingSolved ${css.section}`}>
       <Subheader
@@ -114,6 +122,8 @@ class ProblemBeingSolved extends React.Component {
           </button>
         }
       </div>
+
+      {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
     </section>
 }
 

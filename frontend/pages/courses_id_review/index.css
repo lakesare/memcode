@@ -7,6 +7,15 @@
       display: none !important;
     }
   }
+  &.-is-embed{
+    header,
+    section.course-actions{
+      display: none !important;
+    }
+    .review-container .problem{ margin-top: 30px; }
+    .self-score{ margin-top: 35px; }
+    .next-button{ margin-top: 30px; }
+  }
   footer{
     display: none;
   }

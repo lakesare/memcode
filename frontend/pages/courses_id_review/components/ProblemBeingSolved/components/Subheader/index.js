@@ -18,9 +18,6 @@ class Subheader extends React.Component {
   static propTypes = {
     statusOfSolving: PropTypes.object.isRequired,
     amountOfProblems: PropTypes.number.isRequired,
-    amountOfFailedProblems: PropTypes.number.isRequired,
-    amountOfFailedProblemsLeft: PropTypes.number.isRequired,
-
     randomizeProblems: PropTypes.func.isRequired,
     switchQuestionAndAnswer: PropTypes.func.isRequired,
 
@@ -47,30 +44,19 @@ class Subheader extends React.Component {
     }
   }
 
-  renderProgressBar = (current, max) =>
-    <div className="amount-of-problems-left">
-      <label>{current}/{max}</label>
-
-      <ProgressBar
-        currentAmount={current}
-        maxAmount={max}
-      />
-    </div>
-
-
   renderSimulatedReview = () =>
     <section className={`Subheader ${css.section} -simulated-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          <p><em className="yellow-emphasis">Test drive</em> - results will not be recorded. Press ENTER to reveal answers</p>
-          {this.renderVolumeButton()}
+          <em className="review-emphasis">Test drive</em> - results will not be recorded. Press <em className="review-emphasis">ENTER</em> to reveal answers.
+          Use arrows <span style={{ color: 'rgb(242, 112, 110)' }}>◄</span> <span style={{ color: 'rgb(134, 244, 159)' }}>►</span> to rate yourself.
         </div>
-        <div className="instructions -mobile">
-          <p><em className="yellow-emphasis">Test drive</em> - results are not recorded.</p>
-          {this.renderVolumeButton()}
-        </div>
+        {/* <div className="instructions -mobile"> */}
+        {/*   <em className="yellow-emphasis">Test drive</em> - results are not recorded. */}
+        {/* </div> */}
+        <div className="instructions -mobile"/>
 
-        {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
+        {this.renderAllButtons()}
       </div>
     </section>
 
@@ -78,13 +64,14 @@ class Subheader extends React.Component {
     <section className={`Subheader ${css.section} -persistent-review`}>
       <div className="container">
         <div className="instructions -desktop">
-          <p><em className="yellow-emphasis">Review All</em> - repeat all flashcards, and record which flashcards were most difficult.</p>
+          <em className="review-emphasis">Review All</em> - repeat all flashcards, and record which flashcards were most difficult.
         </div>
-        <div className="instructions -mobile">
-          <p><em className="yellow-emphasis">Review All</em> - difficult ones are recorded.</p>
-        </div>
+        {/* <div className="instructions -mobile"> */}
+        {/*   <em className="yellow-emphasis">Review All</em> - difficult ones are recorded. */}
+        {/* </div> */}
+        <div className="instructions -mobile"/>
 
-        {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
+        {this.renderAllButtons()}
       </div>
     </section>
 
@@ -140,7 +127,6 @@ class Subheader extends React.Component {
       </button> :
       this.renderInaccessibleElement(element)
 
-
   renderBgImageButton = () =>
     <div>
       <StandardTooltip
@@ -153,7 +139,7 @@ class Subheader extends React.Component {
             {
               this.props.currentUser &&
               this.props.currentUser.username === 'lakesare' &&
-              process.env['NODE_ENV'] === 'development' &&
+              // process.env['NODE_ENV'] === 'development' &&
               <input
                 type="text"
                 onChange={(e) => {
@@ -183,6 +169,30 @@ class Subheader extends React.Component {
       </StandardTooltip>
     </div>
 
+  renderAllButtons = () =>
+    <div className="buttons">
+      {this.renderBgImageButton()}
+
+      {this.renderVolumeButton()}
+
+      <ThemeToggleButton/>
+
+      {
+        false &&
+        <button type="button" className="button -white switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
+          Term ⟷ definition
+        </button>
+      }
+
+      {
+        // if it's not the last problem we're reviewing - randomize
+        this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
+        <button type="button" className="button -white randomize-button" onClick={this.props.randomizeProblems}>
+          Randomize
+        </button>
+      }
+    </div>
+
   renderUsualReview = () =>
     <section className={`Subheader ${css.section} -usual-review`}>
       <div className="container">
@@ -195,28 +205,7 @@ class Subheader extends React.Component {
         {/* for flexbox to float randomize buttons to the right */}
         <div className="instructions -mobile"/>
 
-        <div className="buttons">
-          {this.renderBgImageButton()}
-
-          {this.renderVolumeButton()}
-
-          <ThemeToggleButton/>
-
-          {
-            false &&
-            <button type="button" className="button -white switch-answer-and-definition-button" onClick={this.props.switchQuestionAndAnswer}>
-              Term ⟷ definition
-            </button>
-          }
-
-          {
-            // if it's not the last problem we're reviewing - randomize
-            this.props.amountOfProblems !== this.props.statusOfSolving.index + 1 &&
-            <button type="button" className="button -white randomize-button" onClick={this.props.randomizeProblems}>
-              Randomize
-            </button>
-          }
-        </div>
+        {this.renderAllButtons()}
       </div>
     </section>
 
@@ -227,21 +216,19 @@ class Subheader extends React.Component {
           <em className="red-emphasis">BY HEART</em> - we are repeating failed flashcards <em className="red-emphasis -darker">♥</em>. Results will not be recorded.
         </div>
         <div className="instructions -mobile">
-          <p>
-            <em className="red-emphasis">BY HEART</em> - repeating failed flashcards <em className="red-emphasis -darker">♥</em>
-          </p>
+          <em className="red-emphasis">BY HEART</em> - repeating failed flashcards <em className="red-emphasis -darker">♥</em>
         </div>
 
-        {this.renderProgressBar(1 + this.props.amountOfFailedProblems - this.props.amountOfFailedProblemsLeft, this.props.amountOfFailedProblems)}
+        {this.renderAllButtons()}
       </div>
     </section>
 
   render = () => {
     if (!this.props.ifReviewIsSimulated && !this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
       return this.renderUsualReview();
-    } else if (this.props.ifReviewIsPersistent && !this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
+    } else if (this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
       return this.renderPersistentReview();
-    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
+    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
       return this.renderSimulatedReview();
     } else if (this.props.ifReviewingFailedProblems) {
       return this.renderFailedFlashcardsReview();
