@@ -100,6 +100,8 @@ class ProblemBeingSolved extends React.Component {
         ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
       />
 
+      {this.renderProgressBar()}
+
       <div className="container review-container">
         <Problem
           mode="review"
@@ -136,8 +138,6 @@ class ProblemBeingSolved extends React.Component {
           </button>
         }
       </div>
-
-      {this.renderProgressBar()}
     </section>
 }
 

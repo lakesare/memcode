@@ -215,9 +215,10 @@ class Subheader extends React.Component {
         <div className="instructions -desktop">
           <em className="red-emphasis">BY HEART</em> - we are repeating failed flashcards <em className="red-emphasis -darker">♥</em>. Results will not be recorded.
         </div>
-        <div className="instructions -mobile">
-          <em className="red-emphasis">BY HEART</em> - repeating failed flashcards <em className="red-emphasis -darker">♥</em>
-        </div>
+        {/* <div className="instructions -mobile"> */}
+        {/*   <em className="red-emphasis">BY HEART</em> - repeating failed flashcards <em className="red-emphasis -darker">♥</em> */}
+        {/* </div> */}
+        <div className="instructions -mobile"/>
 
         {this.renderAllButtons()}
       </div>

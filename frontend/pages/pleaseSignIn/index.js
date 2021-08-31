@@ -12,7 +12,7 @@ class Page_pleaseSignIn extends React.Component {
         <article>
           <h2>Sign In</h2>
           <p>
-            Sign in with your github/google account, and get access to creating your own courses, and learning and reviewing flashcards.
+            Sign in with your github/google account, and get access to creating your own courses, learning and reviewing flashcards.
           </p>
 
           <SignInButtons/>

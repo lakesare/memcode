@@ -1,8 +1,6 @@
 @import 'css/variables';
 
 :local(.section){
-  background: rgb(14, 16, 49);
-
   // hide stuff on mobile, show stuff on desktop
   .-mobile{ display: none; }
   .-desktop{ display: block; }

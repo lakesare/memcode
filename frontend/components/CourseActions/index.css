@@ -2,7 +2,6 @@
 
 :local(section.actions){
   > section.title-and-buttons{
-    background: rgb(7, 9, 39);
     padding-top: 20px;
     padding-bottom: 20px;
     min-height: 80px;
@@ -149,7 +148,6 @@
     }
   }
   > section.course-description-and-stats{
-    background: rgb(14, 16, 49);
     padding: 10px 0;
     > .container{
       display: flex;

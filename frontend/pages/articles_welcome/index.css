@@ -13,14 +13,11 @@
   background-repeat: no-repeat;
   background-attachment: initial;
 
-  header .search input{
-    background: rgb(23, 26, 63);
-  }
   header .sign-in-links{
-    background: rgba(28, 33, 82, 0.53);
+    background: none !important;
   }
   header{
-    background: rgb(15, 11, 44);
+    background: rgb(23, 22, 37) !important;
   }
 
   // For github-ribbon

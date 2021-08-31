@@ -11,10 +11,8 @@
     margin: 0 auto;
     margin-bottom: 20px; margin-top: 60px;
 
-    box-shadow: 0px 0px 32px 4px rgba(224, 174, 234, 0.08);
     padding: 18px;
     border-radius: 5px;
-    background: rgba(14, 16, 49, 0.52);
 
     &.-withInlinedAnswers{
       .ql-editor{
@@ -88,7 +86,6 @@
 
           box-shadow: $green-answer-box-shadow;
           border: $green-answer-border;
-          background: rgb(34, 38, 74);          
           color: rgb(160, 247, 200);
         }
       }
@@ -158,8 +155,7 @@
     position: fixed;
     bottom: 0;
     left: 0; right: 0;
-    margin: 30px 0;
-    // background: rgba(247, 247, 253, 0.04);
+    // margin: 30px 0;
 
     &.-failed div.inner{
       background-color: #ff1d1d;
@@ -206,7 +202,7 @@
     }
 
     .n-of-problems-left{
-      bottom: 30px;
+      position: static;
     }
 
     .review-container{

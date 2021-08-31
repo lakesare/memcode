@@ -13,7 +13,6 @@ section.problem{
   // Css for quill editors only in flashcards
   .ql-editor{
     border-radius: 2px;
-    background: rgb(34, 38, 74);
 
     img{
       display: block;

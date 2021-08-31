@@ -13,9 +13,9 @@
     i{
       position: absolute;
       top: 9px;
-      left: 20px;
+      left: 18px;
       font-size: 19px;
-      color: $not-so-faint-blue;
+      color: white;
     }
     input{
       width: 100%;
@@ -34,13 +34,13 @@
       transition-property: background;
       font-family: 'Open Sans';
       &::placeholder{
-        color: $not-so-faint-blue;
+        color: white;
         font-family: 'Open Sans';
       }
       border-radius: 4px;
-      background: rgb(24, 27, 57);
+      background: #e2e4f008;
       &:focus, &:hover{
-        background: rgb(27, 30, 63);
+        background: #e2e4f008;
       }
     }
   }
