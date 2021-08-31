@@ -261,12 +261,10 @@ class CuilButtons extends React.Component {
         </div>
       </div> :
       <div className="buttons">
-        <div className="please-sign-in_and_simulated-review-button">
-          <label className="please-sign-in">Sign in to start recording results</label>
-
+        <div className="learn-and-review-buttons">
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
-            className="button simulated-review-button"
+            className="button -to-learn"
           >TEST DRIVE ({this.props.courseDto.amountOfProblems})</Link>
         </div>
       </div>
