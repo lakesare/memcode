@@ -63,12 +63,26 @@ class ProblemBeingSolved extends React.Component {
     }
   }
 
-  renderProgressBar = (current, max) =>
-    <div className={`n-of-problems-left ${this.props.ifReviewingFailedProblems ? '-failed' : ''}`}>
-      <div className="container">
-        <ProgressBar currentAmount={current} maxAmount={max}/>
+  renderProgressBar = () => {
+    let current;
+    let max;
+
+    if (this.props.ifReviewingFailedProblems) {
+      current = 1 + this.props.amountOfFailedProblems - this.props.amountOfFailedProblemsLeft;
+      max = this.props.amountOfFailedProblems;
+    } else {
+      current = 1 + this.props.statusOfSolving.index;
+      max = this.props.amountOfProblems;
+    }
+
+    return (
+      <div className={`n-of-problems-left ${this.props.ifReviewingFailedProblems ? '-failed' : ''}`}>
+        <div className="container">
+          <ProgressBar currentAmount={current} maxAmount={max}/>
+        </div>
       </div>
-    </div>
+    );
+  }
 
   render = () =>
     <section className={`ProblemBeingSolved ${css.section}`}>
@@ -123,7 +137,7 @@ class ProblemBeingSolved extends React.Component {
         }
       </div>
 
-      {this.renderProgressBar(1 + this.props.statusOfSolving.index, this.props.amountOfProblems)}
+      {this.renderProgressBar()}
     </section>
 }
 
