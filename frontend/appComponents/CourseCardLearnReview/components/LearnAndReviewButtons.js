@@ -16,7 +16,7 @@ class LearnAndReviewButtons extends React.Component {
         REVIEW
       </Link>
       <section className="amount-footer -review">
-        {n}
+        {n} to review
       </section>
     </div>
 
