@@ -5,6 +5,7 @@ import { Search } from './components/Search';
 import { SignInLinks } from './components/SignInLinks';
 import CurrentUser from './components/CurrentUser';
 import Logo from './components/Logo';
+import CoursesDropdown from './components/CoursesDropdown';
 
 import css from './index.css';
 
@@ -45,6 +46,15 @@ class Header extends React.Component {
           to="/courses/learning"
           className="button link my-courses"
         >Courses</NavLink>
+      }
+      {
+        this.props.currentUser &&
+        this.props.currentUser.username === 'lakesare' &&
+        <CoursesDropdown
+          toggler={
+            <a className="button link my-courses" style={{ marginRight: 0 }}>Main</a>
+          }
+        />
       }
       {
         !this.props.currentUser &&

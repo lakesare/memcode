@@ -1,0 +1,48 @@
+@import 'css/variables';
+
+:local(.tooltip){
+  .course-li{
+    margin-bottom: 2px;
+    font-size: 15px;
+
+    .title{
+      letter-spacing: 0.3px;
+      font-family: "Roboto";
+      font-weight: 100;
+    }
+
+    a{
+      background: #35395bb3;
+      border-radius: 2px;
+
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 5px 10px;
+
+      .action{
+        width: 45px;
+        position: absolute;
+        right: 0; top: 0; bottom: 0;
+        font-size: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+
+    }
+
+
+    &.-review{
+      .action{
+        background: #d45512;
+      }
+      a:hover{
+        background: rgba(250, 100, 0, 0.7);
+        transition-duration: 50ms;
+      }
+    }
+  }
+}
