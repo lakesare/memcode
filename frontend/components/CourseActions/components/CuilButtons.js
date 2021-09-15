@@ -75,7 +75,7 @@ class CuilButtons extends React.Component {
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
       {
-        this.props.currentUser.username === 'lakesare' &&
+        localStorage.getItem('enableTheCoursesDropdown') &&
         this.ifCourseIsLearnedAndActive() &&
         <li>
           <button

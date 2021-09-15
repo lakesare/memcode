@@ -49,7 +49,7 @@ class Header extends React.Component {
       }
       {
         this.props.currentUser &&
-        this.props.currentUser.username === 'lakesare' &&
+        localStorage.getItem('enableTheCoursesDropdown') &&
         <CoursesDropdown
           toggler={
             <a className="button link my-courses" style={{ marginRight: 0 }}>Main</a>
