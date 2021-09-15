@@ -10,9 +10,8 @@ class CourseCard extends React.Component {
       amountOfProblemsToLearn: PropTypes.number.isRequired,
       amountOfProblemsToReview: PropTypes.number.isRequired,
       nextDueDate: PropTypes.string,
-      courseCategory: PropTypes.object,
-      author: PropTypes.object
-    })
+    }),
+    pinned: PropTypes.bool
   }
 
   renderTitle = () =>
@@ -20,7 +19,18 @@ class CourseCard extends React.Component {
 
   render = () => {
     const courseDto = this.props.courseDto;
-    if (courseDto.amountOfProblemsToReview) {
+    if (this.props.pinned) {
+      return (
+        <div className="course-li -pinned">
+          <Link to={Urls.courseShow(courseDto.course.id)}>
+            {this.renderTitle()}
+            <div className="action">
+              <i className="material-icons">push_pin</i>
+            </div>
+          </Link>
+        </div>
+      );
+    } else if (courseDto.amountOfProblemsToReview) {
       return (
         <div className="course-li -review">
           <Link to={Urls.courseReview(courseDto.course.id)}>

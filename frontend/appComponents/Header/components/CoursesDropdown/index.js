@@ -26,13 +26,31 @@ class CoursesDropdown extends React.Component {
     return courseDtos;
   }
 
+  getPinnedCourses = () => {
+    const pinned = this.props.My.courses.filter((dto) =>
+      this.props.My.pinnedCourseIds.includes(dto.course.id)
+    )
+      .map(MyModel.dtoToCourseCardProps);
+    return pinned;
+  }
+
   renderDropdown = () =>
     <div className={css.tooltip}>
-      <Loading spe={this.props.My.speCourses}>{() =>
-        this.filterCoursesForCategory(this.getCourseDtos()).map((courseDto) =>
-          <CourseCard key={courseDto.course.id} courseDto={courseDto}/>
-        )
-      }</Loading>
+      <Loading spe={this.props.My.speCourses}>
+        <>
+          <div className="pinned-courses">
+            {this.getPinnedCourses().map((courseDto) =>
+              <CourseCard key={courseDto.course.id} courseDto={courseDto} pinned/>
+            )}
+          </div>
+
+          <div className="all-courses">
+            {this.filterCoursesForCategory(this.getCourseDtos()).map((courseDto) =>
+              <CourseCard key={courseDto.course.id} courseDto={courseDto}/>
+            )}
+          </div>
+        </>
+      </Loading>
     </div>
 
   render = () =>

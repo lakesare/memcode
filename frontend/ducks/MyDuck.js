@@ -24,6 +24,10 @@ const setProblem = (state, courseId, problemId, setFn) => {
   return newState;
 };
 
+const parsePinnedCourseIdsFromLS = (pinnedCourseIds) => {
+  return pinnedCourseIds ? JSON.parse(pinnedCourseIds) : []
+}
+
 const initialState = {
   speCourses: {},
   courses: [],
@@ -31,6 +35,7 @@ const initialState = {
   speCourseForActions: {},
   flashcardOrder: localStorage.getItem('flashcardOrder') === 'false' ? false : true,
   ifShowDraft: localStorage.getItem('ifShowDraft') === 'false' ? false : true,
+  pinnedCourseIds: parsePinnedCourseIdsFromLS(localStorage.getItem('pinnedCourseIds')),
   backgroundImage:
     (localStorage.getItem('backgroundImage') &&
     localStorage.getItem('backgroundImage') !== 'false') ?
@@ -50,6 +55,16 @@ const reducer = (state = initialState, action) => {
       return { ...state, ifShowDraft: action.payload.ifShowDraft };
     case `${namespace}.SWITCH_BACKGROUND_IMAGE`:
       return { ...state, backgroundImage: action.payload.backgroundImage };
+    case `${namespace}.ADD_PINNED_COURSE`: {
+      const pinnedCourseIds = [...state.pinnedCourseIds, action.payload.courseId];
+      return { ...state, pinnedCourseIds };
+    }
+    case `${namespace}.REMOVE_PINNED_COURSE`: {
+      const pinnedCourseIds = state.pinnedCourseIds.filter((courseId) =>
+        courseId !== action.payload.courseId
+      );
+      return { ...state, pinnedCourseIds };
+    }
     case 'SET_SPE_GET_COURSE': {
       return { ...state, speCourseForActions: action.payload };
     }
@@ -289,6 +304,16 @@ const getActions = (dispatch, getState) => ({
     const backgroundImage = urlOrFalse;
     localStorage.setItem('backgroundImage', backgroundImage);
     dispatch({ type: `${namespace}.SWITCH_BACKGROUND_IMAGE`, payload: { backgroundImage } });
+  },
+  addPinnedCourse: (courseId) => {
+    const state = getState().global.My;
+    dispatch({ type: `${namespace}.ADD_PINNED_COURSE`, payload: { courseId } });
+    localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
+  },
+  removePinnedCourse: (courseId) => {
+    const state = getState().global.My;
+    dispatch({ type: `${namespace}.REMOVE_PINNED_COURSE`, payload: { courseId } });
+    localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
   }
 });
 

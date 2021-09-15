@@ -75,6 +75,32 @@ class CuilButtons extends React.Component {
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
       {
+        this.props.currentUser.username === 'lakesare' &&
+        this.ifCourseIsLearnedAndActive() &&
+        <li>
+          <button
+            type="button"
+            onClick={() =>
+              this.props.My.pinnedCourseIds.includes(this.props.courseDto.course.id) ?
+                this.props.MyActions.removePinnedCourse(this.props.courseDto.course.id) :
+                this.props.MyActions.addPinnedCourse(this.props.courseDto.course.id)
+            }
+            style={{ color: 'rgb(247, 54, 54)' }}
+          >
+            <div className="text">
+              {
+                this.props.My.pinnedCourseIds.includes(this.props.courseDto.course.id) ?
+                  'Unpin' : 'Pin'
+              }
+            </div>
+            <div className="comment -white">
+              Pin your course to see it in the header.
+            </div>
+          </button>
+        </li>
+      }
+
+      {
         this.props.courseDto.amountOfProblems > 0 && !this.ifCourseIsLearnedAndActive() &&
         <li>
           <Link

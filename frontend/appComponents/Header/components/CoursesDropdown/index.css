@@ -64,5 +64,14 @@
         background: transparentize(rgb(66, 69, 98), 0.3);
       }
     }
+    &.-pinned{
+      .action{
+        // background: rgb(66, 69, 98);
+        font-size: 14px;
+      }
+      a:hover{
+        background: transparentize(rgb(66, 69, 98), 0.3);
+      }
+    }
   }
 }
