@@ -19,6 +19,7 @@
       align-items: center;
       position: relative;
       padding: 5px 10px;
+      padding-right: 45px;
 
       .action{
         width: 45px;
@@ -30,18 +31,37 @@
         justify-content: center;
         border-top-right-radius: 2px;
         border-bottom-right-radius: 2px;
+        &:hover{
+          transition-duration: 50ms;
+        }
       }
-
     }
-
 
     &.-review{
       .action{
-        background: #d45512;
+        background: $review-button-color;
       }
       a:hover{
-        background: rgba(250, 100, 0, 0.7);
-        transition-duration: 50ms;
+        background: transparentize($review-button-color, 0.3);
+      }
+    }
+    &.-learn{
+      .action{
+        background: $learn-button-color;
+
+      }
+      a:hover{
+        background: transparentize($learn-button-color, 0.3);
+      }
+    }
+    &.-next-due-date-in{
+      a{ padding-right: 53px; }
+      .action{
+        background: rgb(66, 69, 98);
+        width: 53px;
+      }
+      a:hover{
+        background: transparentize(rgb(66, 69, 98), 0.3);
       }
     }
   }

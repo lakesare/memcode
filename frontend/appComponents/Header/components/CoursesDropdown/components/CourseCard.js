@@ -3,9 +3,6 @@ import MyModel from '~/models/MyModel';
 
 import { Link } from 'react-router-dom';
 
-@connect((state) => ({
-  currentUser: state.global.Authentication.currentUser
-}))
 class CourseCard extends React.Component {
   static propTypes = {
     courseDto: PropTypes.shape({
@@ -44,12 +41,13 @@ class CourseCard extends React.Component {
     } else {
       const nextDueDateIn = MyModel.getNextDueDateIn(courseDto);
       if (!nextDueDateIn) return null;
+
       return (
-        <div className="course-li -learn">
+        <div className="course-li -next-due-date-in">
           <Link to={Urls.courseShow(courseDto.course.id)}>
             {this.renderTitle()}
             <div className="action">
-              {MyModel.nextDueDateInToString(nextDueDateIn)}
+              {nextDueDateIn.amount} {nextDueDateIn.measure}
             </div>
           </Link>
         </div>
