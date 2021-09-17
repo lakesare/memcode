@@ -175,4 +175,13 @@
       }
     }
   }
+
+  @media(max-width: 600px){
+    .tab-content{
+      padding: 0;
+    }
+    div.problem-wrapper{
+      padding: 20px !important;
+    }
+  }
 }
