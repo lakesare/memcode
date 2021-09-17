@@ -308,6 +308,7 @@ const getActions = (dispatch, getState) => ({
   addPinnedCourse: (courseId) => {
     const state = getState().global.My;
     dispatch({ type: `${namespace}.ADD_PINNED_COURSE`, payload: { courseId } });
+    console.log(state.pinnedCourseIds);
     localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
   },
   removePinnedCourse: (courseId) => {
