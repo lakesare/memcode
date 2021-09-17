@@ -55,10 +55,10 @@
       }
     }
     &.-next-due-date-in{
-      a{ padding-right: 53px; }
+      a{ padding-right: 65px; }
       .action{
         background: rgb(66, 69, 98);
-        width: 53px;
+        width: 65px;
       }
       a:hover{
         background: transparentize(rgb(66, 69, 98), 0.3);
