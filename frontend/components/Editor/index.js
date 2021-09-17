@@ -107,7 +107,7 @@ class Editor extends React.Component {
     toolbarContainer: PropTypes.array,
     toolbarHandlers: PropTypes.object,
     className: PropTypes.string
-  };
+  }
 
   static defaultProps = {
     readOnly: false,
