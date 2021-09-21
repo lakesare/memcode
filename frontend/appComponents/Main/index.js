@@ -46,12 +46,13 @@ class Main extends React.Component {
       //   this.props.MyActions.apiGetCourses();
       // }, 5 * 60 * 1000);
 
-      this.apiSyncInterval = setInterval(() => {
-        if (this.props.currentUser.username === 'lakesare') {
-          console.log("force updating");
-          this.setState({ key: new Date().getTime() });
-        }
-      }, 60000);
+      // Lols this is not good, this erazes the state of the new flashcard from time to time.
+      // this.apiSyncInterval = setInterval(() => {
+      //   if (this.props.currentUser.username === 'lakesare') {
+      //     console.log("force updating");
+      //     this.setState({ key: new Date().getTime() });
+      //   }
+      // }, 60000);
     }
 
     if (this.props.My.speCategories.status !== 'success') {
