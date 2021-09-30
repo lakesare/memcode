@@ -53,6 +53,19 @@ class CoursesDropdown extends React.Component {
       </Loading>
     </div>
 
+  renderNOfProblemsToReview = () => {
+    const dtosToReview = MyModel.getDtosToReview(this.props.My.courses);
+    const nOfProblems = MyModel.countAllProblemsToReview(dtosToReview);
+
+    if (nOfProblems === 0) {
+      return null;
+    }
+
+    return <div className="button -to-review">
+      {nOfProblems}
+    </div>;
+  }
+
   render = () =>
     <StandardTooltip
       tooltipEl={this.renderDropdown()}
@@ -65,7 +78,11 @@ class CoursesDropdown extends React.Component {
       }}
       width={600}
     >
-      {this.props.toggler}
+      <div className="my-courses-toggler">
+        {this.props.toggler}
+
+        {this.renderNOfProblemsToReview()}
+      </div>
     </StandardTooltip>
 }
 

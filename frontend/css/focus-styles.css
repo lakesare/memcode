@@ -67,7 +67,7 @@ header a.logo.focus-visible{
   background: rgba(243, 243, 249, 0.05) !important;
 }
 
-header nav .button.link{
+header nav .button.link, .my-courses-toggler{
   &.active, &[aria-expanded=true]{
     background: rgba(243, 243, 249, 0.07);
   }

@@ -184,6 +184,22 @@
       width: 100%;
     }
   }
+
+  .my-courses-toggler{
+    position: relative;
+    .button.-to-review{
+      position: absolute;
+      min-width: 0;
+      padding: 0 5px;
+      top: 4px;
+      right: -6px;
+      font-size: 9px;
+      height: 23px;
+      &:hover{
+        background: $review-button-color;
+      }
+    }
+  }
 }
 
 :local(header.header){
