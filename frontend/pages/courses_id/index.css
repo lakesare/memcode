@@ -49,7 +49,8 @@
 
   // list of problems
   .problems-container{
-    margin: 0 100px;
+    // margin: 0 100px;
+    padding: 0 120px;
     // to avoid editing problem at the bottom of the screen
     padding-bottom: 200px;
     &.-newest-first section.problems{
@@ -217,6 +218,7 @@
     .container.problems-container{
       margin: 0;
       margin-left: 40px;
+      padding: 0 20px;
     }
 
     section.problem{
