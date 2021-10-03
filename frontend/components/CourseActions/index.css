@@ -74,7 +74,7 @@
           justify-content: space-around;
           padding-left: 14px;
           margin-left: 14px;
-          border-left: 1px solid rgb(28, 31, 62);
+          border-left: 1px solid #e5e6ee1f;
           > div.category, div.author{
             cursor: default;
             height: 50%;
@@ -84,9 +84,6 @@
             font-size: 10px;
             letter-spacing: 0.9px;
             text-transform: uppercase;
-            span, a{
-              text-shadow: 0 0 12px #fbfbfb52;
-            }
             > .in-or-by{
               display: inline-block;
               width: 20px;
