@@ -17,8 +17,14 @@ class CoursesDropdown extends React.Component {
     My: PropTypes.object.isRequired,
   }
 
+  state = {
+    searchString: ''
+  }
+
   filterCoursesForCategory = (dtos) =>
-    dtos
+    dtos.filter((dto) =>
+      dto.course.title.toLowerCase().includes(this.state.searchString.toLowerCase())
+    )
 
   getCourseDtos = () => {
     const courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
@@ -44,9 +50,23 @@ class CoursesDropdown extends React.Component {
             )}
           </div>
 
+          <div className="search-courses">
+            <input
+              className="standard-input -TextInput"
+              type="text"
+              value={this.state.searchString}
+              onChange={(e) => this.setState({ searchString: e.target.value })}
+              autoComplete="off"
+            />
+          </div>
+
           <div className="all-courses">
             {this.filterCoursesForCategory(this.getCourseDtos()).map((courseDto) =>
-              <CourseCard key={courseDto.course.id} courseDto={courseDto}/>
+              <CourseCard
+                key={courseDto.course.id}
+                courseDto={courseDto}
+                searchString={this.state.searchString}
+              />
             )}
           </div>
         </>

@@ -11,11 +11,48 @@ class CourseCard extends React.Component {
       amountOfProblemsToReview: PropTypes.number.isRequired,
       nextDueDate: PropTypes.string,
     }),
-    pinned: PropTypes.bool
+    pinned: PropTypes.bool,
+    searchString: PropTypes.string
   }
 
-  renderTitle = () =>
-    <div className="title">{this.props.courseDto.course.title}</div>
+  boldenTitle = (title, searchString) => {
+    // "hello", "ll" => 2
+    const beginsToMatchAt = title.toLowerCase().indexOf(
+      searchString.toLowerCase()
+    );
+    const endsToMatchAt = beginsToMatchAt + searchString.length;
+
+    // was match in a description instead of in a title?
+    // don't bolden anything, return the string as it is
+    if (beginsToMatchAt === -1) {
+      return title;
+    }
+
+    const boldenedTitle =
+      title.slice(0, beginsToMatchAt) +
+      '<mark>' +
+      title.slice(beginsToMatchAt, endsToMatchAt) +
+      '</mark>' +
+      title.slice(endsToMatchAt);
+
+    return boldenedTitle;
+  }
+
+  renderTitle = () => {
+    const title = this.props.courseDto.course.title;
+    const searchString = this.props.searchString;
+
+    if (this.props.pinned) {
+      return <div className="title">{title}</div>;
+    } else {
+      return <div
+        className="title"
+        dangerouslySetInnerHTML={{
+          __html: this.boldenTitle(title, searchString)
+        }}
+      />;
+    }
+  }
 
   render = () => {
     const courseDto = this.props.courseDto;
