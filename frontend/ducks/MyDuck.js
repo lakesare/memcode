@@ -300,20 +300,18 @@ const getActions = (dispatch, getState) => ({
     dispatch({ type: `${namespace}.SWITCH_IF_SHOW_DRAFT`, payload: { ifShowDraft } });
   },
   setBackgroundImage: (urlOrFalse) => {
-    const state = getState().global.My;
     const backgroundImage = urlOrFalse;
     localStorage.setItem('backgroundImage', backgroundImage);
     dispatch({ type: `${namespace}.SWITCH_BACKGROUND_IMAGE`, payload: { backgroundImage } });
   },
   addPinnedCourse: (courseId) => {
-    const state = getState().global.My;
     dispatch({ type: `${namespace}.ADD_PINNED_COURSE`, payload: { courseId } });
-    console.log(state.pinnedCourseIds);
+    const state = getState().global.My;
     localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
   },
   removePinnedCourse: (courseId) => {
-    const state = getState().global.My;
     dispatch({ type: `${namespace}.REMOVE_PINNED_COURSE`, payload: { courseId } });
+    const state = getState().global.My;
     localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
   }
 });
