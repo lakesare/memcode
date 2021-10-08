@@ -11,7 +11,7 @@
 
 # Memcode
 
-Flashcards: for coders, mathematicians, and physicists. Open-source, free for all.  
+Flashcards: for coders, mathematicians, and scientists. Open-source, free for all.  
 Made with love 💘
 
 
