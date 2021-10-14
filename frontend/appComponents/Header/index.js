@@ -52,7 +52,7 @@ class Header extends React.Component {
         localStorage.getItem('enableTheCoursesDropdown') &&
         <CoursesDropdown
           toggler={
-            <a className="button link my-courses" style={{ marginRight: 0 }}>Main</a>
+            <a className="button link main" style={{ marginRight: 0 }}>Main</a>
           }
         />
       }
@@ -93,6 +93,17 @@ class Header extends React.Component {
     <div className="container -mobile">
       <div className="logo-and-user">
         <Logo currentUser={this.props.currentUser} ifMobile/>
+
+        {
+          this.props.currentUser &&
+          this.props.currentUser.username === "lakesare" &&
+          <CoursesDropdown
+            toggler={
+              <a className="button link mobile-main" style={{ marginRight: 0 }}>Main</a>
+            }
+          />
+        }
+
         {this.renderUser()}
       </div>
 

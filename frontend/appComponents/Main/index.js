@@ -69,7 +69,7 @@ class Main extends React.Component {
   render = () =>
     <main
       key={this.state.key}
-      className={this.props.className + ` ${this.props.My.backgroundImage ? '-with-bg' : ''}`}
+      className={this.props.className + ` ${this.props.My.backgroundImage ? '-with-bg' : ''} + ${this.props.My.backgroundImage && this.props.My.backgroundImage.includes('halloween') ? '-halloween' : ''}`}
       style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.props.My.backgroundImage}")` } : {}}
     >
       <ErrorBoundary>

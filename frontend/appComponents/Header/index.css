@@ -178,9 +178,6 @@
         background: none;
         justify-content: flex-end;
       }
-      a.my-courses-link{
-        display: none;
-      }
     }
     > section.search{
       margin: 0 auto;
@@ -208,14 +205,10 @@
 }
 
 :local(header.header){
-  @media(max-width: 931px){
-    // .christmas-icon {
-    //   bottom: calc(100% - 3px);
-    //   top: unset !important;
-    // }
-    .notifications-toggler-and-dropdown{ display: none }
-  }
   @media(max-width: 500px){
+    a.logo img.halloween{
+      width: 45px;
+    }
     section.current-user{
       section.learn-review-links{
         a.button{
@@ -223,8 +216,6 @@
         }
       }
     }
-  }
-  @media(max-width: 400px){
     .notifications-toggler{
       display: none;
     }
