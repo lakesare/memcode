@@ -135,7 +135,8 @@ class Subheader extends React.Component {
             {this.renderElement('Plasma', 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80', true)}
             {this.renderElement('Earth', 'https://images.unsplash.com/photo-1502485019198-a625bd53ceb7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80', true)}
             {this.renderElement('Water', 'https://images.unsplash.com/photo-1533567120930-ad223a6ac8e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1650&q=80', true)}
-            {this.renderElement('Air', 'https://images.unsplash.com/photo-1476970980147-71209edbfa4f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80')}
+            {this.renderElement('Air', 'https://images.unsplash.com/photo-1476970980147-71209edbfa4f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80', true)}
+            {this.renderElement('Halloween', 'https://www.simplebooth.com/blog/wp-content/uploads/2019/10/black-cat-halloween-photo-booth-backdrop.png')}
             {
               this.props.currentUser &&
               this.props.currentUser.username === 'lakesare' &&
