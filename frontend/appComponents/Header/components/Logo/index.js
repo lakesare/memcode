@@ -2,7 +2,8 @@ import orFalse from '~/services/orFalse';
 import Urls from '~/services/Urls';
 import { Link } from 'react-router-dom';
 
-// <img src={memcodeLogo}/>
+import memcodeLogo from './halloween.png';
+
 class Logo extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
@@ -28,6 +29,7 @@ class Logo extends React.Component {
 
   render = () =>
     <Link className="logo" to={this.getLink()}>
+      <img className="halloween" alt="" src={memcodeLogo}/>
       MEMCODE
     </Link>
 }
