@@ -2,6 +2,7 @@
 
 // .tippy-box[data-theme='-bright'] is needed for vanilla tippy.js (e.g. in Quill toolbar)
 .standard-tooltip, .tippy-box{
+  max-width: none !important;
   &.-bright, &[data-theme='-bright']{
     background-color: rgb(24, 28, 57);
 
@@ -32,5 +33,3 @@
     }
   }
 }
-
-

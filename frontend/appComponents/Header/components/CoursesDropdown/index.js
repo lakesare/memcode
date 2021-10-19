@@ -96,7 +96,7 @@ class CoursesDropdown extends React.Component {
         trigger: 'click',
         arrow: false
       }}
-      width={600}
+      width={420}
     >
       <div className="my-courses-toggler">
         {this.props.toggler}

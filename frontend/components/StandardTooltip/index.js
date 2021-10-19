@@ -22,7 +22,7 @@ class StandardTooltip extends React.Component {
 
   render = () =>
     <Tippy
-      content={<div style={{ fontSize: 12, maxWidth: this.props.width }}>{this.props.tooltipEl}</div>}
+      content={<div style={{ fontSize: 12, width: this.props.width, maxWidth: '100%' }}>{this.props.tooltipEl}</div>}
       className="standard-tooltip -bright"
       {...this.props.tooltipProps}
     >
