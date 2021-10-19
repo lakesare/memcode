@@ -36,7 +36,8 @@ class CoursesDropdown extends React.Component {
     const pinned = this.props.My.courses.filter((dto) =>
       this.props.My.pinnedCourseIds.includes(dto.course.id)
     )
-      .map(MyModel.dtoToCourseCardProps);
+      .map(MyModel.dtoToCourseCardProps)
+      .sort((a, b) => a.course.title.localeCompare(b.course.title));
     return pinned;
   }
 
