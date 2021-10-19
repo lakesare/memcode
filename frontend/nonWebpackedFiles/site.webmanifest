@@ -1,7 +1,7 @@
 {
     "name": "Memcode",
     "short_name": "Memcode",
-    "start_url": "https://www.memcode.com/courses",
+    "start_url": "https://www.memcode.com",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -14,7 +14,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "rgb(15, 17, 34)",
+    "background_color": "rgb(15, 17, 34)",
     "display": "standalone"
 }
