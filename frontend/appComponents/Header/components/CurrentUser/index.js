@@ -43,7 +43,7 @@ class CurrentUser extends React.Component {
 
   renderDropdown = () =>
     <div>
-      <div>Signed in as {this.props.currentUser.username} | via {this.props.currentUser.oauthProvider}</div>
+      <div style={{ "textAlign": "right" }}>Signed in as {this.props.currentUser.username} | via {this.props.currentUser.oauthProvider}</div>
       <ul style={{ marginTop: 10 }} className="standard-tooltip-dropdown">
         <li>
           <Link to={`/users/${this.props.currentUser.id}`}>Profile</Link>
@@ -106,6 +106,7 @@ class CurrentUser extends React.Component {
         placement: 'bottom-end',
         trigger: 'click',
       }}
+      width={170}
     >
       <button type="button" className="avatar">
         <img
