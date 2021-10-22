@@ -173,7 +173,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
         placement: 'bottom-end',
         trigger: 'click'
       }}
-      width={600}
+      width={400}
     >
       {this.renderToggler()}
     </StandardTooltip>
