@@ -3,7 +3,6 @@ import MyDuck from '~/ducks/MyDuck';
 
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Header from '~/appComponents/Header';
-import Footer from '~/appComponents/Footer';
 
 import download from './image-1.jpg';
 
@@ -79,8 +78,6 @@ class Main extends React.Component {
       <ErrorBoundary>
         {this.props.children}
       </ErrorBoundary>
-
-      <Footer/>
     </main>
 }
 

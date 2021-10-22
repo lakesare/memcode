@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import { TextInput, EditorTextarea } from '~/components/_standardForm';
+import Footer from '~/appComponents/Footer';
 
 import css from './index.css';
 
@@ -69,7 +70,7 @@ class Page_contact extends React.Component {
     <Main className={css.main}>
       <div className="space"/>
 
-      <div className="container">
+      <div className="container" style={{ paddingBottom: 70 }}>
         <div className="standard-title-and-description">
           <h2 className="title">Send Us a Message</h2>
 
@@ -88,7 +89,7 @@ class Page_contact extends React.Component {
           </div>
 
           <Loading spe={this.state.speSend}>
-            <button type="submit" className="button -purple standard-submit-button">
+            <button type="submit" className="button -green -move-up-on-hover standard-submit-button">
               SEND
             </button>
           </Loading>
@@ -105,6 +106,8 @@ class Page_contact extends React.Component {
       <Helmet>
         <title>Memcode | Contact</title>
       </Helmet>
+
+      <Footer/>
     </Main>
 }
 

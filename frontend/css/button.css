@@ -108,6 +108,10 @@
     color: rgb(225, 65, 65);
   }
 
+  &.-green{
+    background: $green;
+  }
+
   &.-small{
     font-size: 9px;
     padding: 5px 10px;

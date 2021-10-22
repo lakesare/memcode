@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
-import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 import LearnReviewLinks from './components/LearnReviewLinks';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 
@@ -14,14 +13,12 @@ class CurrentUser extends React.Component {
   state = {
     hideSearchBox: localStorage.getItem('hideSearchBox') === 'true' ? true : false,
     hideLinks: localStorage.getItem('hideLinks') === 'true' ? true : false,
-    hideFooter: localStorage.getItem('hideFooter') === 'true' ? true : false,
     hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false
   }
 
   componentDidMount = () => {
     this.uiUpdateBody('hideSearchBox', this.state.hideSearchBox);
     this.uiUpdateBody('hideLinks', this.state.hideLinks);
-    this.uiUpdateBody('hideFooter', this.state.hideFooter);
     this.uiUpdateBody('hideSocialButtons', this.state.hideSocialButtons);
   }
 
@@ -75,15 +72,6 @@ class CurrentUser extends React.Component {
           </button>
         </li>
         <li>
-          <button className="button -clear" onClick={() => this.toggleValue('hideFooter')} type="button">
-            {
-              this.state.hideFooter ?
-                'Show Footer' :
-                'Hide Footer'
-            }
-          </button>
-        </li>
-        <li>
           <button className="button -clear" onClick={() => this.toggleValue('hideSocialButtons')} type="button">
             {
               this.state.hideSocialButtons ?
@@ -92,8 +80,8 @@ class CurrentUser extends React.Component {
             }
           </button>
         </li>
-        <li style={{ borderTop: 'none', marginRight: -7 }}>
-          <ThemeToggleButton/>
+        <li>
+          <Link to="/contact">Contact Memcode</Link>
         </li>
       </ul>
     </div>

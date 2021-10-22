@@ -16,12 +16,6 @@ body.-hideLinks{
   }
 }
 
-body.-hideFooter{
-  footer{
-    display: none;
-  }
-}
-
 body.-hideSocialButtons{
   .social-buttons{
     display: none;
