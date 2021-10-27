@@ -11,13 +11,11 @@ class CurrentUser extends React.Component {
   }
 
   state = {
-    hideSearchBox: localStorage.getItem('hideSearchBox') === 'true' ? true : false,
     hideLinks: localStorage.getItem('hideLinks') === 'true' ? true : false,
     hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false
   }
 
   componentDidMount = () => {
-    this.uiUpdateBody('hideSearchBox', this.state.hideSearchBox);
     this.uiUpdateBody('hideLinks', this.state.hideLinks);
     this.uiUpdateBody('hideSocialButtons', this.state.hideSocialButtons);
   }
@@ -51,15 +49,6 @@ class CurrentUser extends React.Component {
             onClick={this.props.signOut}
           >
             Sign Out
-          </button>
-        </li>
-        <li>
-          <button className="button -clear" onClick={() => this.toggleValue('hideSearchBox')} type="button">
-            {
-              this.state.hideSearchBox ?
-                'Show search box' :
-                'Hide search box'
-            }
           </button>
         </li>
         <li>

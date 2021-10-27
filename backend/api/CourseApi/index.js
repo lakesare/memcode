@@ -11,7 +11,6 @@ router.get('/public', catchAsync(async (request, response) => {
   const pageSize = request.query.pageSize;
   const pageNumber = request.query.pageNumber;
 
-
   // Conversion effort -  Raw SQL to Knex like syntax
   // Can be used later when support for some functions like count, camelize column names are available from knex
 
@@ -35,26 +34,15 @@ router.get('/public', catchAsync(async (request, response) => {
     sortBy: request.query.sortBy,
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
-    courseCategoryId: request.query.courseCategoryId
+    courseCategoryId: request.query.courseCategoryId,
+    customWhere: `AND course.title ILIKE '%${request.query.searchString}%'`
   });
 
-  const courseCategoryId = request.query.courseCategoryId;
-  const subquery = knex('problem').count('id').whereRaw('problem.course_id = course.id');
-
-  let amountofAllCoursesQuery = knex('course').count('id', { as: 'amount_of_public_courses' })
-    .where('if_public', 'true')
-    .andWhere(2, "<=", subquery);
-
-  if (courseCategoryId) {
-    amountofAllCoursesQuery = amountofAllCoursesQuery.andWhere('course_category_id', courseCategoryId);
-  }
-
-  let amountOfAllCourses = await amountofAllCoursesQuery;
-  amountOfAllCourses = amountOfAllCourses[0].amountOfPublicCourses;
+  const nOfAllCourses = onePageOfCourses[0] ? onePageOfCourses[0].nOfAllCourses : 0;
 
   response.status(200).json({
     onePageOfCourses,
-    amountOfPages: Math.ceil(amountOfAllCourses / pageSize)
+    amountOfPages: Math.ceil(nOfAllCourses / pageSize)
   });
 }));
 

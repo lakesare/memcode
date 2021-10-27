@@ -1,7 +1,6 @@
 import orFalse from '~/services/orFalse';
 import { AuthenticationActions } from '~/reducers/Authentication';
 import { NavLink } from 'react-router-dom';
-import { Search } from './components/Search';
 import { SignInLinks } from './components/SignInLinks';
 import CurrentUser from './components/CurrentUser';
 import Logo from './components/Logo';
@@ -78,10 +77,7 @@ class Header extends React.Component {
 
   renderDesktop = () =>
     <div className="container -desktop">
-      <div className="logo-and-search">
-        <Logo currentUser={this.props.currentUser}/>
-        <Search currentUser={this.props.currentUser}/>
-      </div>
+      <Logo currentUser={this.props.currentUser}/>
 
       <div className="nav-and-current-user">
         {this.renderNavigation()}
@@ -111,8 +107,6 @@ class Header extends React.Component {
         !this.props.currentUser &&
         this.renderNavigation()
       }
-
-      <Search currentUser={this.props.currentUser}/>
     </div>
 
   render = () =>

@@ -101,13 +101,15 @@ class Page_courses_learning extends React.Component {
       this.props.My.courses.length === 0 ?
         <ForBeginners/> :
         <div className="container standard-navigation_and_courses">
-          <CourseCategories
-            selectedCourseCategoryId={getCategoryId(this.props)}
-            courseCategoryGroups={courseCategoryGroups}
-            courseCategories={this.filterCourseCategoriesForUserLearning(courseCategories)}
-            ifShowAmountOfCoursesInCategory
-          />
-          <div className="title_and_sorting_and_courses">
+          <div className="left">
+            <CourseCategories
+              selectedCourseCategoryId={getCategoryId(this.props)}
+              courseCategoryGroups={courseCategoryGroups}
+              courseCategories={this.filterCourseCategoriesForUserLearning(courseCategories)}
+              ifShowAmountOfCoursesInCategory
+            />
+          </div>
+          <div className="right">
             <div className="title_and_sorting">
               <h1 className="title">My Courses</h1>
 
@@ -128,13 +130,15 @@ class Page_courses_learning extends React.Component {
       coursesData.length === 0 ?
         <ForBeginners/> :
         <div className="container standard-navigation_and_courses">
-          <CourseCategories
-            selectedCourseCategoryId={getCategoryId(this.props)}
-            courseCategoryGroups={courseCategoryGroups}
-            courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
-            ifShowAmountOfCoursesInCategory
-          />
-          <div className="title_and_sorting_and_courses">
+          <div className="left">
+            <CourseCategories
+              selectedCourseCategoryId={getCategoryId(this.props)}
+              courseCategoryGroups={courseCategoryGroups}
+              courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
+              ifShowAmountOfCoursesInCategory
+            />
+          </div>
+          <div className="right">
             <div className="title_and_sorting">
               <h1 className="title">My Courses</h1>
 

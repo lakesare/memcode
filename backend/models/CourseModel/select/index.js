@@ -54,7 +54,8 @@ const select = {
         COUNT(distinct course_user_is_learning.user_id) AS amount_of_users_learning_this_course,
         COUNT(distinct problem.id) AS amount_of_problems,
         ROUND(AVG(course_rating.rating), 1) AS average_course_rating,
-        COUNT(distinct course_rating.id) AS amount_of_course_ratings
+        COUNT(distinct course_rating.id) AS amount_of_course_ratings,
+        COUNT(*) OVER() AS n_of_all_courses
       FROM course
       LEFT OUTER JOIN course_user_is_learning
         ON (
@@ -81,7 +82,7 @@ const select = {
       `
     )
       .then((array) => camelizeDbColumns(array, ['course']))
-      .then((array) => integerizeDbColumns(array, ['amountOfUsersLearningThisCourse', 'amountOfProblems'])),
+      .then((array) => integerizeDbColumns(array, ['amountOfUsersLearningThisCourse', 'amountOfProblems', 'nOfAllCourses'])),
 
   oneById: (id) =>
     db.one(

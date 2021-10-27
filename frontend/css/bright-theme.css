@@ -3,13 +3,6 @@
 $yellowish: rgb(247, 248, 228);
 
 // Throwing a couple more themes here temporarily
-body.-hideSearchBox{
-  header section.search{
-    display: none !important;
-  }
-
-}
-
 body.-hideLinks{
   header .learn-review-links{
     display: none !important;

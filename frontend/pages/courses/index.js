@@ -50,7 +50,8 @@ class Page_courses extends React.Component {
     speGetCourses: {},
     // to avoid blinking pagination
     amountOfPages: 1,
-    ifCoursesAreLoading: false
+    ifCoursesAreLoading: false,
+    searchString: ''
   }
 
   componentDidMount = () => {
@@ -98,7 +99,8 @@ class Page_courses extends React.Component {
         ...(getCategoryId(this.props) ?
           { courseCategoryId: getCategoryId(this.props) } :
           {}
-        )
+        ),
+        searchString: this.state.searchString
       }
     )
       .then(({ amountOfPages }) => {
@@ -127,6 +129,11 @@ class Page_courses extends React.Component {
     }
   }
 
+  updateSearchString = (event) => {
+    const searchString = event.target.value;
+    this.setState({ searchString }, this.apiGetCourses);
+  }
+
   renderPagination = (className = '') =>
     <Pagination
       className={className}
@@ -135,18 +142,38 @@ class Page_courses extends React.Component {
       getUrlForNewPageNumber={this.getUrlForNewPageNumber}
     />
 
+  renderSearchBar = () =>
+    <div className="search-bar">
+      <i className="material-icons">search</i>
+      <input
+        onChange={this.updateSearchString}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        value={this.state.searchString}
+        type="search"
+
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="off"
+      />
+    </div>
+
   render = () =>
     <Main className={css.main}>
       <Loading spe={this.props.My.speCategories}>{({ courseCategoryGroups, courseCategories }) =>
         <div className="container standard-navigation_and_courses">
-          <CourseCategories
-            selectedCourseCategoryId={getCategoryId(this.props)}
-            courseCategoryGroups={courseCategoryGroups}
-            courseCategories={courseCategories}
-            ifShowAmountOfCoursesInCategory={false}
-          />
+          <div className="left">
+            {this.renderSearchBar()}
+            <CourseCategories
+              selectedCourseCategoryId={getCategoryId(this.props)}
+              courseCategoryGroups={courseCategoryGroups}
+              courseCategories={courseCategories}
+              ifShowAmountOfCoursesInCategory={false}
+            />
+          </div>
 
-          <div className="title_and_sorting_and_courses">
+          <div className="right">
             <div className="title_and_sorting">
               <h1 className="title">{this.getCurrentCategoryName(courseCategories)}</h1>
 

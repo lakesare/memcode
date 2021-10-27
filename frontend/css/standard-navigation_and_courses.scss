@@ -2,20 +2,20 @@
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
-  > nav.course-categories-nav{
-    width: 231px;
+  > .left{
+    width: 250px;
     flex-grow: 0;
     flex-shrink: 0;
-    border-right: 1px solid rgba(223, 201, 247, 0.06);
+    // border-right: 1px solid rgba(223, 201, 247, 0.06);
 
-    margin-right: 70px;
+    margin-right: 45px;
     padding-bottom: 40px;
     margin-bottom: 50px;
   }
-  > div.title_and_sorting_and_courses{
+  > .right{
     // helps .loading to stay wide
     width: 100%;
-    > div.title_and_sorting{
+    div.title_and_sorting{
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -49,7 +49,7 @@
 
 .standard-navigation_and_courses{
   @media(max-width: 1200px){
-    > nav.course-categories-nav{
+    .left{
       width: 170px;
       margin-right: 20px;
     }
@@ -57,30 +57,13 @@
 
   @media(max-width: 900px){
     // flex-wrap: wrap;
-    > nav.course-categories-nav{
+    .left{
       display: none;
-
-      // width: 100%;
-      // border-right: none;
-      // > ul.groups{
-      //   display: flex;
-      //   flex-wrap: wrap;
-      //   background: rgb(20, 22, 45);
-      //   > li.group{
-      //     width: 50%;
-      //     padding-right: 10px;
-      //     padding-left: 10px;
-      //     > h2.group-name{
-      //       border-left: 1px solid rgba(136, 125, 220, 0.12);
-      //       background: rgba(136, 125, 220, 0.06);
-      //     }
-      //   }
-      // }
     }
   }
 
   @media(max-width: 470px){
-    > div.title_and_sorting_and_courses{
+    .right{
       width: 100%;
       .layout-div{
         display: none;

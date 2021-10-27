@@ -36,7 +36,7 @@
     margin-top: 100px;
   }
   > .container.standard-navigation_and_courses{
-    > div.title_and_sorting_and_courses{
+    > div.right{
       > section.list-of-courses{
         margin-top: 70px;
       }

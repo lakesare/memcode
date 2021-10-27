@@ -3,19 +3,6 @@
 :local(.header){
   background: rgba(34, 38, 74, 0.27);
 
-  .logo-and-search{
-    display: flex;
-    flex-grow: 1;
-    .logo{
-      flex-shrink: 0;
-      flex-grow: 0;
-      margin-right: 30px;
-    }
-    .search{
-      max-width: 300px;
-    }
-  }
-
   a.logo{
     display: flex;
     align-items: center;
@@ -147,13 +134,6 @@
     > div.nav-and-current-user{
       display: flex;
     }
-
-    section.search{
-      flex-basis: 310px;
-      flex-shrink: 1;
-      flex-grow: 0;
-      display: flex;
-    }
   }
   .container.-mobile{
     padding-top: 10px;
@@ -178,12 +158,6 @@
         background: none;
         justify-content: flex-end;
       }
-    }
-    > section.search{
-      margin: 0 auto;
-      margin-top: 20px;
-      // max-width: initial;
-      width: 100%;
     }
   }
 
