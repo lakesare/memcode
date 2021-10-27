@@ -1,27 +1,12 @@
 @import 'css/variables';
 
 :local(main.main){
+
   article{
     max-width: 350px;
-    margin: 0 auto;
-    text-align: center;
-
-    > h2{
-      font-size: 27px;
-      color: $purple;
-      font-weight: 100;
-      margin-top: 40px;
-    }
-
-    > p{
-      line-height: 24px;
-      margin-top: 40px;
-      font-weight: 100;
-    }
-
-    .sign-in-buttons{
-      margin-top: 50px;
-    }
+  }
+  .sign-in-buttons{
+    margin-top: 50px;
   }
 }
 

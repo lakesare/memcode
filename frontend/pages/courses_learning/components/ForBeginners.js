@@ -9,17 +9,6 @@ class ForBeginners extends React.Component {
     speGetCourses: {}
   }
 
-  componentDidMount = () => {
-    CourseApi.selectPublic(
-      (spe) => this.setState({ speGetCourses: spe }),
-      {
-        pageSize: 16,
-        pageNumber: 1,
-        sortBy: 'popular'
-      }
-    );
-  }
-
   render = () =>
     <section className="for-beginners">
       <div className="container">
@@ -30,18 +19,8 @@ class ForBeginners extends React.Component {
             <p>
               You may look at the existing <Link to="/courses">courses</Link>, or <Link to="/courses/new">create your own course</Link>.
             </p>
-            <p>
-              Or just walk around the site, isn't it damn beautiful?
-            </p>
           </div>
         </article>
-
-        <hr/>
-
-        <h2 className="meanwhile-here-are-popular-courses-title">Meanwhile, here are the most popular courses:</h2>
-        <Loading spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
-          <ListOfCourseCards type="simple" courseDtos={onePageOfCourses}/>
-        }</Loading>
       </div>
     </section>
 }

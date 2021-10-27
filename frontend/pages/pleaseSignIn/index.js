@@ -9,14 +9,14 @@ class Page_pleaseSignIn extends React.Component {
     <Main className={css.main}>
       <div className="container">
         <div className="space"/>
-        <article>
-          <h2>Sign In</h2>
-          <p>
+        <div className="standard-title-and-description">
+          <h2 className="title">Sign In</h2>
+          <article className="description">
             Sign in with your github/google account, and get access to creating your own courses, learning and reviewing flashcards.
-          </p>
+          </article>
+        </div>
 
-          <SignInButtons/>
-        </article>
+        <SignInButtons/>
       </div>
     </Main>
 }
