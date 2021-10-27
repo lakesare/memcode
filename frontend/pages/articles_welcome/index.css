@@ -3,16 +3,6 @@
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin|Montserrat:100,200,300,400,500,600,700&display=swap');
 
 :local(main.main){
-  // Took it from sketch, add some other background #todo
-  background-image: url('./images/waves.jpg');
-  // background-size: cover;
-  // After the chrome update stopped working in chrome :-/
-  background-position: 0 -370px;
-  background-color: rgb(14, 13, 28);
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-attachment: initial;
-
   header .sign-in-links{
     background: none !important;
   }
