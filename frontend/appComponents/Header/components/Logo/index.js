@@ -29,7 +29,6 @@ class Logo extends React.Component {
 
   render = () =>
     <Link className="logo" to={this.getLink()}>
-      <img className="halloween" alt="" src={memcodeLogo}/>
       MEMCODE
     </Link>
 }
