@@ -78,13 +78,16 @@ class Page_courses extends React.Component {
     }
   }
 
-  apiGetCourses = () =>
+  apiGetCourses = () => {
+    const searchString = this.state.searchString;
     CourseApi.selectPublic(
       (spe) => {
         // if there are already some courses
         if (this.state.speGetCourses.payload) {
           if (spe.status === 'success') {
-            this.setState({ speGetCourses: spe, ifCoursesAreLoading: false });
+            // otherwise the slow queries will be shown even when we've already entered some new query!
+            if (this.state.searchString !== searchString) return;
+            this.setState({ speGetCourses: spe, amountOfPages: spe.payload.amountOfPages, ifCoursesAreLoading: false });
           } else {
             this.setState({ ifCoursesAreLoading: true });
           }
@@ -100,12 +103,10 @@ class Page_courses extends React.Component {
           { courseCategoryId: getCategoryId(this.props) } :
           {}
         ),
-        searchString: this.state.searchString
+        searchString
       }
     )
-      .then(({ amountOfPages }) => {
-        this.setState({ amountOfPages });
-      })
+  }
 
   getUrlForNewPageNumber = (pageN) => {
     const newQuery = getQuery(this.props);
