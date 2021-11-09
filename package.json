@@ -119,7 +119,7 @@
     "js-cookie": "^2.2.1",
     "jsesc": "^2.5.2",
     "json-schema-traverse": "^0.4.1",
-    "jsonpointer": "^4.0.1",
+    "jsonpointer": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.19.5",
     "knex-stringcase": "^1.4.1",
