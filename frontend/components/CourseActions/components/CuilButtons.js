@@ -178,39 +178,6 @@ class CuilButtons extends React.Component {
         </li>
       }
 
-      {
-        this.props.type === 'editOrShow' &&
-        <li>
-          <button
-            type="button"
-            onClick={this.props.MyActions.switchFlashcardOrder}
-            style={{ color: 'rgb(120, 175, 244)' }}
-          >
-            <div className="text">
-              {this.props.My.flashcardOrder ? 'Oldest First' : 'Newest First'}
-            </div>
-            <div className="comment -white">
-              Switch the order of flashcards.
-            </div>
-          </button>
-        </li>
-      }
-
-      <li>
-        <button
-          type="button"
-          onClick={this.props.MyActions.switchIfShowDraft}
-          style={{ color: 'rgb(181, 184, 239)' }}
-        >
-          <div className="text">
-            {this.props.My.ifShowDraft ? 'Hide Draft' : 'Show Draft'}
-          </div>
-          <div className="comment -white">
-            Whether to show the draft text area for Question+Answer flashcards.
-          </div>
-        </button>
-      </li>
-
       <li>
         <TogglerAndModal
           toggler={

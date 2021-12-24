@@ -17,7 +17,9 @@ nav.standard-tab-navigation{
     padding: 10px;
     color: white;
     border-bottom: 1px solid transparent;
-    &.active, &.selected, &:hover{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    &.-selected, &:hover{
       border-bottom: 1px solid $purple;
     }
   }

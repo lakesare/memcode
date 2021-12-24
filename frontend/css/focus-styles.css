@@ -116,7 +116,7 @@ section.course-actions{
 }
 
 .standard-tab-navigation button, .ReactModal__Content .close-button{
-  &:focus{
+  &:focus, &.-selected{
     background: rgba(48, 52, 96, 0.62);
   }
 }

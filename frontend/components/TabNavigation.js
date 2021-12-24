@@ -30,7 +30,7 @@ class TabNavigation extends React.Component {
             <button
               key={name}
               type="button"
-              className={this.props.selectedTab === name ? 'selected' : ''}
+              className={this.props.selectedTab === name ? '-selected' : ''}
               onClick={() => this.selectTab(name)}
             >
               {name}

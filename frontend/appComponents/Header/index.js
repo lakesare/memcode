@@ -11,15 +11,11 @@ import css from './index.css';
 @connect(
   (state) => ({
     currentUser: state.global.Authentication.currentUser || false
-  }),
-  (dispatch) => ({
-    signOut: () => AuthenticationActions.signOut(dispatch)
   })
 )
 class Header extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
-    signOut: PropTypes.func.isRequired,
     dontLinkToLearnOrReview: PropTypes.number
   }
 
@@ -70,7 +66,6 @@ class Header extends React.Component {
       <CurrentUser
         currentUser={this.props.currentUser}
         dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}
-        signOut={this.props.signOut}
       /> :
       <SignInLinks/>
   )

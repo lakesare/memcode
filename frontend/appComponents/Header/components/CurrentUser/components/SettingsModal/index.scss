@@ -1,0 +1,45 @@
+@import 'css/variables';
+
+:local(.local){
+
+  .standard-modal__main{
+    min-height: 600px;
+  }
+
+  h2.title{
+    margin-bottom: 10px;
+  }
+
+  .design-tab{
+    section.part-of-the-website{
+      margin-bottom: 30px;
+
+
+      div.setting{
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        padding: 10px;
+        display: flex;
+        border-radius: 3px;
+        .comment{
+          padding-top: 4px;
+          font-size: 14px;
+          line-height: 22px
+        }
+        button{
+          font-size: 10px;
+          margin-left: 20px;
+          min-width: 150px;
+          padding: 0;
+        }
+      }
+    }    
+  }
+
+  .manage-tab{
+    button{
+      margin-top: 25px;
+    }
+  }
+
+}
