@@ -110,10 +110,21 @@
   @media(max-width: 800px){
     .wrapper{
       display: block;
-      > .created-courses{
+      .skills{
         width: 100%;
         margin-left: 0;
         margin-top: 40px;
+        padding-bottom: 10px;
+      }
+      .user{
+        width: auto;
+        text-align: center;
+        img{
+          max-width: 115px;
+        }
+      }
+      .skills{
+        h1{ text-align: center; }
       }
     }
   }
