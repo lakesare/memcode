@@ -12,10 +12,6 @@ class ProgressBar extends React.Component {
     className: '',
   }
 
-  componentDidMount = () => {
-    console.log('mounterd');
-  }
-
   getCurrentWidth = () =>
     ((this.props.currentAmount / this.props.maxAmount) * 100).toString() + '%'
 

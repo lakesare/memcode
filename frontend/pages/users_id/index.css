@@ -2,21 +2,20 @@
   .wrapper{
     display: flex;
     align-items: flex-start;
+    h1{
+      margin-bottom: 20px;
+    }
     .user{
       flex-grow: 0;
       flex-shrink: 0;
       width: 200px;
 
-      h1{
-        margin-bottom: 20px;
-      }
 
       .user-details{
         padding: 15px;
         background: rgb(24, 28, 57);
         border-radius: 4px;
         box-shadow: 0 1px 0 0 rgb(33, 37, 67), 0 0 0 1px rgb(32, 38, 71);
-
 
         img{
           border-radius: 2px;
@@ -31,25 +30,80 @@
           color: rgb(144, 138, 186);
         }
 
-        .email{
+        .email, .created-at{
           font-size: 12px;
-          margin-top: 10px;
-        }
-
-        .created-at{
-          font-size: 12px;
-          margin-top: 10px;
+          margin-top: 8px;
         }
       }
     }
 
-    .created-courses{
+    .skills{
       margin-left: 40px;
-      flex-shrink: 1;
-      flex-grow: 1;
-      .list-of-courses{
-        margin-top: 20px;
+
+      background: rgb(24, 28, 57);
+      border-radius: 4px;
+      box-shadow: 0 1px 0 0 rgb(33, 37, 67), 0 0 0 1px rgb(32, 38, 71);
+
+      padding: 20px;
+      padding-bottom: 0;
+
+      width: 367px;
+
+
+      h2{
+        padding-bottom: 5px;
+        font-size: 14px;
+        padding-left: 1px;
       }
+
+      .skill{
+        margin-bottom: 17px;
+        cursor: pointer;
+        &:hover{
+          div.inner{
+            background-color: #70eca0;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+            box-shadow: 0px 0px 6px 1px rgba(136, 125, 220, 0.33);
+          }
+
+          span.n-of-flashcards{
+            opacity: 1;
+          }
+        }
+      }
+
+      .progress-bar{
+        width: 100%;
+        padding: 1px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.09) !important;
+
+        position: relative;
+        span.n-of-flashcards{
+          opacity: 1;
+          font-size: 12px;
+          position: absolute;
+          right: 5px;
+          top: -19px;
+        }
+
+        > div.inner{
+          transition: width 400ms ease-in-out;
+
+          background-color: #70eca0c2;
+          height: 11px;
+          border-radius: 3px;
+          background-image: linear-gradient(to bottom, rgba(89, 208, 86, 0.3), rgba(17, 149, 19, 0.05));
+          box-shadow: none;
+        } 
+      }
+    }
+  }
+
+  .created-courses{
+    margin-top: 40px;
+    h1{
+      margin-bottom: 30px;
     }
   }
 

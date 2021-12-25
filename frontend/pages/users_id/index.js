@@ -39,41 +39,66 @@ class Page_courses_id extends React.Component {
     return new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   }
 
+  renderUser = (user) =>
+    <div className="user">
+      <div className="user-details">
+        <h1>Profile</h1>
+        <img src={user.avatarUrl} alt="avatar"/>
+        <div className="right">
+          <div className="username">{capitalize(user.username)}</div>
+
+          {
+            user.email &&
+            <div className="email">{user.email}</div>
+          }
+
+          <div className="created-at">
+            Joined {this.getDate(user.createdAt)}
+          </div>
+        </div>
+      </div>
+    </div>
+
+  renderSkills = (skills) => {
+    const max = skills[0].nOfFlashcards;
+
+    return <div className="skills">
+      <h1>Skills</h1>
+      {skills.map((skill) =>
+        <div className="skill" key={skill.categoryName}>
+          <h2>{skill.categoryName}</h2>
+
+          <section className="progress-bar">
+            <span className="n-of-flashcards">{skill.nOfFlashcards} flashcards</span>
+            <div className="inner" style={{ width: ((skill.nOfFlashcards / max) * 100).toString() + '%' }}/>
+          </section>
+        </div>
+      )}
+    </div>;
+  }
+
   render = () =>
     <Main className={css.main}>
       <div className="space"/>
 
-      <Loading spe={this.state.speGetPage}>{({ user, coursesCreated }) =>
+      <Loading spe={this.state.speGetPage}>{({ user, coursesCreated, skills }) =>
         <div className="container">
           <div className="wrapper">
-            <div className="user">
-              <h1>{capitalize(user.username)}'s Profile</h1>
-              <div className="user-details">
-                <img src={user.avatarUrl} alt="avatar"/>
-                <div className="right">
-                  <div className="username">{user.username}</div>
-
-                  {
-                    user.email &&
-                    <div className="email">{user.email}</div>
-                  }
-
-                  <div className="created-at">
-                    Joined {this.getDate(user.createdAt)}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <section className="created-courses">
-              <h1>Created Courses</h1>
-              <ListOfCourseCards
-                className="list-of-courses"
-                type="simple"
-                courseDtos={coursesCreated}
-              />
-            </section>
+            {this.renderUser(user)}
+            {
+              skills[0] &&
+              this.renderSkills(skills)
+            }
           </div>
+
+          <section className="created-courses">
+            <h1>Created Courses</h1>
+            <ListOfCourseCards
+              className="list-of-courses"
+              type="simple"
+              courseDtos={coursesCreated}
+            />
+          </section>
           <Helmet>
             <title>{capitalize(user.username)}</title>
           </Helmet>
