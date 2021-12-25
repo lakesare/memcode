@@ -85,14 +85,18 @@ class Page_courses extends React.Component {
         // if there are already some courses
         if (this.state.speGetCourses.payload) {
           if (spe.status === 'success') {
-            // otherwise the slow queries will be shown even when we've already entered some new query!
+            // otherwise the slower queries will be shown after when we've already entered some new query!
             if (this.state.searchString !== searchString) return;
             this.setState({ speGetCourses: spe, amountOfPages: spe.payload.amountOfPages, ifCoursesAreLoading: false });
           } else {
             this.setState({ ifCoursesAreLoading: true });
           }
         } else {
-          this.setState({ speGetCourses: spe });
+          if (spe.status === "success") {
+            this.setState({ speGetCourses: spe, amountOfPages: spe.payload.amountOfPages });
+          } else {
+            this.setState({ speGetCourses: spe });
+          }
         }
       },
       {
@@ -105,7 +109,7 @@ class Page_courses extends React.Component {
         ),
         searchString
       }
-    )
+    );
   }
 
   getUrlForNewPageNumber = (pageN) => {
