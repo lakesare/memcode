@@ -59,18 +59,24 @@ class CourseCard extends React.Component {
     if (this.props.pinned) {
       return (
         <div className="course-li -pinned">
-          <Link to={Urls.courseShow(courseDto.course.id)}>
+          <Link className="title" to={Urls.courseShow(courseDto.course.id)}>
             {this.renderTitle()}
-            <div className="action">
-              <i className="material-icons">push_pin</i>
-            </div>
           </Link>
+          {
+            courseDto.amountOfProblemsToReview ?
+              <Link className="action -review" to={Urls.courseReview(courseDto.course.id)}>
+                {courseDto.amountOfProblemsToReview}
+              </Link> :
+              <div className="action -pinned">
+                <i className="material-icons">push_pin</i>
+              </div>
+          }
         </div>
       );
     } else if (courseDto.amountOfProblemsToReview) {
       return (
         <div className="course-li -review">
-          <Link to={Urls.courseReview(courseDto.course.id)}>
+          <Link className="title" to={Urls.courseReview(courseDto.course.id)}>
             {this.renderTitle()}
             <div className="action">{courseDto.amountOfProblemsToReview}</div>
           </Link>
@@ -79,7 +85,7 @@ class CourseCard extends React.Component {
     } else if (courseDto.amountOfProblemsToLearn) {
       return (
         <div className="course-li -learn">
-          <Link to={Urls.courseLearn(courseDto.course.id)}>
+          <Link className="title" to={Urls.courseLearn(courseDto.course.id)}>
             {this.renderTitle()}
             <div className="action">{courseDto.amountOfProblemsToLearn}</div>
           </Link>
@@ -91,7 +97,7 @@ class CourseCard extends React.Component {
 
       return (
         <div className="course-li -next-due-date-in">
-          <Link to={Urls.courseShow(courseDto.course.id)}>
+          <Link className="title" to={Urls.courseShow(courseDto.course.id)}>
             {this.renderTitle()}
             <div className="action">
               {nextDueDateIn.amount} {nextDueDateIn.measure}

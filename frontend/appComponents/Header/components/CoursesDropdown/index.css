@@ -14,7 +14,7 @@
       }
     }
 
-    a{
+    a.title{
       background: #35395bb3;
       border-radius: 2px;
 
@@ -24,19 +24,19 @@
       padding: 5px 10px;
       padding-right: 45px;
 
-      .action{
-        width: 45px;
-        position: absolute;
-        right: 0; top: 0; bottom: 0;
-        font-size: 11px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
-        &:hover{
-          transition-duration: 50ms;
-        }
+    }
+    .action{
+      width: 45px;
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      &:hover{
+        transition-duration: 50ms;
       }
     }
 
@@ -68,11 +68,21 @@
       }
     }
     &.-pinned{
+      position: relative;
       .action{
-        // background: rgb(66, 69, 98);
-        font-size: 14px;
+        &.-review{
+          background: $review-button-color;
+          &:hover{
+            background: transparentize($review-button-color, 0.1);
+          }
+        }
+        &.-pinned{
+          i {
+            font-size: 15px;
+          }
+        }
       }
-      a:hover{
+      a.title:hover{
         background: transparentize(rgb(66, 69, 98), 0.3);
       }
     }
