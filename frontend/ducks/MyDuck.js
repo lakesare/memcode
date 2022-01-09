@@ -35,6 +35,7 @@ const initialState = {
   speCourseForActions: {},
   flashcardOrder: localStorage.getItem('flashcardOrder') === 'false' ? false : true,
   ifShowDraft: localStorage.getItem('ifShowDraft') === 'false' ? false : true,
+  ifMonospace: localStorage.getItem('ifMonospace') === 'true' ? true : false,
   pinnedCourseIds: parsePinnedCourseIdsFromLS(localStorage.getItem('pinnedCourseIds')),
   backgroundImage:
     (localStorage.getItem('backgroundImage') &&
@@ -53,6 +54,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, flashcardOrder: action.payload.flashcardOrder };
     case `${namespace}.SWITCH_IF_SHOW_DRAFT`:
       return { ...state, ifShowDraft: action.payload.ifShowDraft };
+    case `${namespace}.SWITCH_IF_MONOSPACE`:
+      return { ...state, ifMonospace: action.payload.ifMonospace };
     case `${namespace}.SWITCH_BACKGROUND_IMAGE`:
       return { ...state, backgroundImage: action.payload.backgroundImage };
     case `${namespace}.ADD_PINNED_COURSE`: {
@@ -298,6 +301,12 @@ const getActions = (dispatch, getState) => ({
     const ifShowDraft = !state.ifShowDraft;
     localStorage.setItem('ifShowDraft', ifShowDraft);
     dispatch({ type: `${namespace}.SWITCH_IF_SHOW_DRAFT`, payload: { ifShowDraft } });
+  },
+  switchIfMonospace: () => {
+    const state = getState().global.My;
+    const ifMonospace = !state.ifMonospace;
+    localStorage.setItem('ifMonospace', ifMonospace);
+    dispatch({ type: `${namespace}.SWITCH_IF_MONOSPACE`, payload: { ifMonospace } });
   },
   setBackgroundImage: (urlOrFalse) => {
     const backgroundImage = urlOrFalse;

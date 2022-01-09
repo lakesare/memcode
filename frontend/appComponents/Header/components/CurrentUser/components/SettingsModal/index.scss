@@ -21,10 +21,12 @@
         padding: 10px;
         display: flex;
         border-radius: 3px;
+        min-height: 68px;
         .comment{
           padding-top: 4px;
           font-size: 14px;
-          line-height: 22px
+          line-height: 22px;
+          width: 100%;
         }
         button{
           font-size: 10px;

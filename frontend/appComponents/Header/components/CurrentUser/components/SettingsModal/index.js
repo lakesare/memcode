@@ -145,6 +145,19 @@ class SettingsModal extends React.Component {
               {this.props.My.flashcardOrder ? 'Oldest First' : 'Newest First'}
             </button>
           </div>
+
+          <div className="setting">
+            <div className="comment">
+              Whether to render code excerpts in monospace font.
+            </div>
+            <button
+              type="button"
+              className="button -white"
+              onClick={this.props.MyActions.switchIfMonospace}
+            >
+              {this.props.My.ifMonospace ? 'To normal font' : 'To monospace'}
+            </button>
+          </div>
         </div>
       </section>
     </div>

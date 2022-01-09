@@ -19,6 +19,22 @@ main{
     background-repeat: no-repeat;
     background-color: black;
   }
+
+  &.-in-monospace{
+    .quill{
+      pre.ql-syntax, code{
+        font-family: 'monospace';
+      }
+    }
+  }
+
+  &.-in-normal-font{
+    .quill{
+      pre.ql-syntax, code{
+        font-family: 'Open Sans';
+      }
+    }
+  }
 }
 
 body{
