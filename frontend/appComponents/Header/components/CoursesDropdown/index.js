@@ -1,8 +1,9 @@
 import StandardTooltip from '~/components/StandardTooltip';
 import Loading from '~/components/Loading';
-import MyModel from '~/models/MyModel';
-
 import CourseCard from './components/CourseCard';
+
+import MyModel from '~/models/MyModel';
+import hideOnEsc from '~/services/hideOnEsc';
 
 import css from './index.css';
 
@@ -95,7 +96,8 @@ class CoursesDropdown extends React.Component {
         interactive: true,
         placement: 'bottom-end',
         trigger: 'click',
-        arrow: false
+        arrow: false,
+        plugins: [hideOnEsc]
       }}
       width={420}
     >
