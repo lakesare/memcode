@@ -3,6 +3,7 @@ import MyModel from '~/models/MyModel';
 
 import ReadonlyEditor from '~/components/ReadonlyEditor';
 import CourseStarRating from './CourseStarRating';
+import StatsModal from '../components/StatsModal';
 
 class CourseDescriptionAndStats extends React.Component {
   static propTypes = {
@@ -32,7 +33,7 @@ class CourseDescriptionAndStats extends React.Component {
 
   renderStat = (icon, stat) =>
     <li>
-      <div className="stat">{stat}</div>
+      <div className="stat category_and_author">{stat}</div>
       <div className="icon">{icon}</div>
     </li>
 
@@ -81,7 +82,17 @@ class CourseDescriptionAndStats extends React.Component {
 
           {this.renderStat(
             <i className="fa fa-users"/>,
-            <div><span className="number">{this.props.courseDto.learners.length}</span> students</div>
+            <StatsModal
+              toggler={
+                <a>
+                  <div><span className="number">{this.props.courseDto.learners.length}</span> students</div>
+                </a> 
+              }
+              course={this.props.courseDto.course}
+              learners={this.props.courseDto.learners}
+              currentUser={this.props.currentUser}
+              author={this.props.courseDto.author}
+            />
           )}
 
           {this.renderStat(
