@@ -4,6 +4,7 @@ import MyModel from '~/models/MyModel';
 import ReadonlyEditor from '~/components/ReadonlyEditor';
 import CourseStarRating from './CourseStarRating';
 import StatsModal from '../components/StatsModal';
+import api from '~/api';
 
 class CourseDescriptionAndStats extends React.Component {
   static propTypes = {
@@ -12,6 +13,31 @@ class CourseDescriptionAndStats extends React.Component {
     ifWithDescriptionPlaceholder: PropTypes.bool.isRequired,
     My: PropTypes.object.isRequired
   }
+
+  state = {
+    stats: []
+  }
+
+  componentDidMount() {
+    this.getStats();
+  }
+
+  getStats = () =>
+    api.CourseApi.getStudentsStats(
+      (spe) => spe.status === 'success',
+      { courseId: this.props.courseDto.course.id, authorId: this.props.courseDto.author.id }
+    )
+    .then((payload) => {
+      this.setState({ stats: [] })
+      const merged_learners = []
+
+      for (let index = 0; index < payload.length; index++) {
+        const element = payload[index];
+        const merged = { ...this.props.courseDto.learners[index], ...element };
+        merged_learners.push(merged)
+        this.setState({ stats: merged_learners })
+      }
+    })
 
   ifCanRateCourse = () => (
     this.props.currentUser &&
@@ -89,7 +115,7 @@ class CourseDescriptionAndStats extends React.Component {
                 </a> 
               }
               course={this.props.courseDto.course}
-              learners={this.props.courseDto.learners}
+              stats={this.state.stats}
               currentUser={this.props.currentUser}
               author={this.props.courseDto.author}
             />

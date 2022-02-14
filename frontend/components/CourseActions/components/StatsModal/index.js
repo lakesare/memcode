@@ -1,45 +1,18 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
 import css from './index.scss';
 import { Link }        from 'react-router-dom';
-import api from '~/api';
 
 class StatsModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
     course: PropTypes.object.isRequired,
-    learners: PropTypes.array.isRequired,
+    stats: PropTypes.array.isRequired,
     currentUser: PropTypes.object.isRequired,
     author: PropTypes.object.isRequired
   }
 
-  state = {
-    learners: this.props.learners,
-    stats: [],
-    speUpdate: {}
-  }
-
-  getStats = () =>
-    api.CourseApi.getStudentsStats(
-      (spe) => spe.status === 'success',
-      { courseId: this.props.course.id, authorId: this.props.author.id }
-    )
-    .then((payload) => {
-      this.state.stats = []
-
-      for (let index = 0; index < payload.length; index++) {
-        const element = payload[index];
-        const merged = { ...this.state.learners[index], ...element };
-        this.state.stats.push(merged)
-      }
-    })
-
-  getStudentsStats = () => {
-    this.getStats();
-  }
-
   renderTable = () =>
     <table className="standard-table">
-      {this.getStudentsStats()}
       <thead>
         <tr>
           <th>Username</th>
@@ -51,7 +24,7 @@ class StatsModal extends React.Component {
       </thead>
 
       <tbody>
-        {this.state.stats.map((user) =>
+        {this.props.stats.map((user) =>
           <tr key={user.id}>
             <td className="user">
 
