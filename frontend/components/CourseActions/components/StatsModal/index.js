@@ -1,6 +1,7 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
 import css from './index.scss';
 import { Link }        from 'react-router-dom';
+import api from '~/api';
 
 class StatsModal extends React.Component {
   static propTypes = {
@@ -13,22 +14,44 @@ class StatsModal extends React.Component {
 
   state = {
     learners: this.props.learners,
+    stats: [],
     speUpdate: {}
+  }
+
+  getStats = () =>
+    api.CourseApi.getStudentsStats(
+      (spe) => spe.status === 'success',
+      { courseId: this.props.course.id, authorId: this.props.author.id }
+    )
+    .then((payload) => {
+      this.state.stats = []
+
+      for (let index = 0; index < payload.length; index++) {
+        const element = payload[index];
+        const merged = { ...this.state.learners[index], ...element };
+        this.state.stats.push(merged)
+      }
+    })
+
+  getStudentsStats = () => {
+    this.getStats();
   }
 
   renderTable = () =>
     <table className="standard-table">
+      {this.getStudentsStats()}
       <thead>
         <tr>
           <th>Username</th>
           <th>Last time course was reviewed</th>
-          <th>Number of flashcards learned</th>
+          <th>Learned flashcards</th>
+          <th>Easiness average</th>
         </tr>
         
       </thead>
 
       <tbody>
-        {this.state.learners.map((user) =>
+        {this.state.stats.map((user) =>
           <tr key={user.id}>
             <td className="user">
 
@@ -39,8 +62,9 @@ class StatsModal extends React.Component {
     
             </td>
 
-            <td>2022-02-12 10:49</td>
-            <td>200000</td>
+            <td>{new Date(user.lastReviewedAt).toUTCString()}</td>
+            <td>{user.learnedFlashcards}/{user.totalFlashcards}</td>
+            <td>{user.easinessMean}</td>
 
           </tr>
         )}
