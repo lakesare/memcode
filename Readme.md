@@ -34,13 +34,8 @@
 </h2>
 
 <div align="center">
-  <img width="50px" src="https://user-images.githubusercontent.com/7578559/154219522-280c4f96-4e3d-45e9-9beb-671b339b3f92.png" alt="Memcode Logo"/>
-</div>
-<div align="center">
   <img width="950px" alt="Memcode Screenshot" src="https://user-images.githubusercontent.com/7578559/154212696-1597a568-7a97-44d8-bda9-56cc80fcc725.png">
 </div>
-
-
 
 ## Links
 
@@ -86,3 +81,9 @@ This will start:
 for you.  
 You can also run these separately if you wish to see the individual output.
 2. Go to <a href="http://localhost:3000/">http://localhost:3000</a>, and enjoy the development!
+
+
+<br/>
+<div align="center">
+  <img width="50px" src="https://user-images.githubusercontent.com/7578559/154219522-280c4f96-4e3d-45e9-9beb-671b339b3f92.png" alt="Memcode Logo"/>
+</div>
