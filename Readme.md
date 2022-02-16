@@ -49,7 +49,7 @@
 First of all - you are very welcome to contribute, Memcode is a joint effort.   
 Feel free to ask questions/propose features in github issues, or join our developer Slack (please write to contact@memcode.com to request access).
 
-Note: if you'd like to use online development environment, see https://github.com/lakesare/memcode/blob/master/Gitpod.md. Steps below are for the local setup.
+Note: if you'd like to use online development environment, see <a href="https://github.com/lakesare/memcode/blob/master/Gitpod.md">Gitpod.md</a>. The steps below are for the local setup.
 
 #### Create a database postgres user with a password.
 1. Install PostgreSQL.
