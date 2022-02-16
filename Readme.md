@@ -38,17 +38,16 @@
 
 ## Links
 
-**Site**: www.memcode.com  
+**Site**:    www.memcode.com  
 **Patreon**: www.patreon.com/memcode  
-**Email**: **contact@memcode.com** 
+**Email**:   contact@memcode.com    
 **Twitter**: https://twitter.com/memcodeapp  
-
 **Alternative.to**: https://alternativeto.net/software/memcode/about   
-**Slack**: To join developer Slack, please write to [contact@memcode.com](mailto:contact@memcode.com).
 
 ## Contributing
 
-First of all - you are very welcome to contribute, Memcode is a joint effort.
+First of all - you are very welcome to contribute, Memcode is a joint effort.   
+Feel free to ask questions/propose features in github issues, or join our developer Slack (please write to contact@memcode.com to request access).
 
 Note: if you'd like to use online development environment, see https://github.com/lakesare/memcode/blob/master/Gitpod.md. Steps below are for the local setup.
 
@@ -70,7 +69,7 @@ In either case, you will need to insert your own `DB_USER` and `DB_PASSWORD` tha
 #### Set up the database.
 1. Create a new development database 'memcode': `make db-reset`.
 This will create the raw database for you - schema, a few necessary database rows, and nothing else.
-If you would like a bigger database to have something to work with, please write to **contact@memcode.com**, and I will create a development dump for you.
+If you would like a bigger database to have something to work with, please write to contact@memcode.com, and I will create a development dump for you.
 
 #### Start code compilers and server.
 1. Run `make all` in your terminal.
