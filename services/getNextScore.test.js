@@ -43,7 +43,7 @@ const generateNReviews = (score, performanceRating, n) => {
       score.consecutiveCorrectAnswers,
       performanceRating
     );
-    intervals.push(Math.floor(nextScore.daysToNextReview));
+    intervals.push(Math.floor(nextScore.msToNextReview / 864e5));
     score.easiness = nextScore.easiness;
     score.consecutiveCorrectAnswers = nextScore.consecutiveCorrectAnswers;
   }
