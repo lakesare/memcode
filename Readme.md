@@ -38,11 +38,11 @@
 
 ## Links
 
-**Site**:    www.memcode.com  
-**Patreon**: www.patreon.com/memcode  
+**Website**: <a href="www.memcode.com">memcode.com</a>  
+**Patreon**: <a href="patreon.com/memcode">patreon.com/memcode</a>   
 **Email**:   contact@memcode.com    
-**Twitter**: https://twitter.com/memcodeapp  
-**Alternative.to**: https://alternativeto.net/software/memcode/about   
+**Twitter**: <a href="twitter.com/memcodeapp">twitter.com/memcodeapp</a>  
+**Alternative.to**: <a href="alternativeto.net/software/memcode/about">alternativeto.net/software/memcode/about</a>    
 
 ## Contributing
 
