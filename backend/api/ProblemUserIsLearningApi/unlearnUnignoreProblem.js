@@ -1,11 +1,11 @@
 import auth from '~/middlewares/auth';
-import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
+import knex from '~/db/knex';
 
-// == unignore, unlearn
+// Unignore flashcard, or unlearn flashcard
 const unlearnUnignoreProblem = auth(async (request, response) => {
   const puilId = request.body['id'];
-  await ProblemUserIsLearningModel.delete.ddelete(puilId);
-  response.success({});
+  await knex('problemUserIsLearning').where({ id: puilId }).del();
+  response.success();
 });
 
 export default unlearnUnignoreProblem;
