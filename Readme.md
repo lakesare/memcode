@@ -1,23 +1,44 @@
-[![Website memcode.com](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://memcode.com)
-[![GitHub contributors](https://img.shields.io/github/contributors/lakesare/memcode)](https://GitHub.com/Naereen/lakesare/memcode/contributors/)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/lakesare/memcode/blob/master/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/lakesare/memcode)
-<span class="badge-patreon">
-<a href="https://patreon.com/memcode" title="Donate to Memcode project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a>
-</span>
+<div align="center">
+  <a href="http://memcode.com" title="Website memcodec.com">
+    <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg"/>
+  </a>
+  
+  <a href="https://GitHub.com/Naereen/lakesare/memcode/contributors/" title="GitHub contributors">
+    <img src="https://img.shields.io/github/contributors/lakesare/memcode"/>
+  </a>
+  
+  <a href="https://github.com/lakesare/memcode/blob/master/LICENSE" title="GitHub license">
+    <img src="https://img.shields.io/github/license/Naereen/StrapDown.js.svg"/>
+  </a>
+  
+  <a href="https://reactjs.org/docs/how-to-contribute.html#your-first-pull-request" title="PRs welcome">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"/>
+  </a>
 
-<img width="1312" alt="image" src="https://user-images.githubusercontent.com/7578559/130649843-9703cd30-51fd-40ef-9249-9aaca869f8ca.png">
+  <a href="https://gitpod.io/#https://github.com/lakesare/memcode" title="Gitpod Ready-to-Code">
+    <img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod"/>
+  </a>
 
-# Memcode
 
-Flashcards: for coders, mathematicians, and scientists. Open-source, free for all.  
-Made with love 💘
+  <a href="https://patreon.com/memcode" title="Donate to Memcode project using Patreon">
+    <img src="https://img.shields.io/badge/patreon-donate-yellow.svg"/>
+  </a>
+</div>
 
+<h1 align="center">
+  Memcode
+</h1>
+
+<h2 align="center">
+  Flashcards for coders and scientists. Open-source, free for all.
+</h2>
+
+
+<img alt="image" src="https://user-images.githubusercontent.com/7578559/154212696-1597a568-7a97-44d8-bda9-56cc80fcc725.png">
 
 ## Links
 
-**Site ❤️**: www.memcode.com  
+**Site**: www.memcode.com  
 **Patreon**: www.patreon.com/memcode  
 **Email**: [contact@memcode.com](mailto:contact@memcode.com)  
 **Twitter**: https://twitter.com/memcodeapp  
@@ -41,21 +62,13 @@ Note: if you'd like to use online development environment, see https://github.co
 #### Copypaste environment variables.
 1. Ask someone for `env.js` file, put it in the root folder (next to package.json). Inside of `env.js`, change DB_USER and DB_PASSWORD to relevant values (your postgres's user and password).
 
-#### Install needed libraries.
+#### Install the needed libraries.
 1. Install npm.
-
-
-### How to run the site locally? 
+2. Run `npm install`
 
 #### Set up the database.
 1. Create a new development database 'memcode': `make db-reset`.
 
 #### Start code compilers and server.
 1. Run `npm install`.
-2. Run `make backend-webpack`, `make frontend-webpack`, `make start`. If you are on windows - you can use equivalent npm commands.
-
-#### Optionally: populate database (please request access to heroku from the owner if you truly need access to production database for some reason).
-1. Install heroku cli.
-2. `heroku login`.
-3. Make sure heroku knows about our app: `heroku git:remote -a memcode`.
-4. Pull courses from the database with `make heroku-db-pull`.
+2. Run `make backend-webpack`, `make frontend-webpack`, `make start`.
