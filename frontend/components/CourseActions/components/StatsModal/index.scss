@@ -5,26 +5,9 @@
 :local(.modal){
 
   // background: red;
-  .react-select-container{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 900px;
-  }
 
   .standard-modal__main{
     padding-top: 0;
-  }
-
-  .label-and-select{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 30px !important;
-    background: rgb(55, 58, 101);
-    margin: 0 -19px;
-    padding: 0 20px;
-    margin-bottom: 15px;
-    margin-top: 15px;
   }
 
   .table-wrapper{

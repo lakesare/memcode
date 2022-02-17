@@ -1,6 +1,7 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
 import css from './index.scss';
 import { Link }        from 'react-router-dom';
+import dayjs from 'dayjs';
 
 class StatsModal extends React.Component {
   static propTypes = {
@@ -35,9 +36,9 @@ class StatsModal extends React.Component {
     
             </td>
 
-            <td>{new Date(user.lastReviewedAt).toUTCString()}</td>
+            <td>{dayjs(user.lastReviewedAt).from(dayjs(), true)} ago</td>
             <td>{user.learnedFlashcards}/{user.totalFlashcards}</td>
-            <td>{user.easinessMean}</td>
+            <td>{user.easinessMean.toFixed(2)}</td>
 
           </tr>
         )}

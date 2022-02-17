@@ -59,7 +59,7 @@ class CourseDescriptionAndStats extends React.Component {
 
   renderStat = (icon, stat) =>
     <li>
-      <div className="stat category_and_author">{stat}</div>
+      <div className="stat">{stat}</div>
       <div className="icon">{icon}</div>
     </li>
 
@@ -110,9 +110,10 @@ class CourseDescriptionAndStats extends React.Component {
             <i className="fa fa-users"/>,
             <StatsModal
               toggler={
-                <a>
-                  <div><span className="number">{this.props.courseDto.learners.length}</span> students</div>
-                </a> 
+                <button type="button" className="button students-stats-button">
+                  <span className="number"> {this.props.courseDto.learners.length} </span>  
+                   students 
+                </button>
               }
               course={this.props.courseDto.course}
               stats={this.state.stats}
