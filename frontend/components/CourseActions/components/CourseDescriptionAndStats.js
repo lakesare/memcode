@@ -28,15 +28,7 @@ class CourseDescriptionAndStats extends React.Component {
       { courseId: this.props.courseDto.course.id, authorId: this.props.courseDto.author.id }
     )
     .then((payload) => {
-      this.setState({ stats: [] })
-      const merged_learners = []
-
-      for (let index = 0; index < payload.length; index++) {
-        const element = payload[index];
-        const merged = { ...this.props.courseDto.learners[index], ...element };
-        merged_learners.push(merged)
-        this.setState({ stats: merged_learners })
-      }
+      this.setState({ stats: payload })
     })
 
   ifCanRateCourse = () => (
@@ -110,7 +102,7 @@ class CourseDescriptionAndStats extends React.Component {
             <i className="fa fa-users"/>,
             <StatsModal
               toggler={
-                <button type="button" className="button students-stats-button">
+                <button type="button" className="button">
                   <span className="number"> {this.props.courseDto.learners.length} </span>  
                    students 
                 </button>

@@ -5,20 +5,14 @@ const getStudentsStats = auth(async (request, response) => {
 
   const authorId = request.body['authorId'];
   const courseId = request.body['courseId'];
-  const students = await knex('coauthor').select().where({ courseId });
+
+  const students = await knex('user')
+    .select('user.*')
+    .join('course_user_is_learning', { 'course_user_is_learning.user_id': 'user.id' })
+    .where({ 'course_user_is_learning.courseId': courseId, active: true });
+
   const totalAmountOfCards = await knex('problem').select().where({ courseId });
   const promises = []
-
-  const authorStats = await knex('problem_user_is_learning')
-    .select()
-    .whereIn('course_user_is_learning_id', function() {
-      this.select('id').from('course_user_is_learning').where({
-        user_id: authorId,
-        course_id: courseId
-      })
-  })
-
-  promises.push(authorStats);
 
   students.forEach((student) => {
     
@@ -26,7 +20,7 @@ const getStudentsStats = auth(async (request, response) => {
       .select()
       .whereIn('course_user_is_learning_id', function() {
         this.select('id').from('course_user_is_learning').where({
-          user_id: student.userId,
+          user_id: student.id,
           course_id: courseId
         })
     })
@@ -43,7 +37,9 @@ const getStudentsStats = auth(async (request, response) => {
     const latestReviewedFlashcard = problems.sort((a, b) => b.problemId - a.problemId)[0]
 
     dto.push({
-      userId: index === 0 ? authorId : students[index - 1].userId,
+      id: students[index].id,
+      username: students[index].username,
+      avatarUrl: students[index].avatarUrl,
       lastReviewedAt: latestReviewedFlashcard.lastReviewedAt,
       easinessMean: problems
         .reduce((a, b) => a + b.easiness, 0) / problems.length,
