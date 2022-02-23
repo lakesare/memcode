@@ -4,7 +4,7 @@ import courseUserIsLearningModel from '~/models/CourseUserIsLearningModel/select
 
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
 
-const getReviewPage = async (request, response) => {
+const getAllPage = async (request, response) => {
   const courseId = request.body['courseId'];
 
   if (!(await canAccessCourse(courseId, request.currentUser))) {
@@ -14,10 +14,10 @@ const getReviewPage = async (request, response) => {
   const courseUserIsLearning = (await knex('courseUserIsLearning')
     .where({ courseId, userId: request.currentUser.id }))[0];
 
-  const problems = await courseUserIsLearningModel.selectReview(courseUserIsLearning.id);
+  const problems = await courseUserIsLearningModel.selectAll(courseUserIsLearning.id);
   
   response.success({ courseUserIsLearning, problems });
 
 };
 
-export default getReviewPage;
+export default getAllPage;

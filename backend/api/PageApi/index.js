@@ -98,4 +98,7 @@ router.getUserPage = getUserPage;
 import getReviewPage from './getReviewPage';
 router.getReviewPage = getReviewPage;
 
+import getAllPage from './getAllPage';
+router.getAllPage = getAllPage;
+
 export default router;

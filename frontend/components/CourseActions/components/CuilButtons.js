@@ -149,6 +149,22 @@ class CuilButtons extends React.Component {
       {
         this.ifCourseIsLearnedAndActive() &&
         <li>
+          <Link
+            to={`/courses/${this.props.courseDto.course.id}/all/print`}
+            target="_blank"
+            style={{ color: 'rgb(219, 219, 216)' }}
+          >
+            <div className="text">Print All Out</div>
+            <div className="comment -white">
+              Open a page suitable for printing all cards within this deck.
+            </div>
+          </Link>
+        </li>
+      }
+
+      {
+        this.ifCourseIsLearnedAndActive() &&
+        <li>
           <button
             type="button"
             onClick={this.props.apiStopLearning}
