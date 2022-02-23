@@ -5,7 +5,7 @@ import knex from '~/db/knex';
 import catchAsync from '~/services/catchAsync';
 import authenticate from '~/middlewares/authenticate';
 import canAccessCourse from '~/services/canAccessCourse';
-import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
+import courseUserIsLearningModel from '~/models/CourseUserIsLearningModel/select/index';
 import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
 import getProblemsByCourseId from '~/api/services/getProblemsByCourseId';
 
@@ -49,7 +49,8 @@ router.get('/courses/:id/review', authenticate, catchAsync(async (request, respo
 
   const courseUserIsLearning = (await knex('courseUserIsLearning')
     .where({ courseId, userId: request.currentUser.id }))[0];
-  const problems = await CourseUserIsLearningModel.select.problemsToReview(courseUserIsLearning.id);
+  const problems = await courseUserIsLearningModel.selectReview(courseUserIsLearning.id);
+
   response.status(200).json({ courseUserIsLearning, problems });
 }));
 
