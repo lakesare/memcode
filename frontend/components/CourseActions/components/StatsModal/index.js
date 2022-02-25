@@ -36,7 +36,7 @@ class StatsModal extends React.Component {
     
             </td>
 
-            <td>{dayjs(user.lastReviewedAt).from(dayjs(), true)} ago</td>
+            {user.lastReviewedAt !== undefined ? <td>{dayjs(user.lastReviewedAt).from(dayjs(), true)} ago</td>:<td>Not reviewed yet</td>} 
             <td>{user.learnedFlashcards}/{user.totalFlashcards}</td>
             <td>{user.easinessMean.toFixed(2)}</td>
 

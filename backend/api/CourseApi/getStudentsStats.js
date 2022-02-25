@@ -40,9 +40,11 @@ const getStudentsStats = auth(async (request, response) => {
       id: students[index].id,
       username: students[index].username,
       avatarUrl: students[index].avatarUrl,
-      lastReviewedAt: latestReviewedFlashcard.lastReviewedAt,
-      easinessMean: problems
-        .reduce((a, b) => a + b.easiness, 0) / problems.length,
+      lastReviewedAt: 
+        latestReviewedFlashcard !== undefined && 
+        latestReviewedFlashcard.lastReviewedAt !== null ? latestReviewedFlashcard.lastReviewedAt : undefined,
+      easinessMean: problems.length > 0 ? problems
+        .reduce((a, b) => a + b.easiness, 0) / problems.length : 0,
       learnedFlashcards: problems.length,
       totalFlashcards: totalAmountOfCards.length
     })
