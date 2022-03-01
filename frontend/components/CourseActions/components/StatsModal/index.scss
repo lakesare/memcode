@@ -1,0 +1,35 @@
+.standard-modal.standard-modal--md {
+  max-width: 900px;
+}
+
+:local(.modal){
+
+  // background: red;
+
+  .standard-modal__main{
+    padding-top: 0;
+  }
+
+  .table-wrapper{
+    min-height: 380px;
+    table{
+      width: 100%;
+      th:nth-child(1){
+        width: 300px;
+      }
+      td.user a{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        img{
+          max-width: 60px;
+          border-radius: 2px;
+          margin-right: 10px;
+        }
+      }
+      button{
+        float: right;
+      }
+    }
+  }
+}

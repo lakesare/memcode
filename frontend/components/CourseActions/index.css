@@ -127,6 +127,14 @@
     }
   }
   > section.course-description-and-stats{
+
+    .button{
+      min-width: 90px;
+      font-size: 11px;
+      padding: 0 5px;
+      height: 31px;
+    }
+
     padding: 10px 0;
     > .container{
       display: flex;

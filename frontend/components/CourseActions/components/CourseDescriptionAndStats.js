@@ -2,7 +2,8 @@ import orFalse from '~/services/orFalse';
 import MyModel from '~/models/MyModel';
 
 import ReadonlyEditor from '~/components/ReadonlyEditor';
-import CourseStarRating from './CourseStarRating';
+import StatsModal from '../components/StatsModal';
+import api from '~/api';
 
 class CourseDescriptionAndStats extends React.Component {
   static propTypes = {
@@ -11,6 +12,23 @@ class CourseDescriptionAndStats extends React.Component {
     ifWithDescriptionPlaceholder: PropTypes.bool.isRequired,
     My: PropTypes.object.isRequired
   }
+
+  state = {
+    stats: []
+  }
+
+  componentDidMount() {
+    this.getStats();
+  }
+
+  getStats = () =>
+    api.CourseApi.getStudentsStats(
+      (spe) => spe.status === 'success',
+      { courseId: this.props.courseDto.course.id, authorId: this.props.courseDto.author.id }
+    )
+      .then((payload) => {
+        this.setState({ stats: payload });
+      })
 
   ifCanRateCourse = () => (
     this.props.currentUser &&
@@ -81,7 +99,17 @@ class CourseDescriptionAndStats extends React.Component {
 
           {this.renderStat(
             <i className="fa fa-users"/>,
-            <div><span className="number">{this.props.courseDto.learners.length}</span> students</div>
+            <StatsModal
+              toggler={
+                <a className="-fade-out-on-hover">
+                  <span className="number">{this.props.courseDto.learners.length}</span> students
+                </a>
+              }
+              course={this.props.courseDto.course}
+              stats={this.state.stats}
+              currentUser={this.props.currentUser}
+              author={this.props.courseDto.author}
+            />
           )}
 
           {this.renderStat(

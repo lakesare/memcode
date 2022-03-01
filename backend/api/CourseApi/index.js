@@ -72,6 +72,8 @@ router.delete('/:id', catchAsync(async (request, response) => {
 // router.getPublic = getPublic;
 import rate from './rate';
 router.rate = rate;
+import getStudentsStats from './getStudentsStats';
+router.getStudentsStats = getStudentsStats;
 import getRatings from './getRatings';
 router.getRatings = getRatings;
 import getMyEverything from './getMyEverything';
