@@ -2,7 +2,6 @@ import orFalse from '~/services/orFalse';
 import MyModel from '~/models/MyModel';
 
 import ReadonlyEditor from '~/components/ReadonlyEditor';
-import CourseStarRating from './CourseStarRating';
 import StatsModal from '../components/StatsModal';
 import api from '~/api';
 
@@ -27,9 +26,9 @@ class CourseDescriptionAndStats extends React.Component {
       (spe) => spe.status === 'success',
       { courseId: this.props.courseDto.course.id, authorId: this.props.courseDto.author.id }
     )
-    .then((payload) => {
-      this.setState({ stats: payload })
-    })
+      .then((payload) => {
+        this.setState({ stats: payload });
+      })
 
   ifCanRateCourse = () => (
     this.props.currentUser &&
@@ -102,10 +101,9 @@ class CourseDescriptionAndStats extends React.Component {
             <i className="fa fa-users"/>,
             <StatsModal
               toggler={
-                <button type="button" className="button">
-                  <span className="number"> {this.props.courseDto.learners.length} </span>  
-                   students 
-                </button>
+                <a className="-fade-out-on-hover">
+                  <span className="number">{this.props.courseDto.learners.length}</span> students
+                </a>
               }
               course={this.props.courseDto.course}
               stats={this.state.stats}

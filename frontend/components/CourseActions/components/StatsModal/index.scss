@@ -17,10 +17,10 @@
       th:nth-child(1){
         width: 300px;
       }
-      td.user{
+      td.user a{
         display: flex;
         align-items: center;
-        cursor: default;
+        justify-content: flex-start;
         img{
           max-width: 60px;
           border-radius: 2px;

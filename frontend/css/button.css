@@ -117,25 +117,6 @@
     padding: 5px 10px;
   }
 
-  &.-fade-out-on-hover{
-    transition: all 60ms ease-in-out;
-    opacity: 1;
-    &:hover{ opacity: 0.85; }
-  }
-  &.-fade-in-on-hover{
-    transition: opacity 60ms ease-in-out;
-    opacity: 0.85;
-    &:hover{ opacity: 1; }
-  }
-
-  &.-move-up-on-hover{
-    transform: translateY(0px);
-    transition: transform 60ms ease-in-out;
-    &:hover{
-      transform: translateY(-1px);
-    }
-  }
-
   &.-with-radius{
     border-radius: 5px;
   }
@@ -143,5 +124,24 @@
   &.-disabled{
     opacity: 0.2;
     cursor: default;
+  }
+}
+
+.-fade-out-on-hover{
+  transition: all 60ms ease-in-out;
+  opacity: 1;
+  &:hover{ opacity: 0.85; }
+}
+.-fade-in-on-hover{
+  transition: opacity 60ms ease-in-out;
+  opacity: 0.85;
+  &:hover{ opacity: 1; }
+}
+
+.-move-up-on-hover{
+  transform: translateY(0px);
+  transition: transform 60ms ease-in-out;
+  &:hover{
+    transform: translateY(-1px);
   }
 }
