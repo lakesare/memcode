@@ -126,7 +126,7 @@
     "loader-fs-cache": "^1.0.3",
     "loader-runner": "^3.1.0",
     "lodash": "^4.17.15",
-    "lodash-es": "^4.17.15",
+    "lodash-es": "^4.17.21",
     "lodash.cond": "^4.5.2",
     "material-design-icons": "^3.0.1",
     "memory-fs": "^0.4.1",
