@@ -65,6 +65,8 @@ class Main extends React.Component {
 
   // url = 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'
 
+  // https://images.unsplash.com/photo-1545614154-450a332ba71a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80
+
   render = () =>
     <main
       key={this.state.key}
@@ -72,7 +74,13 @@ class Main extends React.Component {
         ${this.props.My.backgroundImage ? '-with-bg' : ''} + ${this.props.My.backgroundImage && this.props.My.backgroundImage.includes('halloween') ? '-halloween' : ''}
         ${this.props.My.ifMonospace ? "-in-monospace" : "-in-normal-font"}
       `}
-      style={this.props.My.backgroundImage ? { backgroundImage: `url("${this.props.My.backgroundImage}")` } : {}}
+      style={this.props.My.backgroundImage ? {
+        backgroundImage:
+        (this.props.My.backgroundImage.includes('d46bf351cd6e') ?
+          'linear-gradient(rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.1)),' :
+          'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),') +
+          ` url("${this.props.My.backgroundImage}")`
+      } : {}}
     >
       <ErrorBoundary>
         <Header dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>

@@ -132,8 +132,8 @@ class Subheader extends React.Component {
       <StandardTooltip
         tooltipEl={
           <div className="elements">
-            {this.renderElement('Earth', 'https://images.unsplash.com/photo-1641728729385-c1fdf5bafc0f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80', true)}
-            {this.renderElement('Water', 'https://images.unsplash.com/photo-1533567120930-ad223a6ac8e6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1650&q=80', true)}
+            {this.renderElement('Earth', 'https://images.unsplash.com/photo-1530569673472-307dc017a82d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=988&q=80', true)}
+            {this.renderElement('Water', 'https://maritimemag.com/wp-content/uploads/2020/10/5J3A5981.jpg', true)}
             {this.renderElement('Air', 'https://images.unsplash.com/photo-1476970980147-71209edbfa4f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80', true)}
             {this.renderElement('Plasma', 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80')}
             {/* {this.renderElement('Halloween', 'https://www.simplebooth.com/blog/wp-content/uploads/2019/10/black-cat-halloween-photo-booth-backdrop.png')} */}
