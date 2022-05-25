@@ -177,5 +177,5 @@ INSERT INTO "public"."course_category" ("id", "name", "course_category_group_id"
 ('16', 'German', '4'),
 ('18', 'Spanish', '4'),
 ('19', 'Other', '4'),
-('20', 'Philosophy', '3');
+('20', 'Philosophy', '3'),
 ('21', 'French', '4');
