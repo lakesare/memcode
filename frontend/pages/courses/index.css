@@ -4,48 +4,47 @@
     margin-top: 100px;
   }
   > .container.standard-navigation_and_courses{
+    .search-bar{
+      // position
+      height: 38px;
+      align-self: center;
+      margin-right: 10px;
 
-    .left{
-      .search-bar{
-        // position
-        height: 38px;
-        align-self: center;
-        margin-right: 10px;
+      position: relative;
+      i{
+        position: absolute;
+        top: 9px;
+        left: 11px;
+        font-size: 19px;
+        color: white;
+      }
+      input{
+        width: 100%;
+        height: 100%;
+        padding-left: 37px;
+      }
 
-        position: relative;
-        i{
-          position: absolute;
-          top: 9px;
-          left: 11px;
-          font-size: 19px;
+      // looks
+      font-size: 13px;
+      border-radius: 2px;
+      input{
+        background: transparent;
+        color: white;
+        transition-duration: 200ms;
+        transition-property: background;
+        font-family: 'Open Sans';
+        &::placeholder{
           color: white;
-        }
-        input{
-          width: 100%;
-          height: 100%;
-          padding-left: 37px;
-        }
-
-        // looks
-        font-size: 13px;
-        border-radius: 2px;
-        input{
-          background: transparent;
-          color: white;
-          transition-duration: 200ms;
-          transition-property: background;
           font-family: 'Open Sans';
-          &::placeholder{
-            color: white;
-            font-family: 'Open Sans';
-          }
-          border-radius: 4px;
+        }
+        border-radius: 4px;
+        background: #e2e4f008;
+        &:focus, &:hover{
           background: #e2e4f008;
-          &:focus, &:hover{
-            background: #e2e4f008;
-          }
         }
       }
+    }
+    .left{
 
       .course-categories-nav{
         margin-top: 20px;
@@ -72,6 +71,21 @@
         }
       }
     }
+  }
+
+  .search-bar.for-mobile{
+    margin-right: 0 !important;
+    margin-top: 20px !important;
+  }
+  .pagination.for-mobile{
+    padding-bottom: 20px;
+  }
+
+  @media(min-width: 900px){
+    .for-mobile{ display: none; }
+  }
+  @media(max-width: 900px){
+    .for-desktop{ display: none; }
   }
 }
 

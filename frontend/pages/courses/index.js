@@ -147,8 +147,8 @@ class Page_courses extends React.Component {
       getUrlForNewPageNumber={this.getUrlForNewPageNumber}
     />
 
-  renderSearchBar = () =>
-    <div className="search-bar">
+  renderSearchBar = (className = "") =>
+    <div className={`search-bar ${className}`}>
       <i className="material-icons">search</i>
       <input
         onChange={this.updateSearchString}
@@ -169,7 +169,7 @@ class Page_courses extends React.Component {
       <Loading spe={this.props.My.speCategories}>{({ courseCategoryGroups, courseCategories }) =>
         <div className="container standard-navigation_and_courses">
           <div className="left">
-            {this.renderSearchBar()}
+            {this.renderSearchBar("for-desktop")}
             <CourseCategories
               selectedCourseCategoryId={getCategoryId(this.props)}
               courseCategoryGroups={courseCategoryGroups}
@@ -182,13 +182,15 @@ class Page_courses extends React.Component {
             <div className="title_and_sorting">
               <h1 className="title">{this.getCurrentCategoryName(courseCategories)}</h1>
 
+
               <SortBySelect
                 sortBy={getSortBy(this.props)}
                 getUrlForNewSortBy={this.getUrlForNewSortBy}
               />
             </div>
 
-            {this.renderPagination()}
+            {this.renderSearchBar("for-mobile")}
+            {this.renderPagination("for-desktop")}
 
             <Loading className="list-of-courses-loading" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
               <ListOfCourseCards
@@ -197,6 +199,8 @@ class Page_courses extends React.Component {
                 courseDtos={onePageOfCourses}
               />
             }</Loading>
+
+            {this.renderPagination("for-mobile")}
           </div>
         </div>
       }</Loading>

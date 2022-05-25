@@ -1,6 +1,6 @@
 .standard-navigation_and_courses{
   margin-top: 30px;
-  margin-bottom: 30px;
+  padding-bottom: 30px;
   display: flex;
   > .left{
     width: 250px;
@@ -50,8 +50,8 @@
 .standard-navigation_and_courses{
   @media(max-width: 1200px){
     .left{
-      width: 170px;
-      margin-right: 20px;
+      width: 190px;
+      margin-right: 15px;
     }
   }
 
