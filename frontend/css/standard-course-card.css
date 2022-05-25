@@ -26,9 +26,11 @@
     > div.category{
       border-left: 1px solid $purple;
       padding-left: 6px;
+      padding-right: 3px;
     }
     > div.author{
       font-weight: 100;
+      text-align: end;
     }
   }
 }

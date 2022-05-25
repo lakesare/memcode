@@ -24,13 +24,13 @@ class CourseCardSimple extends React.Component {
   }
 
   getUrl = () => {
-      if (this.props.ifShowSimulatedReviewButton) {
-          return Urls.courseReviewSimulated(this.props.courseDto.course.id)
-      } else if (this.props.ifShowPersistentReviewButton) {
-          return Urls.courseReviewPersistent(this.props.courseDto.course.id)
-      } else {
-          return Urls.courseShow(this.props.courseDto.course.id)
-      }
+    if (this.props.ifShowSimulatedReviewButton) {
+      return Urls.courseReviewSimulated(this.props.courseDto.course.id)
+    } else if (this.props.ifShowPersistentReviewButton) {
+      return Urls.courseReviewPersistent(this.props.courseDto.course.id)
+    } else {
+      return Urls.courseShow(this.props.courseDto.course.id)
+    }
   }
 
 
@@ -44,7 +44,7 @@ class CourseCardSimple extends React.Component {
         <div className="author">{this.props.courseDto.author.username}</div>
       </section>
 
-      <h2 className="title">{this.props.courseDto.course.title}</h2>
+      <h2 className="title">{this.props.courseDto.course.title.toLowerCase()}</h2>
 
       <div
         className="description"

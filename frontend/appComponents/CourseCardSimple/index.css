@@ -8,6 +8,7 @@
 
   h2.title{
     margin-top: 27px;
+    text-transform: capitalize;
   }
 
   div.description{
