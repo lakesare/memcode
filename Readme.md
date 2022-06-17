@@ -19,7 +19,6 @@
     <img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod"/>
   </a>
 
-
   <a href="https://patreon.com/memcode" title="Donate to Memcode project using Patreon">
     <img src="https://img.shields.io/badge/patreon-donate-yellow.svg"/>
   </a>
@@ -39,11 +38,11 @@
 
 ## Links
 
-**Website**: <a href="www.memcode.com">memcode.com</a>  
-**Patreon**: <a href="patreon.com/memcode">patreon.com/memcode</a>   
+**Website**: <a href="https://www.memcode.com">memcode.com</a>  
+**Patreon**: <a href="https://patreon.com/memcode">patreon.com/memcode</a>   
 **Email**:   contact@memcode.com    
-**Twitter**: <a href="twitter.com/memcodeapp">twitter.com/memcodeapp</a>  
-**Alternative.to**: <a href="alternativeto.net/software/memcode/about">alternativeto.net/software/memcode/about</a>    
+**Twitter**: <a href="https://twitter.com/memcodeapp">twitter.com/memcodeapp</a>  
+**Alternative.to**: <a href="https://alternativeto.net/software/memcode/about">alternativeto.net/software/memcode/about</a>    
 
 ## Contributing
 
