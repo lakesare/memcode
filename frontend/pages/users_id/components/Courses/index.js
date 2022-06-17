@@ -1,9 +1,6 @@
 import CourseApi from '~/api/CourseApi';
 import MyModel from '~/models/MyModel';
 
-import { Helmet } from 'react-helmet';
-
-import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import SelectDropdown from '~/components/SelectDropdown';
 import CourseCategories from '~/appComponents/CourseCategories';
@@ -12,22 +9,23 @@ import { ForBeginners } from './components/ForBeginners';
 
 import css from './index.css';
 
-const getCategoryId = (props) => {
-  const categoryId = getQuery(props).get('categoryId');
+const getQuery = (location) =>
+  new URLSearchParams(location.search);
+
+const getCategoryId = (location) => {
+  const categoryId = getQuery(location).get('categoryId');
   return categoryId ? parseInt(categoryId) : false;
 };
-
-const getQuery = (props) =>
-  new URLSearchParams(props.location.search);
 
 @connect(
   (state) => ({
     My: state.global.My
   })
 )
-class Page_courses_learning extends React.Component {
+class Courses extends React.Component {
   static propTypes = {
-    My: PropTypes.object.isRequired
+    My: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
   }
 
   state = {
@@ -45,7 +43,7 @@ class Page_courses_learning extends React.Component {
     )
 
   filterCoursesForCategory = (coursesData) => {
-    const categoryId = getCategoryId(this.props);
+    const categoryId = getCategoryId(this.props.location);
     if (categoryId) {
       return coursesData.filter((courseData) =>
         courseData.course.course_category_id === categoryId
@@ -98,31 +96,29 @@ class Page_courses_learning extends React.Component {
 
   renderLearningTab = (courseCategoryGroups, courseCategories) =>
     <Loading spe={this.props.My.speCourses}>{() =>
-      this.props.My.courses.length === 0 ?
-        <ForBeginners/> :
-        <div className="container standard-navigation_and_courses">
-          <div className="left">
-            <CourseCategories
-              selectedCourseCategoryId={getCategoryId(this.props)}
-              courseCategoryGroups={courseCategoryGroups}
-              courseCategories={this.filterCourseCategoriesForUserLearning(courseCategories)}
-              ifShowAmountOfCoursesInCategory
-            />
-          </div>
-          <div className="right">
-            <div className="title_and_sorting">
-              <h1 className="title">My Courses</h1>
-
-              {this.renderFilter()}
-            </div>
-
+      <div className="container standard-navigation_and_courses">
+        <div className="left">
+          <CourseCategories
+            selectedCourseCategoryId={getCategoryId(this.props.location)}
+            courseCategoryGroups={courseCategoryGroups}
+            courseCategories={this.filterCourseCategoriesForUserLearning(courseCategories)}
+            ifShowAmountOfCoursesInCategory
+          />
+        </div>
+        <div className="right">
+          {/* <div className="title_and_sorting"> */}
+          {/* <h1 className="title">My Courses</h1> */}
+          {/* {this.renderFilter()} */}
+          {/* </div> */}
+          {this.props.My.courses.length === 0 ?
+            <ForBeginners/> :
             <ListOfCourseCards
               className="list-of-courses"
               type="learnReview"
               courseDtos={this.filterCoursesForCategory(this.getCourseDtos())}
-            />
-          </div>
+            />}
         </div>
+      </div>
     }</Loading>
 
   renderCreatedTab = (courseCategoryGroups, courseCategories) =>
@@ -132,7 +128,7 @@ class Page_courses_learning extends React.Component {
         <div className="container standard-navigation_and_courses">
           <div className="left">
             <CourseCategories
-              selectedCourseCategoryId={getCategoryId(this.props)}
+              selectedCourseCategoryId={getCategoryId(this.props.location)}
               courseCategoryGroups={courseCategoryGroups}
               courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
               ifShowAmountOfCoursesInCategory
@@ -155,17 +151,13 @@ class Page_courses_learning extends React.Component {
     }</Loading>
 
   render = () =>
-    <Main className={css.main}>
+    <section className={css.main}>
       <Loading spe={this.props.My.speCategories}>{({ courseCategoryGroups, courseCategories }) =>
         this.state.tab === 'learning' ?
           this.renderLearningTab(courseCategoryGroups, courseCategories) :
           this.renderCreatedTab(courseCategoryGroups, courseCategories)
       }</Loading>
-
-      <Helmet>
-        <title>My Courses</title>
-      </Helmet>
-    </Main>
+    </section>
 }
 
-export default Page_courses_learning;
+export default Courses;

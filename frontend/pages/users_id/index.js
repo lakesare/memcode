@@ -2,16 +2,22 @@ import { Helmet } from 'react-helmet';
 
 import api from '~/api';
 import capitalize from '~/services/capitalize';
+import orFalse from '~/services/orFalse';
 
-import Main from '~/appComponents/Main';
+import Courses from './components/Courses';
 import Loading from '~/components/Loading';
-import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
+import Main from '~/appComponents/Main';
 
 import css from './index.css';
 
+@connect((state) => ({
+  currentUser: state.global.Authentication.currentUser
+}))
 class Page_courses_id extends React.Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    currentUser: orFalse(PropTypes.object).isRequired,
   }
 
   state = {
@@ -91,14 +97,15 @@ class Page_courses_id extends React.Component {
             }
           </div>
 
-          <section className="created-courses">
-            <h1>Created Courses</h1>
-            <ListOfCourseCards
-              className="list-of-courses"
-              type="simple"
-              courseDtos={coursesCreated}
-            />
-          </section>
+          {
+            this.props.currentUser &&
+            this.props.currentUser.id.toString() === this.props.match.params.id &&
+            <section className="created-courses">
+              <h1 style={{ paddingLeft: 15 }}>Courses</h1>
+              <Courses location={this.props.location}/>
+            </section>
+          }
+
           <Helmet>
             <title>{capitalize(user.username)}</title>
           </Helmet>

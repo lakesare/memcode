@@ -1,14 +1,6 @@
-import CourseApi from '~/api/CourseApi';
-
 import { Link } from 'react-router-dom';
-import Loading from '~/components/Loading';
-import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 
 class ForBeginners extends React.Component {
-  state = {
-    speGetCourses: {}
-  }
-
   render = () =>
     <section className="for-beginners">
       <div className="container">

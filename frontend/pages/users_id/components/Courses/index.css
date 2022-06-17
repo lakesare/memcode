@@ -1,10 +1,9 @@
 @import 'css/variables';
 
-:local(main.main){
-  > section.for-beginners > .container{
+:local(.main){
+  section.for-beginners{
     text-align: center;
-    max-width: 1000px;
-    > article.welcome{
+    article.welcome{
       > h1.title{
         margin-top: 40px;
         font-size: 40px;
@@ -18,19 +17,13 @@
         a{ color: $purple; }
       }
     }
-    > hr{
+    hr{
       margin: 40px auto;
       border: none;
       border-bottom: 1px solid rgba(94, 140, 245, 0.07);
       max-width: 551px;
     }
-
-    > h2.meanwhile-here-are-popular-courses-title{
-      margin: 20px 0;
-      margin-bottom: 40px;
-    }
   }
-
 
   > .loading.-request{
     margin-top: 100px;
@@ -38,7 +31,7 @@
   > .container.standard-navigation_and_courses{
     > div.right{
       > section.list-of-courses{
-        margin-top: 70px;
+        // margin-top: 70px;
       }
     }
   }

@@ -67,11 +67,19 @@ header a.logo.focus-visible{
   background: rgba(243, 243, 249, 0.05) !important;
 }
 
-header nav .button.link, .my-courses-toggler{
-  &.active, &[aria-expanded=true]{
+header nav{
+  .link{
+    &.active{
+      background: rgba(243, 243, 249, 0.07);
+    }
+    &:hover:not(.active), &:focus:not(.active){
+      background: rgba(243, 243, 249, 0.05);
+    }
+  }
+  .my-courses-toggler[aria-expanded=true] .link.courses{
     background: rgba(243, 243, 249, 0.07);
   }
-  &:hover:not(.active), &:focus:not(.active){
+  .my-courses-toggler[aria-expanded=false] .link.courses:hover{
     background: rgba(243, 243, 249, 0.05) !important;
   }
 }

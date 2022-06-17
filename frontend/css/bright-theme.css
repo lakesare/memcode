@@ -3,11 +3,6 @@
 $yellowish: rgb(247, 248, 228);
 
 // Throwing a couple more themes here temporarily
-body.-hideLinks{
-  header .learn-review-links{
-    display: none !important;
-  }
-}
 
 body.-hideSocialButtons{
   .social-buttons{

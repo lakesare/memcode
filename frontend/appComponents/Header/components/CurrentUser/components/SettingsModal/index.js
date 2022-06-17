@@ -25,12 +25,10 @@ class SettingsModal extends React.Component {
 
   state = {
     selectedTab: 'Design',
-    hideLinks: localStorage.getItem('hideLinks') === 'true' ? true : false,
     hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false
   }
 
   componentDidMount = () => {
-    this.uiUpdateBody('hideLinks', this.state.hideLinks);
     this.uiUpdateBody('hideSocialButtons', this.state.hideSocialButtons);
   }
 
@@ -78,25 +76,6 @@ class SettingsModal extends React.Component {
 
   renderDesignTab = () =>
     <div className="design-tab">
-      <section className="part-of-the-website">
-        <h2 className="title">Header</h2>
-
-        <div className="settings">
-          <div className="setting">
-            <div className="comment">
-              Whether to show the large Learn Button and Review Button that give you the random course to review on click.
-            </div>
-            <button className="button -white" onClick={() => this.toggleValue('hideLinks')} type="button">
-              {
-                this.state.hideLinks ?
-                  'Show Review links' :
-                  'Hide Review links'
-              }
-            </button>
-          </div>
-        </div>
-      </section>
-
       <section className="part-of-the-website">
         <h2 className="title">Review page</h2>
 

@@ -36,20 +36,7 @@ class Header extends React.Component {
       >Create</NavLink>
       {
         this.props.currentUser &&
-        <NavLink
-          exact
-          to="/courses/learning"
-          className="button link my-courses"
-        >Courses</NavLink>
-      }
-      {
-        this.props.currentUser &&
-        localStorage.getItem('enableTheCoursesDropdown') &&
-        <CoursesDropdown
-          toggler={
-            <a className="button link main" style={{ marginRight: 0 }}>Main</a>
-          }
-        />
+        <CoursesDropdown/>
       }
       {
         !this.props.currentUser &&
@@ -87,12 +74,7 @@ class Header extends React.Component {
 
         {
           this.props.currentUser &&
-          this.props.currentUser.username === "lakesare" &&
-          <CoursesDropdown
-            toggler={
-              <a className="button link mobile-main" style={{ marginRight: 0 }}>Main</a>
-            }
-          />
+          <CoursesDropdown/>
         }
 
         {this.renderUser()}
@@ -107,7 +89,7 @@ class Header extends React.Component {
   render = () =>
     <header className={css.header}>
       {
-        window.innerWidth >= 930 ?
+        window.innerWidth >= 500 ?
           this.renderDesktop() :
           this.renderMobile()
       }

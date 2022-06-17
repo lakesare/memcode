@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
-import LearnReviewLinks from './components/LearnReviewLinks';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 import SettingsModal from './components/SettingsModal';
 
@@ -41,7 +40,7 @@ class CurrentUser extends React.Component {
       <button type="button" className="avatar">
         <img
           src={this.props.currentUser.avatarUrl}
-          alt="Avatar of a current user"
+          alt="User"
         />
       </button>
     </StandardTooltip>
@@ -49,7 +48,6 @@ class CurrentUser extends React.Component {
   render = () =>
     <section className="current-user">
       <NotificationsTogglerAndDropdown currentUser={this.props.currentUser}/>
-      <LearnReviewLinks currentUser={this.props.currentUser} dontLinkToLearnOrReview={this.props.dontLinkToLearnOrReview}/>
       {this.renderAvatar()}
     </section>
 }
