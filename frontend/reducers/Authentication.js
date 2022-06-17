@@ -18,7 +18,8 @@ const AuthenticationActions = {
   signIn: (dispatch, token) => {
     localStorage.setItem('jwt', token);
     dispatch({ type: 'SET_CURRENT_USER', payload: jwtToUserObject(token) });
-    location.reload();
+    // routers won't refresh with just the dispatch 😔
+    // location.reload();
   },
 
   signOut: () => {

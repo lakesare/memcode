@@ -42,7 +42,7 @@ const router =
       <Route exact path="/courses/:id/review/persistent" component={(props) => <Page_courses_id_review {...props} persistent/>}/>
 
       <Route exact path="/profile" component={Page_profile}/>
-      <Route exact path="/users/:id" component={Page_users_id}/>
+      <Route exact path="/users/:id" component={onEnters.signIn(Page_users_id)}/>
       <Route exact path="/home" component={Page_home}/>
 
       {/* offline */}

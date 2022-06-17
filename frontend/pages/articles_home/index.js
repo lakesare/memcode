@@ -3,39 +3,9 @@ import { FakeProblemWithInlinedAnswers } from './components/FakeProblemWithInlin
 import { FakeProblemWithSeparateAnswer } from './components/FakeProblemWithSeparateAnswer';
 import { Table } from './components/Table';
 
-import { withRouter } from "react-router-dom";
-
 import css from './index.css';
 
-import { AuthenticationActions } from '~/reducers/Authentication';
-@withRouter
-@connect(
-  () => ({}),
-  (dispatch) => ({
-    signIn: (token) => AuthenticationActions.signIn(dispatch, token)
-  })
-)
 class Page_articles_home extends React.Component {
-  static propTypes = {
-    signIn: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired
-  }
-
-  componentDidMount = () => {
-    this.tryToFindToken();
-  }
-
-  tryToFindToken = () => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const token = queryParams.get('token');
-    if (token) {
-      this.props.signIn(token);
-      // this.props.history.push('/courses/learning');
-      // TODO or it's fine?
-      // I feel all "this.props.signIn(token);" should be in one place, oauth probably allows to specify redirection
-    }
-  }
-
   renderHeading = (text) =>
     <h2 className="section-heading">
       {text}

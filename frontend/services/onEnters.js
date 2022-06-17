@@ -1,6 +1,7 @@
 import { Redirect } from 'react-router';
 import store from '~/store';
 import Urls from '~/services/Urls';
+import { AuthenticationActions } from '~/reducers/Authentication';
 
 const getCurrentUser = () =>
   store.getState().global.Authentication.currentUser;
@@ -25,6 +26,19 @@ const redirectToOwnCoursesIfAuthenticated = (Component) => {
   }
 };
 
+const signIn = (Component) => {
+  const queryParams = new URLSearchParams(window.location.search);
+  const token = queryParams.get('token');
+  if (token) {
+    AuthenticationActions.signIn(store.dispatch, token);
+    // Removes the ?token from the url, and allows react-router to refresh
+    window.location = window.location.pathname;
+    return null;
+  } else {
+    return (props) => <Component {...props}/>;
+  }
+};
+
 const requireAdmin = (Component) => {
   // introduce ifAdmin=true later
   if (getCurrentUser() && getCurrentUser().email === 'lakesare@gmail.com') {
@@ -35,5 +49,5 @@ const requireAdmin = (Component) => {
 };
 
 export default {
-  requireAuthentication, redirectToOwnCoursesIfAuthenticated, requireAdmin
+  requireAuthentication, redirectToOwnCoursesIfAuthenticated, requireAdmin, signIn
 };

@@ -1,6 +1,4 @@
-import { withRouter, Link } from 'react-router-dom';
-import orFalse from '~/services/orFalse';
-import Urls from '~/services/Urls';
+import { Link } from 'react-router-dom';
 
 import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';
@@ -12,38 +10,8 @@ import NewProblem from '~/pages/courses_id/components/NewProblem';
 import heartImage from './images/heart.png';
 
 import css from './index.css';
-import { AuthenticationActions } from '~/reducers/Authentication';
-@withRouter
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser
-  }),
-  (dispatch) => ({
-    signIn: (token) => AuthenticationActions.signIn(dispatch, token)
-  })
-)
+
 class Page_articles_welcome extends React.Component {
-  static propTypes = {
-    currentUser: orFalse(PropTypes.object).isRequired,
-    signIn: PropTypes.func.isRequired,
-    // history: PropTypes.object.isRequired
-  }
-
-  componentDidMount = () => {
-    if (!this.props.currentUser) {
-      this.tryToFindToken();
-    }
-  }
-
-  tryToFindToken = () => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const token = queryParams.get('token');
-    if (token) {
-      this.props.signIn(token);
-      window.location = Urls.userShow(this.props.currentUser.id);
-    }
-  }
-
   renderHeading = (text) =>
     <h2 className="section-heading">
       {text}

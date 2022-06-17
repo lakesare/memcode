@@ -29,20 +29,15 @@ const getSortBy = (props) => {
 const getQuery = (props) =>
   new URLSearchParams(props.location.search);
 
-import { AuthenticationActions } from '~/reducers/Authentication';
 @withRouter
 @connect(
   (state) => ({
     My: state.global.My
   }),
-  (dispatch) => ({
-    signIn: (token) => AuthenticationActions.signIn(dispatch, token)
-  })
 )
 class Page_courses extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
-    signIn: PropTypes.func.isRequired,
     My: PropTypes.object.isRequired
   }
 
@@ -56,7 +51,6 @@ class Page_courses extends React.Component {
 
   componentDidMount = () => {
     this.apiGetCourses();
-    this.tryToFindToken();
   }
 
   componentDidUpdate = (prevProps) => {
@@ -66,14 +60,6 @@ class Page_courses extends React.Component {
       getSortBy(prevProps) !== getSortBy(this.props)
     ) {
       this.apiGetCourses();
-    }
-  }
-
-  tryToFindToken = () => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const token = queryParams.get('token');
-    if (token) {
-      this.props.signIn(token);
     }
   }
 

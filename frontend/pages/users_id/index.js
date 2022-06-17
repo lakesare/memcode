@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet';
+import { withRouter } from 'react-router-dom';
 
 import api from '~/api';
 import capitalize from '~/services/capitalize';
@@ -10,13 +11,22 @@ import Main from '~/appComponents/Main';
 
 import css from './index.css';
 
-@connect((state) => ({
-  currentUser: state.global.Authentication.currentUser
-}))
-class Page_courses_id extends React.Component {
+import { AuthenticationActions } from '~/reducers/Authentication';
+@withRouter
+@connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser
+  }),
+  (dispatch) => ({
+    signIn: (token) => AuthenticationActions.signIn(dispatch, token)
+  })
+)
+class Page_users_id extends React.Component {
   static propTypes = {
+    history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
+    signIn: PropTypes.func.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
   }
 
@@ -33,6 +43,16 @@ class Page_courses_id extends React.Component {
       this.apiGetPage();
     }
   }
+
+  // tryToFindToken = () => {
+  //   const queryParams = new URLSearchParams(window.location.search);
+  //   const token = queryParams.get('token');
+  //   if (token) {
+  //     this.props.signIn(token);
+  //     this.props.history.push(`/users/${this.props.currentUser.id}`);
+  //     
+  //   }
+  // }
 
   apiGetPage = () => {
     api.PageApi.getUserPage(
@@ -114,4 +134,4 @@ class Page_courses_id extends React.Component {
     </Main>
 }
 
-export default Page_courses_id;
+export default Page_users_id;
