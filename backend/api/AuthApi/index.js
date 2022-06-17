@@ -1,5 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import knex from '~/db/knex';
 
 import catchAsync from '~/services/catchAsync';
 import { githubFetchAccessToken } from './services/github/githubFetchAccessToken';
@@ -40,13 +41,15 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   if (!dbUser) {
     dbUser = await UserModel.insert.createFrom(oauthProviderName, oauthProfile);
     await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
+    const welcomeCourseId = 6868;
+    await knex('courseUserIsLearning').insert({ courseId: welcomeCourseId, userId: dbUser.id, active: true });
     // await sendWelcomeEmail(oauthProfile.email);
   }
 
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
 
-  const redirectUrl = `/?token=${encodeURIComponent(token)}`;
-  response.redirect(redirectUrl);
+  const userUrl = `/users/${dbUser.id}?token=${encodeURIComponent(token)}`;
+  response.redirect(userUrl);
 };
 
 // after user goes to github.com/login/oauth/authorize?client_id=OUR_ID, she is redirected here
