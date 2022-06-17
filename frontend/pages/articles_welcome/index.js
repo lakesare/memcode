@@ -1,5 +1,6 @@
 import { withRouter, Link } from 'react-router-dom';
 import orFalse from '~/services/orFalse';
+import Urls from '~/services/Urls';
 
 import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';
@@ -39,7 +40,7 @@ class Page_articles_welcome extends React.Component {
     const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-      window.location = '/courses/learning';
+      window.location = Urls.userShow(this.props.currentUser.id);
     }
   }
 

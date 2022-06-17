@@ -30,7 +30,9 @@ class Page_articles_home extends React.Component {
     const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-      this.props.history.push('/courses/learning');
+      // this.props.history.push('/courses/learning');
+      // TODO or it's fine?
+      // I feel all "this.props.signIn(token);" should be in one place, oauth probably allows to specify redirection
     }
   }
 

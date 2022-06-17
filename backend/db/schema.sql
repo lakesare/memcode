@@ -92,7 +92,7 @@ CREATE TABLE problem (
 CREATE TABLE course_user_is_learning (
   id SERIAL PRIMARY KEY,
 
-  active BOOLEAN NOT NULL, -- whether it's shown in /courses/learning
+  active BOOLEAN NOT NULL,
   started_learning_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,

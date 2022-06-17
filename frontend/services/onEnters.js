@@ -1,5 +1,6 @@
-import store from '~/store';
 import { Redirect } from 'react-router';
+import store from '~/store';
+import Urls from '~/services/Urls';
 
 const getCurrentUser = () =>
   store.getState().global.Authentication.currentUser;
@@ -13,11 +14,12 @@ const requireAuthentication = (Component) => {
 };
 
 const redirectToOwnCoursesIfAuthenticated = (Component) => {
-  if (getCurrentUser()) {
-    //This sets the lastpage information from sesssionStorage to lastpage
-    let pageHistory = sessionStorage.getItem("lastpage");
+  const currentUser = getCurrentUser();
+  if (currentUser) {
+    // This sets the lastpage information from sesssionStorage to lastpage
+    const pageHistory = sessionStorage.getItem("lastpage");
     sessionStorage.removeItem("lastpage");
-    return (props) => <Redirect to={pageHistory ? pageHistory : "/courses/learning"} {...props}/>;
+    return (props) => <Redirect to={pageHistory ? pageHistory : Urls.userShow(currentUser.id)} {...props}/>;
   } else {
     return (props) => <Component {...props}/>;
   }

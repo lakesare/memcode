@@ -74,7 +74,6 @@ class Page_courses extends React.Component {
     const token = queryParams.get('token');
     if (token) {
       this.props.signIn(token);
-      // this.props.history.push('/courses/learning');
     }
   }
 

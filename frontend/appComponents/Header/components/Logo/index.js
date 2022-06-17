@@ -2,7 +2,7 @@ import orFalse from '~/services/orFalse';
 import Urls from '~/services/Urls';
 import { Link } from 'react-router-dom';
 
-import memcodeLogo from './halloween.png';
+// import memcodeLogo from './halloween.png';
 
 class Logo extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ class Logo extends React.Component {
 
     // Signed-in
     if (currentUser && ifMobile) {
-      return Urls.myCourses();
+      return Urls.userShow(currentUser.id);
     } else if (currentUser && ifDesktop) {
       return Urls.courses();
     // Not signed-in

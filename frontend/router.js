@@ -9,7 +9,6 @@ import Page_courses_id_all_print from './pages/courses_id_all_print';
 import Page_courses_id_review from './pages/courses_id_review';
 import Page_courses_id_learn from './pages/courses_id_learn';
 import Page_courses_id from './pages/courses_id';
-import Page_courses_learning from './pages/courses_learning';
 
 import Page_profile from './pages/profile';
 import Page_users_id from './pages/users_id';
@@ -33,7 +32,6 @@ const router =
   <BrowserRouter>
     <Switch>
       <Route exact path="/courses"            component={Page_courses}/>
-      <Route exact path="/courses/learning"   component={auth(Page_courses_learning)}/>
       <Route exact path="/courses/new"        component={auth(Page_courses_new)}/>
       <Route exact path="/courses/:id"        component={Page_courses_id}/>
       <Route exact path="/courses/:id/learn"  component={auth(Page_courses_id_learn)}/>

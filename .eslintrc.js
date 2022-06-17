@@ -303,7 +303,9 @@ module.exports = {
     "self": true,
     "caches": true,
 
-    "Audio": true
+    "Audio": true,
+
+    "sessionStorage": true
 
     // "DefinePlugin": true
   }

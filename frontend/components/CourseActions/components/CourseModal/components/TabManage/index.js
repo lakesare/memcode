@@ -1,12 +1,17 @@
+import Urls from '~/services/Urls';
 import CourseApi from '~/api/CourseApi';
 
 import Loading from '~/components/Loading';
 
 import css from './index.css';
 
+@connect((state) => ({
+  currentUser: state.global.Authentication.currentUser
+}))
 class TabManage extends React.Component {
   static propTypes = {
-    course: PropTypes.object.isRequired
+    course: PropTypes.object.isRequired,
+    currentUser: PropTypes.object.isRequired,
   }
 
   state = {
@@ -18,7 +23,7 @@ class TabManage extends React.Component {
       (spe) => this.setState({ speDelete: spe }),
       this.props.course.id
     )
-      .then(() => window.location = '/courses/learning')
+      .then(() => window.location = Urls.userShow(this.props.currentUser.id))
 
   render = () =>
     <div className={css.tab}>

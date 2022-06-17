@@ -1,7 +1,7 @@
 
 const courses = () => '/courses';
 
-const myCourses = () => '/courses/learning';
+const userShow = (id) => `/users/${id}`;
 
 const courseShow = (id) => `/courses/${id}`;
 const courseLearn = (id) => `/courses/${id}/learn`;
@@ -11,6 +11,6 @@ const courseReviewPersistent = (id) => `/courses/${id}/review/persistent`;
 
 export default {
   courses,
-  myCourses,
+  userShow,
   courseShow, courseLearn, courseReview, courseReviewSimulated, courseReviewPersistent
 };
