@@ -23,9 +23,9 @@ class UserSelect extends React.Component {
     this.props.onSelect(valueLabel.value);
   }
 
-  renderLi = ({ value, label, customAbbreviation }) =>
+  renderLi = ({ value }) =>
     <div className={css.li}>
-      <img src={value.avatarUrl} alt="Avatar of a current user"/>
+      <img src={value.avatarUrl} alt="User"/>
       <div className="right">
         <div className="name">{value.username}</div>
       </div>

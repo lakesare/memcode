@@ -14,7 +14,6 @@ import css from './index.css';
 )
 class CoursesDropdown extends React.Component {
   static propTypes = {
-    toggler: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
   }
 
@@ -22,7 +21,7 @@ class CoursesDropdown extends React.Component {
     searchString: ''
   }
 
-  filterCoursesForCategory = (dtos) =>
+  filterCoursesForSearchString = (dtos) =>
     dtos.filter((dto) =>
       dto.course.title.toLowerCase().includes(this.state.searchString.toLowerCase())
     )
@@ -42,9 +41,16 @@ class CoursesDropdown extends React.Component {
     return pinned;
   }
 
+  renderNoCourses = () =>
+    <div className="not-learning-placeholder">
+      You are not learning any courses at the moment.<br/>
+      When you start learning some course, it will appear in this dropdown.
+    </div>
+
   renderDropdown = () =>
     <div className={css.tooltip}>
       <Loading spe={this.props.My.speCourses}>
+        {this.getCourseDtos().length === 0 ? this.renderNoCourses() :
         <>
           <div className="pinned-courses">
             {this.getPinnedCourses().map((courseDto) =>
@@ -63,7 +69,7 @@ class CoursesDropdown extends React.Component {
           </div>
 
           <div className="all-courses">
-            {this.filterCoursesForCategory(this.getCourseDtos()).map((courseDto) =>
+            {this.filterCoursesForSearchString(this.getCourseDtos()).map((courseDto) =>
               <CourseCard
                 key={courseDto.course.id}
                 courseDto={courseDto}
@@ -72,6 +78,7 @@ class CoursesDropdown extends React.Component {
             )}
           </div>
         </>
+        }
       </Loading>
     </div>
 
@@ -102,9 +109,12 @@ class CoursesDropdown extends React.Component {
       width={420}
     >
       <div className="my-courses-toggler">
-        {this.props.toggler}
-
-        {this.renderNOfProblemsToReview()}
+        <button type="button" className="button link courses">
+          Courses
+          <div className="position-relative-wrapper">
+            {this.renderNOfProblemsToReview()}
+          </div>
+        </button>
       </div>
     </StandardTooltip>
 }
