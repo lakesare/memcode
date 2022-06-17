@@ -25,14 +25,13 @@ class CourseCardSimple extends React.Component {
 
   getUrl = () => {
     if (this.props.ifShowSimulatedReviewButton) {
-      return Urls.courseReviewSimulated(this.props.courseDto.course.id)
+      return Urls.courseReviewSimulated(this.props.courseDto.course.id);
     } else if (this.props.ifShowPersistentReviewButton) {
-      return Urls.courseReviewPersistent(this.props.courseDto.course.id)
+      return Urls.courseReviewPersistent(this.props.courseDto.course.id);
     } else {
-      return Urls.courseShow(this.props.courseDto.course.id)
+      return Urls.courseShow(this.props.courseDto.course.id);
     }
   }
-
 
   render = () =>
     <Link

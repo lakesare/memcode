@@ -55,7 +55,7 @@ Note: if you'd like to use online development environment, see <a href="https://
 #### Create a database postgres user with a password.
 1. Install PostgreSQL.
 2. Go to postgres console: `psql postgres`.
-3. Create a `postgres` user with password: `CREATE ROLE postgres WITH LOGIN PASSWORD postgres;`.
+3. Create a `postgres` user with password: `CREATE ROLE postgres WITH LOGIN PASSWORD 'postgres';`.
 4. Give the user a permission to create dbs, own all extensions, etc.: `ALTER ROLE postgres with superuser;`.
 
 #### Copypaste environment variables.
