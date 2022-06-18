@@ -6,7 +6,8 @@ import css from './index.css';
 class ListOfCourseCards extends React.Component {
   static propTypes = {
     courseDtos: PropTypes.array.isRequired,
-    type: PropTypes.oneOf(['simple', 'learnReview']).isRequired,
+    // every Dto can have a type, or we can provide a single type for all dtos 
+    type: PropTypes.oneOf(['simple', 'learnReview']),
     className: PropTypes.string
   }
 
@@ -21,7 +22,7 @@ class ListOfCourseCards extends React.Component {
   render = () =>
     <section className={`${this.props.className} ${css.section}`}>
       {this.props.courseDtos.map((courseDto) =>
-        this.props.type === 'simple' ?
+        this.props.type === 'simple' || courseDto.type === 'simple' ?
           <CourseCardSimple
             key={courseDto.course.id}
             courseDto={courseDto}

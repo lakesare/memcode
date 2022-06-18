@@ -1,11 +1,10 @@
-import CourseApi from '~/api/CourseApi';
 import MyModel from '~/models/MyModel';
+import speCreator from '~/services/speCreator';
 
 import Loading from '~/components/Loading';
-import SelectDropdown from '~/components/SelectDropdown';
 import CourseCategories from '~/appComponents/CourseCategories';
 import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
-import { ForBeginners } from './components/ForBeginners';
+// import { ForBeginners } from './components/ForBeginners';
 
 import css from './index.css';
 
@@ -25,139 +24,77 @@ const getCategoryId = (location) => {
 class Courses extends React.Component {
   static propTypes = {
     My: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
+    isCurrentUser: PropTypes.bool.isRequired,
+    createdCourses: PropTypes.array.isRequired
   }
 
-  state = {
-    speGetCourses: {},
-    tab: 'learning'
-  }
-
-  componentDidMount = () => {
-    this.apiGetCreatedCourses();
-  }
-
-  apiGetCreatedCourses = () =>
-    CourseApi.selectAllCreated(
-      spe => this.setState({ speGetCreatedCourses: spe })
-    )
-
-  filterCoursesForCategory = (coursesData) => {
+  filterCoursesForCategory = (courseDtos) => {
     const categoryId = getCategoryId(this.props.location);
     if (categoryId) {
-      return coursesData.filter((courseData) =>
-        courseData.course.course_category_id === categoryId
+      return courseDtos.filter((courseDto) =>
+        courseDto.course.course_category_id === categoryId ||
+        courseDto.course.courseCategoryId === categoryId
       );
     } else {
-      return coursesData;
+      return courseDtos;
     }
   }
 
-  filterCourseCategoriesForUser = (courseCategories) => {
-    const coursesData = this.state.tab === 'learning' ?
-      this.state.speGetCourses.payload :
-      this.state.speGetCreatedCourses.payload;
-
+  filterCourseCategories = (courseCategories, courseDtos) => {
     return courseCategories.map((courseCategory) => ({
       ...courseCategory,
-      amountOfCourses: coursesData.filter((courseData) =>
-        courseData.course.courseCategoryId === courseCategory.id
+      amountOfCourses: courseDtos.filter((dto) =>
+        dto.course.course_category_id === courseCategory.id ||
+        dto.course.courseCategoryId === courseCategory.id
       ).length
     }));
   }
-
-  renderFilter = () =>
-    <SelectDropdown
-      className="sort-by-dropdown-wrapper standard-dropdown-wrapper standard-input -Select"
-      dropdownClassName="standard-dropdown -purple"
-      value={this.state.tab}
-      updateValue={(tab) => this.setState({ tab })}
-      possibleValues={{
-        learning: 'Learning',
-        created: 'Created'
-      }}
-      renderLi={(value, humanValue) => humanValue}
-    />
 
   getCourseDtos = () => {
-    const courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
-    MyModel.sortByHowMuchToDo(courseDtos);
-    return courseDtos;
+    const createdCourses = this.props.createdCourses
+      .map((dto) => ({ ...dto, type: 'simple' }));
+    if (this.props.isCurrentUser) {
+      const myCourses = this.props.My.courses.map(MyModel.dtoToCourseCardProps)
+        .map((dto) => ({ ...dto, type: 'learnReview' }));
+      MyModel.sortByHowMuchToDo(myCourses);
+
+      const additionalCourses = createdCourses
+        .filter((dto) =>
+          !myCourses.some((dto2) => dto2.course.id === dto.course.id)
+        );
+
+      return [...myCourses, ...additionalCourses];
+    } else {
+      return createdCourses;
+    }
   }
 
-  filterCourseCategoriesForUserLearning = (courseCategories) => {
-    return courseCategories.map((courseCategory) => ({
-      ...courseCategory,
-      amountOfCourses: this.props.My.courses.filter((course) =>
-        course.course.course_category_id === courseCategory.id
-      ).length
-    }));
-  }
-
-  renderLearningTab = (courseCategoryGroups, courseCategories) =>
-    <Loading spe={this.props.My.speCourses}>{() =>
-      <div className="container standard-navigation_and_courses">
-        <div className="left">
-          <CourseCategories
-            selectedCourseCategoryId={getCategoryId(this.props.location)}
-            courseCategoryGroups={courseCategoryGroups}
-            courseCategories={this.filterCourseCategoriesForUserLearning(courseCategories)}
-            ifShowAmountOfCoursesInCategory
-          />
-        </div>
-        <div className="right">
-          {/* <div className="title_and_sorting"> */}
-          {/* <h1 className="title">My Courses</h1> */}
-          {/* {this.renderFilter()} */}
-          {/* </div> */}
-          {this.props.My.courses.length === 0 ?
-            <ForBeginners/> :
-            <ListOfCourseCards
-              className="list-of-courses"
-              type="learnReview"
-              courseDtos={this.filterCoursesForCategory(this.getCourseDtos())}
-            />}
-        </div>
-      </div>
-    }</Loading>
-
-  renderCreatedTab = (courseCategoryGroups, courseCategories) =>
-    <Loading spe={this.state.speGetCreatedCourses}>{(coursesData) =>
-      coursesData.length === 0 ?
-        <ForBeginners/> :
-        <div className="container standard-navigation_and_courses">
-          <div className="left">
-            <CourseCategories
-              selectedCourseCategoryId={getCategoryId(this.props.location)}
-              courseCategoryGroups={courseCategoryGroups}
-              courseCategories={this.filterCourseCategoriesForUser(courseCategories)}
-              ifShowAmountOfCoursesInCategory
-            />
-          </div>
-          <div className="right">
-            <div className="title_and_sorting">
-              <h1 className="title">My Courses</h1>
-
-              {this.renderFilter()}
-            </div>
-
-            <ListOfCourseCards
-              className="list-of-courses"
-              type="simple"
-              courseDtos={this.filterCoursesForCategory(coursesData)}
-            />
-          </div>
-        </div>
-    }</Loading>
-
-  render = () =>
-    <section className={css.main}>
+  render = () => {
+    const courseDtos = this.getCourseDtos();
+    return <section className={css.main}>
       <Loading spe={this.props.My.speCategories}>{({ courseCategoryGroups, courseCategories }) =>
-        this.state.tab === 'learning' ?
-          this.renderLearningTab(courseCategoryGroups, courseCategories) :
-          this.renderCreatedTab(courseCategoryGroups, courseCategories)
+        <Loading spe={this.props.isCurrentUser ? this.props.My.speCourses : speCreator.success()}>{() =>
+          <div className="container standard-navigation_and_courses">
+            <div className="left">
+              <CourseCategories
+                selectedCourseCategoryId={getCategoryId(this.props.location)}
+                courseCategoryGroups={courseCategoryGroups}
+                courseCategories={this.filterCourseCategories(courseCategories, courseDtos)}
+                ifShowAmountOfCoursesInCategory
+              />
+            </div>
+            <div className="right">
+              <ListOfCourseCards
+                className="list-of-courses"
+                courseDtos={this.filterCoursesForCategory(courseDtos)}
+              />
+            </div>
+          </div>
+        }</Loading>
       }</Loading>
-    </section>
+    </section>;
+  }
 }
 
 export default Courses;

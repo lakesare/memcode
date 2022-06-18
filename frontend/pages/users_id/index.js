@@ -50,18 +50,18 @@ class Page_users_id extends React.Component {
     <Main className={css.main}>
       <div className="space"/>
 
-      <Loading spe={this.state.speGetPage}>{({ user }) =>
+      <Loading spe={this.state.speGetPage}>{({ user, createdCourses }) =>
         <div className="container">
           <UserInfo speGetPage={this.state.speGetPage}/>
 
-          {
-            this.props.currentUser &&
-            this.props.currentUser.id.toString() === this.props.match.params.id &&
-            <section className="created-courses">
-              <h1 style={{ paddingLeft: 15 }}>Courses</h1>
-              <Courses location={this.props.location}/>
-            </section>
-          }
+          <section className="created-courses">
+            <h1 style={{ paddingLeft: 15 }}>Courses</h1>
+            <Courses
+              location={this.props.location}
+              isCurrentUser={this.props.currentUser && this.props.currentUser.id.toString() === this.props.match.params.id}
+              createdCourses={createdCourses}
+            />
+          </section>
 
           <Helmet>
             <title>{capitalize(user.username)}</title>

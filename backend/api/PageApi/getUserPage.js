@@ -9,12 +9,9 @@ const getUserPage = async (request, response) => {
   if (currentUser === null) {
     user.email = null;
   }
-
-  // const coursesCreated = await knex('course').where({ userId });
-
-  const coursesCreated = await CourseModel.select.allPublic({
-    customWhere: `AND course.user_id=${userId}`
-  });
+  const createdCourses = currentUser && currentUser.id === userId ?
+    await CourseModel.select.allCreated(userId) :
+    await CourseModel.select.allPublic({ customWhere: `AND course.user_id=${userId}` });
 
   const skills =
     await knex('courseUserIsLearning')
@@ -40,7 +37,6 @@ const getUserPage = async (request, response) => {
   });
 
   const skillsOnly5 = skillsOrdered.slice(0, 5);
-
 
   // Probably better to use raw sql here (https://stackoverflow.com/a/32544088/3192470)
   const getProgress = (betweenRange) =>
@@ -74,7 +70,7 @@ const getUserPage = async (request, response) => {
     nOfCoursesCreated
   };
 
-  response.success({ user, coursesCreated, skills: skillsOnly5, stats });
+  response.success({ user, createdCourses, skills: skillsOnly5, stats });
 };
 
 export default getUserPage;
