@@ -6,26 +6,17 @@ import SettingsModal from './components/SettingsModal';
 class CurrentUser extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
-    dontLinkToLearnOrReview: PropTypes.number
   }
 
   renderDropdown = () =>
-    <div>
-      <div style={{ "textAlign": "right" }}>Signed in as {this.props.currentUser.username} | via {this.props.currentUser.oauthProvider}</div>
-      <ul style={{ marginTop: 10 }} className="standard-tooltip-dropdown">
-        <li>
-          <Link to={`/users/${this.props.currentUser.id}`}>Profile</Link>
-        </li>
-
-        <li>
-          <SettingsModal toggler={<button type="button">Settings</button>}/>
-        </li>
-
-        <li>
-          <Link to="/contact">Contact Memcode</Link>
-        </li>
-      </ul>
-    </div>
+    <ul className="standard-tooltip-dropdown">
+      <li>
+        <SettingsModal toggler={<button type="button">Settings</button>}/>
+      </li>
+      <li>
+        <Link to="/contact">Contact Memcode</Link>
+      </li>
+    </ul>
 
   renderAvatar = () =>
     <StandardTooltip
@@ -33,16 +24,18 @@ class CurrentUser extends React.Component {
       tooltipProps={{
         interactive: true,
         placement: 'bottom-end',
-        trigger: 'click',
+        trigger: 'mouseenter',
       }}
-      width={170}
+      width={120}
     >
-      <button type="button" className="avatar">
-        <img
-          src={this.props.currentUser.avatarUrl}
-          alt="User"
-        />
-      </button>
+      <div>
+        <Link className="avatar" to={`/users/${this.props.currentUser.id}`}>
+          <img
+            src={this.props.currentUser.avatarUrl}
+            alt="User"
+          />
+        </Link>
+      </div>
     </StandardTooltip>
 
   render = () =>

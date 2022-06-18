@@ -65,11 +65,21 @@
     }
   }
 
+  .tippy-box{
+    background-color: rgb(33, 36, 73);
+
+    .tippy-arrow{
+      color: rgb(33, 36, 73);
+    }
+  }
+
+
 
   section.current-user{
     display: flex;
     align-items: center;
     .avatar{
+      display: block;
       width: 31px; height: 31px;
       img{
         // border: 3px solid rgb(86, 11, 90);
