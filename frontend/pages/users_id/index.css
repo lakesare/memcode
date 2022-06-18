@@ -2,53 +2,49 @@
   .wrapper{
     display: flex;
     align-items: flex-start;
-    h1{
-      margin-bottom: 20px;
+    .user, .skills, .stats{
+      padding: 15px;
+      background: rgb(24, 28, 57);
+      border-radius: 4px;
+      box-shadow: 0 1px 0 0 rgb(33, 37, 67), 0 0 0 1px rgb(32, 38, 71);
+      min-height: 328px;
+
+      h1{
+        margin-bottom: 20px;
+      }
     }
+
     .user{
       flex-grow: 0;
       flex-shrink: 0;
       width: 200px;
 
+      img{
+        border-radius: 2px;
+        width: 100%;
+      }
 
-      .user-details{
-        padding: 15px;
-        background: rgb(24, 28, 57);
-        border-radius: 4px;
-        box-shadow: 0 1px 0 0 rgb(33, 37, 67), 0 0 0 1px rgb(32, 38, 71);
+      .username{
+        margin-top: 10px;
+      }
 
-        img{
-          border-radius: 2px;
-          width: 100%;
-        }
+      .email, .created-at{
+        color: rgb(144, 138, 186);
+      }
 
-        .username{
-          margin-top: 10px;
-        }
-
-        .email, .created-at{
-          color: rgb(144, 138, 186);
-        }
-
-        .email, .created-at{
-          font-size: 12px;
-          margin-top: 8px;
-        }
+      .email, .created-at{
+        font-size: 12px;
+        margin-top: 8px;
       }
     }
 
     .skills{
       margin-left: 40px;
-
-      background: rgb(24, 28, 57);
-      border-radius: 4px;
-      box-shadow: 0 1px 0 0 rgb(33, 37, 67), 0 0 0 1px rgb(32, 38, 71);
+      width: 460px;
+      flex-shrink: 0;
 
       padding: 20px;
       padding-bottom: 0;
-
-      width: 367px;
-
 
       h2{
         padding-bottom: 5px;
@@ -97,6 +93,36 @@
           box-shadow: none;
         } 
       }
+    }
+
+    .stats{
+      margin-left: 40px;
+      flex-grow: 1;
+
+      padding: 20px;
+
+      ul.textual-stats{
+        font-size: 14px;
+        padding-left: 20px;
+        li.stat{
+          padding-bottom: 17px;
+          ul.memory-levels{
+            padding-left: 10px;
+            li{
+              padding-top: 8px;
+            } 
+            div.square{
+              width: 12px; height: 12px;
+              border-radius: 3px;
+              border-radius: 2px;
+              display: inline-block;
+              margin-right: 7px;
+              border: 1px solid white;
+            }
+          }
+        }
+      }
+
     }
   }
 

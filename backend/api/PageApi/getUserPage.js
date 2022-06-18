@@ -41,7 +41,40 @@ const getUserPage = async (request, response) => {
 
   const skillsOnly5 = skillsOrdered.slice(0, 5);
 
-  response.success({ user, coursesCreated, skills: skillsOnly5 });
+
+  // Probably better to use raw sql here (https://stackoverflow.com/a/32544088/3192470)
+  const getProgress = (betweenRange) =>
+    knex('problemUserIsLearning')
+      .count('problemUserIsLearning.id')
+      .join('courseUserIsLearning', { 'problemUserIsLearning.courseUserIsLearningId': 'courseUserIsLearning.id' })
+      .where({
+        'courseUserIsLearning.active': true,
+        'courseUserIsLearning.userId': userId,
+        'problemUserIsLearning.ifIgnored': false
+      })
+      .whereBetween('problemUserIsLearning.easiness', betweenRange);
+
+  // [0,    2.80] - short-term (will ask us to review in 0 - 9 days)
+  // [2.81, 3.00] - middle-term (will ask us to review in 9 - 77 days)
+  // [3.01,  inf] - long-term memory (will ask us to review 124 - inf days)
+  const easiness = {
+    shortTerm:  parseInt((await getProgress([0, 2.80]))[0].count),
+    middleTerm: parseInt((await getProgress([2.81, 3.00]))[0].count),
+    longTerm:   parseInt((await getProgress([3.01, 100]))[0].count)
+  };
+
+  const nOfProblemsLearned = easiness.shortTerm + easiness.middleTerm + easiness.longTerm;
+
+  const nOfCoursesCreated = parseInt(
+    (await knex('course').count().where({ userId }).whereNull('duplicatedFromCourseId'))[0].count);
+
+  const stats = {
+    easiness,
+    nOfProblemsLearned,
+    nOfCoursesCreated
+  };
+
+  response.success({ user, coursesCreated, skills: skillsOnly5, stats });
 };
 
 export default getUserPage;
