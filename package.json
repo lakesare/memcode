@@ -127,7 +127,7 @@
     "knex-stringcase": "^1.4.1",
     "loader-fs-cache": "^1.0.3",
     "loader-runner": "^3.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "lodash-es": "^4.17.15",
     "lodash.cond": "^4.5.2",
     "material-design-icons": "^3.0.1",
