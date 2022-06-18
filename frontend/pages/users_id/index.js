@@ -92,7 +92,19 @@ class Page_users_id extends React.Component {
     </div>
 
   renderSkills = (skills) => {
-    const max = skills[0].nOfFlashcards;
+    let max;
+    if (!skills[0]) {
+      skills = [
+        { categoryName: 'Computer Science', nOfFlashcards: 0 },
+        { categoryName: 'Mathematics', nOfFlashcards: 0 },
+        { categoryName: 'Biology', nOfFlashcards: 0 },
+        { categoryName: 'Politics', nOfFlashcards: 0 },
+        { categoryName: 'Literature', nOfFlashcards: 0 },
+      ];
+      max = 1;
+    } else {
+      max = skills[0].nOfFlashcards;
+    }
 
     return <div className="skills">
       <h1>Skills</h1>
@@ -123,7 +135,9 @@ class Page_users_id extends React.Component {
       ],
       datasets: [{
         label: 'My First Dataset',
-        data: [stats.easiness.longTerm, stats.easiness.middleTerm, stats.easiness.shortTerm],
+        data: stats.easiness.longTerm === 0 && stats.easiness.middleTerm === 0 && stats.easiness.shortTerm === 0 ?
+          [0, 0, 1] :
+          [stats.easiness.longTerm, stats.easiness.middleTerm, stats.easiness.shortTerm],
         backgroundColor: [greenLong, greenMiddle, greenShort],
         hoverOffset: 0,
         borderColor: 'rgba(255, 255, 255, 1)',
@@ -195,11 +209,7 @@ class Page_users_id extends React.Component {
         <div className="container">
           <div className="wrapper">
             {this.renderUser(user)}
-            {
-              skills[0] &&
-              this.renderSkills(skills)
-            }
-
+            {this.renderSkills(skills)}
             {this.renderStats(stats)}
           </div>
 
