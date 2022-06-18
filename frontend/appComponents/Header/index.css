@@ -179,5 +179,12 @@
     .notifications-toggler{
       display: none;
     }
+
+    .position-relative-wrapper{
+      height: auto !important;
+      .button.-to-review{
+        top: -12px !important;
+      }
+    }
   }
 }

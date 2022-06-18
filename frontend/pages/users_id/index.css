@@ -134,14 +134,26 @@
   }
 
   @media(max-width: 800px){
+    .created-courses{
+      h1{
+        padding-left: 0 !important;
+      }
+      .standard-navigation_and_courses{
+        padding: 0;
+      }
+    }
     .wrapper{
       display: block;
+      .skills, .user, .stats{
+        min-height: 0;
+      }
       .skills{
         width: 100%;
         margin-left: 0;
         margin-top: 40px;
         padding-bottom: 10px;
       }
+      .stats{ display: none; }
       .user{
         width: auto;
         text-align: center;
