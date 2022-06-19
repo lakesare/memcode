@@ -12,6 +12,10 @@
       cursor: pointer;
     }
   }
+  > .ql-toolbar{
+    height: 30px;
+    overflow-y: scroll;
+  }
   > .ql-container > .ql-editor{
     min-height: 70px;
     font-size: 17px;
@@ -95,11 +99,5 @@
     padding-right: 10px;
     line-height: 20px;
     color: rgb(172, 181, 218);
-  }
-}
-
-@media(max-width: 600px){
-  .quill > .ql-toolbar{
-    display: none !important;
   }
 }

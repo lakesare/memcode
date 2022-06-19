@@ -210,11 +210,11 @@
     }
   }
 
-  @media(min-width: 1160px){
+  @media(min-width: 1000px){
     .new-problem .checkbox{ display: none; }
   }
 
-  @media(max-width: 1160px){
+  @media(max-width: 1000px){
     .container.problems-container{
       margin: 0;
       margin-left: 40px;

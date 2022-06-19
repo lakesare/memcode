@@ -271,6 +271,7 @@
             font-size: 23px;
             width: 100%;
             text-align: right;
+            max-width: none;
           }
           > section.category_and_author{
             display: none;

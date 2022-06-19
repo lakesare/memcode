@@ -144,8 +144,25 @@
 }
 
 @keyframes change {
-  from { /*Use "to" to change the direction */
+  from { /* Use "to" to change the direction */
     background-position: right, center;
   }
 }
 
+@media(max-width: 1000px){
+  section.flashcard-buttons{
+    .first{
+      left: 0; right: auto;
+      background: $color-main-1;
+      padding-right: 5px !important;
+      border-bottom-right-radius: 3px;
+    }
+  }
+  section.save-changes{
+    left: auto !important; right: 10px; top: 10px !important;
+    .shortcut{ display: none; }
+    button{
+      border: 1px solid #323359;
+    }
+  }
+}
