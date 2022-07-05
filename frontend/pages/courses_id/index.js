@@ -176,6 +176,8 @@ class Page_courses_id extends React.Component {
                 uiRemoveOldProblems={this.uiRemoveOldProblems}
                 createdCoursesForSelect={createdCoursesForSelect}
                 flashcardOrder={this.props.My.flashcardOrder}
+                uiAddOptimisticProblem={this.uiAddOptimisticProblem}
+                uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
               />
             )}
             {provided.placeholder}

@@ -49,6 +49,12 @@
         background: rgb(9, 99, 120);
       }
     }
+    .duplicate-button{
+      background: rgba(143, 83, 138, 0.67);
+      &:hover{
+        background: rgb(143, 83, 138);
+      }
+    }
 
     div.first, div.second{
       top: 8px;

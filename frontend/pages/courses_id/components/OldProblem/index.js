@@ -21,7 +21,9 @@ class OldProblem extends React.Component {
     updateIdsOfCheckedProblems: PropTypes.func.isRequired,
     uiRemoveOldProblems: PropTypes.func.isRequired,
     createdCoursesForSelect: PropTypes.array.isRequired,
-    flashcardOrder: PropTypes.bool.isRequired
+    flashcardOrder: PropTypes.bool.isRequired,
+    uiAddOptimisticProblem: PropTypes.func.isRequired,
+    uiUpdateOptimisticProblemIntoOld: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -83,6 +85,28 @@ class OldProblem extends React.Component {
         setTimeout(() => {
           this.setState({ problemInApi: this.props.problem, speSave: {} });
         }, 200);
+      });
+  }
+
+  apiDuplicateFlashcard = () => {
+    const optimisticId = _.uniqueId();
+
+    const problemHash = {
+      type:     this.props.problem.type,
+      content:  this.props.problem.content,
+      courseId: this.props.problem.courseId
+    };
+    this.props.uiAddOptimisticProblem({
+      ...problemHash,
+      _optimistic_id: optimisticId
+    });
+
+    api.ProblemApi.create(
+      (spe) => this.setState({ speSave: spe }),
+      { problem: problemHash }
+    )
+      .then((createdProblem) => {
+        this.props.uiUpdateOptimisticProblemIntoOld(optimisticId, createdProblem);
       });
   }
 
@@ -148,6 +172,16 @@ class OldProblem extends React.Component {
           uiRemoveOldProblems={this.props.uiRemoveOldProblems}
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
         />
+
+        {
+          this.props.idsOfCheckedProblems.length === 0 &&
+          <button
+            type="button"
+            tabIndex={-1}
+            className="button duplicate-button"
+            onClick={this.apiDuplicateFlashcard}
+          >Copy</button>
+        }
       </div>
 
       {/* <div className="second"> */}
