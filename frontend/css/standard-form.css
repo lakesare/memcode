@@ -9,6 +9,11 @@
     border-radius: 3px;
   }
 
+  &.-no-padding{
+    padding: 0;
+    margin: 0;
+  }
+
   .form-insides{
     max-width: 640px;
     margin: 0 auto;

@@ -6,6 +6,7 @@ import api from '~/api';
 class UserSelect extends React.Component {
   static propTypes = {
     onSelect: PropTypes.func.isRequired,
+    placeholder: PropTypes.string
   }
 
   loadOptions = (inputValue) =>
@@ -33,6 +34,7 @@ class UserSelect extends React.Component {
 
   render = () =>
     <AsyncSelect
+      placeholder={this.props.placeholder}
       cacheOptions
       defaultOptions
 
