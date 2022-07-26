@@ -1,5 +1,7 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
 import TabNavigation   from '~/components/TabNavigation';
+import OrganizeStudentsTab from './components/OrganizeStudentsTab';
+
 import { AuthenticationActions } from '~/reducers/Authentication';
 import MyDuck from '~/ducks/MyDuck';
 
@@ -7,7 +9,7 @@ import css from './index.scss';
 
 @connect(
   (state) => ({
-    currentUser: state.global.Authentication.currentUser || false,
+    currentUser: state.global.Authentication.currentUser,
     My: state.global.My
   }),
   (dispatch) => ({
@@ -21,10 +23,11 @@ class SettingsModal extends React.Component {
     My: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
     signOut: PropTypes.func.isRequired,
+    currentUser: PropTypes.object.isRequired
   }
 
   state = {
-    selectedTab: 'Design',
+    selectedTab: 'Organize students',
     hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false
   }
 
@@ -52,13 +55,14 @@ class SettingsModal extends React.Component {
     <TabNavigation
       selectTab={(selectedTab) => this.setState({ selectedTab })}
       selectedTab={this.state.selectedTab}
-      tabs={['Design', 'Manage']}
+      tabs={['Design', 'Organize students', 'Manage']}
     />
 
   renderSelectedTab = () => {
     return {
       'Design': this.renderDesignTab,
-      'Manage': this.renderManageTab
+      'Manage': this.renderManageTab,
+      'Organize students': this.renderOrganizeStudentsTab
     }[this.state.selectedTab]();
   }
 
@@ -73,6 +77,9 @@ class SettingsModal extends React.Component {
         Sign Out
       </button>
     </div>
+
+  renderOrganizeStudentsTab = () =>
+    <OrganizeStudentsTab currentUser={this.props.currentUser}/>
 
   renderDesignTab = () =>
     <div className="design-tab">

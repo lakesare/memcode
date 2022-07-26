@@ -1,0 +1,28 @@
+:local(.local){
+  display: flex;
+  .left{
+    width: 40%;
+
+    ul.groups{
+      margin-top: 20px;
+
+      li.group{
+        &.-active{
+          button{ background: rgba(255, 255, 255, 0.08); }
+        }
+        &:hover{
+          button{ background: rgba(255, 255, 255, 0.05); }
+        }
+        button{
+          padding: 10px 7px;
+          border-radius: 2px;
+          max-width: 200px;
+
+        }
+      }
+    }
+  }
+  .right{
+    width: 60%;
+  }
+}

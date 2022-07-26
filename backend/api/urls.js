@@ -8,6 +8,7 @@ import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
 import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
 import UserApi from '~/api/UserApi';
 import ProblemApi from '~/api/ProblemApi';
+import StudentGroupApi from '~/api/StudentGroupApi';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -19,6 +20,7 @@ const getApiClass = (controllerName) => {
     case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
     case 'UserApi': return UserApi;
     case 'PageApi': return PageApi;
+    case 'StudentGroupApi': return StudentGroupApi;
   }
 };
 
