@@ -1,5 +1,6 @@
 import standardToolbarContainer from '~/services/quill/standardToolbarContainer';
 import dropOrPasteImageHandler from '~/services/quill/handlers/dropOrPasteImageHandler';
+import msWordPasteMatchers     from '~/services/quill/msWordPasteMatchers';
 import uploadImageHandler      from '~/services/quill/handlers/uploadImageHandler';
 import markAsAnswerHandler     from '~/services/quill/handlers/markAsAnswerHandler';
 import codeBlockHandler        from '~/services/quill/handlers/codeBlockHandler';
@@ -72,6 +73,10 @@ const bindings = {
     shiftKey: true,
     handler: formulaHandler
   },
+
+  clipboard: {
+    matchers: msWordPasteMatchers
+  }
 
   // blurOnEsc: {
   //   key: 'Escape',
