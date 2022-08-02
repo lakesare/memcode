@@ -74,10 +74,6 @@ const bindings = {
     handler: formulaHandler
   },
 
-  clipboard: {
-    matchers: msWordPasteMatchers
-  }
-
   // blurOnEsc: {
   //   key: 'Escape',
   //   handler: () => {
@@ -213,8 +209,12 @@ class Editor extends React.Component {
       bindings
     },
 
-    // https://github.com/zenoamaro/react-quill/issues/250
-    clipboard: { matchVisual: false },
+    clipboard: {
+      // https://github.com/zenoamaro/react-quill/issues/250
+      matchVisual: false,
+      // https://github.com/lakesare/memcode/pull/163
+      matchers: msWordPasteMatchers
+    },
     imageResize: {
       modules: ['Resize']
     },
