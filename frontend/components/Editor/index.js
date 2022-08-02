@@ -1,5 +1,6 @@
 import standardToolbarContainer from '~/services/quill/standardToolbarContainer';
 import dropOrPasteImageHandler from '~/services/quill/handlers/dropOrPasteImageHandler';
+import msWordPasteMatchers     from '~/services/quill/msWordPasteMatchers';
 import uploadImageHandler      from '~/services/quill/handlers/uploadImageHandler';
 import markAsAnswerHandler     from '~/services/quill/handlers/markAsAnswerHandler';
 import codeBlockHandler        from '~/services/quill/handlers/codeBlockHandler';
@@ -208,8 +209,12 @@ class Editor extends React.Component {
       bindings
     },
 
-    // https://github.com/zenoamaro/react-quill/issues/250
-    clipboard: { matchVisual: false },
+    clipboard: {
+      // https://github.com/zenoamaro/react-quill/issues/250
+      matchVisual: false,
+      // https://github.com/lakesare/memcode/pull/163
+      matchers: msWordPasteMatchers
+    },
     imageResize: {
       modules: ['Resize']
     },
