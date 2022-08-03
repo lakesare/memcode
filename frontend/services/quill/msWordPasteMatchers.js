@@ -12,7 +12,7 @@ function matchMsWordList(node, delta) {
 
     bulletOp.insert = bulletOp.insert.trimLeft();
     let listPrefix = bulletOp.insert.match(/^.*?(^·|\.)/) || bulletOp.insert[0];
-    bulletOp.insert = bulletOp.insert.substring(listPrefix[0].length, bulletOp.insert.length);
+    bulletOp.insert = bulletOp.insert.substring(listPrefix[0].length, bulletOp.insert.length).trimLeft();
 
     // Trim the newline off the last op
     let last = ops[ops.length-1];
