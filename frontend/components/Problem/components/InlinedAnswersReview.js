@@ -144,6 +144,7 @@ class InlinedAnswersReview extends React.Component {
       .replace(
         /<mark class="answer">(.*?)<\/mark>/g,
         `<input
+          type="text"
           class="answer-input"
           data-answer="$1"
           data-answered="waiting"
