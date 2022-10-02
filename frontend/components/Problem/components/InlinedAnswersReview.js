@@ -75,12 +75,11 @@ const _checkAnswer = (el, onRightAnswerGiven, nextInput) => {
 
 const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
   arrayOfAnswerEls.forEach((el, index) => {
-    el.addEventListener('input', (event) => {
+    el.addEventListener('input', () => {
       // ___Why do we need this { return }?
       //    For korean typing issues.
       //    Fixes issue (https://github.com/lakesare/memcode/issues/165)
-      //    By solution (https://github.com/vuejs/vue/issues/10277#issuecomment-873337252)
-      if (event.isComposing || event.keyCode === 229) return;
+      if (el.getAttribute('data-answered') !== 'waiting') return;
 
       _adjustWidthToInput(el);
       const nextInput = arrayOfAnswerEls[index + 1] || null;
