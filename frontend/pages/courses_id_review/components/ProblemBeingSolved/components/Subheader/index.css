@@ -54,11 +54,6 @@
     }
   }
 
-  button.bg-image-button,
-  button.volume-button i {
-    color: white;
-  }
-
   button.bg-image-button.-off,
   button.volume-button.-no{
     opacity: 0.8;

@@ -61,7 +61,6 @@
 
       > section.course-title_and_category_and_author{
         display: flex;
-        color: white;
         min-height: 40px;
         > h1.title{
           word-break: break-all;
@@ -154,7 +153,6 @@
           justify-content: flex-end;
           > div.icon{
             // text-shadow: 0 0 6px #fbfbfb47;
-            color: white;
             font-size: 15px;
             width: 27px;
             text-align: center;
@@ -167,7 +165,7 @@
             span.number{
               padding-right: 2px;
               font-size: 13px;
-              color: rgba(255, 255, 255, 0.92);
+              opacity: 0.92;
             }
             span.number.review-in-stat-number{
               padding-left: 5px;

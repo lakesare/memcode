@@ -1,6 +1,5 @@
 :local(.section){
   > section.congratulations{
-    color: white;
     text-align: center;
     // margin-top: 30px;
     h2{
@@ -67,6 +66,7 @@
       text-transform: none;
       min-width: 180px;
       background: #21a582d1;
+      color: white;
       padding: 8px 10px;
       // transition: background 300ms ease-in-out;
       // &:hover{

@@ -31,7 +31,6 @@
   a.logo{
     display: flex;
     align-items: center;
-    color: white;
 
     // position: relative;
     // top: 5px;
@@ -60,7 +59,6 @@
 
       text-transform: uppercase;
       font-size: 11px;
-      color: white;
       min-width: 100px;
     }
   }

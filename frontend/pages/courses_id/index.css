@@ -23,6 +23,7 @@
 
   .choose-type button, .save-changes-button, .how-to-create button, .checkbox{
     background: $orange;
+    color: white;
   }
   .how-to-create button{
     &:not(:hover){
