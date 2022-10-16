@@ -46,7 +46,7 @@
           a.name{
             // to span entire width, so that entire li is clickable
             display: block;
-            color: rgba(255, 255, 255, 0.9);
+            // color: rgba(255, 255, 255, 0.9);
             padding: 6px 4px;
             padding-left: 4px;
             margin-left: 12px;

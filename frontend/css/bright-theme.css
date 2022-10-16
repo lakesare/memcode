@@ -27,6 +27,53 @@ body.-hideSocialButtons{
       }
     }
   }
+
+  .standard-course-card{
+    background: white;
+  }
+
+  .pagination{
+    color: white;
+  }
+
+  .wrapper{
+    .user, .skills, .stats{
+      background: #e0e0e326;
+      box-shadow: 0 1px 0 0 #cacbce63, 0 0 0 1px #ededf073;
+    }
+    .skill .progress-bar{
+      background: white !important;
+    }
+  }
+
+  .Subheader .buttons{
+    color: #a6a3a3c9;
+  }
+  .randomize-button, .randomize-button:hover{
+    color: #a6a3a3c9;
+    border: 1px solid #a6a3a399;
+    opacity: 1;
+  }
+  .bg-button-dropdown{
+    button{
+      background: rgba(96, 94, 94, 0.69);
+      &.-active{
+        background: rgba(96, 94, 94, 0.9) !important;        
+      }
+    }
+  }
+  .toggle-button-label-left{
+    &:after{
+      border-color: #a6a3a399;
+    }
+    &:before{
+      background: #a6a3a399;
+    }
+  }
+
+  section.amount-footer{
+    color: white !important;
+  }
 }
 
 .-bright-theme{
