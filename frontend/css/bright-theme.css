@@ -74,6 +74,10 @@ body.-hideSocialButtons{
   section.amount-footer{
     color: white !important;
   }
+
+  div.learn-and-review-buttons a.link{
+    color: white;
+  }
 }
 
 .-bright-theme{
