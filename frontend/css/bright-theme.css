@@ -78,6 +78,22 @@ body.-hideSocialButtons{
   div.learn-and-review-buttons a.link{
     color: white;
   }
+
+  button.reveal{
+    background: #25b08b;
+  }
+
+  .problem-wrapper.-yet-to-learn:hover{
+    background: #65caaf1a;
+    // #65caaf66
+  }
+  .problem-wrapper.-learned{
+    background: #65caaf66;
+  }
+
+  ul.tab-links{
+    background: white !important;
+  }
 }
 
 .-bright-theme{
