@@ -1,4 +1,5 @@
 tasks:
+  - before: nvm install 8.4
   - init: npm install && psql -v database=memcode -U gitpod -f backend/db/schema.sql && make all &
 image:
   file: .gitpod.Dockerfile
