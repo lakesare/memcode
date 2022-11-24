@@ -27,7 +27,8 @@ input.standard-input:not(.answer-input):not(.toggler),
 
 .button.-white, button.volume-button, button.bg-image-button, .more-button{
   &:focus, &:hover, &[aria-expanded="true"]{
-    opacity: 0.09;
+    // opacity: 0.09;
+    background: rgba(255, 255, 255, 0.09);
   }
 }
 button.volume-button, button.bg-image-button{
