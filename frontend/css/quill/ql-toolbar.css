@@ -20,6 +20,14 @@
       margin-right: 0;
     }
   }
+
+  // Only show Italitc and Unerline buttons on mobiles.
+  // The logic is that on desktop people can use shortcuts & we don't want too many buttons in the toolbar, see https://github.com/lakesare/memcode/pull/172.
+  @media(min-width: 950px){
+    .ql-italic, .ql-underline{
+      display: none;
+    }
+  }
 }
 .ql-tooltip{
   input{
