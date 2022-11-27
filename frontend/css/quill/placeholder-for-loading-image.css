@@ -3,7 +3,6 @@
 section.placeholder-for-loading-image{
   cursor: progress;
   pointer-events: none;
-  background: black;
   img{
     animation: fadeIn 1.3s infinite alternate;
   }

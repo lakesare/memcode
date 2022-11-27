@@ -50,12 +50,12 @@
       text-decoration: underline;
     }
 
-    pre.ql-syntax, code, code *{
+    pre.ql-syntax, code{
       background: rgba(183, 225, 246, 0.06) !important;
       color: rgb(167, 209, 219) !important;
     }
     pre.ql-syntax, code{
-      font-size: 16px;
+      font-size: 0.95em;
       white-space: pre-wrap;
       border-radius: 3px;
     }
