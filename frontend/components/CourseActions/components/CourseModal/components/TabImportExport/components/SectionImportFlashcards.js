@@ -32,10 +32,27 @@ class SectionImportFlashcards extends React.Component {
       .then((arrayOfHashes) => {
         const flashcardsToBeImported = arrayOfHashes.map((excelRowHash) => {
           const excelRowArray = Object.values(excelRowHash);
-          return {
-            content: excelRowArray[0],
-            answer: excelRowArray[1]
-          };
+          const one = excelRowArray[0];
+          const two = excelRowArray[1];
+          const type = one.includes('class="answer"') ? 'inlinedAnswers' : 'separateAnswer';
+
+          if (type === 'inlinedAnswers') {
+            return {
+              type: 'inlinedAnswers',
+              content: {
+                content: one,
+                explanation: two
+              }
+            };
+          } else {
+            return {
+              type: 'separateAnswer',
+              content: {
+                content: one,
+                answer: two
+              }
+            };
+          }
         });
         this.setState({ flashcardsToBeImported });
       });
@@ -86,15 +103,15 @@ class SectionImportFlashcards extends React.Component {
           First column for the questions, second column for the answers. HTML is welcome.
         </p>
         <p>
-          <b>Notice</b><br/>
-          It's only possible to import question-answer flashcards, contact us if you'd like imports for cloze deletion flashcards.
+          <b>A type of a flashcard</b><br/>
+          The type of the flashcard is "Question-Answer" by default, and "Fill-In Answer" if the first-column cell contains "<b>{'<mark class="answer">hi</mark>'}</b>".
         </p>
       </div>
 
       <div className="second-column">
         <figure>
           <figcaption><b>Example of a valid excel file</b></figcaption>
-          <img src={exampleOfGoodExcelForImport}/>
+          <img src={exampleOfGoodExcelForImport} alt=""/>
         </figure>
       </div>
     </article>
