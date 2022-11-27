@@ -83,16 +83,24 @@ body.-hideSocialButtons{
     background: #25b08b;
   }
 
+  .problem-wrapper.-yet-to-learn{
+    box-shadow: 0px 0px 32px 4px rgba(166, 170, 170, 0.11) !important;
+  }
+
   .problem-wrapper.-yet-to-learn:hover{
-    background: #65caaf1a;
-    // #65caaf66
+    background: rgba(101, 202, 175, 0.1) !important;
   }
   .problem-wrapper.-learned{
-    background: #65caaf66;
+    background: #65caaf66 !important;
   }
 
   ul.tab-links{
-    background: white !important;
+    li.-active{
+      background: rgba(30, 28, 28, 0.04);
+    }
+    li.-not-active:hover{
+      background: rgba(30, 28, 28, 0.01);
+    }
   }
 }
 

@@ -3,7 +3,7 @@
 :local(main.main){
   > nav{
     > ul.tab-links{
-      background: rgb(14, 16, 49);
+      // background: rgb(14, 16, 49);
 
       display: flex;
       justify-content: center;
@@ -13,20 +13,17 @@
       font-size: 10px;
       letter-spacing: 1.1px;
       > li{
-        padding: 20px 20px;
-        padding-bottom: 13px;
+        padding: 13px 20px;
+        margin: 0px 5px;
         cursor: pointer;
+        border-radius: 2px;
         &.-active{
-          // color: $purple;
-          // background: $purple;
-
-          // color: rgb(150, 137, 249);
-          border-bottom: 1px solid rgb(150, 137, 249);
+          background: rgba(244, 242, 242, 0.05);
         }
         &.-not-active{
-          border-bottom: 1px solid transparent;
-          // color: black;
-          // background: #ececec78;
+          &:hover{
+            background: rgba(244, 242, 242, 0.02);
+          }
         }
       }
     }
