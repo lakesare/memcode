@@ -26,10 +26,6 @@ class Page extends React.Component {
   render = () =>
     <PageAdmin title="Notifications">
       <div className={`standard-admin-sections ${css.sections}`}>
-        <button type="button" className="button -pink" onClick={() => api.UserApi.addEveryoneToWelcomeCourse(false)}>
-          Teach everyone Welcome to Memcode course
-        </button>
-
         <section className="standard-admin-section">
           <h2 className="standard-admin-section-title">Send everyone notification about the new feature</h2>
 
