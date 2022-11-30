@@ -10,7 +10,7 @@ const auth = (callback) =>
     try {
       const user = jwt.verify(token, process.env['JWT_SECRET']);
       request.currentUser = user;
-      return callback(request, response, next);
+      callback(request, response, next);
     } catch (e) {
       // (does work too!)
       next(new Error("Couldn't authorize."));
