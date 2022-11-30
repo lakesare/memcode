@@ -15,6 +15,16 @@ const guardInsides = (getOurGuardData) => (callback) => async (request, response
       } else {
         next(new Error("Didn't pass guard."));
       }
+      break;
+    }
+    case 'byCuilId': {
+      const cuil = (await knex('courseUserIsLearning').where({ id }))[0];
+      if (cuil.userId === request.currentUser.id) {
+        callback(request, response, next);
+      } else {
+        next(new Error("Didn't pass guard."));
+      }
+      break;
     }
   }
 };

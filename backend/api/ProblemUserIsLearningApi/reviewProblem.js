@@ -1,10 +1,10 @@
 import knex from '~/db/knex';
 import dayjs from 'dayjs';
 
-import auth from '~/middlewares/auth';
+import guard from '~/middlewares/guard';
 import getNextScore from '~/../services/getNextScore';
 
-const reviewProblem = auth(async (request, response) => {
+const reviewProblem = guard((r) => ['byCuilId', r.body['id']])(async (request, response) => {
   const courseUserIsLearningId = request.body['id'];
   const problemId = request.body['problemId'];
   const performanceRating = request.body['performanceRating'];
