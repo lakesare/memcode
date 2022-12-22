@@ -112,7 +112,7 @@ class Subheader extends React.Component {
     !needsPatreon ||
     (
       this.props.currentUser &&
-      ['lakesare', 'charlie42', 'daniel-eder', 'inoryy', 'Dhruv B', 'Anders Hagen Jarmund'].includes(this.props.currentUser.username)
+      ['lakesare', 'charlie42', 'daniel-eder', 'inoryy', 'Dhruv B', 'Anders Hagen Jarmund', 'luclu'].includes(this.props.currentUser.username)
     ) ?
       <button
         type="button"
