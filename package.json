@@ -122,7 +122,7 @@
     "jsesc": "^2.5.2",
     "json-schema-traverse": "^0.4.1",
     "jsonpointer": "^5.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "knex": "^0.19.5",
     "knex-stringcase": "^1.4.1",
     "loader-fs-cache": "^1.0.3",
