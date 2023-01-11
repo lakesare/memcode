@@ -123,7 +123,7 @@
     "json-schema-traverse": "^0.4.1",
     "jsonpointer": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.19.5",
+    "knex": "^2.4.0",
     "knex-stringcase": "^1.4.1",
     "loader-fs-cache": "^1.0.3",
     "loader-runner": "^3.1.0",
