@@ -2,7 +2,7 @@ import knex from '~/db/knex';
 import CourseModel from '~/models/CourseModel';
 
 const getUserPage = async (request, response) => {
-  const userId = request.body['userId'];
+  const userId = parseInt(request.body['userId']);
   const user = (await knex('user').where({ id: userId }))[0];
   // Only authenticated user should see the emails of other users
   const currentUser = request.currentUser || null;
