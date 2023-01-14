@@ -1,6 +1,6 @@
 import MyDuck from '~/ducks/MyDuck';
+import isPatreonUsername from '~/../services/isPatreonUsername';
 
-import ProgressBar from '~/components/ProgressBar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 import StandardTooltip from '~/components/StandardTooltip';
 import css from './index.css';
@@ -112,7 +112,7 @@ class Subheader extends React.Component {
     !needsPatreon ||
     (
       this.props.currentUser &&
-      ['lakesare', 'charlie42', 'daniel-eder', 'inoryy', 'Dhruv B', 'Anders Hagen Jarmund', 'luclu'].includes(this.props.currentUser.username)
+      isPatreonUsername(this.props.currentUser.username)
     ) ?
       <button
         type="button"
@@ -139,10 +139,11 @@ class Subheader extends React.Component {
             {/* {this.renderElement('Halloween', 'https://www.simplebooth.com/blog/wp-content/uploads/2019/10/black-cat-halloween-photo-booth-backdrop.png')} */}
             {
               this.props.currentUser &&
-              this.props.currentUser.username === 'lakesare' &&
+              isPatreonUsername(this.props.currentUser.username) &&
               <input
                 type="text"
-                style={{ "width": 20 }}
+                style={{ "width": 20, "padding-left": 3 }}
+                placeholder="url"
                 onChange={(e) => {
                   const url = e.target.value;
                   this.props.MyActions.setBackgroundImage(url);
