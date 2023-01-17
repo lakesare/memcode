@@ -70,7 +70,7 @@ class Header extends React.Component {
   renderMobile = () =>
     <div className="container -mobile">
       <div className="logo-and-user">
-        <Logo currentUser={this.props.currentUser} ifMobile/>
+        <Logo currentUser={this.props.currentUser}/>
 
         {
           this.props.currentUser &&

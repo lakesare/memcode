@@ -6,19 +6,14 @@ import { Link } from 'react-router-dom';
 
 class Logo extends React.Component {
   static propTypes = {
-    currentUser: orFalse(PropTypes.object).isRequired,
-    ifMobile: PropTypes.bool,
+    currentUser: orFalse(PropTypes.object).isRequired
   }
 
   getLink = () => {
     const currentUser = this.props.currentUser;
-    const ifMobile = this.props.ifMobile;
-    const ifDesktop = !ifMobile;
 
     // Signed-in
-    if (currentUser && ifMobile) {
-      return Urls.userShow(currentUser.id);
-    } else if (currentUser && ifDesktop) {
+    if (currentUser) {
       return Urls.courses();
     // Not signed-in
     } else {
