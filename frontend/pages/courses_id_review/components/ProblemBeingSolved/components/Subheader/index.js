@@ -142,7 +142,7 @@ class Subheader extends React.Component {
               isPatreonUsername(this.props.currentUser.username) &&
               <input
                 type="text"
-                style={{ "width": 20, "padding-left": 3 }}
+                style={{ "width": 20, "paddingLeft": 3 }}
                 placeholder="url"
                 onChange={(e) => {
                   const url = e.target.value;

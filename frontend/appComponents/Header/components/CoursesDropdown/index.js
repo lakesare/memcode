@@ -4,17 +4,22 @@ import CourseCard from './components/CourseCard';
 
 import MyModel from '~/models/MyModel';
 import hideOnEsc from '~/services/hideOnEsc';
+import MyDuck from '~/ducks/MyDuck';
 
 import css from './index.css';
 
 @connect(
   (state) => ({
     My: state.global.My
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
   })
 )
 class CoursesDropdown extends React.Component {
   static propTypes = {
     My: PropTypes.object.isRequired,
+    MyActions: PropTypes.object.isRequired
   }
 
   state = {
@@ -66,6 +71,13 @@ class CoursesDropdown extends React.Component {
               onChange={(e) => this.setState({ searchString: e.target.value })}
               autoComplete="off"
             />
+            <button
+              type="button"
+              className="button -white"
+              onClick={this.props.MyActions.apiGetCourses}
+            >
+              Sync
+            </button>
           </div>
 
           <div className="all-courses">

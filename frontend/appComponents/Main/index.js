@@ -60,7 +60,7 @@ class Main extends React.Component {
   }
 
   componentWillUnmount() {
-    this.apiSyncInterval && clearInterval(this.apiSyncInterval);
+    // this.apiSyncInterval && clearInterval(this.apiSyncInterval);
   }
 
   // url = 'https://images.unsplash.com/photo-1461511669078-d46bf351cd6e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80'
