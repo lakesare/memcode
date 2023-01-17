@@ -104,7 +104,11 @@ class CoursesDropdown extends React.Component {
         placement: 'bottom-end',
         trigger: 'click',
         arrow: false,
-        plugins: [hideOnEsc]
+        plugins: [hideOnEsc],
+        onShow: () => {
+          // This is primarily for courses to renew!
+          this.setState({ searchString: '' });
+        }
       }}
       width={420}
     >
