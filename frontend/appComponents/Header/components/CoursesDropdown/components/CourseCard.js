@@ -56,7 +56,8 @@ class CourseCard extends React.Component {
 
   render = () => {
     const courseDto = this.props.courseDto;
-    if (this.props.pinned) {
+    // this props.pinned
+    if (false) {
       return (
         <div className="course-li -pinned">
           <Link className="title" to={Urls.courseShow(courseDto.course.id)}>
