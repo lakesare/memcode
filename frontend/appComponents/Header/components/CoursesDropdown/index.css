@@ -80,12 +80,18 @@
             background: transparentize($review-button-color, 0.1);
           }
         }
-        &.-pinned{
-          cursor: default;
-          i {
-            font-size: 15px;
+        &.-learn{
+          background: $learn-button-color;
+          &:hover{
+            background: transparentize($learn-button-color, 0.1);
           }
         }
+        // &.-pinned{
+        //   cursor: default;
+        //   i {
+        //     font-size: 15px;
+        //   }
+        // }
       }
       a.title:hover{
         background: transparentize(rgb(66, 69, 98), 0.3);

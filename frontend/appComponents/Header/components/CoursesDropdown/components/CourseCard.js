@@ -56,8 +56,7 @@ class CourseCard extends React.Component {
 
   render = () => {
     const courseDto = this.props.courseDto;
-    // this props.pinned
-    if (false) {
+    if (this.props.pinned && (courseDto.amountOfProblemsToReview || courseDto.amountOfProblemsToLearn)) {
       return (
         <div className="course-li -pinned">
           <Link className="title" to={Urls.courseShow(courseDto.course.id)}>
@@ -68,9 +67,9 @@ class CourseCard extends React.Component {
               <Link className="action -review" to={Urls.courseReview(courseDto.course.id)}>
                 {courseDto.amountOfProblemsToReview}
               </Link> :
-              <div className="action -pinned">
-                <i className="material-icons">push_pin</i>
-              </div>
+              <Link className="action -learn" to={Urls.courseLearn(courseDto.course.id)}>
+                {courseDto.amountOfProblemsToLearn}
+              </Link>
           }
         </div>
       );
