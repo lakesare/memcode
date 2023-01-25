@@ -1,3 +1,5 @@
+import { withRouter } from 'react-router-dom';
+
 import StandardTooltip from '~/components/StandardTooltip';
 import Loading from '~/components/Loading';
 import CourseCard from './components/CourseCard';
@@ -8,6 +10,7 @@ import MyDuck from '~/ducks/MyDuck';
 
 import css from './index.css';
 
+@withRouter
 @connect(
   (state) => ({
     My: state.global.My
@@ -18,12 +21,42 @@ import css from './index.css';
 )
 class CoursesDropdown extends React.Component {
   static propTypes = {
+    location: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired
   }
 
   state = {
-    searchString: ''
+    searchString: '',
+    isDropdownVisible: ''
+  }
+
+  componentDidMount = () => {
+    document.addEventListener('keydown', this.uiHideDropdownOnEsc, false);
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.uiHideDropdown();
+    }
+  }
+
+  componentWillUnmount = () => {
+    document.removeEventListener('keydown', this.uiHideDropdownOnEsc, false);
+  }
+
+  uiHideDropdownOnEsc = (event) => {
+    if (event.keyCode === 27) {
+      this.uiHideDropdown();
+    }
+  }
+
+  uiHideDropdown = () => {
+    this.setState({ isDropdownVisible: false });
+  }
+
+  uiShowDropdown = () => {
+    this.setState({ isDropdownVisible: true });
   }
 
   filterCoursesForSearchString = (dtos) =>
@@ -59,7 +92,11 @@ class CoursesDropdown extends React.Component {
         <>
           <div className="pinned-courses">
             {this.getPinnedCourses().map((courseDto) =>
-              <CourseCard key={courseDto.course.id} courseDto={courseDto} pinned/>
+              <CourseCard
+                key={courseDto.course.id}
+                courseDto={courseDto}
+                pinned
+              />
             )}
           </div>
 
@@ -114,18 +151,20 @@ class CoursesDropdown extends React.Component {
         className: 'standard-tooltip -no-padding -bright',
         interactive: true,
         placement: 'bottom-end',
-        trigger: 'click',
+        // trigger: 'click',
         arrow: false,
-        plugins: [hideOnEsc],
+        // plugins: [hideOnEsc],
         onShow: () => {
           // This is primarily for courses to renew!
           this.setState({ searchString: '' });
-        }
+        },
+        visible: this.state.isDropdownVisible,
+        onClickOutside: this.uiHideDropdown
       }}
       width={420}
     >
       <div className="my-courses-toggler">
-        <button type="button" className="button link courses">
+        <button type="button" className="button link courses" onClick={this.state.isDropdownVisible ? this.uiHideDropdown : this.uiShowDropdown}>
           Courses
           <div className="position-relative-wrapper">
             {this.renderNOfProblemsToReview()}
