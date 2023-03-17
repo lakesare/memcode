@@ -148,7 +148,7 @@ class CoursesDropdown extends React.Component {
     <StandardTooltip
       tooltipEl={this.renderDropdown()}
       tooltipProps={{
-        className: 'standard-tooltip -no-padding -bright',
+        className: 'standard-tooltip -no-padding -bright my-courses-dropdown',
         interactive: true,
         placement: 'bottom-end',
         // trigger: 'click',

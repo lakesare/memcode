@@ -16,6 +16,21 @@ body.-hideSocialButtons{
   color: black;
   // font-family: 'Open Sans';
 
+  // header .my-courses-dropdown{
+  //   background: rgb(234, 233, 233);
+  //   .course-li a.title{
+  //     background: white;
+  //     color: black;
+  //   }
+  //   .search-courses input{
+  //     background: white;
+  //     color: black;
+  //     &:hover{
+  //       background: red;
+  //     }
+  //   }
+  // }
+
   section.problem .ql-toolbar{
     background: none;
     button{
@@ -26,6 +41,10 @@ body.-hideSocialButtons{
         fill: black !important;
       }
     }
+  }
+
+  .flashcard-buttons button{
+    color: white;
   }
 
   .standard-course-card{
