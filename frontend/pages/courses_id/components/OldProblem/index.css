@@ -55,6 +55,14 @@
         background: rgb(143, 83, 138);
       }
     }
+    .switch-type-button{
+      // font-size: 10px !important;
+      // line-height: 11px;
+      background: rgba(111, 34, 10, 0.83);
+      &:hover{
+        background: rgb(111, 34, 10);
+      }
+    }
 
     div.first, div.second{
       top: 8px;

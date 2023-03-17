@@ -3,6 +3,7 @@ import _ from 'lodash';
 import api from '~/api';
 import Problem from '~/components/Problem';
 import Loading from '~/components/Loading';
+import switchType from './services/switchType';
 
 const createEmptyEditorState = (type) => {
   switch (type) {
@@ -89,24 +90,9 @@ class NewProblem extends React.Component {
   }
 
   updateType = (newType) => {
-    const oldContent = this.state.problemContent;
-    let newContent;
-
-    if (newType === 'separateAnswer') {
-      newContent = {
-        content: oldContent.content,
-        answer: oldContent.explanation
-      };
-    } else if (newType === 'inlinedAnswers') {
-      newContent = {
-        content: oldContent.content,
-        explanation: oldContent.answer
-      };
-    }
-
     this.setState({
       currentProblemType: newType,
-      problemContent: newContent
+      problemContent: switchType(this.state.problemContent, newType)
     });
   }
 

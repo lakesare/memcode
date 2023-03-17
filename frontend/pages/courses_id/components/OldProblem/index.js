@@ -8,6 +8,7 @@ import Problem from '~/components/Problem';
 import Checkbox from './components/Checkbox';
 import DeleteFlashcardsModal from './components/DeleteFlashcardsModal';
 import ExportFlashcardsModal from './components/ExportFlashcardsModal';
+import switchType from '../services/switchType';
 
 import css from './index.css';
 
@@ -86,6 +87,16 @@ class OldProblem extends React.Component {
           this.setState({ problemInApi: this.props.problem, speSave: {} });
         }, 200);
       });
+  }
+
+  apiSwitchType = () => {
+    const newType = this.props.problem.type == 'separateAnswer' ? 'inlinedAnswers' : 'separateAnswer';
+    this.props.updateOldProblem({
+      ...this.props.problem,
+      content: switchType(this.props.problem.content, newType),
+      type: newType
+    });
+    this.apiSave();
   }
 
   apiDuplicateFlashcard = () => {
@@ -181,6 +192,16 @@ class OldProblem extends React.Component {
             className="button duplicate-button"
             onClick={this.apiDuplicateFlashcard}
           >Copy</button>
+        }
+
+        {
+          this.props.idsOfCheckedProblems.length === 0 &&
+          <button
+            type="button"
+            tabIndex={-1}
+            className="button switch-type-button"
+            onClick={this.apiSwitchType}
+          >Type</button>
         }
       </div>
 
