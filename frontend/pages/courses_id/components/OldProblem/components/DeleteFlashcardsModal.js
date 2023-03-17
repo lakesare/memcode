@@ -16,7 +16,7 @@ class DeleteFlashcardsModal extends React.Component {
 
   render = () =>
     <TogglerAndModal toggler={this.props.toggler}>{() =>
-      <section className={"standard-modal standard-modal--md "}>
+      <section className={"standard-modal standard-modal--sm"}>
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Delete {this.props.idsOfCheckedProblems.length} Flashcards</h2>
         </div>
