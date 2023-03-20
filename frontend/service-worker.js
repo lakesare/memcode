@@ -38,6 +38,13 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
+  new RegExp('.*/api/PageApi.getUserPage?.*'),
+  workbox.strategies.staleWhileRevalidate({
+    cacheName: 'api_v5'
+  })
+);
+
+workbox.routing.registerRoute(
   new RegExp('.*/api/courses/public.*'),
   workbox.strategies.staleWhileRevalidate({
     cacheName: 'api_v5'

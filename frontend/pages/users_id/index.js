@@ -40,7 +40,7 @@ class Page_users_id extends React.Component {
   }
 
   apiGetPage = () => {
-    api.PageApi.getUserPage(
+    api.get.PageApi.getUserPage(
       (spe) => this.setState({ speGetPage: spe }),
       { userId: this.props.match.params.id }
     );
