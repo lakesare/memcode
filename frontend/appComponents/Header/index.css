@@ -2,7 +2,6 @@
 
 :local(.header){
   background: rgba(34, 38, 74, 0.27);
-
   
   .my-courses-toggler{
     .link.courses{
@@ -23,6 +22,18 @@
         height: 23px;
         &:hover{
           background: $review-button-color;
+        }
+        &.-saving {
+          cursor: default;
+          pointer-events: none;
+
+          background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), $review-button-color;
+          background-size: 400% 100%, cover;
+          animation: change 1s linear infinite;
+        }
+
+        &.-just-saved {
+          background: rgb(238, 92, 15);
         }
       }
     }

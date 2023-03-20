@@ -29,6 +29,7 @@ const parsePinnedCourseIdsFromLS = (pinnedCourseIds) => {
 }
 
 const initialState = {
+  coursesAlreadyFetched: false,
   speCourses: {},
   courses: [],
   speCategories: {},
@@ -71,21 +72,14 @@ const reducer = (state = initialState, action) => {
     case 'SET_SPE_GET_COURSE': {
       return { ...state, speCourseForActions: action.payload };
     }
+    case 'RESET_SPE_COURSES': {
+      return { ...state, speCourses: {} };
+    }
     case SPE_COURSES: {
-      // If we already have courses fetched - simply refresh .courses
-      if (state.speCourses.status === 'success') {
-        if (action.spe.status === 'success') {
-          return { ...state, courses: action.spe.payload };
-        } else {
-          return state;
-        }
-      // If this is the first time we are fetching our courses - set .courses, AND set .speCourses to 'request'.
+      if (action.spe.status === 'success') {
+        return { ...state, speCourses: { status: 'success' }, courses: action.spe.payload, coursesAlreadyFetched: true };
       } else {
-        if (action.spe.status === 'success') {
-          return { ...state, speCourses: { ...action.spe, payload: null }, courses: action.spe.payload };
-        } else {
-          return { ...state, speCourses: { ...action.spe, payload: null } };
-        }
+        return { ...state, speCourses: { status: 'request' } };
       }
     }
     // COURSES
@@ -241,7 +235,12 @@ const getActions = (dispatch, getState) => ({
     //     console.log("Couldn't parse apiSync() payload from localStorage");
     //   }
     // }
-    api.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }));
+    api.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }))
+      .then(() => {
+        setTimeout(() => {
+          dispatch({ type: 'RESET_SPE_COURSES' });
+        }, 200);
+      });
   },
   apiGetCategories: () => {
     api.CourseCategoryApi.getAll((spe) => dispatch({ type: SPE_CATEGORIES, spe }));

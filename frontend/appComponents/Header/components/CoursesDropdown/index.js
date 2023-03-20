@@ -85,51 +85,52 @@ class CoursesDropdown extends React.Component {
       When you start learning some course, it will appear in this dropdown.
     </div>
 
-  renderDropdown = () =>
-    <div className={css.tooltip}>
-      <Loading spe={this.props.My.speCourses}>
-        {this.getCourseDtos().length === 0 ? this.renderNoCourses() :
-        <>
-          <div className="pinned-courses">
-            {this.getPinnedCourses().map((courseDto) =>
-              <CourseCard
-                key={courseDto.course.id}
-                courseDto={courseDto}
-                pinned
-              />
-            )}
-          </div>
-
-          <div className="search-courses">
-            <input
-              className="standard-input -TextInput"
-              type="text"
-              value={this.state.searchString}
-              onChange={(e) => this.setState({ searchString: e.target.value })}
-              autoComplete="off"
+  renderDropdown = () => {
+    if (!this.props.My.coursesAlreadyFetched) {
+      return null;
+    } else if (this.getCourseDtos().length === 0) {
+      return this.renderNoCourses();
+    } else {
+      return <div className={css.tooltip}>
+        <div className="pinned-courses">
+          {this.getPinnedCourses().map((courseDto) =>
+            <CourseCard
+              key={courseDto.course.id}
+              courseDto={courseDto}
+              pinned
             />
-            <button
-              type="button"
-              className="button -white"
-              onClick={this.props.MyActions.apiGetCourses}
-            >
-              Sync
-            </button>
-          </div>
+          )}
+        </div>
 
-          <div className="all-courses">
-            {this.filterCoursesForSearchString(this.getCourseDtos()).map((courseDto) =>
-              <CourseCard
-                key={courseDto.course.id}
-                courseDto={courseDto}
-                searchString={this.state.searchString}
-              />
-            )}
-          </div>
-        </>
-        }
-      </Loading>
-    </div>
+        <div className="search-courses">
+          <input
+            className="standard-input -TextInput"
+            type="text"
+            value={this.state.searchString}
+            onChange={(e) => this.setState({ searchString: e.target.value })}
+            autoComplete="off"
+          />
+          <button
+            type="button"
+            className={`button -white sync-button ${this.props.My.speCourses.status === 'request' ? '-saving' : ''} ${this.props.My.speCourses.status === 'success' ? '-just-saved' : ''}`}
+            onClick={this.props.MyActions.apiGetCourses}
+          >
+            Sync
+          </button>
+        </div>
+
+        <div className="all-courses">
+          {this.filterCoursesForSearchString(this.getCourseDtos()).map((courseDto) =>
+            <CourseCard
+              key={courseDto.course.id}
+              courseDto={courseDto}
+              searchString={this.state.searchString}
+            />
+          )}
+        </div>
+      </div>;
+    }
+  }
 
   renderNOfProblemsToReview = () => {
     const dtosToReview = MyModel.getDtosToReview(this.props.My.courses);
@@ -139,7 +140,7 @@ class CoursesDropdown extends React.Component {
       return null;
     }
 
-    return <div className="button -to-review">
+    return <div className={`button -to-review sync-button ${this.props.My.speCourses.status === 'request' ? '-saving' : ''} ${this.props.My.speCourses.status === 'success' ? '-just-saved' : ''}`}>
       {nOfProblems}
     </div>;
   }

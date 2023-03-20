@@ -100,7 +100,8 @@
   }
   .search-courses{
     position: relative;
-    button{
+
+    button.sync-button {
       position: absolute;
       font-size: 10px !important;
       min-width: 58px !important;
@@ -108,6 +109,20 @@
       top: 5px;
       right: -5px;
       padding: 0;
+      &.-saving {
+        cursor: default;
+        pointer-events: none;
+
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), rgb(30, 31, 57);
+        background-size: 400% 100%, cover;
+        animation: change 1s linear infinite;
+      }
+    
+      &.-just-saved {
+        color: rgb(33, 165, 153);
+      }
     }
   }
+
+
 }

@@ -74,24 +74,23 @@ class Courses extends React.Component {
     const courseDtos = this.getCourseDtos();
     return <section className={css.main}>
       <Loading spe={this.props.My.speCategories}>{({ courseCategoryGroups, courseCategories }) =>
-        <Loading spe={this.props.isCurrentUser ? this.props.My.speCourses : speCreator.success()}>{() =>
-          <div className="container standard-navigation_and_courses">
-            <div className="left">
-              <CourseCategories
-                selectedCourseCategoryId={getCategoryId(this.props.location)}
-                courseCategoryGroups={courseCategoryGroups}
-                courseCategories={this.filterCourseCategories(courseCategories, courseDtos)}
-                ifShowAmountOfCoursesInCategory
-              />
-            </div>
-            <div className="right">
-              <ListOfCourseCards
-                className="list-of-courses"
-                courseDtos={this.filterCoursesForCategory(courseDtos)}
-              />
-            </div>
+        (!this.props.isCurrentUser || (this.props.isCurrentUser && this.props.My.coursesAlreadyFetched)) &&
+        <div className="container standard-navigation_and_courses">
+          <div className="left">
+            <CourseCategories
+              selectedCourseCategoryId={getCategoryId(this.props.location)}
+              courseCategoryGroups={courseCategoryGroups}
+              courseCategories={this.filterCourseCategories(courseCategories, courseDtos)}
+              ifShowAmountOfCoursesInCategory
+            />
           </div>
-        }</Loading>
+          <div className="right">
+            <ListOfCourseCards
+              className="list-of-courses"
+              courseDtos={this.filterCoursesForCategory(courseDtos)}
+            />
+          </div>
+        </div>
       }</Loading>
     </section>;
   }
