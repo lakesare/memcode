@@ -4,29 +4,46 @@
 // );
 
 import commonFetch from './commonFetch';
+import hashToQueryString from './services/hashToQueryString';
 
-const fetchFunctionCreator = (controllerName, methodName) =>
-  (dispatch, body) =>
-    commonFetch(dispatch || false,
-      'POST', `/api/${controllerName}.${methodName}`,
-      body
-    );
+const fetchFunctionCreator = (controllerName, methodName, method) =>
+  (dispatch, body) => {
+    if (method === "POST") {
+      return commonFetch(dispatch || false,
+        'POST', `/api/${controllerName}.${methodName}`,
+        body
+      );
+    } else if (method === "GET") {
+      return commonFetch(dispatch || false,
+        'GET', `/api/${controllerName}.${methodName}?${hashToQueryString(body)}`
+      );
+    }
+  };
 
+// api.get.CourseApi.getPublicCourses({ groupId: 5 }) or
+// api.CourseApi.createCourse({ name: 'Category Theory' }})
 const api = new Proxy({}, {
-  get: (obj_1, property_1) => {
-    const controllerName = property_1;
-
-    const methodProxy = new Proxy({}, {
-      get: (obj_2, property_2) => {
-        const methodName = property_2;
-        return fetchFunctionCreator(controllerName, methodName);
-      }
-    });
-
-    return methodProxy;
+  get: (_0, methodOrController) => {
+    if (methodOrController === "get") {
+      return new Proxy({}, {
+        get: (_1, methodName) => {
+          const methodProxy = new Proxy({}, {
+            get: (_2, controllerName) => {
+              return fetchFunctionCreator(methodName, controllerName, 'GET');
+            }
+          });
+          return methodProxy;
+        }
+      });
+    } else {
+      const methodProxy = new Proxy({}, {
+        get: (_3, methodName) => {
+          return fetchFunctionCreator(methodOrController, methodName, 'POST');
+        }
+      });
+      return methodProxy;
+    }
   }
 });
-
-// api.CourseApi.getPublicCourses({ groupId: 5 })
 
 export default api;

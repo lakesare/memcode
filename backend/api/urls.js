@@ -28,6 +28,13 @@ router.post('/api/:controllerName.:methodName', catchAsync(async (request, respo
   await SomeApi[request.params.methodName](request, response, next);
 }));
 
+router.get('/api/:controllerName.:methodName', catchAsync(async (request, response, next) => {
+  // i want a uniform interface!
+  request.body = request.query;
+  const SomeApi = getApiClass(request.params.controllerName);
+  await SomeApi[request.params.methodName](request, response, next);
+}));
+
 // TODO make all routes like NotificationApi.rate() instead.
 // Everything that's below this line should be deleted eventually.
 import CourseApi from '~/api/CourseApi';
