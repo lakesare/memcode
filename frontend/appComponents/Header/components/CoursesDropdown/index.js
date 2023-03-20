@@ -159,8 +159,9 @@ class CoursesDropdown extends React.Component {
           // This is primarily for courses to renew!
           this.setState({ searchString: '' });
         },
-        visible: this.state.isDropdownVisible,
-        onClickOutside: this.uiHideDropdown
+        // visible: this.state.isDropdownVisible,
+        // onClickOutside: this.uiHideDropdown
+        trigger: 'mouseenter'
       }}
       width={420}
     >
