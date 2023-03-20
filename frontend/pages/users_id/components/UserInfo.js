@@ -23,11 +23,6 @@ class UserInfo extends React.Component {
         <div className="right">
           <div className="username">{capitalize(user.username)}</div>
 
-          {
-            user.email &&
-            <div className="email">{user.email}</div>
-          }
-
           <div className="created-at">
             Joined {this.getDate(user.createdAt)}
           </div>
