@@ -6,9 +6,7 @@ const getUserPage = async (request, response) => {
   const user = (await knex('user').where({ id: userId }))[0];
   // Only authenticated user should see the emails of other users
   const currentUser = request.currentUser || null;
-  if (currentUser === null) {
-    user.email = null;
-  }
+
   const createdCourses = currentUser && currentUser.id === userId ?
     await CourseModel.select.allCreated(userId) :
     await CourseModel.select.allPublic({ customWhere: `AND course.user_id=${userId}` });

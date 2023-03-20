@@ -1,7 +1,9 @@
 import capitalize from '~/services/capitalize';
 
 import { Pie } from 'react-chartjs-2';
+import { Link } from 'react-router-dom';
 import Loading from '~/components/Loading';
+import SettingsModal from '~/appComponents/SettingsModal';
 
 import { Chart, ArcElement, Tooltip } from "chart.js";
 Chart.register(ArcElement, Tooltip);
@@ -26,6 +28,8 @@ class UserInfo extends React.Component {
           <div className="created-at">
             Joined {this.getDate(user.createdAt)}
           </div>
+
+          {/* <Link className="contact-memcode" to="/contact">Contact Memcode</Link> */}
         </div>
       </div>
     </div>
@@ -93,6 +97,8 @@ class UserInfo extends React.Component {
         Math.round((stats.easiness[easinessFor] / stats.nOfProblemsLearned) * 100, 2);
 
     return <div className="stats">
+      <SettingsModal toggler={<button type="button" className="settings-button button -white">Settings</button>} />
+
       <h1>Progress</h1>
 
       <div className="wrapper">

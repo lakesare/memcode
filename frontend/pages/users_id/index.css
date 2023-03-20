@@ -101,6 +101,17 @@
 
       padding: 20px;
 
+      position: relative;
+      .settings-button{
+        position: absolute;
+        right: 0px; top: 0px;
+
+        min-width: 0;
+        min-height: 0;
+        padding: 8px 11px;
+        font-size: 9px;
+      }
+
       ul.textual-stats{
         font-size: 14px;
         padding-left: 20px;

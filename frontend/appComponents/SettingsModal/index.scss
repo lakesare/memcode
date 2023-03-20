@@ -1,6 +1,7 @@
 @import 'css/variables';
 
 :local(.local){
+  max-width: 650px;
 
   .standard-modal__main{
     min-height: 600px;

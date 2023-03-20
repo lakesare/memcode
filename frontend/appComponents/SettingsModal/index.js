@@ -82,7 +82,7 @@ class SettingsModal extends React.Component {
         <div className="settings">
           <div className="setting">
             <div className="comment">
-              Whether the links to Memcode's Github and Patreon pages (you might want them visible, they are cute!).
+              Whether to show the links to Memcode's Github and Patreon pages.
             </div>
             <button className="button -white" onClick={() => this.toggleValue('hideSocialButtons')} type="button">
               {
@@ -143,7 +143,7 @@ class SettingsModal extends React.Component {
 
   render = () =>
     <TogglerAndModal toggler={this.props.toggler}>{() =>
-      <section className={`standard-modal standard-modal--md ${css.local}`}>
+      <section className={`standard-modal ${css.local}`}>
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Settings</h2>
           {this.renderTabNavigation()}
