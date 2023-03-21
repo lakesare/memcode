@@ -161,7 +161,7 @@ class CoursesDropdown extends React.Component {
         },
         // visible: this.state.isDropdownVisible,
         // onClickOutside: this.uiHideDropdown
-        trigger: 'mouseenter'
+        trigger: 'mouseenter click'
       }}
       width={420}
     >
