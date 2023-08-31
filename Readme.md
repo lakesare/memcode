@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="http://memcode.com" title="Website memcodec.com">
+  <a href="http://memcode.com" title="Website memcode.com">
     <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg"/>
   </a>
   
