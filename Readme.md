@@ -44,20 +44,6 @@
 **Twitter**: <a href="https://twitter.com/memcodeapp">twitter.com/memcodeapp</a>  
 **Alternative.to**: <a href="https://alternativeto.net/software/memcode/about">alternativeto.net/software/memcode/about</a>    
 
-## Requesting a feature
-
-Over the years since Memcode's inception, we've received a ton of feature requests. Your suggestions have helped shape Memcode into the beautiful tool for thought it is today. However, every feature has associated development costs in terms of time and resources. This often leads to a backlog of issues and potential for features to go stale.
-
-To address this and ensure that your desired features are implemented, I'm introducing a new approach to feature development. This will allow you to have a direct hand in the betterment of Memcode.
-
-The process:
-
-- **Feature Requests**: If you have an idea for a feature, <a href="https://github.com/lakesare/memcode/issues/new">create an issue</a> on the github issues page.  
-- **Estimation**: I'll look over your request, figure out how much work it will take, and put a price on it.  
-- **Payment**: If you're okay with the price, you can pay to have it implemented in the next few weeks.  
-
-Remember, don't hesitate to propose feature ideas even if you're not in a position to cover the cost. Knowing your needs and desires for Memcode is invaluable, and it's quite possible someone else might resonate with your idea and be able to fund its implementation.
-
 ## Contributing
 
 First of all - you are very welcome to contribute, Memcode is a joint effort.   
