@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="http://memcode.com" title="Website memcodec.com">
+  <a href="http://memcode.com" title="Website memcode.com">
     <img src="https://img.shields.io/website-up-down-green-red/http/shields.io.svg"/>
   </a>
   
@@ -15,9 +15,9 @@
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"/>
   </a>
 
-  <a href="https://gitpod.io/#https://github.com/lakesare/memcode" title="Gitpod Ready-to-Code">
+<!--   <a href="https://gitpod.io/#https://github.com/lakesare/memcode" title="Gitpod Ready-to-Code">
     <img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod"/>
-  </a>
+  </a> -->
 
   <a href="https://patreon.com/memcode" title="Donate to Memcode project using Patreon">
     <img src="https://img.shields.io/badge/patreon-donate-yellow.svg"/>
@@ -49,7 +49,7 @@
 First of all - you are very welcome to contribute, Memcode is a joint effort.   
 Feel free to ask questions/propose features in github issues, or join our developer Slack (please write to contact@memcode.com to request access).
 
-Note: if you'd like to use online development environment, try <a href="https://github.com/lakesare/memcode/blob/master/Gitpod.md">Gitpod.md</a> (might need some adjustments). The steps below are for the local setup.
+<!-- Note: if you'd like to use online development environment, try <a href="https://github.com/lakesare/memcode/blob/master/Gitpod.md">Gitpod.md</a> (might need some adjustments). The steps below are for the local setup. -->
 
 #### Create a database postgres user with a password.
 1. Install PostgreSQL.
