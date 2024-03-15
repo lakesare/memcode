@@ -84,6 +84,37 @@ class ProblemBeingSolved extends React.Component {
     );
   }
 
+  renderAction = (statusOfSolving, problemType) => {
+    if (statusOfSolving === 'solving' && problemType === 'inlinedAnswers') {
+      return(
+        <button type="button" className="button reveal" onClick={this.props.enterPressed}>
+          SEE ANSWER
+        </button>
+      );
+    } else if (statusOfSolving === 'solving' && problemType === 'separateAnswer') {
+      return null;
+    } else if (statusOfSolving === 'seeingAnswer' && problemType === 'inlinedAnswers') {
+      return(
+        <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
+          NEXT
+        </button>
+      );
+    } else if (statusOfSolving === 'seeingAnswer' && problemType === 'separateAnswer') {
+      return(
+        <>
+          <SeparateAnswerSelfScore
+            giveScore={this.props.separateAnswerSelfScoreGiven}
+            score={this.props.statusOfSolving.typeSpecific.selfScore}
+          />
+    
+          <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
+            NEXT
+          </button>
+        </>
+      );
+    }
+  }
+
   render = () =>
     <section className={`ProblemBeingSolved ${css.section}`}>
       <Subheader
@@ -113,30 +144,7 @@ class ProblemBeingSolved extends React.Component {
           onRightAnswerGiven={this.props.onRightAnswerGiven}
         />
 
-        {
-          // !this.props.ifReviewIsSimulated &&
-          this.props.statusOfSolving.status === 'seeingAnswer' &&
-          this.props.problem.type === 'separateAnswer' &&
-          <SeparateAnswerSelfScore
-            giveScore={this.props.separateAnswerSelfScoreGiven}
-            score={this.props.statusOfSolving.typeSpecific.selfScore}
-          />
-        }
-
-        {
-          this.props.statusOfSolving.status === 'solving' &&
-          this.props.problem.type === 'inlinedAnswers' &&
-          <button type="button" className="button reveal" onClick={this.props.enterPressed}>
-            SEE ANSWER
-          </button>
-        }
-
-        {
-          this.props.statusOfSolving.status === 'seeingAnswer' &&
-          <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
-            NEXT
-          </button>
-        }
+        {this.renderAction(this.props.statusOfSolving.status, this.props.problem.type)}
       </div>
     </section>
 }
