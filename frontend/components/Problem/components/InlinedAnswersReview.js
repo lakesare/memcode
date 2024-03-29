@@ -88,6 +88,10 @@ const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
   });
 };
 
+@connect((state, ownProps) => ({
+  clozeDeletionMode: state.global.My.clozeDeletionMode,
+  ...ownProps
+}))
 class InlinedAnswersReview extends React.Component {
   static propTypes = {
     problemId: PropTypes.number.isRequired,
@@ -100,7 +104,8 @@ class InlinedAnswersReview extends React.Component {
       ])
     }).isRequired,
 
-    onRightAnswerGiven: PropTypes.func.isRequired
+    onRightAnswerGiven: PropTypes.func.isRequired,
+    clozeDeletionMode: PropTypes.string.isRequired
   }
 
   componentDidMount() {
@@ -132,9 +137,11 @@ class InlinedAnswersReview extends React.Component {
     Array.from(this.refs.problem.querySelectorAll('input.answer-input'));
 
   attachOnchangeToInputs = () => {
-    const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
-    focusOnTheFirstAnswer(arrayOfAnswerEls);
-    attachKeyup(arrayOfAnswerEls, this.props.onRightAnswerGiven);
+    if (this.props.clozeDeletionMode === "typing") {
+      const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
+      focusOnTheFirstAnswer(arrayOfAnswerEls);
+      attachKeyup(arrayOfAnswerEls, this.props.onRightAnswerGiven);
+    }
   }
 
   render = () => {
