@@ -49,30 +49,31 @@ import actions from './duck/actions';
       My: state.global.My
     };
   },
-    (dispatch, ownProps) => ({
-        getPage: (courseId) => dispatch(
-            actions.getPage(courseId, ownProps.simulated, ownProps.persistent)
-        ),
-        enterPressed: () => {
-            if(ownProps.simulated){
-                dispatch(actions.enterPressedInSimulatedReview());
-            } else if (ownProps.persistent){
-                dispatch(actions.enterPressedInPersistentReview());
-            } else {
-                 dispatch(actions.enterPressed());
-            }
-        },
-        separateAnswerSelfScoreGiven: (selfScore) =>
-            dispatch({
-                type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
-                payload: selfScore
-            }),
-        onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
-        randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
-        switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
+  (dispatch, ownProps) => ({
+    getPage: (courseId) => dispatch(
+      actions.getPage(courseId, ownProps.simulated, ownProps.persistent)
+    ),
+    enterPressed: () => {
+      if (ownProps.simulated){
+        dispatch(actions.enterPressedInSimulatedReview());
+      } else if (ownProps.persistent){
+        dispatch(actions.enterPressedInPersistentReview());
+      } else {
+        dispatch(actions.enterPressed());
+      }
+    },
+    separateAnswerSelfScoreGiven: (selfScore) =>
+      dispatch({
+        type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
+        payload: selfScore
+      }),
+    onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
+    randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
+    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
 
-        MyActions: dispatch(MyDuck.getActions)
-    })
+    MyActions: dispatch(MyDuck.getActions),
+    ignoreCurrentFlashcard: () => dispatch(actions.ignoreCurrentFlashcard())
+  })
 )
 class Page_courses_id_review extends React.Component {
   static propTypes = {
@@ -173,6 +174,8 @@ class Page_courses_id_review extends React.Component {
         type="review"
         My={this.props.My}
         MyActions={this.props.MyActions}
+        currentProblem={this.props.currentProblem}
+        ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
       />
 
       {

@@ -1,1 +1,1 @@
-Migrate shit here from /reducers, I decided to change import/export structure!
+Migrate stuff here from /reducers, I decided to change import/export structure!

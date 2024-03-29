@@ -25,11 +25,12 @@ class CuilButtons extends React.Component {
     apiResumeLearning: PropTypes.func.isRequired,
     MyActions: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
-    type: PropTypes.string.isRequired
+    currentProblem: PropTypes.object,
+    type: PropTypes.string.isRequired,
   }
 
   state = {
-    speDuplicate: {}
+    speDuplicate: {},
   }
 
   renderStartLearningButton = () =>
@@ -212,6 +213,26 @@ class CuilButtons extends React.Component {
           {this.renderModal()}
         </TogglerAndModal>
       </li>
+
+      {
+        this.props.currentProblem &&
+        <li>
+          <button
+            type="button"
+            onClick={() => {
+              this.props.MyActions.ignoreProblem(this.props.courseDto.course.id, this.props.currentProblem.id);
+              this.props.ignoreCurrentFlashcard();
+              api.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(() => {}, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id });
+            }}
+            style={{ color: 'rgb(120, 175, 244)' }}
+          >
+            <div className="text">Ignore</div>
+            <div className="comment -white">
+              Ignore this flashcard
+            </div>
+          </button>
+        </li>
+      }
     </ul>
 
   renderModal = () =>

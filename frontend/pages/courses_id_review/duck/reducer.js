@@ -3,35 +3,16 @@ import playLongSound from './services/playLongSound';
 
 const initialState = {
   speGetPage: {},
+  // status of solving a particular flashcard
   // {
   //   index: 2, // speGetPage.payload.problems[2] - signifies current flashcard
-  //   status: 'seeingAnswer', // or 'solving'
-  //   typeSpecific: {
-  //     amountOfRightAnswersGiven: 0
-  //   } // or { selfScore: 5 }
+  //   status: 'seeingAnswer' | 'solving'
+  //   typeSpecific: { amountOfRightAnswersGiven: 0 } | { selfScore: 5 }
   // }
-  // status of solving a particular flashcard
   statusOfSolving: null,
-  // ___idea:
-  // statusOfReview: 'simulated', 'rereview', 'review', "what's next"
-  // ___but for now let's do:
-  // ifReviewingFailedProblems: {
-  //   status: true,
-  //   failedProblemIndexes: [3, 5, 6] // taken from speGetPage.payload.problems
-  // }
   ifReviewingFailedProblems: false,
   indexesOfFailedProblems: [],
   amountOfFailedProblems: 0
-
-  //   ___idea:
-  //   statusOfReview: 'simulated', 'review', "what's next"
-  //   ifReviewingFailedProblems: false,
-  //
-  //   ids of all problems we have to review on page load, on RANDOMIZE they shuffle
-  //   idsOfReviewableProblemsLeft: [],
-  //   idsOfFailedProblemsLeft: [],
-  //   amountOfReviewableProblems: 0,
-  //   amountOfFailedProblems: 0
 };
 
 import amountOfAnswerInputsInProblem from './services/amountOfAnswerInputsInProblem';

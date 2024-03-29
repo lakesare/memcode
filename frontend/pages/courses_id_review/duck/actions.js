@@ -7,6 +7,35 @@ import selectors from './selectors';
 import playShortSound from './services/playShortSound';
 import playLongSound from './services/playLongSound';
 
+const ignoreCurrentFlashcard = () =>
+  (dispatch, getState) => {
+    const state = getState().pages.Page_courses_id_review;
+    const currentIndex = state.statusOfSolving.index;
+    if (state.ifReviewingFailedProblems) {
+      dispatch({
+        type: 'DELETE_FROM_FAILED_PROBLEMS',
+        payload: currentIndex
+      });
+
+      const ifNextReReviewProblem = state.indexesOfFailedProblems[0];
+      if (ifNextReReviewProblem) {
+        dispatch({
+          type: 'SET_NEXT_REREVIEW_PROBLEM'
+        });
+      } else {
+        dispatch({
+          type: 'SET_NEXT_PROBLEM',
+          payload: -1 // ??? unsure
+        });
+      }
+    } else {
+      dispatch({
+        type: 'SET_NEXT_PROBLEM',
+        payload: currentIndex + 1
+      });
+    }
+  }
+
 const enterPressed = () =>
   (dispatch, getState) => {
     // Do not react to ENTER if we're inside of the draft editor
@@ -172,4 +201,4 @@ const getPage = (courseId, simulated, persistent) =>
     );
   };
 
-export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage };
+export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage, ignoreCurrentFlashcard };

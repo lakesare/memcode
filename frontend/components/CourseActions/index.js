@@ -24,6 +24,7 @@ class CourseActions extends React.Component {
 
     My: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
+    currentProblem: PropTypes.object
   }
 
   apiStartLearning = () =>
@@ -235,6 +236,8 @@ class CourseActions extends React.Component {
           MyActions={this.props.MyActions}
           My={this.props.My}
           type={this.props.type}
+          currentProblem={this.props.currentProblem}
+          ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
         />
       </div>
     </section>;

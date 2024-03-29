@@ -1,11 +1,9 @@
 import { withRouter } from 'react-router-dom';
 
 import StandardTooltip from '~/components/StandardTooltip';
-import Loading from '~/components/Loading';
 import CourseCard from './components/CourseCard';
 
 import MyModel from '~/models/MyModel';
-import hideOnEsc from '~/services/hideOnEsc';
 import MyDuck from '~/ducks/MyDuck';
 
 import css from './index.css';
