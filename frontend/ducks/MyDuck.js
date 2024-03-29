@@ -57,6 +57,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, flashcardOrder: action.payload.flashcardOrder };
     case `${namespace}.SWITCH_IF_SHOW_DRAFT`:
       return { ...state, ifShowDraft: action.payload.ifShowDraft };
+    case `${namespace}.SWITCH_CLOZE_DELETION_MODE`:
+      return { ...state, clozeDeletionMode: action.payload.clozeDeletionMode }
     case `${namespace}.SWITCH_IF_MONOSPACE`:
       return { ...state, ifMonospace: action.payload.ifMonospace };
     case `${namespace}.SWITCH_BACKGROUND_IMAGE`:
@@ -296,6 +298,12 @@ const getActions = (dispatch, getState) => ({
     const flashcardOrder = !state.flashcardOrder;
     localStorage.setItem('flashcardOrder', flashcardOrder);
     dispatch({ type: `${namespace}.SET_FLASHCARD_ORDER`, payload: { flashcardOrder } });
+  },
+  switchClozeDeletionMode: () => {
+    const state = getState().global.My;
+    const clozeDeletionMode = state.clozeDeletionMode === "typing" ? "clicking" : "typing";
+    localStorage.setItem('clozeDeletionMode', clozeDeletionMode);
+    dispatch({ type: `${namespace}.SWITCH_CLOZE_DELETION_MODE`, payload: { clozeDeletionMode } });
   },
   switchIfShowDraft: () => {
     const state = getState().global.My;

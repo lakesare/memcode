@@ -82,7 +82,7 @@ class SettingsModal extends React.Component {
         <div className="settings">
           <div className="setting">
             <div className="comment">
-              Whether to show the links to Memcode's Github and Patreon pages.
+              Show the links to Memcode's Github and Patreon pages?
             </div>
             <button className="button -white" onClick={() => this.toggleValue('hideSocialButtons')} type="button">
               {
@@ -95,7 +95,7 @@ class SettingsModal extends React.Component {
 
           <div className="setting">
             <div className="comment">
-              Whether to show the draft text area for Question&Answer flashcards.
+              Show the draft text area for Question&Answer flashcards.
             </div>
             <button
               type="button"
@@ -103,6 +103,19 @@ class SettingsModal extends React.Component {
               onClick={this.props.MyActions.switchIfShowDraft}
             >
               {this.props.My.ifShowDraft ? 'Hide Draft' : 'Show Draft'}
+            </button>
+          </div>
+
+          <div className="setting">
+            <div className="comment">
+              Fill-In-Answer flashcards: should we ask you to type in the answer?
+            </div>
+            <button
+              type="button"
+              className="button -white"
+              onClick={this.props.MyActions.switchClozeDeletionMode}
+            >
+              {this.props.My.clozeDeletionMode === "typing" ? 'Require Typing' : 'Just Click'}
             </button>
           </div>
         </div>
@@ -114,7 +127,7 @@ class SettingsModal extends React.Component {
         <div className="settings">
           <div className="setting">
             <div className="comment">
-              Whether to show the most recently created flashcards first, or the oldest flashcards first.
+              Show the oldest flashcards first?
             </div>
             <button
               type="button"
@@ -127,7 +140,7 @@ class SettingsModal extends React.Component {
 
           <div className="setting">
             <div className="comment">
-              Whether to render code excerpts in monospace font.
+              Render code blocks in monospace font?
             </div>
             <button
               type="button"

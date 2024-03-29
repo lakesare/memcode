@@ -25,9 +25,13 @@
         min-height: 68px;
         .comment{
           padding-top: 4px;
-          font-size: 14px;
+          font-size: 16px;
           line-height: 22px;
           width: 100%;
+          display: flex;
+          align-items: center;
+          padding-left: 10px;
+          overflow-wrap: anywhere;
         }
         button{
           font-size: 10px;
