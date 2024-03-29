@@ -11,15 +11,19 @@ const deriveCurrentProblem = (state) => {
   }
 };
 
-const deriveScore = (state) => {
+const deriveScore = (state, clozeDeletionMode) => {
   const currentProblem = deriveCurrentProblem(state);
   switch (currentProblem.type) {
     case 'inlinedAnswers': {
-      // given: amount of answers that were properly given
-      // wanted: amount of all problems
-      const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven;
-      const wanted = amountOfAnswerInputsInProblem(currentProblem);
-      return calculateScore(given, wanted);
+      if (clozeDeletionMode === "typing") {
+        // given: amount of answers that were properly given
+        // wanted: amount of all problems
+        const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven;
+        const wanted = amountOfAnswerInputsInProblem(currentProblem);
+        return calculateScore(given, wanted);
+      } else {
+        return state.statusOfSolving.typeSpecific.selfScore;
+      }
     }
     case 'separateAnswer':
       return state.statusOfSolving.typeSpecific.selfScore;

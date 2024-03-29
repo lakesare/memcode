@@ -10,7 +10,7 @@ const freshStatusOfSolving = (problem, index) => {
       return {
         index,
         status: amountOfAnswerInputsInProblem(problem) === 0 ? 'seeingAnswer' : 'solving',
-        typeSpecific: { amountOfRightAnswersGiven: 0 }
+        typeSpecific: { amountOfRightAnswersGiven: 0, selfScore: 5 }
       };
     case 'separateAnswer':
       return {

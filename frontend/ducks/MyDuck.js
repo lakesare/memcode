@@ -42,6 +42,8 @@ const initialState = {
     (localStorage.getItem('backgroundImage') &&
     localStorage.getItem('backgroundImage') !== 'false') ?
       localStorage.getItem('backgroundImage') : false,
+  clozeDeletionMode: localStorage.getItem('clozeDeletionMode') === "clicking" ?
+    "clicking" : "typing"
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {

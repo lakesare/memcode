@@ -27,7 +27,7 @@ const enterPressed = () =>
           }
           break;
         case 'seeingAnswer': {
-          const score = selectors.deriveScore(state);
+          const score = selectors.deriveScore(state, getState().global.My.clozeDeletionMode);
           const currentIndex = state.statusOfSolving.index;
           api.ProblemUserIsLearningApi.reviewProblem(
             false,
@@ -68,7 +68,7 @@ const enterPressedInFailedMode = () =>
         }
         break;
       case 'seeingAnswer': {
-        const score = selectors.deriveScore(state);
+        const score = selectors.deriveScore(state, getState().global.My.clozeDeletionMode);
         const currentIndex = state.statusOfSolving.index;
 
         dispatch({
@@ -123,7 +123,7 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
           }
           break;
         case 'seeingAnswer': {
-          const score = selectors.deriveScore(state);
+          const score = selectors.deriveScore(state, getState().global.My.clozeDeletionMode);
           const currentIndex = state.statusOfSolving.index;
           // readd if it was bad again
           if (score < 5) {

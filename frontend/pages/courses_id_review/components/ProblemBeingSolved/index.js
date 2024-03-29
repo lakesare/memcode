@@ -12,6 +12,7 @@ class ProblemBeingSolved extends React.Component {
     amountOfProblems: PropTypes.number,
     amountOfFailedProblems: PropTypes.number.isRequired,
     amountOfFailedProblemsLeft: PropTypes.number.isRequired,
+    clozeDeletionMode: PropTypes.string.isRequired,
 
     enterPressed: PropTypes.func.isRequired,
     separateAnswerSelfScoreGiven: PropTypes.func.isRequired,
@@ -94,11 +95,26 @@ class ProblemBeingSolved extends React.Component {
     } else if (statusOfSolving === 'solving' && problemType === 'separateAnswer') {
       return null;
     } else if (statusOfSolving === 'seeingAnswer' && problemType === 'inlinedAnswers') {
-      return(
-        <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
-          NEXT
-        </button>
-      );
+      if (this.props.clozeDeletionMode === "typing") {
+        return(
+          <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
+            NEXT
+          </button>
+        );
+      } else {
+        return(
+          <>
+            <SeparateAnswerSelfScore
+              giveScore={this.props.separateAnswerSelfScoreGiven}
+              score={this.props.statusOfSolving.typeSpecific.selfScore}
+            />
+
+            <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
+              NEXT
+            </button>
+          </>
+        )
+      }
     } else if (statusOfSolving === 'seeingAnswer' && problemType === 'separateAnswer') {
       return(
         <>
@@ -116,7 +132,7 @@ class ProblemBeingSolved extends React.Component {
   }
 
   render = () =>
-    <section className={`ProblemBeingSolved ${css.section}`}>
+    <section className={`ProblemBeingSolved ${css.section} -${this.props.clozeDeletionMode}`}>
       <Subheader
         statusOfSolving={this.props.statusOfSolving}
         amountOfProblems={this.props.amountOfProblems}

@@ -186,6 +186,7 @@ class Page_courses_id_review extends React.Component {
           amountOfProblems={this.props.amountOfProblems}
           amountOfFailedProblems={this.props.amountOfFailedProblems}
           amountOfFailedProblemsLeft={this.props.amountOfFailedProblemsLeft}
+          clozeDeletionMode={this.props.My.clozeDeletionMode}
 
           enterPressed={this.props.enterPressed}
           separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}
