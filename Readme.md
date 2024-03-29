@@ -58,9 +58,8 @@ Feel free to ask questions/propose features in github issues, or join our develo
 4. Give the user a permission to create dbs, own all extensions, etc.: `ALTER ROLE postgres with superuser;`.
 
 #### Copypaste environment variables.
-1. **Either** copy the example environment file with `cp env.example.js env.js`, and insert the required values yourself,
-2. **Or** write to **contact@memcode.com** and I will send you a ready `env.js` file.
-In either case, you will need to insert your own `DB_USER` and `DB_PASSWORD` that you created in the previous step.
+1. Copy the example environment file with `cp env.example.js env.js`
+2. Insert the necessary values - all those marked with "Required for local development"
 
 #### Install the needed libraries.
 1. Install npm.
