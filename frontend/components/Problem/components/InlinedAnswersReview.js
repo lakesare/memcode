@@ -88,6 +88,21 @@ const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
   });
 };
 
+const attachOnclick = (arrayOfAnswerEls, onRightAnswerGiven) => {
+  arrayOfAnswerEls.forEach((el) => {
+    el.addEventListener('click', () => {
+      console.log(`clicked on `, el);
+      el.value = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
+      el.setAttribute('data-answered', 'wrong');
+      el.readOnly = true;
+      el.setAttribute('tabindex', -1);
+      _adjustWidthToInput(el);
+
+      onRightAnswerGiven();
+    });
+  });
+}
+
 @connect((state, ownProps) => ({
   clozeDeletionMode: state.global.My.clozeDeletionMode,
   ...ownProps
@@ -137,10 +152,13 @@ class InlinedAnswersReview extends React.Component {
     Array.from(this.refs.problem.querySelectorAll('input.answer-input'));
 
   attachOnchangeToInputs = () => {
-    if (this.props.clozeDeletionMode === "typing") {
+    if (this.props.clozeDeletionMode === 'typing') {
       const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
       focusOnTheFirstAnswer(arrayOfAnswerEls);
       attachKeyup(arrayOfAnswerEls, this.props.onRightAnswerGiven);
+    } else if (this.props.clozeDeletionMode === 'clicking') {
+      const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
+      attachOnclick(arrayOfAnswerEls, this.props.onRightAnswerGiven)
     }
   }
 
@@ -154,6 +172,7 @@ class InlinedAnswersReview extends React.Component {
           class="answer-input"
           data-answer="$1"
           data-answered="waiting"
+          ${this.props.clozeDeletionMode === 'clicking' ? 'readonly' : ''}
           value=""
         />`
       );

@@ -15,7 +15,8 @@
       color: rgb(10, 80, 42) !important;
     }
     input.answer-input[data-answered='waiting']{
-      pointer-events: none;
+      // pointer-events: none;
+      cursor: pointer;
     }
   }
   &.-typing{
