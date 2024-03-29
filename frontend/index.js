@@ -79,9 +79,6 @@ ReactDOM.render(
 
 if (process.env.NODE_ENV === 'production') {
   document.addEventListener('DOMContentLoaded', () => {
-    if (document.body.requestFullscreen) {
-      document.body.requestFullscreen();
-    }
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('/webpacked-service-worker.js').then(registration => {
