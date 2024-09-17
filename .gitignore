@@ -5,10 +5,8 @@
 /frontend/webpackedFiles/*
 
 /env.js
-/Makefile
 npm-debug.log
 .DS_Store
-
 
 lakesare.secrets.js
 /meresei/**
