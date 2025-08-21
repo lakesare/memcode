@@ -6,7 +6,7 @@ import api from '~/api';
 import Loading from '~/components/Loading';
 import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 
-import css from './index.css';
+import css from './index.scss';
 
 
 class Page_home extends React.Component {

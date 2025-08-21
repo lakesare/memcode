@@ -1,4 +1,4 @@
-import flashcardCss from '~/pages/courses_id_review/components/ProblemBeingSolved/index.css';
+import flashcardCss from '~/pages/courses_id_review/components/ProblemBeingSolved/index.scss';
 
 const initialState = {
   separate_mode: 'solving',

@@ -1,0 +1,116 @@
+@import 'css/variables.scss';
+
+:local(.CourseCardLearnReview){
+  width: 199px;
+  height: 213px;
+  background: $color-main-3;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.-focusable-link{
+    &:hover, &:focus{
+      background: rgb(32, 35, 73);
+      a{
+        opacity: 1;
+        text-shadow: 0 0 6px rgba(243, 243, 243, 0.5);
+      }
+    }
+  }
+
+  > .go{
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    width: 100%;
+    background: rgba(86, 91, 130, 0.08);
+    text-align: right;
+    color: white;
+    opacity: 0.8;
+    &:hover{
+      opacity: 1;
+      text-shadow: 0 0 6px rgba(243, 243, 243, 0.5);
+    }
+    i{
+      font-size: 14px;
+    }
+  }
+  > div.main{
+    flex-grow: 1;
+    height: 100%;
+    position: relative;
+    > h2.title{
+      margin-top: 20px;
+    }
+
+    > section.category_and_author{
+      padding-top: 10px;
+    }
+
+    &:hover{
+      > div.learn-and-review-buttons > a.link{
+        opacity: 0.8;
+      }
+    }
+    > div.learn-and-review-buttons{
+      > a.link{
+        position: absolute;
+        left: 0; right: 0;
+        bottom: 22px; top: 0;
+
+        opacity: 0;
+        font-size: 12px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover, &:focus{
+          opacity: 0.9;
+          box-shadow: none;
+          border: none !important;
+        }
+        &.-learn{
+          background: $learn-button-color;
+        }
+        &.-review{
+          background: $review-button-color;
+        }
+      }
+      > section.amount-footer{
+        background: rgba(86, 91, 130, 0.08);
+        position: absolute;
+        bottom: 0;
+        left: 0; right: 0;
+        display: flex;
+        height: 22px;
+        cursor: default;
+
+        flex-basis: 100%;
+        font-size: 10px;
+        padding: 4px 0;
+        text-align: center;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.-learn{
+          background: $learn-button-color;
+        }
+        &.-review{
+          background: $review-button-color;
+        }
+        &.-next-due{
+          color: white;
+          i.timer-icon{
+            color: $purple;
+            font-size: 14px;
+            padding-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}

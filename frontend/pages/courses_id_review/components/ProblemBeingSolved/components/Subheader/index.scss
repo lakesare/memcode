@@ -1,0 +1,111 @@
+@import 'css/variables.scss';
+
+:local(.section){
+  // hide stuff on mobile, show stuff on desktop
+  .-mobile{ display: none; }
+  .-desktop{ display: block; }
+
+  > .container{
+    min-height: 57px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  button.volume-button{
+    i{
+      font-size: 20px;
+    }
+    &.-yes{
+      i.-yes{ display: block; }
+      i.-no{ display: none; }
+    }
+    &.-no{
+      i.-yes{ display: none; }
+      i.-no{ display: block; }
+    }
+  }
+
+  button.bg-image-button{
+    margin-right: 10px;
+    font-size: 15px !important;
+  }
+  .bg-button-dropdown{
+    background-color: transparent;
+    .elements{
+      display: flex;
+      margin-top: -7px;
+      button{
+        text-transform: uppercase;
+        width: 100%;
+        margin-left: 2px;
+        &.-active{
+          background: rgba(255, 255, 255, 0.24);
+        }
+      }
+    }
+
+    .needs-patreon{
+      padding: 10px;
+      text-align: right;
+      a{
+        text-decoration: underline;
+      }
+    }
+  }
+
+  button.bg-image-button.-off,
+  button.volume-button.-no{
+    opacity: 0.8;
+  }
+
+  div.instructions{
+    font-size: 15px;
+    p{
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+    em{
+      font-style: normal;
+      text-transform: uppercase;
+    }
+    em.yellow-emphasis{
+      color: #f4f4a3;
+      // text-shadow: 0 0 2px #f7f96d9e;
+    }
+    em.red-emphasis{
+      color: rgb(245, 63, 63);
+      text-shadow: 0 0 1px #ff1d1d;
+      &.-darker{
+        color: rgb(255, 29, 29);
+        text-shadow: 0 0 8px #ff1d1d;
+      }
+    }
+    em.review-emphasis{
+      color: rgb(90, 228, 153);
+    }
+    em.white-emphasis{
+      // color: white;
+      // text-shadow: 0 0 4px #ffffff54;
+      font-size: 16px;
+    }
+    &.-desktop{
+      padding-bottom: 4px;
+    }
+  }
+
+  div.buttons{
+    display: flex;
+    align-items: center;
+    button{
+      font-size: 9px;
+      padding: 0 8px;
+      height: 31px;
+      min-width: auto;
+      letter-spacing: 0.9px;
+    }
+    button.randomize-button{
+      margin-left: 10px;
+    }
+  }
+}

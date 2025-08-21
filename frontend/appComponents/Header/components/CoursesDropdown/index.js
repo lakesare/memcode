@@ -6,7 +6,7 @@ import CourseCard from './components/CourseCard';
 import MyModel from '~/models/MyModel';
 import MyDuck from '~/ducks/MyDuck';
 
-import css from './index.css';
+import css from './index.scss';
 
 @withRouter
 @connect(

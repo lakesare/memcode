@@ -1,7 +1,7 @@
 import StandardTooltip from '~/components/StandardTooltip';
 import Rating from '~/components/Rating';
 
-import css from './index.css';
+import css from './index.scss';
 
 class SeparateAnswerSelfScore extends React.Component {
   static propTypes = {

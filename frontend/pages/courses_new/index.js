@@ -11,7 +11,7 @@ import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 import CourseModel from '~/models/CourseModel';
 import CourseApi from '~/api/CourseApi';
 
-import css from './index.css';
+import css from './index.scss';
 
 @withRouter
 @connect(

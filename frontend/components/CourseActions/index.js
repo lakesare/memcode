@@ -14,7 +14,7 @@ import CuilButtons from './components/CuilButtons';
 import InviteCoauthorModal       from './components/InviteCoauthorModal';
 import CourseDescriptionAndStats from './components/CourseDescriptionAndStats';
 
-import css from './index.css';
+import css from './index.scss';
 
 class CourseActions extends React.Component {
   static propTypes = {

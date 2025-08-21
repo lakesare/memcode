@@ -10,8 +10,8 @@ import Problem from '~/components/Problem';
 import Subheader from './components/ProblemBeingSolved/components/Subheader';
 import MyModel from '~/models/MyModel';
 
-import css from './index.css';
-import cssProblemBeingSolved from './components/ProblemBeingSolved/index.css';
+import css from './index.scss';
+import cssProblemBeingSolved from './components/ProblemBeingSolved/index.scss';
 import MyDuck from '~/ducks/MyDuck';
 
 // person pressed ENTER,

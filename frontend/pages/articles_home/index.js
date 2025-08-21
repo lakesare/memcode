@@ -3,7 +3,7 @@ import { FakeProblemWithInlinedAnswers } from './components/FakeProblemWithInlin
 import { FakeProblemWithSeparateAnswer } from './components/FakeProblemWithSeparateAnswer';
 import { Table } from './components/Table';
 
-import css from './index.css';
+import css from './index.scss';
 
 class Page_articles_home extends React.Component {
   renderHeading = (text) =>

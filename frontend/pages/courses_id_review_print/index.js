@@ -5,7 +5,7 @@ import Loading from '~/components/Loading';
 import CourseActions from '~/components/CourseActions';
 import Problem from '~/components/Problem';
 
-import css from './index.css';
+import css from './index.scss';
 import MyDuck from '~/ducks/MyDuck';
 
 import api from '~/api';

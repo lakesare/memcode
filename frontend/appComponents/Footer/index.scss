@@ -1,0 +1,54 @@
+@import 'css/variables.scss';
+
+:local(footer.footer){
+  position: absolute;
+  right: 0; left: 0;
+  bottom: 0;
+
+  padding: 10px 0;
+  background: rgb(20, 22, 45);
+  color: white;
+
+  > .container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    font-size: 12px;
+    letter-spacing: 2px;
+
+    > section.blog-links{
+      display: flex;
+      align-items: center;
+      > span.pipe{
+        padding: 0 15px;
+        color: $faint-blue;
+      }
+      .star-us{
+        display: inline-block;
+        margin-bottom: -2px;
+      }
+      .twitter-link{
+        color: rgb(29, 161, 242);
+        font-size: 15px;
+      }
+    }
+    > section.email{
+      i{ padding-left: 10px; }
+    }
+  }
+}
+
+:local(footer.footer){
+  @media(max-width: 500px){
+    > .container{
+      flex-wrap: wrap;
+      > section.blog-links{
+        width: 100%;
+      }
+      > section.email{
+        margin-top: 15px;
+      }
+    }
+  }
+}

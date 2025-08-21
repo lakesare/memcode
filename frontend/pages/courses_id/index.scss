@@ -1,0 +1,315 @@
+@import 'css/variables.scss';
+
+:local(.edit){
+
+  // For mobile
+  // section.problems, div.new-problem{
+  //   margin-left: 93px !important;
+  //   margin-right: 92px !important;
+  // }
+
+  // Pretty red for erroneous SAVE
+  // rgb(162 20 20 / 84%)
+
+  section.checkbox, section.choose-type{
+    right: calc(100% + 6px);
+  }
+  section.how-to-create, section.save-changes{
+    left: calc(100% + 6px);
+  }
+  section.how-to-create, section.choose-type, section.save-changes{
+    width: 92px;
+  }
+
+  .choose-type button, .save-changes-button, .how-to-create button, .checkbox{
+    background: $orange;
+    color: white;
+  }
+  .how-to-create button{
+    &:not(:hover){
+      opacity: 0.9;
+    }
+  }
+  .there-are-checked-problems .-not-checked .checkbox{
+    opacity: 0.4;
+  }
+
+  .old-problem-wrapper{
+    &.-not-checked > section.checkbox:hover{
+      // background: rgb(153, 63, 13);
+      background: $orange;
+    }
+    &.-checked,
+    &.-checked > section.checkbox{
+      // rgb(139 34 56)
+      background-color: rgb(212, 86, 15);
+      transition-property: background-color;
+      transition-duration: 100ms;
+    }
+  }
+
+  // list of problems
+  .problems-container{
+    // margin: 0 100px;
+    padding: 0 120px;
+    // to avoid editing problem at the bottom of the screen
+    padding-bottom: 200px;
+    &.-newest-first section.problems{
+      margin-top: 26px;
+    }
+  }
+  section.problems, .new-problem{
+    max-width: 1015px;
+    margin: 0 auto;
+  }
+  section.problems{
+    margin-top: 30px;
+  }
+  section.problem{
+    .ql-editor:focus{
+      background: rgb(40, 45, 88);
+    }
+
+    .quill{
+      height: 100%;
+    }
+
+    &.-withInlinedAnswers{
+      > .first-column{
+        .ql-toolbar{
+          .ql-formats{ margin-right: 9px !important; }
+          .ql-formats:first-child{ margin-right: 2px !important; }
+          padding-right: 0;
+          button.ql-answer{
+            font-size: 10px;
+            width: 50px !important;
+            padding: 0;
+            text-align: center;
+            border-radius: 2px;
+            line-height: 10px;
+            border: 1px solid rgb(44, 225, 83);
+            color: rgb(166, 241, 182);
+            font-weight: 300;
+            &.ql-active, &:hover{
+              // box-shadow: 0px 0px 6px 1px rgba(74, 241, 42, 0.39);
+              text-shadow: 0 0 1px rgba(243, 243, 243, 0.5);
+            }
+            &::after{
+              content: "Mark As Answer";
+            }
+          }
+        }
+      }
+    }
+    .ql-toolbar{}
+  }
+  section.checkbox{
+    position: absolute;
+    top: 8px; bottom: 8px;
+    width: 26px;
+
+    cursor: pointer;
+    // this prevents all flashcard texts from being selected when we click cmd+shift!
+    user-select: none;
+
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 2px;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition-duration: 200ms;
+    transition-property: bottom, top;
+  }
+  .new-problem{
+    position: relative;
+    margin-top: 25px;
+    padding: 0 8px;
+
+    section.checkbox{
+      top: 0;
+      bottom: 0;
+    }
+
+    .ql-container{
+      // minus the height of the toolbar
+      height: calc(100% - 28px);
+    }
+    section.how-to-create label,
+    section.choose-type label,
+    section.how-to-create .shortcut{
+      color: rgb(172, 181, 218);
+    }
+
+    section.how-to-create, section.choose-type{
+      label{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 3px;
+        height: 28px;
+        font-size: 11px;
+      }
+    }
+    > section.how-to-create{
+      position: absolute;
+      top: 0;
+      button{
+        width: 100%;
+        height: 35px;
+        min-width: 0;
+        .shortcut{
+          position: absolute;
+          bottom: -41px;
+          // This is transparent padding that enables clicking on a wide area to safe the flashcard.
+          padding: 15px 25px;
+          // For firefox
+          width: 100%;
+        }
+      }
+    }
+    > section.choose-type{
+      position: absolute;
+      top: 0;
+      // This if for the checkbox
+      // right: calc(100% + 47px);
+      > .buttons{
+        height: 70px;
+        width: 100%;
+      }
+
+      > .buttons > button.button{
+        font-size: 10px;
+        height: 50%;
+        opacity: 0.5;
+        width: 100%;
+        min-width: auto;
+        color: white;
+
+        border-radius: 3px;
+        &:first-child{
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        &:last-child{
+          border-top-right-radius: 0;
+          border-top-left-radius: 0;
+        }
+
+        &.-active{
+          opacity: 1;
+          cursor: default;
+        }
+        &:not(.-active):hover{
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  @media(min-width: 1000px){
+    .new-problem .checkbox{ display: none; }
+  }
+
+  @media(max-width: 1000px){
+    .container.problems-container{
+      margin: 0;
+      margin-left: 40px;
+      padding: 0 20px;
+    }
+
+    section.problem{
+      display: block;
+      div.first-column,
+      div.second-column{
+        width: 100%;
+      }
+      div.first-column{
+        padding-right: 0;
+      }
+      div.second-column{
+        padding-left: 0;
+        padding-top: 20px;
+      }
+    }
+
+    .new-problem{
+      margin-top: 65px;
+      .how-to-create, .choose-type{
+        top: -50px !important;
+        label{ display: none !important; }
+      }
+      .choose-type{
+        // left: 10px;
+        display: none;
+      }
+      .how-to-create{
+        left: auto;
+        right: 10px;
+        .shortcut{ display: none; }
+      }
+    }
+  }
+}
+
+
+
+
+:local(.view){
+  section.problems{
+    // max-width: 960px;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding-bottom: 100px;
+
+    div.problem-wrapper{
+      margin-bottom: 30px;
+      display: flex;
+
+      > div.index{
+        width: 26px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        font-size: 12px;
+        font-weight: 500;
+        border-radius: 2px;
+        background: $orange;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      > section.problem{
+        flex-grow: 1;
+        flex-shrink: 1;
+        margin-left: 12px;
+        .quill{
+          height: 100%;
+        }
+      }
+    }
+  }
+
+
+  @media(max-width: 900px){
+    section.problem{
+      display: block;
+      div.first-column,
+      div.second-column{
+        width: 100%;
+      }
+      div.first-column{
+        padding-right: 0;
+      }
+      div.second-column{
+        padding-left: 0;
+        padding-top: 20px;
+      }
+    }
+  }
+}
+

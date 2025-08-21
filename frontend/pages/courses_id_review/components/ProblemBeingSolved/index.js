@@ -3,7 +3,7 @@ import SeparateAnswerSelfScore from './components/SeparateAnswerSelfScore';
 import Subheader from './components/Subheader';
 import ProgressBar from '~/components/ProgressBar';
 
-import css from './index.css';
+import css from './index.scss';
 
 class ProblemBeingSolved extends React.Component {
   static propTypes = {

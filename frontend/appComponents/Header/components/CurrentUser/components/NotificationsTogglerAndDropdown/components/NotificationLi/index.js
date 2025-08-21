@@ -2,7 +2,7 @@ import humanizePostgresInterval from '~/services/humanizePostgresInterval';
 
 import { Link } from 'react-router-dom';
 
-import css from './index.css';
+import css from './index.scss';
 
 class NotificationLi extends React.Component {
   static propTypes = {

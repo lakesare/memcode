@@ -1,0 +1,209 @@
+@import 'css/variables.scss';
+
+:local(.header){
+  background: rgba(34, 38, 74, 0.27);
+  
+  .my-courses-toggler{
+    .link.courses{
+      margin-right: 10px;
+      min-width: 116px;
+      .position-relative-wrapper{
+        position: relative;
+        height: 31px;
+      }
+      .button.-to-review{
+        position: absolute;
+        left: 7px;
+        top: 4px;
+
+        min-width: 0 !important;
+        padding: 0 5px;
+        font-size: 9px;
+        height: 23px;
+        &:hover{
+          background: $review-button-color;
+        }
+        &.-saving {
+          cursor: default;
+          pointer-events: none;
+
+          background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), $review-button-color;
+          background-size: 400% 100%, cover;
+          animation: change 1s linear infinite;
+        }
+
+        &.-just-saved {
+          background: rgb(238, 92, 15);
+        }
+      }
+    }
+  }
+
+  a.logo{
+    display: flex;
+    align-items: center;
+
+    // position: relative;
+    // top: 5px;
+    // img.christmas-icon{
+    //   width: 23px;
+    //   position: absolute;
+    //   top: -3px;
+    //   left: -3px;
+    // }
+
+    img.halloween{
+      width: 58px;
+      padding-right: 5px;
+    }
+  }
+
+  nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .button{
+      margin-right: 10px;
+      height: 31px;
+      font-size: 11px;
+
+      text-transform: uppercase;
+      font-size: 11px;
+      min-width: 100px;
+    }
+  }
+
+  .tippy-box{
+    background-color: rgb(33, 36, 73);
+
+    .tippy-arrow{
+      color: rgb(33, 36, 73);
+    }
+  }
+
+
+
+  section.current-user{
+    display: flex;
+    align-items: center;
+    .avatar{
+      display: block;
+      width: 31px; height: 31px;
+      img{
+        // border: 3px solid rgb(86, 11, 90);
+        width: 100%;
+        height: 100%;
+        border-radius: 2px;
+      }
+    }
+  }
+  // or
+  section.sign-in-links{
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+    padding: 0 20px;
+    background: rgba(239, 240, 249, 0.06);
+    > label.soliciting{
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding-right: 16px;
+      display: flex;
+      align-items: center;
+    }
+    > div.links{
+      display: flex;
+      align-items: center;
+      > a{
+        // common
+        > span.name{
+          font-size: 11px;
+          color: rgba(234, 234, 234, 0.9);
+          padding-right: 5px;
+          display: none;
+        }
+
+        > i{
+          opacity: 0.9;
+        }
+        &:hover{
+          > i{
+            opacity: 1;
+          }
+        }
+
+        // specific
+        &.gmail{
+          padding-right: 7px;
+          > i{
+            color: rgb(212, 70, 56);
+            font-size: 20px;
+            &:hover{ text-shadow: 0 0 8px rgba(212, 70, 56, 0.2); }
+          }
+        }
+        &.github{
+          padding-left: 7px;
+          > i{
+            color: rgb(136, 125, 220);
+            font-size: 23px;
+            &:hover{ text-shadow: 0 0 8px rgba(136, 125, 220, 0.2); }
+          }
+        }
+      }
+    }
+  }
+
+  .container.-desktop{
+    display: flex;
+    justify-content: space-between;
+    height: 55px;
+    > div.nav-and-current-user{
+      display: flex;
+    }
+  }
+  .container.-mobile{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    nav{
+      margin-top: 20px;
+      .link{
+        height: 31px;
+        margin-right: 0;
+        min-width: auto;
+        &.-active{
+          background: rgb(51, 53, 78);
+        }
+      }
+    }
+    > div.logo-and-user{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      > section.sign-in-links{
+        padding: 0;
+        background: none;
+        justify-content: flex-end;
+      }
+    }
+  }
+}
+
+:local(header.header){
+  @media(max-width: 500px){
+    a.logo img.halloween{
+      width: 45px;
+    }
+    .notifications-toggler{
+      display: none;
+    }
+
+    .position-relative-wrapper{
+      height: auto !important;
+      .button.-to-review{
+        top: -12px !important;
+      }
+    }
+  }
+}

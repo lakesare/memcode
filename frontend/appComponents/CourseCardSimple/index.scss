@@ -1,0 +1,49 @@
+@import 'css/variables.scss';
+
+:local(.a){
+  width: 199px;
+  height: 213px;
+  background: $color-main-3;
+  overflow: hidden;
+
+  h2.title{
+    margin-top: 27px;
+    text-transform: capitalize;
+  }
+
+  div.description{
+    display: none;
+    // margin-top: 10px;
+    // line-height: 15px;
+    // word-break: break-word;
+    // font-size: 12px;
+    // color: $not-so-faint-blue;
+  }
+
+  position: relative;
+  section.total-amount-of-flashcards{
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    background: rgb(136, 125, 220);
+    color: white;
+    font-size: 11px;
+  }
+
+  a.play-button{
+    display: block;
+    position: absolute;
+    bottom: 31px;
+    left: 31px;
+    z-index: 10000;
+    // opacity: 0;
+  }
+  &:hover{
+    a.play-button{
+      opacity: 1;
+    }
+  }
+}

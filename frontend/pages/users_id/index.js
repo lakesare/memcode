@@ -10,7 +10,7 @@ import Main from '~/appComponents/Main';
 import UserInfo from './components/UserInfo';
 import Courses from './components/Courses';
 
-import css from './index.css';
+import css from './index.scss';
 
 @withRouter
 @connect(

@@ -1,4 +1,4 @@
-import css from './index.css';
+import css from './index.scss';
 
 import { HowToCreate } from './components/HowToCreate';
 import { HowToLearn } from './components/HowToLearn';

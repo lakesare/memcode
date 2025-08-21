@@ -6,7 +6,7 @@ import Loading from '~/components/Loading';
 import { TextInput, EditorTextarea } from '~/components/_standardForm';
 import Footer from '~/appComponents/Footer';
 
-import css from './index.css';
+import css from './index.scss';
 
 @connect((state) => ({
   email:

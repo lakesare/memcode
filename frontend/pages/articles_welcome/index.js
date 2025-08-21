@@ -9,7 +9,7 @@ import NewProblem from '~/pages/courses_id/components/NewProblem';
 
 import heartImage from './images/heart.png';
 
-import css from './index.css';
+import css from './index.scss';
 
 class Page_articles_welcome extends React.Component {
   renderHeading = (text) =>

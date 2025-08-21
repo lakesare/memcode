@@ -6,7 +6,7 @@ import CourseCategories from '~/appComponents/CourseCategories';
 import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 // import { ForBeginners } from './components/ForBeginners';
 
-import css from './index.css';
+import css from './index.scss';
 
 const getQuery = (location) =>
   new URLSearchParams(location.search);

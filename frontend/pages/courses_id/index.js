@@ -16,7 +16,7 @@ import NewProblem from './components/NewProblem';
 // import { Cheatsheet } from './components/Cheatsheet';
 // import { Instructions } from './components/Instructions';
 
-import css from './index.css';
+import css from './index.scss';
 
 import MyDuck from '~/ducks/MyDuck';
 

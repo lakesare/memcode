@@ -4,7 +4,7 @@ import Loading from '~/components/Loading';
 import PageAdmin from '~/appComponents/PageAdmin';
 import NotificationLi from '~/appComponents/Header/components/CurrentUser/components/NotificationsTogglerAndDropdown/components/NotificationLi';
 
-import css from './index.css';
+import css from './index.scss';
 
 class Page extends React.Component {
   state = {

@@ -3,7 +3,7 @@ import MyModel from '~/models/MyModel';
 
 import CourseCardLearnReview from '~/appComponents/CourseCardLearnReview';
 
-import css from './index.css';
+import css from './index.scss';
 
 // import GitHubButton from 'react-github-btn';
 

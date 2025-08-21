@@ -1,7 +1,7 @@
 import Main from '~/appComponents/Main';
 import NavigationAdmin from '~/appComponents/NavigationAdmin';
 
-import css from './index.css';
+import css from './index.scss';
 
 class PageAdmin extends React.Component {
   static propTypes = {

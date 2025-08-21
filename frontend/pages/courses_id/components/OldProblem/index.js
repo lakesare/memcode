@@ -10,7 +10,7 @@ import DeleteFlashcardsModal from './components/DeleteFlashcardsModal';
 import ExportFlashcardsModal from './components/ExportFlashcardsModal';
 import switchType from '../services/switchType';
 
-import css from './index.css';
+import css from './index.scss';
 
 class OldProblem extends React.Component {
   static propTypes = {

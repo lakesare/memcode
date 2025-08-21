@@ -1,0 +1,212 @@
+@import 'css/variables.scss';
+
+$yellowish: rgb(247, 248, 228);
+
+// Throwing a couple more themes here temporarily
+
+body.-hideSocialButtons{
+  .social-buttons{
+    display: none;
+  }
+}
+
+// Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
+.-bright-theme .-without-bg{
+  background: white;
+  color: black;
+  // font-family: 'Open Sans';
+
+  // header .my-courses-dropdown{
+  //   background: rgb(234, 233, 233);
+  //   .course-li a.title{
+  //     background: white;
+  //     color: black;
+  //   }
+  //   .search-courses input{
+  //     background: white;
+  //     color: black;
+  //     &:hover{
+  //       background: red;
+  //     }
+  //   }
+  // }
+
+  section.problem .ql-toolbar{
+    background: none;
+    button{
+      .ql-stroke{
+        stroke: black !important;
+      }
+      .ql-fill{
+        fill: black !important;
+      }
+    }
+  }
+
+  .flashcard-buttons button{
+    color: white;
+  }
+
+  .standard-course-card{
+    background: white;
+  }
+
+  .pagination{
+    color: white;
+  }
+
+  .wrapper{
+    .user, .skills, .stats{
+      background: #e0e0e326;
+      box-shadow: 0 1px 0 0 #cacbce63, 0 0 0 1px #ededf073;
+    }
+    .skill .progress-bar{
+      background: white !important;
+    }
+  }
+
+  .Subheader .buttons{
+    color: #a6a3a3c9;
+  }
+  .randomize-button, .randomize-button:hover{
+    color: #a6a3a3c9;
+    border: 1px solid #a6a3a399;
+    opacity: 1;
+  }
+  .bg-button-dropdown{
+    button{
+      background: rgba(96, 94, 94, 0.69);
+      &.-active{
+        background: rgba(96, 94, 94, 0.9) !important;        
+      }
+    }
+  }
+  .toggle-button-label-left{
+    &:after{
+      border-color: #a6a3a399;
+    }
+    &:before{
+      background: #a6a3a399;
+    }
+  }
+
+  section.amount-footer{
+    color: white !important;
+  }
+
+  div.learn-and-review-buttons a.link{
+    color: white;
+  }
+
+  button.reveal{
+    background: #25b08b;
+  }
+
+  .problem-wrapper.-yet-to-learn{
+    box-shadow: 0px 0px 32px 4px rgba(166, 170, 170, 0.11) !important;
+  }
+
+  .problem-wrapper.-yet-to-learn:hover{
+    background: rgba(101, 202, 175, 0.1) !important;
+  }
+  .problem-wrapper.-learned{
+    background: #65caaf66 !important;
+  }
+
+  ul.tab-links{
+    li.-active{
+      background: rgba(30, 28, 28, 0.04);
+    }
+    li.-not-active:hover{
+      background: rgba(30, 28, 28, 0.01);
+    }
+  }
+}
+
+.-bright-theme{
+  .ProblemBeingSolved{
+    section.problem{
+      // background: $yellowish;
+      .ql-editor{
+        border: 5px solid rgb(37, 176, 139) !important;
+      }
+
+      @media(max-width: 900px){
+        background: transparent;
+      }
+    }
+
+    section.problem.-withInlinedAnswers input.answer-input[data-answered='right'] {
+      box-shadow: none;
+      border: 2px solid rgb(153, 233, 212);
+      background: rgb(175, 246, 227) !important;
+      color: rgb(44, 65, 59) !important;
+    }
+  }
+  section.problem, .course-description-and-stats{
+    font-weight: 400;
+
+    .quill > .ql-container > .ql-editor{
+      background: white !important;
+      box-shadow: none !important;
+      font-size: 16.5px;
+      mark.answer{
+        border-width: 3px;
+      }
+      border-width: 3px !important;
+      // color: rgb(206, 199, 245);
+      // We need !important-s because we have to override styles copypasted by users
+      span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol{
+        color: rgb(49, 51, 54) !important;
+        background: transparent !important;
+      }
+      strong{
+        // color: rgb(33 165 130) !important;
+        font-weight: 600 !important;
+      }
+      em{
+        color: rgb(124, 134, 147) !important;
+        font-weight: inherit;
+      }
+      a{
+        color: rgb(124, 134, 147) !important;
+      }
+
+      pre.ql-syntax, code, code *{
+        background: rgb(243, 243, 243) !important;
+        color: rgb(67, 67, 69) !important;
+      }
+
+      blockquote, blockquote span{
+        color: rgb(49, 51, 54) !important;
+        background: rgb(248, 248, 248) !important;
+      }
+      blockquote{
+        border-left: 2px solid rgb(235, 235, 235);
+      }
+    }
+    button.see-answer-button{
+      box-shadow: none !important;
+      border: 3px solid rgb(37, 176, 139) !important;
+      background: rgb(161, 221, 205) !important;
+      color: rgb(50, 50, 50) !important;
+      font-weight: 400 !important;
+      &:hover, &:focus{
+        background: rgb(144, 221, 200) !important;
+      }
+    }
+    &.-withInlinedAnswers{
+      input.answer-input[data-answered='waiting']{
+        color: rgb(49, 51, 54) !important;
+        border: 2px solid #71e3c5 !important;
+        &:hover, &:focus{
+          background: none !important;
+        }
+      }
+    }
+    // placeholder!
+    > .ql-container > .ql-editor.ql-blank::before{
+      color: rgb(49, 51, 54);
+    }
+  }
+}

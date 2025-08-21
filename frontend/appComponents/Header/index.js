@@ -6,7 +6,7 @@ import CurrentUser from './components/CurrentUser';
 import Logo from './components/Logo';
 import CoursesDropdown from './components/CoursesDropdown';
 
-import css from './index.css';
+import css from './index.scss';
 
 @connect(
   (state) => ({

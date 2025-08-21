@@ -26,7 +26,7 @@ import { Provider } from 'react-redux';
 import 'tippy.js/dist/tippy.css';
 
 // common css
-import './index.css';
+import './index.scss';
 // import './fonts/font-awesome/scss/font-awesome.scss';
 
 import store from './store';

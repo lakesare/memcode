@@ -1,0 +1,85 @@
+@import 'css/variables.scss';
+
+@function easing-gradient($color: black, $alpha-from: 1, $alpha-to: 0) {
+  $diff: $alpha-from - $alpha-to;
+
+  @return linear-gradient(
+    to right,
+    rgba($color, $alpha-from)  0%,
+    rgba($color, $alpha-from - $diff * 0.700) 1.500%,
+    rgba($color, $alpha-from - $diff * 0.850) 3.500%,
+    rgba($color, $alpha-from - $diff * 0.925) 5.750%,
+    rgba($color, $alpha-from - $diff * 0.963) 8.425%,
+    rgba($color, $alpha-from - $diff * 0.981) 12.700%,
+    rgba($color, $alpha-to) 17%
+  );
+}
+
+:local(.nav){
+  > ul.groups{
+    > li.group{
+      margin-top: 10px;
+      > h2.group-name{
+        font-size: 14px;
+        padding: 3px 10px;
+        padding-left: 15px;
+        letter-spacing: 0.4px;
+
+        border-left: 2px solid $purple;
+        background-image: easing-gradient(
+          $purple,
+          $alpha-from: 0.5,
+          $alpha-to:   0.0,
+        );
+      }
+
+      > ul.categories{
+        margin-top: 5px;
+        font-size: 14px;
+        > li{
+          padding-right: 5px;
+          position: relative;
+          &.-active a.name{
+            color: rgb(135, 125, 221) !important;
+          }
+
+          a.name{
+            // to span entire width, so that entire li is clickable
+            display: block;
+            // color: rgba(255, 255, 255, 0.9);
+            padding: 6px 4px;
+            padding-left: 4px;
+            margin-left: 12px;
+            border-radius: 2px;
+            &:focus, &:hover{
+              background: rgba(32, 35, 73, 0.55);
+            }
+            span.amount-of-courses{
+              padding-left: 5px;
+              font-size: 11px;
+              position: relative;
+              bottom: 1px;
+              color: rgba(181, 213, 243, 0.35);
+            }
+          }
+          a.cross{
+            width: 30px;
+            position: absolute;
+            left: -12px;
+            top: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            i{
+              font-size: 13px;
+            }
+            &:hover{
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+  }
+}

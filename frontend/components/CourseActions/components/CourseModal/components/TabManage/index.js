@@ -3,7 +3,7 @@ import CourseApi from '~/api/CourseApi';
 
 import Loading from '~/components/Loading';
 
-import css from './index.css';
+import css from './index.scss';
 
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser

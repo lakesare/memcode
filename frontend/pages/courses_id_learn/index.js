@@ -4,7 +4,7 @@ import Main from '~/appComponents/Main';
 import CourseActions from '~/components/CourseActions';
 import Tabs from './components/Tabs';
 
-import css from './index.css';
+import css from './index.scss';
 import MyDuck from '~/ducks/MyDuck';
 
 @connect(

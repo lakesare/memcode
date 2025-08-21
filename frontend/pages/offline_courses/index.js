@@ -1,7 +1,7 @@
 import React from 'react';
 import Main from '~/appComponents/Main';
 
-// import css from './index.css';
+// import css from './index.scss';
 
 class Page extends React.Component {
   render = () =>

@@ -1,4 +1,4 @@
-import css from './index.css';
+import css from './index.scss';
 import { withRouter } from 'react-router-dom';
 
 @withRouter

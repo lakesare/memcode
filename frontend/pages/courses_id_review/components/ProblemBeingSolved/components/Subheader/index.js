@@ -3,7 +3,7 @@ import isPatreonUsername from '~/../services/isPatreonUsername';
 
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 import StandardTooltip from '~/components/StandardTooltip';
-import css from './index.css';
+import css from './index.scss';
 
 @connect(
   (state) => ({

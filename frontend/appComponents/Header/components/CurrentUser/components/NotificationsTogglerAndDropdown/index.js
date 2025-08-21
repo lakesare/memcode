@@ -7,7 +7,7 @@ import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 
 import NotificationLi from './components/NotificationLi';
 
-import css from './index.css';
+import css from './index.scss';
 
 class NotificationsTogglerAndDropdown extends React.Component {
   static propTypes = {

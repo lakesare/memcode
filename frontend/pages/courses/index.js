@@ -9,7 +9,7 @@ import ListOfCourseCards from '~/appComponents/ListOfCourseCards';
 import CourseCategories from '~/appComponents/CourseCategories';
 import SortBySelect from './components/SortBySelect';
 
-import css from './index.css';
+import css from './index.scss';
 
 const getCategoryId = (props) => {
   const categoryId = getQuery(props).get('categoryId');

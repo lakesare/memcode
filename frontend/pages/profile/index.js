@@ -11,7 +11,7 @@
 // import CourseApi from '~/api/CourseApi';
 // 
 // 
-// import css from './index.css';
+// import css from './index.scss';
 // 
 // @withRouter
 // class Page_profile extends React.Component {

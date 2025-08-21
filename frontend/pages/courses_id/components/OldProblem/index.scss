@@ -1,0 +1,182 @@
+@import 'css/variables.scss';
+
+.-there-are-no-checked-problems{
+  .checkbox:hover + section.flashcard-buttons{
+    opacity: 1;
+  }
+  section.flashcard-buttons:hover{
+    opacity: 1;
+  }
+}
+
+:local(.old-problem){
+  position: relative;
+  border-radius: 2px;
+  margin-bottom: 18px;
+  padding: 8px;
+
+  &.-checked.-last-checked section.flashcard-buttons,
+  section.flashcard-buttons.-empty{
+    opacity: 1 !important;
+  }
+
+  &.-checked{
+    div.first, div.second{
+      top: 0 !important;
+      transition-duration: 200ms;
+      transition-property: top;
+    }
+  }
+  > section.flashcard-buttons{
+    opacity: 0;
+
+    button{
+      height: 25px;
+      margin-bottom: 5.5px;
+      padding: 0;
+      width: 100%;
+      min-width: 0;
+    }
+    .delete-button{
+      background: rgba(139, 33, 55, 0.47);
+      &:hover{
+        background: rgb(139, 33, 55);
+      }
+    }
+    .export-button{
+      background: rgba(9, 99, 120, 0.67);
+      &:hover{
+        background: rgb(9, 99, 120);
+      }
+    }
+    .duplicate-button{
+      background: rgba(143, 83, 138, 0.67);
+      &:hover{
+        background: rgb(143, 83, 138);
+      }
+    }
+    .switch-type-button{
+      // font-size: 10px !important;
+      // line-height: 11px;
+      background: rgba(111, 34, 10, 0.83);
+      &:hover{
+        background: rgb(111, 34, 10);
+      }
+    }
+
+    div.first, div.second{
+      top: 8px;
+    }
+    div.first{
+      position: absolute;
+      right: calc(100% + 30px);
+      width: 66px;
+      padding-right: 8px;
+      button{
+        font-size: 11px;
+      }
+    }
+
+    div.second{
+      position: absolute;
+      // top: 91px;
+      // right: calc(100% + 36px);
+      left: calc(100% + 7px);
+      width: 85px;
+      button{
+        font-size: 10px;
+      }
+    }
+  }
+
+  > .problem{
+    .ql-toolbar{
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 100%;
+      opacity: 0;
+      z-index: -100;
+    }
+
+    &:focus-within{
+      // .ql-editor{
+      //   border-top-left-radius: 0;
+      //   border-top-right-radius: 0;
+      // }
+      .ql-toolbar{
+        opacity: 1;
+        z-index: 10;
+      }
+    }
+  }
+
+  transition-duration: 300ms;
+  transition-property: background;
+  &.-checked{
+    > section.checkbox{
+      top: 0;
+      bottom: 0;
+    }
+  }
+
+  > section.save-changes{
+    position: absolute;
+    top: 8px;
+    button.save-changes-button{
+      width: 100%;
+      font-size: 11px;
+      min-width: auto;
+      padding: 7px 15px;
+      background: rgb(30, 31, 57);
+      // border: 1px solid rgb(30, 31, 57);
+      &:hover, &:focus{
+        background: rgb(41, 42, 77);
+      }
+      // &:focus{
+      //   border: 1px solid rgb(45, 225, 83);
+      // }
+      &.-saving{
+        cursor: default;
+        pointer-events: none;
+
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), rgb(30, 31, 57);
+        background-size: 400% 100%,cover;
+        animation:change 1s linear infinite;
+      }
+      &.-just-saved{
+        color: rgb(33, 165, 153);
+      }
+    }
+    .shortcut{
+      font-size: 10px;
+      padding-top: 8px;
+      text-align: center;
+      // color: rgb(140, 143, 191);
+      color: rgb(33, 165, 153);
+    }
+  }
+}
+
+@keyframes change {
+  from { /* Use "to" to change the direction */
+    background-position: right, center;
+  }
+}
+
+@media(max-width: 1000px){
+  section.flashcard-buttons{
+    .first{
+      left: 0; right: auto;
+      background: $color-main-1;
+      padding-right: 5px !important;
+      border-bottom-right-radius: 3px;
+    }
+  }
+  section.save-changes{
+    left: auto !important; right: 10px; top: 10px !important;
+    .shortcut{ display: none; }
+    button{
+      border: 1px solid #323359;
+    }
+  }
+}

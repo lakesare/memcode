@@ -3,7 +3,7 @@ import Urls from '~/services/Urls';
 import { Link } from 'react-router-dom';
 import LearnAndReviewButtons from './components/LearnAndReviewButtons';
 
-import css from './index.css';
+import css from './index.scss';
 
 @connect((state) => ({
   currentUser: state.global.Authentication.currentUser

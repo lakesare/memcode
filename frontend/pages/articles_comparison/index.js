@@ -8,7 +8,7 @@ import { UI } from './components/UI';
 import { WhenToUseEach } from './components/WhenToUseEach';
 import { QualityOfCourses } from './components/QualityOfCourses';
 
-import css from './index.css';
+import css from './index.scss';
 
 class Page_articles_comparison extends React.Component {
   render = () =>

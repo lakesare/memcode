@@ -35,9 +35,9 @@ app.use(vhost('https://meresei.com', mereseiRouter));
 // =============================================================================
 
 // OPTION 1: Work on MERESEI (uncomment this, comment out memcode section below)
-if (process.env.NODE_ENV !== 'production') {
-  app.use(mereseiRouter);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   app.use(mereseiRouter);
+// }
 
 // OPTION 2: Work on MEMCODE (uncomment this, comment out meresei section above)
 // Default to memcode router

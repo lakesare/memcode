@@ -1,7 +1,7 @@
 import CourseCardSimple from '~/appComponents/CourseCardSimple';
 import CourseCardLearnReview from '~/appComponents/CourseCardLearnReview';
 
-import css from './index.css';
+import css from './index.scss';
 
 class ListOfCourseCards extends React.Component {
   static propTypes = {

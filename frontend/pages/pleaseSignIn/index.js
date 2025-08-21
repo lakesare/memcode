@@ -2,7 +2,7 @@ import React from 'react';
 import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';
 
-import css from './index.css';
+import css from './index.scss';
 
 class Page_pleaseSignIn extends React.Component {
   render = () =>

@@ -1,0 +1,6 @@
+@import 'css/variables.scss';
+
+.tippy-box[data-placement^="bottom"] > .tippy-arrow::before{
+  // We need this, because otherwise our "className: 'standard-tooltip -transparent'" tooltips show the intersection between the arrow and the tooltip body
+  top: -8px;
+}

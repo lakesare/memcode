@@ -3,7 +3,7 @@ import Urls from '~/services/Urls';
 
 import { Link } from 'react-router-dom';
 
-import css from './index.css';
+import css from './index.scss';
 
 class CourseCardSimple extends React.Component {
   static propTypes = {

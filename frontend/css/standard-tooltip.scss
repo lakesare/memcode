@@ -1,0 +1,35 @@
+@import 'css/variables.scss';
+
+// .tippy-box[data-theme='-bright'] is needed for vanilla tippy.js (e.g. in Quill toolbar)
+.standard-tooltip, .tippy-box{
+  max-width: none !important;
+  &.-bright, &[data-theme='-bright']{
+    background-color: rgb(24, 28, 57);
+
+    .tippy-arrow{
+      color: rgb(24, 28, 57);
+    }
+  }
+
+  &.-dark, &[data-theme='-dark']{
+    background-color: rgb(33, 36, 73);
+
+    .tippy-arrow{
+      color: rgb(33, 36, 73);
+    }
+  }
+
+  &.-transparent, &[data-theme='-transparent']{
+    background-color: rgba(255, 255, 255, 0.07);
+
+    .tippy-arrow{
+      color: rgba(255, 255, 255, 0.07);
+    }
+  }
+
+  &.-no-padding{
+    .tippy-content{
+      padding: 0;
+    }
+  }
+}

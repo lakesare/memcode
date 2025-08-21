@@ -4,7 +4,7 @@ import CourseCategoryGroupModel from '~/models/CourseCategoryGroupModel';
 
 import { Link } from 'react-router-dom';
 
-import css from './index.css';
+import css from './index.scss';
 
 class CourseCategories extends React.Component {
   static propTypes = {

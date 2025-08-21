@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import css from './index.css';
+import css from './index.scss';
 
 class Pagination extends React.Component {
   static propTypes = {

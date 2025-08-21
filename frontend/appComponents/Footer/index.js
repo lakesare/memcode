@@ -1,4 +1,4 @@
-import css from './index.css';
+import css from './index.scss';
 
 class Footer extends React.Component {
   render = () =>

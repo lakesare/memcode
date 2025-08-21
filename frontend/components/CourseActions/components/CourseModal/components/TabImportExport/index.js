@@ -1,6 +1,6 @@
 import SectionImportFlashcards from './components/SectionImportFlashcards';
 import SectionExportFlashcards from './components/SectionExportFlashcards';
-import css from './index.css';
+import css from './index.scss';
 
 class TabImportExport extends React.Component {
   static propTypes = {
