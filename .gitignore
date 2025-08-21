@@ -9,4 +9,5 @@ npm-debug.log
 .DS_Store
 
 lakesare.secrets.js
-# /meresei/**
+/meresei/frontend/node_modules
+/meresei/frontend/dist

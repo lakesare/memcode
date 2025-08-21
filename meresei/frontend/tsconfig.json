@@ -11,5 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "baseUrl": "./",
-  },
-}=== END FILE ===
+    "paths": {
+      "components/*": ["./components/*"]
+    }
+  }
+}
