@@ -1,0 +1,68 @@
+section.calendar{
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  overflow-x: scroll;
+  table{
+    width: max-content;
+    .hovered{
+      background: rgb(244, 247, 248) !important;
+    }
+    thead{
+      th{
+        min-width: 50px;
+        padding: 3px 0;
+        text-transform: uppercase;
+        font-size: 13px;
+      }
+      .weekday.-Sat, .weekday.-Sun{
+        color: rgba(255, 0, 96, 0.69);
+      }
+      .weekday{
+        color: rgb(166, 166, 166);
+      }
+    }
+    tbody th{
+      padding: 3px 5px;
+      font-size: 15px;
+    }
+    th.time-slot, th.empty-corner{
+      position: sticky;
+      z-index: 100;
+      background: white;
+      left: 0;
+    }
+
+    $awake: rgb(212, 237, 212);
+    $padding: rgb(253, 253, 222);
+    td div.event{
+      min-height: 14px;
+      text-align: center;
+      font-size: 14px;
+      padding: 4px 2px;
+      &.-awake{
+        background: $awake;
+        &.-partial-top{
+          background: linear-gradient(to bottom, rgba($awake, 0.3) 50%, $awake 30%, $awake 70%);
+        }
+        &.-partial-bottom{
+          background: linear-gradient(to top, rgba($awake, 0.3) 50%, $awake 30%, $awake 70%);
+        }
+      }
+      &.-paddingBottom, &.-paddingTop{
+        background: $padding;
+        &.-partial-top{
+          background: linear-gradient(to bottom, rgba($padding, 0.3) 50%, $padding 30%, $padding 70%);
+        }
+        &.-partial-bottom{
+          background: linear-gradient(to top, rgba($padding, 0.3) 50%, $padding 30%, $padding 70%);
+        }
+      }
+    }
+
+    .time-slot.deep-night{
+      color: rgb(152, 126, 198);
+    }
+  }
+}

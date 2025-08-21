@@ -1,0 +1,75 @@
+section.settings{
+  // (Hides arrows in text inputs, https://stackoverflow.com/a/4298216/3192470)
+  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number]{ -moz-appearance: textfield; }
+
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  .MuiAccordion-root{
+    .MuiAccordionSummary-content{
+      color: rgb(85, 85, 85);
+      font-weight: 500 !important;
+    }
+    &.Mui-expanded{
+      margin: 0 !important;
+    }
+    &::before{
+      background-color: transparent !important;
+    }
+  }
+
+  .form-wrapper{
+    display: flex;
+    label{
+      font-weight: 500;
+      color: rgb(85, 85, 85);
+
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      .text{
+        width: 300px;
+        flex-shrink: 0;
+        text-align: right;
+        padding-right: 12px;
+      }
+      .MuiFormControl-root, .checkbox-wrapper{
+        width: 120px;
+        flex-shrink: 0;
+        input{
+          text-align: center;
+        }
+      }
+    }
+    .MuiFormHelperText-root{
+      text-align: right;
+    }
+  }
+
+  @media(max-width: 1000px){
+    .form-wrapper{
+      flex-wrap: wrap;
+      .one, .two{
+        width: 100%;
+      }
+    }
+    label .text{
+      flex-shrink: 1 !important;
+    }
+  }
+  @media(max-width: 650px){
+    .your-biology .one label{
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      .text{
+        margin-bottom: 7px;
+        padding-right: 0;
+      }
+    }
+  }
+}

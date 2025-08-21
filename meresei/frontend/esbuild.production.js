@@ -1,0 +1,20 @@
+import esbuild from "esbuild";
+import { sassPlugin } from 'esbuild-sass-plugin';
+
+await esbuild.build({
+  entryPoints: ["index.tsx"],
+  bundle: true,
+  outfile: "dist/index.js",
+  sourcemap: true,
+  platform: "browser",
+  loader: {
+    ".json": "json",
+    ".css": "css",
+  },
+  plugins: [sassPlugin()],
+  logLevel: "info",
+  logLimit: 0,
+
+  // CHANGES FOR PRODUCTION
+  minify: true
+});

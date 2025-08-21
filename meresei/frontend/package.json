@@ -1,0 +1,29 @@
+{
+  "name": "meresei",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "development": "node esbuild.development.js",
+    "production": "node esbuild.production.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react-dom": "^18.2.19",
+    "esbuild": "^0.20.1",
+    "esbuild-sass-plugin": "^3.1.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.11",
+    "@mui/material": "^5.15.11",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
