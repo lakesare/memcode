@@ -7,7 +7,7 @@
     "url": "https://github.com/lakesare/memcode.git"
   },
   "engines": {
-    "node": "8.4.0"
+    "node": "18.19.1"
   },
   "main": "",
   "scripts": {
