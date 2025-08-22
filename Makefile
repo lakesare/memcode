@@ -4,13 +4,13 @@ all:
 
 # $(npm bin)/nodemon doesn't work, npm bin is '' then.
 start:
-	NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/webpacked/index.js
+	NODE_OPTIONS="--openssl-legacy-provider" NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/webpacked/index.js
 
 # build and watch
 backend-webpack:
-	cd backend; ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
+	cd backend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
 frontend-webpack:
-	cd frontend; ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
+	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
 
 # database
 db-drop:
