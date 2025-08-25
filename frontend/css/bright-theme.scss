@@ -12,7 +12,7 @@ body.-hideSocialButtons{
 
 // Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
 .-bright-theme .-without-bg{
-  background: white;
+  background: #f2ece9;
   color: black;
   // font-family: 'Open Sans';
 
@@ -125,6 +125,10 @@ body.-hideSocialButtons{
 
 .-bright-theme{
   .ProblemBeingSolved{
+    div.instructions{
+      em.review-emphasis{ color: rgb(37, 176, 139); }
+      em.red-emphasis{ text-shadow: none !important; }
+    }
     section.problem{
       // background: $yellowish;
       .ql-editor{
@@ -141,6 +145,13 @@ body.-hideSocialButtons{
       border: 2px solid rgb(153, 233, 212);
       background: rgb(175, 246, 227) !important;
       color: rgb(44, 65, 59) !important;
+    }
+    .n-of-problems-left .inner{
+      box-shadow: none;
+      background-color: #25b08b;
+    }
+    .n-of-problems-left > .container > section{
+      background: rgba(112, 111, 109, 0.07) !important;
     }
   }
   section.problem, .course-description-and-stats{
