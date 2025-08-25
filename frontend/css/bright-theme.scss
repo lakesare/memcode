@@ -13,7 +13,7 @@ body.-hideSocialButtons{
 // Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
 .-bright-theme .-without-bg{
   background: #f2ece9;
-  color: black;
+  color: rgb(44, 65, 59);
   // font-family: 'Open Sans';
 
   // header .my-courses-dropdown{
@@ -35,10 +35,10 @@ body.-hideSocialButtons{
     background: none;
     button{
       .ql-stroke{
-        stroke: black !important;
+        stroke: rgb(44, 65, 59) !important;
       }
       .ql-fill{
-        fill: black !important;
+        fill: rgb(44, 65, 59) !important;
       }
     }
   }
@@ -49,6 +49,13 @@ body.-hideSocialButtons{
 
   .standard-course-card{
     background: white;
+    &.-focusable-link:hover{
+      opacity: 0.7;
+      background: white;
+    }
+    .go{
+      color: rgb(44, 65, 59);
+    }
   }
 
   .pagination{
@@ -91,7 +98,8 @@ body.-hideSocialButtons{
   }
 
   section.amount-footer{
-    color: white !important;
+    &.-review, .-learn{ color: white !important; }
+    &.-next-due{ color: rgb(44, 65, 59) !important; }
   }
 
   div.learn-and-review-buttons a.link{
