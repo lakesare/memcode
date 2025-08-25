@@ -154,11 +154,16 @@ body.-hideSocialButtons{
       background: rgba(112, 111, 109, 0.07) !important;
     }
   }
+  section.problem .quill > .ql-container > .ql-editor{
+    background: white !important;
+    blockquote{
+      // background: rgba(236, 236, 236, 0.445) !important;
+    }
+  }
   section.problem, .course-description-and-stats{
     font-weight: 400;
 
     .quill > .ql-container > .ql-editor{
-      background: white !important;
       box-shadow: none !important;
       font-size: 16.5px;
       mark.answer{
@@ -167,7 +172,7 @@ body.-hideSocialButtons{
       border-width: 3px !important;
       // color: rgb(206, 199, 245);
       // We need !important-s because we have to override styles copypasted by users
-      span, em, strong, b, a, sup, sub, blockquote, mark, p, ul, ol{
+      span, em, strong, b, a, sup, sub, mark, p, ul, ol{
         color: rgb(49, 51, 54) !important;
         background: transparent !important;
       }
@@ -188,12 +193,10 @@ body.-hideSocialButtons{
         color: rgb(67, 67, 69) !important;
       }
 
-      blockquote, blockquote span{
-        color: rgb(49, 51, 54) !important;
-        background: rgb(248, 248, 248) !important;
-      }
       blockquote{
-        border-left: 2px solid rgb(235, 235, 235);
+        color: rgb(49, 51, 54) !important;
+        background: rgba(135, 135, 135, 0.04) !important;
+        border-left: 3px solid rgba(142, 141, 141, 0.18);
       }
     }
     button.see-answer-button{
