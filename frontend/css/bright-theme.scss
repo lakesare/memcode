@@ -41,6 +41,10 @@ body.-hideSocialButtons{
         fill: rgb(44, 65, 59) !important;
       }
     }
+    button.ql-answer{
+      border: 1px solid rgb(37, 176, 139) !important;
+      color: rgb(37, 176, 139) !important;
+    }
   }
 
   .flashcard-buttons button{
@@ -162,11 +166,11 @@ body.-hideSocialButtons{
       background: rgba(112, 111, 109, 0.07) !important;
     }
   }
+  section.problem.-withSeparateAnswer .second-column .ql-editor {
+    border: 2px solid rgba(37, 176, 139, 0.56);
+  }
   section.problem .quill > .ql-container > .ql-editor{
     background: white !important;
-    blockquote{
-      // background: rgba(236, 236, 236, 0.445) !important;
-    }
   }
   section.problem, .course-description-and-stats{
     font-weight: 400;
