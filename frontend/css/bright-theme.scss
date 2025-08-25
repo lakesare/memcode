@@ -165,6 +165,10 @@ body.-hideSocialButtons{
     .n-of-problems-left > .container > section{
       background: rgba(112, 111, 109, 0.07) !important;
     }
+    ul.stars > li > div.star{
+      box-shadow: none !important;
+      border-right: 1px solid rgba(255, 255, 255, 0.83);
+    }
   }
   section.problem.-withSeparateAnswer .second-column .ql-editor {
     border: 2px solid rgba(37, 176, 139, 0.56);
