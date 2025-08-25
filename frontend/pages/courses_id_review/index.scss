@@ -2,11 +2,6 @@
   .ProblemBeingSolved{
     padding-bottom: 90px;
   }
-  &.-hide-draft{
-    .ProblemBeingSolved .draft-answer{
-      display: none !important;
-    }
-  }
   &.-is-embed{
     header,
     section.course-actions{

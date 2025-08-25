@@ -51,15 +51,7 @@ class ProblemBeingSolved extends React.Component {
   }
 
   onEnter = (event) => {
-    if (event.key !== 'Enter') return;
-
-    // are we in the answer draft (where we may want to press enter)?
-    const weAreInDraftAnswer = (
-      this.props.problem.type === 'separateAnswer' &&
-      document.activeElement.className === 'ql-editor'
-    );
-
-    if (!weAreInDraftAnswer) {
+    if (event.key === 'Enter') {
       this.props.enterPressed();
     }
   }

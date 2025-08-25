@@ -35,7 +35,6 @@ const initialState = {
   speCategories: {},
   speCourseForActions: {},
   flashcardOrder: localStorage.getItem('flashcardOrder') === 'false' ? false : true,
-  ifShowDraft: localStorage.getItem('ifShowDraft') === 'false' ? false : true,
   ifMonospace: localStorage.getItem('ifMonospace') === 'true' ? true : false,
   pinnedCourseIds: parsePinnedCourseIdsFromLS(localStorage.getItem('pinnedCourseIds')),
   backgroundImage:
@@ -55,8 +54,6 @@ const reducer = (state = initialState, action) => {
       return action.payload;
     case `${namespace}.SET_FLASHCARD_ORDER`:
       return { ...state, flashcardOrder: action.payload.flashcardOrder };
-    case `${namespace}.SWITCH_IF_SHOW_DRAFT`:
-      return { ...state, ifShowDraft: action.payload.ifShowDraft };
     case `${namespace}.SWITCH_CLOZE_DELETION_MODE`:
       return { ...state, clozeDeletionMode: action.payload.clozeDeletionMode }
     case `${namespace}.SWITCH_IF_MONOSPACE`:
@@ -304,12 +301,6 @@ const getActions = (dispatch, getState) => ({
     const clozeDeletionMode = state.clozeDeletionMode === "typing" ? "clicking" : "typing";
     localStorage.setItem('clozeDeletionMode', clozeDeletionMode);
     dispatch({ type: `${namespace}.SWITCH_CLOZE_DELETION_MODE`, payload: { clozeDeletionMode } });
-  },
-  switchIfShowDraft: () => {
-    const state = getState().global.My;
-    const ifShowDraft = !state.ifShowDraft;
-    localStorage.setItem('ifShowDraft', ifShowDraft);
-    dispatch({ type: `${namespace}.SWITCH_IF_SHOW_DRAFT`, payload: { ifShowDraft } });
   },
   switchIfMonospace: () => {
     const state = getState().global.My;

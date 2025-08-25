@@ -95,19 +95,6 @@ class SettingsModal extends React.Component {
 
           <div className="setting">
             <div className="comment">
-              Show the draft text area for Question&Answer flashcards.
-            </div>
-            <button
-              type="button"
-              className="button -white"
-              onClick={this.props.MyActions.switchIfShowDraft}
-            >
-              {this.props.My.ifShowDraft ? 'Hide Draft' : 'Show Draft'}
-            </button>
-          </div>
-
-          <div className="setting">
-            <div className="comment">
               Fill-In-Answer flashcards: should we ask you to type in the answer?
             </div>
             <button

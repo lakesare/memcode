@@ -14,10 +14,6 @@ class SeparateAnswerReview extends React.Component {
     enterPressed: PropTypes.func.isRequired
   }
 
-  state = {
-    draft: ''
-  }
-
   componentDidMount = () => {
     this.uiFocusOnSeeAnswerButton();
   }
@@ -26,7 +22,6 @@ class SeparateAnswerReview extends React.Component {
     const ifProblemChanged =
       prevProps.problemId !== this.props.problemId;
     if (ifProblemChanged) {
-      this.uiClearDraft();
       this.uiFocusOnSeeAnswerButton();
     }
   }
@@ -38,9 +33,6 @@ class SeparateAnswerReview extends React.Component {
     // }
     document.querySelector('body').click();
   }
-
-  uiClearDraft = () =>
-    this.setState({ draft: '' })
 
   render = () =>
     <section className="problem -withSeparateAnswer">
@@ -60,17 +52,6 @@ class SeparateAnswerReview extends React.Component {
               </button>
             </div>
         }
-      </div>
-
-      <div className="draft-answer">
-        <div className="first-column"/>
-        <div className="second-column">
-          <Editor
-            placeholder="You can draft your answer here"
-            editorState={this.state.draft}
-            updateEditorState={(draft) => this.setState({ draft })}
-          />
-        </div>
       </div>
     </section>
 }
