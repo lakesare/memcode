@@ -4,7 +4,7 @@ all:
 
 # $(npm bin)/nodemon doesn't work, npm bin is '' then.
 start:
-	NODE_OPTIONS="--openssl-legacy-provider" NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/webpacked/index.js
+	NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/webpacked/index.js
 
 # build and watch
 backend-webpack:
@@ -49,9 +49,9 @@ heroku-deploy:
 	git push heroku master
 
 heroku-backend-webpack:
-	cd backend; ../node_modules/.bin/webpack --config ./webpack/production.config.js
+	cd backend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
 heroku-frontend-webpack:
-	cd frontend; ../node_modules/.bin/webpack --config ./webpack/production.config.js
+	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
 
 
 DB_URL = $$(heroku config:get DATABASE_URL --app memcode)
