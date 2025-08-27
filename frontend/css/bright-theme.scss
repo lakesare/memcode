@@ -14,7 +14,38 @@ body.-hideSocialButtons{
 .-bright-theme .-without-bg{
   background: #f2ece9;
   color: rgb(44, 65, 59);
-  // font-family: 'Open Sans';
+  font-family: 'Open Sans' !important;
+  font-weight: 500 !important;
+  h1, h2, h3, h4, h5, h6{
+    font-family: 'Open Sans' !important;
+    font-weight: 500 !important;
+  }
+  .button, input, textarea, select, button, label{
+    font-family: 'Open Sans' !important;
+    font-weight: 500 !important;
+  }
+  header a.logo{
+    font-weight: 600 !important;
+  }
+
+  .notifications-toggler i, .next-review-time, section.whats-next > h2{
+    color: rgb(44, 65, 59) !important;
+  }
+
+  section.category_and_author{
+    border-left: 1px solid rgba(173, 173, 173, 0.55) !important;
+  }
+
+  section.how-to-create label, section.choose-type label, section.how-to-create .shortcut,
+  .course-description  .placeholder{
+    color: rgba(173, 173, 173, 0.9) !important;
+  }
+
+
+  section.problems div.problem-wrapper > div.index{
+    color: white !important;
+    font-weight: 700;
+  }
 
   // header .my-courses-dropdown{
   //   background: rgb(234, 233, 233);
@@ -30,6 +61,10 @@ body.-hideSocialButtons{
   //     }
   //   }
   // }
+
+  section.congratulations h2{
+    color: rgb(37, 176, 139);
+  }
 
   section.problem .ql-toolbar{
     background: none;
