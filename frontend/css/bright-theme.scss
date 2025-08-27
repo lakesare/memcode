@@ -32,12 +32,13 @@ body.-hideSocialButtons{
     color: rgb(44, 65, 59) !important;
   }
 
-  section.category_and_author{
+  section.category_and_author .category{
     border-left: 1px solid rgba(173, 173, 173, 0.55) !important;
   }
 
   section.how-to-create label, section.choose-type label, section.how-to-create .shortcut,
-  .course-description  .placeholder{
+  .course-description  .placeholder,
+  .wrapper .user .created-at{
     color: rgba(173, 173, 173, 0.9) !important;
   }
 
@@ -64,6 +65,17 @@ body.-hideSocialButtons{
 
   section.congratulations h2{
     color: rgb(37, 176, 139);
+  }
+
+  .course-categories-nav h2.group-name{
+    font-weight: bold !important;
+    background-image: none !important;
+  }
+  .course-categories-nav li a.name:hover{
+    opacity: 0.6;
+  }
+  .standard-course-card, .link.create, .course-title_and_category_and_author h1.title{
+    &:hover{ opacity: 0.7; }
   }
 
   section.problem .ql-toolbar{
