@@ -136,8 +136,8 @@ class CourseActions extends React.Component {
 
   renderTitleAndButtons = (courseDto) => {
     const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
-    const nOfProblemsToLearn = dto && dto.problems.filter(MyModel.isProblemToLearn).length;
-    const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
+    const nOfProblemsToLearn = (dto && dto.problems.filter(MyModel.isProblemToLearn).length) || 0;
+    const nOfProblemsToReview = (dto && dto.problems.filter(MyModel.isProblemToReview).length) || 0;
 
     return <section className="title-and-buttons">
       <div className="container">

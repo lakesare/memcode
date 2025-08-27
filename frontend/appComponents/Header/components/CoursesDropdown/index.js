@@ -85,7 +85,7 @@ class CoursesDropdown extends React.Component {
 
   renderDropdown = () => {
     if (!this.props.My.coursesAlreadyFetched) {
-      return null;
+      return <div>Loading courses...</div>;
     } else if (this.getCourseDtos().length === 0) {
       return this.renderNoCourses();
     } else {
