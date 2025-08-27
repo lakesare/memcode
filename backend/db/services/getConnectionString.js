@@ -19,7 +19,18 @@ const getConnectionString = () => {
       };
     case 'production':
       // this variable is set automatically after we do heroku addons:create heroku-postgresql:hobby-dev
-      return process.env.DATABASE_URL + '?ssl=true&rejectUnauthorized=false';
+      // Parse the DATABASE_URL and add SSL configuration
+      const url = new URL(process.env.DATABASE_URL);
+      return {
+        host: url.hostname,
+        port: url.port,
+        database: url.pathname.slice(1), // remove leading slash
+        user: url.username,
+        password: url.password,
+        ssl: {
+          rejectUnauthorized: false
+        }
+      };
   }
 };
 
