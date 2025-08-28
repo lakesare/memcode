@@ -25,11 +25,6 @@ import mereseiRouter from '../meresei/backend/mereseiRouter';
 const app = express();
 
 // Route meresei.com to meresei app
-// Add debug middleware to log all requests
-app.use((req, res, next) => {
-  console.log('Request Host:', req.headers.host, 'URL:', req.url);
-  next();
-});
 
 app.use(vhost('meresei.com', mereseiRouter));
 app.use(vhost('www.meresei.com', mereseiRouter));
