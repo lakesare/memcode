@@ -2,7 +2,7 @@
 function vhost(hostname, server){
   if (!hostname) throw new Error('vhost hostname required');
   if (!server) throw new Error('vhost server required');
-  var regexp = new RegExp('^' + hostname.replace(/[^*\\w]/g, '\\$&').replace(/[*]/g, '(?:.*?)')  + '$', 'i');
+  var regexp = new RegExp('^' + hostname.replace(/[^*\w]/g, '\\$&').replace(/[*]/g, '(?:.*?)')  + '$', 'i');
   console.log('VHOST: Created vhost for hostname:', hostname, 'with regex:', regexp.toString());
   if (server.onvhost) server.onvhost(hostname);
   return function vhost(req, res, next){
