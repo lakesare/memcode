@@ -43,7 +43,8 @@ heroku-postbuild:
 	# for this purpose.
 	touch env.js;
 	make heroku-backend-webpack &
-	make heroku-frontend-webpack
+	make heroku-frontend-webpack &
+	make heroku-meresei-frontend-webpack
 
 heroku-deploy:
 	git push heroku master
@@ -52,6 +53,8 @@ heroku-backend-webpack:
 	cd backend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
 heroku-frontend-webpack:
 	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
+heroku-meresei-frontend-webpack:
+	cd meresei/frontend; npm install && npm run production
 
 
 DB_URL = $$(heroku config:get DATABASE_URL --app memcode)
