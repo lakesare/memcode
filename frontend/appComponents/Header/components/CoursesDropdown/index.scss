@@ -1,3 +1,4 @@
+@use 'sass:color';
 @import 'css/variables.scss';
 
 :local(.tooltip){
@@ -49,7 +50,7 @@
         background: $review-button-color;
       }
       a:hover{
-        background: transparentize($review-button-color, 0.3);
+        background: color.scale($review-button-color, $alpha: -30%);
       }
     }
     &.-learn{
@@ -58,7 +59,7 @@
 
       }
       a:hover{
-        background: transparentize($learn-button-color, 0.3);
+        background: color.scale($learn-button-color, $alpha: -30%);
       }
     }
     &.-next-due-date-in{
@@ -68,7 +69,7 @@
         width: 65px;
       }
       a:hover{
-        background: transparentize(rgb(66, 69, 98), 0.3);
+        background: color.scale(rgb(66, 69, 98), $alpha: -30%);
       }
     }
     &.-pinned{
@@ -77,13 +78,13 @@
         &.-review{
           background: $review-button-color;
           &:hover{
-            background: transparentize($review-button-color, 0.1);
+            background: color.scale($review-button-color, $alpha: -10%);
           }
         }
         &.-learn{
           background: $learn-button-color;
           &:hover{
-            background: transparentize($learn-button-color, 0.1);
+            background: color.scale($learn-button-color, $alpha: -10%);
           }
         }
         // &.-pinned{
@@ -94,7 +95,7 @@
         // }
       }
       a.title:hover{
-        background: transparentize(rgb(66, 69, 98), 0.3);
+        background: color.scale(rgb(66, 69, 98), $alpha: -30%);
       }
     }
   }
