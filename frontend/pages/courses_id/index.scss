@@ -123,6 +123,20 @@
 
     transition-duration: 200ms;
     transition-property: bottom, top;
+    
+    // Visual feedback for shift-selection
+    &.-shift-anchor {
+      background-color: #4caf50 !important; // Green for anchor
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+      transform: scale(1.1);
+      z-index: 10;
+    }
+    
+    &.-shift-range {
+      background-color: rgba(33, 150, 243, 0.8) !important; // Blue for range
+      box-shadow: 0 0 4px rgba(33, 150, 243, 0.4);
+      transform: scale(1.05);
+    }
   }
   .new-problem{
     position: relative;

@@ -27,6 +27,9 @@ class OldProblem extends React.Component {
     setLastClickedIndex: PropTypes.func.isRequired,
     uiAddOptimisticProblem: PropTypes.func.isRequired,
     uiUpdateOptimisticProblemIntoOld: PropTypes.func.isRequired,
+    isShiftPressed: PropTypes.bool,
+    hoveredIndex: PropTypes.number,
+    setHoveredIndex: PropTypes.func,
   }
 
   constructor(props) {
@@ -243,6 +246,9 @@ class OldProblem extends React.Component {
             lastClickedIndex={this.props.lastClickedIndex}
             setLastClickedIndex={this.props.setLastClickedIndex}
             dragHandleProps={provided.dragHandleProps}
+            isShiftPressed={this.props.isShiftPressed}
+            hoveredIndex={this.props.hoveredIndex}
+            setHoveredIndex={this.props.setHoveredIndex}
           />
 
           {this.renderButtons()}

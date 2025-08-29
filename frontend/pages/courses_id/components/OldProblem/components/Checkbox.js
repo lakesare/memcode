@@ -19,7 +19,23 @@ class Checkbox extends React.Component {
     lastClickedIndex: PropTypes.number,
     setLastClickedIndex: PropTypes.func.isRequired,
     // Sometimes not provided!
-    dragHandleProps: PropTypes.object
+    dragHandleProps: PropTypes.object,
+    // Shift-related props for visual feedback
+    isShiftPressed: PropTypes.bool,
+    hoveredIndex: PropTypes.number,
+    setHoveredIndex: PropTypes.func
+  }
+
+  handleMouseEnter = () => {
+    if (this.props.setHoveredIndex) {
+      this.props.setHoveredIndex(this.props.index);
+    }
+  }
+
+  handleMouseLeave = () => {
+    if (this.props.setHoveredIndex) {
+      this.props.setHoveredIndex(null);
+    }
   }
 
   handleClick = (event) => {
@@ -121,11 +137,34 @@ class Checkbox extends React.Component {
       this.props.problems.length - this.props.index : 
       this.props.index + 1;
     
+    // Visual feedback logic
+    const isAnchor = this.props.lastClickedIndex === this.props.index;
+    let isInRange = false;
+    
+    if (this.props.isShiftPressed && 
+        this.props.hoveredIndex !== null && 
+        this.props.lastClickedIndex !== null) {
+      const startIndex = Math.min(this.props.lastClickedIndex, this.props.hoveredIndex);
+      const endIndex = Math.max(this.props.lastClickedIndex, this.props.hoveredIndex);
+      isInRange = this.props.index >= startIndex && this.props.index <= endIndex;
+    }
+    
+    // Build className based on states
+    let className = "checkbox";
+    if (isAnchor && this.props.isShiftPressed) {
+      className += " -shift-anchor";
+    }
+    if (isInRange && this.props.isShiftPressed && this.props.hoveredIndex !== null) {
+      className += " -shift-range";
+    }
+    
     return (
       // we can't make it a button, because then drag won't work well
       <section
-        className="checkbox"
+        className={className}
         onClick={this.handleClick}
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
         {...(this.props.dragHandleProps || {})}
         // disable checkbox for keyboard navigation, it's more easily done via the mouse anyway!
         tabIndex={-1}

@@ -41,17 +41,45 @@ class Page_courses_id extends React.Component {
   state = {
     speGetProblems: {},
     idsOfCheckedProblems: [],
-    lastClickedIndex: null
+    lastClickedIndex: null,
+    isShiftPressed: false,
+    hoveredIndex: null
   }
 
   componentDidMount = () => {
     this.apiGetPage();
+    
+    // Add global keyboard event listeners for shift key tracking
+    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keyup', this.handleKeyUp);
+  }
+
+  componentWillUnmount = () => {
+    // Clean up global keyboard event listeners
+    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('keyup', this.handleKeyUp);
   }
 
   componentDidUpdate = (prevProps) => {
     if (prevProps.courseId !== this.props.courseId) {
       this.apiGetPage();
     }
+  }
+
+  handleKeyDown = (event) => {
+    if (event.key === 'Shift' && !this.state.isShiftPressed) {
+      this.setState({ isShiftPressed: true });
+    }
+  }
+
+  handleKeyUp = (event) => {
+    if (event.key === 'Shift' && this.state.isShiftPressed) {
+      this.setState({ isShiftPressed: false, hoveredIndex: null });
+    }
+  }
+
+  setHoveredIndex = (index) => {
+    this.setState({ hoveredIndex: index });
   }
 
   apiGetPage = () => {
@@ -187,6 +215,9 @@ class Page_courses_id extends React.Component {
                 setLastClickedIndex={this.setLastClickedIndex}
                 uiAddOptimisticProblem={this.uiAddOptimisticProblem}
                 uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
+                isShiftPressed={this.state.isShiftPressed}
+                hoveredIndex={this.state.hoveredIndex}
+                setHoveredIndex={this.setHoveredIndex}
               />
             )}
             {provided.placeholder}
