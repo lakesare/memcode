@@ -1,8 +1,7 @@
 import api from '~/api';
 import Loading from '~/components/Loading';
 
-const instructionsForLLM = ```
-<instructions>
+const instructionsForLLM = `<instructions>
 Your task is to create flashcards for the spaced-repetition app.
 This website has two types of flashcards: "cloze-deletion" flashcards where the user has to input the word in a sentence, and "question-answer" flashcards (traditional flashcard structure where user has to answer a question).
 To create a "cloze-deletion" flashcard, you should write a sentence, and insert <mark class="answer">...some string...</mark> into that sentence. "...some string..." automatically gets parsed as a correct answer in such a case. The second column of a "cloze-deletion" flashcard is always visible to the user, and we use it to give them some hints.
@@ -27,8 +26,7 @@ question-answer ||| What was the first antibiotic? ||| Penicillin.
 question-answer ||| What are antibiotics <i>only</i> effective against? ||| Bacteria.
 </example_output>
 
-Below, the user will tell you what kind of flashcards they want.
-```
+Below, the user will tell you what kind of flashcards they want.\n\n\n`;
 
 class SectionImportFlashcardsFromText extends React.Component {
   static propTypes = {
@@ -38,7 +36,8 @@ class SectionImportFlashcardsFromText extends React.Component {
   state = {
     flashcardsToBeImported: [],
     speImport: {},
-    parsingErrors: []
+    parsingErrors: [],
+    instructionsCopied: false
   }
 
   apiImportFlashcards = () =>
@@ -52,6 +51,20 @@ class SectionImportFlashcardsFromText extends React.Component {
       .then(() => {
         this.setState({ flashcardsToBeImported: [] });
       })
+
+  copyLLMInstructionsToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(instructionsForLLM);
+      this.setState({ instructionsCopied: true });
+      
+      // Reset the copied state after 2 seconds
+      setTimeout(() => {
+        this.setState({ instructionsCopied: false });
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy instructions to clipboard:', err);
+    }
+  }
 
   uiSetAndValidateNewFlashcards = (event) => {
     const inputText = event.target.value.trim();
@@ -173,7 +186,7 @@ class SectionImportFlashcardsFromText extends React.Component {
       <div className="first-column">
         <p>
           <b>Create flashcards</b><br/>
-          In bulk by pasting their html below. Useful for asking your LLM to create flashcards.
+          In bulk by pasting their html below. Useful for asking your LLM to create flashcards.<br/>
         </p>
         <p>
           <b>Format expected</b><br/>
@@ -183,6 +196,25 @@ class SectionImportFlashcardsFromText extends React.Component {
           <b>A type of a flashcard</b><br/>
           To create a question-answer flashcard, write "question-answer ||| ... ||| ...".<br/>
           To create a fill-in-answer flashcard, write "cloze-deletion ||| ... ||| ...".
+        </p>
+        <p>
+          <b>Instructions for LLM</b><br/>
+          Click <button 
+            type="button"
+            onClick={this.copyLLMInstructionsToClipboard}
+            style={{
+              background: this.state.instructionsCopied ? '#4caf50' : '#007bff',
+              color: 'white',
+              border: 'none',
+              padding: '0px 8px',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              fontSize: '12px',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            {this.state.instructionsCopied ? '✓ Copied!' : 'here'}
+          </button> to copy.
         </p>
       </div>
 

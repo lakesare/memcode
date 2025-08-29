@@ -11,9 +11,9 @@ class TabImportExport extends React.Component {
   render = () =>
     <div className={css.tab}>
       <div className="background -blue">
-        <SectionImportFlashcards courseId={this.props.course.id}/>
-        <hr/>
         <SectionImportFlashcardsFromText courseId={this.props.course.id}/>
+        <hr/>
+        <SectionImportFlashcards courseId={this.props.course.id}/>
         <hr/>
         <SectionExportFlashcards course={this.props.course}/>
       </div>
