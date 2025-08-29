@@ -76,6 +76,22 @@
         margin-top: 30px;
       }
     }
+    > section.import-flashcards.-text{
+      textarea{
+        width: 100%;
+        background: #ffffff3d;
+        border-radius: 4px;
+        padding: 10px;
+        white-space: nowrap;
+        line-height: 22px;
+        field-sizing: content; // doesnt work for Firefox, but should already work for other browsers
+        resize: vertical;
+      }
+      .instructions textarea{
+        margin-top: 4px;
+        height: 93px;
+      }
+    }
     > hr{
       margin-top: 30px;
       margin-bottom: 30px;
