@@ -23,7 +23,10 @@ class Checkbox extends React.Component {
     // Shift-related props for visual feedback
     isShiftPressed: PropTypes.bool,
     hoveredIndex: PropTypes.number,
-    setHoveredIndex: PropTypes.func
+    setHoveredIndex: PropTypes.func,
+    // Last click action tracking
+    lastClickAction: PropTypes.string,
+    setLastClickAction: PropTypes.func
   }
 
   handleMouseEnter = () => {
@@ -77,13 +80,15 @@ class Checkbox extends React.Component {
         }
       }
       
-      // Check if all items in the range are currently selected
-      const allRangeItemsSelected = rangeIds.every(id => this.props.idsOfCheckedProblems.includes(id));
+      // Use the last click action to determine what to do with the range
+      // If last click was 'unselect', unselect the range; if 'select', select the range
+      const shouldSelectRange = this.props.lastClickAction === 'select';
       
       console.log('Range toggle logic:');
       console.log('  Range IDs:', rangeIds);
+      console.log('  Last click action:', this.props.lastClickAction);
+      console.log('  Should select range?', shouldSelectRange);
       console.log('  Existing checked IDs:', this.props.idsOfCheckedProblems);
-      console.log('  All range items selected?', allRangeItemsSelected);
       
       // Debug each item in range
       rangeIds.forEach(id => {
@@ -92,15 +97,15 @@ class Checkbox extends React.Component {
       });
       
       let newSelection;
-      if (allRangeItemsSelected) {
-        // If all items in range are selected, unselect them
-        newSelection = this.props.idsOfCheckedProblems.filter(id => !rangeIds.includes(id));
-        console.log('Unselecting range:', rangeIds);
-      } else {
-        // If some or none are selected, select all in the range
+      if (shouldSelectRange) {
+        // Last click was 'select', so select the entire range
         const allIds = [...this.props.idsOfCheckedProblems, ...rangeIds];
         newSelection = [...new Set(allIds)];
-        console.log('Selecting range:', rangeIds);
+        console.log('Selecting range (last action was select):', rangeIds);
+      } else {
+        // Last click was 'unselect', so unselect the entire range
+        newSelection = this.props.idsOfCheckedProblems.filter(id => !rangeIds.includes(id));
+        console.log('Unselecting range (last action was unselect):', rangeIds);
       }
       
       this.props.updateIdsOfCheckedProblems(newSelection);
@@ -118,12 +123,20 @@ class Checkbox extends React.Component {
         this.props.updateIdsOfCheckedProblems(
           this.props.idsOfCheckedProblems.filter((id) => id !== this.props.id)
         );
+        // Track that the last action was 'unselect'
+        if (this.props.setLastClickAction) {
+          this.props.setLastClickAction('unselect');
+        }
       } else {
         // Check this item
         this.props.updateIdsOfCheckedProblems([
           ...this.props.idsOfCheckedProblems,
           this.props.id
         ]);
+        // Track that the last action was 'select'
+        if (this.props.setLastClickAction) {
+          this.props.setLastClickAction('select');
+        }
       }
     }
 

@@ -25,6 +25,8 @@ class OldProblem extends React.Component {
     flashcardOrder: PropTypes.bool.isRequired,
     lastClickedIndex: PropTypes.number,
     setLastClickedIndex: PropTypes.func.isRequired,
+    lastClickAction: PropTypes.string,
+    setLastClickAction: PropTypes.func.isRequired,
     uiAddOptimisticProblem: PropTypes.func.isRequired,
     uiUpdateOptimisticProblemIntoOld: PropTypes.func.isRequired,
     isShiftPressed: PropTypes.bool,
@@ -245,6 +247,8 @@ class OldProblem extends React.Component {
             flashcardOrder={this.props.flashcardOrder}
             lastClickedIndex={this.props.lastClickedIndex}
             setLastClickedIndex={this.props.setLastClickedIndex}
+            lastClickAction={this.props.lastClickAction}
+            setLastClickAction={this.props.setLastClickAction}
             dragHandleProps={provided.dragHandleProps}
             isShiftPressed={this.props.isShiftPressed}
             hoveredIndex={this.props.hoveredIndex}
