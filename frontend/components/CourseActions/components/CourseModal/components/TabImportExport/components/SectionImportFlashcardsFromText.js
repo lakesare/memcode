@@ -1,9 +1,34 @@
-import readUploadedExcelFile from '~/services/readUploadedExcelFile';
 import api from '~/api';
-
 import Loading from '~/components/Loading';
 
-import exampleOfGoodExcelForImport from '../images/exampleOfGoodExcelForImport.png';
+const instructionsForLLM = ```
+<instructions>
+Your task is to create flashcards for the spaced-repetition app.
+This website has two types of flashcards: "cloze-deletion" flashcards where the user has to input the word in a sentence, and "question-answer" flashcards (traditional flashcard structure where user has to answer a question).
+To create a "cloze-deletion" flashcard, you should write a sentence, and insert <mark class="answer">...some string...</mark> into that sentence. "...some string..." automatically gets parsed as a correct answer in such a case. The second column of a "cloze-deletion" flashcard is always visible to the user, and we use it to give them some hints.
+For example, here is a typical "cloze-deletion" flashcard for a german-learning course:
+<example>
+cloze-deletion ||| <p>Ich komme <mark class="answer">spät</mark> zur Party.</p> ||| <p><strong>поздно</strong></p><blockquote>I come late to the party.</blockquote>
+</example>
+
+So, the user sees a german sentence, sees a translation in the languages he knows, and writes "spät" in the missing field.
+</instructions>
+
+<format>
+Flashcards can contain HTML. Here is an example of all supported html tags, taken from a real flashcard:
+
+<blockquote>We have quotes</blockquote><p><br></p><p>H<sub>2</sub>O</p><p><br></p><p>2<sup>3</sup> = 8</p><p><br></p><pre class="ql-syntax" spellcheck="false">Here is some code
+</pre><p><br></p><p>And here is <code>inline code</code>.</p><p><br></p><p>We also have unordered lists</p><ul><li>yellow</li><li>red</li></ul><p><br></p><p>And even numbered lists</p><ol><li>yellow</li><li>red</li></ol><p><br></p><p>And we have pictures.</p><p><img src="https://memcode-production.s3.us-west-2.amazonaws.com/1756437313511" style="" width="130"></p><p><br></p><p>We also have <a href="https://www.google.com/" rel="noopener noreferrer" target="_blank">links</a>.</p>
+</format>
+
+<example_output>
+cloze-deletion  ||| Penicillin was discovered by Alexander <mark class="answer">Fleming</mark> in 1928. |||
+question-answer ||| What was the first antibiotic? ||| Penicillin.
+question-answer ||| What are antibiotics <i>only</i> effective against? ||| Bacteria.
+</example_output>
+
+Below, the user will tell you what kind of flashcards they want.
+```
 
 class SectionImportFlashcardsFromText extends React.Component {
   static propTypes = {
