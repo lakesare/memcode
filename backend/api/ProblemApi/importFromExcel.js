@@ -5,19 +5,19 @@ const importFromExcel = async (request, response) => {
   const courseId = request.body['courseId'];
   const problems = request.body['problems'];
 
-  const arrayOfNulls = await db.tx((transaction) => {
+  const arrayOfNulls = await db.tx(async (transaction) => {
     const queries = problems.map((problem, index) => {
-      transaction.none(
-        "INSERT INTO problem (type, content, course_id, created_at) VALUES (${type}, ${content}, ${courseId}, now())",
+      return transaction.none(
+        "INSERT INTO problem (type, content, course_id, position, created_at) VALUES (${type}, ${content}, ${courseId}, ${position}, now())",
         {
           type: problem.type,
           content: problem.content,
-          position: index + 1,
-          courseId
+          courseId,
+          position: index + 1
         }
       );
     });
-    return transaction.batch(queries);
+    return Promise.all(queries);
   });
 
   response.success({ amountOfCreatedProblems: arrayOfNulls.length });
