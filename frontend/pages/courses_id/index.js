@@ -40,7 +40,8 @@ class Page_courses_id extends React.Component {
 
   state = {
     speGetProblems: {},
-    idsOfCheckedProblems: []
+    idsOfCheckedProblems: [],
+    lastClickedIndex: null
   }
 
   componentDidMount = () => {
@@ -147,6 +148,10 @@ class Page_courses_id extends React.Component {
     }, this.apiReorderProblems);
   }
 
+  setLastClickedIndex = (index) => {
+    this.setState({ lastClickedIndex: index });
+  }
+
   renderOldProblemsToEdit = () => {
     const createdCoursesForSelect = this.props.My.courses
       .filter((courseDto) => {
@@ -156,26 +161,30 @@ class Page_courses_id extends React.Component {
       })
       .map((courseDto) => ({ value: courseDto.course.id, label: courseDto.course.title }));
 
-    return <Loading spe={this.state.speGetProblems} enabledStatuses={['success', 'failure']}>{({ problems }) =>
-      <DragDropContext onDragEnd={this.onDragEnd}>
+    return <Loading spe={this.state.speGetProblems} enabledStatuses={['success', 'failure']}>{({ problems }) => {
+      const displayOrderedProblems = !this.props.My.flashcardOrder ? problems : problems.slice(0).reverse();
+      
+      return <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="problems">{(provided) =>
           <section
             {...provided.droppableProps}
             ref={provided.innerRef}
             className="problems"
           >
-            {(!this.props.My.flashcardOrder ? problems : problems.slice(0).reverse()).map((problem, index) =>
+            {displayOrderedProblems.map((problem, index) =>
               <OldProblem
                 key={problem._optimistic_id ? problem._optimistic_id : problem.id}
                 problem={problem}
                 index={index}
                 updateOldProblem={this.updateOldProblem}
-                problems={problems}
+                problems={displayOrderedProblems}
                 idsOfCheckedProblems={this.state.idsOfCheckedProblems}
                 updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
                 uiRemoveOldProblems={this.uiRemoveOldProblems}
                 createdCoursesForSelect={createdCoursesForSelect}
                 flashcardOrder={this.props.My.flashcardOrder}
+                lastClickedIndex={this.state.lastClickedIndex}
+                setLastClickedIndex={this.setLastClickedIndex}
                 uiAddOptimisticProblem={this.uiAddOptimisticProblem}
                 uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
               />
@@ -183,8 +192,8 @@ class Page_courses_id extends React.Component {
             {provided.placeholder}
           </section>
         }</Droppable>
-      </DragDropContext>
-    }</Loading>;
+      </DragDropContext>;
+    }}</Loading>;
   }
 
   renderNewProblemToEdit = () => {

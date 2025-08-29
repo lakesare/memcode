@@ -15,85 +15,125 @@ class Checkbox extends React.Component {
     updateIdsOfCheckedProblems: PropTypes.func.isRequired,
     apiSave: PropTypes.func.isRequired,
     ifChecked: PropTypes.bool.isRequired,
+    flashcardOrder: PropTypes.bool.isRequired,
+    lastClickedIndex: PropTypes.number,
+    setLastClickedIndex: PropTypes.func.isRequired,
     // Sometimes not provided!
     dragHandleProps: PropTypes.object
   }
 
-  uncheck = (event) => {
+  handleClick = (event) => {
     event.currentTarget.focus();
     this.props.apiSave();
 
-    this.props.updateIdsOfCheckedProblems(
-      this.props.idsOfCheckedProblems.filter((id) => id !== this.props.id)
-    );
-  }
-
-  check = (event) => {
-    event.currentTarget.focus();
-    this.props.apiSave();
-
-    const idsOfCheckedProblems = this.props.idsOfCheckedProblems;
     const problems = this.props.problems;
-    const idsOfProblemsToCheck = [];
+    const currentDisplayIndex = this.props.index;
 
-    // ___if shift is pressed while we're clicking a checkbox:
-    //    1. find the lowest (on a screen) index,
-    //    2. BUT higher than this flashcard's index
-    //    3. which is already checked
-    if (event.shiftKey) {
-      const currentIndex = this.props.index;
+    // Helper to get problem at a given display index
+    // The problems array is now correctly ordered for display, so display index = array index
+    const getProblemAtDisplayIndex = (displayIndex) => {
+      return problems[displayIndex];
+    };
 
-      // 1
-      // 2 - checked
-      // 3
-      // 4 - we're checking currently, while pressing shift
-      // 5
-      let nextCheckedIndexGoingFromBottom = null;
-      // starting from our own index - travel up the screen, looking for the very first checked problem
-      for (let index = currentIndex - 1; index >= 0; index--) {
-        const problem = problems[index];
-        const thisProblemIsCheckedToo = idsOfCheckedProblems.includes(problem.id);
-        if (thisProblemIsCheckedToo) {
-          nextCheckedIndexGoingFromBottom = index;
-          break;
+    if (event.shiftKey && this.props.lastClickedIndex !== null && this.props.lastClickedIndex !== undefined) {
+      // Shift-click: toggle range between last clicked and current
+      const startIndex = Math.min(this.props.lastClickedIndex, currentDisplayIndex);
+      const endIndex = Math.max(this.props.lastClickedIndex, currentDisplayIndex);
+      
+      console.log('Shift-click debug:', {
+        clickedCheckboxNumber: currentDisplayIndex + 1,
+        lastClickedCheckboxNumber: this.props.lastClickedIndex + 1,
+        currentDisplayIndex: currentDisplayIndex,
+        lastClickedIndex: this.props.lastClickedIndex,
+        startIndex: startIndex,
+        endIndex: endIndex,
+        flashcardOrder: this.props.flashcardOrder,
+        problemsLength: problems.length
+      });
+      
+      // Get all problem IDs in the range
+      const rangeIds = [];
+      for (let displayIndex = startIndex; displayIndex <= endIndex; displayIndex++) {
+        const problemAtThisDisplayIndex = getProblemAtDisplayIndex(displayIndex);
+        if (problemAtThisDisplayIndex) {
+          console.log(`Display index ${displayIndex} -> checkbox ${displayIndex + 1}, problem ID: ${problemAtThisDisplayIndex.id}`);
+          rangeIds.push(problemAtThisDisplayIndex.id);
         }
       }
-
-      if (nextCheckedIndexGoingFromBottom) {
-        // fill in exactly exclusive in-between (nextCheckedIndexGoingFromBottom...currentIndex)
-        const indexesOfProblemsToCheck = getExclusiveIndexesInBetween(nextCheckedIndexGoingFromBottom, currentIndex);
-        problems.map((problem, index) => {
-          if (indexesOfProblemsToCheck.includes(index)) {
-            idsOfProblemsToCheck.push(problem.id);
-          }
-        });
-        idsOfProblemsToCheck.push(this.props.id);
+      
+      // Check if all items in the range are currently selected
+      const allRangeItemsSelected = rangeIds.every(id => this.props.idsOfCheckedProblems.includes(id));
+      
+      console.log('Range toggle logic:');
+      console.log('  Range IDs:', rangeIds);
+      console.log('  Existing checked IDs:', this.props.idsOfCheckedProblems);
+      console.log('  All range items selected?', allRangeItemsSelected);
+      
+      // Debug each item in range
+      rangeIds.forEach(id => {
+        const isSelected = this.props.idsOfCheckedProblems.includes(id);
+        console.log(`  ID ${id}: ${isSelected ? 'SELECTED' : 'NOT selected'}`);
+      });
+      
+      let newSelection;
+      if (allRangeItemsSelected) {
+        // If all items in range are selected, unselect them
+        newSelection = this.props.idsOfCheckedProblems.filter(id => !rangeIds.includes(id));
+        console.log('Unselecting range:', rangeIds);
       } else {
-        idsOfProblemsToCheck.push(this.props.id);
+        // If some or none are selected, select all in the range
+        const allIds = [...this.props.idsOfCheckedProblems, ...rangeIds];
+        newSelection = [...new Set(allIds)];
+        console.log('Selecting range:', rangeIds);
       }
-    // ___if shift is not pressed:
-    //    1. just normally add the clicked problem
+      
+      this.props.updateIdsOfCheckedProblems(newSelection);
     } else {
-      idsOfProblemsToCheck.push(this.props.id);
+      // Normal click: toggle single item
+      console.log('Normal click debug:', {
+        clickedCheckboxNumber: currentDisplayIndex + 1,
+        currentDisplayIndex: currentDisplayIndex,
+        thisPropsId: this.props.id,
+        isCurrentlyChecked: this.props.ifChecked
+      });
+      
+      if (this.props.ifChecked) {
+        // Uncheck this item
+        this.props.updateIdsOfCheckedProblems(
+          this.props.idsOfCheckedProblems.filter((id) => id !== this.props.id)
+        );
+      } else {
+        // Check this item
+        this.props.updateIdsOfCheckedProblems([
+          ...this.props.idsOfCheckedProblems,
+          this.props.id
+        ]);
+      }
     }
 
-    this.props.updateIdsOfCheckedProblems([
-      ...this.props.idsOfCheckedProblems,
-      ...idsOfProblemsToCheck
-    ]);
+    // Update the last clicked index for future shift-clicks
+    this.props.setLastClickedIndex(currentDisplayIndex);
   }
 
-  render = () =>
-    // we can't make it a button, because then drag won't work well
-    <section
-      className="checkbox"
-      onClick={this.props.ifChecked ? this.uncheck : this.check}
-      {...(this.props.dragHandleProps || {})}
-      // disable checkbox for keyboard navigation, it's more easily done via the mouse anyway!
-      tabIndex={-1}
-    >
-      {this.props.index + 1}
-    </section>
+  render = () => {
+    // Calculate the correct checkbox number to display
+    const checkboxNumber = this.props.flashcardOrder ? 
+      this.props.problems.length - this.props.index : 
+      this.props.index + 1;
+    
+    return (
+      // we can't make it a button, because then drag won't work well
+      <section
+        className="checkbox"
+        onClick={this.handleClick}
+        {...(this.props.dragHandleProps || {})}
+        // disable checkbox for keyboard navigation, it's more easily done via the mouse anyway!
+        tabIndex={-1}
+      >
+        {checkboxNumber}
+      </section>
+    );
+  }
 }
 
 export default Checkbox;

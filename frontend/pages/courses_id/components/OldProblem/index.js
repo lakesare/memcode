@@ -23,6 +23,8 @@ class OldProblem extends React.Component {
     uiRemoveOldProblems: PropTypes.func.isRequired,
     createdCoursesForSelect: PropTypes.array.isRequired,
     flashcardOrder: PropTypes.bool.isRequired,
+    lastClickedIndex: PropTypes.number,
+    setLastClickedIndex: PropTypes.func.isRequired,
     uiAddOptimisticProblem: PropTypes.func.isRequired,
     uiUpdateOptimisticProblemIntoOld: PropTypes.func.isRequired,
   }
@@ -156,9 +158,8 @@ class OldProblem extends React.Component {
   }
 
   getCheckboxIndex = () => {
-    return this.props.flashcardOrder ?
-      this.props.problems.length - this.props.index - 1 :
-      this.props.index;
+    // The problems array is now correctly ordered for display, so index is already correct
+    return this.props.index;
   }
 
   isContentEmpty = () => {
@@ -238,6 +239,9 @@ class OldProblem extends React.Component {
             updateIdsOfCheckedProblems={this.props.updateIdsOfCheckedProblems}
             apiSave={this.apiSave}
             ifChecked={this.ifChecked()}
+            flashcardOrder={this.props.flashcardOrder}
+            lastClickedIndex={this.props.lastClickedIndex}
+            setLastClickedIndex={this.props.setLastClickedIndex}
             dragHandleProps={provided.dragHandleProps}
           />
 
