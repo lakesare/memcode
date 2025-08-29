@@ -121,20 +121,24 @@
     align-items: center;
     justify-content: center;
 
-    transition-duration: 200ms;
-    transition-property: bottom, top;
+    // Enhanced transitions for smooth animations
+    transition-duration: 250ms;
+    transition-property: bottom, top, transform, outline, opacity;
+    transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1); // Material Design easing
     
-    // Visual feedback for shift-selection
+    // Visual feedback for shift-selection with smooth transitions
     &.-shift-anchor {
-      background-color: #4caf50 !important; // Green for anchor
-      box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
+      // background-color: #4caf50 !important; // Green for anchor
+      // box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);
       transform: scale(1.1);
       z-index: 10;
+      outline: 3px solid #867bda;
     }
     
     &.-shift-range {
-      background-color: rgba(33, 150, 243, 0.8) !important; // Blue for range
-      box-shadow: 0 0 4px rgba(33, 150, 243, 0.4);
+      // background-color: rgba(33, 150, 243, 0.8) !important; // Blue for range
+      // box-shadow: 0 0 4px rgba(33, 150, 243, 0.4);
+      opacity: 1 !important;
       transform: scale(1.05);
     }
   }
@@ -326,4 +330,3 @@
     }
   }
 }
-
