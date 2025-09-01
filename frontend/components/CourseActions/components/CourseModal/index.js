@@ -11,7 +11,9 @@ class CourseModal extends React.Component {
   static propTypes = {
     course: PropTypes.object.isRequired,
     uiUpdateCourse: PropTypes.func.isRequired,
-    toggler: PropTypes.element.isRequired
+    toggler: PropTypes.element.isRequired,
+    MyActions: PropTypes.object.isRequired,
+    onProblemsImported: PropTypes.func
   }
 
   state = {
@@ -39,6 +41,8 @@ class CourseModal extends React.Component {
         <TabImportExport
           {...props}
           course={this.props.course}
+          MyActions={this.props.MyActions}
+          onProblemsImported={this.props.onProblemsImported}
         />,
       'Manage': () =>
         <TabManage

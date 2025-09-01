@@ -5,13 +5,13 @@ const importFromExcel = async (request, response) => {
   const courseId = request.body['courseId'];
   const problems = request.body['problems'];
 
-  const arrayOfNulls = await db.tx(async (transaction) => {
+  const createdProblemIds = await db.tx(async (transaction) => {
     // Always assign position=0 to imported cards
     // This ensures they appear at the end (after manually positioned cards)
     // and in chronological order based on created_at
     const queries = problems.map((problem, index) => {
-      return transaction.none(
-        "INSERT INTO problem (type, content, course_id, position, created_at) VALUES (${type}, ${content}, ${courseId}, ${position}, now())",
+      return transaction.one(
+        "INSERT INTO problem (type, content, course_id, position, created_at) VALUES (${type}, ${content}, ${courseId}, ${position}, now()) RETURNING id",
         {
           type: problem.type,
           content: problem.content,
@@ -20,10 +20,14 @@ const importFromExcel = async (request, response) => {
         }
       );
     });
-    return Promise.all(queries);
+    const results = await Promise.all(queries);
+    return results.map(result => result.id);
   });
 
-  response.success({ amountOfCreatedProblems: arrayOfNulls.length });
+  response.success({ 
+    amountOfCreatedProblems: createdProblemIds.length,
+    createdProblemIds: createdProblemIds
+  });
 };
 
 export default importFromExcel;

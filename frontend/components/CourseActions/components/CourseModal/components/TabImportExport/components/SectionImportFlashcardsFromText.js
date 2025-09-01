@@ -31,6 +31,9 @@ Below, the user will tell you what kind of flashcards they want.\n\n\n`;
 class SectionImportFlashcardsFromText extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
+    MyActions: PropTypes.object.isRequired,
+    onProblemsImported: PropTypes.func,
+    closeModal: PropTypes.func
   }
 
   state = {
@@ -48,7 +51,24 @@ class SectionImportFlashcardsFromText extends React.Component {
         problems: this.state.flashcardsToBeImported
       }
     )
-      .then(() => {
+      .then(async (response) => {
+        // Update global state with newly created problems
+        if (response && response.createdProblemIds) {
+          response.createdProblemIds.forEach((problemId) => {
+            this.props.MyActions.createProblem(this.props.courseId, problemId);
+          });
+        }
+        
+        // Refresh page state and wait for it to complete
+        if (this.props.onProblemsImported) {
+          await this.props.onProblemsImported();
+        }
+        
+        // Close modal immediately after page refresh completes
+        if (this.props.closeModal) {
+          this.props.closeModal();
+        }
+        
         this.setState({ flashcardsToBeImported: [] });
       })
 
@@ -238,11 +258,7 @@ question-answer ||| What are antibiotics <i>only</i> effective against? ||| Bact
       {this.renderParsingErrors()}
       {this.renderCreateFlashcardsButton()}
 
-      <Loading spe={this.state.speImport}>{({ amountOfCreatedProblems }) =>
-        <div className="standard-success-message">
-          Success! <b>{amountOfCreatedProblems} flashcards</b> have been <b>created</b>, please reload the page and rejoice!
-        </div>
-      }</Loading>
+      <Loading spe={this.state.speImport}/> 
 
     </section>
 }

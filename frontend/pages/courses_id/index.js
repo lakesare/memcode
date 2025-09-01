@@ -287,6 +287,7 @@ class Page_courses_id extends React.Component {
         type="editOrShow"
         My={this.props.My}
         MyActions={this.props.MyActions}
+        onProblemsImported={this.apiGetPage}
       />
 
       <Loading spe={this.props.My.speCourseForActions}>{({ course, coauthors }) =>

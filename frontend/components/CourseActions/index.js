@@ -24,7 +24,8 @@ class CourseActions extends React.Component {
 
     My: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
-    currentProblem: PropTypes.object
+    currentProblem: PropTypes.object,
+    onProblemsImported: PropTypes.func
   }
 
   apiStartLearning = () =>
@@ -185,6 +186,8 @@ class CourseActions extends React.Component {
                 }
                 course={courseDto.course}
                 uiUpdateCourse={this.uiUpdateCourse}
+                MyActions={this.props.MyActions}
+                onProblemsImported={this.props.onProblemsImported}
               />
 
               <InviteCoauthorModal
