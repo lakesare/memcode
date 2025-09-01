@@ -6,6 +6,9 @@ const importFromExcel = async (request, response) => {
   const problems = request.body['problems'];
 
   const arrayOfNulls = await db.tx(async (transaction) => {
+    // Always assign position=0 to imported cards
+    // This ensures they appear at the end (after manually positioned cards)
+    // and in chronological order based on created_at
     const queries = problems.map((problem, index) => {
       return transaction.none(
         "INSERT INTO problem (type, content, course_id, position, created_at) VALUES (${type}, ${content}, ${courseId}, ${position}, now())",
@@ -13,7 +16,7 @@ const importFromExcel = async (request, response) => {
           type: problem.type,
           content: problem.content,
           courseId,
-          position: index + 1
+          position: 0
         }
       );
     });
