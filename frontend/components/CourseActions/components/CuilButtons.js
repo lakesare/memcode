@@ -5,6 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import StandardTooltip from '~/components/StandardTooltip';
 import TogglerAndModal from '~/components/TogglerAndModal';
+import ImportExportModal from './ImportExportModal';
 
 @withRouter
 class CuilButtons extends React.Component {
@@ -27,10 +28,23 @@ class CuilButtons extends React.Component {
     My: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
     type: PropTypes.string.isRequired,
+    canIEditCourse: PropTypes.bool,
+    onProblemsImported: PropTypes.func
   }
 
   state = {
     speDuplicate: {},
+  }
+
+  constructor(props) {
+    super(props);
+    this.tippyInstance = null;
+  }
+
+  closeDropdown = () => {
+    if (this.tippyInstance) {
+      this.tippyInstance.hide();
+    }
   }
 
   renderStartLearningButton = () =>
@@ -80,11 +94,12 @@ class CuilButtons extends React.Component {
         <li>
           <button
             type="button"
-            onClick={() =>
+            onClick={() => {
               this.props.My.pinnedCourseIds.includes(this.props.courseDto.course.id) ?
                 this.props.MyActions.removePinnedCourse(this.props.courseDto.course.id) :
-                this.props.MyActions.addPinnedCourse(this.props.courseDto.course.id)
-            }
+                this.props.MyActions.addPinnedCourse(this.props.courseDto.course.id);
+              this.closeDropdown();
+            }}
             style={{ color: 'rgb(247, 54, 54)' }}
           >
             <div className="text">
@@ -106,6 +121,7 @@ class CuilButtons extends React.Component {
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/simulated`}
             style={{ color: 'rgb(236, 236, 133)' }}
+            onClick={this.closeDropdown}
           >
             <div className="text">Test Drive</div>
             <div className="comment -white">
@@ -121,6 +137,7 @@ class CuilButtons extends React.Component {
           <Link
             to={`/courses/${this.props.courseDto.course.id}/review/persistent`}
             style={{ color: 'rgb(236, 236, 133)' }}
+            onClick={this.closeDropdown}
           >
             <div className="text">Review All</div>
             <div className="comment -white">
@@ -137,6 +154,7 @@ class CuilButtons extends React.Component {
             to={`/courses/${this.props.courseDto.course.id}/review/print`}
             target="_blank"
             style={{ color: 'rgb(219, 219, 216)' }}
+            onClick={this.closeDropdown}
           >
             <div className="text">Print Out</div>
             <div className="comment -white">
@@ -153,6 +171,7 @@ class CuilButtons extends React.Component {
             to={`/courses/${this.props.courseDto.course.id}/all/print`}
             target="_blank"
             style={{ color: 'rgb(219, 219, 216)' }}
+            onClick={this.closeDropdown}
           >
             <div className="text">Print All Out</div>
             <div className="comment -white">
@@ -167,7 +186,10 @@ class CuilButtons extends React.Component {
         <li>
           <button
             type="button"
-            onClick={this.props.apiStopLearning}
+            onClick={() => {
+              this.props.apiStopLearning();
+              this.closeDropdown();
+            }}
             style={{ color: 'rgb(252, 126, 126)' }}
           >
             <div className="text">Stop Learning</div>
@@ -183,7 +205,10 @@ class CuilButtons extends React.Component {
         <li>
           <button
             type="button"
-            onClick={this.apiDuplicateCourse}
+            onClick={() => {
+              this.apiDuplicateCourse();
+              this.closeDropdown();
+            }}
             style={{ color: 'rgb(120, 175, 244)', ...disableOnSpeRequest(this.state.speDuplicate) }}
           >
             <div className="text">Duplicate</div>
@@ -200,6 +225,7 @@ class CuilButtons extends React.Component {
             <button
               type="button"
               style={{ color: 'rgb(232, 141, 230)' }}
+              onClick={this.closeDropdown}
             >
               <div className="text">
                 Embed
@@ -215,6 +241,29 @@ class CuilButtons extends React.Component {
       </li>
 
       {
+        this.props.canIEditCourse &&
+        <li>
+          <ImportExportModal
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(120, 175, 244)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Import/Export</div>
+                <div className="comment -white">
+                  Import flashcards from text or export existing flashcards.
+                </div>
+              </button>
+            }
+            course={this.props.courseDto.course}
+            MyActions={this.props.MyActions}
+            onProblemsImported={this.props.onProblemsImported}
+          />
+        </li>
+      }
+
+      {
         this.props.currentProblem &&
         <li>
           <button
@@ -223,6 +272,7 @@ class CuilButtons extends React.Component {
               this.props.MyActions.ignoreProblem(this.props.courseDto.course.id, this.props.currentProblem.id);
               this.props.ignoreCurrentFlashcard();
               api.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(() => {}, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id });
+              this.closeDropdown();
             }}
             style={{ color: 'rgb(120, 175, 244)' }}
           >
@@ -280,7 +330,10 @@ class CuilButtons extends React.Component {
             tooltipProps={{
               interactive: true,
               placement: 'bottom-end',
-              trigger: 'click'
+              trigger: 'click',
+              onCreate: (instance) => {
+                this.tippyInstance = instance;
+              }
             }}
           >
             <button type="button" className="button more-button">

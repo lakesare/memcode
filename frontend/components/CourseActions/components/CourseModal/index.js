@@ -2,7 +2,6 @@ import TogglerAndModal from '~/components/TogglerAndModal';
 import TabNavigation   from '~/components/TabNavigation';
 
 import TabEditCourseDetails from './components/TabEditCourseDetails';
-import TabImportExport from './components/TabImportExport';
 import TabManage from './components/TabManage';
 
 import css from './index.scss';
@@ -12,8 +11,7 @@ class CourseModal extends React.Component {
     course: PropTypes.object.isRequired,
     uiUpdateCourse: PropTypes.func.isRequired,
     toggler: PropTypes.element.isRequired,
-    MyActions: PropTypes.object.isRequired,
-    onProblemsImported: PropTypes.func
+    MyActions: PropTypes.object.isRequired
   }
 
   state = {
@@ -24,7 +22,7 @@ class CourseModal extends React.Component {
     <TabNavigation
       selectTab={(selectedTab) => this.setState({ selectedTab })}
       selectedTab={this.state.selectedTab}
-      tabs={['Course Details', 'Import/Export', 'Manage']}
+      tabs={['Course Details', 'Manage']}
     />
 
   renderSelectedTab = (closeModal) => {
@@ -36,13 +34,6 @@ class CourseModal extends React.Component {
           {...props}
           course={this.props.course}
           uiUpdateCourse={this.props.uiUpdateCourse}
-        />,
-      'Import/Export': () =>
-        <TabImportExport
-          {...props}
-          course={this.props.course}
-          MyActions={this.props.MyActions}
-          onProblemsImported={this.props.onProblemsImported}
         />,
       'Manage': () =>
         <TabManage

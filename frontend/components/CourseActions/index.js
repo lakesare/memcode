@@ -187,7 +187,6 @@ class CourseActions extends React.Component {
                 course={courseDto.course}
                 uiUpdateCourse={this.uiUpdateCourse}
                 MyActions={this.props.MyActions}
-                onProblemsImported={this.props.onProblemsImported}
               />
 
               <InviteCoauthorModal
@@ -241,6 +240,9 @@ class CourseActions extends React.Component {
           type={this.props.type}
           currentProblem={this.props.currentProblem}
           ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
+          
+          canIEditCourse={this.canIEditCourse()}
+          onProblemsImported={this.props.onProblemsImported}
         />
       </div>
     </section>;
