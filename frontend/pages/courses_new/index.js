@@ -84,7 +84,7 @@ class Page_courses_new extends React.Component {
                 {...this.inputProps()}
                 label={
                   <span>
-                    Public/Private <StandardTooltip tooltipEl="Only you will be able to access this course. Please consider making your course public if you think other people may find it helpful!"/>
+                    Public/Private <StandardTooltip tooltipEl="Only you will be able to access this course."/>
                   </span>
                 }
                 name="ifPublic"

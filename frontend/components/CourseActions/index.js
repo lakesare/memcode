@@ -208,7 +208,7 @@ class CourseActions extends React.Component {
             this.props.type === 'editOrShow' &&
             !courseDto.course.ifPublic &&
             <StandardTooltip
-              tooltipEl={"Only you and coauthors of this course can access this course. Please consider making it public if you think someone else may want to study it."}
+              tooltipEl={"Only you and coauthors of this course can access this course."}
               tooltipProps={{ placement: 'bottom' }}
             >
               <div className="course-label -private">PRIVATE</div>
