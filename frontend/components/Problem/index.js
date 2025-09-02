@@ -11,7 +11,8 @@ class Problem extends React.Component {
     problemType: PropTypes.string.isRequired,
     mode: PropTypes.string.isRequired,
     // Only useful for 'mode: edit'
-    ifWithPlaceholder: PropTypes.bool
+    ifWithPlaceholder: PropTypes.bool,
+    onUploadStateChange: PropTypes.func
   }
 
   render = () => {

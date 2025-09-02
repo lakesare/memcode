@@ -141,10 +141,19 @@
 
         background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), rgb(30, 31, 57);
         background-size: 400% 100%,cover;
-        animation:change 1s linear infinite;
+        animation: change 1s linear infinite;
       }
       &.-just-saved{
         color: rgb(33, 165, 153);
+        cursor: default;
+        pointer-events: none;
+      }
+      &.-upload-pending {
+        cursor: default;
+        pointer-events: none;
+        background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), rgb(30, 31, 57);
+        background-size: 400% 100%,cover;
+        animation: change 1s linear infinite;
       }
     }
     .shortcut{

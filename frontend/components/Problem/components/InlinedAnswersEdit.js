@@ -8,11 +8,13 @@ class InlinedAnswersEdit extends React.Component {
     problemContent: PropTypes.object.isRequired,
     updateProblemContent: PropTypes.func.isRequired,
     onFocusChange: PropTypes.func,
-    ifWithPlaceholder: PropTypes.bool
+    ifWithPlaceholder: PropTypes.bool,
+    onUploadStateChange: PropTypes.func
   };
 
   static defaultProps = {
-    onFocusChange: () => {}
+    onFocusChange: () => {},
+    onUploadStateChange: () => {}
   }
 
   // Remember whenever parent rerenders, all of its children will rerender.
@@ -42,6 +44,7 @@ class InlinedAnswersEdit extends React.Component {
           editorState={this.props.problemContent.content}
           updateEditorState={(newState) => this.updateProblemContent('content', newState)}
           onFocusChange={this.onFocusChange}
+          onUploadStateChange={this.props.onUploadStateChange}
 
           toolbarContainer={[['answer'], ...standardToolbarContainer]}
           toolbarHandlers={{ answer: markAsAnswerHandler }}
@@ -54,6 +57,7 @@ class InlinedAnswersEdit extends React.Component {
           editorState={this.props.problemContent.explanation}
           updateEditorState={(newState) => this.updateProblemContent('explanation', newState)}
           onFocusChange={this.onFocusChange}
+          onUploadStateChange={this.props.onUploadStateChange}
         />
       </div>
     </section>

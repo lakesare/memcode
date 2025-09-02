@@ -107,7 +107,8 @@ class Editor extends React.Component {
     onFocusChange: PropTypes.func,
     toolbarContainer: PropTypes.array,
     toolbarHandlers: PropTypes.object,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onUploadStateChange: PropTypes.func
   }
 
   static defaultProps = {
@@ -127,11 +128,41 @@ class Editor extends React.Component {
   }
 
   state = {
-    focusedAtLeastOnce: false
+    focusedAtLeastOnce: false,
+    pendingUploads: new Set() // Track ongoing image uploads
   }
 
   componentDidMount = () => {
     this.uiMakeToolbarButtonsUnfocusable();
+  }
+
+  // Methods to track upload state
+  addPendingUpload = (uploadId) => {
+    this.setState(prevState => {
+      const newPendingUploads = new Set(prevState.pendingUploads);
+      newPendingUploads.add(uploadId);
+      return { pendingUploads: newPendingUploads };
+    }, () => {
+      if (this.props.onUploadStateChange) {
+        this.props.onUploadStateChange(this.state.pendingUploads.size > 0);
+      }
+    });
+  }
+
+  removePendingUpload = (uploadId) => {
+    this.setState(prevState => {
+      const newPendingUploads = new Set(prevState.pendingUploads);
+      newPendingUploads.delete(uploadId);
+      return { pendingUploads: newPendingUploads };
+    }, () => {
+      if (this.props.onUploadStateChange) {
+        this.props.onUploadStateChange(this.state.pendingUploads.size > 0);
+      }
+    });
+  }
+
+  hasPendingUploads = () => {
+    return this.state.pendingUploads.size > 0;
   }
 
   uiMakeToolbarButtonsUnfocusable = () => {
@@ -202,8 +233,11 @@ class Editor extends React.Component {
         ...this.props.toolbarHandlers,
         // eslint-disable-next-line object-shorthand
         image: function uploadImageHandlerWrapper() {
-          uploadImageHandler(this.quill, { onSuccess: this.onBlur });
-        }
+          uploadImageHandler(this.quill, {
+            onSuccess: this.onBlur,
+            editorComponent: this
+          });
+        }.bind(this)
       }
     },
 
@@ -223,7 +257,10 @@ class Editor extends React.Component {
     moduleDropOrPasteImage: {
       // add a custom image handler
       handler: (file, quill) => {
-        dropOrPasteImageHandler(file, quill, { onSuccess: this.onBlur });
+        dropOrPasteImageHandler(file, quill, {
+          onSuccess: this.onBlur,
+          editorComponent: this
+        });
       }
     }
   }

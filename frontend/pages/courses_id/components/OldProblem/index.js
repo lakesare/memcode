@@ -44,7 +44,9 @@ class OldProblem extends React.Component {
     mode: 'show',
     problemInApi: this.props.problem,
     firstFocus: false,
-    secondFocus: false
+    secondFocus: false,
+    uploadsPending: false,
+    saveQueuedAfterUploads: false
   }
 
   // Change the mode to 'edit'
@@ -82,6 +84,11 @@ class OldProblem extends React.Component {
   }
 
   apiSave = () => {
+    // Prevent saving while uploads are ongoing to avoid data URLs in DB
+    if (this.state.uploadsPending) {
+      this.setState({ saveQueuedAfterUploads: true });
+      return;
+    }
     api.ProblemApi.update(
       (spe) => this.setState({ speSave: spe }),
       {
@@ -151,7 +158,12 @@ class OldProblem extends React.Component {
 
   onFocusChange = () => {
     if (!this.ifFocusedInEditor()) {
-      this.apiSave();
+      // If uploads are pending, do not save on blur yet; queue save instead
+      if (this.state.uploadsPending) {
+        this.setState({ saveQueuedAfterUploads: true });
+      } else {
+        this.apiSave();
+      }
     }
   }
 
@@ -218,6 +230,15 @@ class OldProblem extends React.Component {
       {/* </div> */}
     </section>
 
+  onUploadStateChange = (pending) => {
+    this.setState({ uploadsPending: pending }, () => {
+      if (!pending && this.state.saveQueuedAfterUploads && this.didProblemContentChange()) {
+        this.setState({ saveQueuedAfterUploads: false });
+        this.apiSave();
+      }
+    });
+  }
+
   render = () => (
     this.ifNotOptimistic() ?
       <Draggable draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
@@ -234,6 +255,7 @@ class OldProblem extends React.Component {
             updateProblemContent={this.updateProblemContent}
             problemType={this.props.problem.type}
             onFocusChange={this.onFocusChange}
+            onUploadStateChange={this.onUploadStateChange}
           />
 
           <Checkbox
@@ -262,12 +284,13 @@ class OldProblem extends React.Component {
               this.didProblemContentChange() &&
               <>
                 <button
-                  className={`button save-changes-button ${this.state.speSave.status === 'request' ? '-saving' : ''} ${this.state.speSave.status === 'success' ? '-just-saved' : ''}`}
+                  className={`button save-changes-button ${this.state.speSave.status === 'request' ? '-saving' : ''} ${this.state.speSave.status === 'success' ? '-just-saved' : ''} ${this.state.uploadsPending ? '-upload-pending' : ''}`}
                   type="button"
                   onClick={this.apiSave}
                   tabIndex={-1}
+                  disabled={this.state.uploadsPending}
                 >
-                  {this.state.speSave.status === 'success' ? 'SAVED' : 'SAVE'}
+                  {this.state.uploadsPending ? 'UPLOADING...' : (this.state.speSave.status === 'success' ? 'SAVED' : 'SAVE')}
                 </button>
 
                 <div className="shortcut">
