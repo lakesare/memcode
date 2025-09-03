@@ -1,14 +1,8 @@
 
-all:
-	make start & make backend-webpack & make frontend-webpack
-
-# $(npm bin)/nodemon doesn't work, npm bin is '' then.
+# _______________________________DEVELOPMENT_______________________________
 start:
-	NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/webpacked/index.js
+	NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/index.js
 
-# build and watch
-backend-webpack:
-	cd backend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
 frontend-webpack:
 	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
 
@@ -20,42 +14,33 @@ db-reset:
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
 	psql -v database=memcode -U postgres -f backend/db/migrations/14.sql
-
-# dump and restore data
+# database: dump and restore data
 db-dump:
 	pg_dump -d memcode -U postgres > backend/db/dump.sql
 db-restore:
 	psql -d memcode -U postgres < backend/db/dump.sql
 
-# test
+# _______________________________TEST_______________________________
 test-db-reset:
 	psql -v database=memcode_test -U postgres -f backend/db/schema.sql
 test-backend:
-	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./webpacked/test --require babel-polyfill --require source-map-support/register
+	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./test
 test-frontend:
 	cd frontend; NODE_ENV=test ../node_modules/.bin/karma start
 
-# production
+# _______________________________PRODUCTION_______________________________
+# `npm install` is run automatically. since we need to compile code on heroku, we need our devDependencies installed too. so I set
+# `heroku config:set NPM_CONFIG_PRODUCTION=false` for this purpose.
 heroku-postbuild:
-	# npm install
-	# is run automatically. since we need to compile code on heroku, we need our devDependencies installed too. so I set
-	# heroku config:set NPM_CONFIG_PRODUCTION=false
-	# for this purpose.
 	touch env.js;
-	make heroku-backend-webpack &
 	make heroku-frontend-webpack &
 	make heroku-meresei-frontend-webpack
-
 heroku-deploy:
 	git push heroku master
-
-heroku-backend-webpack:
-	cd backend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
 heroku-frontend-webpack:
 	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
 heroku-meresei-frontend-webpack:
 	cd meresei/frontend; npm install && npm run production
-
 
 DB_URL = $$(heroku config:get DATABASE_URL --app memcode)
 # ___Where did we get these credentials from?
@@ -68,13 +53,7 @@ heroku-db-migrate:
 	psql -v database=d9glthq2q1grjs $(DB_URL) -f backend/db/migrations/14.sql
 heroku-db-console:
 	psql -v $(DB_URL)
-
 # when they ask for password - they ask for the local one (yes, 4 times)
 heroku-db-pull:
 	make db-drop
-	PGUSER=postgres PGPASSWORD=§1§1§1 heroku pg:pull DATABASE_URL memcode --app memcode
-
-# when they ask for password - they ask for the local one (yes, 4 times)
-# heroku-pg-push:
-# 	PGUSER=postgres heroku pg:reset DATABASE_URL
-# 	PGUSER=postgres heroku pg:push memcode DATABASE_URL --app memcode
+	heroku pg:pull DATABASE_URL memcode --app memcode

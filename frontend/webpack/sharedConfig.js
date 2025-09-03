@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const querystring = require('querystring');
 
-require('../../env.js');
+require('../../env-cjs.js');
 
 module.exports = {
   entry: {

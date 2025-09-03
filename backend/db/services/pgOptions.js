@@ -1,4 +1,4 @@
-import * as pgPromise from 'pg-promise';
+import pgPromise from 'pg-promise';
 
 /* eslint-disable */ // because it's taken from online source, may want to rewrite some time
 const _camelizeColumns = (data) => {
