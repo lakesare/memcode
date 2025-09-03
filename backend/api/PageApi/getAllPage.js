@@ -1,6 +1,6 @@
-import knex from '~/db/knex';
-import canAccessCourse from '~/services/canAccessCourse';
-import courseUserIsLearningModel from '~/models/CourseUserIsLearningModel/select/index';
+import knex from '#~/db/knex.js';
+import canAccessCourse from '#~/services/canAccessCourse.js';
+import courseUserIsLearningModel from '#~/models/CourseUserIsLearningModel/select/index.js';
 
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
 

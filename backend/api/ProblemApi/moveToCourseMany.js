@@ -1,5 +1,5 @@
-import knex from '~/db/knex';
-import movePuils from './services/movePuils';
+import knex from '#~/db/knex.js';
+import movePuils from './services/movePuils.js';
 
 const moveToCourseMany = async (request, response) => {
   const problemIds = request.body['problemIds'];

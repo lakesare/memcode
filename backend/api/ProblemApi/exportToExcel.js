@@ -1,4 +1,4 @@
-import getProblemsByCourseId from '~/api/services/getProblemsByCourseId';
+import getProblemsByCourseId from '#~/api/services/getProblemsByCourseId.js';
 
 const exportToExcel = async (request, response) => {
   const courseId = request.body['courseId'];

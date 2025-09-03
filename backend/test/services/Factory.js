@@ -1,10 +1,10 @@
-import UserModel from '~/models/UserModel';
-import CourseModel from '~/models/CourseModel';
-import ProblemModel from '~/models/ProblemModel';
-import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
-import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
+import UserModel from '#~/models/UserModel/index.js'
+import CourseModel from '#~/models/CourseModel/index.js'
+import ProblemModel from '#~/models/ProblemModel/index.js'
+import CourseUserIsLearningModel from '#~/models/CourseUserIsLearningModel/index.js'
+import ProblemUserIsLearningModel from '#~/models/ProblemUserIsLearningModel/index.js'
 
-import { requireKeys } from '~/services/requireKeys';
+import { requireKeys } from '#~/services/requireKeys.js';
 
 let uniqueIndex = 1;
 

@@ -1,6 +1,6 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 import dayjs from 'dayjs';
-import initialScore from '~/../services/initialScore';
+import initialScore from '../../../../services/initialScore.js';
 
 const createPuil = async (problemId, userId, { ifIgnored }) => {
   const problem = (await knex('problem').where({ id: problemId }))[0];

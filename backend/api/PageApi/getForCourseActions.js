@@ -1,6 +1,6 @@
-import knex from '~/db/knex';
-import db from '~/db/init.js';
-import canAccessCourse from '~/services/canAccessCourse';
+import knex from '#~/db/knex.js';
+import db from '#~/db/init.js';
+import canAccessCourse from '#~/services/canAccessCourse.js';
 
 const getForCourseActions = async (request, response) => {
   const courseId = request.body['courseId'];

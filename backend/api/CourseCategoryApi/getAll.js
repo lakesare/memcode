@@ -1,5 +1,5 @@
-import knex from '~/db/knex';
-import catchAsync from '~/services/catchAsync';
+import knex from '#~/db/knex.js';
+import catchAsync from '#~/services/catchAsync.js';
 
 const getAll = catchAsync(async (request, response) => {
   const courseCategories = await knex('courseCategory');

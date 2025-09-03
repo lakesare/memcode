@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 const announceNewFeature = async (request, response) => {
   const type = request.body['type'];

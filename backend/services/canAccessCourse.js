@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 const canAccessCourse = async (courseId, currentUser) => {
   const course = (await knex('course').where({ id: courseId }))[0];

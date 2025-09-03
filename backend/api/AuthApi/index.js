@@ -1,14 +1,14 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
-import catchAsync from '~/services/catchAsync';
-import { githubFetchAccessToken } from './services/github/githubFetchAccessToken';
-import { githubFetchAuthorizedAccount } from './services/github/githubFetchAuthorizedAccount';
-import { googleFetchAccessToken } from './services/google/googleFetchAccessToken';
-import { googleFetchAuthorizedAccount } from './services/google/googleFetchAuthorizedAccount';
-import NotificationModel from '~/models/NotificationModel';
-import UserModel from '~/models/UserModel';
+import catchAsync from '#~/services/catchAsync.js';
+import { githubFetchAccessToken } from './services/github/githubFetchAccessToken.js';
+import { githubFetchAuthorizedAccount } from './services/github/githubFetchAuthorizedAccount.js';
+import { googleFetchAccessToken } from './services/google/googleFetchAccessToken.js';
+import { googleFetchAuthorizedAccount } from './services/google/googleFetchAuthorizedAccount.js';
+import NotificationModel from '#~/models/NotificationModel/index.js'
+import UserModel from '#~/models/UserModel/index.js'
 
 const router = express.Router();
 

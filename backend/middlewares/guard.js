@@ -1,5 +1,5 @@
-import knex from '~/db/knex';
-import auth from '~/middlewares/auth';
+import knex from '#~/db/knex.js';
+import auth from '#~/middlewares/auth.js';
 
 const guard = (getOurGuardData) => (body) => auth(guardInsides(getOurGuardData)(body));
 

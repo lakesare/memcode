@@ -1,7 +1,7 @@
 import * as pgPromise from 'pg-promise';
 
-import pgOptions from './services/pgOptions';
-import getConnectionString from './services/getConnectionString';
+import pgOptions from './services/pgOptions.js';
+import getConnectionString from './services/getConnectionString.js';
 
 const pgPackage = pgPromise.default(pgOptions);
 

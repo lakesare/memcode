@@ -1,4 +1,4 @@
-import CourseModel from '~/models/CourseModel';
+import CourseModel from '#~/models/CourseModel/index.js'
 
 const getBest4 = async (request, response) => {
   const courses = await CourseModel.select.allPublic({

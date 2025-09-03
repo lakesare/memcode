@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 // Notification.insert.create({
 //   type: 'someone_started_learning_your_course',

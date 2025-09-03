@@ -1,5 +1,5 @@
-import db from '~/db/init.js';
-// import knex from '~/db/knex';
+import db from '#~/db/init.js';
+// import knex from '#~/db/knex.js';
 
 const importFromExcel = async (request, response) => {
   const courseId = request.body['courseId'];

@@ -1,6 +1,6 @@
-import startLearningCourse  from './startLearningCourse';
-import stopLearningCourse   from './stopLearningCourse';
-import resumeLearningCourse from './resumeLearningCourse';
+import startLearningCourse  from './startLearningCourse.js';
+import stopLearningCourse   from './stopLearningCourse.js';
+import resumeLearningCourse from './resumeLearningCourse.js';
 
 export default {
   startLearningCourse,

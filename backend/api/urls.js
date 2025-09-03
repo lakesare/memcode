@@ -1,13 +1,13 @@
-import router from '~/router';
+import router from '#~/router.js';
 
-import catchAsync from '~/services/catchAsync';
+import catchAsync from '#~/services/catchAsync.js';
 
-import NotificationApi from '~/api/NotificationApi';
-import CourseCategoryApi from '~/api/CourseCategoryApi';
-import CourseUserIsLearningApi from '~/api/CourseUserIsLearningApi';
-import ProblemUserIsLearningApi from '~/api/ProblemUserIsLearningApi';
-import UserApi from '~/api/UserApi';
-import ProblemApi from '~/api/ProblemApi';
+import NotificationApi from '#~/api/NotificationApi/index.js';
+import CourseCategoryApi from '#~/api/CourseCategoryApi/index.js';
+import CourseUserIsLearningApi from '#~/api/CourseUserIsLearningApi/index.js';
+import ProblemUserIsLearningApi from '#~/api/ProblemUserIsLearningApi/index.js';
+import UserApi from '#~/api/UserApi/index.js';
+import ProblemApi from '#~/api/ProblemApi/index.js';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -37,14 +37,14 @@ router.get('/api/:controllerName.:methodName', catchAsync(async (request, respon
 
 // TODO make all routes like NotificationApi.rate() instead.
 // Everything that's below this line should be deleted eventually.
-import CourseApi from '~/api/CourseApi';
+import CourseApi from '#~/api/CourseApi/index.js';
 router.use('/api/courses', CourseApi);
 
-import AuthApi from '~/api/AuthApi';
+import AuthApi from '#~/api/AuthApi/index.js';
 router.use('/api/auth', AuthApi);
 
-import PageApi from '~/api/PageApi';
+import PageApi from '#~/api/PageApi/index.js';
 router.use('/api/pages', PageApi);
 
-import FileApi from '~/api/FileApi';
+import FileApi from '#~/api/FileApi/index.js';
 router.use('/api/files', FileApi);

@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 const getRatingsAndAverageAndOwn = async (courseId, currentUserId) => {
   const ratings = await knex('courseRating').where({ courseId });

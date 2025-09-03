@@ -1,16 +1,16 @@
-import 'source-map-support/register';
+import 'source-map-support/register.js';
 
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import relativeTime from 'dayjs/plugin/relativeTime.js';
 dayjs.extend(relativeTime);
 
 // load environment variables.
 import '../env.js';
 
 // inject router with middlewares and urls
-import '~/beforeMiddleware';
-import '~/api/urls';
-import '~/afterMiddleware';
+import '#~/beforeMiddleware.js';
+import '#~/api/urls.js';
+import '#~/afterMiddleware.js';
 
 // =============================================================================
 // MERESEI + MEMCODE INTEGRATION (comment out sections to work on specific app)
@@ -18,8 +18,8 @@ import '~/afterMiddleware';
 
 // Meresei integration
 import express from 'express';
-import vhost from "~/middlewares/vhost";
-import mereseiRouter from '../meresei/backend/mereseiRouter';
+import vhost from "#~/middlewares/vhost.js";
+import mereseiRouter from '../meresei/backend/mereseiRouter.js';
 
 // Main app with vhost routing
 const app = express();
@@ -40,7 +40,7 @@ app.use(vhost('www.meresei.com', mereseiRouter));
 
 // OPTION 2: Work on MEMCODE (uncomment this, comment out meresei section above)
 // Default to memcode router
-import router from './router';
+import router from './router.js';
 app.use(router);
 
 // process.env.PORT lets the port be set by Heroku

@@ -1,7 +1,7 @@
-import knex from '~/db/knex';
-import auth from '~/middlewares/auth';
-import getRatingsAndAverageAndOwn from './services/getRatingsAndAverageAndOwn';
-import NotificationModel from '~/models/NotificationModel';
+import knex from '#~/db/knex.js';
+import auth from '#~/middlewares/auth.js';
+import getRatingsAndAverageAndOwn from './services/getRatingsAndAverageAndOwn.js';
+import NotificationModel from '#~/models/NotificationModel/index.js'
 
 const rate = auth(async (request, response) => {
   const userId = request.currentUser.id;

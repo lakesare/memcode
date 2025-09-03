@@ -1,5 +1,5 @@
-import knex from '~/db/knex';
-import auth from '~/middlewares/auth';
+import knex from '#~/db/knex.js';
+import auth from '#~/middlewares/auth.js';
 
 const reorder = auth(async (request, response) => {
   const idOrderMap = request.body;

@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 const rate = async (request, response) => {
   const searchString = request.body['searchString'];

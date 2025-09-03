@@ -1,4 +1,4 @@
-import sendgrid from '~/emails/sendgrid';
+import sendgrid from '#~/emails/sendgrid';
 
 const sendWelcomeEmail = (email) => {
   const msg = {

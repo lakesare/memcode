@@ -1,6 +1,6 @@
-import knex from '~/db/knex';
-import auth from '~/middlewares/auth';
-import NotificationModel from '~/models/NotificationModel';
+import knex from '#~/db/knex.js';
+import auth from '#~/middlewares/auth.js';
+import NotificationModel from '#~/models/NotificationModel/index.js'
 
 const startLearningCourse = auth(async (request, response) => {
   const courseId = request.body['courseId'];

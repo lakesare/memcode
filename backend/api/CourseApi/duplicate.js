@@ -1,6 +1,6 @@
-import knex from '~/db/knex';
-import auth from '~/middlewares/auth';
-import canAccessCourse from '~/services/canAccessCourse';
+import knex from '#~/db/knex.js';
+import auth from '#~/middlewares/auth.js';
+import canAccessCourse from '#~/services/canAccessCourse.js';
 
 const duplicate = auth(async (request, response) => {
   const userId = request.currentUser.id;

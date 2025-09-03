@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 const getNotificationsForUser = async (request, response) => {
   const userId = request.body['userId'];

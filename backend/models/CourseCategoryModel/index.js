@@ -5,6 +5,6 @@
 //   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL
 // );
 
-import insert from './insert';
+import insert from './insert.js';
 
 export default { insert };

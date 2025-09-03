@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 const markAllNotificationsAsRead = async (request, response) => {
   await knex('notification')

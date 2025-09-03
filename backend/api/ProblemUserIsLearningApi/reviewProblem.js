@@ -1,8 +1,8 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 import dayjs from 'dayjs';
 
-import guard from '~/middlewares/guard';
-import getNextScore from '~/../services/getNextScore';
+import guard from '#~/middlewares/guard.js';
+import getNextScore from '../../../services/getNextScore.js';
 
 const reviewProblem = guard((r) => ['byCuilId', r.body['id']])(async (request, response) => {
   const courseUserIsLearningId = request.body['id'];

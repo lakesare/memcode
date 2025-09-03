@@ -1,5 +1,11 @@
 import express from 'express';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const mereseiRouter = express.Router();
 
 // BEFORE middleware
@@ -16,11 +22,11 @@ const nonWebpackedFiles = express.static(path.join(__dirname, '../../meresei/fro
 mereseiRouter.use(nonWebpackedFiles);
 
 // AFTER middleware
-import html from './html';
-import nocache from '~/middlewares/nocache';
+import html from './html.js';
+import nocache from '#~/middlewares/nocache.js';
 mereseiRouter.get('*', nocache(), (request, response) => response.send(html));
 
-import handleErrors from '~/middlewares/handleErrors';
+import handleErrors from '#~/middlewares/handleErrors.js';
 mereseiRouter.use(handleErrors);
 
 export default mereseiRouter;

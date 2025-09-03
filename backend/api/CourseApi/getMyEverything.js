@@ -1,5 +1,5 @@
-import db from '~/db/init';
-import auth from '~/middlewares/auth';
+import db from '#~/db/init.js';
+import auth from '#~/middlewares/auth.js';
 
 const getMyEverything = auth(async (request, response) => {
   const userId = request.currentUser.id;

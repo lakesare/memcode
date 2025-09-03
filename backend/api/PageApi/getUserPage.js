@@ -1,5 +1,5 @@
-import knex from '~/db/knex';
-import CourseModel from '~/models/CourseModel';
+import knex from '#~/db/knex.js';
+import CourseModel from '#~/models/CourseModel/index.js'
 
 const getUserPage = async (request, response) => {
   const userId = parseInt(request.body['userId']);

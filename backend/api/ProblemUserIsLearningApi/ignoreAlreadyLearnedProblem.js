@@ -1,5 +1,5 @@
-import guard from '~/middlewares/guard';
-import knex from '~/db/knex';
+import guard from '#~/middlewares/guard.js';
+import knex from '#~/db/knex.js';
 
 const ignoreAlreadyLearnedProblem = guard((r) => ['byCuilId', r.body['cuilId']])(
   async (request, response) => {

@@ -1,4 +1,5 @@
-import { utils } from 'pg-promise';
+import pkg from 'pg-promise';
+const { utils } = pkg;
 
 const camelizeHashKeys = (oldHash) => {
   const newHash = {};

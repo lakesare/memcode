@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 
 const deleteMany = async (request, response) => {
   const ids = request.body['ids'];

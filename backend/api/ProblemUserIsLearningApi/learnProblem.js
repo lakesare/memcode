@@ -1,5 +1,5 @@
-import auth from '~/middlewares/auth';
-import createPuil from './services/createPuil';
+import auth from '#~/middlewares/auth.js';
+import createPuil from './services/createPuil.js';
 
 const learnProblem = auth(async (request, response) => {
   const problemId = request.body['problemId'];

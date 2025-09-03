@@ -1,5 +1,5 @@
-import knex from '~/db/knex';
-import CourseUserIsLearningModel from '~/models/CourseUserIsLearningModel';
+import knex from '#~/db/knex.js';
+import CourseUserIsLearningModel from '#~/models/CourseUserIsLearningModel/index.js'
 /**
  * Moves the all "problemUserIsLearning" (Puils) for the given problemIds to the given course Id
  * @param {*} problemIds the problemIds to move Puils for. 

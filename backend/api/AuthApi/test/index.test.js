@@ -4,10 +4,10 @@
 
 // import '../../../../env.js';
 
-// import routes from '~/routes';
-// import db from '~/db/init';
-// import UserModel from '~/models/UserModel';
-// // import { RawFactory } from '~/test/services/Factory';
+// import routes from '#~/routes';
+// import db from '#~/db/init.js';
+// import UserModel from '#~/models/UserModel/index.js'
+// // import { RawFactory } from '#~/test/services/Factory';
 
 // // faking oauth requests
 // import './nock/github';

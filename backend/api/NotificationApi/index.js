@@ -1,8 +1,8 @@
-import announceNewFeature from './announceNewFeature';
-import getNotificationsForUser from './getNotificationsForUser';
-import getNotificationStatsForUser from './getNotificationStatsForUser';
-import markAllNotificationsAsRead from './markAllNotificationsAsRead';
-import markAsReadOrUnread from './markAsReadOrUnread';
+import announceNewFeature from './announceNewFeature.js';
+import getNotificationsForUser from './getNotificationsForUser.js';
+import getNotificationStatsForUser from './getNotificationStatsForUser.js';
+import markAllNotificationsAsRead from './markAllNotificationsAsRead.js';
+import markAsReadOrUnread from './markAsReadOrUnread.js';
 
 export default {
   announceNewFeature,

@@ -1,4 +1,4 @@
-import findByString from './findByString';
+import findByString from './findByString.js';
 
 export default {
   findByString

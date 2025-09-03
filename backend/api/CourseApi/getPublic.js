@@ -1,4 +1,4 @@
-import CourseModel from '~/models/CourseModel';
+import CourseModel from '#~/models/CourseModel/index.js'
 
 const getPublic = async (request, response) => {
   const pageSize = request.body['pageSize'];

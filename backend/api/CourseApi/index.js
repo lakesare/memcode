@@ -1,11 +1,11 @@
 import express from 'express';
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 const router = express.Router();
 
-import catchAsync from '~/services/catchAsync';
-import authenticate from '~/middlewares/authenticate';
+import catchAsync from '#~/services/catchAsync.js';
+import authenticate from '#~/middlewares/authenticate.js';
 
-import CourseModel from '~/models/CourseModel';
+import CourseModel from '#~/models/CourseModel/index.js'
 
 // We converted this to getPublic.js, however I'm afraid to deploy it cause google rearch engine fetchers might not understand POST requests.
 // This needs to be checked.
@@ -68,22 +68,22 @@ router.delete('/:id', catchAsync(async (request, response) => {
   response.status(200).json({});
 }));
 
-// import getPublic from './getPublic';
+// import getPublic from './getPublic.js';
 // router.getPublic = getPublic;
-import rate from './rate';
+import rate from './rate.js';
 router.rate = rate;
-import getStudentsStats from './getStudentsStats';
+import getStudentsStats from './getStudentsStats.js';
 router.getStudentsStats = getStudentsStats;
-import getRatings from './getRatings';
+import getRatings from './getRatings.js';
 router.getRatings = getRatings;
-import getMyEverything from './getMyEverything';
+import getMyEverything from './getMyEverything.js';
 router.getMyEverything = getMyEverything;
-import getBest4 from './getBest4';
+import getBest4 from './getBest4.js';
 router.getBest4 = getBest4;
-import duplicate from './duplicate';
+import duplicate from './duplicate.js';
 router.duplicate = duplicate;
-import updateCoauthors from './updateCoauthors';
+import updateCoauthors from './updateCoauthors.js';
 router.updateCoauthors = updateCoauthors;
-import find from './find';
+import find from './find.js';
 router.find = find;
 export default router;

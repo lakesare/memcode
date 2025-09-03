@@ -1,4 +1,4 @@
-import db from '~/db/init.js';
+import db from '#~/db/init.js';
 
 const select = {
   // getUserByOauth('github', 7578559)

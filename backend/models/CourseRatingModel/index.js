@@ -1,7 +1,7 @@
-import select from './select';
-import insert from './insert';
-import update from './update';
-import ddelete from './delete';
+import select from './select.js';
+import insert from './insert.js';
+import update from './update.js';
+import ddelete from './delete.js';
 
 export default {
   select,

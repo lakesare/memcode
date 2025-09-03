@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import handleErrors from './handleErrors';
+import handleErrors from './handleErrors.js';
 
 // make request.currentUser available
 // request.currentUser.oauthId,

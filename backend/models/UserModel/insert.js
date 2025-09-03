@@ -1,5 +1,5 @@
-import db from '~/db/init.js';
-import { requireKeys } from '~/services/requireKeys';
+import db from '#~/db/init.js';
+import { requireKeys } from '#~/services/requireKeys.js';
 
 const insert = {
   createFrom: (oauthProvider, oauthProfile) => {

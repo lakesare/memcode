@@ -1,4 +1,4 @@
-import knex from '~/db/knex';
+import knex from '#~/db/knex.js';
 import dayjs from 'dayjs';
 
 const selectReview = async(cuilId) => {

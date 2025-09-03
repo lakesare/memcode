@@ -1,5 +1,5 @@
-import db from '~/db/init.js';
-// import { camelizeDbColumns } from '~/services/camelizeDbColumns';
+import db from '#~/db/init.js';
+// import { camelizeDbColumns } from '#~/services/camelizeDbColumns.js';
 
 const insert = {
   create: (courseCategory) =>

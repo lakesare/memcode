@@ -1,5 +1,5 @@
-import knex from '~/db/knex';
-import auth from '~/middlewares/auth';
+import knex from '#~/db/knex.js';
+import auth from '#~/middlewares/auth.js';
 
 const create = auth(async (request, response) => {
   const problem = request.body['problem'];

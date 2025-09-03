@@ -1,5 +1,5 @@
-import guard from '~/middlewares/guard';
-import knex from '~/db/knex';
+import guard from '#~/middlewares/guard.js';
+import knex from '#~/db/knex.js';
 
 // Unignore flashcard, or unlearn flashcard
 const unlearnUnignoreProblem = guard((r) => ['byPuilId', r.body['id']])(

@@ -1,13 +1,13 @@
 import express from 'express';
 const router = express.Router();
 
-import knex from '~/db/knex';
-import catchAsync from '~/services/catchAsync';
-import authenticate from '~/middlewares/authenticate';
-import canAccessCourse from '~/services/canAccessCourse';
-import courseUserIsLearningModel from '~/models/CourseUserIsLearningModel/select/index';
-import ProblemUserIsLearningModel from '~/models/ProblemUserIsLearningModel';
-import getProblemsByCourseId from '~/api/services/getProblemsByCourseId';
+import knex from '#~/db/knex.js';
+import catchAsync from '#~/services/catchAsync.js';
+import authenticate from '#~/middlewares/authenticate.js';
+import canAccessCourse from '#~/services/canAccessCourse.js';
+import courseUserIsLearningModel from '#~/models/CourseUserIsLearningModel/select/index.js';
+import ProblemUserIsLearningModel from '#~/models/ProblemUserIsLearningModel/index.js'
+import getProblemsByCourseId from '#~/api/services/getProblemsByCourseId.js';
 
 // Todo move these somewhere when PageApi.js is refactored, likely to the middleware
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
@@ -90,16 +90,16 @@ router.get('/courses/:id', catchAsync(async (request, response) => {
   response.status(200).json({ problems });
 }));
 
-import getForCourseActions from './getForCourseActions';
+import getForCourseActions from './getForCourseActions.js';
 router.getForCourseActions = getForCourseActions;
 
-import getUserPage from './getUserPage';
+import getUserPage from './getUserPage.js';
 router.getUserPage = getUserPage;
 
-import getReviewPage from './getReviewPage';
+import getReviewPage from './getReviewPage.js';
 router.getReviewPage = getReviewPage;
 
-import getAllPage from './getAllPage';
+import getAllPage from './getAllPage.js';
 router.getAllPage = getAllPage;
 
 export default router;

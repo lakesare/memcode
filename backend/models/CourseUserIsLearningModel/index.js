@@ -8,7 +8,7 @@
 //   unique (course_id, user_id)
 // );
 
-import select from './select';
-import update from './update';
+import select from './select/index.js';
+import update from './update.js';
 
 export default { select, update };
