@@ -17,7 +17,6 @@ import Page_users_id from './pages/users_id';
 // import Page_offline_courses_id_review from './pages/offline_courses_id_review';
 
 // static pages
-import Page_test from './pages/test';
 import Page_pleaseSignIn from './pages/pleaseSignIn';
 import Page_articles_comparison from './pages/articles_comparison';
 import Page_articles_welcome from './pages/articles_welcome';
@@ -53,7 +52,6 @@ const router =
       {/* static pages */}
       <Route exact path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route exact path="/contact"        component={Page_contact}/>
-      <Route exact path="/test"           component={Page_test}/>
 
       {/* articles */}
       <Route exact path="/"                    component={onEnters.redirectToOwnCoursesIfAuthenticated(Page_articles_welcome)}/>

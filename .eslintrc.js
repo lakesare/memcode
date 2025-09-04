@@ -271,8 +271,6 @@ module.exports = {
   },
   "globals": {
     "fetch": true,
-    "it": true,
-    "expect": true,
     "alert": true,
     "document": true,
     "localStorage": true,
@@ -287,11 +285,6 @@ module.exports = {
     "URLSearchParams": true, // we have a polyfill
     "URL": true,
     "Image": true,
-
-    // in our tests
-    "describe": true,
-    "expect": true,
-    "beforeEach": true,
 
     // things I make global with ProvidePlugin
     "React": true,

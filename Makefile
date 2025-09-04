@@ -20,14 +20,6 @@ db-dump:
 db-restore:
 	psql -d memcode -U postgres < backend/db/dump.sql
 
-# _______________________________TEST_______________________________
-test-db-reset:
-	psql -v database=memcode_test -U postgres -f backend/db/schema.sql
-test-backend:
-	cd backend; NODE_ENV=test ../node_modules/.bin/mocha --recursive ./test
-test-frontend:
-	cd frontend; NODE_ENV=test ../node_modules/.bin/karma start
-
 # _______________________________PRODUCTION_______________________________
 # `npm install` is run automatically. since we need to compile code on heroku, we need our devDependencies installed too. so I set
 # `heroku config:set NPM_CONFIG_PRODUCTION=false` for this purpose.
