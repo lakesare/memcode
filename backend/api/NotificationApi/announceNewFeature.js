@@ -1,6 +1,15 @@
 import knex from '#~/db/knex.js';
+import AdminService from '../../../shared/services/AdminService.js';
 
 const announceNewFeature = async (request, response) => {
+  if (!request.currentUser) {
+    return response.status(401).json({ error: 'Authentication required for admin access' });
+  }
+
+  if (!AdminService.isUserAdmin(request.currentUser)) {
+    return response.status(403).json({ error: 'Admin access required' });
+  }
+
   const type = request.body['type'];
   const content = request.body['content'];
 

@@ -188,6 +188,7 @@ Core entities:
 - ESLint configured with Airbnb style guide (extensive customizations in `.eslintrc.js`)
 - Relaxed rules for development velocity over strict adherence
 - Supports both class and functional React components
+- **DO NOT use `export const`** - Always use default exports or named exports in object form
 
 ### Testing Philosophy
 - Minimal test coverage by design - only critical utility functions are tested

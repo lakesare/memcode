@@ -2,6 +2,7 @@ import { Redirect } from 'react-router';
 import store from '~/store';
 import Urls from '~/services/Urls';
 import { AuthenticationActions } from '~/reducers/Authentication';
+import AdminService from '../../shared/services/AdminService.js';
 
 const getCurrentUser = () =>
   store.getState().global.Authentication.currentUser;
@@ -40,8 +41,8 @@ const signIn = (Component) => {
 };
 
 const requireAdmin = (Component) => {
-  // introduce ifAdmin=true later
-  if (getCurrentUser() && getCurrentUser().email === 'lakesare@gmail.com') {
+  const currentUser = getCurrentUser();
+  if (currentUser && AdminService.isUserAdmin(currentUser)) {
     return (props) => <Component {...props}/>;
   } else {
     return (props) => <Redirect to="/please-sign-in" {...props}/>;

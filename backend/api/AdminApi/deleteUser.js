@@ -1,43 +1,37 @@
 import knex from '#~/db/knex.js';
+import AdminService from '../../../shared/services/AdminService.js';
 
 const deleteUser = async (request, response) => {
+  if (!request.currentUser) {
+    return response.status(401).json({ error: 'Authentication required for admin access' });
+  }
+
+  if (!AdminService.isUserAdmin(request.currentUser)) {
+    return response.status(403).json({ error: 'Admin access required' });
+  }
+
   const { userId } = request.body;
 
   if (!userId) {
     return response.validation(['User ID is required']);
   }
 
-  try {
-    // Start a transaction to ensure all deletions happen atomically
-    await knex.transaction(async (trx) => {
-      // First, check if user exists
-      const user = await trx('user').where('id', userId).first();
-      
-      if (!user) {
-        return response.error('User not found');
-      }
-
-      // Delete the user - this will cascade to delete:
-      // - courses (and their problems via CASCADE)
-      // - course_user_is_learning (and their problem_user_is_learning via CASCADE)  
-      // - notifications
-      // - course_rating
-      // - coauthor relationships
-      const deletedCount = await trx('user').where('id', userId).del();
-
-      if (deletedCount === 0) {
-        return response.error('Failed to delete user');
-      }
-    });
-
-    response.success({ 
-      message: 'User and all related data deleted successfully',
-      deletedUserId: userId 
-    });
-  } catch (error) {
-    console.error('Error deleting user:', error);
-    response.error(`Failed to delete user: ${error.message}`);
+  const user = await knex('user').where('id', userId).first();
+  
+  if (!user) {
+    return response.error('User not found');
   }
+
+  const deletedCount = await knex('user').where('id', userId).del();
+
+  if (deletedCount === 0) {
+    return response.error('Failed to delete user');
+  }
+
+  response.success({ 
+    message: 'User and all related data deleted successfully',
+    deletedUserId: userId 
+  });
 };
 
 export default deleteUser;

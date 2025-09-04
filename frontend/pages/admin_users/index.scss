@@ -184,17 +184,6 @@
     &:hover {
       background: #e9ecef;
     }
-    
-    &::-webkit-details-marker {
-      display: none;
-    }
-    
-    &::before {
-      content: '▶';
-      margin-right: 8px;
-      transition: transform 0.2s ease;
-      display: inline-block;
-    }
   }
 
   .noCourses {
