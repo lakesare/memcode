@@ -3,9 +3,9 @@
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin|Montserrat:100,200,300,400,500,600,700&display=swap');
 
 :local(main.main){
-  header .sign-in-links{
-    background: none !important;
-  }
+  // header .sign-in{
+  //   background: none !important;
+  // }
   header{
     background: rgb(23, 22, 37) !important;
   }
@@ -428,14 +428,6 @@
     img{
       width: 50px;
       margin-top: 100px;
-    }
-    div.sign-in-buttons{
-      display: block;
-      max-width: 304px;
-      a{ font-size: 16px; }
-      a.-github{
-        margin-top: 30px;
-      }
     }
   }
 

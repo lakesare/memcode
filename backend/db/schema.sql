@@ -19,6 +19,7 @@ CREATE TABLE "user" (
   username VARCHAR NOT NULL,
   avatar_url VARCHAR,
   email TEXT,
+  password_hash VARCHAR,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   unique (oauth_provider, oauth_id)
 );

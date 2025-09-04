@@ -13,7 +13,7 @@ db-reset:
 	# 'database=' here is a variable used in schema.sql (-v).
 	psql -v database=memcode -U postgres -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U postgres -f backend/db/migrations/14.sql
+	psql -v database=memcode -U postgres -f backend/db/migrations/15.sql
 # database: dump and restore data
 db-dump:
 	pg_dump -d memcode -U postgres > backend/db/dump.sql
@@ -42,7 +42,7 @@ DB_URL = $$(heroku config:get DATABASE_URL --app memcode)
 # ___Where is 7.sql taken from?
 #    From local files!
 heroku-db-migrate:
-	psql -v database=d9glthq2q1grjs $(DB_URL) -f backend/db/migrations/14.sql
+	psql -v database=d9glthq2q1grjs $(DB_URL) -f backend/db/migrations/15.sql
 heroku-db-console:
 	psql -v $(DB_URL)
 # when they ask for password - they ask for the local one (yes, 4 times)

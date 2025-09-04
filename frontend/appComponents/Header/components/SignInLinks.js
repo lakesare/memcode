@@ -1,27 +1,18 @@
-import { withRouter } from 'react-router-dom';
-
-@withRouter
+import TogglerAndModal from '~/components/TogglerAndModal';
+import SignInButtons from '~/appComponents/SignInButtons';
 
 class SignInLinks extends React.Component {
-  
-  redirectBackTo = () => {
-    sessionStorage.setItem("lastpage",this.props.location.pathname);
-  }
-
   render = () =>
-    <section className="sign-in-links">
-      <label className="soliciting">Sign in:</label>
-      <div className="links">
-        <a className="gmail" onClick={this.redirectBackTo} href={window.env.googleSignInLink}>
-          <span className="name">Gmail</span>
-          <i className="fa fa-google"/>
-        </a>
-        <a className="github" onClick={this.redirectBackTo} href={window.env.githubSignInLink}>
-          <span className="name">Github</span>
-          <i className="fa fa-github"/>
-        </a>
+    <TogglerAndModal toggler={<button className="button sign-in">Sign In</button>}>{() =>
+      <div className="standard-modal standard-modal--sm">
+        <div className="standard-modal__header">
+          <h2 className="standard-modal__title">Sign In</h2>
+        </div>
+        <div className="standard-modal__main">
+          <SignInButtons text="Sign in with"/>
+        </div>
       </div>
-    </section>
+    }</TogglerAndModal>
 }
 
 export { SignInLinks };

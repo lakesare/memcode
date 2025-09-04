@@ -1,5 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 import knex from '#~/db/knex.js';
 
 import catchAsync from '#~/services/catchAsync.js';
@@ -60,6 +61,110 @@ router.get('/github/callback', catchAsync(async (request, response) => {
 
 router.get('/google/callback', catchAsync(async (request, response) => {
   await createOauthCallbackRoute('google', request.query.code, response);
+}));
+
+// Local authentication signup
+router.post('/signup', catchAsync(async (request, response) => {
+  const { username, email, password } = request.body;
+
+  // Collect all validation errors
+  const errors = [];
+
+  // Validate input
+  if (!username) {
+    errors.push('Username is required');
+  } else if (username.length < 2) {
+    errors.push('Username must be at least 2 characters');
+  }
+
+  if (!email) {
+    errors.push('Email is required');
+  }
+
+  if (!password) {
+    errors.push('Password is required');
+  } else if (password.length < 6) {
+    errors.push('Password must be at least 6 characters');
+  }
+
+  // Check if username already exists (only if username is valid)
+  if (username && username.length >= 2) {
+    const existingUserByUsername = await knex('user')
+      .where({ username })
+      .whereNull('oauthProvider')
+      .first();
+    if (existingUserByUsername) {
+      errors.push('Username already taken');
+    }
+  }
+
+  // Check if email already exists (only if email is provided)
+  if (email) {
+    const existingUserByEmail = await knex('user')
+      .where({ email })
+      .whereNull('oauthProvider')
+      .first();
+    if (existingUserByEmail) {
+      errors.push('Email already registered');
+    }
+  }
+
+  // Return all errors if any exist
+  if (errors.length > 0) {
+    return response.validation(errors);
+  }
+
+  // Hash password and create user
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(password, saltRounds);
+  
+  const [dbUser] = await knex('user')
+    .insert({
+      username,
+      email,
+      passwordHash
+    })
+    .returning('*');
+
+  // Send welcome notification and add welcome course
+  await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
+  const welcomeCourseId = 6868;
+  await knex('courseUserIsLearning').insert({ courseId: welcomeCourseId, userId: dbUser.id, active: true });
+
+  // Generate JWT token
+  const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
+  
+  response.success({ token, user: dbUser });
+}));
+
+// Local authentication login
+router.post('/login', catchAsync(async (request, response) => {
+  const { username, password } = request.body;
+
+  // Validate input
+  if (!username || !password) {
+    return response.validation(['Username and password are required']);
+  }
+
+  // Find user
+  const dbUser = await knex('user')
+    .where({ username })
+    .whereNull('oauthProvider')
+    .first();
+  if (!dbUser) {
+    return response.validation(['Invalid username or password']);
+  }
+
+  // Verify password
+  const isValidPassword = await bcrypt.compare(password, dbUser.passwordHash);
+  if (!isValidPassword) {
+    return response.validation(['Invalid username or password']);
+  }
+
+  // Generate JWT token
+  const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
+  
+  response.success({ token, user: dbUser });
 }));
 
 export default router;

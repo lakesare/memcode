@@ -99,62 +99,42 @@
     }
   }
   // or
-  section.sign-in-links{
-    display: flex;
-    align-items: center;
-    min-width: 150px;
-    padding: 0 20px;
+  button.sign-in{
+    min-width: none;
     background: rgba(239, 240, 249, 0.06);
-    > label.soliciting{
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      padding-right: 16px;
-      display: flex;
-      align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    border-radius: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
+      transform: rotate(45deg) translateX(-100%);
+      transition: transform 0.6s ease;
+      opacity: 0;
     }
-    > div.links{
-      display: flex;
-      align-items: center;
-      > a{
-        // common
-        > span.name{
-          font-size: 11px;
-          color: rgba(234, 234, 234, 0.9);
-          padding-right: 5px;
-          display: none;
-        }
 
-        > i{
-          opacity: 0.9;
-        }
-        &:hover{
-          > i{
-            opacity: 1;
-          }
-        }
-
-        // specific
-        &.gmail{
-          padding-right: 7px;
-          > i{
-            color: rgb(212, 70, 56);
-            font-size: 20px;
-            &:hover{ text-shadow: 0 0 8px rgba(212, 70, 56, 0.2); }
-          }
-        }
-        &.github{
-          padding-left: 7px;
-          > i{
-            color: rgb(136, 125, 220);
-            font-size: 23px;
-            &:hover{ text-shadow: 0 0 8px rgba(136, 125, 220, 0.2); }
-          }
-        }
+    &:hover {
+      background: linear-gradient(45deg, rgb(136, 125, 220), #8338ec, #3a86ff, rgb(136, 125, 220)) !important;
+      background-size: 400% 400%;
+      animation: holo-bg 3s ease infinite;
+      &::before {
+        opacity: 1;
+        transform: rotate(45deg) translateX(100%);
       }
     }
-  }
 
+    @keyframes holo-bg {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+  }
   .container.-desktop{
     display: flex;
     justify-content: space-between;
@@ -181,11 +161,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      > section.sign-in-links{
-        padding: 0;
-        background: none;
-        justify-content: flex-end;
-      }
     }
   }
 }

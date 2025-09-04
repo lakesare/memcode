@@ -3,6 +3,10 @@
   justify-content: space-between;
   max-width: 400px;
   margin: 0 auto;
+  display: block;
+  max-width: 304px;
+  a{ font-size: 16px; }
+  a.-github, a.-username{ margin-top: 30px; }
   > .button{
     border-radius: 2px;
   }
@@ -18,6 +22,10 @@
     }
     &.-github{
       background: rgb(136, 125, 220);
+      color: white;
+    }
+    &.-username{
+      background: rgb(94, 175, 94);
       color: white;
     }
   }

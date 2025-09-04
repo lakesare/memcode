@@ -1,0 +1,10 @@
+@use '~/css/variables.scss';
+
+:local(.modal) {
+  .form-line{
+    margin-bottom: 20px;
+  }
+  .standard-submit-button{
+    margin-top: 30px;
+  }
+}

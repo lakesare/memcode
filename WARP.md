@@ -217,14 +217,31 @@ Single deployment supports both Memcode and Meresei apps through vhost routing, 
 ## Common Patterns
 
 ### API Endpoints
+- **Prefer dynamic routing**: `/api/CourseApi.getPublicCourses` over traditional REST
 - Dynamic routing: `/api/CourseApi.getPublicCourses`
-- Traditional REST: `/api/courses/:id`
+- Traditional REST: `/api/courses/:id` (legacy pattern)
 - Both GET and POST supported for API calls
-- Always use `response.success()` and `response.error()` for consistent responses
+- Always use standardized response methods: `response.success()`, `response.error()`, and `response.validation()`
+
+#### API Response Examples
+```javascript
+// Success response (200)
+response.success({ user: userData, token: jwtToken });
+
+// Server error response (500)
+response.error('Database connection failed');
+
+// Validation error response (400)
+response.validation([
+  'Username is required',
+  'Email must be valid',
+  'Password must be at least 6 characters'
+]);
+```
 
 ### Database Queries
-- **New routes**: Use Knex query builder from `#~/db/knex.js`
-- **Legacy routes**: pg-promise queries (being phased out)
+- **Always use Knex**: New development should exclusively use Knex query builder from `#~/db/knex.js`
+- **Legacy routes**: pg-promise queries (being phased out - do not use for new code)
 - Snake_case in database, camelCase in application code via knex-stringcase
 - Transaction support for complex operations
 
@@ -232,6 +249,104 @@ Single deployment supports both Memcode and Meresei apps through vhost routing, 
 - Redux store with thunk middleware
 - Connected components pattern
 - Local component state for UI-only concerns
+
+### Frontend Patterns
+
+#### SPE (Status/Payload/Error) Pattern
+The codebase uses a consistent SPE pattern for managing async operations and API calls:
+
+```javascript
+// State management
+state = {
+  speApiCall: {} // Empty object initially
+}
+
+// API call with SPE dispatch
+api.SomeApi.someMethod(
+  (speApiCall) => this.setState({ speApiCall }),
+  requestData
+)
+
+// SPE object structure:
+// - status: 'request' | 'success' | 'failure' | undefined
+// - payload: data (on success)
+// - error: error message (on failure)
+```
+
+#### Loading Component Pattern
+Use the Loading component to handle different states automatically:
+
+```jsx
+import Loading from '~/components/Loading';
+
+// Basic usage - handles request/success/failure states
+<Loading spe={this.state.speApiCall}>
+  Content to show on success
+</Loading>
+
+// With payload access
+<Loading spe={this.state.speApiCall}>{(payload) =>
+  <div>{payload.someData}</div>
+}</Loading>
+
+// Show only specific states
+<Loading enabledStatuses={['failure']} spe={this.state.speApiCall} />
+<Loading enabledStatuses={['success', 'error']} spe={this.state.speApiCall} />
+```
+
+#### Standard Form Pattern
+Consistent form state management and input handling:
+
+```javascript
+// Form state management
+state = {
+  formState: {
+    field1: '',
+    field2: ''
+  }
+}
+
+// Input props helper
+inputProps = () => ({
+  formState: this.state.formState,
+  updateFormState: (formState) => this.setState({ formState })
+})
+
+// Usage in render
+<TextInput {...this.inputProps()} label="Field 1" name="field1" />
+<TextInput {...this.inputProps()} label="Field 2" name="field2" type="email" />
+```
+
+#### Form Submission with SPE
+Combine forms with SPE pattern for clean submit handling:
+
+```javascript
+handleSubmit = (event) => {
+  event.preventDefault();
+  
+  // Prevent double submission
+  if (this.state.speSubmit.status === 'request') return;
+
+  api.SomeApi.submit(
+    (speSubmit) => {
+      this.setState({ speSubmit });
+      if (speSubmit.status === 'success') {
+        // Handle success (redirect, close modal, etc.)
+      }
+    },
+    this.state.formState
+  );
+}
+
+// In render - button state and error display
+<Loading enabledStatuses={['failure']} spe={this.state.speSubmit} />
+<button 
+  disabled={this.state.speSubmit.status === 'request'}
+  type="submit"
+>
+  {this.state.speSubmit.status === 'request' ? 'Loading...' : 'Submit'}
+</button>
+```
 
 ## Development Tips
 
