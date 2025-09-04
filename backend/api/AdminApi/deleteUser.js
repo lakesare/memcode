@@ -28,10 +28,7 @@ const deleteUser = async (request, response) => {
     return response.error('Failed to delete user');
   }
 
-  response.success({ 
-    message: 'User and all related data deleted successfully',
-    deletedUserId: userId 
-  });
+  response.success();
 };
 
 export default deleteUser;

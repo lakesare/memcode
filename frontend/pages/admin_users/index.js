@@ -278,21 +278,6 @@ class Page extends React.Component {
               <strong> This action cannot be undone.</strong>
             </div>
 
-            {this.state.deletionSuccess && (
-              <div className="successNotification">
-                <h3>✅ User Deleted Successfully</h3>
-                <p>
-                  User <strong>{this.state.deletionSuccess.username}</strong> and all their related data have been permanently deleted.
-                </p>
-                <p className="timestamp">
-                  Deleted at {this.state.deletionSuccess.timestamp.toLocaleTimeString('en-US', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                  })}
-                </p>
-              </div>
-            )}
 
             <div className="userSelectSection">
               <label htmlFor="userSelect">Find user to delete:</label>
@@ -307,6 +292,22 @@ class Page extends React.Component {
             {this.renderSelectedUserSection()}
           </section>
         </div>
+        
+        {this.state.deletionSuccess && (
+          <div className="bottomSuccessNotification">
+            <h3>✅ User Deleted Successfully</h3>
+            <p>
+              User <strong>{this.state.deletionSuccess.username}</strong> and all their related data have been permanently deleted.
+            </p>
+            <p className="timestamp">
+              Deleted at {this.state.deletionSuccess.timestamp.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+              })}
+            </p>
+          </div>
+        )}
       </div>
     </PageAdmin>
 }
