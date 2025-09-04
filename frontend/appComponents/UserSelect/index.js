@@ -1,5 +1,6 @@
 import AsyncSelect from 'react-select/async';
 import css from './index.scss';
+import getUserAvatar from '~/services/getUserAvatar';
 
 import api from '~/api';
 
@@ -26,7 +27,7 @@ class UserSelect extends React.Component {
 
   renderLi = ({ value }) =>
     <div className={css.li}>
-      <img src={value.avatarUrl} alt="User"/>
+      <img src={getUserAvatar(value)} alt="User"/>
       <div className="right">
         <div className="name">{value.username}</div>
       </div>

@@ -4,6 +4,7 @@ import UserSelect from '~/appComponents/UserSelect';
 import api from '~/api';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import Loading from '~/components/Loading';
+import getUserAvatar from '~/services/getUserAvatar';
 
 // rgba(25, 26, 46, 0.27)
 class InviteCoauthorModal extends React.Component {
@@ -58,7 +59,7 @@ class InviteCoauthorModal extends React.Component {
       <tbody>
         <tr>
           <td className="user">
-            <img src={this.props.author.avatarUrl} alt="Coauthor avatar"/>
+            <img src={getUserAvatar(this.props.author)} alt="Coauthor avatar"/>
             <div className="username">{this.props.author.username}</div>
           </td>
 
@@ -70,7 +71,7 @@ class InviteCoauthorModal extends React.Component {
         {this.state.coauthors.map((user) =>
           <tr key={user.id}>
             <td className="user">
-              <img src={user.avatarUrl} alt="Coauthor avatar"/>
+              <img src={getUserAvatar(user)} alt="Coauthor avatar"/>
               <div className="username">{user.username}</div>
             </td>
 

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
+import getUserAvatar from '~/services/getUserAvatar';
 
 class CurrentUser extends React.Component {
   static propTypes = {
@@ -32,7 +33,7 @@ class CurrentUser extends React.Component {
     <div>
       <Link className="avatar" to={`/users/${this.props.currentUser.id}`}>
         <img
-          src={this.props.currentUser.avatarUrl}
+          src={getUserAvatar(this.props.currentUser)}
           alt="User"
         />
       </Link>

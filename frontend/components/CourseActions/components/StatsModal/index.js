@@ -3,6 +3,7 @@ import css from './index.scss';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { orderBy } from 'lodash';
+import getUserAvatar from '~/services/getUserAvatar';
 
 class StatsModal extends React.Component {
   static propTypes = {
@@ -34,7 +35,7 @@ class StatsModal extends React.Component {
             <td className="user">
 
               <Link className="button -clear -fade-out-on-hover" to={`/users/${user.id}`}>
-                <img src={user.avatarUrl} alt="Coauthor avatar"/>
+                <img src={getUserAvatar(user)} alt="Coauthor avatar"/>
                 <div className="username">{user.username}</div>
               </Link>
 

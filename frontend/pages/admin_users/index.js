@@ -3,6 +3,7 @@ import api from '~/api';
 import Loading from '~/components/Loading';
 import PageAdmin from '~/appComponents/PageAdmin';
 import UserSelect from '~/appComponents/UserSelect';
+import getUserAvatar from '~/services/getUserAvatar';
 
 import css from './index.scss';
 
@@ -152,7 +153,7 @@ class Page extends React.Component {
             <tbody>
               <tr>
                 <td className="userTableValue">
-                  <img src={user.avatarUrl} alt={`${user.username}'s avatar`} className="userAvatar" />
+                  <img src={getUserAvatar(user)} alt={`${user.username}'s avatar`} className="userAvatar" />
                 </td>
                 <td className="userTableValue">
                   <a href={`/users/${user.id}`} target="_blank" rel="noopener noreferrer" className="userProfileLink">

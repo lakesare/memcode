@@ -1,4 +1,5 @@
 import capitalize from '~/services/capitalize';
+import getUserAvatar from '~/services/getUserAvatar';
 
 import { Pie } from 'react-chartjs-2';
 import { Link } from 'react-router-dom';
@@ -21,7 +22,7 @@ class UserInfo extends React.Component {
     <div className="user">
       <div className="user-details">
         <h1>Profile</h1>
-        <img src={user.avatarUrl} alt="avatar"/>
+        <img src={getUserAvatar(user)} alt="avatar"/>
         <div className="right">
           <div className="username">{capitalize(user.username)}</div>
 
