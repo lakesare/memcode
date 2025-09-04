@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(main.main){
   > nav{
@@ -39,8 +39,8 @@
         font-style: normal;
         text-transform: uppercase;
       }
-      em.review{ color: $review-button-color; }
-      em.learn{ color: $learn-button-color; }
+      em.review{ color: variables.$review-button-color; }
+      em.learn{ color: variables.$learn-button-color; }
     }
   }
 
@@ -70,7 +70,7 @@
         }
       }
       &.-learned{
-        background: $learn-button-color;
+        background: variables.$learn-button-color;
         .button-wrapper.-unlearn{
           // overlay with -learn wrapper so that whole problem is clickable
           width: 100%;
@@ -128,7 +128,7 @@
             // color: rgb(167, 242, 244);
             color: white;
             &:hover{
-              background: $learn-button-color;
+              background: variables.$learn-button-color;
               transition-duration: 300ms;
             }
           }

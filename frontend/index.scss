@@ -1,41 +1,44 @@
-$fa-font-path: "~font-awesome/fonts";
-@import '~font-awesome/scss/font-awesome.scss';
+@use "sass:meta";
+@use 'css/variables.scss';
+
+@use '~font-awesome/scss/font-awesome.scss' with (
+  $fa-font-path: "~font-awesome/fonts"
+);
 
 // for flashcards, we need all the languages and weights!
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese');
 // for the UI
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500,700');
 
-@import 'css/variables.scss';
 
-@import 'css/clear-default-css.scss';
-@import 'css/focus-styles.scss';
-@import 'css/bright-theme.scss';
+@include meta.load-css('css/clear-default-css.scss');
+@include meta.load-css('css/focus-styles.scss');
+@include meta.load-css('css/bright-theme.scss');
 
-@import 'css/react-select.scss';
-@import 'css/quill/index.scss';
-@import 'css/tippy-tooltip.scss';
+@include meta.load-css('css/react-select.scss');
+@include meta.load-css('css/quill/index.scss');
+@include meta.load-css('css/tippy-tooltip.scss');
 
-@import 'css/container.scss';
-@import 'css/button.scss';
-@import 'css/action.scss';
-@import 'css/standard-form.scss';
-@import 'css/standard-input.scss';
-@import 'css/standard-dropdown.scss';
-@import 'css/standard-tooltip.scss';
-@import 'css/standard-article-formatting.scss';
-@import 'css/standard-modal.scss';
-@import 'css/standard-tab-navigation.scss';
-@import 'css/standard-success-message.scss';
-@import 'css/standard-title-and-description.scss';
-@import 'css/standard-dropdown-with-arrow.scss';
-@import 'css/standard-navigation_and_courses.scss';
-@import 'css/standard-course-card.scss';
-@import 'css/standard-tooltip-dropdown.scss';
-@import 'css/standard-table.scss';
-@import 'css/loading.scss';
+@include meta.load-css('css/container.scss');
+@include meta.load-css('css/button.scss');
+@include meta.load-css('css/action.scss');
+@include meta.load-css('css/standard-form.scss');
+@include meta.load-css('css/standard-input.scss');
+@include meta.load-css('css/standard-dropdown.scss');
+@include meta.load-css('css/standard-tooltip.scss');
+@include meta.load-css('css/standard-article-formatting.scss');
+@include meta.load-css('css/standard-modal.scss');
+@include meta.load-css('css/standard-tab-navigation.scss');
+@include meta.load-css('css/standard-success-message.scss');
+@include meta.load-css('css/standard-title-and-description.scss');
+@include meta.load-css('css/standard-dropdown-with-arrow.scss');
+@include meta.load-css('css/standard-navigation_and_courses.scss');
+@include meta.load-css('css/standard-course-card.scss');
+@include meta.load-css('css/standard-tooltip-dropdown.scss');
+@include meta.load-css('css/standard-table.scss');
+@include meta.load-css('css/loading.scss');
 
-@import 'css/problem.scss';
+@include meta.load-css('css/problem.scss');
 
 // probably useless, get rid of this?
 div.space{

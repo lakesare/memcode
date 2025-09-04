@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(section.cheatsheet){
   > div.toggler{
@@ -19,7 +19,7 @@
       cursor: pointer;
       td{
         vertical-align: top;
-        border: solid 1px $purple;
+        border: solid 1px variables.$purple;
         padding: 3px 5px;
       }
       td:first-child{

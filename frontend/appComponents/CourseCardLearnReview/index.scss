@@ -1,9 +1,9 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.CourseCardLearnReview){
   width: 199px;
   height: 213px;
-  background: $color-main-3;
+  background: variables.$color-main-3;
   overflow: hidden;
 
   display: flex;
@@ -72,10 +72,10 @@
           border: none !important;
         }
         &.-learn{
-          background: $learn-button-color;
+          background: variables.$learn-button-color;
         }
         &.-review{
-          background: $review-button-color;
+          background: variables.$review-button-color;
         }
       }
       > section.amount-footer{
@@ -97,15 +97,15 @@
         align-items: center;
 
         &.-learn{
-          background: $learn-button-color;
+          background: variables.$learn-button-color;
         }
         &.-review{
-          background: $review-button-color;
+          background: variables.$review-button-color;
         }
         &.-next-due{
           color: white;
           i.timer-icon{
-            color: $purple;
+            color: variables.$purple;
             font-size: 14px;
             padding-right: 5px;
           }

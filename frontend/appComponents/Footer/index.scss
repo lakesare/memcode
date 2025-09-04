@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(footer.footer){
   position: absolute;
@@ -22,7 +22,7 @@
       align-items: center;
       > span.pipe{
         padding: 0 15px;
-        color: $faint-blue;
+        color: variables.$faint-blue;
       }
       .star-us{
         display: inline-block;

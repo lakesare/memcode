@@ -1,5 +1,5 @@
 @use 'sass:color';
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.tooltip){
   .not-learning-placeholder{
@@ -15,7 +15,7 @@
       font-family: "Roboto";
       font-weight: 300;
       mark{
-        color: $purple;
+        color: variables.$purple;
       }
     }
 
@@ -47,19 +47,19 @@
 
     &.-review{
       .action{
-        background: $review-button-color;
+        background: variables.$review-button-color;
       }
       a:hover{
-        background: color.scale($review-button-color, $alpha: -30%);
+        background: color.scale(variables.$review-button-color, $alpha: -30%);
       }
     }
     &.-learn{
       .action{
-        background: $learn-button-color;
+        background: variables.$learn-button-color;
 
       }
       a:hover{
-        background: color.scale($learn-button-color, $alpha: -30%);
+        background: color.scale(variables.$learn-button-color, $alpha: -30%);
       }
     }
     &.-next-due-date-in{
@@ -76,15 +76,15 @@
       position: relative;
       .action{
         &.-review{
-          background: $review-button-color;
+          background: variables.$review-button-color;
           &:hover{
-            background: color.scale($review-button-color, $alpha: -10%);
+            background: color.scale(variables.$review-button-color, $alpha: -10%);
           }
         }
         &.-learn{
-          background: $learn-button-color;
+          background: variables.$learn-button-color;
           &:hover{
-            background: color.scale($learn-button-color, $alpha: -10%);
+            background: color.scale(variables.$learn-button-color, $alpha: -10%);
           }
         }
         // &.-pinned{

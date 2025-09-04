@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.main){
   // will be moved to `.standard-` at some point
@@ -17,7 +17,7 @@
         display: block;
         padding: 10px;
         font-size: 14px;
-        color: $purple;
+        color: variables.$purple;
         border-bottom: 1px solid rgba(68, 67, 67, 0.07);
         opacity: 0.4;
         &.active{

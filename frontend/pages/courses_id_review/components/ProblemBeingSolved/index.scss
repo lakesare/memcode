@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.section){
   $purple-question-border: 3px solid rgb(170, 160, 247);
@@ -59,7 +59,7 @@
           color: rgb(206, 199, 245);
           // font-weight: 500;
           // border: 2px solid #FFEB3B;
-          border: 2px solid $purple;
+          border: 2px solid variables.$purple;
         }
       }
     }

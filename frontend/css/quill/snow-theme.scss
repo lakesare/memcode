@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 $color_1: #777;
 $color_2: #fff;
@@ -691,7 +691,7 @@ $border_color_1: #000;
       height: 26px;
       padding: 3px 5px;
       width: 300px;
-      background: $color-main-3;
+      background: variables.$color-main-3;
       border-bottom: 1px solid rgb(33, 35, 54);
       color: white;
     }

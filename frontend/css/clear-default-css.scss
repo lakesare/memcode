@@ -1,3 +1,5 @@
+@use "variables";
+
 // footer positioning depends on it!
 html{ height: 100%; }
 body{
@@ -38,13 +40,13 @@ main{
 }
 
 body{
-  font-family: $body-font, serif;
-  color: $body-color;
+  font-family: variables.$body-font, serif;
+  color: variables.$body-color;
   margin: 0;
   box-sizing: border-box;
   font-weight: 300;
 
-  background: $color-main-2;
+  background: variables.$color-main-2;
 }
 a{
   text-decoration: none;
@@ -58,7 +60,7 @@ h1, h2, h3, h4, h5, h6{
   margin-top: 0; margin-bottom: 0;
   font-weight: 300;
   letter-spacing: 0.3px;
-  font-family: $heading-font;
+  font-family: variables.$heading-font;
 }
 // only use these
 h1{ font-size: 25px; }
@@ -82,7 +84,7 @@ input, textarea, select, button{
   // because mac makes it tiny 11px
   font-size: inherit;
   // because font defaults to system despite body style
-  font-family: $body-font;
+  font-family: variables.$body-font;
   font-weight: 300;
 
   background: none;

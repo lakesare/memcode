@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.standardTooltipButton){
   display: inline-block;
@@ -9,7 +9,7 @@
 
   cursor: pointer;
   > i{
-    color: $purple;
+    color: variables.$purple;
     opacity: 0.9;
     font-size: 14px;
   }

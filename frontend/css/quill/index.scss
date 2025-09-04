@@ -1,8 +1,8 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
-@import 'snow-theme.scss';
-@import 'ql-toolbar.scss';
-@import 'placeholder-for-loading-image.scss';
+@use 'snow-theme.scss';
+@use 'ql-toolbar.scss';
+@use 'placeholder-for-loading-image.scss';
 
 .quill{
   position: relative;
@@ -40,7 +40,7 @@
     strong{
       font-family: inherit;
       font-weight: 100;
-      color: $green !important;
+      color: variables.$green !important;
     }
     em{
       color: rgb(171, 127, 242) !important;

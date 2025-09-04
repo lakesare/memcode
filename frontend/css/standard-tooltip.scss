@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 // .tippy-box[data-theme='-bright'] is needed for vanilla tippy.js (e.g. in Quill toolbar)
 .standard-tooltip, .tippy-box{

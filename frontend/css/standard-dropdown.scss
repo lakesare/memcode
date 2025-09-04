@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 .standard-dropdown-wrapper{
   position: relative;
@@ -27,15 +27,15 @@
 }
 
 .standard-dropdown.-purple{
-  background: $color-main-3;
+  background: variables.$color-main-3;
   // border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   // border-top: none;
   li{
     border-bottom: 1px solid rgba(255, 255, 255, 0.01);
     &:last-child{ border-bottom: none; }
-    mark{ color: $purple; }
+    mark{ color: variables.$purple; }
     &:hover{
-      color: $purple;
+      color: variables.$purple;
     }
   }
 }

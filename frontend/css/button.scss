@@ -1,3 +1,5 @@
+@use "variables";
+
 .button{
   min-width: 140px;
 
@@ -36,7 +38,7 @@
   }
   &.-purple{
     color: white;
-    background: $purple;
+    background: variables.$purple;
     // &:focus{
     //   box-shadow: 0 0 3px white;
     //   border: 1px solid white !important;
@@ -44,8 +46,8 @@
   }
   // -outlines, just like in fontawesome
   &.-purple-o{
-    color: $purple;
-    border: 1px solid $purple;
+    color: variables.$purple;
+    border: 1px solid variables.$purple;
   }
   &.-white{
     color: white;
@@ -53,7 +55,7 @@
   }
   &.-orange{
     color: white;
-    background: $orange;
+    background: variables.$orange;
     &:hover{
       transition: background 60ms ease-in-out;
       background: rgba(250, 100, 0, 0.9);
@@ -61,7 +63,7 @@
   }
   &.-orange-o{
     color: rgb(244, 106, 13);
-    border: 2px solid $orange;
+    border: 2px solid variables.$orange;
     &:hover{
       transition: border 60ms ease-in-out;
       border: 2px solid rgb(250, 100, 0);
@@ -89,15 +91,15 @@
     }
   }
   &.-to-learn{
-    background: $learn-button-color;
+    background: variables.$learn-button-color;
   }
   &.-to-review{
-    background: $review-button-color;
+    background: variables.$review-button-color;
   }
 
   &.-pink{
     color: white;
-    background: $purple;
+    background: variables.$purple;
   }
 
   &.-red{
@@ -109,7 +111,7 @@
   }
 
   &.-green{
-    background: $green;
+    background: variables.$green;
   }
 
   &.-small{

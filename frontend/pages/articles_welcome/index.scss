@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Libre+Franklin|Montserrat:100,200,300,400,500,600,700&display=swap');
 
@@ -31,7 +31,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: $orange;
+    background-color: variables.$orange;
     font-family: "Sentinel SSm A", "Sentinel SSm B", "Sentinel", "Georgia", sans-serif;
     font-size: 15px;
     font-weight: 500;
@@ -360,7 +360,7 @@
           opacity: 0.5;
           width: 84px;
           min-width: auto;
-          background: $orange;
+          background: variables.$orange;
           color: white;
           font-weight: 300;
           border-radius: 3px;
@@ -395,7 +395,7 @@
         transition-duration: 300ms;
         .total-amount-of-flashcards{
           transition-duration: 300ms;
-          background: $orange;
+          background: variables.$orange;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -417,7 +417,7 @@
           }
         }
         &:focus-within{
-          box-shadow: 0 0 1px 1px $orange;
+          box-shadow: 0 0 1px 1px variables.$orange;
         }
       }
     }

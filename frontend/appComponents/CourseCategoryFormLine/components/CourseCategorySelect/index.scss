@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.section){
   ul.groups{
@@ -10,7 +10,7 @@
     z-index: 1000;
     padding-bottom: 14px;
 
-    background: $color-main-3;
+    background: variables.$color-main-3;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 
     font-size: 14px;
@@ -41,11 +41,11 @@
               color: white;
             }
             &:hover{
-              color: $purple;
+              color: variables.$purple;
             }
           }
           &.-active > button{
-            color: $purple;
+            color: variables.$purple;
           }
         }
       }

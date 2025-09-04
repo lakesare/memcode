@@ -1,9 +1,9 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 .extendable-pretty-input{
   width: 100%;
   padding: 10px 20px;
-  background: $color-main-3;
+  background: variables.$color-main-3;
   color: white;
   font-size: 15px;
   border-radius: 2px;
@@ -39,7 +39,7 @@
       align-items: center;
 
       i.fa-caret-down{
-        color: $purple;
+        color: variables.$purple;
         padding-left: 10px;
       }
       @extend .extendable-pretty-input;

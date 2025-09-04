@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.li){
   display: flex;
@@ -8,7 +8,7 @@
   cursor: default;
   a{
     cursor: pointer;
-    color: $purple;
+    color: variables.$purple;
     &:hover{
       text-decoration: underline;
     }
@@ -59,7 +59,7 @@
     > button.mark-as-read-on-unread-button{
       cursor: pointer;
       > div.circle{
-        background: $orange;
+        background: variables.$orange;
       }
     }
   }

@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 nav.standard-tab-navigation{
   font-size: 15px;
@@ -20,7 +20,7 @@ nav.standard-tab-navigation{
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     &.-selected, &:hover{
-      border-bottom: 1px solid $purple;
+      border-bottom: 1px solid variables.$purple;
     }
   }
 }

@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 .standard-article-formatting{
   max-width: 1000px;
@@ -16,7 +16,7 @@
   a{
     text-decoration: underline;
   }
-  mark{ color: $purple; }
+  mark{ color: variables.$purple; }
   ol.standard-list, ul.standard-list{
     list-style-type: initial;
     margin-left: 20px;

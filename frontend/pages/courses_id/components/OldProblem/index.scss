@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 .-there-are-no-checked-problems{
   .checkbox:hover + section.flashcard-buttons{
@@ -176,7 +176,7 @@
   section.flashcard-buttons{
     .first{
       left: 0; right: auto;
-      background: $color-main-1;
+      background: variables.$color-main-1;
       padding-right: 5px !important;
       border-bottom-right-radius: 3px;
     }

@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.edit){
 
@@ -22,7 +22,7 @@
   }
 
   .choose-type button, .save-changes-button, .how-to-create button, .checkbox{
-    background: $orange;
+    background: variables.$orange;
     color: white;
   }
   .how-to-create button{
@@ -37,7 +37,7 @@
   .old-problem-wrapper{
     &.-not-checked > section.checkbox:hover{
       // background: rgb(153, 63, 13);
-      background: $orange;
+      background: variables.$orange;
     }
     &.-checked,
     &.-checked > section.checkbox{
@@ -295,7 +295,7 @@
         font-size: 12px;
         font-weight: 500;
         border-radius: 2px;
-        background: $orange;
+        background: variables.$orange;
 
         display: flex;
         align-items: center;

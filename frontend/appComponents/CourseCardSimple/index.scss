@@ -1,9 +1,9 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.a){
   width: 199px;
   height: 213px;
-  background: $color-main-3;
+  background: variables.$color-main-3;
   overflow: hidden;
 
   h2.title{

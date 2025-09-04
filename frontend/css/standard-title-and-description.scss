@@ -1,11 +1,11 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 .standard-title-and-description{
   > h1.title, h2.title{
     margin: 20px 0;
     text-align: center;
     font-weight: 300;
-    color: $green;
+    color: variables.$green;
     font-size: 27px;
   }
   > article.description{

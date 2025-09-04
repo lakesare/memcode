@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 @function easing-gradient($color: black, $alpha-from: 1, $alpha-to: 0) {
   $diff: $alpha-from - $alpha-to;
@@ -25,9 +25,9 @@
         padding-left: 15px;
         letter-spacing: 0.4px;
 
-        border-left: 2px solid $purple;
+        border-left: 2px solid variables.$purple;
         background-image: easing-gradient(
-          $purple,
+          variables.$purple,
           $alpha-from: 0.5,
           $alpha-to:   0.0,
         );

@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.tab){
   .background.-blue{
@@ -17,7 +17,7 @@
 
         b{
           font-weight: 300;
-          color: $purple;
+          color: variables.$purple;
         }
 
         display: flex;

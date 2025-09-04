@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.main){
   section.for-beginners{
@@ -7,14 +7,14 @@
       > h1.title{
         margin-top: 40px;
         font-size: 40px;
-        color: $purple;
+        color: variables.$purple;
       }
       > div.description{
         h2{
           margin-top: 30px;
           margin-bottom: 30px;
         }
-        a{ color: $purple; }
+        a{ color: variables.$purple; }
       }
     }
     hr{

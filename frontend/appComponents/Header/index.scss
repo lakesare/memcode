@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 :local(.header){
   background: rgba(34, 38, 74, 0.27);
@@ -21,13 +21,13 @@
         font-size: 9px;
         height: 23px;
         &:hover{
-          background: $review-button-color;
+          background: variables.$review-button-color;
         }
         &.-saving {
           cursor: default;
           pointer-events: none;
 
-          background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), $review-button-color;
+          background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), variables.$review-button-color;
           background-size: 400% 100%, cover;
           animation: change 1s linear infinite;
         }

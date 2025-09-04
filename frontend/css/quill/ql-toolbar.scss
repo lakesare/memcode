@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 .quill > .ql-toolbar{
   border: none;
@@ -8,10 +8,10 @@
   border-top-right-radius: 3px;
   button:hover, button.ql-active{
     .ql-stroke{
-      stroke: $green !important;
+      stroke: variables.$green !important;
     }
     .ql-fill{
-      fill: $green !important;
+      fill: variables.$green !important;
     }
   }
   .ql-formats{
@@ -48,11 +48,11 @@
     font-size: 11px;
   }
   .shortcut{
-    color: $green;
+    color: variables.$green;
     font-size: 11px;
   }
   .instruction{
-    color: $purple;
+    color: variables.$purple;
     font-size: 10px;
   }
 }

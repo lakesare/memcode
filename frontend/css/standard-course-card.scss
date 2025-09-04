@@ -1,4 +1,4 @@
-@import 'css/variables.scss';
+@use '~/css/variables.scss';
 
 .standard-course-card{
   border-radius: 2px;
@@ -24,7 +24,7 @@
     justify-content: space-between;
     cursor: default;
     > div.category{
-      border-left: 1px solid $purple;
+      border-left: 1px solid variables.$purple;
       padding-left: 6px;
       padding-right: 3px;
     }
