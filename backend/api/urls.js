@@ -8,6 +8,7 @@ import CourseUserIsLearningApi from '#~/api/CourseUserIsLearningApi/index.js';
 import ProblemUserIsLearningApi from '#~/api/ProblemUserIsLearningApi/index.js';
 import UserApi from '#~/api/UserApi/index.js';
 import ProblemApi from '#~/api/ProblemApi/index.js';
+import AdminApi from '#~/api/AdminApi/index.js';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -18,6 +19,7 @@ const getApiClass = (controllerName) => {
     case 'CourseUserIsLearningApi': return CourseUserIsLearningApi;
     case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
     case 'UserApi': return UserApi;
+    case 'AdminApi': return AdminApi;
     case 'PageApi': return PageApi;
   }
 };

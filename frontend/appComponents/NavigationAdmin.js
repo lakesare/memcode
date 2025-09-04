@@ -4,7 +4,7 @@ class NavigationAdmin extends React.Component {
   render = () =>
     <nav className="navigation-admin">
       <NavLink to="/admin/notifications">Notifications</NavLink>
-      <NavLink to="/admin/eeelse">Something else</NavLink>
+      <NavLink to="/admin/users">Users</NavLink>
     </nav>
 }
 

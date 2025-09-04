@@ -1,4 +1,7 @@
-import express from 'express';
-const router = express.Router();
+import deleteUser from './deleteUser.js';
+import getUserDeletionStats from './getUserDeletionStats.js';
 
-export default router;
+export default {
+  deleteUser,
+  getUserDeletionStats
+};

@@ -25,6 +25,7 @@ import Page_contact from './pages/contact';
 import Page_home from './pages/home';
 
 import Page_admin_notifications from './pages/admin_notifications';
+import Page_admin_users from './pages/admin_users';
 
 const auth = onEnters.requireAuthentication;
 
@@ -61,6 +62,7 @@ const router =
 
       {/* admin */}
       <Route exact path="/admin/notifications" component={onEnters.requireAdmin(Page_admin_notifications)}/>
+      <Route exact path="/admin/users" component={onEnters.requireAdmin(Page_admin_users)}/>
     </Switch>
   </BrowserRouter>;
 

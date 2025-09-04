@@ -1,0 +1,383 @@
+:local(.adminUsersPage) {
+  .sections {
+    max-width: 800px;
+  }
+
+  .description {
+    margin-bottom: 30px;
+    padding: 15px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    color: #856404;
+
+    strong {
+      color: #d63031;
+    }
+  }
+
+  .successNotification {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #d4edda;
+    border: 2px solid #c3e6cb;
+    border-radius: 6px;
+    color: #155724;
+    
+    h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #155724;
+      font-size: 18px;
+    }
+    
+    p {
+      margin-bottom: 10px;
+      line-height: 1.5;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      strong {
+        color: #0f4229;
+        font-weight: 700;
+      }
+    }
+    
+    .timestamp {
+      font-size: 14px;
+      color: #0a3622;
+      font-style: italic;
+      margin-top: 10px;
+    }
+  }
+
+  .userSelectSection {
+    margin-bottom: 30px;
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+  }
+
+  .selectedUserSection {
+    margin-top: 30px;
+    padding: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: #f8f9fa;
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #2d3436;
+    }
+  }
+
+  .userTableWrapper {
+    margin-bottom: 30px;
+    overflow-x: auto;
+  }
+
+  .userTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    th, td {
+      padding: 15px 20px;
+      border-bottom: 1px solid #e9ecef;
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: #f8f9fa;
+    }
+  }
+
+  .userTableHeader {
+    font-weight: 600;
+    color: #495057;
+    background: #f8f9fa;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .userTableValue {
+    color: #2d3436;
+    font-weight: 500;
+  }
+
+  .userAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #dee2e6;
+  }
+
+  .userProfileLink {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+    
+    &:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+    
+    &:visited {
+      color: #6f42c1;
+    }
+  }
+
+  .loadingStats {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    text-align: center;
+    color: #6c757d;
+  }
+
+  .coursesSection {
+    margin-bottom: 30px;
+  }
+
+  .coursesDetails {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    overflow: hidden;
+
+    &[open] .coursesSummary::before {
+      transform: rotate(90deg);
+    }
+  }
+
+  .coursesSummary {
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+    color: #495057;
+    
+    &:hover {
+      background: #e9ecef;
+    }
+    
+    &::-webkit-details-marker {
+      display: none;
+    }
+    
+    &::before {
+      content: '▶';
+      margin-right: 8px;
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+  }
+
+  .noCourses {
+    color: #6c757d;
+    font-style: italic;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .coursesTableWrapper {
+    padding: 20px;
+  }
+
+  .coursesTable {
+    width: 100%;
+    border-collapse: collapse;
+    
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    tr:hover {
+      background: #f8f9fa;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  .courseTitle {
+    font-weight: 600;
+    color: #2d3436;
+  }
+
+  .courseVisibility {
+    text-align: center;
+  }
+
+  .visibilityBadge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    
+    &.public {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    &.private {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  }
+
+  .courseDate {
+    color: #6c757d;
+    font-size: 14px;
+  }
+
+  .dangerZone {
+    padding: 20px;
+    background: #fdecec;
+    border: 2px solid #fab1b1;
+    border-radius: 6px;
+
+    h4 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #d63031;
+    }
+  }
+
+  .warningText {
+    margin-bottom: 15px;
+    color: #2d3436;
+    line-height: 1.5;
+  }
+
+  .statsTableWrapper {
+    margin-bottom: 25px;
+    overflow-x: auto;
+  }
+
+  .statsTable {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      color: #6c757d;
+      
+      &:first-child {
+        font-weight: 500;
+        color: #495057;
+      }
+    }
+
+    tr:hover {
+      background: #f8f9fa;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+
+  .statsCount {
+    text-align: center !important;
+    font-weight: 600 !important;
+    color: #dc3545 !important;
+    min-width: 80px;
+  }
+
+  .loading {
+    color: #6c757d !important;
+    font-style: italic;
+    font-weight: normal !important;
+  }
+
+  .confirmationSection {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2d3436;
+    }
+  }
+
+  .confirmationInput {
+    width: 200px;
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: monospace;
+
+    &:focus {
+      border-color: #d63031;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(214, 48, 49, 0.1);
+    }
+  }
+
+  .loadingMessage {
+    display: inline-block;
+    margin-left: 10px;
+    color: #636e72;
+    font-style: italic;
+  }
+}
