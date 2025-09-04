@@ -1,9 +1,7 @@
 @use "sass:meta";
 @use 'css/variables.scss';
 
-@use '~font-awesome/scss/font-awesome.scss' with (
-  $fa-font-path: "~font-awesome/fonts"
-);
+@import '~font-awesome/css/font-awesome.css';
 
 // for flashcards, we need all the languages and weights!
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese');
