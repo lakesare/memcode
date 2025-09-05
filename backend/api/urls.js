@@ -2,29 +2,29 @@ import router from '#~/router.js';
 
 import catchAsync from '#~/services/catchAsync.js';
 
-import NotificationApi from '#~/api/NotificationApi/index.js';
-import CourseCategoryApi from '#~/api/CourseCategoryApi/index.js';
-import CourseUserIsLearningApi from '#~/api/CourseUserIsLearningApi/index.js';
+import NotificationApi          from '#~/api/NotificationApi/index.js';
+import CourseCategoryApi        from '#~/api/CourseCategoryApi/index.js';
+import CourseUserIsLearningApi  from '#~/api/CourseUserIsLearningApi/index.js';
 import ProblemUserIsLearningApi from '#~/api/ProblemUserIsLearningApi/index.js';
-import UserApi from '#~/api/UserApi/index.js';
-import ProblemApi from '#~/api/ProblemApi/index.js';
-import AdminApi from '#~/api/AdminApi/index.js';
-import AuthApiDynamic from '#~/api/AuthApi/dynamicApi.js';
-import PageApi from '#~/api/PageApi/index.js';
-import CourseApi from '#~/api/CourseApi/index.js';
+import UserApi                  from '#~/api/UserApi/index.js';
+import ProblemApi               from '#~/api/ProblemApi/index.js';
+import AdminApi                 from '#~/api/AdminApi/index.js';
+import AuthApiDynamic           from '#~/api/AuthApi/dynamicApi.js';
+import PageApi                  from '#~/api/PageApi/index.js';
+import CourseApi                from '#~/api/CourseApi/index.js';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
-    case 'NotificationApi': return NotificationApi;
+    case 'NotificationApi':   return NotificationApi;
     case 'CourseCategoryApi': return CourseCategoryApi;
-    case 'CourseApi': return CourseApi;
-    case 'ProblemApi': return ProblemApi;
+    case 'CourseApi':         return CourseApi;
+    case 'ProblemApi':        return ProblemApi;
     case 'CourseUserIsLearningApi': return CourseUserIsLearningApi;
     case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
-    case 'UserApi': return UserApi;
-    case 'AdminApi': return AdminApi;
-    case 'AuthApi': return AuthApiDynamic;
-    case 'PageApi': return PageApi;
+    case 'UserApi':           return UserApi;
+    case 'AdminApi':          return AdminApi;
+    case 'AuthApi':           return AuthApiDynamic;
+    case 'PageApi':           return PageApi;
   }
 };
 
