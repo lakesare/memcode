@@ -65,4 +65,10 @@ router.get('/google/callback', catchAsync(async (request, response) => {
   await createOauthCallbackRoute('google', request.query.code, response);
 }));
 
+// Add dynamic API methods to the router object
+import signup from './signup.js';
+router.signup = signup;
+import login from './login.js';
+router.login = login;
+
 export default router;

@@ -9,7 +9,7 @@ import ProblemUserIsLearningApi from '#~/api/ProblemUserIsLearningApi/index.js';
 import UserApi                  from '#~/api/UserApi/index.js';
 import ProblemApi               from '#~/api/ProblemApi/index.js';
 import AdminApi                 from '#~/api/AdminApi/index.js';
-import AuthApiDynamic           from '#~/api/AuthApi/dynamicApi.js';
+import AuthApi                  from '#~/api/AuthApi/index.js';
 import PageApi                  from '#~/api/PageApi/index.js';
 import CourseApi                from '#~/api/CourseApi/index.js';
 
@@ -23,7 +23,7 @@ const getApiClass = (controllerName) => {
     case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
     case 'UserApi':           return UserApi;
     case 'AdminApi':          return AdminApi;
-    case 'AuthApi':           return AuthApiDynamic;
+    case 'AuthApi':           return AuthApi;
     case 'PageApi':           return PageApi;
   }
 };
@@ -44,7 +44,7 @@ router.get('/api/:controllerName.:methodName', catchAsync(async (request, respon
 // TODO make all routes like NotificationApi.rate() instead.
 // Everything that's below this line should be deleted eventually.
 
-import AuthApi from '#~/api/AuthApi/index.js';
+// AuthApi routes now consolidated - OAuth callbacks still use legacy Express routes
 router.use('/api/auth', AuthApi);
 
 
