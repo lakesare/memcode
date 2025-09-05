@@ -1,12 +1,12 @@
 import knex from '#~/db/knex.js';
-import AdminService from '../../../shared/services/AdminService.js';
+import isUserAdmin from '../../../services/isUserAdmin.js';
 
 const getUserDeletionStats = async (request, response) => {
   if (!request.currentUser) {
     return response.status(401).json({ error: 'Authentication required for admin access' });
   }
 
-  if (!AdminService.isUserAdmin(request.currentUser)) {
+  if (!isUserAdmin(request.currentUser)) {
     return response.status(403).json({ error: 'Admin access required' });
   }
 
