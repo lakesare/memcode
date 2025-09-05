@@ -45,7 +45,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-  new RegExp('.*/api/courses/public.*'),
+  new RegExp('.*/api/CourseApi\\.getPublicCourses.*'),
   workbox.strategies.staleWhileRevalidate({
     cacheName: 'api_v5'
   })

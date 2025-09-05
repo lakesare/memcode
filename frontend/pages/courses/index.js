@@ -1,4 +1,4 @@
-import CourseApi from '~/api/CourseApi';
+import api from '~/api';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -87,7 +87,7 @@ class Page_courses extends React.Component {
 
   apiGetCourses = () => {
     const searchString = this.state.searchString;
-    CourseApi.selectPublic(
+    api.get.CourseApi.getPublicCourses(
       (spe) => {
         // if there are already some courses
         if (this.state.speGetCourses.payload) {

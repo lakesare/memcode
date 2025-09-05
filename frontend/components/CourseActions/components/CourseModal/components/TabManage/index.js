@@ -1,5 +1,5 @@
 import Urls from '~/services/Urls';
-import CourseApi from '~/api/CourseApi';
+import api from '~/api';
 
 import Loading from '~/components/Loading';
 
@@ -19,9 +19,9 @@ class TabManage extends React.Component {
   }
 
   apiDeleteCourse = () =>
-    CourseApi.destroy(
+    api.CourseApi.deleteCourse(
       (spe) => this.setState({ speDelete: spe }),
-      this.props.course.id
+      { courseId: this.props.course.id }
     )
       .then(() => window.location = Urls.userShow(this.props.currentUser.id))
 

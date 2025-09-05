@@ -11,6 +11,7 @@ import ProblemApi from '#~/api/ProblemApi/index.js';
 import AdminApi from '#~/api/AdminApi/index.js';
 import AuthApiDynamic from '#~/api/AuthApi/dynamicApi.js';
 import PageApi from '#~/api/PageApi/index.js';
+import CourseApi from '#~/api/CourseApi/index.js';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -42,8 +43,6 @@ router.get('/api/:controllerName.:methodName', catchAsync(async (request, respon
 
 // TODO make all routes like NotificationApi.rate() instead.
 // Everything that's below this line should be deleted eventually.
-import CourseApi from '#~/api/CourseApi/index.js';
-router.use('/api/courses', CourseApi);
 
 import AuthApi from '#~/api/AuthApi/index.js';
 router.use('/api/auth', AuthApi);

@@ -9,7 +9,7 @@ import { TextInput, Select } from '~/components/_standardForm';
 import CourseCategoryFormLine from '~/appComponents/CourseCategoryFormLine';
 
 import CourseModel from '~/models/CourseModel';
-import CourseApi from '~/api/CourseApi';
+import api from '~/api';
 
 import css from './index.scss';
 
@@ -41,9 +41,9 @@ class Page_courses_new extends React.Component {
     event.preventDefault();
     const formValidation = CourseModel.validateForm(this.state.formState);
     if (formValidation === true) {
-      CourseApi.create(
+      api.CourseApi.createCourse(
         spe => this.setState({ speSave: spe }),
-        this.state.formState
+        { course: this.state.formState }
       )
         .then((course) => {
           this.props.history.push(`/courses/${course.id}`);
