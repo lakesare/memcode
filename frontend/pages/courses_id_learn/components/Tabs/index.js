@@ -1,4 +1,4 @@
-import { commonFetch } from '~/api/commonFetch';
+import api from '~/api';
 import { Loading } from '~/components/Loading';
 import { TabNavigation } from './components/TabNavigation';
 import { TabContent } from './components/TabContent';
@@ -27,9 +27,9 @@ class Tabs extends React.Component {
   }
 
   apiGetProblems = () =>
-    commonFetch(
+    api.get.PageApi.getLearnPage(
       (spe) => this.setState({ speGetPage: spe }),
-      'GET', `/api/pages/courses/${this.props.courseId}/learn`
+      { courseId: this.props.courseId }
     )
 
   updateCurrentTab = (tabId) => {

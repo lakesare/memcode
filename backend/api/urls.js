@@ -10,6 +10,7 @@ import UserApi from '#~/api/UserApi/index.js';
 import ProblemApi from '#~/api/ProblemApi/index.js';
 import AdminApi from '#~/api/AdminApi/index.js';
 import AuthApiDynamic from '#~/api/AuthApi/dynamicApi.js';
+import PageApi from '#~/api/PageApi/index.js';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -47,8 +48,6 @@ router.use('/api/courses', CourseApi);
 import AuthApi from '#~/api/AuthApi/index.js';
 router.use('/api/auth', AuthApi);
 
-import PageApi from '#~/api/PageApi/index.js';
-router.use('/api/pages', PageApi);
 
 import FileApi from '#~/api/FileApi/index.js';
 router.use('/api/files', FileApi);

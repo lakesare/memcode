@@ -1,5 +1,4 @@
 import api from '~/api';
-import commonFetch from '~/api/commonFetch';
 import MyDuck from '~/ducks/MyDuck';
 
 import selectors from './selectors';
@@ -182,17 +181,17 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
 
 const getPage = (courseId, simulated, persistent) =>
   (dispatch) => {
-    let url;
+    let apiMethod;
     if (simulated) {
-      url = `/api/pages/courses/${courseId}/review/simulated`;
+      apiMethod = api.get.PageApi.getReviewSimulatedPage;
     } else if (persistent) {
-      url = `/api/pages/courses/${courseId}/review/persistent`;
+      apiMethod = api.get.PageApi.getReviewPersistentPage;
     } else {
-      url = `/api/pages/courses/${courseId}/review`;
+      apiMethod = api.get.PageApi.getReviewPage;
     }
-    return commonFetch(
+    return apiMethod(
       (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe }),
-      'GET', url
+      { courseId }
     );
   };
 

@@ -45,7 +45,7 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidMount = () => {
-    api.PageApi.getReviewPage(
+    api.get.PageApi.getReviewPage(
       (spe) => this.setState({ speGetPage: spe }),
       { courseId: this.props.courseId }
     );

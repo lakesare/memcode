@@ -45,7 +45,7 @@ class Page_courses_id_all extends React.Component {
   }
 
   componentDidMount = () => {
-    api.PageApi.getAllPage(
+    api.get.PageApi.getAllPage(
       (spe) => this.setState({ speGetPage: spe }),
       { courseId: this.props.courseId }
     );

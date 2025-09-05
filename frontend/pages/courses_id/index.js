@@ -3,7 +3,6 @@ import _update from 'lodash/update';
 import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
 
 import api from '~/api';
-import { commonFetch } from '~/api/commonFetch';
 import Roles from '~/services/Roles';
 
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -84,9 +83,9 @@ class Page_courses_id extends React.Component {
   }
 
   apiGetPage = () => {
-    commonFetch(
+    api.get.PageApi.getCoursePage(
       (spe) => this.setState({ speGetProblems: spe }),
-      'GET', `/api/pages/courses/${this.props.courseId}`
+      { courseId: this.props.courseId }
     );
     this.props.MyActions.apiGetCourseForActions(this.props.courseId);
   }
