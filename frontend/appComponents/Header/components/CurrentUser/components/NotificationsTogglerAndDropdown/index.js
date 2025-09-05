@@ -42,28 +42,26 @@ class NotificationsTogglerAndDropdown extends React.Component {
     
     this.props.NotificationsActions.apiLoadMoreNotifications(
       this.props.currentUser.id,
-      10,
-      offset,
-      (speLoadMore) => this.setState({ speLoadMoreNotifications: speLoadMore })
-    );
+      offset
+    ).then((speLoadMore) => this.setState({ speLoadMoreNotifications: speLoadMore }));
   }
 
   apiMarkAsReadOrUnread = (notification, ifRead) => {
     const updatedNotification = { ...notification, ifRead };
     
-    // Update Redux state instead of local state
+    // Update Redux state first
     this.props.NotificationsActions.updateNotification(updatedNotification);
     
-    return api.NotificationApi.markAsReadOrUnread(null, {
-      id: notification.id,
-      ifRead
-    });
+    // Then make API call
+    this.props.NotificationsActions.apiMarkAsReadOrUnread(notification.id, ifRead);
   }
 
   apiMarkAllNotificationsAsRead = () => {
-    // Update Redux state instead of local state
+    // Update Redux state first
     this.props.NotificationsActions.markAllAsRead();
-    return api.NotificationApi.markAllNotificationsAsRead(null, { userId: this.props.currentUser.id });
+    
+    // Then make API call
+    this.props.NotificationsActions.apiMarkAllNotificationsAsRead(this.props.currentUser.id);
   }
 
   apiMarkNotificationsAsSeen = () => {

@@ -132,6 +132,17 @@ const getActions = (dispatch, getState) => ({
   
   updateNotification: (notification) => {
     dispatch({ type: `${namespace}.UPDATE_NOTIFICATION`, payload: notification });
+  },
+  
+  apiMarkAsReadOrUnread: (notificationId, ifRead) => {
+    api.NotificationApi.markAsReadOrUnread(null, {
+      id: notificationId,
+      ifRead
+    });
+  },
+  
+  apiMarkAllNotificationsAsRead: (userId) => {
+    api.NotificationApi.markAllNotificationsAsRead(null, { userId });
   }
 });
 
