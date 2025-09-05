@@ -1,4 +1,7 @@
 import CourseApi from '~/api/CourseApi';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -26,6 +29,11 @@ const getSortBy = (props) => {
   return sortBy ? sortBy : 'popular';
 };
 
+const getSearchString = (props) => {
+  const query = getQuery(props).get('query');
+  return query ? decodeURIComponent(query) : '';
+};
+
 const getQuery = (props) =>
   new URLSearchParams(props.location.search);
 
@@ -38,6 +46,7 @@ const getQuery = (props) =>
 class Page_courses extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired
   }
 
@@ -50,16 +59,29 @@ class Page_courses extends React.Component {
   }
 
   componentDidMount = () => {
-    this.apiGetCourses();
+    // Initialize search string from URL on mount
+    const urlSearchString = getSearchString(this.props);
+    this.setState({ searchString: urlSearchString }, () => {
+      this.apiGetCourses();
+    });
   }
 
   componentDidUpdate = (prevProps) => {
     if (
       getCategoryId(prevProps) !== getCategoryId(this.props) ||
       getCurrentPage(prevProps) !== getCurrentPage(this.props) ||
-      getSortBy(prevProps) !== getSortBy(this.props)
+      getSortBy(prevProps) !== getSortBy(this.props) ||
+      getSearchString(prevProps) !== getSearchString(this.props)
     ) {
-      this.apiGetCourses();
+      // If search string changed in URL, update state
+      const urlSearchString = getSearchString(this.props);
+      if (urlSearchString !== this.state.searchString) {
+        this.setState({ searchString: urlSearchString }, () => {
+          this.apiGetCourses();
+        });
+      } else {
+        this.apiGetCourses();
+      }
     }
   }
 
@@ -121,7 +143,20 @@ class Page_courses extends React.Component {
 
   updateSearchString = (event) => {
     const searchString = event.target.value;
-    this.setState({ searchString }, this.apiGetCourses);
+    this.setState({ searchString }, () => {
+      // Update URL with search query
+      const newQuery = getQuery(this.props);
+      newQuery.set('page', 1); // Reset to first page when searching
+      
+      if (searchString.trim()) {
+        newQuery.set('query', encodeURIComponent(searchString));
+      } else {
+        newQuery.delete('query');
+      }
+      
+      const newUrl = this.props.location.pathname + '?' + newQuery.toString();
+      this.props.history.push(newUrl);
+    });
   }
 
   renderPagination = (className = '') =>
