@@ -29,7 +29,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
   componentDidMount() {
     if (this.props.currentUser && this.props.currentUser.id) {
-      this.props.NotificationsActions.apiGetNotificationsAndStats(this.props.currentUser.id);
+      this.props.NotificationsActions.apiGetNotificationsAndStatsSilent(this.props.currentUser.id);
     }
   }
 
@@ -165,6 +165,9 @@ class NotificationsTogglerAndDropdown extends React.Component {
           const spe = this.props.notifications.speNotificationsAndStats;
           const hasUnreadNotifications = spe.status === 'success' && spe.payload && spe.payload.stats.amountOfUnreadNotifications > 0;
           if (hasUnreadNotifications && !this.props.notifications.didSeeNotifications) {
+            // Update Redux state immediately for instant UI feedback
+            this.props.NotificationsActions.setDidSeeNotifications(true);
+            // Then make API call
             this.apiMarkNotificationsAsSeen();
           }
         }

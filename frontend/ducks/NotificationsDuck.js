@@ -91,6 +91,26 @@ const getActions = (dispatch, getState) => ({
     );
   },
   
+  apiGetNotificationsAndStatsSilent: (userId, limit = 15, offset = 0) => {
+    const currentState = getState().global.Notifications.speNotificationsAndStats;
+    const hasExistingData = currentState.status === 'success';
+    
+    // If we don't have existing data, show loading state
+    if (!hasExistingData) {
+      dispatch({ type: SPE_NOTIFICATIONS_AND_STATS, spe: { status: 'request' } });
+    }
+    
+    api.NotificationApi.getNotificationsAndStatsForUser(
+      (spe) => {
+        // Only dispatch if we got a successful response or if we don't have existing data
+        if (spe.status === 'success' || !hasExistingData) {
+          dispatch({ type: SPE_NOTIFICATIONS_AND_STATS, spe });
+        }
+      },
+      { userId, limit, offset }
+    );
+  },
+  
   apiLoadMoreNotifications: (userId, offset) => {
     return api.NotificationApi.getNotificationsAndStatsForUser(
       (spe) => {
@@ -132,6 +152,10 @@ const getActions = (dispatch, getState) => ({
   
   updateNotification: (notification) => {
     dispatch({ type: `${namespace}.UPDATE_NOTIFICATION`, payload: notification });
+  },
+  
+  setDidSeeNotifications: (didSee) => {
+    dispatch({ type: `${namespace}.SET_DID_SEE_NOTIFICATIONS`, payload: didSee });
   },
   
   apiMarkAsReadOrUnread: (notificationId, ifRead) => {
