@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 // global state
 import { AuthenticationReducer } from '~/reducers/Authentication';
 import MyDuck from '~/ducks/MyDuck';
+import NotificationsDuck from '~/ducks/NotificationsDuck';
 
 // per-page state
 // [named like: page component name + _Reducer]
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   // global state
   global: combineReducers({
     Authentication: AuthenticationReducer,
+    Notifications: NotificationsDuck.reducer,
     My: MyDuck.reducer,
   }),
 

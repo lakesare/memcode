@@ -1,84 +1,59 @@
-import SpeImmutable from '~/services/SpeImmutable';
-import api from '~/api';
-
 import StandardTooltip from '~/components/StandardTooltip';
 import Loading from '~/components/Loading';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
+
+import NotificationsDuck from '~/ducks/NotificationsDuck';
 
 import NotificationLi from './components/NotificationLi';
 
 import css from './index.scss';
 
+@connect(
+  (state) => ({
+    notifications: state.global.Notifications
+  }),
+  (dispatch) => ({
+    NotificationsActions: dispatch(NotificationsDuck.getActions)
+  })
+)
 class NotificationsTogglerAndDropdown extends React.Component {
   static propTypes = {
-    currentUser: PropTypes.object.isRequired
+    currentUser: PropTypes.object.isRequired,
+    notifications: PropTypes.object.isRequired,
+    NotificationsActions: PropTypes.object.isRequired
   }
 
   state = {
-    speGetNotifications: {},
-    speLoadMoreNotifications: {},
-    amountOfAllNotifications: 0,
-    // should be stored in the local storage before we implement global state via the reducer
-    amountOfUnreadNotifications: localStorage.getItem('amountOfUnreadNotifications') || 0,
-    didSeeNotifications: true
+    speLoadMoreNotifications: {}
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.apiGetMostRecentNotifications();
-      this.apiGetNotificationsStatsForUser();
-    }, 2000);
+    if (this.props.currentUser && this.props.currentUser.id) {
+      this.props.NotificationsActions.apiGetNotificationsAndStats(this.props.currentUser.id);
+    }
   }
 
-  apiGetNotificationsStatsForUser = () =>
-    api.NotificationApi.getNotificationStatsForUser(null, { userId: this.props.currentUser.id })
-      .then((stats) => {
-        this.setState({
-          amountOfAllNotifications: stats.amountOfAllNotifications,
-          amountOfUnreadNotifications: stats.amountOfUnreadNotifications,
-          didSeeNotifications: stats.didSeeNotifications
-        });
-        localStorage.setItem('amountOfUnreadNotifications', stats.amountOfUnreadNotifications);
-      })
-
-  apiGetMostRecentNotifications = () =>
-    api.NotificationApi.getNotificationsForUser(
-      (spe) => this.setState({ speGetNotifications: spe }),
-      {
-        userId: this.props.currentUser.id,
-        limit: 15
-      }
-    )
-
-  apiLoadMoreNotifications = () =>
-    api.NotificationApi.getNotificationsForUser(
-      (spe) => this.setState({ speLoadMoreNotifications: spe }),
-      {
-        userId: this.props.currentUser.id,
-        limit: 10,
-        offset: this.state.speGetNotifications.payload.length
-      }
-    )
-      .then((notifications) => {
-        this.setState({
-          speGetNotifications: {
-            ...this.state.speGetNotifications,
-            payload: [
-              ...this.state.speGetNotifications.payload,
-              ...notifications
-            ]
-          }
-        });
-      })
+  apiLoadMoreNotifications = () => {
+    const spe = this.props.notifications.speNotificationsAndStats;
+    if (spe.status !== 'success' || !spe.payload) return;
+    
+    const currentNotifications = spe.payload.notifications;
+    const offset = currentNotifications.length;
+    
+    this.props.NotificationsActions.apiLoadMoreNotifications(
+      this.props.currentUser.id,
+      10,
+      offset,
+      (speLoadMore) => this.setState({ speLoadMoreNotifications: speLoadMore })
+    );
+  }
 
   apiMarkAsReadOrUnread = (notification, ifRead) => {
     const updatedNotification = { ...notification, ifRead };
-    const speGetNotifications = SpeImmutable.update(this.state.speGetNotifications, updatedNotification);
-
-    const amountOfUnreadNotifications = this.state.amountOfUnreadNotifications + (ifRead ? -1 : 1);
-
-    this.setState({ speGetNotifications, amountOfUnreadNotifications });
-    localStorage.setItem('amountOfUnreadNotifications', amountOfUnreadNotifications);
+    
+    // Update Redux state instead of local state
+    this.props.NotificationsActions.updateNotification(updatedNotification);
+    
     return api.NotificationApi.markAsReadOrUnread(null, {
       id: notification.id,
       ifRead
@@ -86,37 +61,32 @@ class NotificationsTogglerAndDropdown extends React.Component {
   }
 
   apiMarkAllNotificationsAsRead = () => {
-    this.setState({
-      speGetNotifications: {
-        ...this.state.speGetNotifications,
-        payload: this.state.speGetNotifications.payload.map((notification) => ({
-          ...notification,
-          ifRead: true
-        }))
-      },
-      amountOfUnreadNotifications: 0
-    });
-    localStorage.setItem('amountOfUnreadNotifications', 0);
+    // Update Redux state instead of local state
+    this.props.NotificationsActions.markAllAsRead();
     return api.NotificationApi.markAllNotificationsAsRead(null, { userId: this.props.currentUser.id });
   }
 
   apiMarkNotificationsAsSeen = () => {
-    this.setState({ didSeeNotifications: true });
-    return api.NotificationApi.markNotificationsAsSeen(null, { userId: this.props.currentUser.id });
+    this.props.NotificationsActions.apiMarkNotificationsAsSeen(this.props.currentUser.id);
   }
 
   isFooterShown = () => {
-    if (this.state.speGetNotifications.status !== 'success') {
+    const spe = this.props.notifications.speNotificationsAndStats;
+    
+    if (spe.status !== 'success' || !spe.payload) {
       return false;
     }
-    const notifications = this.state.speGetNotifications.payload;
-    return this.state.amountOfAllNotifications > notifications.length;
+    
+    const notifications = spe.payload.notifications;
+    const totalNotifications = spe.payload.stats.amountOfAllNotifications;
+    return totalNotifications > notifications.length;
   }
 
   renderToggler = () => {
-    const hasUnreadNotifications = this.state.amountOfUnreadNotifications > 0;
-    const shouldAnimate = hasUnreadNotifications && !this.state.didSeeNotifications;
-    const shouldShowCount = hasUnreadNotifications && !this.state.didSeeNotifications;
+    const spe = this.props.notifications.speNotificationsAndStats;
+    const hasUnreadNotifications = spe.status === 'success' && spe.payload && spe.payload.stats.amountOfUnreadNotifications > 0;
+    const shouldAnimate = hasUnreadNotifications && !this.props.notifications.didSeeNotifications;
+    const shouldShowCount = hasUnreadNotifications && !this.props.notifications.didSeeNotifications;
     
     return (
       <button
@@ -126,33 +96,39 @@ class NotificationsTogglerAndDropdown extends React.Component {
           ${css.toggler}
           ${shouldAnimate ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
         `}
-        style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
+        style={disableOnSpeRequest(spe, { opacity: 1 })}
       >
         <i className="material-icons">
           notifications_none
         </i>
         {
           shouldShowCount &&
-          <div className="amount-of-unread-notifications">{this.state.amountOfUnreadNotifications}</div>
+          <div className="amount-of-unread-notifications">{spe.payload.stats.amountOfUnreadNotifications}</div>
         }
       </button>
     );
   }
 
-  renderDropdownHeader = () =>
-    <div className="header">
-      <div className="title">
-        Latest Notifications
+  renderDropdownHeader = () => {
+    const spe = this.props.notifications.speNotificationsAndStats;
+    const hasUnreadNotifications = spe.status === 'success' && spe.payload && spe.payload.stats.amountOfUnreadNotifications > 0;
+    
+    return (
+      <div className="header">
+        <div className="title">
+          Latest Notifications
+        </div>
+        {
+          hasUnreadNotifications &&
+          <button
+            className="read-all-button"
+            type="button"
+            onClick={this.apiMarkAllNotificationsAsRead}
+          >Read All</button>
+        }
       </div>
-      {
-        this.state.amountOfUnreadNotifications > 0 &&
-        <button
-          className="read-all-button"
-          type="button"
-          onClick={this.apiMarkAllNotificationsAsRead}
-        >Read All</button>
-      }
-    </div>
+    );
+  }
 
   renderDropdownFooter = () => (
     this.isFooterShown() &&
@@ -165,8 +141,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
     <div className={css.dropdown}>
       {this.renderDropdownHeader()}
       <ul className={`notifications ${this.isFooterShown() ? '' : '-no-footer'}`}>
-        <Loading enabledStatuses={['success']} spe={this.state.speGetNotifications}>{(notifications) =>
-          notifications.map((notification) =>
+        <Loading enabledStatuses={['success']} spe={this.props.notifications.speNotificationsAndStats}>{(data) =>
+          data.notifications.map((notification) =>
             <NotificationLi
               key={notification.id}
               notification={notification}
@@ -188,7 +164,9 @@ class NotificationsTogglerAndDropdown extends React.Component {
         trigger: 'click',
         onShow: () => {
           // Mark notifications as seen when the dropdown opens
-          if (this.state.amountOfUnreadNotifications > 0 && !this.state.didSeeNotifications) {
+          const spe = this.props.notifications.speNotificationsAndStats;
+          const hasUnreadNotifications = spe.status === 'success' && spe.payload && spe.payload.stats.amountOfUnreadNotifications > 0;
+          if (hasUnreadNotifications && !this.props.notifications.didSeeNotifications) {
             this.apiMarkNotificationsAsSeen();
           }
         }
