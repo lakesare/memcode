@@ -6,19 +6,16 @@ start:
 frontend-webpack:
 	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
 
-# database
+LOCAL_DB_URL = postgresql://memcode:memcode@localhost/memcode
+LOCAL_POSTGRES_URL = postgresql://memcode:memcode@localhost/postgres
 db-drop:
-	psql -U postgres -c 'DROP DATABASE IF EXISTS memcode'
-# 'database=' here is a variable used in schema.sql (-v).
+	psql $(LOCAL_POSTGRES_URL) -c 'DROP DATABASE IF EXISTS memcode'
 db-reset:
-	psql -v database=memcode -U postgres -f backend/db/schema.sql
+	make db-drop
+	psql $(LOCAL_POSTGRES_URL) -c 'CREATE DATABASE memcode'
+	psql $(LOCAL_DB_URL) -f backend/db/schema.sql
 db-migrate:
-	psql -v database=memcode -U postgres -f backend/db/migrations/15.sql
-# database: dump and restore data
-db-dump:
-	pg_dump -d memcode -U postgres > backend/db/dump.sql
-db-restore:
-	psql -d memcode -U postgres < backend/db/dump.sql
+	psql $(LOCAL_DB_URL) -f backend/db/migrations/15.sql
 
 # _______________________________PRODUCTION_______________________________
 # ___Why don't we run `npm install`?

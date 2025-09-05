@@ -1,10 +1,7 @@
 -- http://stackoverflow.com/a/13318869/3192470
-DROP DATABASE IF EXISTS :database;
-CREATE DATABASE :database;
+-- Database creation and switching handled by Makefile
 
-\c :database;
-
-CREATE EXTENSION fuzzystrmatch;
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
 SET timezone TO 'Etc/UTC';
 
 -- always use "user" (double quotes) when you reference this table.

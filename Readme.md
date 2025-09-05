@@ -35,16 +35,19 @@ Feel free to ask questions/propose features in github issues, or email contact@m
 
 #### Create a database
 
-1. Install PostgreSQL
-2. Go to postgres console: `psql postgres`.
-3. Create a `postgres` user with password: `CREATE ROLE postgres WITH LOGIN PASSWORD 'postgres';`.
-4. Give the user a permission to create dbs, own all extensions, etc.: `ALTER ROLE postgres with superuser;`.
+1. Install PostgreSQL (any modern should work, for example v14.17 and v16.9 certainly work)
+2. Go to postgres console: `psql postgres` (as the default postgres superuser)
+3. Create a `memcode` user with password: `CREATE ROLE memcode WITH LOGIN PASSWORD 'memcode';`.
+4. Give the user permission to create databases: `ALTER ROLE memcode CREATEDB;`.
 5. Create a new development database 'memcode': `make db-reset`. This will create the raw database for you - a schema and a few necessary database rows.
+
+**Note**: The project uses a PostgreSQL user named `memcode` with password `memcode` for the database `memcode`. All database commands in the Makefile are configured to use these credentials.
 
 #### Copypaste environment variables
 
 1. Copy the example environment file with `cp env.example.js env.js`
-2. Insert the necessary values - all those marked with *"(NECESSARY)"*
+   
+   For basic development you do not need to change anything in this file.
 
 #### Install the needed libraries
 
@@ -56,7 +59,8 @@ Feel free to ask questions/propose features in github issues, or email contact@m
 
 1. Run `make frontend-webpack` (compiles the frontend code)
 2. Run `make start` (starts the node server)
-2. Go to <a href="http://localhost:3000/">http://localhost:3000</a>, and enjoy the development!
+2. Go to <a href="http://localhost:3000/">http://localhost:3000</a>, and enjoy the development!  
+   Locally, please use username&password to sign up.
 
 <br/>
 <div align="center">

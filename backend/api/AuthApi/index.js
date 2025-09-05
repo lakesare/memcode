@@ -41,8 +41,11 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   if (!dbUser) {
     dbUser = await UserModel.insert.createFrom(oauthProviderName, oauthProfile);
     await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
-    const welcomeCourseId = 6868;
-    await knex('courseUserIsLearning').insert({ courseId: welcomeCourseId, userId: dbUser.id, active: true });
+    // Only assign welcome course in production
+    if (process.env.NODE_ENV === 'production') {
+      const welcomeCourseId = 6868;
+      await knex('courseUserIsLearning').insert({ courseId: welcomeCourseId, userId: dbUser.id, active: true });
+    }
     // await sendWelcomeEmail(oauthProfile.email);
   }
 

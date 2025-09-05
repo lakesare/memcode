@@ -63,8 +63,11 @@ const signup = async (request, response) => {
 
   // Send welcome notification and add welcome course
   await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
-  const welcomeCourseId = 6868;
-  await knex('courseUserIsLearning').insert({ courseId: welcomeCourseId, userId: dbUser.id, active: true });
+  // Only assign welcome course in production
+  if (process.env.NODE_ENV === 'production') {
+    const welcomeCourseId = 6868;
+    await knex('courseUserIsLearning').insert({ courseId: welcomeCourseId, userId: dbUser.id, active: true });
+  }
 
   // Generate JWT token
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
