@@ -20,6 +20,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
     amountOfAllNotifications: 0,
     // should be stored in the local storage before we implement global state via the reducer
     amountOfUnreadNotifications: localStorage.getItem('amountOfUnreadNotifications') || 0,
+    didSeeNotifications: true
   }
 
   componentDidMount() {
@@ -34,7 +35,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
       .then((stats) => {
         this.setState({
           amountOfAllNotifications: stats.amountOfAllNotifications,
-          amountOfUnreadNotifications: stats.amountOfUnreadNotifications
+          amountOfUnreadNotifications: stats.amountOfUnreadNotifications,
+          didSeeNotifications: stats.didSeeNotifications
         });
         localStorage.setItem('amountOfUnreadNotifications', stats.amountOfUnreadNotifications);
       })
@@ -98,6 +100,11 @@ class NotificationsTogglerAndDropdown extends React.Component {
     return api.NotificationApi.markAllNotificationsAsRead(null, { userId: this.props.currentUser.id });
   }
 
+  apiMarkNotificationsAsSeen = () => {
+    this.setState({ didSeeNotifications: true });
+    return api.NotificationApi.markNotificationsAsSeen(null, { userId: this.props.currentUser.id });
+  }
+
   isFooterShown = () => {
     if (this.state.speGetNotifications.status !== 'success') {
       return false;
@@ -106,24 +113,31 @@ class NotificationsTogglerAndDropdown extends React.Component {
     return this.state.amountOfAllNotifications > notifications.length;
   }
 
-  renderToggler = () =>
-    <button
-      type="button"
-      className={`
-        notifications-toggler
-        ${css.toggler}
-        ${this.state.amountOfUnreadNotifications > 0 ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
-      `}
-      style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
-    >
-      <i className="material-icons">
-        notifications_none
-      </i>
-      {
-        this.state.amountOfUnreadNotifications > 0 &&
-        <div className="amount-of-unread-notifications">{this.state.amountOfUnreadNotifications}</div>
-      }
-    </button>
+  renderToggler = () => {
+    const hasUnreadNotifications = this.state.amountOfUnreadNotifications > 0;
+    const shouldAnimate = hasUnreadNotifications && !this.state.didSeeNotifications;
+    const shouldShowCount = hasUnreadNotifications && !this.state.didSeeNotifications;
+    
+    return (
+      <button
+        type="button"
+        className={`
+          notifications-toggler
+          ${css.toggler}
+          ${shouldAnimate ? '-there-are-unread-notifications' : '-there-are-no-unread-notifications'}
+        `}
+        style={disableOnSpeRequest(this.state.speGetNotifications, { opacity: 1 })}
+      >
+        <i className="material-icons">
+          notifications_none
+        </i>
+        {
+          shouldShowCount &&
+          <div className="amount-of-unread-notifications">{this.state.amountOfUnreadNotifications}</div>
+        }
+      </button>
+    );
+  }
 
   renderDropdownHeader = () =>
     <div className="header">
@@ -171,7 +185,13 @@ class NotificationsTogglerAndDropdown extends React.Component {
         className: 'standard-tooltip -no-padding -dark',
         interactive: true,
         placement: 'bottom-end',
-        trigger: 'click'
+        trigger: 'click',
+        onShow: () => {
+          // Mark notifications as seen when the dropdown opens
+          if (this.state.amountOfUnreadNotifications > 0 && !this.state.didSeeNotifications) {
+            this.apiMarkNotificationsAsSeen();
+          }
+        }
       }}
       width={400}
     >

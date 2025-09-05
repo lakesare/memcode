@@ -5,8 +5,17 @@ import knex from '#~/db/knex.js';
 //   content: {},
 //   userId
 // })
-const create = ({ type, content, userId }) =>
-  knex('notification').insert({ type, content, userId, ifRead: false });
+const create = async ({ type, content, userId }) => {
+  // Create the notification
+  const result = await knex('notification').insert({ type, content, userId, ifRead: false });
+  
+  // Mark that the user has unseen notifications
+  await knex('user')
+    .where({ id: userId })
+    .update({ did_see_notifications: false });
+  
+  return result;
+};
 
 const someone_rated_your_course = async ({ raterId, courseId, rating }) => {
   const rater = (await knex('user').where({ id: raterId }))[0];

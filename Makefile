@@ -15,7 +15,7 @@ db-reset:
 	psql $(LOCAL_POSTGRES_URL) -c 'CREATE DATABASE memcode'
 	psql $(LOCAL_DB_URL) -f backend/db/schema.sql
 db-migrate:
-	psql $(LOCAL_DB_URL) -f backend/db/migrations/15.sql
+	psql $(LOCAL_DB_URL) -f backend/db/migrations/16.sql
 
 # _______________________________PRODUCTION_______________________________
 # ___Why don't we run `npm install`?

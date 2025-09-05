@@ -1,0 +1,3 @@
+-- Add did_see_notifications field to track if user has opened notification dropdown
+-- Defaults to true for existing users (no animation), false when new notifications are created
+ALTER TABLE "user" ADD COLUMN did_see_notifications BOOLEAN DEFAULT true;

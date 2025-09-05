@@ -17,6 +17,7 @@ CREATE TABLE "user" (
   avatar_url VARCHAR,
   email TEXT,
   password_hash VARCHAR,
+  did_see_notifications BOOLEAN DEFAULT true,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   unique (oauth_provider, oauth_id)
 );
