@@ -3,7 +3,22 @@ import Parchment from 'parchment';
 
 import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 import preloadImage from '~/services/preloadImage';
-import FileApi from '~/api/FileApi';
+import fetchWrapper from '~/api/services/fetchWrapper';
+
+// File upload function (moved from FileApi.js since it's only used here)
+const uploadFile = (dispatch, file) => {
+  const formData = new FormData();
+  // 'file' string can be anything, it just has to correspond to uploadFileToAwsS3.single('file')
+  formData.append('file', file);
+
+  return fetchWrapper(
+    dispatch,
+    fetch('/api/files/upload', {
+      method: 'POST',
+      body: formData
+    })
+  );
+};
 
 window.findReactComponent = (el) => {
   for (const key in el) {
@@ -37,7 +52,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
         .retain(selectionAt)
         .insert({ loadingImage: { src: dataUrl, className: 'placeholder-for-loading-image', id: randomId } })
     );
-    FileApi.upload(false, file)
+    uploadFile(false, file)
       .then((response) => {
         preloadImage(response.url, () => {
           const placeholderEl = quill.container.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
