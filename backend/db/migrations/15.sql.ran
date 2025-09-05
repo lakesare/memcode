@@ -1,0 +1,2 @@
+-- Add password hash field for local auth
+ALTER TABLE "user" ADD COLUMN password_hash VARCHAR;
