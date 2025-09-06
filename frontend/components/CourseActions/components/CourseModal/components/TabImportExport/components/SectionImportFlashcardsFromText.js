@@ -11,6 +11,7 @@ cloze-deletion ||| <p>Ich komme <mark class="answer">spät</mark> zur Party.</p>
 </example>
 
 So, the user sees a german sentence, sees a translation in the languages he knows, and writes "spät" in the missing field.
+There can be two (or more, any amount) answers per flashcard in cloze-deletion flashcards, but they must always be in the first column.
 </instructions>
 
 <format>
