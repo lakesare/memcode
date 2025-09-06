@@ -6,8 +6,8 @@ import NotificationModel from '#~/models/NotificationModel.js';
  * @param {Object} user - The newly created user object with user.id
  */
 const setupNewUser = async (user) => {
-  // Send welcome notification
-  await NotificationModel.welcome_to_memcode({ userId: user.id });
+  // Create welcome notification
+  await NotificationModel.create({ type: 'welcome_to_memcode', content: {}, userId: user.id });
   
   // Only assign welcome course in production
   if (process.env.NODE_ENV === 'production') {

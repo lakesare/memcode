@@ -1,6 +1,7 @@
 import knex from '#~/db/knex.js';
 import auth from '#~/middlewares/auth.js';
 import getRatingsAndAverageAndOwn from './services/getRatingsAndAverageAndOwn.js';
+import NotificationModel from '#~/models/NotificationModel.js';
 
 const rate = auth(async (request, response) => {
   const userId = request.currentUser.id;
@@ -21,25 +22,11 @@ const rate = auth(async (request, response) => {
   const course = (await knex('course').where({ id: courseId }))[0];
   const courseAuthorId = course.userId;
 
-  // Create the notification
-  await knex('notification').insert({ 
+  await NotificationModel.create({
     type: 'someone_rated_your_course',
-    content: {
-      rating,
-      raterId: rater.id,
-      courseId: course.id,
-      raterUsername: rater.username,
-      raterAvatarUrl: rater.avatarUrl,
-      courseTitle: course.title
-    },
-    userId: courseAuthorId,
-    ifRead: false
+    content: { rating, raterId: rater.id, courseId: course.id, raterUsername: rater.username, raterAvatarUrl: rater.avatarUrl, courseTitle: course.title },
+    userId: courseAuthorId
   });
-  
-  // Mark that the user has unseen notifications
-  await knex('user')
-    .where({ id: courseAuthorId })
-    .update({ did_see_notifications: false });
 
   const dto = await getRatingsAndAverageAndOwn(courseId, userId);
 

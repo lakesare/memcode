@@ -8,14 +8,6 @@ const create = async ({ type, content, userId }) => {
   return result;
 };
 
-const welcome_to_memcode = ({ userId }) =>
-  create({
-    type: 'welcome_to_memcode',
-    content: {},
-    userId
-  });
-
 export default {
-  create,
-  welcome_to_memcode
+  create
 };
