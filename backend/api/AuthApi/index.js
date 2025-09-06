@@ -8,7 +8,6 @@ import { githubFetchAuthorizedAccount } from './services/github/githubFetchAutho
 import { googleFetchAccessToken } from './services/google/googleFetchAccessToken.js';
 import { googleFetchAuthorizedAccount } from './services/google/googleFetchAuthorizedAccount.js';
 import NotificationModel from '#~/models/NotificationModel/index.js'
-import UserModel from '#~/models/UserModel/index.js'
 
 const router = express.Router();
 
@@ -37,9 +36,39 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
   const accessToken = await oauthProvider.fetchAccessToken(oauthProvider.oauthId, oauthProvider.oauthSecret, code);
   const oauthProfile = await oauthProvider.fetchProfile(accessToken);
 
-  let dbUser = await UserModel.select.oneByOauth(oauthProviderName, oauthProfile.id);
+  let dbUser = await knex('user')
+    .where('oauth_provider', oauthProviderName)
+    .where('oauth_id', oauthProfile.id.toString())
+    .first();
   if (!dbUser) {
-    dbUser = await UserModel.insert.createFrom(oauthProviderName, oauthProfile);
+    // Create user from OAuth profile
+    let userData;
+    switch (oauthProviderName) {
+      case 'github':
+        userData = {
+          oauthProvider: 'github',
+          oauthId      : oauthProfile.id.toString(),
+          username     : oauthProfile.login,
+          avatarUrl    : oauthProfile.avatar_url,
+          email        : oauthProfile.email,
+          createdAt    : new Date()
+        };
+        break;
+      case 'google':
+        userData = {
+          oauthProvider: 'google',
+          oauthId      : oauthProfile.id.toString(),
+          username     : oauthProfile.name,
+          avatarUrl    : oauthProfile.picture,
+          email        : oauthProfile.email,
+          createdAt    : new Date()
+        };
+        break;
+      default:
+        throw new Error(`No such oauthProvider as '${oauthProviderName}'.`);
+    }
+    
+    [dbUser] = await knex('user').insert(userData).returning('*');
     await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
     // Only assign welcome course in production
     if (process.env.NODE_ENV === 'production') {
