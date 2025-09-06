@@ -1,6 +1,5 @@
 import knex from '#~/db/knex.js';
 import canAccessCourse from '#~/services/canAccessCourse.js';
-import ProblemUserIsLearningModel from '#~/models/ProblemUserIsLearningModel/index.js'
 import getProblemsByCourseId from '#~/api/services/getProblemsByCourseId.js';
 
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
@@ -18,7 +17,8 @@ const getLearnPage = async (request, response) => {
 
   // find problems
   const problems = await getProblemsByCourseId(courseId);
-  const problemUserIsLearnings = await ProblemUserIsLearningModel.select.allByCuilId(courseUserIsLearning.id);
+  const problemUserIsLearnings = await knex('problemUserIsLearning')
+    .where('course_user_is_learning_id', courseUserIsLearning.id);
 
   response.success({ courseUserIsLearning, problems, problemUserIsLearnings });
 };
