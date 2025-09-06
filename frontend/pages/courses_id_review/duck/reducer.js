@@ -1,5 +1,7 @@
 import _ from 'lodash';
-import playLongSound from './services/playLongSound';
+import playAutoTts from './services/playAutoTts';
+import TtsService from '~/services/ttsService';
+import ClozeDeletion from '~/services/ClozeDeletion';
 
 const initialState = {
   speGetPage: {},
@@ -15,7 +17,6 @@ const initialState = {
   amountOfFailedProblems: 0
 };
 
-import amountOfAnswerInputsInProblem from './services/amountOfAnswerInputsInProblem';
 import freshStatusOfSolving from './services/freshStatusOfSolving';
 import selectors from './selectors';
 
@@ -25,14 +26,18 @@ const reducer = (state = initialState, action) => {
     // RIGHT inlined answer that is
     case 'INLINED_ANSWER_GIVEN': {
       const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven + 1;
-      const wanted = amountOfAnswerInputsInProblem(currentProblem);
+      const wanted = ClozeDeletion.countAnswerBlanks(currentProblem.content.content);
+      const answer = action.payload; // The individual answer text
+
+      // Read the individual answer if volume is enabled
+      if (answer && localStorage.getItem('volume') === 'yes') {
+        TtsService.speakText(answer);
+      }
 
       if (given !== wanted) {
         console.log('given isnt equal to wanted');
-        // playShortSound();
       } else {
         console.log('given is wanted');
-        playLongSound();
       }
 
       return {
@@ -60,11 +65,23 @@ const reducer = (state = initialState, action) => {
         }
       };
 
-    case 'SET_STATUS_TO_SEEING_ANSWER':
+    case 'SET_STATUS_TO_SEEING_ANSWER': {
+      // Read the correct answer when transitioning to seeing answer
+      // Only for inlinedAnswers problems - separateAnswer problems should never read the answer
+      if (currentProblem && localStorage.getItem('volume') === 'yes' && currentProblem.type === 'inlinedAnswers') {
+        // Extract answers from cloze deletion markup
+        const answers = ClozeDeletion.getAnswerTexts(currentProblem.content.content);
+        if (answers.length > 0) {
+          const correctAnswer = answers.join(', ');
+          TtsService.speakText(correctAnswer);
+        }
+      }
+      
       return {
         ...state,
         statusOfSolving: { ...state.statusOfSolving, status: 'seeingAnswer' }
       };
+    }
 
     case 'SET_NEXT_PROBLEM': { // (payload: problem index)
       const nextIndex = action.payload;
@@ -74,6 +91,10 @@ const reducer = (state = initialState, action) => {
       if (!nextProblem && state.indexesOfFailedProblems.length > 0) {
         const firstFailedIndex = state.indexesOfFailedProblems[0];
         const reReviewProblem = state.speGetPage.payload.problems[firstFailedIndex];
+        
+        // Auto-read the re-review problem
+        playAutoTts(reReviewProblem);
+        
         if (state.ifReviewingFailedProblems) {
           return {
             ...state,
@@ -88,6 +109,9 @@ const reducer = (state = initialState, action) => {
           };
         }
       } else {
+        // Auto-read the next problem
+        playAutoTts(nextProblem);
+        
         return {
           ...state,
           statusOfSolving: freshStatusOfSolving(nextProblem, nextIndex)
@@ -98,6 +122,10 @@ const reducer = (state = initialState, action) => {
     case 'SET_NEXT_REREVIEW_PROBLEM': { // (action.payload: problem index relating to .indexesOfFailedProblems)
       const nextProblemIndex = state.indexesOfFailedProblems[0];
       const reReviewProblem = state.speGetPage.payload.problems[nextProblemIndex];
+      
+      // Auto-read the re-review problem
+      playAutoTts(reReviewProblem);
+      
       return {
         ...state,
         statusOfSolving: freshStatusOfSolving(reReviewProblem, nextProblemIndex)
@@ -122,6 +150,10 @@ const reducer = (state = initialState, action) => {
       const spe = action.payload;
       if (action.payload.status === 'success') {
         const firstProblem = spe.payload.problems[0];
+        
+        // Auto-read the first problem
+        playAutoTts(firstProblem);
+        
         return {
           ...state,
           speGetPage: spe,
@@ -152,6 +184,11 @@ const reducer = (state = initialState, action) => {
         ifCurrentProblemDidntChange = randomProblems[currentProblemIndex].id === problems[currentProblemIndex].id;
       }
 
+      const newCurrentProblem = randomProblems[currentProblemIndex];
+      
+      // Auto-read the new randomized problem
+      playAutoTts(newCurrentProblem);
+      
       return {
         ...state,
         speGetPage: {
@@ -161,7 +198,7 @@ const reducer = (state = initialState, action) => {
             problems: randomProblems
           }
         },
-        statusOfSolving: freshStatusOfSolving(randomProblems[currentProblemIndex], currentProblemIndex)
+        statusOfSolving: freshStatusOfSolving(newCurrentProblem, currentProblemIndex)
       };
     }
 

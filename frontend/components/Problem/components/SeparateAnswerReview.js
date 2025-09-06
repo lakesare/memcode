@@ -1,4 +1,3 @@
-import { Editor } from '~/components/Editor';
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 
 class SeparateAnswerReview extends React.Component {
@@ -27,21 +26,25 @@ class SeparateAnswerReview extends React.Component {
   }
 
   uiFocusOnSeeAnswerButton = () => {
-    // const seeAnswerButton = document.querySelector('.see-answer-button');
-    // if (seeAnswerButton) {
-    //   seeAnswerButton.focus();
-    // }
     document.querySelector('body').click();
   }
 
   render = () =>
     <section className="problem -withSeparateAnswer">
       <div className="question-and-answer">
-        <ReadonlyEditor className="question first-column" html={this.props.problemContent.content}/>
+        <ReadonlyEditor 
+          className="question first-column" 
+          html={this.props.problemContent.content}
+          audioText={this.props.problemContent.content}
+        />
 
         {
           this.props.statusOfSolving.status === 'seeingAnswer' ?
-            <ReadonlyEditor className="answer second-column" html={this.props.problemContent.answer}/> :
+            <ReadonlyEditor 
+              className="answer second-column" 
+              html={this.props.problemContent.answer}
+              audioText={this.props.problemContent.answer}
+            /> :
             <div className="second-column">
               <button
                 type="button"

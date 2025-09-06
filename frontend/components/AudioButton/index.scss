@@ -1,0 +1,26 @@
+@use '~/css/variables.scss';
+
+:local(.audioButton) {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+
+  position: absolute;
+  top: 1px; right: 0;
+  i{ font-size: 15px; }
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &.-is-loading {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}

@@ -67,7 +67,7 @@ import actions from './duck/actions';
         type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
         payload: selfScore
       }),
-    onRightAnswerGiven: () => dispatch({ type: 'INLINED_ANSWER_GIVEN' }),
+    onRightAnswerGiven: (answer) => dispatch({ type: 'INLINED_ANSWER_GIVEN', payload: answer }),
     randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
     switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
 

@@ -2,6 +2,7 @@
 // because there is no alternative to el.readOnly
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 import splitAltAnswers from './utils/splitAltAnswers';
+import ClozeDeletion from '~/services/ClozeDeletion';
 
 const focusOnTheFirstAnswer = (arrayOfAnswerEls) => {
   const answers = arrayOfAnswerEls;
@@ -69,7 +70,7 @@ const _checkAnswer = (el, onRightAnswerGiven, nextInput) => {
 
     if (nextInput) nextInput.focus({ preventScroll: true });
 
-    onRightAnswerGiven();
+    onRightAnswerGiven(currentValue.toLowerCase());
   }
 };
 
@@ -91,14 +92,14 @@ const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
 const attachOnclick = (arrayOfAnswerEls, onRightAnswerGiven) => {
   arrayOfAnswerEls.forEach((el) => {
     el.addEventListener('click', () => {
-      console.log(`clicked on `, el);
-      el.value = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
+      const answer = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
+      el.value = answer;
       el.setAttribute('data-answered', 'wrong');
       el.readOnly = true;
       el.setAttribute('tabindex', -1);
       _adjustWidthToInput(el);
 
-      onRightAnswerGiven();
+      onRightAnswerGiven(answer);
     });
   });
 }
@@ -162,6 +163,17 @@ class InlinedAnswersReview extends React.Component {
     }
   }
 
+  generateAudioText = () => {
+    // If we're seeing the answer (succumbed), just pass HTML - TTS will read everything naturally
+    if (this.props.statusOfSolving.status === 'seeingAnswer') {
+      return this.props.problemContent.content;
+    // If still solving, only show answers that were typed correctly, hide the rest
+    } else {
+      const answerInputs = this.refs.problem ? this.getArrayOfAnswerInputs() : [];
+      return ClozeDeletion.hideUnsolvedAnswers(this.props.problemContent.content, answerInputs);
+    }
+  }
+
   render = () => {
     // '<mark class="answer">' => '</mark>'
     const content = this.props.problemContent.content
@@ -178,8 +190,16 @@ class InlinedAnswersReview extends React.Component {
       );
 
     return <section className="problem -withInlinedAnswers" ref="problem">
-      <ReadonlyEditor className="first-column" html={content}/>
-      <ReadonlyEditor className="second-column" html={this.props.problemContent.explanation}/>
+      <ReadonlyEditor 
+        className="first-column" 
+        html={content}
+        audioText={this.generateAudioText()}
+      />
+      <ReadonlyEditor 
+        className="second-column" 
+        html={this.props.problemContent.explanation}
+        audioText={this.props.problemContent.explanation}
+      />
     </section>;
   }
 }

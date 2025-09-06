@@ -1,5 +1,5 @@
 import calculateScore from './services/calculateScore';
-import amountOfAnswerInputsInProblem from './services/amountOfAnswerInputsInProblem';
+import ClozeDeletion from '~/services/ClozeDeletion';
 
 const deriveCurrentProblem = (state) => {
   const spe = state.speGetPage;
@@ -19,7 +19,7 @@ const deriveScore = (state, clozeDeletionMode) => {
         // given: amount of answers that were properly given
         // wanted: amount of all problems
         const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven;
-        const wanted = amountOfAnswerInputsInProblem(currentProblem);
+        const wanted = ClozeDeletion.countAnswerBlanks(currentProblem.content.content);
         return calculateScore(given, wanted);
       } else {
         return state.statusOfSolving.typeSpecific.selfScore;

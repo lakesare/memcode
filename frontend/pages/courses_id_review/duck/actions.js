@@ -3,9 +3,6 @@ import MyDuck from '~/ducks/MyDuck';
 
 import selectors from './selectors';
 
-import playShortSound from './services/playShortSound';
-import playLongSound from './services/playLongSound';
-
 const ignoreCurrentFlashcard = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
@@ -45,9 +42,6 @@ const enterPressed = () =>
       switch (state.statusOfSolving.status) {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-          if (currentProblem.type === 'separateAnswer') {
-            playShortSound();
-          }
           break;
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state, getState().global.My.clozeDeletionMode);
@@ -66,7 +60,6 @@ const enterPressed = () =>
               payload: currentIndex
             });
           }
-          playLongSound(score, currentProblem);
           dispatch({
             type: 'SET_NEXT_PROBLEM',
             payload: currentIndex + 1
@@ -86,9 +79,6 @@ const enterPressedInFailedMode = () =>
     switch (state.statusOfSolving.status) {
       case 'solving':
         dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-        if (currentProblem.type === 'separateAnswer') {
-          playShortSound();
-        }
         break;
       case 'seeingAnswer': {
         const score = selectors.deriveScore(state, getState().global.My.clozeDeletionMode);
@@ -106,7 +96,6 @@ const enterPressedInFailedMode = () =>
             payload: currentIndex
           });
         }
-        playLongSound(score, currentProblem);
 
         const ifNextReReviewProblem = state.indexesOfFailedProblems[0];
         if (ifNextReReviewProblem) {
@@ -141,9 +130,6 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
       switch (state.statusOfSolving.status) {
         case 'solving':
           dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
-          if (currentProblem.type === 'separateAnswer') {
-            playShortSound();
-          }
           break;
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state, getState().global.My.clozeDeletionMode);
@@ -168,7 +154,6 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
             MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id, score);
           }
 
-          playLongSound(score, currentProblem);
           dispatch({
             type: 'SET_NEXT_PROBLEM',
             payload: state.statusOfSolving.index + 1

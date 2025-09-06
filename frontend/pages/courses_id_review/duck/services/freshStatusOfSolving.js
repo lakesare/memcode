@@ -1,4 +1,4 @@
-import amountOfAnswerInputsInProblem from './amountOfAnswerInputsInProblem';
+import ClozeDeletion from '~/services/ClozeDeletion';
 
 const freshStatusOfSolving = (problem, index) => {
   // index, // reference to the currentProblem
@@ -9,7 +9,7 @@ const freshStatusOfSolving = (problem, index) => {
     case 'inlinedAnswers':
       return {
         index,
-        status: amountOfAnswerInputsInProblem(problem) === 0 ? 'seeingAnswer' : 'solving',
+        status: ClozeDeletion.countAnswerBlanks(problem.content.content) === 0 ? 'seeingAnswer' : 'solving',
         typeSpecific: { amountOfRightAnswersGiven: 0, selfScore: 5 }
       };
     case 'separateAnswer':

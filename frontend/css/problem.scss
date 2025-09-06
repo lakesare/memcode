@@ -2,13 +2,17 @@
 
 section.problem{
   display: flex;
+  gap: 20px; // Creates 20px gap between columns (equivalent to 10px padding on each side)
   .first-column, .second-column{
     width: 50%;
     flex-grow: 0;
-    flex-shrink: 0;
+    flex-shrink: 1;
   }
-  .first-column{ padding-right: 10px; }
-  .second-column{ padding-left: 10px; }
+  
+  // On mobile when columns stack vertically, use smaller gap
+  @media (max-width: 900px) {
+    gap: 0;
+  }
 
   // Css for quill editors only in flashcards
   .ql-editor{
