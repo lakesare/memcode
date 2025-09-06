@@ -1,6 +1,5 @@
 import knex from '#~/db/knex.js';
 import auth from '#~/middlewares/auth.js';
-import NotificationModel from '#~/models/NotificationModel/index.js'
 
 const startLearningCourse = auth(async (request, response) => {
   const courseId = request.body['courseId'];
@@ -20,7 +19,24 @@ const startLearningCourse = auth(async (request, response) => {
 
   if (currentUser.id !== authorId) {
     // send author a notification that someone started learning their course!
-    await NotificationModel.insert.someone_started_learning_your_course({ learner: currentUser, course });
+    // Create the notification
+    await knex('notification').insert({ 
+      type: 'someone_started_learning_your_course',
+      content: {
+        learnerId: currentUser.id,
+        courseId: course.id,
+        learnerUsername: currentUser.username,
+        learnerAvatarUrl: currentUser.avatarUrl,
+        courseTitle: course.title
+      },
+      userId: course.userId,
+      ifRead: false
+    });
+    
+    // Mark that the user has unseen notifications
+    await knex('user')
+      .where({ id: course.userId })
+      .update({ did_see_notifications: false });
   }
 
   response.success(newCuil);

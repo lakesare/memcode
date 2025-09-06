@@ -7,7 +7,7 @@ import { githubFetchAccessToken } from './services/github/githubFetchAccessToken
 import { githubFetchAuthorizedAccount } from './services/github/githubFetchAuthorizedAccount.js';
 import { googleFetchAccessToken } from './services/google/googleFetchAccessToken.js';
 import { googleFetchAuthorizedAccount } from './services/google/googleFetchAuthorizedAccount.js';
-import NotificationModel from '#~/models/NotificationModel/index.js'
+import NotificationModel from '#~/models/NotificationModel.js'
 
 const router = express.Router();
 
@@ -69,7 +69,7 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
     }
     
     [dbUser] = await knex('user').insert(userData).returning('*');
-    await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
+    await NotificationModel.welcome_to_memcode({ userId: dbUser.id });
     // Only assign welcome course in production
     if (process.env.NODE_ENV === 'production') {
       const welcomeCourseId = 6868;

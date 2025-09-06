@@ -1,6 +1,5 @@
 import knex from '#~/db/knex.js';
 import auth from '#~/middlewares/auth.js';
-import NotificationModel from '#~/models/NotificationModel/index.js'
 
 const updateCoauthors = auth(async (request, response) => {
   const currentUser = request.currentUser;
@@ -27,11 +26,25 @@ const updateCoauthors = auth(async (request, response) => {
     );
     if (!coauthorAlreadyExists) {
       promises.push(knex('coauthor').insert({ userId: newUserId, courseId }));
-      promises.push(NotificationModel.insert.someone_added_you_as_coauthor({
-        coauthorId: newUserId,
-        course,
-        author: currentUser
-      }));
+      // Create someone_added_you_as_coauthor notification
+      promises.push(
+        knex('notification').insert({ 
+          type: 'someone_added_you_as_coauthor',
+          content: {
+            course,
+            author: currentUser
+          },
+          userId: newUserId,
+          ifRead: false
+        })
+      );
+      
+      // Mark that the user has unseen notifications
+      promises.push(
+        knex('user')
+          .where({ id: newUserId })
+          .update({ did_see_notifications: false })
+      );
     }
   });
 

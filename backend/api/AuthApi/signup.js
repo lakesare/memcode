@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import knex from '#~/db/knex.js';
-import NotificationModel from '#~/models/NotificationModel/index.js';
+import NotificationModel from '#~/models/NotificationModel.js';
 
 const signup = async (request, response) => {
   const { username, email, password } = request.body;
@@ -62,7 +62,7 @@ const signup = async (request, response) => {
     .returning('*');
 
   // Send welcome notification and add welcome course
-  await NotificationModel.insert.welcome_to_memcode({ userId: dbUser.id });
+  await NotificationModel.welcome_to_memcode({ userId: dbUser.id });
   // Only assign welcome course in production
   if (process.env.NODE_ENV === 'production') {
     const welcomeCourseId = 6868;
