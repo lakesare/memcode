@@ -1,5 +1,4 @@
 import knex from '#~/db/knex.js';
-import db from '#~/db/init.js';
 import canAccessCourse from '#~/services/canAccessCourse.js';
 
 const getForCourseActions = async (request, response) => {

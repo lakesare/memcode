@@ -1,7 +1,7 @@
-import CourseModel from '#~/models/CourseModel/index.js'
+import CourseModel from '#~/models/CourseModel.js'
 
 const getAllCreatedCourses = async (request, response) => {
-  const courses = await CourseModel.select.allCreated(request.currentUser.id);
+  const courses = await CourseModel.allCreated(request.currentUser.id);
   response.success(courses);
 };
 

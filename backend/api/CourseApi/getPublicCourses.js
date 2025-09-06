@@ -1,10 +1,10 @@
-import CourseModel from '#~/models/CourseModel/index.js'
+import CourseModel from '#~/models/CourseModel.js'
 
 const getPublicCourses = async (request, response) => {
   const pageSize = request.body.pageSize;
   const pageNumber = request.body.pageNumber;
 
-  const onePageOfCourses = await CourseModel.select.allPublic({
+  const onePageOfCourses = await CourseModel.allPublic({
     sortBy: request.body.sortBy,
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,

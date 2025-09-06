@@ -1,5 +1,5 @@
 import knex from '#~/db/knex.js';
-import CourseModel from '#~/models/CourseModel/index.js'
+import CourseModel from '#~/models/CourseModel.js'
 
 const getUserPage = async (request, response) => {
   const userId = parseInt(request.body['userId']);
@@ -8,8 +8,8 @@ const getUserPage = async (request, response) => {
   const currentUser = request.currentUser || null;
 
   const createdCourses = currentUser && currentUser.id === userId ?
-    await CourseModel.select.allCreated(userId) :
-    await CourseModel.select.allPublic({ customWhere: `AND course.user_id=${userId}` });
+    await CourseModel.allCreated(userId) :
+    await CourseModel.allPublic({ customWhere: `AND course.user_id=${userId}` });
 
   const skills =
     await knex('courseUserIsLearning')
