@@ -7,4 +7,6 @@ const getProblemsByCourseId = (courseId) =>
     .orderBy('position')
     .orderBy('createdAt', 'asc');
 
-export default getProblemsByCourseId;
+export default {
+  getProblemsByCourseId
+};
