@@ -1,13 +1,11 @@
 :local(.main){
   .wrapper{
     display: flex;
-    align-items: flex-start;
     .user, .skills, .stats{
       padding: 15px;
       background: rgb(24, 28, 57);
       border-radius: 4px;
       box-shadow: 0 1px 0 0 rgb(33, 37, 67), 0 0 0 1px rgb(32, 38, 71);
-      min-height: 328px;
 
       h1{
         margin-bottom: 20px;
