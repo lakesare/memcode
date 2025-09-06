@@ -11,6 +11,7 @@ import NotificationApi          from '#~/api/NotificationApi/index.js';
 import CourseCategoryApi        from '#~/api/CourseCategoryApi/index.js';
 import CourseUserIsLearningApi  from '#~/api/CourseUserIsLearningApi/index.js';
 import ProblemUserIsLearningApi from '#~/api/ProblemUserIsLearningApi/index.js';
+import TtsApi                   from '#~/controllers/TtsApi.js';
 
 const getApiClass = (controllerName) => {
   switch (controllerName) {
@@ -24,6 +25,7 @@ const getApiClass = (controllerName) => {
     case 'CourseCategoryApi':        return CourseCategoryApi;
     case 'CourseUserIsLearningApi':  return CourseUserIsLearningApi;
     case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
+    case 'TtsApi':                   return TtsApi;
   }
 };
 

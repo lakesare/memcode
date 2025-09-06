@@ -30,5 +30,8 @@ process.env['CONTACT_EMAIL'] = 'contact@memcode.com';
 
 process.env['JWT_SECRET'] = 'can_be_anything';
 
+// OpenAI TTS for flashcard audio
+process.env['OPENAI_API_KEY'] = '';
+
 // ES module export (even though we don't use it, it makes it a proper ES module)
 export default {};
