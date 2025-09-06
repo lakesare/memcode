@@ -84,15 +84,6 @@ const select = {
       .then((array) => camelizeDbColumns(array, ['course']))
       .then((array) => integerizeDbColumns(array, ['amountOfUsersLearningThisCourse', 'amountOfProblems', 'nOfAllCourses'])),
 
-  oneById: (id) =>
-    db.one(
-      `
-      SELECT *
-      FROM course
-      WHERE course.id = \${id}
-      `,
-      { id }
-    ),
 
   // 1. if I'm learning
   // 2. amount of flashcards
