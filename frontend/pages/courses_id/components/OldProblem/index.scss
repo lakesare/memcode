@@ -37,32 +37,29 @@
       width: 100%;
       min-width: 0;
     }
-    .delete-button{
-      background: rgba(139, 33, 55, 0.47);
-      &:hover{
-        background: rgb(139, 33, 55);
-      }
-    }
-    .export-button{
-      background: rgba(9, 99, 120, 0.67);
-      &:hover{
-        background: rgb(9, 99, 120);
-      }
-    }
-    .duplicate-button{
-      background: rgba(143, 83, 138, 0.67);
-      &:hover{
-        background: rgb(143, 83, 138);
-      }
-    }
-    .switch-type-button{
-      // font-size: 10px !important;
-      // line-height: 11px;
-      background: rgba(111, 34, 10, 0.83);
-      &:hover{
-        background: rgb(111, 34, 10);
-      }
-    }
+  .delete-button {
+    background: rgba(139, 33, 55, 0.47);
+    &:hover { background: rgb(139, 33, 55); }
+    @media (max-width: 1000px) { background: rgb(139, 33, 55); }
+  }
+
+  .export-button {
+    background: rgba(9, 99, 120, 0.67);
+    &:hover { background: rgb(9, 99, 120); }
+    @media (max-width: 1000px) { background: rgb(9, 99, 120); }
+  }
+
+  .duplicate-button {
+    background: rgba(143, 83, 138, 0.67);
+    &:hover { background: rgb(143, 83, 138); }
+    @media (max-width: 1000px) { background: rgb(143, 83, 138); }
+  }
+
+  .switch-type-button {
+    background: rgba(111, 34, 10, 0.83);
+    &:hover { background: rgb(111, 34, 10); }
+    @media (max-width: 1000px) { background: rgb(111, 34, 10); }
+  }
 
     div.first, div.second{
       top: 8px;
@@ -176,7 +173,6 @@
   section.flashcard-buttons{
     .first{
       left: 0; right: auto;
-      background: variables.$color-main-1;
       padding-right: 5px !important;
       border-bottom-right-radius: 3px;
     }
