@@ -213,10 +213,10 @@ body.-hideSocialButtons{
 
     button.audio-button{
       color: rgba(166, 163, 163, 0.79);
-        &:hover {
-          color: rgba(166, 163, 163, 1);
-          background: rgba(100, 100, 100, 0.1);
-        }
+      &:hover, &:focus {
+        color: rgba(166, 163, 163, 1);
+        background: rgba(100, 100, 100, 0.1);
+      }
     }
 
     section.problem.-withInlinedAnswers input.answer-input[data-answered='right'] {

@@ -14,7 +14,7 @@
   top: 1px; right: 0;
   i{ font-size: 15px; }
 
-  &:hover {
+  &:hover, &:focus {
     color: rgba(255, 255, 255, 0.9);
     background: rgba(255, 255, 255, 0.1);
   }
