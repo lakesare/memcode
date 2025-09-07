@@ -12,10 +12,14 @@ const playAutoTts = (problem) => {
     if (problem.type === 'inlinedAnswers') {
       // Hide answers for automatic reading - user shouldn't hear the answers yet
       const contentWithHiddenAnswers = ClozeDeletion.hideUnsolvedAnswers(problem.content.content, []);
-      TtsService.speakText(contentWithHiddenAnswers);
+      // Strip HTML tags for consistent TTS caching with manual play
+      const cleanText = ClozeDeletion.stripHtmlTags(contentWithHiddenAnswers);
+      TtsService.speakText(cleanText);
     } else if (problem.type === 'separateAnswer') {
       // For separate answer problems, only read the question (content), never the answer
-      TtsService.speakText(problem.content.content);
+      // Strip HTML tags for consistent TTS caching with manual play
+      const cleanText = ClozeDeletion.stripHtmlTags(problem.content.content);
+      TtsService.speakText(cleanText);
     }
   }
 };

@@ -51,8 +51,17 @@ const hideUnsolvedAnswers = (content, answerInputs) => {
   });
 };
 
+// stripHtmlTags('<p>Hello <strong>world</strong>!</p>') => 'Hello world!'
+// stripHtmlTags('I <mark class="answer">love</mark> cats') => 'I love cats'
+const stripHtmlTags = (content) => {
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = content;
+  return tempDiv.textContent || tempDiv.innerText || '';
+};
+
 export default {
   getAnswerTexts,
   countAnswerBlanks,
-  hideUnsolvedAnswers
+  hideUnsolvedAnswers,
+  stripHtmlTags
 };

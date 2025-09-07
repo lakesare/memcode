@@ -164,14 +164,17 @@ class InlinedAnswersReview extends React.Component {
   }
 
   generateAudioText = () => {
-    // If we're seeing the answer (succumbed), just pass HTML - TTS will read everything naturally
+    let content;
+    // If we're seeing the answer (succumbed), use full content
     if (this.props.statusOfSolving.status === 'seeingAnswer') {
-      return this.props.problemContent.content;
+      content = this.props.problemContent.content;
     // If still solving, only show answers that were typed correctly, hide the rest
     } else {
       const answerInputs = this.refs.problem ? this.getArrayOfAnswerInputs() : [];
-      return ClozeDeletion.hideUnsolvedAnswers(this.props.problemContent.content, answerInputs);
+      content = ClozeDeletion.hideUnsolvedAnswers(this.props.problemContent.content, answerInputs);
     }
+    // Strip HTML tags for consistent TTS caching with auto play
+    return ClozeDeletion.stripHtmlTags(content);
   }
 
   render = () => {
@@ -198,7 +201,7 @@ class InlinedAnswersReview extends React.Component {
       <ReadonlyEditor 
         className="second-column" 
         html={this.props.problemContent.explanation}
-        audioText={this.props.problemContent.explanation}
+        audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.explanation)}
       />
     </section>;
   }
