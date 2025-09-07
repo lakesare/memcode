@@ -1,8 +1,10 @@
 /* eslint-disable no-param-reassign */
 // because there is no alternative to el.readOnly
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
+import AudioButton from '~/components/AudioButton';
 import splitAltAnswers from './utils/splitAltAnswers';
 import ClozeDeletion from '~/services/ClozeDeletion';
+import SequenceAudioButton from '~/components/SequenceAudioButton';
 
 const focusOnTheFirstAnswer = (arrayOfAnswerEls) => {
   const answers = arrayOfAnswerEls;
@@ -163,19 +165,7 @@ class InlinedAnswersReview extends React.Component {
     }
   }
 
-  generateAudioText = () => {
-    let content;
-    // If we're seeing the answer (succumbed), use full content
-    if (this.props.statusOfSolving.status === 'seeingAnswer') {
-      content = this.props.problemContent.content;
-    // If still solving, only show answers that were typed correctly, hide the rest
-    } else {
-      const answerInputs = this.refs.problem ? this.getArrayOfAnswerInputs() : [];
-      content = ClozeDeletion.hideUnsolvedAnswers(this.props.problemContent.content, answerInputs);
-    }
-    // Strip HTML tags for consistent TTS caching with auto play
-    return ClozeDeletion.stripHtmlTags(content);
-  }
+  // No longer needed - SequenceAudioButton handles this
 
   render = () => {
     // '<mark class="answer">' => '</mark>'
@@ -192,17 +182,30 @@ class InlinedAnswersReview extends React.Component {
         />`
       );
 
+    const isSuccumbed = this.props.statusOfSolving.status === 'seeingAnswer';
+    const answerInputs = this.refs.problem ? this.getArrayOfAnswerInputs() : [];
+
     return <section className="problem -withInlinedAnswers" ref="problem">
-      <ReadonlyEditor 
-        className="first-column" 
-        html={content}
-        audioText={this.generateAudioText()}
-      />
-      <ReadonlyEditor 
-        className="second-column" 
-        html={this.props.problemContent.explanation}
-        audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.explanation)}
-      />
+      <div className={`quill -readOnly first-column -with-audio`}>
+        <div className="ql-container ql-snow">
+          <div className="ql-editor" dangerouslySetInnerHTML={{ __html: content }}/>
+        </div>
+        <SequenceAudioButton 
+          content={this.props.problemContent.content}
+          answerInputs={answerInputs}
+          playFullText={isSuccumbed}
+          className="readonly-editor-audio-btn"
+        />
+      </div>
+      <div className={`quill -readOnly second-column -with-audio`}>
+        <div className="ql-container ql-snow">
+          <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.props.problemContent.explanation }}/>
+        </div>
+        <AudioButton 
+          text={ClozeDeletion.stripHtmlTags(this.props.problemContent.explanation)}
+          className="readonly-editor-audio-btn"
+        />
+      </div>
     </section>;
   }
 }

@@ -1,4 +1,5 @@
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
+import AudioButton from '~/components/AudioButton';
 import ClozeDeletion from '~/services/ClozeDeletion';
 
 class SeparateAnswerReview extends React.Component {

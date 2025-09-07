@@ -59,9 +59,42 @@ const stripHtmlTags = (content) => {
   return tempDiv.textContent || tempDiv.innerText || '';
 };
 
+// splitIntoTextParts('I <mark class="answer">love</mark> cats and <mark class="answer">dogs</mark>!') 
+// => ['I ', 'love', ' cats and ', 'dogs', '!']
+const splitIntoTextParts = (content) => {
+  const parts = [];
+  let lastIndex = 0;
+  
+  // Find all cloze deletion matches
+  let match;
+  const regex = new RegExp(CLOZE_ANSWER_REGEX.source, 'g'); // Create fresh regex
+  
+  while ((match = regex.exec(content)) !== null) {
+    // Add text before the cloze deletion
+    if (match.index > lastIndex) {
+      const textBefore = content.slice(lastIndex, match.index);
+      if (textBefore) parts.push(textBefore);
+    }
+    
+    // Add the answer text (what should be spoken or replaced with noise)
+    parts.push(match[1]);
+    
+    lastIndex = match.index + match[0].length;
+  }
+  
+  // Add remaining text after the last match
+  if (lastIndex < content.length) {
+    const textAfter = content.slice(lastIndex);
+    if (textAfter) parts.push(textAfter);
+  }
+  
+  return parts.filter(part => part.length > 0);
+};
+
 export default {
   getAnswerTexts,
   countAnswerBlanks,
   hideUnsolvedAnswers,
-  stripHtmlTags
+  stripHtmlTags,
+  splitIntoTextParts
 };

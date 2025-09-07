@@ -97,8 +97,18 @@ class TtsService {
       await this.updateLastUsed(cacheKey); // Update LRU
       const blob = this.audioCache.get(cacheKey);
       const audio = new Audio(URL.createObjectURL(blob));
-      audio.addEventListener('ended', () => URL.revokeObjectURL(audio.src));
-      await audio.play();
+      
+      // Wait for audio to finish playing, not just start
+      await new Promise((resolve) => {
+        const onEnded = () => {
+          URL.revokeObjectURL(audio.src);
+          audio.removeEventListener('ended', onEnded);
+          resolve();
+        };
+        audio.addEventListener('ended', onEnded);
+        audio.play().catch(() => resolve()); // Resolve on error too
+      });
+      
       return { fromCache: true };
     }
     
@@ -108,8 +118,18 @@ class TtsService {
       this.audioCache.set(cacheKey, cachedItem.blob);
       await this.updateLastUsed(cacheKey);
       const audio = new Audio(URL.createObjectURL(cachedItem.blob));
-      audio.addEventListener('ended', () => URL.revokeObjectURL(audio.src));
-      await audio.play();
+      
+      // Wait for audio to finish playing, not just start
+      await new Promise((resolve) => {
+        const onEnded = () => {
+          URL.revokeObjectURL(audio.src);
+          audio.removeEventListener('ended', onEnded);
+          resolve();
+        };
+        audio.addEventListener('ended', onEnded);
+        audio.play().catch(() => resolve()); // Resolve on error too
+      });
+      
       return { fromCache: true };
     }
     
@@ -129,8 +149,17 @@ class TtsService {
     
     // Play audio
     const audio = new Audio(URL.createObjectURL(audioBlob));
-    audio.addEventListener('ended', () => URL.revokeObjectURL(audio.src));
-    await audio.play();
+    
+    // Wait for audio to finish playing, not just start
+    await new Promise((resolve) => {
+      const onEnded = () => {
+        URL.revokeObjectURL(audio.src);
+        audio.removeEventListener('ended', onEnded);
+        resolve();
+      };
+      audio.addEventListener('ended', onEnded);
+      audio.play().catch(() => resolve()); // Resolve on error too
+    });
     
     return { fromCache: false };
   }
