@@ -41,9 +41,15 @@ class SequenceAudioButton extends React.Component {
       }
       
       // Play audio
+      console.log('SequenceAudioButton: playFullText =', this.props.playFullText);
+      console.log('SequenceAudioButton: answerInputs =', this.props.answerInputs);
+      
       if (this.props.playFullText) {
-        await SequenceTtsService.playFullText(this.props.content);
+        console.log('🎯 Taking succumb sequence path!');
+        // Experimental: Play succumb sequence (word + word + word + full sentence)
+        await SequenceTtsService.playSuccumbSequence(this.props.content);
       } else {
+        console.log('🎯 Taking normal sequence path!');
         await SequenceTtsService.playSequence(this.props.content, this.props.answerInputs);
       }
 

@@ -170,6 +170,41 @@ class SequenceTtsService {
     });
   }
 
+  // Experimental: Play succumb sequence (word + word + word + full sentence)
+  static async playSuccumbSequence(content, voice = 'alloy') {
+    console.log('🎵 SUCCUMB SEQUENCE TRIGGERED!', content);
+    const answers = ClozeDeletion.getAnswerTexts(content);
+    console.log('Found answers:', answers);
+    
+    if (answers.length > 0) {
+      // Get the last answer (most recently revealed)
+      const lastAnswer = answers[answers.length - 1];
+      const cleanAnswer = ClozeDeletion.stripHtmlTags(lastAnswer);
+      console.log('Playing word 3 times:', cleanAnswer);
+      
+      if (this.hasLetters(cleanAnswer)) {
+        // Play the answer word 3 times with small pauses
+        console.log('🔊 Playing word 1/3');
+        await TtsService.speakText(cleanAnswer, voice);
+        await new Promise(resolve => setTimeout(resolve, 300)); // 300ms pause
+        
+        console.log('🔊 Playing word 2/3');
+        await TtsService.speakText(cleanAnswer, voice);
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        console.log('🔊 Playing word 3/3');
+        await TtsService.speakText(cleanAnswer, voice);
+        await new Promise(resolve => setTimeout(resolve, 500)); // Longer pause before full sentence
+      }
+    }
+    
+    // Finally play the full sentence
+    console.log('🔊 Playing full sentence');
+    const cleanText = ClozeDeletion.stripHtmlTags(content);
+    await TtsService.speakText(cleanText, voice);
+    console.log('✅ Succumb sequence complete!');
+  }
+
   // For manual play - just use regular TTS with clean text (best caching)
   static async playFullText(content, voice = 'alloy') {
     const cleanText = ClozeDeletion.stripHtmlTags(content);

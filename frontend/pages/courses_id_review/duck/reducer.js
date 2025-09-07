@@ -2,6 +2,7 @@ import _ from 'lodash';
 import playAutoTts from './services/playAutoTts';
 import TtsService from '~/services/ttsService';
 import ClozeDeletion from '~/services/ClozeDeletion';
+import SequenceTtsService from '~/services/SequenceTtsService';
 
 const initialState = {
   speGetPage: {},
@@ -38,6 +39,10 @@ const reducer = (state = initialState, action) => {
         console.log('given isnt equal to wanted');
       } else {
         console.log('given is wanted');
+        // User completed all answers - play succumb sequence if volume is enabled
+        if (localStorage.getItem('volume') === 'yes') {
+          SequenceTtsService.playSuccumbSequence(currentProblem.content.content);
+        }
       }
 
       return {
@@ -66,15 +71,10 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'SET_STATUS_TO_SEEING_ANSWER': {
-      // Read the correct answer when transitioning to seeing answer
+      // Play succumb sequence when user manually sees answer
       // Only for inlinedAnswers problems - separateAnswer problems should never read the answer
       if (currentProblem && localStorage.getItem('volume') === 'yes' && currentProblem.type === 'inlinedAnswers') {
-        // Extract answers from cloze deletion markup
-        const answers = ClozeDeletion.getAnswerTexts(currentProblem.content.content);
-        if (answers.length > 0) {
-          const correctAnswer = answers.join(', ');
-          TtsService.speakText(correctAnswer);
-        }
+        SequenceTtsService.playSuccumbSequence(currentProblem.content.content);
       }
       
       return {
