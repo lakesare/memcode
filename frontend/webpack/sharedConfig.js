@@ -3,7 +3,7 @@ process.noDeprecation = true;
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -98,7 +98,8 @@ module.exports = {
     ],
   },
   _partialPlugins: [
-    // new CleanWebpackPlugin([outputPath]),
+    // Clean old files on each build to prevent accumulation of old precache manifests
+    new CleanWebpackPlugin([path.join(__dirname, '../webpackedFiles')]),
     // copies subfoldered files directly into /webpackedFiles
     new CopyWebpackPlugin([
       'nonWebpackedFiles'

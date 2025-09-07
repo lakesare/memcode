@@ -8,8 +8,19 @@ self.addEventListener('install', () => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    // clearing cached responses!
-    caches.delete('api')
+    // clearing cached responses and old precache manifests!
+    caches.keys().then((cacheNames) => {
+      return Promise.all([
+        // Delete old API caches
+        caches.delete('api'),
+        caches.delete('api_v4'),
+        // Delete old precaches from previous versions
+        ...cacheNames.filter(cacheName => 
+          cacheName.startsWith('workbox-precache-') && 
+          !cacheName.includes(self.location.href.split('/').pop())
+        ).map(cacheName => caches.delete(cacheName))
+      ]);
+    })
   );
 });
 // 
@@ -18,7 +29,7 @@ self.addEventListener('activate', (event) => {
 // ]);
 
 workbox.precaching.precache([
-  { url: '/index.html', revision: 'v6' }
+  { url: '/index.html', revision: new Date().getTime().toString() }
 ]);
 workbox.routing.registerNavigationRoute(
   '/index.html',
