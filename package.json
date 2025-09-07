@@ -113,7 +113,7 @@
     "openai": "^4.104.0",
     "parchment": "^1.1.4",
     "pg": "^8.7.3",
-    "pg-promise": "^8.7.5",
+    "pg-promise": "^11.5.5",
     "private": "^0.1.8",
     "prop-types": "^15.7.2",
     "proxy-polyfill": "^0.3.1",
