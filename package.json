@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@redux-offline/redux-offline": "^2.5.2",
-    "@sendgrid/mail": "^7.0.1",
+    "@sendgrid/mail": "^8.1.5",
     "@tippyjs/react": "^4.0.2",
     "acorn-dynamic-import": "^4.0.0",
     "acorn-jsx": "^5.2.0",
