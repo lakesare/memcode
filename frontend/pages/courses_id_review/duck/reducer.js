@@ -30,16 +30,20 @@ const reducer = (state = initialState, action) => {
       const wanted = ClozeDeletion.countAnswerBlanks(currentProblem.content.content);
       const answer = action.payload; // The individual answer text
 
-      // Read the individual answer if volume is enabled
-      if (answer && localStorage.getItem('volume') === 'yes') {
-        TtsService.speakText(answer);
-      }
-
       if (given !== wanted) {
         console.log('given isnt equal to wanted');
+        // Read the individual answer if volume is enabled, with context for better pronunciation
+        // Only play individual answer if it's NOT the final answer (to avoid double TTS)
+        if (answer && localStorage.getItem('volume') === 'yes') {
+          // Construct contextual text: word + full sentence for better language detection
+          const fullSentence = ClozeDeletion.stripHtmlTags(currentProblem.content.content);
+          const contextualText = `${answer} ${fullSentence}`;
+          TtsService.speakText(contextualText);
+        }
       } else {
         console.log('given is wanted');
         // User completed all answers - play succumb sequence if volume is enabled
+        // (This will include the final answer repetition, so no need for individual TTS)
         if (localStorage.getItem('volume') === 'yes') {
           SequenceTtsService.playSuccumbSequence(currentProblem.content.content);
         }

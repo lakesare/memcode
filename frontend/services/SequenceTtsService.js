@@ -176,31 +176,29 @@ class SequenceTtsService {
     const answers = ClozeDeletion.getAnswerTexts(content);
     console.log('Found answers:', answers);
     
+    // Clean full sentence for context
+    const cleanText = ClozeDeletion.stripHtmlTags(content);
+    
     if (answers.length > 0) {
       // Get the last answer (most recently revealed)
       const lastAnswer = answers[answers.length - 1];
       const cleanAnswer = ClozeDeletion.stripHtmlTags(lastAnswer);
-      console.log('Playing word 3 times:', cleanAnswer);
+      console.log('Target word for repetition:', cleanAnswer);
       
       if (this.hasLetters(cleanAnswer)) {
-        // Play the answer word 3 times with small pauses
-        console.log('🔊 Playing word 1/3');
-        await TtsService.speakText(cleanAnswer, voice);
-        await new Promise(resolve => setTimeout(resolve, 300)); // 300ms pause
+        // Construct single text: word word word sentence
+        // This gives OpenAI TTS full context for better pronunciation
+        const contextualText = `${cleanAnswer}. ${cleanAnswer}??? ${cleanAnswer}!!! ${cleanText}`;
+        console.log('🔊 Playing contextual sequence:', contextualText);
         
-        console.log('🔊 Playing word 2/3');
-        await TtsService.speakText(cleanAnswer, voice);
-        await new Promise(resolve => setTimeout(resolve, 300));
-        
-        console.log('🔊 Playing word 3/3');
-        await TtsService.speakText(cleanAnswer, voice);
-        await new Promise(resolve => setTimeout(resolve, 500)); // Longer pause before full sentence
+        await TtsService.speakText(contextualText, voice);
+        console.log('✅ Succumb sequence complete!');
+        return;
       }
     }
     
-    // Finally play the full sentence
-    console.log('🔊 Playing full sentence');
-    const cleanText = ClozeDeletion.stripHtmlTags(content);
+    // Fallback: just play the full sentence if no answers found
+    console.log('🔊 Fallback: Playing full sentence only');
     await TtsService.speakText(cleanText, voice);
     console.log('✅ Succumb sequence complete!');
   }
