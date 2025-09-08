@@ -10,8 +10,7 @@ const getLearnedProblemsByCuilId = (cuilId) =>
       'problemUserIsLearning.courseUserIsLearningId': cuilId,
       'problemUserIsLearning.ifIgnored': false
     })
-    .orderBy('problem.position', 'asc')
-    .orderBy('problem.createdAt', 'asc');
+    .orderBy('problem.position');
 
 const getReviewPersistentPage = async (request, response) => {
   const courseId = request.body['courseId'];

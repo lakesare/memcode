@@ -26,10 +26,7 @@ const getReviewPage = async (request, response) => {
       'problem_user_is_learning.if_ignored': false
     })
     .andWhere('problem_user_is_learning.next_due_date', '<', now)
-    .orderBy([ 
-      { column: 'position' },
-      { column: 'created_at' }
-    ]);
+    .orderBy('problem.position');
   
   response.success({ courseUserIsLearning, problems });
 

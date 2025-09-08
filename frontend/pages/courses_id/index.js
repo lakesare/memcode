@@ -154,7 +154,6 @@ class Page_courses_id extends React.Component {
       false,
       this.state.speGetProblems.payload.problems.map((problem, index) => ({
         id: problem.id,
-        // position cannot be 0 (so we can never make any flashcard 0s), because then it will just move to the end of the queue
         position: index + 1
       }))
     )
