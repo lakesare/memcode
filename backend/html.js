@@ -45,6 +45,16 @@ const html = `
     <meta name="description" content="Create your own course to memorize anything you want. Flashcard-based, with formatting and images, with multiple flashcard types." data-react-helmet="true"/>
   </head>
   <body>
+    <!-- Theme flash prevention script (runs immediately when body is parsed) -->
+    <script>
+      (function() {
+        var savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'bright') {
+          document.body.classList.add('-bright-theme');
+        }
+      })();
+    </script>
+    
     <div id="root"></div>
 
     <!-- env vars -->

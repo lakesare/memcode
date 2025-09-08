@@ -10,9 +10,15 @@ body.-hideSocialButtons{
   }
 }
 
+body{
+  background: rgb(15, 17, 34);
+}
+body.-bright-theme{
+  background: rgb(242, 236, 233);
+}
+
 // Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
 .-bright-theme .-without-bg{
-  background: #f2ece9;
   color: rgb(44, 65, 59);
   font-family: 'Open Sans' !important;
   font-weight: 500 !important;
