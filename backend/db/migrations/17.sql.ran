@@ -1,0 +1,22 @@
+-- Migration 17: Fix flashcard positions to be sequential 1,2,3...
+-- This fixes existing courses that have position=0 or gaps in positions
+
+-- For each course, resequence all problems to have sequential positions 1,2,3...
+-- ordered by their current position (with position=0 last), then by created_at
+
+WITH course_problems AS (
+  SELECT 
+    id,
+    course_id,
+    ROW_NUMBER() OVER (
+      PARTITION BY course_id 
+      ORDER BY 
+        CASE WHEN position = 0 THEN 999999 ELSE position END ASC,  -- position=0 goes last
+        created_at ASC
+    ) as new_position
+  FROM problem
+)
+UPDATE problem 
+SET position = course_problems.new_position
+FROM course_problems
+WHERE problem.id = course_problems.id;

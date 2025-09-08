@@ -15,7 +15,7 @@ db-reset:
 	psql $(LOCAL_POSTGRES_URL) -c 'CREATE DATABASE memcode'
 	psql $(LOCAL_DB_URL) -f backend/db/schema.sql
 db-migrate:
-	psql $(LOCAL_DB_URL) -f backend/db/migrations/16.sql
+	psql $(LOCAL_DB_URL) -f backend/db/migrations/17.sql
 
 # _______________________________PRODUCTION_______________________________
 # ___Why don't we run `npm install`?
@@ -38,7 +38,7 @@ heroku-meresei-frontend-webpack:
 # ___Where is 7.sql taken from?
 #    From local files!
 heroku-db-migrate:
-	psql $$(heroku config:get DATABASE_URL --app memcode) -f backend/db/migrations/15.sql
+	psql $$(heroku config:get DATABASE_URL --app memcode) -f backend/db/migrations/17.sql
 # when they ask for password - they ask for the local one (yes, 4 times)
 heroku-db-pull:
 	make db-drop
