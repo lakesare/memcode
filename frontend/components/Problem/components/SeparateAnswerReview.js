@@ -33,31 +33,29 @@ class SeparateAnswerReview extends React.Component {
 
   render = () =>
     <section className="problem -withSeparateAnswer">
-      <div className="question-and-answer">
-        <ReadonlyEditor 
-          className="question first-column" 
-          html={this.props.problemContent.content}
-          audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.content)}
-        />
+      <ReadonlyEditor 
+        className="question first-column" 
+        html={this.props.problemContent.content}
+        audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.content)}
+      />
 
-        {
-          this.props.statusOfSolving.status === 'seeingAnswer' ?
-            <ReadonlyEditor 
-              className="answer second-column" 
-              html={this.props.problemContent.answer}
-              audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.answer)}
-            /> :
-            <div className="second-column">
-              <button
-                type="button"
-                className="see-answer-button"
-                onClick={this.props.enterPressed}
-              >
-                See answer
-              </button>
-            </div>
-        }
-      </div>
+      {
+        this.props.statusOfSolving.status === 'seeingAnswer' ?
+          <ReadonlyEditor 
+            className="answer second-column" 
+            html={this.props.problemContent.answer}
+            audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.answer)}
+          /> :
+          <div className="second-column">
+            <button
+              type="button"
+              className="see-answer-button"
+              onClick={this.props.enterPressed}
+            >
+              See answer
+            </button>
+          </div>
+      }
     </section>
 }
 

@@ -53,37 +53,35 @@ class FakeFlashcards extends React.Component {
 
   renderSeparate = () =>
     <section className="problem -withSeparateAnswer">
-      <div className="question-and-answer">
-        <div className="quill -readOnly question first-column">
-          <div className="ql-container ql-snow">
-            <div className="ql-editor">
-              What determines <strong>which element</strong> some <strong>atom</strong> is?
-            </div>
+      <div className="quill -readOnly question first-column">
+        <div className="ql-container ql-snow">
+          <div className="ql-editor">
+            What determines <strong>which element</strong> some <strong>atom</strong> is?
           </div>
         </div>
-        {
-          this.state.separate_mode === 'solving' ?
-            <div className="second-column">
-              <button
-                type="button"
-                className="see-answer-button"
-                onClick={() => this.setState({ separate_mode: 'seeingAnswer' })}
-              >
-                See answer
-              </button>
-            </div> :
-            <div className="quill -readOnly answer second-column">
-              <div className="ql-container ql-snow">
-                <div className="ql-editor">
-                  <p>The <strong>number</strong> of <strong>protons</strong>.</p><br/>
+      </div>
+      {
+        this.state.separate_mode === 'solving' ?
+          <div className="second-column">
+            <button
+              type="button"
+              className="see-answer-button"
+              onClick={() => this.setState({ separate_mode: 'seeingAnswer' })}
+            >
+              See answer
+            </button>
+          </div> :
+          <div className="quill -readOnly answer second-column">
+            <div className="ql-container ql-snow">
+              <div className="ql-editor">
+                <p>The <strong>number</strong> of <strong>protons</strong>.</p><br/>
 
-                  <blockquote>For example, number of protons in lithium is always 3.</blockquote>
-                  <blockquote>Proton number only changes when the nucleus undergoes alpha decay, where it essentially becomes a different element.</blockquote>
-                </div>
+                <blockquote>For example, number of protons in lithium is always 3.</blockquote>
+                <blockquote>Proton number only changes when the nucleus undergoes alpha decay, where it essentially becomes a different element.</blockquote>
               </div>
             </div>
+          </div>
         }
-      </div>
     </section>
 
   render = () =>

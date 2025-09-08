@@ -64,46 +64,42 @@
       }
     }
     &.-withSeparateAnswer{
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      // flex-wrap: wrap;
+      // justify-content: flex-end;
 
-      > div.question-and-answer{
-        width: 100%;
-        display: flex;
-        .question.first-column{
-          .ql-editor{
-            box-shadow: $purple-question-box-shadow;
-            border: $purple-question-border;
-          }
+      .question.first-column{
+        .ql-editor{
+          box-shadow: $purple-question-box-shadow;
+          border: $purple-question-border;
         }
-        .answer.second-column{
-          .ql-editor{
-            box-shadow: $green-answer-box-shadow;
-            border: $green-answer-border;
-          }
-        }
-        // button or answer editor
-        button.see-answer-button{
-          max-height: 800px;
-          width: 100%;
-          height: 100%;
-          font-weight: 300;
-          padding: 6px 0;
-          font-size: 14px;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          user-select: none;
-          border-radius: 2px;
-
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-
+      }
+      .answer.second-column{
+        .ql-editor{
           box-shadow: $green-answer-box-shadow;
           border: $green-answer-border;
-          color: rgb(160, 247, 200);
         }
+      }
+      // button or answer editor
+      button.see-answer-button{
+        max-height: 800px;
+        width: 100%;
+        height: 100%;
+        font-weight: 300;
+        padding: 6px 0;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        user-select: none;
+        border-radius: 2px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        box-shadow: $green-answer-box-shadow;
+        border: $green-answer-border;
+        color: rgb(160, 247, 200);
       }
     }
   }
@@ -205,9 +201,6 @@
       }
       &.-withSeparateAnswer{
         flex-wrap: wrap;
-        > div.question-and-answer{
-          flex-wrap: wrap;
-        }
         button.see-answer-button{
           min-height: 58px;
         }
