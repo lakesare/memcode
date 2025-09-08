@@ -3,6 +3,7 @@ import playAutoTts from './services/playAutoTts';
 import TtsService from '~/services/ttsService';
 import ClozeDeletion from '~/services/ClozeDeletion';
 import SequenceTtsService from '~/services/SequenceTtsService';
+import TtsPrecacheService from '~/services/TtsPrecacheService';
 
 const initialState = {
   speGetPage: {},
@@ -99,6 +100,12 @@ const reducer = (state = initialState, action) => {
         // Auto-read the re-review problem
         playAutoTts(reReviewProblem);
         
+        // Precache upcoming problems in background
+        const failedProblems = state.indexesOfFailedProblems.map(index => 
+          state.speGetPage.payload.problems[index]
+        );
+        TtsPrecacheService.precacheNextProblems(failedProblems, 0, 3);
+        
         if (state.ifReviewingFailedProblems) {
           return {
             ...state,
@@ -116,6 +123,9 @@ const reducer = (state = initialState, action) => {
         // Auto-read the next problem
         playAutoTts(nextProblem);
         
+        // Precache next 3 problems in background
+        TtsPrecacheService.precacheNextProblems(state.speGetPage.payload.problems, nextIndex, 3);
+        
         return {
           ...state,
           statusOfSolving: freshStatusOfSolving(nextProblem, nextIndex)
@@ -129,6 +139,12 @@ const reducer = (state = initialState, action) => {
       
       // Auto-read the re-review problem
       playAutoTts(reReviewProblem);
+      
+      // Precache upcoming failed problems in background
+      const failedProblems = state.indexesOfFailedProblems.map(index => 
+        state.speGetPage.payload.problems[index]
+      );
+      TtsPrecacheService.precacheNextProblems(failedProblems, 0, 3);
       
       return {
         ...state,
@@ -157,6 +173,9 @@ const reducer = (state = initialState, action) => {
         
         // Auto-read the first problem
         playAutoTts(firstProblem);
+        
+        // Precache next 3 problems in background from the start
+        TtsPrecacheService.precacheNextProblems(spe.payload.problems, 0, 3);
         
         return {
           ...state,
@@ -192,6 +211,9 @@ const reducer = (state = initialState, action) => {
       
       // Auto-read the new randomized problem
       playAutoTts(newCurrentProblem);
+      
+      // Precache next 3 problems after randomization
+      TtsPrecacheService.precacheNextProblems(randomProblems, currentProblemIndex, 3);
       
       return {
         ...state,

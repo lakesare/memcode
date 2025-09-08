@@ -271,6 +271,45 @@ class TtsService {
     return !!cachedItem;
   }
 
+  // Prepare audio for caching without playing (for precaching)
+  static async prepareAudio(text, voice = 'alloy') {
+    await this.init();
+    
+    const plainText = this.stripHtml(text);
+    if (!plainText.trim()) return { fromCache: true };
+    
+    const cacheKey = `${voice}:${plainText}`;
+    
+    // Check if already cached (memory or IndexedDB)
+    if (this.audioCache.has(cacheKey)) {
+      await this.updateLastUsed(cacheKey);
+      return { fromCache: true };
+    }
+    
+    const cachedItem = await this.getFromDB(cacheKey);
+    if (cachedItem) {
+      this.audioCache.set(cacheKey, cachedItem.blob);
+      await this.updateLastUsed(cacheKey);
+      return { fromCache: true };
+    }
+    
+    // Fetch from API and cache (but don't play)
+    const response = await fetch('/api/TtsApi.generateSpeech', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: plainText, voice })
+    });
+    
+    if (!response.ok) throw new Error('TTS request failed');
+    
+    const audioBlob = await response.blob();
+    
+    // Cache the new audio
+    await this.cacheAudio(cacheKey, audioBlob);
+    
+    return { fromCache: false };
+  }
+
   // Clear all caches
   static async clearCache() {
     this.audioCache.clear();
