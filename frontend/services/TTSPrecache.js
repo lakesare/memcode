@@ -1,7 +1,7 @@
 import TtsService from '~/services/ttsService';
 import ClozeDeletion from '~/services/ClozeDeletion';
 
-class TtsPrecacheService {
+class TTSPrecache {
   // Track what's currently being precached to avoid duplicates
   static precachingSet = new Set();
   
@@ -60,7 +60,7 @@ class TtsPrecacheService {
   }
   
   /**
-   * Precache all relevant TTS audio for a problem
+   * Precache only the necessary TTS audio for a problem
    */
   static async precacheProblemAudio(problem, index) {
     if (!problem.content?.content) return;
@@ -69,27 +69,21 @@ class TtsPrecacheService {
     
     const promises = [];
     
-    // 1. Precache the full sentence (for regular playback)
-    const fullText = ClozeDeletion.stripHtmlTags(problem.content.content);
-    promises.push(this.precacheText(fullText, `Problem ${index} full text`));
-    
-    // For cloze deletion problems, precache succumb sequence variants
     if (problem.type === 'inlinedAnswers') {
+      // For cloze deletion: only cache succumb sequence (what plays when completed)
       const answers = ClozeDeletion.getAnswerTexts(problem.content.content);
       
       if (answers.length > 0) {
-        // 2. Precache individual answer with context (for when user types correct answer)
-        for (const answer of answers) {
-          const contextualText = `${answer} ${fullText}`;
-          promises.push(this.precacheText(contextualText, `Problem ${index} answer context`));
-        }
-        
-        // 3. Precache succumb sequence (word. word??? word!!! sentence) - matches SequenceTtsService.playSuccumbSequence format
+        const fullText = ClozeDeletion.stripHtmlTags(problem.content.content);
         const lastAnswer = answers[answers.length - 1];
         const cleanAnswer = ClozeDeletion.stripHtmlTags(lastAnswer);
         const succumbText = `${cleanAnswer}. ${cleanAnswer}??? ${cleanAnswer}!!! ${fullText}`;
         promises.push(this.precacheText(succumbText, `Problem ${index} succumb sequence`));
       }
+    } else if (problem.type === 'separateAnswer') {
+      // For separate answer: only cache full text (what auto-plays)
+      const fullText = ClozeDeletion.stripHtmlTags(problem.content.content);
+      promises.push(this.precacheText(fullText, `Problem ${index} full text`));
     }
     
     // Execute all precaching in parallel
@@ -134,4 +128,4 @@ class TtsPrecacheService {
   }
 }
 
-export default TtsPrecacheService;
+export default TTSPrecache;

@@ -3,7 +3,7 @@ import playAutoTts from './services/playAutoTts';
 import TtsService from '~/services/ttsService';
 import ClozeDeletion from '~/services/ClozeDeletion';
 import SequenceTtsService from '~/services/SequenceTtsService';
-import TtsPrecacheService from '~/services/TtsPrecacheService';
+import TTSPrecache from '~/services/TTSPrecache';
 
 const initialState = {
   speGetPage: {},
@@ -104,7 +104,7 @@ const reducer = (state = initialState, action) => {
         const failedProblems = state.indexesOfFailedProblems.map(index => 
           state.speGetPage.payload.problems[index]
         );
-        TtsPrecacheService.precacheNextProblems(failedProblems, 0, 3);
+        TTSPrecache.precacheNextProblems(failedProblems, 0, 3);
         
         if (state.ifReviewingFailedProblems) {
           return {
@@ -124,7 +124,7 @@ const reducer = (state = initialState, action) => {
         playAutoTts(nextProblem);
         
         // Precache next 3 problems in background
-        TtsPrecacheService.precacheNextProblems(state.speGetPage.payload.problems, nextIndex, 3);
+        TTSPrecache.precacheNextProblems(state.speGetPage.payload.problems, nextIndex, 3);
         
         return {
           ...state,
@@ -144,7 +144,7 @@ const reducer = (state = initialState, action) => {
       const failedProblems = state.indexesOfFailedProblems.map(index => 
         state.speGetPage.payload.problems[index]
       );
-      TtsPrecacheService.precacheNextProblems(failedProblems, 0, 3);
+      TTSPrecache.precacheNextProblems(failedProblems, 0, 3);
       
       return {
         ...state,
@@ -175,7 +175,7 @@ const reducer = (state = initialState, action) => {
         playAutoTts(firstProblem);
         
         // Precache next 3 problems in background from the start
-        TtsPrecacheService.precacheNextProblems(spe.payload.problems, 0, 3);
+        TTSPrecache.precacheNextProblems(spe.payload.problems, 0, 3);
         
         return {
           ...state,
@@ -213,7 +213,7 @@ const reducer = (state = initialState, action) => {
       playAutoTts(newCurrentProblem);
       
       // Precache next 3 problems after randomization
-      TtsPrecacheService.precacheNextProblems(randomProblems, currentProblemIndex, 3);
+      TTSPrecache.precacheNextProblems(randomProblems, currentProblemIndex, 3);
       
       return {
         ...state,
