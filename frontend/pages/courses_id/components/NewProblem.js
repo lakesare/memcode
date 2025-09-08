@@ -99,7 +99,7 @@ class NewProblem extends React.Component {
   renderTypeButton = (type, typeInHuman) =>
     <button
       type="button"
-      className={`button ${this.state.currentProblemType === type ? '-active' : ''}`}
+      className={`button -${type} ${this.state.currentProblemType === type ? '-active' : ''}`}
       onClick={() => this.state.currentProblemType !== type && this.updateType(type)}
       tabIndex={-1}
     >{typeInHuman}</button>

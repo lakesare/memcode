@@ -138,7 +138,7 @@ class CoursesDropdown extends React.Component {
       return null;
     }
 
-    return <div className={`button -to-review sync-button ${this.props.My.speCourses.status === 'request' ? '-saving' : ''} ${this.props.My.speCourses.status === 'success' ? '-just-saved' : ''}`}>
+    return <div className={`button -to-review total-n-to-review-button ${this.props.My.speCourses.status === 'request' ? '-saving' : ''} ${this.props.My.speCourses.status === 'success' ? '-just-saved' : ''}`}>
       {nOfProblems}
     </div>;
   }

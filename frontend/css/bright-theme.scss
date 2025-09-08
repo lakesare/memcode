@@ -195,6 +195,43 @@ body.-hideSocialButtons{
 }
 
 .-bright-theme{
+  // _________BORDER RADIUS_________
+  .button{
+    border-radius: 10px !important;
+  }
+  .standard-course-card{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  .ql-editor, .see-answer-button, .audio-button{
+    border-radius: 10px !important;
+  }
+  .button.total-n-to-review-button{
+    aspect-ratio: 1;
+    border-radius: 50% !important;
+  }
+  input.answer-input{
+    border-radius: 6px !important;
+  }
+  section.current-user .avatar img{ border-radius: 50% !important; }
+  section.choose-type button.button.-separateAnswer{ border-bottom-left-radius: 0px !important; border-bottom-right-radius: 0px !important; }
+  section.choose-type button.button.-inlinedAnswers{ border-top-left-radius: 0px !important; border-top-right-radius: 0px !important; }
+
+  section.checkbox{ border-radius: 7px !important; }
+  .old-problem-wrapper.-checked{ border-radius: 10px !important; }
+  // _________________________________
+
+  .course-actions h1.title a{
+    padding-left: 0;
+  }
+
+  a:hover{
+    opacity: 0.8;
+  }
+
   .ProblemBeingSolved{
     div.instructions{
       em.review-emphasis{ color: rgb(37, 176, 139); }
@@ -210,6 +247,8 @@ body.-hideSocialButtons{
         background: transparent;
       }
     }
+
+    div.inner{ height: 14px !important; }
 
     button.audio-button{
       color: rgba(166, 163, 163, 0.79);
@@ -241,7 +280,7 @@ body.-hideSocialButtons{
     border: 2px solid rgba(37, 176, 139, 0.56);
   }
   section.problem .quill > .ql-container > .ql-editor{
-    background: white !important;
+    background: #ffffffe8 !important;
   }
   section.problem, .course-description-and-stats{
     font-weight: 400;
