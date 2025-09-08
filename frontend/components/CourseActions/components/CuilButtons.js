@@ -5,7 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import StandardTooltip from '~/components/StandardTooltip';
 import TogglerAndModal from '~/components/TogglerAndModal';
-import ImportExportModal from './ImportExportModal';
+import InviteCoauthorModal from './InviteCoauthorModal';
 
 @withRouter
 class CuilButtons extends React.Component {
@@ -20,6 +20,8 @@ class CuilButtons extends React.Component {
       amountOfProblems: PropTypes.number.isRequired,
       courseUserIsLearning: PropTypes.object
     }).isRequired,
+    author: PropTypes.object,
+    coauthors: PropTypes.array,
 
     apiStartLearning: PropTypes.func.isRequired,
     apiStopLearning: PropTypes.func.isRequired,
@@ -241,24 +243,25 @@ class CuilButtons extends React.Component {
       </li>
 
       {
-        this.props.canIEditCourse &&
+        this.props.canIEditCourse && this.props.author && this.props.coauthors &&
         <li>
-          <ImportExportModal
+          <InviteCoauthorModal
+            course={this.props.courseDto.course}
+            author={this.props.author}
+            coauthors={this.props.coauthors}
+            currentUser={this.props.currentUser}
             toggler={
               <button
                 type="button"
                 style={{ color: 'rgb(120, 175, 244)' }}
                 onClick={this.closeDropdown}
               >
-                <div className="text">Import/Export</div>
+                <div className="text">Invite Coauthors</div>
                 <div className="comment -white">
-                  Import flashcards from text or export existing flashcards.
+                  Add another Memcode user as a coauthor, learning together with someone special is more fun!
                 </div>
               </button>
             }
-            course={this.props.courseDto.course}
-            MyActions={this.props.MyActions}
-            onProblemsImported={this.props.onProblemsImported}
           />
         </li>
       }

@@ -11,7 +11,7 @@ import Loading         from '~/components/Loading';
 
 import CourseModal from './components/CourseModal';
 import CuilButtons from './components/CuilButtons';
-import InviteCoauthorModal       from './components/InviteCoauthorModal';
+import ImportExportModal from './components/ImportExportModal';
 import CourseDescriptionAndStats from './components/CourseDescriptionAndStats';
 
 import css from './index.scss';
@@ -189,14 +189,13 @@ class CourseActions extends React.Component {
                 MyActions={this.props.MyActions}
               />
 
-              <InviteCoauthorModal
+              <ImportExportModal
                 course={courseDto.course}
-                author={courseDto.author}
-                coauthors={courseDto.coauthors}
-                currentUser={this.props.currentUser}
+                MyActions={this.props.MyActions}
+                onProblemsImported={this.props.onProblemsImported}
                 toggler={
                   <button className="button invite-coauthor-button" type="button">
-                    <i className="fa fa-users"/> INVITE COAUTHORS
+                    <i className="fa fa-download"/> IMPORT
                   </button>
                 }
               />
@@ -231,6 +230,8 @@ class CourseActions extends React.Component {
           nOfProblemsToReview={nOfProblemsToReview}
           currentUser={this.props.currentUser}
           courseDto={courseDto}
+          author={courseDto.author}
+          coauthors={courseDto.coauthors}
 
           apiStartLearning={this.apiStartLearning}
           apiStopLearning={this.apiStopLearning}
