@@ -170,7 +170,8 @@ class SequenceTtsService {
     });
   }
 
-  // Experimental: Play succumb sequence (word + word + word + full sentence)
+  // Play succumb sequence: for multiple cloze deletions, read all answers in pattern
+  // "word1. word1??? word1!!! word2. word2??? word2!!! sentence"
   static async playSuccumbSequence(content, voice = 'alloy') {
     console.log('🎵 SUCCUMB SEQUENCE TRIGGERED!', content);
     const answers = ClozeDeletion.getAnswerTexts(content);
@@ -180,16 +181,19 @@ class SequenceTtsService {
     const cleanText = ClozeDeletion.stripHtmlTags(content);
     
     if (answers.length > 0) {
-      // Get the last answer (most recently revealed)
-      const lastAnswer = answers[answers.length - 1];
-      const cleanAnswer = ClozeDeletion.stripHtmlTags(lastAnswer);
-      console.log('Target word for repetition:', cleanAnswer);
+      const validAnswers = answers
+        .map(answer => ClozeDeletion.stripHtmlTags(answer))
+        .filter(answer => this.hasLetters(answer));
       
-      if (this.hasLetters(cleanAnswer)) {
-        // Construct single text: word word word sentence
-        // This gives OpenAI TTS full context for better pronunciation
-        const contextualText = `${cleanAnswer}. ${cleanAnswer}??? ${cleanAnswer}!!! ${cleanText}`;
-        console.log('🔊 Playing contextual sequence:', contextualText);
+      if (validAnswers.length > 0) {
+        // Build the pattern: word1. word1??? word1!!! word2. word2??? word2!!! sentence
+        // Works for both single and multiple cloze deletions
+        const answerRepetitions = validAnswers.map(answer => 
+          `${answer}. ${answer}??? ${answer}!!!`
+        ).join(' ');
+        
+        const contextualText = `${answerRepetitions} ${cleanText}`;
+        console.log('🔊 Playing succumb sequence:', contextualText);
         
         await TtsService.speakText(contextualText, voice);
         console.log('✅ Succumb sequence complete!');
