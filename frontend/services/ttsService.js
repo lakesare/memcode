@@ -88,7 +88,7 @@ class TtsService {
     const response = await fetch('/api/TtsApi.generateSpeech', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: plainText, voice: 'alloy' })
+      body: JSON.stringify({ text: plainText, voice: 'shimmer' })
     });
     
     if (!response.ok) throw new Error('TTS request failed');
