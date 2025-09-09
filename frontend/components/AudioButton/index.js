@@ -19,21 +19,11 @@ class AudioButton extends React.Component {
     if (this.state.isLoading) return;
     
     try {
-      // Quick check if it's in memory cache (synchronous)
-      const isInMemoryCache = TtsService.isInMemoryCache(this.props.text);
+      // Check if it's cached (async)
+      const isCached = await TtsService.isCached(this.props.text);
       
-      if (isInMemoryCache) {
-        // In memory cache - play immediately without loading state
-        await TtsService.speakText(this.props.text);
-        return;
-      }
-      
-      // Not in memory - check if it's cached anywhere (async)
-      // This will also initialize TTS service if needed
-      const isCachedAnywhere = await TtsService.isCached(this.props.text);
-      
-      if (!isCachedAnywhere) {
-        // Not cached anywhere - show loading indicator for API call
+      if (!isCached) {
+        // Not cached - show loading indicator for API call
         this.setState({ isLoading: true });
       }
       

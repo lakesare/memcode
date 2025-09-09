@@ -9,7 +9,7 @@ const playAutoTts = (problem) => {
       return;
     } else if (problem.type === 'separateAnswer') {
       // For separate answer problems, only read the question (content), never the answer
-      TtsService.playFullText(problem.content.content);
+      TtsService.speakText(problem.content.content);
     }
   }
 };

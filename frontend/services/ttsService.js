@@ -1,8 +1,5 @@
-// Simple Text-to-Speech service with storage-based caching
+// Simple Text-to-Speech service with IndexedDB caching
 class TtsService {
-  // In-memory cache for instant access
-  static audioCache = new Map();
-  
   // Storage limits
   static MAX_CACHE_STORAGE = 0; // Will be set to availableStorage/2
   static currentCacheSize = 0;  // Track actual storage used
@@ -18,21 +15,21 @@ class TtsService {
     if (this.initialized) return;
     
     // Set max cache storage to 50% of available space
+    this.MAX_CACHE_STORAGE = 100 * 1024 * 1024; // 100MB default
+    
     try {
       if ('storage' in navigator && 'estimate' in navigator.storage) {
         const estimate = await navigator.storage.estimate();
         const availableSpace = estimate.quota - (estimate.usage || 0);
         this.MAX_CACHE_STORAGE = availableSpace / 2;
-      } else {
-        this.MAX_CACHE_STORAGE = 100 * 1024 * 1024; // 100MB fallback
       }
     } catch (error) {
-      this.MAX_CACHE_STORAGE = 100 * 1024 * 1024; // 100MB fallback
+      // Use default 100MB
     }
     
     // Open IndexedDB
     this.db = await this.openDB();
-    await this.loadCache();
+    await this.calculateCacheSize();
     this.initialized = true;
   }
 
@@ -48,29 +45,16 @@ class TtsService {
         const db = event.target.result;
         const store = db.createObjectStore(this.STORE_NAME, { keyPath: 'key' });
         store.createIndex('lastUsed', 'lastUsed', { unique: false });
-        store.createIndex('size', 'size', { unique: false });
       };
     });
   }
 
-  // Load cache from IndexedDB and calculate current size
-  static async loadCache() {
+  // Calculate current cache size from IndexedDB
+  static async calculateCacheSize() {
     const transaction = this.db.transaction([this.STORE_NAME], 'readonly');
     const store = transaction.objectStore(this.STORE_NAME);
     const items = await this.getAllFromStore(store);
     
-    this.currentCacheSize = 0;
-    
-    // Load recent items into memory cache
-    items
-      .sort((a, b) => b.lastUsed - a.lastUsed) // Most recent first
-      .slice(0, 100) // Only keep 100 most recent in memory
-      .forEach(item => {
-        this.audioCache.set(item.key, item.blob);
-        this.currentCacheSize += item.size;
-      });
-      
-    // Calculate total storage used
     this.currentCacheSize = items.reduce((total, item) => total + item.size, 0);
   }
 
@@ -83,40 +67,28 @@ class TtsService {
     });
   }
 
-  // Main TTS function
-  static async speakText(text, voice = 'alloy') {
+  // Unified cache-or-fetch method
+  static async getCachedOrFetch(text, shouldPlay = false, logPrefix = 'TTS') {
     await this.init();
     
     const plainText = this.prepareTextForTts(text);
     if (!plainText) return { fromCache: true };
     
-    const cacheKey = this.createCacheKey(text);
-    
-    // Check memory cache first
-    if (this.audioCache.has(cacheKey)) {
-      console.log(`🔊 TTS CACHE HIT: "${plainText}"`);
-      await this.updateLastUsed(cacheKey);
-      const blob = this.audioCache.get(cacheKey);
-      await this.playAudioBlob(blob);
-      return { fromCache: true };
-    }
-    
     // Check IndexedDB cache
-    const cachedItem = await this.getFromDB(cacheKey);
+    const cachedItem = await this.getFromDB(plainText);
     if (cachedItem) {
-      console.log(`🔊 TTS CACHE HIT: "${plainText}"`);
-      this.audioCache.set(cacheKey, cachedItem.blob);
-      await this.updateLastUsed(cacheKey);
-      await this.playAudioBlob(cachedItem.blob);
-      return { fromCache: true };
+      console.log(`🔊 ${logPrefix} CACHE HIT: "${plainText}"`);
+      await this.updateLastUsed(plainText);
+      if (shouldPlay) await this.playAudioBlob(cachedItem.blob);
+      return { fromCache: true, blob: cachedItem.blob };
     }
     
     // Fetch from API
-    console.log(`🔊 TTS CACHE MISS: "${plainText}"`);
+    console.log(`🔊 ${logPrefix} CACHE MISS: "${plainText}"`);
     const response = await fetch('/api/TtsApi.generateSpeech', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: plainText, voice })
+      body: JSON.stringify({ text: plainText, voice: 'alloy' })
     });
     
     if (!response.ok) throw new Error('TTS request failed');
@@ -124,20 +96,22 @@ class TtsService {
     const audioBlob = await response.blob();
     
     // Cache the new audio
-    await this.cacheAudio(cacheKey, audioBlob);
+    await this.cacheAudio(plainText, audioBlob);
     
-    // Play audio
-    await this.playAudioBlob(audioBlob);
+    // Play audio if requested
+    if (shouldPlay) await this.playAudioBlob(audioBlob);
     
-    return { fromCache: false };
+    return { fromCache: false, blob: audioBlob };
   }
-
+  
+  // Main TTS function
+  static async speakText(text) {
+    const result = await this.getCachedOrFetch(text, true, 'TTS');
+    return { fromCache: result.fromCache };
+  }
   // Cache audio with storage-based LRU pruning
   static async cacheAudio(key, blob) {
     const blobSize = blob.size;
-    
-    // Add to memory cache
-    this.audioCache.set(key, blob);
     
     // Prune old items if we exceed storage limit
     while (this.currentCacheSize + blobSize > this.MAX_CACHE_STORAGE) {
@@ -164,7 +138,6 @@ class TtsService {
         if (cursor) {
           const item = cursor.value;
           this.currentCacheSize -= item.size;
-          this.audioCache.delete(item.key);
           cursor.delete();
         }
         resolve();
@@ -215,72 +188,19 @@ class TtsService {
     };
   }
 
-  // Quick memory cache check (synchronous)
-  static isInMemoryCache(text, voice = 'alloy') {
-    const cacheKey = this.createCacheKey(text);
-    return cacheKey ? this.audioCache.has(cacheKey) : false;
-  }
-
-  // Check if text is cached anywhere (memory or IndexedDB) - asynchronous
-  static async isCached(text, voice = 'alloy') {
-    await this.init();
-    
-    const cacheKey = this.createCacheKey(text);
-    if (!cacheKey) return true;
-    
-    if (this.audioCache.has(cacheKey)) {
-      return true;
-    }
-    
-    const cachedItem = await this.getFromDB(cacheKey);
-    return !!cachedItem;
-  }
-
-  // Prepare audio for caching without playing (for precaching)
-  static async prepareAudio(text, voice = 'alloy') {
+  // Check if text is cached in IndexedDB
+  static async isCached(text) {
     await this.init();
     
     const plainText = this.prepareTextForTts(text);
-    if (!plainText) return { fromCache: true };
+    if (!plainText) return true;
     
-    const cacheKey = this.createCacheKey(text);
-    
-    // Check if already cached (memory or IndexedDB)
-    if (this.audioCache.has(cacheKey)) {
-      console.log(`🔊 TTS PRECACHE HIT: "${plainText}"`);
-      await this.updateLastUsed(cacheKey);
-      return { fromCache: true };
-    }
-    
-    const cachedItem = await this.getFromDB(cacheKey);
-    if (cachedItem) {
-      console.log(`🔊 TTS PRECACHE HIT: "${plainText}"`);
-      this.audioCache.set(cacheKey, cachedItem.blob);
-      await this.updateLastUsed(cacheKey);
-      return { fromCache: true };
-    }
-    
-    // Fetch from API and cache (but don't play)
-    console.log(`🔊 TTS PRECACHE MISS: "${plainText}"`);
-    const response = await fetch('/api/TtsApi.generateSpeech', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: plainText, voice })
-    });
-    
-    if (!response.ok) throw new Error('TTS request failed');
-    
-    const audioBlob = await response.blob();
-    
-    // Cache the new audio
-    await this.cacheAudio(cacheKey, audioBlob);
-    
-    return { fromCache: false };
+    const cachedItem = await this.getFromDB(plainText);
+    return !!cachedItem;
   }
 
   // Clear all caches
   static async clearCache() {
-    this.audioCache.clear();
     this.currentCacheSize = 0;
     
     if (this.db) {
@@ -293,7 +213,6 @@ class TtsService {
   // Get cache stats
   static getCacheStats() {
     return {
-      memoryItems: this.audioCache.size,
       storageSizeMB: (this.currentCacheSize / 1024 / 1024).toFixed(1),
       maxStorageMB: (this.MAX_CACHE_STORAGE / 1024 / 1024).toFixed(1),
       storagePercent: ((this.currentCacheSize / this.MAX_CACHE_STORAGE) * 100).toFixed(1)
@@ -350,9 +269,6 @@ class TtsService {
     });
   }
 
-  static createCacheKey(text) {
-    return this.prepareTextForTts(text);
-  }
 
   static isVolumeEnabled() {
     return localStorage.getItem('volume') === 'yes';
@@ -449,7 +365,7 @@ class TtsService {
 
   static async playNoise() {
     if (!this.noiseAudio) {
-      await this.speakText('...', 'alloy');
+      await this.speakText('...');
       return;
     }
 
@@ -534,7 +450,7 @@ class TtsService {
     });
   }
 
-  static async playSequence(content, answerInputs = null, voice = 'alloy') {
+  static async playSequence(content, answerInputs = null) {
     await this.loadNoiseAudio();
     
     const textParts = this.splitIntoTextParts(content);
@@ -557,7 +473,7 @@ class TtsService {
         if (shouldPlayAnswer) {
           const cleanText = this.prepareTextForTts(part);
           if (cleanText) {
-            await this.speakText(cleanText, voice);
+            await this.speakText(cleanText);
           }
         } else {
           await this.playNoise();
@@ -567,7 +483,7 @@ class TtsService {
       } else {
         const cleanText = this.prepareTextForTts(part);
         if (cleanText) {
-          await this.speakText(cleanText, voice);
+          await this.speakText(cleanText);
         }
       }
       
@@ -577,7 +493,7 @@ class TtsService {
     }
   }
 
-  static async playSuccumbSequence(content, voice = 'alloy') {
+  static async playSuccumbSequence(content) {
     const answers = this.getAnswerTexts(content);
     const cleanText = this.stripHtml(content);
     
@@ -592,12 +508,12 @@ class TtsService {
         ).join(' ');
         
         const contextualText = `${answerRepetitions} ${cleanText}`;
-        await this.speakText(contextualText, voice);
+        await this.speakText(contextualText);
         return;
       }
     }
     
-    await this.speakText(cleanText, voice);
+    await this.speakText(cleanText);
   }
 
   // Precaching functionality
@@ -628,92 +544,46 @@ class TtsService {
       console.log(`🚀 PRECACHE START: Flashcards ${indices}`);
     }
     
-    problemsToCache.forEach(({ problem, index }) => {
-      this.precacheProblem(problem, index);
-    });
-  }
-
-  static async precacheProblem(problem, index) {
-    if (!problem) return;
-    
-    const cacheKey = `problem_${problem.id || index}`;
-    
-    if (this.precachingSet.has(cacheKey)) {
-      return;
-    }
-    
-    this.precachingSet.add(cacheKey);
-    
-    try {
-      await this.precacheProblemAudio(problem, index);
-    } catch (error) {
-      console.warn(`Failed to precache problem ${index}:`, error);
-    } finally {
-      this.precachingSet.delete(cacheKey);
-    }
-  }
-
-  static async precacheProblemAudio(problem, index) {
-    if (!problem.content?.content) return;
-    
-    const promises = [];
-    
-    if (problem.type === 'inlinedAnswers') {
-      const answers = this.getAnswerTexts(problem.content.content);
+    // Process each problem for precaching
+    for (const { problem, index } of problemsToCache) {
+      if (!problem?.content?.content) continue;
       
-      if (answers.length > 0) {
-        const fullText = this.stripHtml(problem.content.content);
-        const validAnswers = answers
-          .map(answer => this.prepareTextForTts(answer))
-          .filter(Boolean);
+      const cacheKey = `problem_${problem.id || index}`;
+      if (this.precachingSet.has(cacheKey)) continue;
+      
+      this.precachingSet.add(cacheKey);
+      
+      try {
+        let textToCache = null;
         
-        if (validAnswers.length > 0) {
-          const answerRepetitions = validAnswers.map(answer => 
-            `${answer}. ${answer}??? ${answer}!!!`
-          ).join(' ');
-          const succumbText = `${answerRepetitions} ${fullText}`;
-          
-          promises.push(this.precacheText(succumbText));
+        if (problem.type === 'inlinedAnswers') {
+          const answers = this.getAnswerTexts(problem.content.content);
+          if (answers.length > 0) {
+            const fullText = this.stripHtml(problem.content.content);
+            const validAnswers = answers
+              .map(answer => this.prepareTextForTts(answer))
+              .filter(Boolean);
+            
+            if (validAnswers.length > 0) {
+              const answerRepetitions = validAnswers.map(answer => 
+                `${answer}. ${answer}??? ${answer}!!!`
+              ).join(' ');
+              textToCache = `${answerRepetitions} ${fullText}`;
+            }
+          }
+        } else if (problem.type === 'separateAnswer') {
+          textToCache = this.stripHtml(problem.content.content);
         }
-      }
-    } else if (problem.type === 'separateAnswer') {
-      const fullText = this.stripHtml(problem.content.content);
-      if (fullText) {
-        promises.push(this.precacheText(fullText));
+        
+        if (textToCache) {
+          const result = await this.getCachedOrFetch(textToCache, false, 'TTS PRECACHE');
+        }
+      } catch (error) {
+        console.warn(`Failed to precache problem ${index}:`, error);
+      } finally {
+        this.precachingSet.delete(cacheKey);
       }
     }
-    
-    await Promise.allSettled(promises);
-  }
-
-  static async precacheText(text) {
-    try {
-      const isCached = await this.isCached(text);
-      if (isCached) {
-        console.log(`🔊 TTS PRECACHE HIT: "${text}"`);
-        return;
-      }
-      
-      await this.prepareAudio(text);
-    } catch (error) {
-      console.warn('TTS precache error:', error);
-    }
-  }
-
-  static async precacheNextProblems(problems, currentIndex, count = 3) {
-    return this.precacheUpcoming(problems, currentIndex, count);
-  }
-
-  // Simple method to play full text (used by playAutoTts)
-  static async playFullText(text, voice = 'alloy') {
-    const cleanText = this.prepareTextForTts(text);
-    if (cleanText) {
-      await this.speakText(cleanText, voice);
-    }
-  }
-
-  static clearPrecachingSet() {
-    this.precachingSet.clear();
   }
 }
 

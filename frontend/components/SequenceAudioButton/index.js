@@ -28,15 +28,10 @@ class SequenceAudioButton extends React.Component {
       
       if (this.props.playFullText) {
         // For succumb sequence, check if it's cached
-        const isInMemoryCache = TtsService.isInMemoryCache(this.props.content);
+        const isCachedAnywhere = await TtsService.isCached(this.props.content);
         
-        if (!isInMemoryCache) {
-          // Check if it's cached anywhere (async)
-          const isCachedAnywhere = await TtsService.isCached(this.props.content);
-          
-          if (!isCachedAnywhere) {
-            showLoading = true;
-          }
+        if (!isCachedAnywhere) {
+          showLoading = true;
         }
       } else {
         // For sequence playback, check if any of the text parts need to be fetched
@@ -49,7 +44,7 @@ class SequenceAudioButton extends React.Component {
           const isAnswer = answers.includes(part);
           if (!isAnswer) {
             const cleanText = TtsService.prepareTextForTts(part);
-            if (cleanText && !TtsService.isInMemoryCache(cleanText)) {
+            if (cleanText) {
               const isCached = await TtsService.isCached(cleanText);
               if (!isCached) {
                 showLoading = true;

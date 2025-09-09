@@ -89,7 +89,7 @@ const reducer = (state = initialState, action) => {
         const failedProblems = state.indexesOfFailedProblems.map(index => 
           state.speGetPage.payload.problems[index]
         );
-        TtsService.precacheNextProblems(failedProblems, 0, 3);
+        TtsService.precacheUpcoming(failedProblems, 0, 3);
         
         if (state.ifReviewingFailedProblems) {
           return {
@@ -109,7 +109,7 @@ const reducer = (state = initialState, action) => {
         playAutoTts(nextProblem);
         
         // Precache next 3 problems in background
-        TtsService.precacheNextProblems(state.speGetPage.payload.problems, nextIndex, 3);
+        TtsService.precacheUpcoming(state.speGetPage.payload.problems, nextIndex, 3);
         
         return {
           ...state,
@@ -129,7 +129,7 @@ const reducer = (state = initialState, action) => {
       const failedProblems = state.indexesOfFailedProblems.map(index => 
         state.speGetPage.payload.problems[index]
       );
-      TtsService.precacheNextProblems(failedProblems, 0, 3);
+      TtsService.precacheUpcoming(failedProblems, 0, 3);
       
       return {
         ...state,
@@ -160,7 +160,7 @@ const reducer = (state = initialState, action) => {
         playAutoTts(firstProblem);
         
         // Precache next 3 problems in background from the start
-        TtsService.precacheNextProblems(spe.payload.problems, 0, 3);
+        TtsService.precacheUpcoming(spe.payload.problems, 0, 3);
         
         return {
           ...state,
@@ -198,7 +198,7 @@ const reducer = (state = initialState, action) => {
       playAutoTts(newCurrentProblem);
       
       // Precache next 3 problems after randomization
-      TtsService.precacheNextProblems(randomProblems, currentProblemIndex, 3);
+      TtsService.precacheUpcoming(randomProblems, currentProblemIndex, 3);
       
       return {
         ...state,
