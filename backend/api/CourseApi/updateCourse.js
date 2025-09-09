@@ -10,8 +10,7 @@ const updateCourse = async (request, response) => {
       title: courseData.title,
       description: courseData.description,
       if_public: courseData.ifPublic,
-      course_category_id: courseData.courseCategoryId || null,
-      updated_at: knex.fn.now()
+      course_category_id: courseData.courseCategoryId || null
     })
     .returning('*');
     
