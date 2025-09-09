@@ -25,7 +25,7 @@ heroku-postbuild:
 	make heroku-frontend-webpack &
 	make heroku-meresei-frontend-webpack
 heroku-deploy:
-	git push heroku master
+	git push https://git.heroku.com/memcode.git master
 heroku-frontend-webpack:
 	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
 heroku-meresei-frontend-webpack:
