@@ -1,6 +1,6 @@
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 import AudioButton from '~/components/AudioButton';
-import ClozeDeletion from '~/services/ClozeDeletion';
+import TtsService from '~/services/ttsService';
 
 class SeparateAnswerReview extends React.Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class SeparateAnswerReview extends React.Component {
       <ReadonlyEditor 
         className="question first-column" 
         html={this.props.problemContent.content}
-        audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.content)}
+        audioText={TtsService.stripHtml(this.props.problemContent.content)}
       />
 
       {
@@ -44,7 +44,7 @@ class SeparateAnswerReview extends React.Component {
           <ReadonlyEditor 
             className="answer second-column" 
             html={this.props.problemContent.answer}
-            audioText={ClozeDeletion.stripHtmlTags(this.props.problemContent.answer)}
+            audioText={TtsService.stripHtml(this.props.problemContent.answer)}
           /> :
           <div className="second-column">
             <button

@@ -1,5 +1,5 @@
 import calculateScore from './services/calculateScore';
-import ClozeDeletion from '~/services/ClozeDeletion';
+import TtsService from '~/services/ttsService';
 
 const deriveCurrentProblem = (state) => {
   const spe = state.speGetPage;
@@ -19,7 +19,7 @@ const deriveScore = (state, clozeDeletionMode) => {
         // given: amount of answers that were properly given
         // wanted: amount of all problems
         const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven;
-        const wanted = ClozeDeletion.countAnswerBlanks(currentProblem.content.content);
+        const wanted = TtsService.countAnswerBlanks(currentProblem.content.content);
         return calculateScore(given, wanted);
       } else {
         return state.statusOfSolving.typeSpecific.selfScore;

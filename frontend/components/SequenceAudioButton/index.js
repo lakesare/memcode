@@ -1,6 +1,5 @@
-import SequenceTtsService from '~/services/SequenceTtsService';
-import ClozeDeletion from '~/services/ClozeDeletion';
-import css from '../AudioButton/index.scss'; // Reuse existing styles
+import TtsService from '~/services/ttsService';
+import css from '../AudioButton/index.scss';
 
 class SequenceAudioButton extends React.Component {
   static propTypes = {
@@ -24,33 +23,54 @@ class SequenceAudioButton extends React.Component {
     if (this.state.isLoading) return;
     
     try {
-      let isInMemoryCache = false;
+      // Check cache and show loading indicator if needed
+      let showLoading = false;
       
       if (this.props.playFullText) {
-        // Check if full text is in memory cache
-        const cleanText = ClozeDeletion.stripHtmlTags(this.props.content);
-        isInMemoryCache = SequenceTtsService.isFullTextCached && await SequenceTtsService.isFullTextCached(this.props.content);
+        // For succumb sequence, check if it's cached
+        const isInMemoryCache = TtsService.isInMemoryCache(this.props.content);
+        
+        if (!isInMemoryCache) {
+          // Check if it's cached anywhere (async)
+          const isCachedAnywhere = await TtsService.isCached(this.props.content);
+          
+          if (!isCachedAnywhere) {
+            showLoading = true;
+          }
+        }
       } else {
-        // Check if sequence parts are in memory cache  
-        isInMemoryCache = await SequenceTtsService.isSequenceCached(this.props.content);
+        // For sequence playback, check if any of the text parts need to be fetched
+        // This gives better UX by showing loading when parts aren't cached
+        const textParts = TtsService.splitIntoTextParts(this.props.content);
+        const answers = TtsService.getAnswerTexts(this.props.content);
+        
+        // Check if any non-answer parts need to be fetched
+        for (const part of textParts) {
+          const isAnswer = answers.includes(part);
+          if (!isAnswer) {
+            const cleanText = TtsService.prepareTextForTts(part);
+            if (cleanText && !TtsService.isInMemoryCache(cleanText)) {
+              const isCached = await TtsService.isCached(cleanText);
+              if (!isCached) {
+                showLoading = true;
+                break;
+              }
+            }
+          }
+        }
       }
       
-      if (!isInMemoryCache) {
-        // Not cached - show loading indicator
+      if (showLoading) {
         this.setState({ isLoading: true });
       }
       
       // Play audio
-      console.log('SequenceAudioButton: playFullText =', this.props.playFullText);
-      console.log('SequenceAudioButton: answerInputs =', this.props.answerInputs);
-      
       if (this.props.playFullText) {
-        console.log('🎯 Taking succumb sequence path!');
-        // Experimental: Play succumb sequence (word + word + word + full sentence)
-        await SequenceTtsService.playSuccumbSequence(this.props.content);
+        // Play succumb sequence (handles both single and multi-cloze)
+        await TtsService.playSuccumbSequence(this.props.content);
       } else {
-        console.log('🎯 Taking normal sequence path!');
-        await SequenceTtsService.playSequence(this.props.content, this.props.answerInputs);
+        // Play normal sequence with noise for unanswered parts
+        await TtsService.playSequence(this.props.content, this.props.answerInputs);
       }
 
       // Reset loading state

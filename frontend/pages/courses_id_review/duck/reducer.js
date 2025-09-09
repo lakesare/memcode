@@ -1,9 +1,6 @@
 import _ from 'lodash';
 import playAutoTts from './services/playAutoTts';
 import TtsService from '~/services/ttsService';
-import ClozeDeletion from '~/services/ClozeDeletion';
-import SequenceTtsService from '~/services/SequenceTtsService';
-import TTSPrecache from '~/services/TTSPrecache';
 
 const initialState = {
   speGetPage: {},
@@ -28,14 +25,14 @@ const reducer = (state = initialState, action) => {
     // RIGHT inlined answer that is
     case 'INLINED_ANSWER_GIVEN': {
       const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven + 1;
-      const wanted = ClozeDeletion.countAnswerBlanks(currentProblem.content.content);
+      const wanted = TtsService.countAnswerBlanks(currentProblem.content.content);
       const answer = action.payload; // The individual answer text
 
       // Only play TTS when all answers are completed
-      if (given === wanted && localStorage.getItem('volume') === 'yes') {
+      if (given === wanted && TtsService.isVolumeEnabled()) {
         // User completed all answers - play succumb sequence
         // This handles both single and multiple cloze deletions appropriately
-        SequenceTtsService.playSuccumbSequence(currentProblem.content.content);
+        TtsService.playSuccumbSequence(currentProblem.content.content);
       }
 
       return {
@@ -66,8 +63,8 @@ const reducer = (state = initialState, action) => {
     case 'SET_STATUS_TO_SEEING_ANSWER': {
       // Play succumb sequence when user manually sees answer
       // Only for inlinedAnswers problems - separateAnswer problems should never read the answer
-      if (currentProblem && localStorage.getItem('volume') === 'yes' && currentProblem.type === 'inlinedAnswers') {
-        SequenceTtsService.playSuccumbSequence(currentProblem.content.content);
+      if (currentProblem && TtsService.isVolumeEnabled() && currentProblem.type === 'inlinedAnswers') {
+        TtsService.playSuccumbSequence(currentProblem.content.content);
       }
       
       return {
@@ -92,7 +89,7 @@ const reducer = (state = initialState, action) => {
         const failedProblems = state.indexesOfFailedProblems.map(index => 
           state.speGetPage.payload.problems[index]
         );
-        TTSPrecache.precacheNextProblems(failedProblems, 0, 3);
+        TtsService.precacheNextProblems(failedProblems, 0, 3);
         
         if (state.ifReviewingFailedProblems) {
           return {
@@ -112,7 +109,7 @@ const reducer = (state = initialState, action) => {
         playAutoTts(nextProblem);
         
         // Precache next 3 problems in background
-        TTSPrecache.precacheNextProblems(state.speGetPage.payload.problems, nextIndex, 3);
+        TtsService.precacheNextProblems(state.speGetPage.payload.problems, nextIndex, 3);
         
         return {
           ...state,
@@ -132,7 +129,7 @@ const reducer = (state = initialState, action) => {
       const failedProblems = state.indexesOfFailedProblems.map(index => 
         state.speGetPage.payload.problems[index]
       );
-      TTSPrecache.precacheNextProblems(failedProblems, 0, 3);
+      TtsService.precacheNextProblems(failedProblems, 0, 3);
       
       return {
         ...state,
@@ -163,7 +160,7 @@ const reducer = (state = initialState, action) => {
         playAutoTts(firstProblem);
         
         // Precache next 3 problems in background from the start
-        TTSPrecache.precacheNextProblems(spe.payload.problems, 0, 3);
+        TtsService.precacheNextProblems(spe.payload.problems, 0, 3);
         
         return {
           ...state,
@@ -201,7 +198,7 @@ const reducer = (state = initialState, action) => {
       playAutoTts(newCurrentProblem);
       
       // Precache next 3 problems after randomization
-      TTSPrecache.precacheNextProblems(randomProblems, currentProblemIndex, 3);
+      TtsService.precacheNextProblems(randomProblems, currentProblemIndex, 3);
       
       return {
         ...state,

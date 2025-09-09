@@ -3,7 +3,7 @@
 import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 import AudioButton from '~/components/AudioButton';
 import splitAltAnswers from './utils/splitAltAnswers';
-import ClozeDeletion from '~/services/ClozeDeletion';
+import TtsService from '~/services/ttsService';
 import SequenceAudioButton from '~/components/SequenceAudioButton';
 
 const focusOnTheFirstAnswer = (arrayOfAnswerEls) => {
@@ -202,7 +202,7 @@ class InlinedAnswersReview extends React.Component {
           <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.props.problemContent.explanation }}/>
         </div>
         <AudioButton 
-          text={ClozeDeletion.stripHtmlTags(this.props.problemContent.explanation)}
+          text={TtsService.stripHtml(this.props.problemContent.explanation)}
           className="readonly-editor-audio-btn"
         />
       </div>
