@@ -94,6 +94,7 @@ class TtsService {
     
     // Check memory cache first
     if (this.audioCache.has(cacheKey)) {
+      console.log(`🔊 TTS CACHE HIT: "${plainText}"`);
       await this.updateLastUsed(cacheKey);
       const blob = this.audioCache.get(cacheKey);
       await this.playAudioBlob(blob);
@@ -103,6 +104,7 @@ class TtsService {
     // Check IndexedDB cache
     const cachedItem = await this.getFromDB(cacheKey);
     if (cachedItem) {
+      console.log(`🔊 TTS CACHE HIT: "${plainText}"`);
       this.audioCache.set(cacheKey, cachedItem.blob);
       await this.updateLastUsed(cacheKey);
       await this.playAudioBlob(cachedItem.blob);
@@ -110,6 +112,7 @@ class TtsService {
     }
     
     // Fetch from API
+    console.log(`🔊 TTS CACHE MISS: "${plainText}"`);
     const response = await fetch('/api/TtsApi.generateSpeech', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -244,18 +247,21 @@ class TtsService {
     
     // Check if already cached (memory or IndexedDB)
     if (this.audioCache.has(cacheKey)) {
+      console.log(`🔊 TTS PRECACHE HIT: "${plainText}"`);
       await this.updateLastUsed(cacheKey);
       return { fromCache: true };
     }
     
     const cachedItem = await this.getFromDB(cacheKey);
     if (cachedItem) {
+      console.log(`🔊 TTS PRECACHE HIT: "${plainText}"`);
       this.audioCache.set(cacheKey, cachedItem.blob);
       await this.updateLastUsed(cacheKey);
       return { fromCache: true };
     }
     
     // Fetch from API and cache (but don't play)
+    console.log(`🔊 TTS PRECACHE MISS: "${plainText}"`);
     const response = await fetch('/api/TtsApi.generateSpeech', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -572,10 +578,7 @@ class TtsService {
   }
 
   static async playSuccumbSequence(content, voice = 'alloy') {
-    console.log('🎵 SUCCUMB SEQUENCE TRIGGERED!', content);
     const answers = this.getAnswerTexts(content);
-    console.log('Found answers:', answers);
-    
     const cleanText = this.stripHtml(content);
     
     if (answers.length > 0) {
@@ -589,17 +592,12 @@ class TtsService {
         ).join(' ');
         
         const contextualText = `${answerRepetitions} ${cleanText}`;
-        console.log('🔊 Playing succumb sequence:', contextualText);
-        
         await this.speakText(contextualText, voice);
-        console.log('✅ Succumb sequence complete!');
         return;
       }
     }
     
-    console.log('🔊 Fallback: Playing full sentence only');
     await this.speakText(cleanText, voice);
-    console.log('✅ Succumb sequence complete!');
   }
 
   // Precaching functionality
@@ -610,17 +608,27 @@ class TtsService {
       return;
     }
     
-    console.log('🚀 Precaching TTS for upcoming flashcards...');
+    const problemsToCache = [];
     
-    const upcomingProblems = [];
+    // Include current problem
+    if (currentIndex >= 0 && currentIndex < problems.length) {
+      problemsToCache.push({ problem: problems[currentIndex], index: currentIndex });
+    }
+    
+    // Include upcoming problems
     for (let i = 1; i <= count; i++) {
       const nextIndex = currentIndex + i;
       if (nextIndex < problems.length) {
-        upcomingProblems.push({ problem: problems[nextIndex], index: nextIndex });
+        problemsToCache.push({ problem: problems[nextIndex], index: nextIndex });
       }
     }
     
-    upcomingProblems.forEach(({ problem, index }) => {
+    if (problemsToCache.length > 0) {
+      const indices = problemsToCache.map(p => p.index + 1).join(', '); // +1 for human-readable
+      console.log(`🚀 PRECACHE START: Flashcards ${indices}`);
+    }
+    
+    problemsToCache.forEach(({ problem, index }) => {
       this.precacheProblem(problem, index);
     });
   }
@@ -648,8 +656,6 @@ class TtsService {
   static async precacheProblemAudio(problem, index) {
     if (!problem.content?.content) return;
     
-    console.log(`📦 Precaching problem ${index}:`, problem.content.content.substring(0, 50) + '...');
-    
     const promises = [];
     
     if (problem.type === 'inlinedAnswers') {
@@ -667,31 +673,30 @@ class TtsService {
           ).join(' ');
           const succumbText = `${answerRepetitions} ${fullText}`;
           
-          promises.push(this.precacheText(succumbText, `Problem ${index} succumb sequence`));
+          promises.push(this.precacheText(succumbText));
         }
       }
     } else if (problem.type === 'separateAnswer') {
       const fullText = this.stripHtml(problem.content.content);
       if (fullText) {
-        promises.push(this.precacheText(fullText, `Problem ${index} full text`));
+        promises.push(this.precacheText(fullText));
       }
     }
     
     await Promise.allSettled(promises);
-    console.log(`✅ Precached problem ${index}`);
   }
 
-  static async precacheText(text, description) {
+  static async precacheText(text) {
     try {
       const isCached = await this.isCached(text);
       if (isCached) {
+        console.log(`🔊 TTS PRECACHE HIT: "${text}"`);
         return;
       }
       
       await this.prepareAudio(text);
-      console.log(`  ✓ Cached: ${description}`);
     } catch (error) {
-      console.warn(`  ✗ Failed to cache: ${description}`, error);
+      console.warn('TTS precache error:', error);
     }
   }
 
