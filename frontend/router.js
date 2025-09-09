@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import onEnters from '~/services/onEnters';
 
@@ -61,6 +61,9 @@ const router =
       {/* admin */}
       <Route exact path="/admin/notifications" component={onEnters.requireAdmin(Page_admin_notifications)}/>
       <Route exact path="/admin/users" component={onEnters.requireAdmin(Page_admin_users)}/>
+      
+      {/* Catch-all route - redirect any unmatched routes to /courses */}
+      <Route render={() => <Redirect to="/courses" />}/>
     </Switch>
   </BrowserRouter>;
 
