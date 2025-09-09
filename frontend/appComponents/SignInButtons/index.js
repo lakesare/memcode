@@ -7,7 +7,8 @@ import AuthModal from '~/appComponents/AuthModal';
 class Page_pleaseSignIn extends React.Component {
     
   redirectBackTo = () => {
-    sessionStorage.setItem("lastpage","/courses/new");
+    // Store current page for redirect after sign-in
+    sessionStorage.setItem("lastpage", window.location.pathname);
   }
 
   static propTypes = {

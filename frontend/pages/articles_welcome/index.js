@@ -4,6 +4,7 @@ import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';
 import FakeFlashcards from './components/FakeFlashcards';
 import Courses from './components/Courses';
+import CreateCourseButton from '~/components/CreateCourseButton';
 
 import NewProblem from '~/pages/courses_id/components/NewProblem';
 
@@ -53,7 +54,9 @@ class Page_articles_welcome extends React.Component {
               <span style={{ color: 'rgb(255, 255, 137)' }}>Accessible.</span>
             </h2>
 
-            <Link to="/courses/new" className="button -orange -move-up-on-hover -with-radius" type="button">Use for Free, Forever →</Link>
+            <CreateCourseButton>
+              <button className="button -orange -move-up-on-hover -with-radius" type="button">Use for Free, Forever →</button>
+            </CreateCourseButton>
             {/* <hr/> */}
           </section>
 
@@ -123,7 +126,9 @@ class Page_articles_welcome extends React.Component {
 
             <NewProblem courseId={0} uiAddOptimisticProblem={() => {}} uiUpdateOptimisticProblemIntoOld={() => {}}/>
 
-            <Link to="/please-sign-in" className="button -orange -move-up-on-hover -with-radius" type="button">Create your own course →</Link>
+            <CreateCourseButton>
+              <button className="button -orange -move-up-on-hover -with-radius" type="button">Create your own course →</button>
+            </CreateCourseButton>
           </section>
 
           <section className="article-section courses">

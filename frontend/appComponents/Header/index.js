@@ -5,6 +5,7 @@ import { SignInLinks } from './components/SignInLinks';
 import CurrentUser from './components/CurrentUser';
 import Logo from './components/Logo';
 import CoursesDropdown from './components/CoursesDropdown';
+import CreateCourseButton from '~/components/CreateCourseButton';
 
 import css from './index.scss';
 
@@ -29,11 +30,9 @@ class Header extends React.Component {
           className="button link courses"
         >Courses</NavLink>
       }
-      <NavLink
-        exact
-        to="/courses/new"
-        className="button link create"
-      >Create</NavLink>
+      <CreateCourseButton>
+        <button className="button link create">Create</button>
+      </CreateCourseButton>
       {
         this.props.currentUser &&
         <CoursesDropdown/>
