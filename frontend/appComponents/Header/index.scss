@@ -42,15 +42,11 @@
   a.logo{
     display: flex;
     align-items: center;
+    position: relative;
 
-    // position: relative;
-    // top: 5px;
-    // img.christmas-icon{
-    //   width: 23px;
-    //   position: absolute;
-    //   top: -3px;
-    //   left: -3px;
-    // }
+    img.christmas-icon{
+      width: 51px;
+    }
 
     img.halloween{
       width: 58px;
@@ -167,9 +163,8 @@
 
 :local(header.header){
   @media(max-width: 500px){
-    a.logo img.halloween{
-      width: 45px;
-    }
+    a.logo img.halloween{ width: 45px; }
+    
     .notifications-toggler{
       display: none;
     }
@@ -180,5 +175,8 @@
         top: -12px !important;
       }
     }
+  }
+  @media(max-width: 350px){
+    a.logo img.christmas-icon{ width: 36px; }
   }
 }
