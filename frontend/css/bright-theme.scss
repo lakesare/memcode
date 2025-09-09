@@ -19,7 +19,59 @@ body.-bright-theme{
 
 // Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
 .-bright-theme .-without-bg{
-  color: rgb(44, 65, 59);
+
+  .my-courses-dropdown{
+    background-color: rgb(234, 225, 220) !important;
+    border-radius: 10px !important;
+    .standard-input.-TextInput{
+      background: transparent !important;
+      color: rgb(65, 52, 44) !important;
+    }
+    .sync-button{
+      background: #d6baaf6b !important;
+      color: #684f4fa1;
+      &:hover{
+        background: #d6baafb9 !important;
+      }
+    }
+    a.title{
+      background: rgba(157, 101, 101, 0.07);
+    }
+    a.title .title{
+      background: none !important;
+      color: rgb(65, 52, 44) !important;
+    }
+    .course-li.-next-due-date-in .action{
+      background: #d6baaf6b !important;
+      color: #684f4fa1;
+    }
+    .course-li.-next-due-date-in a:hover{
+      background: #d6baaf6b !important;
+    }
+    a:hover{
+      opacity: 1;
+    }
+    .course-li{
+      margin-bottom: 1px !important;
+    }
+    
+    .course-li:last-child{
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      a.title{
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+      .action{ border-bottom-right-radius: 10px; }
+    }
+     .course-li.-review a:hover { background: rgba(212, 85, 18, 0.33); }
+     .course-li.-learn a:hover { background: rgba(33, 165, 130, 0.42); }
+  }
+
+
+
+
+  color: rgb(65, 52, 44);
   font-family: 'Open Sans' !important;
   font-weight: 500 !important;
   h1, h2, h3, h4, h5, h6{
@@ -35,7 +87,7 @@ body.-bright-theme{
   }
 
   .notifications-toggler i, .next-review-time, section.whats-next > h2{
-    color: rgb(44, 65, 59) !important;
+    color: rgb(65, 52, 44) !important;
   }
 
   section.title-and-buttons section.category_and_author, .standard-course-card .category{
@@ -100,10 +152,10 @@ body.-bright-theme{
     background: none;
     button{
       .ql-stroke{
-        stroke: rgb(44, 65, 59) !important;
+        stroke: rgb(65, 52, 44) !important;
       }
       .ql-fill{
-        fill: rgb(44, 65, 59) !important;
+        fill: rgb(65, 52, 44) !important;
       }
     }
     button.ql-answer{
@@ -123,7 +175,7 @@ body.-bright-theme{
       background: white;
     }
     .go{
-      color: rgb(44, 65, 59);
+      color: rgb(65, 52, 44);
     }
   }
 
@@ -168,7 +220,7 @@ body.-bright-theme{
 
   section.amount-footer{
     &.-review, &.-learn{ color: white !important; }
-    &.-next-due{ color: rgb(44, 65, 59) !important; }
+    &.-next-due{ color: rgb(65, 52, 44) !important; }
   }
 
   div.learn-and-review-buttons a.link{
@@ -268,7 +320,7 @@ body.-bright-theme{
       box-shadow: none;
       border: 2px solid rgb(153, 233, 212);
       background: rgb(175, 246, 227) !important;
-      color: rgb(44, 65, 59) !important;
+      color: rgb(65, 52, 44) !important;
     }
     .n-of-problems-left .inner{
       box-shadow: none;
