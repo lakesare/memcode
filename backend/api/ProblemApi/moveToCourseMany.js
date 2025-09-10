@@ -11,7 +11,7 @@ const moveToCourseMany = async (request, response) => {
     .max('position as max_position')
     .first();
     
-  const startingPosition = (maxPositionResult?.max_position || 0) + 1;
+  const startingPosition = (maxPositionResult?.maxPosition || 0) + 1;
 
   // 1. Find the flashcards to insert
   const flashcards = await knex('problem').whereIn('id', problemIds)

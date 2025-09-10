@@ -10,7 +10,7 @@ const create = auth(async (request, response) => {
     .max('position as max_position')
     .first();
   
-  const nextPosition = (maxPositionResult?.max_position || 0) + 1;
+  const nextPosition = (maxPositionResult?.maxPosition || 0) + 1;
   
   const problemWithPosition = {
     ...problem,
