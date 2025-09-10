@@ -159,7 +159,8 @@ class NotificationsTogglerAndDropdown extends React.Component {
         className: 'standard-tooltip -no-padding -dark',
         interactive: true,
         placement: 'bottom-end',
-        trigger: 'click',
+        trigger: 'mouseenter click',
+        arrow: false,
         onShow: () => {
           // Mark notifications as seen when the dropdown opens
           const spe = this.props.notifications.speNotificationsAndStats;
