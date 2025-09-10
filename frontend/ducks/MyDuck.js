@@ -24,19 +24,6 @@ const setProblem = (state, courseId, problemId, setFn) => {
   return newState;
 };
 
-const parsePinnedCourseIdsFromLS = (pinnedCourseIds) => {
-  return pinnedCourseIds ? JSON.parse(pinnedCourseIds) : []
-}
-
-// Helper function for applying theme to DOM
-const applyThemeToDOM = (theme) => {
-  const bodyEl = document.body;
-  if (theme === 'bright') {
-    bodyEl.classList.add("-bright-theme");
-  } else {
-    bodyEl.classList.remove("-bright-theme");
-  }
-}
 
 const initialState = {
   coursesAlreadyFetched: false,
@@ -44,16 +31,6 @@ const initialState = {
   courses: [],
   speCategories: {},
   speCourseForActions: {},
-  flashcardOrder: localStorage.getItem('flashcardOrder') === 'false' ? false : true,
-  ifMonospace: localStorage.getItem('ifMonospace') === 'true' ? true : false,
-  pinnedCourseIds: parsePinnedCourseIdsFromLS(localStorage.getItem('pinnedCourseIds')),
-  backgroundImage:
-    (localStorage.getItem('backgroundImage') &&
-    localStorage.getItem('backgroundImage') !== 'false') ?
-      localStorage.getItem('backgroundImage') : false,
-  clozeDeletionMode: localStorage.getItem('clozeDeletionMode') === "clicking" ?
-    "clicking" : "typing",
-  theme: localStorage.getItem('theme') || 'dark'
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -63,26 +40,6 @@ const reducer = (state = initialState, action) => {
     }
     case `${namespace}.SET`:
       return action.payload;
-    case `${namespace}.SET_FLASHCARD_ORDER`:
-      return { ...state, flashcardOrder: action.payload.flashcardOrder };
-    case `${namespace}.SWITCH_CLOZE_DELETION_MODE`:
-      return { ...state, clozeDeletionMode: action.payload.clozeDeletionMode }
-    case `${namespace}.SWITCH_IF_MONOSPACE`:
-      return { ...state, ifMonospace: action.payload.ifMonospace };
-    case `${namespace}.SWITCH_BACKGROUND_IMAGE`:
-      return { ...state, backgroundImage: action.payload.backgroundImage };
-    case `${namespace}.SET_THEME`:
-      return { ...state, theme: action.payload.theme };
-    case `${namespace}.ADD_PINNED_COURSE`: {
-      const pinnedCourseIds = [...state.pinnedCourseIds, action.payload.courseId];
-      return { ...state, pinnedCourseIds };
-    }
-    case `${namespace}.REMOVE_PINNED_COURSE`: {
-      const pinnedCourseIds = state.pinnedCourseIds.filter((courseId) =>
-        courseId !== action.payload.courseId
-      );
-      return { ...state, pinnedCourseIds };
-    }
     case 'SET_SPE_GET_COURSE': {
       return { ...state, speCourseForActions: action.payload };
     }
@@ -302,45 +259,6 @@ const getActions = (dispatch, getState) => ({
   },
   unlearnUnignoreProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.UNLEARN_UNIGNORE_PROBLEM`, payload: { courseId, problemId } });
-  },
-  switchFlashcardOrder: () => {
-    const state = getState().global.My;
-    const flashcardOrder = !state.flashcardOrder;
-    localStorage.setItem('flashcardOrder', flashcardOrder);
-    dispatch({ type: `${namespace}.SET_FLASHCARD_ORDER`, payload: { flashcardOrder } });
-  },
-  switchClozeDeletionMode: () => {
-    const state = getState().global.My;
-    const clozeDeletionMode = state.clozeDeletionMode === "typing" ? "clicking" : "typing";
-    localStorage.setItem('clozeDeletionMode', clozeDeletionMode);
-    dispatch({ type: `${namespace}.SWITCH_CLOZE_DELETION_MODE`, payload: { clozeDeletionMode } });
-  },
-  switchIfMonospace: () => {
-    const state = getState().global.My;
-    const ifMonospace = !state.ifMonospace;
-    localStorage.setItem('ifMonospace', ifMonospace);
-    dispatch({ type: `${namespace}.SWITCH_IF_MONOSPACE`, payload: { ifMonospace } });
-  },
-  setBackgroundImage: (urlOrFalse) => {
-    const backgroundImage = urlOrFalse;
-    localStorage.setItem('backgroundImage', backgroundImage);
-    dispatch({ type: `${namespace}.SWITCH_BACKGROUND_IMAGE`, payload: { backgroundImage } });
-  },
-  addPinnedCourse: (courseId) => {
-    dispatch({ type: `${namespace}.ADD_PINNED_COURSE`, payload: { courseId } });
-    const state = getState().global.My;
-    localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
-  },
-  removePinnedCourse: (courseId) => {
-    dispatch({ type: `${namespace}.REMOVE_PINNED_COURSE`, payload: { courseId } });
-    const state = getState().global.My;
-    localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
-  },
-  // Theme actions
-  setTheme: (theme) => {
-    localStorage.setItem('theme', theme);
-    applyThemeToDOM(theme);
-    dispatch({ type: `${namespace}.SET_THEME`, payload: { theme } });
   },
 });
 

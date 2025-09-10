@@ -1,4 +1,5 @@
 import MyDuck from '~/ducks/MyDuck';
+import SettingsDuck from '~/ducks/SettingsDuck';
 import isPatreonUsername from '~/../services/isPatreonUsername';
 
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
@@ -8,10 +9,12 @@ import css from './index.scss';
 @connect(
   (state) => ({
     My: state.global.My,
+    Settings: state.global.Settings,
     currentUser: state.global.Authentication.currentUser
   }),
   (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions)
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
   })
 )
 class Subheader extends React.Component {
@@ -27,6 +30,8 @@ class Subheader extends React.Component {
 
     MyActions: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
+    SettingsActions: PropTypes.object.isRequired,
     currentUser: PropTypes.object
   }
 
@@ -116,11 +121,11 @@ class Subheader extends React.Component {
     ) ?
       <button
         type="button"
-        className={`button -white ${url === this.props.My.backgroundImage ? '-active' : ''}`}
+        className={`button -white ${url === this.props.Settings.backgroundImage ? '-active' : ''}`}
         onClick={() =>
-          url === this.props.My.backgroundImage ?
-            this.props.MyActions.setBackgroundImage(false) :
-            this.props.MyActions.setBackgroundImage(url)
+          url === this.props.Settings.backgroundImage ?
+            this.props.SettingsActions.updateSetting('backgroundImage', false) :
+            this.props.SettingsActions.updateSetting('backgroundImage', url)
         }
       >
         {element}
@@ -146,7 +151,7 @@ class Subheader extends React.Component {
                 placeholder="url"
                 onChange={(e) => {
                   const url = e.target.value;
-                  this.props.MyActions.setBackgroundImage(url);
+                  this.props.SettingsActions.updateSetting('backgroundImage', url);
                 }}
               />
             }
@@ -164,7 +169,7 @@ class Subheader extends React.Component {
       >
         <button
           type="button"
-          className={`bg-image-button ${this.props.My.backgroundImage ? '-on' : '-off'}`}
+          className={`bg-image-button ${this.props.Settings.backgroundImage ? '-on' : '-off'}`}
         >
           <i className="fa fa-picture-o"/>
         </button>

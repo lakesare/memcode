@@ -2,6 +2,7 @@ import TogglerAndModal from '~/components/TogglerAndModal';
 import TabNavigation   from '~/components/TabNavigation';
 import { AuthenticationActions } from '~/reducers/Authentication';
 import MyDuck from '~/ducks/MyDuck';
+import SettingsDuck from '~/ducks/SettingsDuck';
 import Select from '~/components/Select';
 
 import css from './index.scss';
@@ -9,45 +10,30 @@ import css from './index.scss';
 @connect(
   (state) => ({
     currentUser: state.global.Authentication.currentUser || false,
-    My: state.global.My
+    My: state.global.My,
+    Settings: state.global.Settings
   }),
   (dispatch) => ({
     signOut: () => AuthenticationActions.signOut(dispatch),
-    MyActions: dispatch(MyDuck.getActions)
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
   })
 )
 class SettingsModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
     My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
+    SettingsActions: PropTypes.object.isRequired,
     signOut: PropTypes.func.isRequired,
   }
 
   state = {
-    selectedTab: 'Design',
-    hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false
+    selectedTab: 'Design'
   }
 
-  componentDidMount = () => {
-    this.uiUpdateBody('hideSocialButtons', this.state.hideSocialButtons);
-  }
-
-  uiUpdateBody = (what, value) => {
-    const bodyEl = document.body;
-    if (value) {
-      bodyEl.classList.add('-' + what);
-    } else {
-      bodyEl.classList.remove('-' + what);
-    }
-  }
-
-  toggleValue = (what) => {
-    const newValue = !this.state[what];
-    localStorage.setItem(what, newValue);
-    this.setState({ [what]: newValue });
-    this.uiUpdateBody(what, newValue);
-  }
+  componentDidMount = () => {}
 
   renderTabNavigation = () =>
     <TabNavigation
@@ -78,21 +64,17 @@ class SettingsModal extends React.Component {
   renderDesignTab = () =>
     <div className="design-tab">
       <section className="part-of-the-website">
-        <h2 className="title">Review page</h2>
+        <h2 className="title">Page: Review</h2>
 
         <div className="settings">
           <div className="setting">
             <div className="comment">
-              Show the links to Memcode's Github and Patreon pages?
+              Links to Github and Patreon
             </div>
             <Select
               className="react-select -settings"
-              value={this.state.hideSocialButtons}
-              updateValue={(val) => {
-                localStorage.setItem('hideSocialButtons', val);
-                this.setState({ hideSocialButtons: val });
-                this.uiUpdateBody('hideSocialButtons', val);
-              }}
+              value={this.props.Settings.hideSocialButtons}
+              updateValue={(val) => this.props.SettingsActions.updateSetting('hideSocialButtons', val)}
               options={[
                 { value: false, label: 'Show Social Buttons' },
                 { value: true, label: 'Hide Social Buttons' },
@@ -102,16 +84,12 @@ class SettingsModal extends React.Component {
 
           <div className="setting">
             <div className="comment">
-              Fill-In-Answer flashcards: should we ask you to type in the answer?
+              Fill-In-Answer flashcards: when to reveal the answer
             </div>
             <Select
               className="react-select -settings"
-              value={this.props.My.clozeDeletionMode}
-              updateValue={(val) => {
-                if (val !== this.props.My.clozeDeletionMode) {
-                  this.props.MyActions.switchClozeDeletionMode();
-                }
-              }}
+              value={this.props.Settings.clozeDeletionMode}
+              updateValue={(val) => this.props.SettingsActions.updateSetting('clozeDeletionMode', val)}
               options={[
                 { value: 'typing', label: 'Require typing' },
                 { value: 'clicking', label: 'Just click' },
@@ -122,21 +100,17 @@ class SettingsModal extends React.Component {
       </section>
 
       <section className="part-of-the-website">
-        <h2 className="title">Course edit page</h2>
+        <h2 className="title">Page: Course Creation</h2>
 
         <div className="settings">
           <div className="setting">
             <div className="comment">
-              Show the oldest flashcards first?
+              Order of flashcards
             </div>
             <Select
               className="react-select -settings"
-              value={this.props.My.flashcardOrder}
-              updateValue={(val) => {
-                if (val !== this.props.My.flashcardOrder) {
-                  this.props.MyActions.switchFlashcardOrder();
-                }
-              }}
+              value={this.props.Settings.flashcardOrder}
+              updateValue={(val) => this.props.SettingsActions.updateSetting('flashcardOrder', val)}
               options={[
                 { value: true, label: 'Oldest First' },
                 { value: false, label: 'Newest First' },
@@ -146,16 +120,12 @@ class SettingsModal extends React.Component {
 
           <div className="setting">
             <div className="comment">
-              Render code blocks in monospace font?
+              Font for code blocks
             </div>
             <Select
               className="react-select -settings"
-              value={this.props.My.ifMonospace}
-              updateValue={(val) => {
-                if (val !== this.props.My.ifMonospace) {
-                  this.props.MyActions.switchIfMonospace();
-                }
-              }}
+              value={this.props.Settings.ifMonospace}
+              updateValue={(val) => this.props.SettingsActions.updateSetting('ifMonospace', val)}
               options={[
                 { value: true, label: 'Monospace' },
                 { value: false, label: 'Normal' },

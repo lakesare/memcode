@@ -107,7 +107,7 @@ const attachOnclick = (arrayOfAnswerEls, onRightAnswerGiven) => {
 }
 
 @connect((state, ownProps) => ({
-  clozeDeletionMode: state.global.My.clozeDeletionMode,
+  clozeDeletionMode: state.global.Settings.clozeDeletionMode,
   ...ownProps
 }))
 class InlinedAnswersReview extends React.Component {

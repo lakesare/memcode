@@ -23,6 +23,8 @@ class CourseActions extends React.Component {
     type: PropTypes.oneOf(['editOrShow', 'review', 'learn']),
 
     My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
+    SettingsActions: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
     onProblemsImported: PropTypes.func
@@ -238,6 +240,8 @@ class CourseActions extends React.Component {
           apiResumeLearning={this.apiResumeLearning}
           MyActions={this.props.MyActions}
           My={this.props.My}
+          Settings={this.props.Settings}
+          SettingsActions={this.props.SettingsActions}
           type={this.props.type}
           currentProblem={this.props.currentProblem}
           ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}

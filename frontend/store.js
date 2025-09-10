@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
+import SettingsDuck from '~/ducks/SettingsDuck';
 // import { offline } from '@redux-offline/redux-offline';
 // import config from '@redux-offline/redux-offline/lib/config';
 
@@ -14,5 +15,8 @@ const store = createStore(
       f => f
   )
 );
+
+// Initialize side effects based on current settings state
+SettingsDuck.initializeSideEffects(store.getState().global.Settings);
 
 export default store;

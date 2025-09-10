@@ -11,7 +11,8 @@ let alreadyFetched = false;
 @connect(
   (state) => ({
     currentUser: state.global.Authentication.currentUser || false,
-    My: state.global.My
+    My: state.global.My,
+    Settings: state.global.Settings
   }),
   (dispatch) => ({
     MyActions: dispatch(MyDuck.getActions)
@@ -25,6 +26,7 @@ class Main extends React.Component {
 
     MyActions: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired
   }
 
@@ -71,15 +73,15 @@ class Main extends React.Component {
     <main
       key={this.state.key}
       className={`${this.props.className}
-        ${this.props.My.backgroundImage ? '-with-bg' : '-without-bg'} + ${this.props.My.backgroundImage && this.props.My.backgroundImage.includes('halloween') ? '-halloween' : ''}
-        ${this.props.My.ifMonospace ? "-in-monospace" : "-in-normal-font"}
+        ${this.props.Settings.backgroundImage ? '-with-bg' : '-without-bg'} + ${this.props.Settings.backgroundImage && this.props.Settings.backgroundImage.includes('halloween') ? '-halloween' : ''}
+        ${this.props.Settings.ifMonospace ? "-in-monospace" : "-in-normal-font"}
       `}
-      style={this.props.My.backgroundImage ? {
+      style={this.props.Settings.backgroundImage ? {
         backgroundImage:
-        (this.props.My.backgroundImage.includes('d46bf351cd6e') ?
+        (this.props.Settings.backgroundImage.includes('d46bf351cd6e') ?
           'linear-gradient(rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.1)),' :
           'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),') +
-          ` url("${this.props.My.backgroundImage}")`
+          ` url("${this.props.Settings.backgroundImage}")`
       } : {}}
     >
       <ErrorBoundary>

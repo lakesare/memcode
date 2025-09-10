@@ -11,7 +11,8 @@ import css from './index.scss';
 @withRouter
 @connect(
   (state) => ({
-    My: state.global.My
+    My: state.global.My,
+    Settings: state.global.Settings
   }),
   (dispatch) => ({
     MyActions: dispatch(MyDuck.getActions)
@@ -21,6 +22,7 @@ class CoursesDropdown extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired
   }
 
@@ -70,7 +72,7 @@ class CoursesDropdown extends React.Component {
 
   getPinnedCourses = () => {
     const pinned = this.props.My.courses.filter((dto) =>
-      this.props.My.pinnedCourseIds.includes(dto.course.id)
+      this.props.Settings.pinnedCourseIds.includes(dto.course.id)
     )
       .map(MyModel.dtoToCourseCardProps)
       .sort((a, b) => a.course.title.localeCompare(b.course.title));

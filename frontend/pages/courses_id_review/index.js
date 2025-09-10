@@ -13,6 +13,7 @@ import MyModel from '~/models/MyModel';
 import css from './index.scss';
 import cssProblemBeingSolved from './components/ProblemBeingSolved/index.scss';
 import MyDuck from '~/ducks/MyDuck';
+import SettingsDuck from '~/ducks/SettingsDuck';
 
 // person pressed ENTER,
 //   if there are answers in problem:
@@ -46,7 +47,8 @@ import actions from './duck/actions';
       amountOfFailedProblems: pageState.amountOfFailedProblems,
       amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
 
-      My: state.global.My
+      My: state.global.My,
+      Settings: state.global.Settings
     };
   },
   (dispatch, ownProps) => ({
@@ -72,6 +74,7 @@ import actions from './duck/actions';
     switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
 
     MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch),
     ignoreCurrentFlashcard: () => dispatch(actions.ignoreCurrentFlashcard())
   })
 )
@@ -99,7 +102,9 @@ class Page_courses_id_review extends React.Component {
     switchQuestionAndAnswer: PropTypes.func.isRequired,
 
     MyActions: PropTypes.object.isRequired,
-    My: PropTypes.object.isRequired
+    SettingsActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired
   }
 
   static defaultProps = {
@@ -173,7 +178,9 @@ class Page_courses_id_review extends React.Component {
         currentUser={this.props.currentUser}
         type="review"
         My={this.props.My}
+        Settings={this.props.Settings}
         MyActions={this.props.MyActions}
+        SettingsActions={this.props.SettingsActions}
         currentProblem={this.props.currentProblem}
         ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
       />
@@ -189,7 +196,7 @@ class Page_courses_id_review extends React.Component {
           amountOfProblems={this.props.amountOfProblems}
           amountOfFailedProblems={this.props.amountOfFailedProblems}
           amountOfFailedProblemsLeft={this.props.amountOfFailedProblemsLeft}
-          clozeDeletionMode={this.props.My.clozeDeletionMode}
+          clozeDeletionMode={this.props.Settings.clozeDeletionMode}
 
           enterPressed={this.props.enterPressed}
           separateAnswerSelfScoreGiven={this.props.separateAnswerSelfScoreGiven}

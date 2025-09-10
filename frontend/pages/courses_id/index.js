@@ -18,15 +18,18 @@ import NewProblem from './components/NewProblem';
 import css from './index.scss';
 
 import MyDuck from '~/ducks/MyDuck';
+import SettingsDuck from '~/ducks/SettingsDuck';
 
 @connect(
   (state, ownProps) => ({
     courseId: Number.parseInt(ownProps.match.params.id),
     currentUser: state.global.Authentication.currentUser || false,
-    My: state.global.My
+    My: state.global.My,
+    Settings: state.global.Settings
   }),
   (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions)
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
   })
 )
 class Page_courses_id extends React.Component {
@@ -34,7 +37,9 @@ class Page_courses_id extends React.Component {
     courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
     MyActions: PropTypes.object.isRequired,
-    My: PropTypes.object.isRequired
+    SettingsActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired
   }
 
   state = {
@@ -170,7 +175,7 @@ class Page_courses_id extends React.Component {
     this.setState({
       speGetProblems:
       _update(this.state.speGetProblems, `payload.problems`,
-        (problems) => injectFromOldToNewIndex(problems, from, to, { direction: this.props.My.flashcardOrder })
+        (problems) => injectFromOldToNewIndex(problems, from, to, { direction: this.props.Settings.flashcardOrder })
       )
     }, this.apiReorderProblems);
   }
@@ -193,7 +198,7 @@ class Page_courses_id extends React.Component {
       .map((courseDto) => ({ value: courseDto.course.id, label: courseDto.course.title }));
 
     return <Loading spe={this.state.speGetProblems} enabledStatuses={['success', 'failure']}>{({ problems }) => {
-      const displayOrderedProblems = !this.props.My.flashcardOrder ? problems : problems.slice(0).reverse();
+      const displayOrderedProblems = !this.props.Settings.flashcardOrder ? problems : problems.slice(0).reverse();
       
       return <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="problems">{(provided) =>
@@ -213,7 +218,7 @@ class Page_courses_id extends React.Component {
                 updateIdsOfCheckedProblems={(ids) => this.setState({ idsOfCheckedProblems: ids })}
                 uiRemoveOldProblems={this.uiRemoveOldProblems}
                 createdCoursesForSelect={createdCoursesForSelect}
-                flashcardOrder={this.props.My.flashcardOrder}
+                flashcardOrder={this.props.Settings.flashcardOrder}
                 lastClickedIndex={this.state.lastClickedIndex}
                 setLastClickedIndex={this.setLastClickedIndex}
                 lastClickAction={this.state.lastClickAction}
@@ -246,14 +251,14 @@ class Page_courses_id extends React.Component {
 
   renderEditProblems = () =>
     <div className={css.edit}>
-      <div className={`container problems-container ${this.props.My.flashcardOrder ? '-newest-first' : ''} ${this.state.idsOfCheckedProblems.length === 0 ? '-there-are-no-checked-problems' : 'there-are-checked-problems'}`}>
+      <div className={`container problems-container ${this.props.Settings.flashcardOrder ? '-newest-first' : ''} ${this.state.idsOfCheckedProblems.length === 0 ? '-there-are-no-checked-problems' : 'there-are-checked-problems'}`}>
         {
-          this.props.My.flashcardOrder &&
+          this.props.Settings.flashcardOrder &&
           this.renderNewProblemToEdit()
         }
         {this.renderOldProblemsToEdit()}
         {
-          !this.props.My.flashcardOrder &&
+          !this.props.Settings.flashcardOrder &&
           this.renderNewProblemToEdit()
         }
       </div>
@@ -284,7 +289,9 @@ class Page_courses_id extends React.Component {
         currentUser={this.props.currentUser}
         type="editOrShow"
         My={this.props.My}
+        Settings={this.props.Settings}
         MyActions={this.props.MyActions}
+        SettingsActions={this.props.SettingsActions}
         onProblemsImported={this.apiGetPage}
       />
 

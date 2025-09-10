@@ -28,6 +28,8 @@ class CuilButtons extends React.Component {
     apiResumeLearning: PropTypes.func.isRequired,
     MyActions: PropTypes.object.isRequired,
     My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
+    SettingsActions: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
     type: PropTypes.string.isRequired,
     canIEditCourse: PropTypes.bool,
@@ -97,16 +99,20 @@ class CuilButtons extends React.Component {
           <button
             type="button"
             onClick={() => {
-              this.props.My.pinnedCourseIds.includes(this.props.courseDto.course.id) ?
-                this.props.MyActions.removePinnedCourse(this.props.courseDto.course.id) :
-                this.props.MyActions.addPinnedCourse(this.props.courseDto.course.id);
+              const courseId = this.props.courseDto.course.id;
+              const isPinned = this.props.Settings.pinnedCourseIds.includes(courseId);
+              if (isPinned) {
+                this.props.SettingsActions.removePinnedCourse(courseId);
+              } else {
+                this.props.SettingsActions.addPinnedCourse(courseId);
+              }
               this.closeDropdown();
             }}
             style={{ color: 'rgb(247, 54, 54)' }}
           >
             <div className="text">
               {
-                this.props.My.pinnedCourseIds.includes(this.props.courseDto.course.id) ?
+                this.props.Settings.pinnedCourseIds.includes(this.props.courseDto.course.id) ?
                   'Unpin' : 'Pin'
               }
             </div>
