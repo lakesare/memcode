@@ -1,6 +1,11 @@
-// api.CourseApi.getPublicCourses(
-//   (spe) => this.setState({ spe })
-//   { groupId: 5 },
+// Usage examples:
+// api.get.CourseApi.getPublicCourses(
+//   (spe) => this.setState({ spe }),
+//   { groupId: 5 }
+// );
+// api.post.CourseApi.createCourse(
+//   (spe) => this.setState({ spe }),
+//   { name: 'Category Theory' }
 // );
 
 import commonFetch from './commonFetch';
@@ -21,27 +26,33 @@ const fetchFunctionCreator = (controllerName, methodName, method) =>
   };
 
 // api.get.CourseApi.getPublicCourses({ groupId: 5 }) or
-// api.CourseApi.createCourse({ name: 'Category Theory' }})
+// api.post.CourseApi.createCourse({ name: 'Category Theory' }})
 const api = new Proxy({}, {
-  get: (_0, methodOrController) => {
-    if (methodOrController === "get") {
+  get: (_0, methodType) => {
+    if (methodType === "get") {
       return new Proxy({}, {
-        get: (_1, methodName) => {
-          const methodProxy = new Proxy({}, {
-            get: (_2, controllerName) => {
-              return fetchFunctionCreator(methodName, controllerName, 'GET');
+        get: (_1, controllerName) => {
+          const controllerProxy = new Proxy({}, {
+            get: (_2, methodName) => {
+              return fetchFunctionCreator(controllerName, methodName, 'GET');
             }
           });
-          return methodProxy;
+          return controllerProxy;
+        }
+      });
+    } else if (methodType === "post") {
+      return new Proxy({}, {
+        get: (_1, controllerName) => {
+          const controllerProxy = new Proxy({}, {
+            get: (_2, methodName) => {
+              return fetchFunctionCreator(controllerName, methodName, 'POST');
+            }
+          });
+          return controllerProxy;
         }
       });
     } else {
-      const methodProxy = new Proxy({}, {
-        get: (_3, methodName) => {
-          return fetchFunctionCreator(methodOrController, methodName, 'POST');
-        }
-      });
-      return methodProxy;
+      throw new Error(`API calls must use explicit method prefix: api.get.${methodType}... or api.post.${methodType}...`);
     }
   }
 });

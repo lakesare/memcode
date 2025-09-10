@@ -24,7 +24,7 @@ class TabEditCourseDetails extends React.Component {
   apiUpdateCourse = () => {
     const formValidation = CourseModel.validateForm(this.state.formState);
     if (formValidation === true) {
-      api.CourseApi.updateCourse(
+      api.post.CourseApi.updateCourse(
         (spe) => this.setState({ speSave: spe }),
         { courseId: this.props.course.id, course: this.state.formState }
       )

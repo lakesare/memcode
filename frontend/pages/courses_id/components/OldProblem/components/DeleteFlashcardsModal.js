@@ -11,7 +11,7 @@ class DeleteFlashcardsModal extends React.Component {
   apiDeleteAllCheckedProblems = () => {
     const ids = this.props.idsOfCheckedProblems;
     this.props.uiRemoveOldProblems(ids);
-    api.ProblemApi.deleteMany(false, { ids });
+    api.post.ProblemApi.deleteMany(false, { ids });
   }
 
   render = () =>

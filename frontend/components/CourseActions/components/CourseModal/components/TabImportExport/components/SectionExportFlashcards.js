@@ -16,7 +16,7 @@ class SectionExportFlahscards extends React.Component {
   }
 
   apiExportFlashcards = () =>
-    api.ProblemApi.exportToExcel(
+    api.post.ProblemApi.exportToExcel(
       (spe) => this.setState({ speGetFlashcards: spe }),
       { courseId: this.props.course.id }
     )

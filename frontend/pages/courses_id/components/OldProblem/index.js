@@ -89,7 +89,7 @@ class OldProblem extends React.Component {
       this.setState({ saveQueuedAfterUploads: true });
       return;
     }
-    api.ProblemApi.update(
+    api.post.ProblemApi.update(
       (spe) => this.setState({ speSave: spe }),
       {
         id: this.props.problem.id,
@@ -126,7 +126,7 @@ class OldProblem extends React.Component {
       _optimistic_id: optimisticId
     });
 
-    api.ProblemApi.create(
+    api.post.ProblemApi.create(
       (spe) => this.setState({ speSave: spe }),
       { problem: problemHash }
     )

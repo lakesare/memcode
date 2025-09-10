@@ -76,7 +76,7 @@ class NewProblem extends React.Component {
       problemContent: createEmptyEditorState(this.state.currentProblemType)
     });
 
-    api.ProblemApi.create(
+    api.post.ProblemApi.create(
       (spe) => this.setState({ speCreateProblem: spe }),
       { problem: problemHash }
     )

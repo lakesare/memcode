@@ -62,7 +62,7 @@ class CuilButtons extends React.Component {
     </button>
 
   apiDuplicateCourse = () =>
-    api.CourseApi.duplicate(
+    api.post.CourseApi.duplicate(
       (spe) => this.setState({ speDuplicate: spe }),
       { courseId: this.props.courseDto.course.id }
     )
@@ -280,7 +280,7 @@ class CuilButtons extends React.Component {
             onClick={() => {
               this.props.MyActions.ignoreProblem(this.props.courseDto.course.id, this.props.currentProblem.id);
               this.props.ignoreCurrentFlashcard();
-              api.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(() => {}, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id });
+              api.post.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(() => {}, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id });
               this.closeDropdown();
             }}
             style={{ color: 'rgb(120, 175, 244)' }}

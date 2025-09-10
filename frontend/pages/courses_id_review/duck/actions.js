@@ -46,7 +46,7 @@ const enterPressed = () =>
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state, getState().global.Settings.clozeDeletionMode);
           const currentIndex = state.statusOfSolving.index;
-          api.ProblemUserIsLearningApi.reviewProblem(
+          api.post.ProblemUserIsLearningApi.reviewProblem(
             false,
             {
               id: state.speGetPage.payload.courseUserIsLearning.id,
@@ -143,7 +143,7 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
           }
 
           if (isPersistentReview && score < 5) {
-            api.ProblemUserIsLearningApi.reviewProblem(
+            api.post.ProblemUserIsLearningApi.reviewProblem(
               false,
               {
                 id: state.speGetPage.payload.courseUserIsLearning.id,

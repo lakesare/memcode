@@ -29,7 +29,7 @@ class CourseCategorySelect extends React.Component {
     this.apiGetCategories()
 
   apiGetCategories = () =>
-    api.CourseCategoryApi.getAll(
+    api.get.CourseCategoryApi.getAll(
       (spe) => this.setState({ speGetCategories: spe })
     )
 

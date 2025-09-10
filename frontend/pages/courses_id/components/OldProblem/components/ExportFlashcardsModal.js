@@ -18,7 +18,7 @@ class ExportFlashcardsModal extends React.Component {
 
   apiMove = () => {
     const ids = this.props.idsOfCheckedProblems;
-    api.ProblemApi.moveToCourseMany(
+    api.post.ProblemApi.moveToCourseMany(
       (spe) => this.setState({ speExport: spe }),
       {
         problemIds: this.props.idsOfCheckedProblems,

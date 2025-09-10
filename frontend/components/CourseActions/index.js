@@ -31,7 +31,7 @@ class CourseActions extends React.Component {
   }
 
   apiStartLearning = () =>
-    api.CourseUserIsLearningApi.startLearningCourse(
+    api.post.CourseUserIsLearningApi.startLearningCourse(
       false,
       { courseId: this.props.courseId }
     )
@@ -41,7 +41,7 @@ class CourseActions extends React.Component {
       })
 
   apiStopLearning = () =>
-    api.CourseUserIsLearningApi.stopLearningCourse(
+    api.post.CourseUserIsLearningApi.stopLearningCourse(
       false,
       { courseId: this.props.courseId }
     )
@@ -50,7 +50,7 @@ class CourseActions extends React.Component {
       })
 
   apiResumeLearning = () =>
-    api.CourseUserIsLearningApi.resumeLearningCourse(
+    api.post.CourseUserIsLearningApi.resumeLearningCourse(
       false,
       { courseId: this.props.courseId }
     )

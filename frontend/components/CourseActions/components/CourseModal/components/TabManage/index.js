@@ -19,7 +19,7 @@ class TabManage extends React.Component {
   }
 
   apiDeleteCourse = () =>
-    api.CourseApi.deleteCourse(
+    api.post.CourseApi.deleteCourse(
       (spe) => this.setState({ speDelete: spe }),
       { courseId: this.props.course.id }
     )

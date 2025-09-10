@@ -49,7 +49,7 @@ class Page extends React.Component {
 
     const deletedUsername = this.state.selectedUser.username;
 
-    api.AdminApi.deleteUser(
+    api.post.AdminApi.deleteUser(
       (spe) => this.setState({ speDeleteUser: spe }),
       {
         userId: this.state.selectedUser.id

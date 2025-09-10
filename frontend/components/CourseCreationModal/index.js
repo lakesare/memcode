@@ -40,7 +40,7 @@ class CourseCreationModal extends React.Component {
     event.preventDefault();
     const formValidation = CourseModel.validateForm(this.state.formState);
     if (formValidation === true) {
-      api.CourseApi.createCourse(
+      api.post.CourseApi.createCourse(
         spe => this.setState({ speSave: spe }),
         { course: this.state.formState }
       )

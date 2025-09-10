@@ -45,7 +45,7 @@ class SectionImportFlashcardsFromText extends React.Component {
   }
 
   apiImportFlashcards = () =>
-    api.ProblemApi.importFromExcel(
+    api.post.ProblemApi.importFromExcel(
       (spe) => this.setState({ speImport: spe }),
       {
         courseId: this.props.courseId,

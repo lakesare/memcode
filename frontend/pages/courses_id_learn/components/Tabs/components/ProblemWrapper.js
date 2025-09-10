@@ -27,7 +27,7 @@ class ProblemWrapper extends React.Component {
   apiLearn = () => {
     this.props.MyActions.learnProblem(this.props.problem.courseId, this.props.problem.id);
 
-    api.ProblemUserIsLearningApi.learnProblem(
+    api.post.ProblemUserIsLearningApi.learnProblem(
       (spe) => this.setState({ speLearn: spe }),
       { problemId: this.props.problem.id }
     )
@@ -37,7 +37,7 @@ class ProblemWrapper extends React.Component {
   apiIgnore = () => {
     this.props.MyActions.ignoreProblem(this.props.problem.courseId, this.props.problem.id);
 
-    api.ProblemUserIsLearningApi.ignoreProblem(
+    api.post.ProblemUserIsLearningApi.ignoreProblem(
       (spe) => this.setState({ speIgnore: spe }),
       { problemId: this.props.problem.id }
     )
@@ -47,7 +47,7 @@ class ProblemWrapper extends React.Component {
   apiUnlearnUnignore = () => {
     this.props.MyActions.unlearnUnignoreProblem(this.props.problem.courseId, this.props.problem.id);
 
-    api.ProblemUserIsLearningApi.unlearnUnignoreProblem(
+    api.post.ProblemUserIsLearningApi.unlearnUnignoreProblem(
       (spe) => this.setState({ speDelete: spe }),
       { id: this.state.puil.id }
     )

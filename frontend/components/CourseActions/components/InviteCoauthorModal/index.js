@@ -22,7 +22,7 @@ class InviteCoauthorModal extends React.Component {
   }
 
   apiUpdateCoauthors = (closeModal) => {
-    api.CourseApi.updateCoauthors(
+    api.post.CourseApi.updateCoauthors(
       (spe) => this.setState({ speUpdate: spe }),
       {
         courseId: this.props.course.id,

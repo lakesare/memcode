@@ -136,7 +136,7 @@ const getActions = (dispatch, getState) => ({
   },
   
   apiMarkNotificationsAsSeen: (userId) => {
-    api.NotificationApi.markNotificationsAsSeen(
+    api.post.NotificationApi.markNotificationsAsSeen(
       (spe) => {
         if (spe.status === 'success') {
           dispatch({ type: `${namespace}.SET_DID_SEE_NOTIFICATIONS`, payload: true });
@@ -159,14 +159,14 @@ const getActions = (dispatch, getState) => ({
   },
   
   apiMarkAsReadOrUnread: (notificationId, ifRead) => {
-    api.NotificationApi.markAsReadOrUnread(null, {
+    api.post.NotificationApi.markAsReadOrUnread(null, {
       id: notificationId,
       ifRead
     });
   },
   
   apiMarkAllNotificationsAsRead: (userId) => {
-    api.NotificationApi.markAllNotificationsAsRead(null, { userId });
+    api.post.NotificationApi.markAllNotificationsAsRead(null, { userId });
   }
 });
 

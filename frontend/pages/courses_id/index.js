@@ -155,7 +155,7 @@ class Page_courses_id extends React.Component {
   }
 
   apiReorderProblems = () =>
-    api.ProblemApi.reorder(
+    api.post.ProblemApi.reorder(
       false,
       this.state.speGetProblems.payload.problems.map((problem, index) => ({
         id: problem.id,

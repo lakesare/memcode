@@ -22,7 +22,7 @@ class CourseDescriptionAndStats extends React.Component {
   }
 
   getStats = () =>
-    api.CourseApi.getStudentsStats(
+    api.get.CourseApi.getStudentsStats(
       (spe) => spe.status === 'success',
       { courseId: this.props.courseDto.course.id, authorId: this.props.courseDto.author.id }
     )

@@ -54,7 +54,7 @@ class AuthModal extends React.Component {
     
     if (this.state.speSignup.status === 'request') return;
 
-    api.AuthApi.signup(
+    api.post.AuthApi.signup(
       (speSignup) => {
         this.setState({ speSignup });
         if (speSignup.status === 'success') {
@@ -74,7 +74,7 @@ class AuthModal extends React.Component {
     
     if (this.state.speSignin.status === 'request') return;
 
-    api.AuthApi.login(
+    api.post.AuthApi.login(
       (speSignin) => {
         this.setState({ speSignin });
         if (speSignin.status === 'success') {
