@@ -109,11 +109,11 @@ class UserInfo extends React.Component {
 
         <div className="right" style={{ marginTop: 12 }}>
           <ul className="textual-stats">
-            <li className="stat">
+            <li className="stat -courses-created">
               {stats.nOfCoursesCreated} courses created
             </li>
 
-            <li className="stat">
+            <li className="stat -flashcards-learned">
               {stats.nOfProblemsLearned} flashcards learned:
               <ul className="memory-levels">
                 <li>

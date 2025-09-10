@@ -39,7 +39,7 @@
     .skills{
       margin-left: 40px;
       width: 460px;
-      flex-shrink: 0;
+      flex-shrink: 1;
 
       padding: 20px;
       padding-bottom: 0;
@@ -96,6 +96,7 @@
     .stats{
       margin-left: 40px;
       flex-grow: 1;
+      flex-shrink: 0;
 
       padding: 20px;
 
@@ -142,6 +143,12 @@
     }
   }
 
+  @media(max-width: 1000px) {
+    .stats .left{ display: none !important; }
+    .textual-stats, .memory-levels{
+      padding-left: 0 !important;
+    }
+  }
   @media(max-width: 800px){
     .created-courses{
       h1{
@@ -156,13 +163,31 @@
       .skills, .user, .stats{
         min-height: 0;
       }
-      .skills{
+      .skills, .stats{
         width: 100%;
         margin-left: 0;
         margin-top: 40px;
         padding-bottom: 10px;
       }
-      .stats{ display: none; }
+      .stats{
+        h1{
+          text-align: center;
+        }
+        .left{
+          display: block !important;
+          margin: 8px auto;
+        }
+        .stat.-courses-created{
+          display: none;
+        }
+        .stat.-flashcards-learned{
+          width: fit-content;
+          max-width: 100%;
+          margin: 0 auto;
+          margin-top: 0px;
+          margin-top: 20px;
+        }
+      }
       .user{
         width: auto;
         text-align: center;
