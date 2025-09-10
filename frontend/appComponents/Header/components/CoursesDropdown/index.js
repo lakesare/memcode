@@ -161,7 +161,7 @@ class CoursesDropdown extends React.Component {
         // onClickOutside: this.uiHideDropdown
         trigger: 'mouseenter click'
       }}
-      width={420}
+      width={window.innerWidth >= 500 ? 420 : 800}
     >
       <div className="my-courses-toggler">
         <button type="button" className="button link courses" onClick={this.state.isDropdownVisible ? this.uiHideDropdown : this.uiShowDropdown}>

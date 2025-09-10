@@ -7,6 +7,7 @@
     .link.courses{
       margin-right: 10px;
       min-width: 116px;
+      padding-left: 0;
       .position-relative-wrapper{
         position: relative;
         height: 31px;
@@ -65,7 +66,7 @@
       text-transform: uppercase;
       min-width: auto;
     }
-    .button.create{
+    .link.create, .link.contact, .link.courses{
       margin-right: 10px;
     }
   }
@@ -131,7 +132,7 @@
       50% { background-position: 100% 50%; }
     }
   }
-  .container.-desktop{
+  .container{
     display: flex;
     justify-content: space-between;
     height: 55px;
@@ -139,44 +140,34 @@
       display: flex;
     }
   }
-  .container.-mobile{
-    padding-top: 10px;
-    padding-bottom: 10px;
-    nav{
-      margin-top: 20px;
-      .link{
-        height: 31px;
-        margin-right: 0;
-        min-width: auto;
-        &.-active{
-          background: rgb(51, 53, 78);
-        }
-      }
-    }
-    > div.logo-and-user{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
 }
 
 :local(header.header){
   @media(max-width: 500px){
     a.logo img.halloween{ width: 45px; }
-    
-    .notifications-toggler{
+
+    // .position-relative-wrapper{
+    //   height: auto !important;
+    //   .button.-to-review{
+    //     top: -12px !important;
+    //   }
+    // }
+
+    .link.create, .notifications-toggler{
       display: none;
     }
-
-    .position-relative-wrapper{
-      height: auto !important;
-      .button.-to-review{
-        top: -12px !important;
-      }
+    .button.sign-in, .link.courses{
+      padding: 0 16px;
+      min-width: auto;
+    }
+  }
+  @media(max-width: 600px){
+    .link.contact{
+      display: none;
     }
   }
   @media(max-width: 350px){
     a.logo img.christmas-icon{ width: 36px; }
   }
+
 }
