@@ -11,12 +11,12 @@
 
 .react-select{
   .react-select__control{
-    background-color: rgb(21, 23, 55);
-    border-color: rgb(21, 23, 55);
+    background-color: rgba(21, 23, 55, 0.48);
+    border-color: transparent;
   }
   .react-select__control--is-focused, .react-select__control--menu-is-open, .react-select__control:hover{
-    background-color: rgb(27, 30, 69);
-    border-color: rgb(27, 30, 69);
+    background-color: rgba(21, 23, 55, 0.664);
+    border-color: transparent;
     box-shadow: none;
   }
   .react-select__placeholder{
@@ -29,10 +29,10 @@
     cursor: pointer !important;
   }
   .react-select__menu{
-    background-color: rgb(21, 23, 55);
+    background-color: rgb(39, 41, 79);
   }
   .react-select__option--is-focused{
-    background-color: rgb(43, 47, 102);
+    background-color: rgba(83, 88, 164, 0.442);
     cursor: pointer;
   }
   .react-select__option--is-selected, .react-select__option:active{

@@ -1,9 +1,9 @@
 
 :local(.local){
-  max-width: 650px;
+  max-width: 500px;
 
   .standard-modal__main{
-    min-height: 600px;
+    min-height: 500px;
   }
 
   h2.title{
@@ -18,17 +18,11 @@
       div.setting{
         margin-bottom: 10px;
         background: rgba(255, 255, 255, 0.04);
-        padding: 10px;
         display: flex;
+        align-items: center;
         border-radius: 3px;
-        min-height: 68px;
         .comment{
-          padding-top: 4px;
-          font-size: 16px;
-          line-height: 22px;
           width: 100%;
-          display: flex;
-          align-items: center;
           padding-left: 10px;
           overflow-wrap: anywhere;
         }
@@ -37,21 +31,31 @@
           min-width: 200px;
         }
       }
-    }    
+    }
+
+    .buttons{
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 30px;
+    }
   }
 
   .manage-tab{
     button{
       margin-top: 25px;
     }
-  } 
+  }
 
   @media (max-width: 400px){
     .design-tab{
       .setting{
         flex-wrap: wrap;
+        padding: 10px 20px;
       }
       .react-select{
+        width: 100%;
         margin-left: 0 !important;
         margin-top: 10px !important;
       }

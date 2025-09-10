@@ -30,10 +30,60 @@ class SettingsModal extends React.Component {
   }
 
   state = {
-    selectedTab: 'Design'
+    selectedTab: 'Design',
+    formState: {
+      hideSocialButtons: false,
+      clozeDeletionMode: 'typing',
+      flashcardOrder: true,
+      ifMonospace: false,
+    }
   }
 
-  componentDidMount = () => {}
+  componentDidMount = () => {
+    this.resetFormStateFromProps();
+  }
+
+  resetFormStateFromProps = () => {
+    this.setState({
+      formState: {
+        hideSocialButtons: this.props.Settings.hideSocialButtons,
+        clozeDeletionMode: this.props.Settings.clozeDeletionMode,
+        flashcardOrder: this.props.Settings.flashcardOrder,
+        ifMonospace: this.props.Settings.ifMonospace,
+      }
+    });
+  }
+
+  updateFormState = (formState) => {
+    this.setState({ formState });
+  }
+
+  isDirty = () => {
+    const { formState } = this.state;
+    const { Settings } = this.props;
+    return (
+      formState.hideSocialButtons !== Settings.hideSocialButtons ||
+      formState.clozeDeletionMode !== Settings.clozeDeletionMode ||
+      formState.flashcardOrder !== Settings.flashcardOrder ||
+      formState.ifMonospace !== Settings.ifMonospace
+    );
+  }
+
+  handleSave = () => {
+    const { formState } = this.state;
+    const { Settings } = this.props;
+    
+    // Only update settings that have changed
+    Object.keys(formState).forEach((key) => {
+      if (formState[key] !== Settings[key]) {
+        this.props.SettingsActions.updateSetting(key, formState[key]);
+      }
+    });
+  }
+
+  handleCancel = () => {
+    this.resetFormStateFromProps();
+  }
 
   renderTabNavigation = () =>
     <TabNavigation
@@ -73,8 +123,8 @@ class SettingsModal extends React.Component {
             </div>
             <Select
               className="react-select -settings"
-              value={this.props.Settings.hideSocialButtons}
-              updateValue={(val) => this.props.SettingsActions.updateSetting('hideSocialButtons', val)}
+              value={this.state.formState.hideSocialButtons}
+              updateValue={(val) => this.updateFormState({ ...this.state.formState, hideSocialButtons: val })}
               options={[
                 { value: false, label: 'Show Social Buttons' },
                 { value: true, label: 'Hide Social Buttons' },
@@ -84,12 +134,12 @@ class SettingsModal extends React.Component {
 
           <div className="setting">
             <div className="comment">
-              Fill-In-Answer flashcards: when to reveal the answer
+              "Fill-In Answer" flashcards
             </div>
             <Select
               className="react-select -settings"
-              value={this.props.Settings.clozeDeletionMode}
-              updateValue={(val) => this.props.SettingsActions.updateSetting('clozeDeletionMode', val)}
+              value={this.state.formState.clozeDeletionMode}
+              updateValue={(val) => this.updateFormState({ ...this.state.formState, clozeDeletionMode: val })}
               options={[
                 { value: 'typing', label: 'Require typing' },
                 { value: 'clicking', label: 'Just click' },
@@ -109,8 +159,8 @@ class SettingsModal extends React.Component {
             </div>
             <Select
               className="react-select -settings"
-              value={this.props.Settings.flashcardOrder}
-              updateValue={(val) => this.props.SettingsActions.updateSetting('flashcardOrder', val)}
+              value={this.state.formState.flashcardOrder}
+              updateValue={(val) => this.updateFormState({ ...this.state.formState, flashcardOrder: val })}
               options={[
                 { value: true, label: 'Oldest First' },
                 { value: false, label: 'Newest First' },
@@ -124,8 +174,8 @@ class SettingsModal extends React.Component {
             </div>
             <Select
               className="react-select -settings"
-              value={this.props.Settings.ifMonospace}
-              updateValue={(val) => this.props.SettingsActions.updateSetting('ifMonospace', val)}
+              value={this.state.formState.ifMonospace}
+              updateValue={(val) => this.updateFormState({ ...this.state.formState, ifMonospace: val })}
               options={[
                 { value: true, label: 'Monospace' },
                 { value: false, label: 'Normal' },
@@ -133,6 +183,24 @@ class SettingsModal extends React.Component {
             />
           </div>
         </div>
+      </section>
+
+      <section className="buttons">
+          <button
+            type="button"
+            className="button -white"
+            onClick={this.handleCancel}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className={`button -purple ${this.isDirty() ? '' : '-disabled'}`}
+            disabled={!this.isDirty()}
+            onClick={this.handleSave}
+          >
+            Save
+          </button>
       </section>
     </div>
 
