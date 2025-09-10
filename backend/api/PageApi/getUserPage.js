@@ -9,7 +9,7 @@ const getUserPage = async (request, response) => {
 
   const createdCourses = currentUser && currentUser.id === userId ?
     await CourseModel.allCreated(userId) :
-    await CourseModel.allPublic({ customWhere: `AND course.user_id=${userId}` });
+    await CourseModel.allPublic({ userId });
 
   const skills =
     await knex('courseUserIsLearning')

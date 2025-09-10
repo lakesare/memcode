@@ -18,7 +18,7 @@ const allCreated = (userId) =>
 // all public courses with 2 or more problems,
 // sorted by amount of learners
 // @sortBy = ['popular', 'new']
-const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString }) => {
+const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString, userId, courseIds }) => {
   // Build base query for filtering
   const baseQuery = knex('course')
     .innerJoin('problem', 'problem.course_id', 'course.id')
@@ -31,6 +31,14 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
   
   if (searchString && searchString.trim() !== '') {
     baseQuery.where('course.title', 'ilike', `%${searchString.trim()}%`);
+  }
+  
+  if (userId) {
+    baseQuery.where('course.user_id', userId);
+  }
+  
+  if (courseIds && courseIds.length > 0) {
+    baseQuery.whereIn('course.id', courseIds);
   }
   
   // Get total count with a separate, optimized query
@@ -72,6 +80,14 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
   
   if (searchString && searchString.trim() !== '') {
     mainQuery = mainQuery.where('course.title', 'ilike', `%${searchString.trim()}%`);
+  }
+  
+  if (userId) {
+    mainQuery = mainQuery.where('course.user_id', userId);
+  }
+  
+  if (courseIds && courseIds.length > 0) {
+    mainQuery = mainQuery.whereIn('course.id', courseIds);
   }
   
   // Add grouping and having

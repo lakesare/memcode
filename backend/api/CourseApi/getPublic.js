@@ -28,7 +28,7 @@ const getPublic = async (request, response) => {
     limit: pageSize,
     offset: (pageNumber - 1) * pageSize,
     courseCategoryId: request.query.courseCategoryId,
-    customWhere: `AND course.title ILIKE '%${request.query.searchString}%'`
+    searchString: request.query.searchString
   });
 
   const nOfAllCourses = onePageOfCourses[0] ? onePageOfCourses[0].nOfAllCourses : 0;
