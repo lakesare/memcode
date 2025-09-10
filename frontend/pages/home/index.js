@@ -16,7 +16,7 @@ class Page_home extends React.Component {
   }
 
   componentDidMount = () => {
-    api.CourseApi.getBest4((spe) => this.setState({ speCourses: spe }));
+    api.get.CourseApi.getBest4((spe) => this.setState({ speCourses: spe }), {});
   }
 
   render = () =>

@@ -30,7 +30,7 @@ class Page extends React.Component {
   }
 
   fetchUserStats = (userId) => {
-    api.AdminApi.getUserDeletionStats(
+    api.get.AdminApi.getUserDeletionStats(
       (spe) => this.setState({ speGetStats: spe }),
       { userId }
     ).then((response) => {

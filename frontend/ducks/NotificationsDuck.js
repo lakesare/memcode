@@ -83,7 +83,7 @@ import api from '~/api';
 
 const getActions = (dispatch, getState) => ({
   apiGetNotificationsAndStats: (userId, limit = 15, offset = 0) => {
-    api.NotificationApi.getNotificationsAndStatsForUser(
+    api.get.NotificationApi.getNotificationsAndStatsForUser(
       (spe) => {
         dispatch({ type: SPE_NOTIFICATIONS_AND_STATS, spe });
       },
@@ -100,7 +100,7 @@ const getActions = (dispatch, getState) => ({
       dispatch({ type: SPE_NOTIFICATIONS_AND_STATS, spe: { status: 'request' } });
     }
     
-    api.NotificationApi.getNotificationsAndStatsForUser(
+    api.get.NotificationApi.getNotificationsAndStatsForUser(
       (spe) => {
         // Only dispatch if we got a successful response or if we don't have existing data
         if (spe.status === 'success' || !hasExistingData) {
@@ -112,7 +112,7 @@ const getActions = (dispatch, getState) => ({
   },
   
   apiLoadMoreNotifications: (userId, offset) => {
-    return api.NotificationApi.getNotificationsAndStatsForUser(
+    return api.get.NotificationApi.getNotificationsAndStatsForUser(
       (spe) => {
         if (spe.status === 'success') {
           const currentState = getState().global.Notifications.speNotificationsAndStats;

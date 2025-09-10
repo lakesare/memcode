@@ -11,7 +11,7 @@ class UserSelect extends React.Component {
   }
 
   loadOptions = (inputValue) =>
-    api.UserApi.findByString(false, {
+    api.get.UserApi.findByString(false, {
       searchString: inputValue
     })
       .then((payload) => {

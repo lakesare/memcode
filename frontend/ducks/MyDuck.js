@@ -206,7 +206,7 @@ const getActions = (dispatch, getState) => ({
     //     console.log("Couldn't parse apiSync() payload from localStorage");
     //   }
     // }
-    api.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }))
+    api.get.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }), {})
       .then(() => {
         setTimeout(() => {
           dispatch({ type: 'RESET_SPE_COURSES' });
@@ -214,7 +214,7 @@ const getActions = (dispatch, getState) => ({
       });
   },
   apiGetCategories: () => {
-    api.CourseCategoryApi.getAll((spe) => dispatch({ type: SPE_CATEGORIES, spe }));
+    api.get.CourseCategoryApi.getAll((spe) => dispatch({ type: SPE_CATEGORIES, spe }), {});
   },
   apiGetCourseForActions: (courseId) => {
     // console.log(getState());
@@ -224,7 +224,7 @@ const getActions = (dispatch, getState) => ({
       oldSpe.payload.course.id === courseId;
 
     if (!isAlreadyLoadedCourse) {
-      api.PageApi.getForCourseActions(
+      api.get.PageApi.getForCourseActions(
         (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
         { courseId }
       );
