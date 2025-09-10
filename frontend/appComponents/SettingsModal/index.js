@@ -2,6 +2,7 @@ import TogglerAndModal from '~/components/TogglerAndModal';
 import TabNavigation   from '~/components/TabNavigation';
 import { AuthenticationActions } from '~/reducers/Authentication';
 import MyDuck from '~/ducks/MyDuck';
+import Select from '~/components/Select';
 
 import css from './index.scss';
 
@@ -84,26 +85,38 @@ class SettingsModal extends React.Component {
             <div className="comment">
               Show the links to Memcode's Github and Patreon pages?
             </div>
-            <button className="button -white" onClick={() => this.toggleValue('hideSocialButtons')} type="button">
-              {
-                this.state.hideSocialButtons ?
-                  'Show Social Buttons' :
-                  'Hide Social Buttons'
-              }
-            </button>
+            <Select
+              className="react-select -settings"
+              value={this.state.hideSocialButtons}
+              updateValue={(val) => {
+                localStorage.setItem('hideSocialButtons', val);
+                this.setState({ hideSocialButtons: val });
+                this.uiUpdateBody('hideSocialButtons', val);
+              }}
+              options={[
+                { value: false, label: 'Show Social Buttons' },
+                { value: true, label: 'Hide Social Buttons' },
+              ]}
+            />
           </div>
 
           <div className="setting">
             <div className="comment">
               Fill-In-Answer flashcards: should we ask you to type in the answer?
             </div>
-            <button
-              type="button"
-              className="button -white"
-              onClick={this.props.MyActions.switchClozeDeletionMode}
-            >
-              {this.props.My.clozeDeletionMode === "typing" ? 'Require Typing' : 'Just Click'}
-            </button>
+            <Select
+              className="react-select -settings"
+              value={this.props.My.clozeDeletionMode}
+              updateValue={(val) => {
+                if (val !== this.props.My.clozeDeletionMode) {
+                  this.props.MyActions.switchClozeDeletionMode();
+                }
+              }}
+              options={[
+                { value: 'typing', label: 'Require typing' },
+                { value: 'clicking', label: 'Just click' },
+              ]}
+            />
           </div>
         </div>
       </section>
@@ -116,26 +129,38 @@ class SettingsModal extends React.Component {
             <div className="comment">
               Show the oldest flashcards first?
             </div>
-            <button
-              type="button"
-              className="button -white"
-              onClick={this.props.MyActions.switchFlashcardOrder}
-            >
-              {this.props.My.flashcardOrder ? 'Oldest First' : 'Newest First'}
-            </button>
+            <Select
+              className="react-select -settings"
+              value={this.props.My.flashcardOrder}
+              updateValue={(val) => {
+                if (val !== this.props.My.flashcardOrder) {
+                  this.props.MyActions.switchFlashcardOrder();
+                }
+              }}
+              options={[
+                { value: true, label: 'Oldest First' },
+                { value: false, label: 'Newest First' },
+              ]}
+            />
           </div>
 
           <div className="setting">
             <div className="comment">
               Render code blocks in monospace font?
             </div>
-            <button
-              type="button"
-              className="button -white"
-              onClick={this.props.MyActions.switchIfMonospace}
-            >
-              {this.props.My.ifMonospace ? 'To normal font' : 'To monospace'}
-            </button>
+            <Select
+              className="react-select -settings"
+              value={this.props.My.ifMonospace}
+              updateValue={(val) => {
+                if (val !== this.props.My.ifMonospace) {
+                  this.props.MyActions.switchIfMonospace();
+                }
+              }}
+              options={[
+                { value: true, label: 'Monospace' },
+                { value: false, label: 'Normal' },
+              ]}
+            />
           </div>
         </div>
       </section>

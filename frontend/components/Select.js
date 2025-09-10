@@ -41,6 +41,9 @@ class Select extends Component {
     let options;
     let value;
 
+    // Original semantics considered falsy values as "no value" except we now treat false as a valid value.
+    const hasValue = (this.props.value === false) ? true : !!this.props.value;
+
     // Todo refactor + see if we ever pass arrays for options
     if (this.props.withGroups) {
       options = this.props.options;
@@ -50,25 +53,25 @@ class Select extends Component {
         actualOptions = actualOptions.concat(label_options.options);
       });
 
-      // Let's make our <Select> only accept a .value, .label doesn't need to be passed every time!
-      value = this.props.value ?
+      // Keep original semantics (crash if not found), but treat false as a valid value
+      value = hasValue ?
         {
           value: this.props.value,
-          // todo lakesare, check if it works with arrays, do we even use arrays somewhere
           label: actualOptions.find((option) => option.value === this.props.value).label,
         } :
         null;
     } else {
       // Let's make our <Select> accept an array of strings too!
-      options = this.props.options[0] && this.props.options[0].value ?
+      const first = this.props.options[0];
+      const optionsAreObjects = first && typeof first === 'object' && first !== null && Object.prototype.hasOwnProperty.call(first, 'value');
+      options = optionsAreObjects ?
         this.props.options :
         this.props.options.map((option) => ({ value: option, label: option }));
 
-      // Let's make our <Select> only accept a .value, .label doesn't need to be passed every time!
-      value = this.props.value ?
+      // Keep original semantics (crash if not found), but treat false as a valid value
+      value = hasValue ?
         {
           value: this.props.value,
-          // todo lakesare, check if it works with arrays, do we even use arrays somewhere
           label: options.find((option) => option.value === this.props.value).label,
         } :
         null;

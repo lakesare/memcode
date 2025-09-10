@@ -25,6 +25,9 @@
   .react-select__single-value, .react-select__input{
     color: white;
   }
+  .react-select__single-value, .react-select__control, .react-select__indicators{
+    cursor: pointer !important;
+  }
   .react-select__menu{
     background-color: rgb(21, 23, 55);
   }
@@ -38,7 +41,7 @@
   .react-select__indicator-separator{
     background-color: rgb(84, 88, 147);
   }
-  .react-select__indicator{
-    color: rgb(84, 88, 147);
+  .react-select__indicator, .react-select__indicator:hover{
+    color: rgb(84, 88, 147) !important;
   }
 }
