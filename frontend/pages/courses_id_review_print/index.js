@@ -7,6 +7,7 @@ import Problem from '~/components/Problem';
 
 import css from './index.scss';
 import MyDuck from '~/ducks/MyDuck';
+import SettingsDuck from '~/ducks/SettingsDuck';
 
 import api from '~/api';
 
@@ -24,11 +25,13 @@ import api from '~/api';
       amountOfFailedProblems: pageState.amountOfFailedProblems,
       amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
 
-      My: state.global.My
+      My: state.global.My,
+      Settings: state.global.Settings
     };
   },
   (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions)
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
   })
 )
 class Page_courses_id_review extends React.Component {
@@ -37,7 +40,9 @@ class Page_courses_id_review extends React.Component {
     currentUser: orFalse(PropTypes.object).isRequired,
 
     MyActions: PropTypes.object.isRequired,
-    My: PropTypes.object.isRequired
+    SettingsActions: PropTypes.object.isRequired,
+    My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired
   }
 
   state = {
@@ -59,7 +64,9 @@ class Page_courses_id_review extends React.Component {
         currentUser={this.props.currentUser}
         type="review"
         My={this.props.My}
+        Settings={this.props.Settings}
         MyActions={this.props.MyActions}
+        SettingsActions={this.props.SettingsActions}
       />
 
       <Loading spe={this.state.speGetPage}>{({ problems }) =>
