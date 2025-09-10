@@ -98,8 +98,6 @@ class UserInfo extends React.Component {
         Math.round((stats.easiness[easinessFor] / stats.nOfProblemsLearned) * 100, 2);
 
     return <div className="stats">
-      <SettingsModal toggler={<button type="button" className="settings-button button -white">Settings</button>} />
-
       <h1>Progress</h1>
 
       <div className="wrapper">
