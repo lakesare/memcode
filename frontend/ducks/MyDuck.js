@@ -28,6 +28,16 @@ const parsePinnedCourseIdsFromLS = (pinnedCourseIds) => {
   return pinnedCourseIds ? JSON.parse(pinnedCourseIds) : []
 }
 
+// Helper function for applying theme to DOM
+const applyThemeToDOM = (theme) => {
+  const bodyEl = document.body;
+  if (theme === 'bright') {
+    bodyEl.classList.add("-bright-theme");
+  } else {
+    bodyEl.classList.remove("-bright-theme");
+  }
+}
+
 const initialState = {
   coursesAlreadyFetched: false,
   speCourses: {},
@@ -42,7 +52,8 @@ const initialState = {
     localStorage.getItem('backgroundImage') !== 'false') ?
       localStorage.getItem('backgroundImage') : false,
   clozeDeletionMode: localStorage.getItem('clozeDeletionMode') === "clicking" ?
-    "clicking" : "typing"
+    "clicking" : "typing",
+  theme: localStorage.getItem('theme') || 'dark'
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -60,6 +71,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, ifMonospace: action.payload.ifMonospace };
     case `${namespace}.SWITCH_BACKGROUND_IMAGE`:
       return { ...state, backgroundImage: action.payload.backgroundImage };
+    case `${namespace}.SET_THEME`:
+      return { ...state, theme: action.payload.theme };
     case `${namespace}.ADD_PINNED_COURSE`: {
       const pinnedCourseIds = [...state.pinnedCourseIds, action.payload.courseId];
       return { ...state, pinnedCourseIds };
@@ -322,7 +335,13 @@ const getActions = (dispatch, getState) => ({
     dispatch({ type: `${namespace}.REMOVE_PINNED_COURSE`, payload: { courseId } });
     const state = getState().global.My;
     localStorage.setItem('pinnedCourseIds', JSON.stringify(state.pinnedCourseIds));
-  }
+  },
+  // Theme actions
+  setTheme: (theme) => {
+    localStorage.setItem('theme', theme);
+    applyThemeToDOM(theme);
+    dispatch({ type: `${namespace}.SET_THEME`, payload: { theme } });
+  },
 });
 
 // import { createSelector } from 'reselect'

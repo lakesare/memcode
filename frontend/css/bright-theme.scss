@@ -205,13 +205,9 @@ body.-bright-theme{
       }
     }
   }
-  .toggle-button-label-left{
-    &:after{
-      border-color: #a6a3a399;
-    }
-    &:before{
-      background: #a6a3a399;
-    }
+  .ProblemBeingSolved .toggle-button-label-left{
+    &:after{ border-color: #a6a3a399; }
+    &:before{ background: #a6a3a399; }
   }
 
   section.amount-footer{

@@ -32,7 +32,6 @@ import './index.scss';
 import store from './store';
 import router from './router';
 import ErrorBoundary from '~/components/ErrorBoundary';
-import ThemeUtil from '~/services/ThemeUtil';
 
 // class ModalTellingUserAboutOfflineMode extends React.Component {
 //   state = {
@@ -78,8 +77,6 @@ ReactDOM.render(
   rootElement
 );
 
-// Initialize theme on app startup
-ThemeUtil.initializeTheme();
 
 if (process.env.NODE_ENV === 'production') {
   document.addEventListener('DOMContentLoaded', () => {

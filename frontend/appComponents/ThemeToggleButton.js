@@ -1,19 +1,29 @@
+import { connect } from 'react-redux';
 import ToggleButton from '~/components/ToggleButton';
-import ThemeUtil from '~/services/ThemeUtil';
+import MyDuck from '~/ducks/MyDuck';
 
+@connect(
+  (state) => ({
+    theme: state.global.My.theme
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)
 class ThemeToggleButton extends React.Component {
-  state = {
-    value: (ThemeUtil.getCurrentTheme() === 'dark') ? 'right' : 'left'
+  static propTypes = {
+    theme: PropTypes.string.isRequired,
+    MyActions: PropTypes.object.isRequired
   }
 
   updateValue = (value) => {
-    const newTheme = ThemeUtil.toggleTheme();
-    this.setState({ value: newTheme === 'dark' ? 'right' : 'left' });
+    const newTheme = this.props.theme === 'dark' ? 'bright' : 'dark';
+    this.props.MyActions.setTheme(newTheme);
   }
 
   render = () =>
     <ToggleButton
-      value={this.state.value}
+      value={this.props.theme === 'dark' ? 'right' : 'left'}
       updateValue={this.updateValue}
     />
 }
