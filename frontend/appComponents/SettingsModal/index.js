@@ -69,7 +69,7 @@ class SettingsModal extends React.Component {
     );
   }
 
-  handleSave = () => {
+  handleSave = (closeModal) => {
     const { formState } = this.state;
     const { Settings } = this.props;
     
@@ -79,10 +79,16 @@ class SettingsModal extends React.Component {
         this.props.SettingsActions.updateSetting(key, formState[key]);
       }
     });
+    
+    closeModal();
   }
 
-  handleCancel = () => {
+  handleCancel = (closeModal) => {
     this.resetFormStateFromProps();
+    // Wait 100ms so user can see the values revert before closing
+    setTimeout(() => {
+      closeModal();
+    }, 100);
   }
 
   renderTabNavigation = () =>
@@ -92,9 +98,9 @@ class SettingsModal extends React.Component {
       tabs={['Design', 'Manage']}
     />
 
-  renderSelectedTab = () => {
+  renderSelectedTab = (closeModal) => {
     return {
-      'Design': this.renderDesignTab,
+      'Design': () => this.renderDesignTab(closeModal),
       'Manage': this.renderManageTab
     }[this.state.selectedTab]();
   }
@@ -111,7 +117,7 @@ class SettingsModal extends React.Component {
       </button>
     </div>
 
-  renderDesignTab = () =>
+  renderDesignTab = (closeModal) =>
     <div className="design-tab">
       <section className="part-of-the-website">
         <h2 className="title">Page: Review</h2>
@@ -189,7 +195,7 @@ class SettingsModal extends React.Component {
           <button
             type="button"
             className="button -white"
-            onClick={this.handleCancel}
+            onClick={() => this.handleCancel(closeModal)}
           >
             Cancel
           </button>
@@ -197,7 +203,7 @@ class SettingsModal extends React.Component {
             type="button"
             className={`button -purple ${this.isDirty() ? '' : '-disabled'}`}
             disabled={!this.isDirty()}
-            onClick={this.handleSave}
+            onClick={() => this.handleSave(closeModal)}
           >
             Save
           </button>
@@ -205,7 +211,7 @@ class SettingsModal extends React.Component {
     </div>
 
   render = () =>
-    <TogglerAndModal toggler={this.props.toggler}>{() =>
+    <TogglerAndModal toggler={this.props.toggler}>{(closeModal) => (
       <section className={`standard-modal ${css.local}`}>
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Settings</h2>
@@ -213,10 +219,10 @@ class SettingsModal extends React.Component {
         </div>
 
         <div className="standard-modal__main">
-          {this.renderSelectedTab()}
+          {this.renderSelectedTab(closeModal)}
         </div>
       </section>
-    }</TogglerAndModal>
+    )}</TogglerAndModal>
 }
 
 export default SettingsModal;
