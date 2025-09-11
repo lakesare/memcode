@@ -1,14 +1,12 @@
 import knex from '#~/db/knex.js';
-import auth from '#~/middlewares/auth.js';
-import canAccessCourse from '#~/services/canAccessCourse.js';
+import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 
-const duplicate = auth(async (request, response) => {
+const duplicate = async (request, response) => {
   const userId = request.currentUser.id;
   const courseId = request.body['courseId'];
-
-  if (!(await canAccessCourse(courseId, request.currentUser))) {
-    return response.error(`Sorry, you can't duplicate a private course.`);
-  }
+  
+  // Check if user can read the course
+  await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   const oldCourseSql = await knex('course').where({ id: courseId });
   const oldCourse = oldCourseSql[0];
@@ -44,6 +42,6 @@ const duplicate = auth(async (request, response) => {
   });
 
   return response.success({ courseId: newCourse.id });
-});
+};
 
 export default duplicate;

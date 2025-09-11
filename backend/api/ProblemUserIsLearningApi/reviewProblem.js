@@ -1,11 +1,13 @@
 import knex from '#~/db/knex.js';
 import dayjs from 'dayjs';
-
-import guard from '#~/middlewares/guard.js';
+import { mustOwnCuil } from '#~/services/auth.js';
 import getNextScore from '../../../services/getNextScore.js';
 
-const reviewProblem = guard((r) => ['byCuilId', r.body['id']])(async (request, response) => {
+const reviewProblem = async (request, response) => {
   const courseUserIsLearningId = request.body['id'];
+  
+  // Ensure user owns this learning record
+  await mustOwnCuil(courseUserIsLearningId, request.currentUser);
   const problemId = request.body['problemId'];
   const performanceRating = request.body['performanceRating'];
 
@@ -22,6 +24,6 @@ const reviewProblem = guard((r) => ['byCuilId', r.body['id']])(async (request, r
     })
     .returning('*'))[0];
   response.success(updatedPuil);
-});
+};
 
 export default reviewProblem;

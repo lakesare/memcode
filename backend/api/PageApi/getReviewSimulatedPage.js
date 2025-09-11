@@ -1,4 +1,4 @@
-import canAccessCourse from '#~/services/canAccessCourse.js';
+import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 import ProblemModel from '#~/models/ProblemModel.js';
 
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
@@ -6,9 +6,8 @@ const cantAccessError = "Sorry, this course is private. Only the author and coau
 const getReviewSimulatedPage = async (request, response) => {
   const courseId = request.body['courseId'];
 
-  if (!(await canAccessCourse(courseId, request.currentUser))) {
-    return response.error(cantAccessError);
-  }
+  // Check if user can read the course (throws error if not allowed)
+  await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   const problems = await ProblemModel.getProblemsByCourseId(courseId);
   response.success({ courseUserIsLearning: null, problems });

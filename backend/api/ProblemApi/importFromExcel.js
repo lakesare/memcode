@@ -1,8 +1,12 @@
 import knex from '#~/db/knex.js';
+import { mustBeAuthorOrCoauthor } from '#~/services/auth.js';
 
 const importFromExcel = async (request, response) => {
   const courseId = request.body['courseId'];
   const problems = request.body['problems'];
+  
+  // Only course authors and coauthors can import problems
+  await mustBeAuthorOrCoauthor(courseId, request.currentUser);
 
   const createdProblemIds = await knex.transaction(async (trx) => {
     // Create new problems with proper sequential positions

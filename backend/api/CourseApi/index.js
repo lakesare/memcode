@@ -14,7 +14,6 @@ import getMyEverything from './getMyEverything.js';
 import getBest4 from './getBest4.js';
 import duplicate from './duplicate.js';
 import updateCoauthors from './updateCoauthors.js';
-import find from './find.js';
 
 export default {
   getPublicCourses,
@@ -30,5 +29,4 @@ export default {
   getBest4,
   duplicate,
   updateCoauthors,
-  find,
 };

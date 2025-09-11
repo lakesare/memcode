@@ -1,17 +1,18 @@
-import guard from '#~/middlewares/guard.js';
+import { mustOwnCuil } from '#~/services/auth.js';
 import knex from '#~/db/knex.js';
 
-const ignoreAlreadyLearnedProblem = guard((r) => ['byCuilId', r.body['cuilId']])(
-  async (request, response) => {
-    const problemId = request.body['problemId'];
-    const courseUserIsLearningId = request.body['cuilId'];
+const ignoreAlreadyLearnedProblem = async (request, response) => {
+  const problemId = request.body['problemId'];
+  const courseUserIsLearningId = request.body['cuilId'];
+  
+  // Ensure user owns this course learning record
+  await mustOwnCuil(courseUserIsLearningId, request.currentUser);
 
-    await knex('problemUserIsLearning')
-      .where({ problemId, courseUserIsLearningId })
-      .update({ ifIgnored: true })
+  await knex('problemUserIsLearning')
+    .where({ problemId, courseUserIsLearningId })
+    .update({ ifIgnored: true })
 
-    response.success();
-  }
-);
+  response.success();
+};
 
 export default ignoreAlreadyLearnedProblem;

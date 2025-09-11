@@ -1,9 +1,10 @@
 import knex from '#~/db/knex.js';
-import auth from '#~/middlewares/auth.js';
+import { mustBeAuthenticated } from '#~/services/auth.js';
 import getRatingsAndAverageAndOwn from './services/getRatingsAndAverageAndOwn.js';
 import NotificationModel from '#~/models/NotificationModel.js';
 
-const rate = auth(async (request, response) => {
+const rate = async (request, response) => {
+  await mustBeAuthenticated(request.currentUser);
   const userId = request.currentUser.id;
   const courseId = request.body['courseId'];
   const rating = request.body['rating'];
@@ -31,6 +32,6 @@ const rate = auth(async (request, response) => {
   const dto = await getRatingsAndAverageAndOwn(courseId, userId);
 
   response.success(dto);
-});
+};
 
 export default rate;

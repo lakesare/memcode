@@ -1,8 +1,7 @@
 import knex from '#~/db/knex.js';
-import auth from '#~/middlewares/auth.js';
+import { mustBeAuthorOrCoauthor } from '#~/services/auth.js';
 
-const getStudentsStats = auth(async (request, response) => {
-
+const getStudentsStats = async (request, response) => {
   const authorId = request.body['authorId'];
   const courseId = request.body['courseId'];
 
@@ -51,6 +50,6 @@ const getStudentsStats = auth(async (request, response) => {
   }
 
   response.success(dto);
-});
+};
 
 export default getStudentsStats;

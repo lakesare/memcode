@@ -1,15 +1,12 @@
 import knex from '#~/db/knex.js';
-import canAccessCourse from '#~/services/canAccessCourse.js';
+import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 import ProblemModel from '#~/models/ProblemModel.js';
-
-const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
 
 const getLearnPage = async (request, response) => {
   const courseId = request.body['courseId'];
 
-  if (!(await canAccessCourse(courseId, request.currentUser))) {
-    return response.error(cantAccessError);
-  }
+  // Check if user can read the course (throws error if not allowed)
+  await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   // find cuil
   const courseUserIsLearning = (await knex('courseUserIsLearning')

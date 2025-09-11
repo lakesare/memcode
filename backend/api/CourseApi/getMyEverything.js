@@ -1,7 +1,8 @@
 import db from '#~/db/init.js';
-import auth from '#~/middlewares/auth.js';
+import { mustBeAuthenticated } from '#~/services/auth.js';
 
-const getMyEverything = auth(async (request, response) => {
+const getMyEverything = async (request, response) => {
+  await mustBeAuthenticated(request.currentUser);
   const userId = request.currentUser.id;
 
   // COALESCE(json_agg(problem.id) FILTER (WHERE problem.id IS NOT NULL), '[]')
@@ -102,6 +103,6 @@ const getMyEverything = auth(async (request, response) => {
   });
 
   response.success(dto);
-});
+};
 
 export default getMyEverything;

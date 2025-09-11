@@ -1,6 +1,9 @@
 import knex from '#~/db/knex.js';
+import { mustBeAuthenticated } from '#~/services/auth.js';
 
 const createCourse = async (request, response) => {
+  await mustBeAuthenticated(request.currentUser);
+  
   const currentUser = request.currentUser;
   const courseBody = request.body['course'];
 

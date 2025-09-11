@@ -1,20 +1,15 @@
 import knex from '#~/db/knex.js';
+import { mustOwnAllProblemsInSameCourse } from '#~/services/auth.js';
 
 const deleteMany = async (request, response) => {
   const ids = request.body['ids'];
 
-  // Get course_id before deletion to resequence positions
-  const problemsToDelete = await knex('problem')
-    .whereIn('id', ids)
-    .select('course_id')
-    .first();
-    
-  if (!problemsToDelete) {
-    response.success();
-    return;
-  }
+  // Validate all problems belong to same course and user has permission
+  const courseId = await mustOwnAllProblemsInSameCourse(ids, request.currentUser);
   
-  const courseId = problemsToDelete.course_id;
+  if (courseId === null) {
+    return response.success(); // Empty array, nothing to do
+  }
 
   // Delete the problems
   await knex('problem')
@@ -23,7 +18,7 @@ const deleteMany = async (request, response) => {
 
   // Resequence remaining problems to maintain 1,2,3... order
   const remainingProblems = await knex('problem')
-    .where({ course_id: courseId })
+    .where({ courseId })
     .orderBy('position', 'asc')
     .select('id');
   

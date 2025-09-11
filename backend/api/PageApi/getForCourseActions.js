@@ -1,15 +1,15 @@
 import knex from '#~/db/knex.js';
-import canAccessCourse from '#~/services/canAccessCourse.js';
+import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 
 const getForCourseActions = async (request, response) => {
   const courseId = request.body['courseId'];
   const currentUser = request.currentUser;
-  const course = (await knex('course').where({ id: courseId }))[0];
-  if (!course) throw new Error("Sorry, this course doesn't exist.");
-
-  if (!(await canAccessCourse(courseId, request.currentUser))) {
-    throw new Error("Sorry, this course is private. Only the author and coauthors and can access it.");
-  }
+  
+  // Check if user can read the course
+  await mustBeAbleToReadCourse(courseId, request.currentUser);
+  
+  // Get course data
+  const course = await knex('course').where({ id: courseId }).first();
 
   const author = (await knex('user').where({ id: course.userId }))[0];
   const courseCategory = (await knex('courseCategory').where({ id: course.courseCategoryId }))[0];

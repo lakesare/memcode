@@ -1,5 +1,5 @@
 import knex from '#~/db/knex.js';
-import canAccessCourse from '#~/services/canAccessCourse.js';
+import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 import dayjs from 'dayjs';
 
 const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
@@ -7,9 +7,8 @@ const cantAccessError = "Sorry, this course is private. Only the author and coau
 const getReviewPage = async (request, response) => {
   const courseId = request.body['courseId'];
 
-  if (!(await canAccessCourse(courseId, request.currentUser))) {
-    return response.error(cantAccessError);
-  }
+  // Check if user can read the course (throws error if not allowed)
+  await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   const courseUserIsLearning = (await knex('courseUserIsLearning')
     .where({ courseId, userId: request.currentUser.id }))[0];

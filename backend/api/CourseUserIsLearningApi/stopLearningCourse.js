@@ -1,7 +1,8 @@
 import knex from '#~/db/knex.js';
-import auth from '#~/middlewares/auth.js';
+import { mustBeAuthenticated } from '#~/services/auth.js';
 
-const stopLearningCourse = auth(async (request, response) => {
+const stopLearningCourse = async (request, response) => {
+  await mustBeAuthenticated(request.currentUser);
   const courseId = request.body['courseId'];
   const currentUser = request.currentUser;
 
@@ -12,6 +13,6 @@ const stopLearningCourse = auth(async (request, response) => {
   )[0];
 
   response.success(courseUserIsLearning);
-});
+};
 
 export default stopLearningCourse;

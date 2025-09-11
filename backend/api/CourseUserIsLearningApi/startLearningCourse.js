@@ -1,10 +1,13 @@
 import knex from '#~/db/knex.js';
-import auth from '#~/middlewares/auth.js';
+import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 import NotificationModel from '#~/models/NotificationModel.js';
 
-const startLearningCourse = auth(async (request, response) => {
+const startLearningCourse = async (request, response) => {
   const courseId = request.body['courseId'];
   const currentUser = request.currentUser;
+  
+  // Check if user can read/access the course before allowing them to start learning
+  await mustBeAbleToReadCourse(courseId, currentUser);
 
   const newCuil = (await knex('courseUserIsLearning')
     .insert({
@@ -28,7 +31,7 @@ const startLearningCourse = auth(async (request, response) => {
   }
 
   response.success(newCuil);
-});
+};
 
 export default startLearningCourse;
 
