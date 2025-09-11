@@ -18,7 +18,12 @@ const updateCourse = async (request, response) => {
       course_category_id: courseData.courseCategoryId
     })
     .returning('*');
-    
-  response.success(updatedCourse);
+
+  const courseCategory = await knex('courseCategory').where({ id: updatedCourse.courseCategoryId }).first();
+
+  response.success({
+    course: updatedCourse,
+    courseCategory
+  });
 };
 export default updateCourse;

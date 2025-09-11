@@ -59,9 +59,17 @@ class CourseActions extends React.Component {
         this.props.MyActions.apiGetCourses();
       })
 
-  uiUpdateCourse = (course) => {
+  uiUpdateCourse = (courseData) => {
     const spe = this.props.My.speCourseForActions;
     this.props.MyActions.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, course } });
+    this.props.MyActions.setSpeCourseForActions({ 
+      ...spe, 
+      payload: { 
+        ...spe.payload, 
+        course: courseData.course,
+        courseCategory: courseData.courseCategory || spe.payload.courseCategory
+      } 
+    });
   }
 
   // renderPlaceholder = () => (
