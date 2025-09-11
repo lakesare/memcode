@@ -248,6 +248,7 @@ class CourseActions extends React.Component {
           
           canIEditCourse={this.canIEditCourse()}
           onProblemsImported={this.props.onProblemsImported}
+          uiUpdateCourse={this.uiUpdateCourse}
         />
       </div>
     </section>;

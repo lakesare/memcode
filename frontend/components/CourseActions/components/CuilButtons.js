@@ -6,6 +6,8 @@ import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import StandardTooltip from '~/components/StandardTooltip';
 import TogglerAndModal from '~/components/TogglerAndModal';
 import InviteCoauthorModal from './InviteCoauthorModal';
+import CourseModal from './CourseModal';
+import ImportExportModal from '~/appComponents/ImportExportModal';
 
 @withRouter
 class CuilButtons extends React.Component {
@@ -33,7 +35,8 @@ class CuilButtons extends React.Component {
     currentProblem: PropTypes.object,
     type: PropTypes.string.isRequired,
     canIEditCourse: PropTypes.bool,
-    onProblemsImported: PropTypes.func
+    onProblemsImported: PropTypes.func,
+    uiUpdateCourse: PropTypes.func
   }
 
   state = {
@@ -93,6 +96,51 @@ class CuilButtons extends React.Component {
 
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
+      {
+        this.props.canIEditCourse &&
+        <li className="mobile-only-edit-button">
+          <CourseModal
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(120, 175, 244)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Edit Course</div>
+                <div className="comment -white">
+                  Edit course title/privacy/category.
+                </div>
+              </button>
+            }
+            course={this.props.courseDto.course}
+            uiUpdateCourse={this.props.uiUpdateCourse}
+            MyActions={this.props.MyActions}
+          />
+        </li>
+      }
+
+      {
+        this.props.canIEditCourse &&
+        <li className="mobile-only-import-button">
+          <ImportExportModal
+            course={this.props.courseDto.course}
+            MyActions={this.props.MyActions}
+            onProblemsImported={this.props.onProblemsImported}
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(120, 175, 244)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Import/Export</div>
+                <div className="comment -white">
+                  Import flashcards from text or excel.
+                </div>
+              </button>
+            }
+          />
+        </li>
+      }
       {
         this.ifCourseIsLearnedAndActive() &&
         <li>

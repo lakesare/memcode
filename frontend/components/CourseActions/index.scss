@@ -1,5 +1,12 @@
 
 :local(section.actions){
+  // Default: hide mobile-only duplicates in dropdown
+  .standard-tooltip-dropdown {
+    li.mobile-only-edit-button,
+    li.mobile-only-import-button {
+      display: none;
+    }
+  }
   > section.title-and-buttons{
     padding-top: 20px;
     padding-bottom: 20px;
@@ -240,6 +247,26 @@
 
 :local(section.actions){
   @media(max-width: 900px){
+    // Move Edit/Import into the more-button dropdown on small screens
+    > section.title-and-buttons {
+      > .container {
+        > section.course-title_and_category_and_author {
+          > section.edit-invite-buttons {
+            display: none; // hide inline Edit/Import buttons
+          }
+        }
+        // show the mobile-only items inside the tooltip dropdown
+        .learn-and-review-buttons {
+          .standard-tooltip-dropdown {
+            li.mobile-only-edit-button,
+            li.mobile-only-import-button {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+    
     .edit-invite-buttons{
       display: none;
     }
