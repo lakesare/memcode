@@ -20,58 +20,80 @@ body.-bright-theme{
 // Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
 .-bright-theme .-without-bg{
 
-  .my-courses-dropdown{
-    background-color: rgb(234, 225, 220) !important;
-    border-radius: 10px !important;
-    .standard-input.-TextInput{
-      background: transparent !important;
-      color: rgb(65, 52, 44) !important;
-    }
-    .sync-button{
-      background: #d6baaf6b !important;
-      color: #684f4fa1;
-      &:hover{
-        background: #d6baafb9 !important;
+  header{
+    .my-courses-dropdown{
+      background-color: rgb(234, 225, 220) !important;
+      border-radius: 10px !important;
+      .standard-input.-TextInput{
+        background: transparent !important;
+        color: rgb(65, 52, 44) !important;
       }
-    }
-    a.title{
-      background: rgba(157, 101, 101, 0.07);
-    }
-    a.title .title{
-      background: none !important;
-      color: rgb(65, 52, 44) !important;
-    }
-    .course-li.-next-due-date-in .action{
-      background: #d6baaf6b !important;
-      color: #684f4fa1;
-    }
-    .course-li.-next-due-date-in a:hover{
-      background: #d6baaf6b !important;
-    }
-    a:hover{
-      opacity: 1;
-    }
-    .course-li{
-      margin-bottom: 1px !important;
-    }
-    
-    .course-li:last-child{
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
+      .sync-button{
+        background: #d6baaf6b !important;
+        color: #684f4fa1;
+        &:hover{
+          background: #d6baafb9 !important;
+        }
+      }
       a.title{
+        background: rgba(157, 101, 101, 0.07);
+      }
+      a.title .title{
+        background: none !important;
+        color: rgb(65, 52, 44) !important;
+      }
+      .course-li.-next-due-date-in .action{
+        background: #d6baaf6b !important;
+        color: #684f4fa1;
+      }
+      .course-li.-next-due-date-in a:hover{
+        background: #d6baaf6b !important;
+      }
+      a:hover{
+        opacity: 1;
+      }
+      .course-li{
+        margin-bottom: 1px !important;
+      }
+      
+      .course-li:last-child{
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
+        a.title{
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+        .action{ border-bottom-right-radius: 10px; }
       }
-      .action{ border-bottom-right-radius: 10px; }
+      .course-li.-review a:hover { background: rgba(212, 85, 18, 0.33); }
+      .course-li.-learn a:hover { background: rgba(33, 165, 130, 0.42); }
     }
-     .course-li.-review a:hover { background: rgba(212, 85, 18, 0.33); }
-     .course-li.-learn a:hover { background: rgba(33, 165, 130, 0.42); }
-  }
 
-  header .current-user .tippy-box{
-    background-color: rgb(234, 225, 220) !important;
-    border-radius: 10px !important;
-    color: rgb(65, 52, 44);
+    .current-user .tippy-box{
+      background-color: rgb(234, 225, 220) !important;
+      border-radius: 10px !important;
+      color: rgb(65, 52, 44);
+    }
+    .notifications-dropdown{
+      .header{
+        border-bottom: 1px solid rgba(216, 179, 153, 0.15) !important;
+      }
+      .-already-read .circle{
+        background: rgba(157, 101, 101, 0.209);
+      }
+      li.-not-yet-read{
+        background: rgba(255, 160, 227, 0.33) !important;
+      }
+      div.created-at{
+        color: #684f4fa1;
+      }
+    }
+    .notifications-toggler[aria-expanded="true"]{
+      // background: rgba(255, 255, 255, 0.29) !important;
+      // border-radius: 10px;
+      background: none !important;
+    }
+
   }
 
 

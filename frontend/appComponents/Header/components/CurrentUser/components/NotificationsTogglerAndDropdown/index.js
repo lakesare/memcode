@@ -156,7 +156,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
     <StandardTooltip
       tooltipEl={this.renderDropdown()}
       tooltipProps={{
-        className: 'standard-tooltip -no-padding -dark',
+        className: 'notifications-dropdown standard-tooltip -no-padding -dark',
         interactive: true,
         placement: 'bottom-end',
         trigger: 'mouseenter click',
