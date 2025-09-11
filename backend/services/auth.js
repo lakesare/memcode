@@ -1,4 +1,5 @@
 import knex from '#~/db/knex.js';
+import isUserAdmin from '../../services/isUserAdmin.js';
 
 // Helper to throw consistent authorization errors
 const throwAuthError = (message = 'Authentication required') => {
@@ -157,8 +158,7 @@ export const mustOwnAllProblemsInSameCourse = async (problemIds, currentUser) =>
 export const mustBeAdmin = async (currentUser) => {
   await mustBeAuthenticated(currentUser);
 
-  const adminUsers = [1];
-  if (!adminUsers.includes(currentUser.id)) {
+  if (!isUserAdmin(currentUser)) {
     throwForbiddenError('Admin access required');
   }
 };
