@@ -241,11 +241,12 @@ class SectionImportFlashcardsFromText extends React.Component {
 
       <div className="second-column">
         <b>Example of valid text to insert</b>
-        <textarea>
-{`cloze-deletion  ||| Penicillin was discovered by Alexander <mark class="answer">Fleming</mark> in 1928. |||
+        <textarea value={
+`cloze-deletion  ||| Penicillin was discovered by Alexander <mark class="answer">Fleming</mark> in 1928. |||
 question-answer ||| What was the first antibiotic? ||| Penicillin.
 question-answer ||| What are antibiotics <i>only</i> effective against? ||| Bacteria.`}
-        </textarea>
+readOnly
+/>
       </div>
     </article>
 

@@ -1,6 +1,6 @@
 @use '~/css/variables.scss';
 
-:local(.tab){
+:local(.modal){
   .background.-blue{
     > section.import-flashcards, > section.export-flashcards{
       padding: 0 20px;
@@ -110,4 +110,3 @@
     }
   }
 }
-

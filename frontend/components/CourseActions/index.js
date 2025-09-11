@@ -11,7 +11,7 @@ import Loading         from '~/components/Loading';
 
 import CourseModal from './components/CourseModal';
 import CuilButtons from './components/CuilButtons';
-import ImportExportModal from './components/ImportExportModal';
+import ImportExportModal from '~/appComponents/ImportExportModal';
 import CourseDescriptionAndStats from './components/CourseDescriptionAndStats';
 
 import css from './index.scss';
