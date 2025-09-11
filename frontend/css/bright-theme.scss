@@ -68,6 +68,12 @@ body.-bright-theme{
      .course-li.-learn a:hover { background: rgba(33, 165, 130, 0.42); }
   }
 
+  header .current-user .tippy-box{
+    background-color: rgb(234, 225, 220) !important;
+    border-radius: 10px !important;
+    color: rgb(65, 52, 44);
+  }
+
 
 
 
@@ -205,7 +211,7 @@ body.-bright-theme{
       }
     }
   }
-  .ProblemBeingSolved .toggle-button-label-left{
+  .toggle-button-label-left{
     &:after{ border-color: #a6a3a399; }
     &:before{ background: #a6a3a399; }
   }
