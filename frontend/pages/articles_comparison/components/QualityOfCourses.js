@@ -18,14 +18,14 @@ const QualityOfCourses = () =>
         <h3>Quizlet: <span className="rating">5</span></h3>
 
         <div className="description">
-          <mark>Quizlet</mark> has a large collection of user-created courses, many of which are very good (including technical subjects!). They are sorted by popularity, and best ones are eazy to find.
+          <mark>Quizlet</mark> has a large collection of user-created courses, many of which are very good (including technical subjects!). They are sorted by popularity, and the best ones are easy to find.
         </div>
       </section>
 
       <section className="site">
         <h3>Brainscape: <span className="rating">3</span></h3>
 
-        <div className="description"><mark>Brainscape</mark> is proud of its collection of expert-certified courses, however most of them require a paid subscription.<br/>
+        <div className="description"><mark>Brainscape</mark> is proud of its collection of expert-certified courses, however, most of them require a paid subscription.<br/>
         I checked a few certified courses though, and they felt like automatically imported dictionary definitions rather than something worth memorizing.</div>
       </section>
 

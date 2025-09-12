@@ -50,14 +50,14 @@ const TypesOfTasks = () =>
               <img src={quizlet_2} alt="Quizlet flashcard type: Classic question-answer"/>
             </li>
             <li>
-              Connect word and defintion:
+              Connect word and definition:
               <img src={quizlet_3} alt="Quizlet flashcard type: Connect word and definition"/>
             </li>
             <li>
               Type what you hear. <mark>Quizlet</mark> automatically voices (with good quality!) your questions and answers, speaks the answer and checks how you typed it.
             </li>
             <li>
-              Asteroid game. Expects you to type in answers quick, <br/>so that asteroids don't destroy you.
+              Asteroid game. Expects you to type in answers quickly, <br/>so that asteroids don't destroy you.
             </li>
             <li>
               Test-like sprint. Solve 20 tasks from the course with randomized task types, and get a grade.
@@ -89,7 +89,7 @@ const TypesOfTasks = () =>
               <img src={memcode_1_new} alt="Memcode flashcard type: Classic question-answer"/>
             </li>
             <li>
-              'Insert answer inline' (or cloze-deletion) flashcard. If you type the right answer, - input will light up with green, indicating your answer is right. If you can't recall an answer, - just press ENTER, and the right answer will be revealed.
+              'Insert answer inline' (or cloze-deletion) flashcard. If you type the right answer, the input will light up in green, indicating your answer is correct. If you can't recall an answer, just press ENTER, and the right answer will be revealed.
               <img src={memcode_2_new} alt="Memcode flashcard type: Automatically checked cloze-deletion flashcard"/>
             </li>
           </ul>
@@ -100,10 +100,10 @@ const TypesOfTasks = () =>
         <h3>Conclusion</h3>
         <div className="description">
           <mark>Memrise</mark> and <mark>Memcode</mark> are suitable for fast learning, their interface is slick, they can be navigated via the keyboard.<br/>
-          Unlike <mark>Memrise</mark>, however, <mark>Memcode</mark> has rich formatting for flashcards available, which means we have bold text, images, lists, code excerpts, and math formulas in our flashcards. These are essential if you are learning something more extensive than languages (coding, medicine, maths? And even with languages images won't hurt)<br/>
-          <mark>Memrise</mark> also doesn't have cloze deletion cards, which are extremely helpful for learning foreign words in the context of sentences they are in.<br/>
+          Unlike <mark>Memrise</mark>, however, <mark>Memcode</mark> has rich formatting available for flashcards, which means we have bold text, images, lists, code excerpts, and math formulas in our flashcards. These are essential if you are learning something more extensive than languages (coding, medicine, math—and even with languages, images won't hurt).<br/>
+          <mark>Memrise</mark> also doesn't have cloze deletion cards, which are extremely helpful for learning foreign words in the context of the sentences they appear in.<br/>
           <mark>Quizlet</mark> on the other hand clearly attempts to gamify the learning process. It's refreshing to be able to switch the task types, but there is too much going on to be able to parse through your items at a fast pace.<br/>
-          <mark>Brainscape</mark> is the only clear loser here. Process is both nonfun and slow with it.
+          <mark>Brainscape</mark> is the only clear loser here. The process is both unfun and slow with it.
         </div>
       </section>
     </div>

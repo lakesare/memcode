@@ -16,7 +16,7 @@ class CurrentUser extends React.Component {
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
       <li>
-        <Link to={`/users/${this.props.currentUser.id}`} className="dropdown-item">Profile</Link>
+        <Link to={`/users/${this.props.currentUser.id}`} className="dropdown-item">Home</Link>
       </li>
       <li>
         <SettingsModal toggler={<button type="button" className="dropdown-item">Settings</button>}/>

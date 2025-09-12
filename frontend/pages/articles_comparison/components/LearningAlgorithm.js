@@ -43,7 +43,7 @@ const LearningAlgorithm = () =>
         <h3>Conclusion</h3>
 
         <div className="description">
-          Everyone here uses some variation of SM2 (an algorithm that calculates the increase of repetition intervals depending on how well you know the item. It's ultimate goal is to make you repeat the flashcard as soon as you start forgetting it), except for <mark>Quizlet</mark>. Which essentially makes <mark>Quizlet</mark> unsuitable for any kind of long-term learning.
+          Everyone here uses some variation of SM2 (an algorithm that calculates the increase of repetition intervals depending on how well you know the item. Its ultimate goal is to make you repeat the flashcard as soon as you start forgetting it), except for <mark>Quizlet</mark>. This essentially makes <mark>Quizlet</mark> unsuitable for any kind of long-term learning.
         </div>
       </section>
     </div>

@@ -59,8 +59,8 @@ class Page_articles_comparison extends React.Component {
       </article>
 
       <Helmet>
-        <title>Memrise VS  Quizlet VS Brainscape VS Memcode</title>
-        <meta name="description" content="Memrise VS  Quizlet VS Brainscape VS Memcode: comparison of most popular flashcard-based learning sites."/> :
+        <title>Memrise vs Quizlet vs Brainscape vs Memcode</title>
+        <meta name="description" content="Memrise vs Quizlet vs Brainscape vs Memcode: comparison of the most popular flashcard-based learning sites."/>
       </Helmet>
     </Main>
 }

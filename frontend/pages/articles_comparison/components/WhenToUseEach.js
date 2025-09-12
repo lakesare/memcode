@@ -9,8 +9,8 @@ const WhenToUseEach = () =>
         <h3>Memrise: <span className="answer">When you want to learn some language.</span></h3>
 
         <div className="description">
-          <mark>Memrise</mark> was created with this in mind, hence is the inability to format tasks or limits on their length.<br/>
-          I had a great experience using the 'meme' feature (you and other users create images that help them remember the word) when I was learning finnish. It will be beneficial for any cryptic syntaxis, but not so much for fields such as programming or physics, where memories mostly form by connecting the known concepts rather than by memorizing some particular syntax.
+          <mark>Memrise</mark> was created with this in mind, hence the inability to format tasks or limits on their length.<br/>
+          I had a great experience using the 'meme' feature (you and other users create images that help them remember the word) when I was learning Finnish. It will be beneficial for any cryptic syntax, but not so much for fields such as programming or physics, where memories mostly form by connecting known concepts rather than by memorizing particular syntax.
         </div>
       </section>
 
@@ -20,9 +20,9 @@ const WhenToUseEach = () =>
         <div className="description">
           <mark>Quizlet</mark> was created with this in mind.<br/>
           It's not meant to be used for a long period of time, that's why they didn't introduce any learning algorithm. It's meant to be the 'learn now' app. And it's great in what it does!<br/>
-          You will not get lost on a real test after you try to revoke your newly-fledged memories using 6 different types of tasks.<br/>
+          You will not get lost on a real test after you try to recall your newly-formed memories using 6 different types of tasks.<br/>
           Another use case for this app is a unique automatic voiceover feature. You may want to use it to train your listening skills in some language, or to study with your eyes closed :-).<br/>
-          One more thing <mark>Quizlet</mark> excells in is gamification. <mark>Quizlet</mark> took it to its logical end, you will hardly get bored by learning anything there.
+          One more thing <mark>Quizlet</mark> excels in is gamification. <mark>Quizlet</mark> took it to its logical end, so you will hardly get bored learning anything there.
         </div>
       </section>
 
@@ -47,7 +47,7 @@ const WhenToUseEach = () =>
         <h3>Conclusion</h3>
 
         <div className="description">
-          Every app excells at their use cases, apart from probably <mark>Brainscape</mark>.
+          Every app excels at its use case, except probably <mark>Brainscape</mark>.
         </div>
       </section>
     </div>

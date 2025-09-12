@@ -82,7 +82,7 @@ class Page_articles_welcome extends React.Component {
               )}
               {this.renderFeature(
                 'Comfortable',
-                'We\'re really trying. Software like this tends to become a part of your brain, and we want you to feel like returning to Memcode.',
+                'We\'re really trying. Software like this tends to become part of your brain, and we want you to feel like returning to Memcode.',
                 <span className="material-icons">bathtube</span>,
                 'comfortable'
               )}
