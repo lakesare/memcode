@@ -27,7 +27,10 @@ class CourseDescriptionAndStats extends React.Component {
       { courseId: this.props.courseDto.course.id, authorId: this.props.courseDto.author.id }
     )
       .then((payload) => {
-        this.setState({ stats: payload });
+        this.setState({ 
+          stats: payload.students,
+          remainingStudents: payload._remainingStudents 
+        });
       })
 
   ifCanRateCourse = () => (
@@ -107,6 +110,7 @@ class CourseDescriptionAndStats extends React.Component {
               }
               course={this.props.courseDto.course}
               stats={this.state.stats}
+              remainingStudents={this.state.remainingStudents || 0}
               currentUser={this.props.currentUser}
               author={this.props.courseDto.author}
             />

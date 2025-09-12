@@ -10,6 +10,7 @@ class StatsModal extends React.Component {
     toggler: PropTypes.element.isRequired,
     course: PropTypes.object.isRequired,
     stats: PropTypes.array.isRequired,
+    remainingStudents: PropTypes.number,
     currentUser: PropTypes.object.isRequired,
     author: PropTypes.object.isRequired
   }
@@ -63,6 +64,11 @@ class StatsModal extends React.Component {
         <div className="standard-modal__main">
           <div className="table-wrapper">
             {this.renderTable()}
+            {this.props.remainingStudents > 0 &&
+              <div className="remaining-students-note">
+                ... and {this.props.remainingStudents} more students
+              </div>
+            }
           </div>
         </div>
       </section>
