@@ -51,7 +51,7 @@ class Page_articles_welcome extends React.Component {
               {/* Thought-through to the detail.<br/> */}
               <span style={{ color: 'rgba(39, 209, 158, 0.84)' }}>With formatting. </span>
               <span style={{ color: 'rgb(244, 126, 177)' }}>With images. </span>
-              <span style={{ color: 'rgb(255, 255, 137)' }}>Accessible.</span>
+              <span style={{ color: 'rgb(255, 255, 137)' }}>With sound.</span>
             </h2>
 
             <CreateCourseButton>
@@ -69,10 +69,10 @@ class Page_articles_welcome extends React.Component {
                 'formulas'
               )}
               {this.renderFeature(
-                'Shortcuts',
-                <>You can navigate Memcode via shortcuts and tabs.</>,
-                <i className="fa fa-keyboard-o"/>,
-                'shortcuts'
+                'Sound',
+                <>Listen to any flashcard with natural text-to-speech. <br/>Powered by OpenAI's high-quality voice synthesis.</>,
+                <i class="material-icons -yes">volume_up</i>,
+                'sound'
               )}
               {this.renderFeature(
                 'Smooth course creation',
