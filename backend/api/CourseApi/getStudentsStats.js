@@ -12,7 +12,7 @@ const getStudentsStats = async (request, response) => {
     .leftJoin('problem_user_is_learning as pul', 'pul.course_user_is_learning_id', 'course_user_is_learning.id')
     .where({ 'course_user_is_learning.courseId': courseId, active: true })
     .groupBy('user.id', 'user.username', 'user.avatarUrl', 'course_user_is_learning.id')
-    .orderBy(knex.raw('MAX(pul.last_reviewed_at)'), 'desc')
+    .orderBy(knex.raw('MAX(pul.last_reviewed_at) DESC NULLS LAST'))
     .limit(300);
 
   const totalAmountOfCards = await knex('problem').select().where({ courseId });

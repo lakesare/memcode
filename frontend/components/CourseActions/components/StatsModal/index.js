@@ -36,7 +36,7 @@ class StatsModal extends React.Component {
             <td className="user">
 
               <Link className="button -clear -fade-out-on-hover" to={`/users/${user.id}`}>
-                <img src={getUserAvatar(user)} alt="Coauthor avatar"/>
+                <img src={getUserAvatar(user)} alt="User avatar"/>
                 <div className="username">{user.username}</div>
               </Link>
 
