@@ -81,16 +81,6 @@ const getStats = async (request, response) => {
 
 
 
-    // Get course rating stats
-    const ratingStats = await knex('course_rating')
-      .select('rating')
-      .count('* as count')
-      .groupBy('rating')
-      .orderBy('rating', 'asc');
-
-    const avgRating = await knex('course_rating')
-      .avg('rating as average')
-      .first();
 
     // Get top course creators (top 10)
     const topCourseCreators = await knex('user')
@@ -131,13 +121,6 @@ const getStats = async (request, response) => {
           type: stat.type,
           count: parseInt(stat.count)
         }))
-      },
-      ratingStats: {
-        breakdown: ratingStats.map(stat => ({
-          rating: stat.rating,
-          count: parseInt(stat.count)
-        })),
-        average: avgRating.average ? parseFloat(avgRating.average).toFixed(2) : null
       },
       topUsers: {
         courseCreators: topCourseCreators.map(creator => ({

@@ -220,51 +220,6 @@ class Page extends React.Component {
     );
   }
 
-  renderRatingStatsSection = () => {
-    const { ratingStats } = this.state.stats;
-    
-    if (ratingStats.breakdown.length === 0) {
-      return null;
-    }
-    
-    return (
-      <section className="standard-admin-section">
-        <h2 className="standard-admin-section-title">Course Ratings</h2>
-        
-        <div className="statsGrid">
-          <div className="statsCard">
-            <h3>Rating Distribution</h3>
-            <table className="dataTable">
-              <thead>
-                <tr>
-                  <th>Rating</th>
-                  <th>Count</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ratingStats.breakdown.map((stat, index) => (
-                  <tr key={index}>
-                    <td>{stat.rating} ⭐</td>
-                    <td>{this.formatNumber(stat.count)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          
-          {ratingStats.average && (
-            <div className="statsCard">
-              <h3>Average Rating</h3>
-              <div className="avgRating">
-                <span className="avgNumber">{ratingStats.average}</span>
-                <span className="avgStars">⭐</span>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-    );
-  }
 
   renderTopUsersSection = () => {
     const { topUsers } = this.state.stats;
@@ -307,13 +262,12 @@ class Page extends React.Component {
       <div className={"standard-admin-sections sections " + css.adminStatsPage}>
         <Loading spe={this.state.speGetStats}>
           {this.state.stats && (
-            <>
-              {this.renderOverviewSection()}
-              {this.renderMonthlyStatsSection()}
-              {this.renderContentStatsSection()}
-              {this.renderRatingStatsSection()}
-              {this.renderTopUsersSection()}
-            </>
+              <>
+                {this.renderOverviewSection()}
+                {this.renderMonthlyStatsSection()}
+                {this.renderContentStatsSection()}
+                {this.renderTopUsersSection()}
+              </>
           )}
         </Loading>
       </div>
