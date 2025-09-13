@@ -5,11 +5,11 @@ const getStudentsStats = async (request, response) => {
   const authorId = request.body['authorId'];
   const courseId = request.body['courseId'];
 
-  // Limit to 300 most recently active students to avoid performance issues
+  // Get all active students, ordered by most recent activity (if any), then limit to 300
   const students = await knex('user')
     .select('user.*', 'course_user_is_learning.id as cuilId')
     .join('course_user_is_learning', { 'course_user_is_learning.user_id': 'user.id' })
-    .join('problem_user_is_learning as pul', 'pul.course_user_is_learning_id', 'course_user_is_learning.id')
+    .leftJoin('problem_user_is_learning as pul', 'pul.course_user_is_learning_id', 'course_user_is_learning.id')
     .where({ 'course_user_is_learning.courseId': courseId, active: true })
     .groupBy('user.id', 'user.username', 'user.avatarUrl', 'course_user_is_learning.id')
     .orderBy(knex.raw('MAX(pul.last_reviewed_at)'), 'desc')
