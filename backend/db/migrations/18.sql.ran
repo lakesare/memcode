@@ -1,0 +1,9 @@
+-- Migration 18: Add stats_problem_review table for flashcard review analytics
+
+CREATE TABLE stats_problem_review (
+  id SERIAL PRIMARY KEY,
+  problem_id INTEGER REFERENCES problem (id) ON DELETE SET NULL,
+  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
+  was_correct BOOLEAN NOT NULL,
+  reviewed_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);

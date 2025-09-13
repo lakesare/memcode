@@ -24,6 +24,7 @@ import Page_home from './pages/home';
 
 import Page_admin_notifications from './pages/admin_notifications';
 import Page_admin_users from './pages/admin_users';
+import Page_admin_stats from './pages/admin_stats';
 
 const auth = onEnters.requireAuthentication;
 
@@ -58,6 +59,7 @@ const router =
       <Route exact path="/articles/welcome"    component={Page_articles_welcome}/>
 
       {/* admin */}
+      <Route exact path="/admin" component={onEnters.requireAdmin(Page_admin_stats)}/>
       <Route exact path="/admin/notifications" component={onEnters.requireAdmin(Page_admin_notifications)}/>
       <Route exact path="/admin/users" component={onEnters.requireAdmin(Page_admin_users)}/>
       

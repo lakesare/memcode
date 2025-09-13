@@ -152,6 +152,14 @@ CREATE TABLE coauthor (
   unique (user_id, course_id)
 );
 
+CREATE TABLE stats_problem_review (
+  id SERIAL PRIMARY KEY,
+  problem_id INTEGER REFERENCES problem (id) ON DELETE SET NULL,
+  user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
+  was_correct BOOLEAN NOT NULL,
+  reviewed_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
 -- Default category values
 INSERT INTO "public"."course_category_group" ("id", "name") VALUES
 ('2', 'Hard Sciences'),

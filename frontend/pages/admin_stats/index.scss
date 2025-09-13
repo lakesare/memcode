@@ -1,0 +1,248 @@
+:local(.adminStatsPage) {
+  
+  .overviewGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+
+    .statCard {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      transition: box-shadow 0.2s;
+      
+      &:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+
+      .statNumber {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2c5aa0;
+        margin-bottom: 8px;
+      }
+
+      .statLabel {
+        color: #666;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .activityGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+
+    .activityCard {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      
+      .activityNumber {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      .activityLabel {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .chartSection {
+    .registrationChart {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      
+      h3 {
+        margin: 0 0 15px 0;
+        color: #333;
+        font-size: 1.1rem;
+      }
+
+      .chartContainer {
+        overflow-x: auto;
+      }
+    }
+  }
+
+  .statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .statsCard {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    
+    h3 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 1.1rem;
+      border-bottom: 2px solid #2c5aa0;
+      padding-bottom: 8px;
+    }
+
+    .avgRating {
+      text-align: center;
+      padding: 20px;
+      
+      .avgNumber {
+        font-size: 3rem;
+        font-weight: bold;
+        color: #2c5aa0;
+        margin-right: 10px;
+      }
+      
+      .avgStars {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .scrollableTable {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 4px;
+  }
+
+  .dataTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    
+    th, td {
+      text-align: left;
+      padding: 12px 8px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    th {
+      background: #f8f9fa;
+      font-weight: 600;
+      color: #555;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    td {
+      color: #333;
+      
+      a {
+        color: #2c5aa0;
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    
+    tr:hover {
+      background: #f8f9fa;
+    }
+    
+    tr:nth-child(even) {
+      background: #fafafa;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    .overviewGrid {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      
+      .statCard {
+        padding: 15px;
+        
+        .statNumber {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .activityGrid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      
+      .activityCard {
+        padding: 15px;
+        
+        .activityNumber {
+          font-size: 1.5rem;
+        }
+        
+        .activityLabel {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .statsGrid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .statsCard {
+      padding: 15px;
+      
+      .avgRating {
+        padding: 15px;
+        
+        .avgNumber {
+          font-size: 2.5rem;
+        }
+      }
+    }
+
+    .dataTable {
+      font-size: 0.9rem;
+      
+      th, td {
+        padding: 8px 6px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .overviewGrid {
+      grid-template-columns: repeat(2, 1fr);
+      
+      .statCard .statNumber {
+        font-size: 1.8rem;
+      }
+    }
+
+    .activityGrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dataTable {
+      font-size: 0.8rem;
+      
+      th, td {
+        padding: 6px 4px;
+      }
+    }
+  }
+}

@@ -14,6 +14,8 @@ const reviewProblem = async (request, response) => {
   const puil = (await knex('problemUserIsLearning').where({ courseUserIsLearningId, problemId }))[0];
   const nextScore = getNextScore(puil.easiness, puil.consecutiveCorrectAnswers, performanceRating);
   const now = dayjs();
+  
+  // Update the problem learning record
   const updatedPuil = (await knex('problemUserIsLearning')
     .where({ id: puil.id })
     .update({
@@ -23,6 +25,15 @@ const reviewProblem = async (request, response) => {
       lastReviewedAt: now.format()
     })
     .returning('*'))[0];
+  
+  // Log the review event for analytics
+  await knex('stats_problem_review').insert({
+    problem_id: problemId,
+    user_id: request.currentUser.id,
+    was_correct: performanceRating >= 4, // Same logic as isAnswerCorrect in getNextScore
+    reviewed_at: now.format()
+  });
+  
   response.success(updatedPuil);
 };
 
