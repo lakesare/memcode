@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import StandardTooltip from '~/components/StandardTooltip';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 import SettingsModal from '~/appComponents/SettingsModal';
+import AccountModal from '~/appComponents/AccountModal';
 import getUserAvatar from '~/services/getUserAvatar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 
@@ -20,6 +21,9 @@ class CurrentUser extends React.Component {
       </li>
       <li>
         <SettingsModal toggler={<button type="button" className="dropdown-item">Settings</button>}/>
+      </li>
+      <li>
+        <AccountModal toggler={<button type="button" className="dropdown-item">Account</button>}/>
       </li>
       <li>
         <ThemeToggleButton/>

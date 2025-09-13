@@ -1,6 +1,4 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
-import TabNavigation   from '~/components/TabNavigation';
-import { AuthenticationActions } from '~/reducers/Authentication';
 import MyDuck from '~/ducks/MyDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
 import Select from '~/components/Select';
@@ -14,7 +12,6 @@ import css from './index.scss';
     Settings: state.global.Settings
   }),
   (dispatch) => ({
-    signOut: () => AuthenticationActions.signOut(dispatch),
     MyActions: dispatch(MyDuck.getActions),
     SettingsActions: SettingsDuck.getActions(dispatch)
   })
@@ -26,11 +23,9 @@ class SettingsModal extends React.Component {
     Settings: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
     SettingsActions: PropTypes.object.isRequired,
-    signOut: PropTypes.func.isRequired,
   }
 
   state = {
-    selectedTab: 'Design',
     formState: {
       hideSocialButtons: false,
       clozeDeletionMode: 'typing',
@@ -91,31 +86,8 @@ class SettingsModal extends React.Component {
     }, 100);
   }
 
-  renderTabNavigation = () =>
-    <TabNavigation
-      selectTab={(selectedTab) => this.setState({ selectedTab })}
-      selectedTab={this.state.selectedTab}
-      tabs={['Design', 'Manage']}
-    />
 
-  renderSelectedTab = (closeModal) => {
-    return {
-      'Design': () => this.renderDesignTab(closeModal),
-      'Manage': this.renderManageTab
-    }[this.state.selectedTab]();
-  }
 
-  renderManageTab = () =>
-    <div className="manage-tab">
-      <h2 className="title">Sign out of your account</h2>
-      <button
-        type="button"
-        className="button -white"
-        onClick={this.props.signOut}
-      >
-        Sign Out
-      </button>
-    </div>
 
   renderDesignTab = (closeModal) =>
     <div className="design-tab">
@@ -215,11 +187,10 @@ class SettingsModal extends React.Component {
       <section className={`standard-modal ${css.local}`}>
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Settings</h2>
-          {this.renderTabNavigation()}
         </div>
 
         <div className="standard-modal__main">
-          {this.renderSelectedTab(closeModal)}
+          {this.renderDesignTab(closeModal)}
         </div>
       </section>
     )}</TogglerAndModal>

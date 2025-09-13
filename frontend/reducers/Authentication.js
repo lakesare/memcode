@@ -27,6 +27,10 @@ const AuthenticationActions = {
     // will issue a silly reflow
     // dispatch({ type: 'SET_CURRENT_USER', payload: null });
     location.reload();
+  },
+
+  updateCurrentUser: (dispatch, user) => {
+    dispatch({ type: 'SET_CURRENT_USER', payload: user });
   }
 };
 
