@@ -2,7 +2,10 @@
 
 :local(.modal){
   .background.-blue{
-    > section.import-flashcards, > section.export-flashcards{
+    // Support both direct children (old structure) and nested in tabs (new structure)
+    > section.import-flashcards, > section.export-flashcards,
+    .tab-text section.import-flashcards, .tab-text section.export-flashcards,
+    .tab-excel section.import-flashcards, .tab-excel section.export-flashcards {
       padding: 0 20px;
       > h2.title{
         font-size: 22px;
@@ -75,7 +78,9 @@
         margin-top: 30px;
       }
     }
-    > section.import-flashcards.-text{
+    // Text import sections (both old structure and new nested structure)
+    > section.import-flashcards.-text,
+    .tab-text section.import-flashcards.-text {
       textarea{
         width: 100%;
         background: #ffffff3d;
@@ -91,7 +96,10 @@
         height: 93px;
       }
     }
-    > hr{
+    // HR elements (both old structure and new nested structure)
+    > hr,
+    .tab-text hr,
+    .tab-excel hr {
       margin-top: 30px;
       margin-bottom: 30px;
       border: none;

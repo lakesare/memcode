@@ -39,7 +39,7 @@ class SectionExportFlahscards extends React.Component {
 
   render = () =>
     <section className="export-flashcards">
-      <h2 className="title">Export flashcards to the Excel file</h2>
+      <h2 className="title">Export flashcards to Excel file</h2>
 
       <button
         className="create-flashcards-button button -pink"
