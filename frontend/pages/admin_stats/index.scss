@@ -126,8 +126,119 @@
   }
 
   .scrollableTable {
+    max-height: 300px;
+    overflow-y: auto;
     border: 1px solid #eee;
     border-radius: 4px;
+  }
+
+  .timelineContainer {
+    .showMoreContainer {
+      text-align: center;
+      margin-top: 20px;
+      
+      .showMoreButton {
+        background: #2c5aa0;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: background 0.2s;
+        
+        &:hover {
+          background: #1e3f73;
+        }
+      }
+    }
+    
+    .timelineTable {
+      .timeCell {
+        white-space: nowrap;
+        font-size: 0.85rem;
+        color: #666;
+      }
+      
+      .userCell, .courseCell {
+        a {
+          color: #2c5aa0;
+          text-decoration: none;
+          font-weight: 500;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      
+      .contentCell {
+        max-width: 300px;
+        
+        .flashcardContent {
+          cursor: pointer;
+          line-height: 1.4;
+          color: #555;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+          position: relative;
+          
+          &.collapsed {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 8px;
+            
+            &:hover {
+              background: #e9ecef;
+            }
+          }
+          
+          &.expanded {
+            background: #fff;
+            border: 2px solid #2c5aa0;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          }
+          
+          
+          .fullContent {
+            max-height: none;
+            
+            .flashcardDivider {
+              border: none;
+              border-top: 2px solid #dee2e6;
+              margin: 12px 0;
+            }
+          }
+          
+          .truncatedContent {
+            // Styling for collapsed state already handled by parent
+          }
+        }
+      }
+      
+      .resultCell {
+        text-align: center;
+        
+        .reviewResult {
+          font-size: 1.2rem;
+          font-weight: bold;
+          padding: 4px 8px;
+          border-radius: 4px;
+          
+          &.correct {
+            color: #28a745;
+            background: #d4edda;
+          }
+          
+          &.incorrect {
+            color: #dc3545;
+            background: #f8d7da;
+          }
+        }
+      }
+    }
   }
 
   .dataTable {
@@ -168,12 +279,12 @@
       }
     }
     
-    tr:hover {
-      background: #f8f9fa;
+    tr {
+      background: #fff;
     }
     
-    tr:nth-child(even) {
-      background: #fafafa;
+    tr:hover {
+      background: #f8f9fa;
     }
   }
 

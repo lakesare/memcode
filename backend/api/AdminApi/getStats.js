@@ -91,6 +91,24 @@ const getStats = async (request, response) => {
       .orderBy('course_count', 'desc')
       .limit(10);
 
+    // Get recent flashcard reviews timeline (last 300 reviews, excluding lakesare)
+    const recentReviews = await knex('stats_problem_review')
+      .join('user', 'stats_problem_review.user_id', 'user.id')
+      .join('problem', 'stats_problem_review.problem_id', 'problem.id')
+      .join('course', 'problem.course_id', 'course.id')
+      .where('user.username', '!=', 'lakesare')
+      .select(
+        'stats_problem_review.reviewed_at',
+        'user.username',
+        'user.id as user_id',
+        'course.title as course_title',
+        'course.id as course_id',
+        'problem.content as problem_content',
+        'stats_problem_review.was_correct'
+      )
+      .orderBy('stats_problem_review.reviewed_at', 'desc')
+      .limit(300);
+
 
 
     response.success({
@@ -129,6 +147,15 @@ const getStats = async (request, response) => {
           courseCount: parseInt(creator.courseCount)
         }))
       },
+      recentReviews: recentReviews.map(review => ({
+        reviewedAt: review.reviewedAt,
+        username: review.username,
+        userId: review.userId,
+        courseTitle: review.courseTitle,
+        courseId: review.courseId,
+        problemContent: review.problemContent,
+        wasCorrect: review.wasCorrect
+      })),
     });
 
   } catch (error) {

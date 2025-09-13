@@ -9,7 +9,9 @@ class Page extends React.Component {
   state = {
     speGetStats: {},
     stats: null,
-    showAllMonths: false
+    showAllMonths: false,
+    expandedFlashcards: new Set(),
+    showAllReviews: false
   }
 
   componentDidMount = () => {
@@ -56,6 +58,83 @@ class Page extends React.Component {
       year: 'numeric',
       month: 'short'
     });
+  }
+
+  formatDateTime = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.toLocaleDateString('en-US', { month: 'short' });
+    const day = date.getDate();
+    const time = date.toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    return `${year}, ${month} ${day}, ${time}`;
+  }
+
+  extractTextContent = (htmlContent) => {
+    if (!htmlContent) return '';
+    // Handle JSON content structure
+    if (typeof htmlContent === 'object' && htmlContent.content) {
+      htmlContent = htmlContent.content;
+    }
+    if (typeof htmlContent === 'string') {
+      // Remove HTML tags and decode entities
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlContent;
+      return tempDiv.textContent || tempDiv.innerText || '';
+    }
+    return String(htmlContent);
+  }
+
+  formatFlashcardTooltip = (problemContent) => {
+    if (!problemContent) return '';
+    
+    // Handle JSON content structure for flashcards
+    let content = problemContent;
+    if (typeof content === 'object') {
+      if (content.content && content.answer) {
+        // separateAnswer type flashcard
+        const questionText = this.extractTextContent(content.content);
+        const answerText = this.extractTextContent(content.answer);
+        return `${questionText}\n__________________________\n${answerText}`;
+      } else if (content.content && content.explanation) {
+        // inlinedAnswers type flashcard
+        const questionText = this.extractTextContent(content.content);
+        const explanationText = this.extractTextContent(content.explanation);
+        return `${questionText}\n__________________________\n${explanationText}`;
+      } else if (content.content) {
+        // Other types - just show content
+        return this.extractTextContent(content.content);
+      }
+    }
+    
+    // Fallback for string content
+    return this.extractTextContent(content);
+  }
+
+  truncateContent = (content, maxLength) => {
+    const textContent = this.extractTextContent(content);
+    if (textContent.length <= maxLength) {
+      return textContent;
+    }
+    return textContent.substring(0, maxLength) + '...';
+  }
+
+  toggleFlashcardExpansion = (reviewIndex) => {
+    const newExpanded = new Set(this.state.expandedFlashcards);
+    if (newExpanded.has(reviewIndex)) {
+      newExpanded.delete(reviewIndex);
+    } else {
+      newExpanded.add(reviewIndex);
+    }
+    this.setState({ expandedFlashcards: newExpanded });
+  }
+
+  isFlashcardExpanded = (reviewIndex) => {
+    return this.state.expandedFlashcards.has(reviewIndex);
   }
 
   renderOverviewSection = () => {
@@ -256,6 +335,92 @@ class Page extends React.Component {
     );
   }
 
+  renderRecentReviewsSection = () => {
+    const { recentReviews } = this.state.stats;
+    const { showAllReviews } = this.state;
+    
+    // Show only first 20 reviews by default
+    const displayReviews = showAllReviews ? recentReviews : recentReviews.slice(0, 20);
+    const hasMoreReviews = recentReviews.length > 20;
+    
+    return (
+      <section className="standard-admin-section">
+        <h2 className="standard-admin-section-title">Recent Flashcard Reviews (Last 300)</h2>
+        
+        <div className="timelineContainer">
+          <table className="dataTable timelineTable">
+            <thead>
+              <tr>
+                <th>Time & Date</th>
+                <th>User</th>
+                <th>Course</th>
+                <th>Flashcard Content</th>
+                <th>Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              {displayReviews.map((review, index) => (
+                <tr key={index}>
+                  <td className="timeCell">{this.formatDateTime(review.reviewedAt)}</td>
+                  <td className="userCell">
+                    <a href={`/users/${review.userId}`} target="_blank" rel="noopener noreferrer">
+                      {review.username}
+                    </a>
+                  </td>
+                  <td className="courseCell">
+                    <a href={`/courses/${review.courseId}`} target="_blank" rel="noopener noreferrer">
+                      {review.courseTitle}
+                    </a>
+                  </td>
+                  <td className="contentCell">
+                    <div 
+                      className={`flashcardContent ${this.isFlashcardExpanded(index) ? 'expanded' : 'collapsed'}`}
+                      onClick={() => this.toggleFlashcardExpansion(index)}
+                    >
+                      {this.isFlashcardExpanded(index) ? (
+                        <div className="fullContent">
+                          {this.formatFlashcardTooltip(review.problemContent).split('\n').map((line, lineIndex) => (
+                            <div key={lineIndex}>
+                              {line === '__________________________' ? (
+                                <hr className="flashcardDivider" />
+                              ) : (
+                                line || <br />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="truncatedContent">
+                          {this.truncateContent(review.problemContent, 100)}
+                        </div>
+                      )}
+                    </div>
+                  </td>
+                  <td className="resultCell">
+                    <span className={`reviewResult ${review.wasCorrect ? 'correct' : 'incorrect'}`}>
+                      {review.wasCorrect ? '✓' : '✗'}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          
+          {hasMoreReviews && (
+            <div className="showMoreContainer">
+              <button 
+                className="showMoreButton" 
+                onClick={() => this.setState({ showAllReviews: !showAllReviews })}
+              >
+                {showAllReviews ? `Show Less (Show only 20)` : `Show More (${recentReviews.length - 20} more reviews)`}
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+    );
+  }
+
 
   render = () =>
     <PageAdmin title="Admin Statistics">
@@ -267,6 +432,7 @@ class Page extends React.Component {
                 {this.renderMonthlyStatsSection()}
                 {this.renderContentStatsSection()}
                 {this.renderTopUsersSection()}
+                {this.renderRecentReviewsSection()}
               </>
           )}
         </Loading>
