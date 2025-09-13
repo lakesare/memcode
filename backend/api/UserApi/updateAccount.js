@@ -18,14 +18,16 @@ const updateAccount = async (request, response, next) => {
   }
 
   try {
-    // Check if username is already taken by another user
-    const existingUser = await knex('user')
-      .where('username', username.trim())
-      .whereNot('id', userId)
-      .first();
+    // Only check username uniqueness if the user is actually changing their username
+    if (username.trim() !== request.currentUser.username) {
+      const existingUser = await knex('user')
+        .where('username', username.trim())
+        .whereNot('id', userId)
+        .first();
 
-    if (existingUser) {
-      return response.validation(['Username is already taken.']);
+      if (existingUser) {
+        return response.validation(['Username is already taken.']);
+      }
     }
 
     // Update user account
