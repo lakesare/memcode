@@ -77,22 +77,31 @@ const getActions = (dispatch) => ({
   },
   
   // Convenience methods for common operations
-  toggleSetting: (key) => (dispatch, getState) => {
-    const currentValue = getState().global.Settings[key];
+  toggleSetting: (key, currentValue) => {
     const actions = getActions(dispatch);
     actions.updateSetting(key, !currentValue);
   },
   
-  addPinnedCourse: (courseId) => (dispatch, getState) => {
-    const currentIds = getState().global.Settings.pinnedCourseIds;
-    const actions = getActions(dispatch);
-    actions.updateSetting('pinnedCourseIds', [...currentIds, courseId]);
+  addPinnedCourse: (courseId, currentIds) => {
+    const safeCurrentIds = Array.isArray(currentIds) ? currentIds : [];
+    const newIds = [...safeCurrentIds, courseId];
+    
+    // Persist to localStorage
+    localStorage.setItem('pinnedCourseIds', JSON.stringify(newIds));
+    
+    // Dispatch Redux action
+    dispatch({ type: UPDATE_SETTING, payload: { key: 'pinnedCourseIds', value: newIds } });
   },
   
-  removePinnedCourse: (courseId) => (dispatch, getState) => {
-    const currentIds = getState().global.Settings.pinnedCourseIds;
-    const actions = getActions(dispatch);
-    actions.updateSetting('pinnedCourseIds', currentIds.filter(id => id !== courseId));
+  removePinnedCourse: (courseId, currentIds) => {
+    const safeCurrentIds = Array.isArray(currentIds) ? currentIds : [];
+    const newIds = safeCurrentIds.filter(id => id !== courseId);
+    
+    // Persist to localStorage
+    localStorage.setItem('pinnedCourseIds', JSON.stringify(newIds));
+    
+    // Dispatch Redux action
+    dispatch({ type: UPDATE_SETTING, payload: { key: 'pinnedCourseIds', value: newIds } });
   }
 });
 

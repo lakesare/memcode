@@ -148,11 +148,12 @@ class CuilButtons extends React.Component {
             type="button"
             onClick={() => {
               const courseId = this.props.courseDto.course.id;
-              const isPinned = this.props.Settings.pinnedCourseIds.includes(courseId);
+              const currentIds = this.props.Settings.pinnedCourseIds;
+              const isPinned = currentIds.includes(courseId);
               if (isPinned) {
-                this.props.SettingsActions.removePinnedCourse(courseId);
+                this.props.SettingsActions.removePinnedCourse(courseId, currentIds);
               } else {
-                this.props.SettingsActions.addPinnedCourse(courseId);
+                this.props.SettingsActions.addPinnedCourse(courseId, currentIds);
               }
               this.closeDropdown();
             }}
