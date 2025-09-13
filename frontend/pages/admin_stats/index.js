@@ -8,7 +8,8 @@ import css from './index.scss';
 class Page extends React.Component {
   state = {
     speGetStats: {},
-    stats: null
+    stats: null,
+    showAllMonths: false
   }
 
   componentDidMount = () => {
@@ -50,6 +51,13 @@ class Page extends React.Component {
     return months[monthNumber - 1] || 'Unknown';
   }
 
+  formatYearMonth = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short'
+    });
+  }
+
   renderOverviewSection = () => {
     const { overview } = this.state.stats;
     
@@ -73,81 +81,62 @@ class Page extends React.Component {
             <div className="statLabel">Total Flashcards</div>
           </div>
           
-          <div className="statCard">
-            <div className="statNumber">{this.formatNumber(overview.activeLearners)}</div>
-            <div className="statLabel">Active Learners</div>
-          </div>
-          
-          <div className="statCard">
-            <div className="statNumber">{this.formatNumber(overview.totalLearningRelations)}</div>
-            <div className="statLabel">Learning Relations</div>
-          </div>
-          
-          <div className="statCard">
-            <div className="statNumber">{this.formatNumber(overview.totalProblemLearningProgress)}</div>
-            <div className="statLabel">Problem Learning Progress</div>
-          </div>
           
         </div>
       </section>
     );
   }
 
-  renderRecentActivitySection = () => {
-    const { recentActivity } = this.state.stats;
-    
-    return (
-      <section className="standard-admin-section">
-        <h2 className="standard-admin-section-title">Recent Activity (Last 30 Days)</h2>
-        
-        <div className="activityGrid">
-          <div className="activityCard">
-            <div className="activityNumber">{this.formatNumber(recentActivity.newUsers30d)}</div>
-            <div className="activityLabel">New Users</div>
-          </div>
-          
-          <div className="activityCard">
-            <div className="activityNumber">{this.formatNumber(recentActivity.newCourses30d)}</div>
-            <div className="activityLabel">New Courses</div>
-          </div>
-          
-          <div className="activityCard">
-            <div className="activityNumber">{this.formatNumber(recentActivity.newProblems30d)}</div>
-            <div className="activityLabel">New Flashcards</div>
-          </div>
-          
-          <div className="activityCard">
-            <div className="activityNumber">{this.formatNumber(recentActivity.newLearners30d)}</div>
-            <div className="activityLabel">New Learners</div>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
-  renderUserStatsSection = () => {
-    const { userStats } = this.state.stats;
+  renderMonthlyStatsSection = () => {
+    const { monthlyStats } = this.state.stats;
+    const { showAllMonths } = this.state;
+    
+    // Show only last 12 months by default
+    const displayStats = showAllMonths ? monthlyStats : monthlyStats.slice(0, 12);
     
     return (
       <section className="standard-admin-section">
-        <h2 className="standard-admin-section-title">User Registration Trends</h2>
+        <h2 className="standard-admin-section-title">Monthly Activity Overview</h2>
         
         <div className="chartSection">
           <div className="registrationChart">
-            <h3>User Registration by Month (Last 12 Months)</h3>
-            <div className="chartContainer">
+            <div className="chartHeader">
+              <h3>Activity by Month (All Time)</h3>
+              {monthlyStats.length > 12 && (
+                <button 
+                  className="expandButton" 
+                  onClick={() => this.setState({ showAllMonths: !showAllMonths })}
+                >
+                  {showAllMonths ? 'Show Less' : `Show All (${monthlyStats.length} months)`}
+                </button>
+              )}
+            </div>
+            <div className="scrollableTable">
               <table className="dataTable">
                 <thead>
                   <tr>
-                    <th>Month</th>
-                    <th>New Users</th>
+                    <th>Year Month</th>
+                    <th>Users Created</th>
+                    <th>Courses Created</th>
+                    <th>Flashcards Created</th>
+                    <th>Flashcards Reviewed</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {userStats.registrationByMonth.map((stat, index) => (
+                  {displayStats.map((stat, index) => (
                     <tr key={index}>
-                      <td>{this.formatDate(stat.month)}</td>
-                      <td>{this.formatNumber(stat.count)}</td>
+                      <td>{this.formatYearMonth(stat.month)}</td>
+                      <td>{this.formatNumber(stat.usersCreated)}</td>
+                      <td>{this.formatNumber(stat.coursesCreated)}</td>
+                      <td>{this.formatNumber(stat.flashcardsCreated)}</td>
+                      <td>
+                        {stat.flashcardsReviewed > 0 ? (
+                          this.formatNumber(stat.flashcardsReviewed)
+                        ) : (
+                          <span className="noData">—</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -159,14 +148,14 @@ class Page extends React.Component {
     );
   }
 
-  renderCourseStatsSection = () => {
-    const { courseStats } = this.state.stats;
+  renderContentStatsSection = () => {
+    const { courseStats, problemStats } = this.state.stats;
     
     return (
       <section className="standard-admin-section">
-        <h2 className="standard-admin-section-title">Course Statistics</h2>
+        <h2 className="standard-admin-section-title">Content Statistics</h2>
         
-        <div className="statsGrid">
+        <div className="statsGrid threeColumn">
           <div className="statsCard">
             <h3>Course Visibility</h3>
             <table className="dataTable">
@@ -206,19 +195,7 @@ class Page extends React.Component {
               </tbody>
             </table>
           </div>
-        </div>
-      </section>
-    );
-  }
-
-  renderProblemStatsSection = () => {
-    const { problemStats } = this.state.stats;
-    
-    return (
-      <section className="standard-admin-section">
-        <h2 className="standard-admin-section-title">Flashcard Statistics</h2>
-        
-        <div className="statsGrid">
+          
           <div className="statsCard">
             <h3>Problem Types</h3>
             <table className="dataTable">
@@ -237,90 +214,6 @@ class Page extends React.Component {
                 ))}
               </tbody>
             </table>
-          </div>
-
-          <div className="statsCard">
-            <h3>Flashcards Created by Month (All Years)</h3>
-            <table className="dataTable">
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Created</th>
-                </tr>
-              </thead>
-              <tbody>
-                {problemStats.creationByMonth.map((stat, index) => (
-                  <tr key={index}>
-                    <td>{this.getMonthName(stat.month)}</td>
-                    <td>{this.formatNumber(stat.count)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="statsCard">
-            <h3>Flashcards Created by Day (Last 30 Days)</h3>
-            <div className="scrollableTable">
-              <table className="dataTable">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Created</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {problemStats.creationByDay.map((stat, index) => (
-                    <tr key={index}>
-                      <td>{this.formatDayDate(stat.date)}</td>
-                      <td>{this.formatNumber(stat.count)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="statsCard">
-            <h3>Flashcards Reviewed by Month (All Years)</h3>
-            <table className="dataTable">
-              <thead>
-                <tr>
-                  <th>Month</th>
-                  <th>Reviews</th>
-                </tr>
-              </thead>
-              <tbody>
-                {problemStats.reviewsByMonth.map((stat, index) => (
-                  <tr key={index}>
-                    <td>{this.getMonthName(stat.month)}</td>
-                    <td>{this.formatNumber(stat.count)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="statsCard">
-            <h3>Flashcards Reviewed by Day (Last 30 Days)</h3>
-            <div className="scrollableTable">
-              <table className="dataTable">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Reviews</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {problemStats.reviewsByDay.map((stat, index) => (
-                    <tr key={index}>
-                      <td>{this.formatDayDate(stat.date)}</td>
-                      <td>{this.formatNumber(stat.count)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </section>
@@ -411,22 +304,18 @@ class Page extends React.Component {
 
   render = () =>
     <PageAdmin title="Admin Statistics">
-      <div className={css.adminStatsPage}>
-        <div className="standard-admin-sections sections">
-          <Loading spe={this.state.speGetStats}>
-            {this.state.stats && (
-              <>
-                {this.renderOverviewSection()}
-                {this.renderRecentActivitySection()}
-                {this.renderUserStatsSection()}
-                {this.renderCourseStatsSection()}
-                {this.renderProblemStatsSection()}
-                {this.renderRatingStatsSection()}
-                {this.renderTopUsersSection()}
-              </>
-            )}
-          </Loading>
-        </div>
+      <div className={"standard-admin-sections sections " + css.adminStatsPage}>
+        <Loading spe={this.state.speGetStats}>
+          {this.state.stats && (
+            <>
+              {this.renderOverviewSection()}
+              {this.renderMonthlyStatsSection()}
+              {this.renderContentStatsSection()}
+              {this.renderRatingStatsSection()}
+              {this.renderTopUsersSection()}
+            </>
+          )}
+        </Loading>
       </div>
     </PageAdmin>
 }

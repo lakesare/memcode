@@ -33,32 +33,6 @@
     }
   }
 
-  .activityGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    margin-bottom: 20px;
-
-    .activityCard {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-      color: white;
-      
-      .activityNumber {
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 8px;
-      }
-
-      .activityLabel {
-        font-size: 0.85rem;
-        opacity: 0.9;
-        font-weight: 500;
-      }
-    }
-  }
 
   .chartSection {
     .registrationChart {
@@ -67,10 +41,32 @@
       border-radius: 8px;
       padding: 20px;
       
-      h3 {
-        margin: 0 0 15px 0;
-        color: #333;
-        font-size: 1.1rem;
+      .chartHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        
+        h3 {
+          margin: 0;
+          color: #333;
+          font-size: 1.1rem;
+        }
+        
+        .expandButton {
+          background: #2c5aa0;
+          color: white;
+          border: none;
+          padding: 8px 16px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 0.9rem;
+          transition: background 0.2s;
+          
+          &:hover {
+            background: #1e3f73;
+          }
+        }
       }
 
       .chartContainer {
@@ -84,6 +80,18 @@
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-bottom: 20px;
+    
+    &.threeColumn {
+      grid-template-columns: repeat(3, 1fr);
+      
+      @media (max-width: 1200px) {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+      
+      @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+      }
+    }
   }
 
   .statsCard {
@@ -155,6 +163,11 @@
           text-decoration: underline;
         }
       }
+      
+      .noData {
+        color: #999;
+        font-style: italic;
+      }
     }
     
     tr:hover {
@@ -181,22 +194,6 @@
       }
     }
 
-    .activityGrid {
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 12px;
-      
-      .activityCard {
-        padding: 15px;
-        
-        .activityNumber {
-          font-size: 1.5rem;
-        }
-        
-        .activityLabel {
-          font-size: 0.8rem;
-        }
-      }
-    }
 
     .statsGrid {
       grid-template-columns: 1fr;
@@ -233,9 +230,6 @@
       }
     }
 
-    .activityGrid {
-      grid-template-columns: repeat(2, 1fr);
-    }
 
     .dataTable {
       font-size: 0.8rem;

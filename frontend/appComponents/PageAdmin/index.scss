@@ -8,20 +8,15 @@
     > nav.navigation-admin{
       flex-grow: 0;
       flex-shrink: 0;
-      width: 250px;
+      width: 130px;
       min-height: 400px;
-      margin-right: 40px;
+      margin-right: 30px;
       margin-bottom: 60px;
-      background: rgba(34, 38, 74, 0.27);
       a{
         display: block;
         padding: 10px;
-        font-size: 14px;
-        color: variables.$purple;
-        border-bottom: 1px solid rgba(68, 67, 67, 0.07);
-        opacity: 0.4;
-        &.active{
-          opacity: 1;
+        &:hover, &.active{
+          background: rgba(68, 67, 67, 0.274);
         }
       }
     }
@@ -37,14 +32,12 @@
         > section.standard-admin-section{
           margin-top: 30px;
           > h2.standard-admin-section-title{
-            background: rgba(68, 67, 67, 0.07);
+            background: rgba(68, 67, 67, 0.274);
             padding: 15px 20px;
             padding-top: 11px;
             margin-bottom: 20px;
-            font-size: 12px;
+            font-size: 14px;
             text-transform: uppercase;
-            border-top: 4px solid rgba(177, 177, 177, 0.42);
-            font-weight: lighter;
           }
         }
       }

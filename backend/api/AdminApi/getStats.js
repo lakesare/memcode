@@ -10,15 +10,43 @@ const getStats = async (request, response) => {
       .count('* as count')
       .first();
 
-    // Get user registration stats by month (last 12 months)
-    const userRegistrationStats = await knex('user')
-      .select(knex.raw(`
-        DATE_TRUNC('month', created_at) as month,
-        COUNT(*) as count
-      `))
-      .where('created_at', '>=', knex.raw("NOW() - INTERVAL '12 months'"))
-      .groupBy(knex.raw('DATE_TRUNC(\'month\', created_at)'))
-      .orderBy('month', 'desc');
+    // Get comprehensive monthly stats for all time
+    const monthlyStats = await knex.raw(`
+      WITH months AS (
+        SELECT DISTINCT DATE_TRUNC('month', created_at) as month
+        FROM (
+          SELECT created_at FROM "user"
+          UNION
+          SELECT created_at FROM course
+          UNION
+          SELECT created_at FROM problem
+        ) all_dates
+      )
+      SELECT 
+        months.month,
+        COALESCE(users.count, 0) as users_created,
+        COALESCE(courses.count, 0) as courses_created,
+        COALESCE(problems.count, 0) as flashcards_created,
+        COALESCE(reviews.count, 0) as flashcards_reviewed
+      FROM months
+      LEFT JOIN (
+        SELECT DATE_TRUNC('month', created_at) as month, COUNT(*) as count
+        FROM "user" GROUP BY DATE_TRUNC('month', created_at)
+      ) users ON months.month = users.month
+      LEFT JOIN (
+        SELECT DATE_TRUNC('month', created_at) as month, COUNT(*) as count
+        FROM course GROUP BY DATE_TRUNC('month', created_at)
+      ) courses ON months.month = courses.month
+      LEFT JOIN (
+        SELECT DATE_TRUNC('month', created_at) as month, COUNT(*) as count
+        FROM problem GROUP BY DATE_TRUNC('month', created_at)
+      ) problems ON months.month = problems.month
+      LEFT JOIN (
+        SELECT DATE_TRUNC('month', reviewed_at) as month, COUNT(*) as count
+        FROM stats_problem_review GROUP BY DATE_TRUNC('month', reviewed_at)
+      ) reviews ON months.month = reviews.month
+      ORDER BY months.month DESC
+    `);
 
     // Get total course count
     const totalCourses = await knex('course')
@@ -51,57 +79,7 @@ const getStats = async (request, response) => {
       .groupBy('course_category.id', 'course_category.name')
       .orderBy('course_count', 'desc');
 
-    // Get learning engagement stats
-    const totalLearningRelations = await knex('course_user_is_learning')
-      .count('* as count')
-      .first();
 
-    const activeLearners = await knex('course_user_is_learning')
-      .where('active', true)
-      .count('* as count')
-      .first();
-
-    const totalProblemLearningProgress = await knex('problem_user_is_learning')
-      .count('* as count')
-      .first();
-
-    // Get flashcard creation stats by month (all years)
-    const flashcardCreationByMonth = await knex('problem')
-      .select(knex.raw(`
-        EXTRACT(MONTH FROM created_at) as month,
-        COUNT(*) as count
-      `))
-      .groupBy(knex.raw('EXTRACT(MONTH FROM created_at)'))
-      .orderBy('month', 'asc');
-
-    // Get flashcard creation stats by day (last 30 days)
-    const flashcardCreationByDay = await knex('problem')
-      .select(knex.raw(`
-        DATE(created_at) as date,
-        COUNT(*) as count
-      `))
-      .where('created_at', '>=', knex.raw("NOW() - INTERVAL '30 days'"))
-      .groupBy(knex.raw('DATE(created_at)'))
-      .orderBy('date', 'desc');
-
-    // Get flashcard review stats by month (all years) - using stats_problem_review table
-    const flashcardReviewsByMonth = await knex('stats_problem_review')
-      .select(knex.raw(`
-        EXTRACT(MONTH FROM reviewed_at) as month,
-        COUNT(*) as count
-      `))
-      .groupBy(knex.raw('EXTRACT(MONTH FROM reviewed_at)'))
-      .orderBy('month', 'asc');
-
-    // Get flashcard review stats by day (last 30 days)
-    const flashcardReviewsByDay = await knex('stats_problem_review')
-      .select(knex.raw(`
-        DATE(reviewed_at) as date,
-        COUNT(*) as count
-      `))
-      .where('reviewed_at', '>=', knex.raw("NOW() - INTERVAL '30 days'"))
-      .groupBy(knex.raw('DATE(reviewed_at)'))
-      .orderBy('date', 'desc');
 
     // Get course rating stats
     const ratingStats = await knex('course_rating')
@@ -124,30 +102,20 @@ const getStats = async (request, response) => {
       .limit(10);
 
 
-    // Get recent activity stats (last 30 days)
-    const recentStats = await knex.raw(`
-      SELECT 
-        (SELECT COUNT(*) FROM "user" WHERE created_at >= NOW() - INTERVAL '30 days') as new_users_30d,
-        (SELECT COUNT(*) FROM course WHERE created_at >= NOW() - INTERVAL '30 days') as new_courses_30d,
-        (SELECT COUNT(*) FROM problem WHERE created_at >= NOW() - INTERVAL '30 days') as new_problems_30d,
-        (SELECT COUNT(*) FROM course_user_is_learning WHERE started_learning_at >= NOW() - INTERVAL '30 days') as new_learners_30d
-    `);
 
     response.success({
       overview: {
         totalUsers: parseInt(totalUsers.count),
         totalCourses: parseInt(totalCourses.count),
-        totalProblems: parseInt(totalProblems.count),
-        totalLearningRelations: parseInt(totalLearningRelations.count),
-        activeLearners: parseInt(activeLearners.count),
-        totalProblemLearningProgress: parseInt(totalProblemLearningProgress.count)
+        totalProblems: parseInt(totalProblems.count)
       },
-      userStats: {
-        registrationByMonth: userRegistrationStats.map(stat => ({
-          month: stat.month,
-          count: parseInt(stat.count)
-        }))
-      },
+      monthlyStats: monthlyStats.rows.map(stat => ({
+        month: stat.month,
+        usersCreated: parseInt(stat.users_created),
+        coursesCreated: parseInt(stat.courses_created),
+        flashcardsCreated: parseInt(stat.flashcards_created),
+        flashcardsReviewed: parseInt(stat.flashcards_reviewed)
+      })),
       courseStats: {
         visibilityBreakdown: courseVisibilityStats.map(stat => ({
           isPublic: stat.ifPublic,
@@ -161,22 +129,6 @@ const getStats = async (request, response) => {
       problemStats: {
         typeBreakdown: problemTypeStats.map(stat => ({
           type: stat.type,
-          count: parseInt(stat.count)
-        })),
-        creationByMonth: flashcardCreationByMonth.map(stat => ({
-          month: parseInt(stat.month),
-          count: parseInt(stat.count)
-        })),
-        creationByDay: flashcardCreationByDay.map(stat => ({
-          date: stat.date,
-          count: parseInt(stat.count)
-        })),
-        reviewsByMonth: flashcardReviewsByMonth.map(stat => ({
-          month: parseInt(stat.month),
-          count: parseInt(stat.count)
-        })),
-        reviewsByDay: flashcardReviewsByDay.map(stat => ({
-          date: stat.date,
           count: parseInt(stat.count)
         }))
       },
@@ -194,12 +146,6 @@ const getStats = async (request, response) => {
           courseCount: parseInt(creator.courseCount)
         }))
       },
-      recentActivity: recentStats.rows[0] ? {
-        newUsers30d: parseInt(recentStats.rows[0].new_users_30d),
-        newCourses30d: parseInt(recentStats.rows[0].new_courses_30d),
-        newProblems30d: parseInt(recentStats.rows[0].new_problems_30d),
-        newLearners30d: parseInt(recentStats.rows[0].new_learners_30d)
-      } : {}
     });
 
   } catch (error) {
