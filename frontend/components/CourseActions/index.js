@@ -61,7 +61,6 @@ class CourseActions extends React.Component {
 
   uiUpdateCourse = (courseData) => {
     const spe = this.props.My.speCourseForActions;
-    this.props.MyActions.setSpeCourseForActions({ ...spe, payload: { ...spe.payload, course } });
     this.props.MyActions.setSpeCourseForActions({ 
       ...spe, 
       payload: { 
