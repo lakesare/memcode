@@ -1,15 +1,37 @@
 import Delta from 'quill-delta';
 import Parchment from 'parchment';
+import imageCompression from 'browser-image-compression';
 
 import fromFileToDataUrl from '~/services/fromFileToDataUrl';
 import preloadImage from '~/services/preloadImage';
 import fetchWrapper from '~/api/services/fetchWrapper';
 
 // File upload function (moved from FileApi.js since it's only used here)
-const uploadFile = (dispatch, file) => {
+const uploadFile = async (dispatch, file) => {
+  // Compress image before upload if it's an image file
+  let fileToUpload = file;
+  
+  if (file.type.startsWith('image/')) {
+    try {
+      // Compression options - optimize dimensions while preserving quality
+      const options = {
+        maxWidthOrHeight: 600, // Match flashcard display width
+        useWebWorker: true, // Non-blocking compression
+        preserveExif: false, // Remove metadata to save space
+        initialQuality: 0.95 // High quality, let dimension reduction do the work
+      };
+      
+      fileToUpload = await imageCompression(file, options);
+      console.log(`Image compressed: ${(file.size / 1024 / 1024).toFixed(2)}MB → ${(fileToUpload.size / 1024 / 1024).toFixed(2)}MB`);
+    } catch (error) {
+      console.warn('Image compression failed, uploading original:', error);
+      // Continue with original file if compression fails
+    }
+  }
+
   const formData = new FormData();
   // 'file' string can be anything, it just has to correspond to uploadFileToAwsS3.single('file')
-  formData.append('file', file);
+  formData.append('file', fileToUpload);
 
   return fetchWrapper(
     dispatch,
