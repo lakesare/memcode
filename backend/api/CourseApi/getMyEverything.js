@@ -1,6 +1,7 @@
 import db from '#~/db/init.js';
 import { mustBeAuthenticated } from '#~/services/auth.js';
 
+// TODO - we should get rif of ~/db/init.js, this file is the only remaining use of that api
 const getMyEverything = async (request, response) => {
   await mustBeAuthenticated(request.currentUser);
   const userId = request.currentUser.id;
