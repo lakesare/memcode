@@ -13,7 +13,7 @@ class Page extends React.Component {
   }
 
   apiAnnounceAFeature = () =>
-    api.post.NotificationApi.announceNewFeature(
+    api.post.AdminApi.announceNewFeature(
       (spe) => this.setState({ speAnnounceAFeature: spe }),
       {
         type: 'memcode_added_some_feature',
