@@ -33,6 +33,12 @@ class CourseCardSimple extends React.Component {
     }
   }
 
+  getDisplayTitle = () => {
+    const title = this.props.courseDto.course.title;
+    // Remove (Animals) from the title for display purposes
+    return title.replace(/\s*\(Animals\)\s*/gi, '').trim();
+  }
+
   render = () =>
     <Link
       to={this.getUrl()}
@@ -43,7 +49,7 @@ class CourseCardSimple extends React.Component {
         <div className="author">{this.props.courseDto.author.username}</div>
       </section>
 
-      <h2 className="title">{this.props.courseDto.course.title.toLowerCase()}</h2>
+      <h2 className="title">{this.getDisplayTitle().toLowerCase()}</h2>
 
       <div
         className="description"
