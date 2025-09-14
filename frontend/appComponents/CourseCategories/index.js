@@ -11,7 +11,13 @@ class CourseCategories extends React.Component {
     selectedCourseCategoryId: orFalse(PropTypes.number).isRequired,
     courseCategories: PropTypes.array.isRequired,
     courseCategoryGroups: PropTypes.array.isRequired,
-    ifShowAmountOfCoursesInCategory: PropTypes.bool.isRequired
+    ifShowAmountOfCoursesInCategory: PropTypes.bool.isRequired,
+    isSelectedCategoryActive: PropTypes.bool,
+    showSelectedSection: PropTypes.bool
+  }
+
+  static defaultProps = {
+    showSelectedSection: false
   }
 
   ifCategoryIsSelected = (category) =>
@@ -45,9 +51,44 @@ class CourseCategories extends React.Component {
       }
     </li>
 
+  renderSelectedCategory = () =>
+    <li
+      key="selected"
+      className={`category ${this.props.isSelectedCategoryActive ? '-active' : '-non-active'}`}
+    >
+      <Link
+        className="name"
+        to={!this.props.isSelectedCategoryActive ? `${window.location.pathname}?categoryId=selected` : `${window.location.pathname}?categoryId=all`}
+      >
+        Selected
+        
+        {
+          this.props.ifShowAmountOfCoursesInCategory &&
+          <span className="amount-of-courses">(20)</span>
+        }
+      </Link>
+
+      {
+        this.props.isSelectedCategoryActive &&
+        <Link className="cross" to={`${window.location.pathname}?categoryId=all`}>
+          <i className="material-icons">clear</i>
+        </Link>
+      }
+    </li>
+
   render = () =>
     <nav className={`course-categories-nav ${css.nav}`}>
       <ul className="groups">
+        {/* Selected category at the top - only on main courses page */}
+        {this.props.showSelectedSection &&
+          <li className="group" key="selected-group">
+            <h2 className="group-name">Featured</h2>
+            <ul className="categories">
+              {this.renderSelectedCategory()}
+            </ul>
+          </li>
+        }
+        
         {CourseCategoryGroupModel.sort(this.props.courseCategoryGroups)
           .map((group) =>
             <li className="group" key={group.id}>

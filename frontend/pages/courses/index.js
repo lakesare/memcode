@@ -16,6 +16,12 @@ import css from './index.scss';
 
 const getCategoryId = (props) => {
   const categoryId = getQuery(props).get('categoryId');
+  if (categoryId === 'selected') {
+    return 'selected';
+  }
+  if (categoryId === 'all') {
+    return 'all';
+  }
   return categoryId ? parseInt(categoryId) : false;
 };
 
@@ -37,6 +43,13 @@ const getSearchString = (props) => {
 const getQuery = (props) =>
   new URLSearchParams(props.location.search);
 
+const isSelectedCategoryActive = (props, searchString = '') => {
+  const categoryId = getCategoryId(props);
+  // Only show selected courses if no search is active AND (no category is specified OR categoryId is 'selected')
+  // BUT NOT if categoryId is 'all'
+  return !searchString.trim() && (categoryId === false || categoryId === 'selected') && categoryId !== 'all';
+};
+
 @withRouter
 @connect(
   (state) => ({
@@ -52,6 +65,7 @@ class Page_courses extends React.Component {
 
   state = {
     speGetCourses: {},
+    speSelectedCourses: {},
     // to avoid blinking pagination
     amountOfPages: 1,
     ifCoursesAreLoading: false,
@@ -64,6 +78,12 @@ class Page_courses extends React.Component {
     this.setState({ searchString: urlSearchString }, () => {
       this.apiGetCourses();
     });
+    
+    // Always fetch selected courses
+    api.get.CourseApi.getSelectedCourses(
+      (spe) => this.setState({ speSelectedCourses: spe }),
+      {}
+    );
   }
 
   componentDidUpdate = (prevProps) => {
@@ -86,6 +106,11 @@ class Page_courses extends React.Component {
   }
 
   apiGetCourses = () => {
+    // Don't fetch regular courses if we're showing selected courses
+    if (isSelectedCategoryActive(this.props, this.state.searchString)) {
+      return;
+    }
+    
     const searchString = this.state.searchString;
     api.get.CourseApi.getPublicCourses(
       (spe) => {
@@ -110,7 +135,7 @@ class Page_courses extends React.Component {
         pageSize: 16,
         pageNumber: getCurrentPage(this.props),
         sortBy: getSortBy(this.props),
-        ...(getCategoryId(this.props) ?
+        ...(getCategoryId(this.props) && getCategoryId(this.props) !== 'all' ?
           { courseCategoryId: getCategoryId(this.props) } :
           {}
         ),
@@ -134,10 +159,14 @@ class Page_courses extends React.Component {
 
   getCurrentCategoryName = (courseCategories) => {
     const currentCategoryId = getCategoryId(this.props);
-    if (currentCategoryId) {
+    if (currentCategoryId === 'selected') {
+      return 'Selected';
+    } else if (currentCategoryId === 'all') {
+      return 'All Courses';
+    } else if (currentCategoryId) {
       return courseCategories.find((category) => category.id === currentCategoryId).name;
     } else {
-      return 'Courses';
+      return 'Selected'; // Default to Selected when no category specified
     }
   }
 
@@ -195,6 +224,8 @@ class Page_courses extends React.Component {
               courseCategoryGroups={courseCategoryGroups}
               courseCategories={courseCategories}
               ifShowAmountOfCoursesInCategory={false}
+              isSelectedCategoryActive={isSelectedCategoryActive(this.props, this.state.searchString)}
+              showSelectedSection={true}
             />
           </div>
 
@@ -202,25 +233,39 @@ class Page_courses extends React.Component {
             <div className="title_and_sorting">
               <h1 className="title">{this.getCurrentCategoryName(courseCategories)}</h1>
 
-
-              <SortBySelect
-                sortBy={getSortBy(this.props)}
-                getUrlForNewSortBy={this.getUrlForNewSortBy}
-              />
+              {!isSelectedCategoryActive(this.props, this.state.searchString) &&
+                <SortBySelect
+                  sortBy={getSortBy(this.props)}
+                  getUrlForNewSortBy={this.getUrlForNewSortBy}
+                />
+              }
             </div>
 
             {this.renderSearchBar("for-mobile")}
-            {this.renderPagination("for-desktop")}
-
-            <Loading className="list-of-courses-loading" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
-              <ListOfCourseCards
-                className={`list-of-courses ${this.state.ifCoursesAreLoading ? '-loading' : ''}`}
-                type="simple"
-                courseDtos={onePageOfCourses}
-              />
-            }</Loading>
-
-            {this.renderPagination("for-mobile")}
+            
+            {isSelectedCategoryActive(this.props, this.state.searchString) ? (
+              // Show selected courses
+              <Loading spe={this.state.speSelectedCourses}>{({ selectedCourses }) =>
+                <ListOfCourseCards
+                  className="list-of-courses"
+                  type="simple"
+                  courseDtos={selectedCourses}
+                />
+              }</Loading>
+            ) : (
+              // Show regular paginated courses
+              <>
+                {this.renderPagination("for-desktop")}
+                <Loading className="list-of-courses-loading" spe={this.state.speGetCourses}>{({ onePageOfCourses }) =>
+                  <ListOfCourseCards
+                    className={`list-of-courses ${this.state.ifCoursesAreLoading ? '-loading' : ''}`}
+                    type="simple"
+                    courseDtos={onePageOfCourses}
+                  />
+                }</Loading>
+                {this.renderPagination("for-mobile")}
+              </>
+            )}
           </div>
         </div>
       }</Loading>

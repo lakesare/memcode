@@ -1,5 +1,6 @@
 // Import all CourseApi methods
 import getPublicCourses from './getPublicCourses.js';
+import getSelectedCourses from './getSelectedCourses.js';
 import getAllCreatedCourses from './getAllCreatedCourses.js';
 import searchCourses from './searchCourses.js';
 import createCourse from './createCourse.js';
@@ -17,6 +18,7 @@ import updateCoauthors from './updateCoauthors.js';
 
 export default {
   getPublicCourses,
+  getSelectedCourses,
   getAllCreatedCourses,
   searchCourses,
   createCourse,
