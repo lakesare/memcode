@@ -20,6 +20,24 @@ body.-bright-theme{
 // Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
 .-bright-theme .-without-bg{
 
+  .standard-navigation_and_courses .search-bar{
+    background-color: rgb(234, 225, 220);
+    border-radius: 7px !important;
+  }
+
+  div.title_and_sorting > section.sort-by-dropdown-wrapper{
+    button.toggler{
+      background-color: rgb(234, 225, 220);
+      border-radius: 7px !important;
+      color: rgb(65, 52, 44);
+      i{ color: rgb(65, 52, 44); }
+    }
+    .standard-dropdown{
+      background-color: rgb(234, 225, 220) !important;
+      border-radius: 7px;
+    }
+  }
+
   header{
     .my-courses-dropdown{
       background-color: rgb(234, 225, 220) !important;

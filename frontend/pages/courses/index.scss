@@ -6,7 +6,6 @@
     .search-bar{
       // position
       height: 38px;
-      align-self: center;
       margin-right: 10px;
 
       position: relative;
@@ -15,7 +14,6 @@
         top: 9px;
         left: 11px;
         font-size: 19px;
-        color: white;
       }
       input{
         width: 100%;
@@ -27,13 +25,11 @@
       font-size: 13px;
       border-radius: 2px;
       input{
-        background: transparent;
-        color: white;
         transition-duration: 200ms;
         transition-property: background;
         font-family: 'Open Sans';
         &::placeholder{
-          color: white;
+          color: inherit;
           font-family: 'Open Sans';
         }
         border-radius: 4px;
