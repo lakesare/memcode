@@ -23,24 +23,8 @@
         font-size: 32px;
         letter-spacing: 0.3px;
       }
-
-      > section.sort-by-dropdown-wrapper{
-        max-width: 200px;
-        > button.toggler{
-          padding-left: 10px;
-          padding-right: 10px;
-          // width: 151px;
-        }
-        > ul.standard-dropdown{
-          padding: 0;
-          li{
-            padding: 0;
-            a{
-              padding: 10px;
-              display: block;
-            }
-          }
-        }
+      .sort-by-dropdown-wrapper{
+        font-size: 14px;
       }
     }
   }

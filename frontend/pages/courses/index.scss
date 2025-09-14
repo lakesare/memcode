@@ -67,6 +67,18 @@
       }
     }
   }
+  .sort-by-dropdown-wrapper{
+    background: rgba(226, 228, 240, 0.03);
+    padding: 10px 20px;
+    padding-right: 30px;
+    text-align: right;
+    border-radius: 4px;
+    position: relative;
+    i{
+      position: absolute;
+      top: 12px; right: 10px;
+    }
+  }
 
   .search-bar.for-mobile{
     margin-right: 0 !important;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import SelectDropdown from '~/components/SelectDropdown';
+import StandardTooltip from '~/components/StandardTooltip';
 
 class SortBySelect extends React.Component {
   static propTypes = {
@@ -7,22 +7,40 @@ class SortBySelect extends React.Component {
     getUrlForNewSortBy: PropTypes.func.isRequired
   }
 
+  possibleValues = {
+    popular: 'Most Popular',
+    new: 'Recently Created',
+    random: 'Random'
+  }
+
+  renderDropdown = () =>
+    <ul className="standard-tooltip-dropdown">
+      {Object.keys(this.possibleValues).map((value) =>
+        <li key={value}>
+          <Link to={this.props.getUrlForNewSortBy(value)} className="dropdown-item">
+            {this.possibleValues[value]}
+          </Link>
+        </li>
+      )}
+    </ul>
+
   render = () =>
-    <SelectDropdown
+    <StandardTooltip
       key={this.props.sortBy}
-      className="sort-by-dropdown-wrapper standard-dropdown-wrapper standard-input -Select"
-      dropdownClassName="standard-dropdown -purple"
-      value={this.props.sortBy}
-      possibleValues={{
-        popular: 'Most Popular',
-        new: 'Recently Created',
-        random: 'Random'
+      tooltipEl={this.renderDropdown()}
+      tooltipProps={{
+        interactive: true,
+        placement: 'bottom-end',
+        trigger: 'mouseenter click',
+        arrow: false
       }}
-      renderLi={(value, humanValue) =>
-        <Link to={this.props.getUrlForNewSortBy(value)}>{humanValue}</Link>
-      }
-      renderButtonInLi={false}
-    />
+      width={120}
+    >
+      <button type="button" className="sort-by-dropdown-wrapper standard-dropdown-wrapper">
+        {this.possibleValues[this.props.sortBy]}
+        <i className="fa fa-caret-down"/>
+      </button> 
+    </StandardTooltip>
 }
 
 export default SortBySelect;

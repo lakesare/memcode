@@ -25,15 +25,34 @@ body.-bright-theme{
     border-radius: 7px !important;
   }
 
-  div.title_and_sorting > section.sort-by-dropdown-wrapper{
-    button.toggler{
+  .pagination{
+    .epsilon{ color: rgb(65, 52, 44); }
+    .page-n{
+      border-radius: 8px;
+      color: rgb(65, 52, 44);
+      background: rgb(234, 225, 220);
+      &.-current, &:hover{
+        background: rgba(214, 186, 175, 0.725) !important;
+      }
+      a:hover, a:focus{
+        background: none;
+      }
+    }
+  }
+  ul.categories > li a.cross{
+    top: 10px !important;
+  }
+
+  div.title_and_sorting{
+    .sort-by-dropdown-wrapper{
       background-color: rgb(234, 225, 220);
       border-radius: 7px !important;
       color: rgb(65, 52, 44);
       i{ color: rgb(65, 52, 44); }
     }
-    .standard-dropdown{
+    .standard-tooltip{
       background-color: rgb(234, 225, 220) !important;
+      color: rgb(65, 52, 44);
       border-radius: 7px;
     }
   }
