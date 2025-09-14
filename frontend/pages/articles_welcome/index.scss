@@ -387,11 +387,13 @@
   section.courses{
     .list-of-courses{
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       max-width: 940px;
       margin: 0 auto;
       margin-top: 80px;
       .standard-course-card{
+        margin-bottom: 40px;
         transition-duration: 300ms;
         .total-amount-of-flashcards{
           transition-duration: 300ms;
