@@ -93,7 +93,7 @@ class CourseCreationModal extends React.Component {
               >
                 {this.state.speSave.status === 'request' ? 'Creating...' : 'Create'}
               </button>
-              <Loading spe={this.state.speSave}/>
+              <Loading spe={this.state.speSave} enabledStatuses={["failure"]}/>
             </form>
           </div>
         </div>

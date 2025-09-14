@@ -71,7 +71,7 @@ class Page_articles_welcome extends React.Component {
               {this.renderFeature(
                 'Sound',
                 <>Listen to any flashcard with natural text-to-speech. <br/>Powered by OpenAI's high-quality voice synthesis.</>,
-                <i class="material-icons -yes">volume_up</i>,
+                <i className="material-icons -yes">volume_up</i>,
                 'sound'
               )}
               {this.renderFeature(
