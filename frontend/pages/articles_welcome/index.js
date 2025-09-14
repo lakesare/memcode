@@ -37,7 +37,7 @@ class Page_articles_welcome extends React.Component {
     </div>
 
   render = () =>
-    <Main className={css.main}>
+    <Main className={`${css.main} -articles-page`}>
       <a className="github-ribbon" target="_blank" rel="noopener noreferrer" href="https://github.com/lakesare/memcode">★ Star on GitHub</a>
       <article className="standard-article-formatting">
         <div className="container">

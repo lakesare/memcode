@@ -12,7 +12,7 @@ import css from './index.scss';
 
 class Page_articles_comparison extends React.Component {
   render = () =>
-    <Main className={css.main}>
+    <Main className={`${css.main} -articles-page`}>
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">

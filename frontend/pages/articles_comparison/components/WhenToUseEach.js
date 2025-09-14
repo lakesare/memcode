@@ -2,7 +2,7 @@ import { Heading } from './Heading';
 
 const WhenToUseEach = () =>
   <section className="article-section" id="when-to-use-each">
-    <Heading text="So when to use each?"/>
+    <Heading text="So, when to use each?"/>
 
     <div className="sites">
       <section className="site">
