@@ -15,7 +15,7 @@
 </h2>
 
 <div align="center">
-  <img width="950px" alt="Memcode Screenshot" src="https://user-images.githubusercontent.com/7578559/154212696-1597a568-7a97-44d8-bda9-56cc80fcc725.png">
+  <img width="950" alt="image" src="https://github.com/user-attachments/assets/c8ac293e-6890-4572-bb78-bf3ce2c248a2" />
 </div>
 
 ## Links
