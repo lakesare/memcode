@@ -18,25 +18,18 @@
   <img width="950" alt="image" src="https://github.com/user-attachments/assets/c8ac293e-6890-4572-bb78-bf3ce2c248a2" />
 </div>
 
-# Features
+### Features
 
-Memcode features:
 - **image upload** (including GIFs)
 - **quality text-to-speech** (powered by OpenAI)
 - **powerful flashcard formatting** (code blocks, LaTeX formulas, bold text)
+- **llm-friendly just-text imports and exports**
 
-## Links
+### Contact
 
-**Website**: <a href="https://www.memcode.com">memcode.com</a>  
-**Patreon**: <a href="https://patreon.com/memcode">patreon.com/memcode</a>   
-**Email**:   contact@memcode.com    
-**Twitter**: <a href="https://twitter.com/memcodeapp">twitter.com/memcodeapp</a>  
-**Alternative.to**: <a href="https://alternativeto.net/software/memcode/about">alternativeto.net/software/memcode/about</a>    
+Feel free to ask questions/propose features in github issues, or email us at contact@memcode.com.  
+For updates, follow us on [twitter](https://twitter.com/memcodeapp).  
 
-## Contributing
-
-First of all - you are very welcome to contribute, Memcode is a joint effort.   
-Feel free to ask questions/propose features in github issues, or email contact@memcode.com.
 
 <br/>
 <div align="center">
