@@ -247,36 +247,30 @@ class Page_courses extends React.Component {
               // Show selected courses in three sections
               <Loading spe={this.state.speSelectedCourses}>{({ regularLanguages, fancyAlphabetLanguages, funRareLanguages }) =>
                 <>
-                  {/* Regular languages (Latin alphabet) */}
+                  <div className="page-description">
+                    Hand-picked courses crafted with extra care and attention
+                  </div>
+
+                  <h1 className="title popular-title">Popular</h1>
                   <ListOfCourseCards
                     className="list-of-courses"
                     type="simple"
                     courseDtos={regularLanguages}
                   />
-                  
-                  {/* Fancy alphabet languages */}
-                  {fancyAlphabetLanguages && fancyAlphabetLanguages.length > 0 &&
-                    <>
-                      <h1 className="title fancy-alphabet-title">Fancy Alphabet</h1>
-                      <ListOfCourseCards
-                        className="list-of-courses fancy-alphabet-courses"
-                        type="simple"
-                        courseDtos={fancyAlphabetLanguages}
-                      />
-                    </>
-                  }
-                  
-                  {/* Fun/rare languages */}
-                  {funRareLanguages && funRareLanguages.length > 0 &&
-                    <>
-                      <h1 className="title fun-rare-title">Fun/Rare</h1>
-                      <ListOfCourseCards
-                        className="list-of-courses fun-rare-courses"
-                        type="simple"
-                        courseDtos={funRareLanguages}
-                      />
-                    </>
-                  }
+
+                  <h1 className="title fancy-alphabet-title">Fancy Alphabet</h1>
+                  <ListOfCourseCards
+                    className="list-of-courses fancy-alphabet-courses"
+                    type="simple"
+                    courseDtos={fancyAlphabetLanguages}
+                  />
+
+                  <h1 className="title fun-rare-title">Fun/Rare</h1>
+                  <ListOfCourseCards
+                    className="list-of-courses fun-rare-courses"
+                    type="simple"
+                    courseDtos={funRareLanguages}
+                  />
                 </>
               }</Loading>
             ) : (

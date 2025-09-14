@@ -55,18 +55,22 @@
         }
       }
 
+      .page-description{
+        margin-top: 10px;
+      }
+
+      .popular-title{
+        margin-top: 20px;
+      }
+
       .fancy-alphabet-title {
-        margin: 20px 0 20px 0;
-        color: #666;
-        border-top: 1px solid #eee;
-        padding-top: 20px;
+        // margin: 20px 0 20px 0;
+        // padding-top: 20px;
       }
 
       .fun-rare-title {
-        margin: 20px 0 20px 0;
-        color: #666;
-        border-top: 1px solid #eee;
-        padding-top: 20px;
+        // margin: 20px 0 20px 0;
+        // padding-top: 20px;
       }
 
       > section.list-of-courses{
@@ -107,6 +111,9 @@
   }
   @media(max-width: 900px){
     .for-desktop{ display: none; }
+    .page-description{
+      display: none;
+    }
   }
 }
 
