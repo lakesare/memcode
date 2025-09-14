@@ -9,6 +9,7 @@ const getSelectedCourses = async (request, response) => {
     31990, // Italian
     32003, // Portuguese
     32002, // Dutch
+    32008, // Swedish
     31991, // Finnish
   ];
 
