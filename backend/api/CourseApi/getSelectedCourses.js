@@ -1,4 +1,4 @@
-import knex from '#~/db/knex.js';
+import CourseModel from '#~/models/CourseModel.js';
 
 const getSelectedCourses = async (request, response) => {
   // Regular languages (living, Latin alphabet) ordered by popularity
@@ -34,69 +34,34 @@ const getSelectedCourses = async (request, response) => {
     32000, // Esperanto
   ];
 
-  const fetchCoursesForIds = async (courseIds) => {
-    const coursesData = await Promise.all(
-      courseIds.map(async (courseId) => {
-        const courseData = await knex
-          .select(
-            // Course details
-            'course.id',
-            'course.title', 
-            'course.description',
-            'course.created_at',
-            // Author details
-            'user.id as author_id',
-            'user.username as author_username',
-            // Category details  
-            'course_category.id as category_id',
-            'course_category.name as category_name'
-          )
-          .from('course')
-          .innerJoin('user', 'course.user_id', '=', 'user.id')
-          .innerJoin('course_category', 'course.course_category_id', '=', 'course_category.id')
-          .where('course.id', courseId)
-          .andWhere('course.if_public', true)
-          .first();
+  // All selected course IDs combined
+  const allSelectedIds = [...regularLanguageIds, ...fancyAlphabetIds, ...funRareLanguageIds];
+  
+  // Fetch all courses at once using the existing optimized query
+  const allCourses = await CourseModel.allPublic({
+    limit: allSelectedIds.length,
+    offset: 0,
+    courseIds: allSelectedIds
+  });
 
-        if (!courseData) {
-          return null; // Skip if course doesn't exist or isn't public
-        }
+  // Create lookup map for fast access
+  const courseMap = new Map();
+  allCourses.forEach(course => {
+    courseMap.set(course.course.id, course);
+  });
 
-        // Get amount of problems
-        const problemCount = await knex('problem')
-          .where('course_id', courseId)
-          .count('id as count')
-          .first();
-
-        // Format the response to match what CourseCardSimple expects
-        return {
-          course: {
-            id: courseData.id,
-            title: courseData.title,
-            description: courseData.description,
-            created_at: courseData.created_at
-          },
-          author: {
-            id: courseData.author_id,
-            username: courseData.author_username
-          },
-          courseCategory: {
-            id: courseData.category_id,
-            name: courseData.category_name
-          },
-          amountOfProblems: parseInt(problemCount.count)
-        };
-      })
-    );
-
-    return coursesData.filter(course => course !== null);
+  // Helper function to get courses in specified order
+  const getCoursesInOrder = (courseIds) => {
+    return courseIds
+      .map(id => courseMap.get(id))
+      .filter(course => course !== undefined);
   };
 
   try {
-    // Fetch all three sections
-    const regularLanguages = await fetchCoursesForIds(regularLanguageIds);
-    const fancyAlphabetLanguages = await fetchCoursesForIds(fancyAlphabetIds);
-    const funRareLanguages = await fetchCoursesForIds(funRareLanguageIds);
+    // Get courses in the specified order for each section
+    const regularLanguages = getCoursesInOrder(regularLanguageIds);
+    const fancyAlphabetLanguages = getCoursesInOrder(fancyAlphabetIds);
+    const funRareLanguages = getCoursesInOrder(funRareLanguageIds);
 
     response.success({ 
       regularLanguages,
