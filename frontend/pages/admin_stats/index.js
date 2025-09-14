@@ -115,6 +115,32 @@ class Page extends React.Component {
     return this.extractTextContent(content);
   }
 
+  formatFlashcardHtml = (problemContent) => {
+    if (!problemContent) return '';
+    
+    // Handle JSON content structure for flashcards, preserving HTML
+    let content = problemContent;
+    if (typeof content === 'object') {
+      if (content.content && content.answer) {
+        // separateAnswer type flashcard
+        const questionHtml = content.content;
+        const answerHtml = content.answer;
+        return `${questionHtml}<hr class="flashcardDivider" />${answerHtml}`;
+      } else if (content.content && content.explanation) {
+        // inlinedAnswers type flashcard
+        const questionHtml = content.content;
+        const explanationHtml = content.explanation;
+        return `${questionHtml}<hr class="flashcardDivider" />${explanationHtml}`;
+      } else if (content.content) {
+        // Other types - just show content
+        return content.content;
+      }
+    }
+    
+    // Fallback for string content
+    return content || '';
+  }
+
   truncateContent = (content, maxLength) => {
     const textContent = this.extractTextContent(content);
     if (textContent.length <= maxLength) {
@@ -378,17 +404,10 @@ class Page extends React.Component {
                       onClick={() => this.toggleFlashcardExpansion(index)}
                     >
                       {this.isFlashcardExpanded(index) ? (
-                        <div className="fullContent">
-                          {this.formatFlashcardTooltip(review.problemContent).split('\n').map((line, lineIndex) => (
-                            <div key={lineIndex}>
-                              {line === '__________________________' ? (
-                                <hr className="flashcardDivider" />
-                              ) : (
-                                line || <br />
-                              )}
-                            </div>
-                          ))}
-                        </div>
+                        <div 
+                          className="fullContent"
+                          dangerouslySetInnerHTML={{ __html: this.formatFlashcardHtml(review.problemContent) }}
+                        />
                       ) : (
                         <div className="truncatedContent">
                           {this.truncateContent(review.problemContent, 100)}

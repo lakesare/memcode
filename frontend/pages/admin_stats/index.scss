@@ -183,6 +183,9 @@
           border-radius: 4px;
           transition: all 0.2s ease;
           position: relative;
+          img{
+            max-width: 100%;
+          }
           
           &.collapsed {
             background: #f8f9fa;
