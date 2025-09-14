@@ -1,34 +1,41 @@
 import knex from '#~/db/knex.js';
 
 const getSelectedCourses = async (request, response) => {
-  // Hardcoded list of selected course IDs ordered by language popularity for learners
-  const selectedCourseIds = [
+  // Regular languages (living, Latin alphabet) ordered by popularity
+  const regularLanguageIds = [
     31989, // Spanish
     31995, // French
     31988, // German
     31990, // Italian
+    32003, // Portuguese
+    32002, // Dutch
+    31991, // Finnish
+  ];
+
+  // Fancy alphabet languages (living, non-Latin scripts) ordered by popularity
+  const fancyAlphabetIds = [
     31993, // Japanese
     31992, // Russian
     31994, // Chinese
     31996, // Korean
-    32003, // Portuguese
-    32002, // Dutch
-    32004, // Hindi
     31998, // Arabic
     32007, // Hebrew
-    32005, // Turkish
     32001, // Greek
     32006, // Ukrainian
-    31991, // Finnish
+    32004, // Hindi
+    32005, // Turkish
+  ];
+
+  // Fun/rare languages (dead, constructed, or very specialized)
+  const funRareLanguageIds = [
     31997, // Latin
     31999, // Ancient Greek
     32000, // Esperanto
   ];
 
-  try {
-    // Build a simple query to get course details in the specified order
+  const fetchCoursesForIds = async (courseIds) => {
     const coursesData = await Promise.all(
-      selectedCourseIds.map(async (courseId) => {
+      courseIds.map(async (courseId) => {
         const courseData = await knex
           .select(
             // Course details
@@ -81,10 +88,20 @@ const getSelectedCourses = async (request, response) => {
       })
     );
 
-    // Filter out null entries (courses that don't exist or aren't public)
-    const selectedCourses = coursesData.filter(course => course !== null);
+    return coursesData.filter(course => course !== null);
+  };
 
-    response.success({ selectedCourses });
+  try {
+    // Fetch all three sections
+    const regularLanguages = await fetchCoursesForIds(regularLanguageIds);
+    const fancyAlphabetLanguages = await fetchCoursesForIds(fancyAlphabetIds);
+    const funRareLanguages = await fetchCoursesForIds(funRareLanguageIds);
+
+    response.success({ 
+      regularLanguages,
+      fancyAlphabetLanguages,
+      funRareLanguages 
+    });
   } catch (error) {
     console.error('Error fetching selected courses:', error);
     response.error('Failed to fetch selected courses');

@@ -8,7 +8,11 @@ import css from './index.scss';
 
 class CourseCategories extends React.Component {
   static propTypes = {
-    selectedCourseCategoryId: orFalse(PropTypes.number).isRequired,
+    selectedCourseCategoryId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.oneOf(['selected', 'all']),
+      PropTypes.bool
+    ]).isRequired,
     courseCategories: PropTypes.array.isRequired,
     courseCategoryGroups: PropTypes.array.isRequired,
     ifShowAmountOfCoursesInCategory: PropTypes.bool.isRequired,

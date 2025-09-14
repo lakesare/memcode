@@ -244,13 +244,40 @@ class Page_courses extends React.Component {
             {this.renderSearchBar("for-mobile")}
             
             {isSelectedCategoryActive(this.props, this.state.searchString) ? (
-              // Show selected courses
-              <Loading spe={this.state.speSelectedCourses}>{({ selectedCourses }) =>
-                <ListOfCourseCards
-                  className="list-of-courses"
-                  type="simple"
-                  courseDtos={selectedCourses}
-                />
+              // Show selected courses in three sections
+              <Loading spe={this.state.speSelectedCourses}>{({ regularLanguages, fancyAlphabetLanguages, funRareLanguages }) =>
+                <>
+                  {/* Regular languages (Latin alphabet) */}
+                  <ListOfCourseCards
+                    className="list-of-courses"
+                    type="simple"
+                    courseDtos={regularLanguages}
+                  />
+                  
+                  {/* Fancy alphabet languages */}
+                  {fancyAlphabetLanguages && fancyAlphabetLanguages.length > 0 &&
+                    <>
+                      <h1 className="title fancy-alphabet-title">Fancy Alphabet</h1>
+                      <ListOfCourseCards
+                        className="list-of-courses fancy-alphabet-courses"
+                        type="simple"
+                        courseDtos={fancyAlphabetLanguages}
+                      />
+                    </>
+                  }
+                  
+                  {/* Fun/rare languages */}
+                  {funRareLanguages && funRareLanguages.length > 0 &&
+                    <>
+                      <h1 className="title fun-rare-title">Fun/Rare</h1>
+                      <ListOfCourseCards
+                        className="list-of-courses fun-rare-courses"
+                        type="simple"
+                        courseDtos={funRareLanguages}
+                      />
+                    </>
+                  }
+                </>
               }</Loading>
             ) : (
               // Show regular paginated courses
