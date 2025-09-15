@@ -37,12 +37,31 @@ class Tabs extends React.Component {
     this.setState({ currentTab: tabId });
   }
 
+  uiRemoveProblem = (problemId) => {
+    // Update local state to remove the problem immediately for UI responsiveness
+    this.setState((prevState) => ({
+      speGetPage: {
+        ...prevState.speGetPage,
+        payload: {
+          ...prevState.speGetPage.payload,
+          problems: prevState.speGetPage.payload.problems.filter(p => p.id !== problemId),
+          problemUserIsLearnings: prevState.speGetPage.payload.problemUserIsLearnings.filter(puil => puil.problemId !== problemId)
+        }
+      }
+    }));
+  }
+
   render = () =>
     <>
       <TabNavigation currentTab={this.state.currentTab} updateCurrentTab={this.updateCurrentTab}/>
 
       <Loading spe={this.state.speGetPage}>{({ problems, problemUserIsLearnings }) =>
-        <TabContent currentTab={this.state.currentTab} problems={problems} puils={problemUserIsLearnings}/>
+        <TabContent 
+          currentTab={this.state.currentTab} 
+          problems={problems} 
+          puils={problemUserIsLearnings}
+          uiRemoveProblem={this.uiRemoveProblem}
+        />
       }</Loading>
     </>
 }

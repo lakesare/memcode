@@ -323,16 +323,41 @@ body.-bright-theme .-articles-page{
     background: #25b08b;
   }
 
-  .problem-wrapper.-yet-to-learn{
-    box-shadow: 0px 0px 32px 4px rgba(166, 170, 170, 0.11) !important;
+  .problem-wrapper-wrapper{
+    .three-dots-menu{
+      border-radius: 50%;
+      background: rgba(214, 186, 175, 0.4196078431) !important;
+      color: rgba(104, 79, 79, 0.631372549);
+      top: 7px; right: 7px;
+      width: 21px; height: 21px;
+      &:hover, &[aria-expanded=true]{
+        background: rgba(214, 186, 175, 0.7254901961) !important;
+        color: rgba(104, 79, 79, 0.8);
+      }
+      @media(max-width: 600px){
+        top: 3px; right: 2px;
+        width: 23px; height: 23px;
+      }
+    }
+  }
+  .problem-wrapper{
+    background: rgb(234, 225, 220) !important;
+    border-radius: 22px !important;
+    @media(max-width: 600px){
+      border-radius: 12px !important;
+    }
   }
 
   .problem-wrapper.-yet-to-learn:hover{
-    background: rgba(101, 202, 175, 0.1) !important;
+    background: #25b08b70 !important;
   }
   .problem-wrapper.-learned{
-    background: #65caaf66 !important;
+    background: variables.$learn-button-color !important;
+    &:hover{
+      opacity: 1 !important;
+    }
   }
+
 
   ul.tab-links{
     li.-active{

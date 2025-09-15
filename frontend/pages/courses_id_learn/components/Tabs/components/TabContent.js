@@ -4,7 +4,8 @@ class TabContent extends React.Component {
   static propTypes = {
     currentTab: PropTypes.string.isRequired,
     problems: PropTypes.array.isRequired,
-    puils: PropTypes.array.isRequired
+    puils: PropTypes.array.isRequired,
+    uiRemoveProblem: PropTypes.func
   }
 
   deriveFilteredProblems = () => {
@@ -41,6 +42,7 @@ class TabContent extends React.Component {
           key={problem.id}
           problem={problem}
           puil={this.props.puils.find((puil) => puil.problemId === problem.id) || false}
+          uiRemoveProblem={this.props.uiRemoveProblem}
         />
       )}
     </section>

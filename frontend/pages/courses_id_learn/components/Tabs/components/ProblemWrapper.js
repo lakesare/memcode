@@ -22,7 +22,8 @@ class ProblemWrapper extends React.Component {
     puil: orFalse(PropTypes.object).isRequired,
     MyActions: PropTypes.object.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
-    courseData: PropTypes.object.isRequired
+    courseData: PropTypes.object.isRequired,
+    uiRemoveProblem: PropTypes.func
   }
 
   state = {
@@ -91,8 +92,16 @@ class ProblemWrapper extends React.Component {
   }
 
   onDeleteSuccess = () => {
-    // Refresh the page to reflect the deletion
-    window.location.reload();
+    // Update global Redux state
+    this.props.MyActions.deleteProblem(this.props.problem.courseId, this.props.problem.id);
+    
+    // Update local UI state to remove the problem immediately
+    if (this.props.uiRemoveProblem) {
+      this.props.uiRemoveProblem(this.props.problem.id);
+    } else {
+      // Fallback to page refresh if callback not provided
+      window.location.reload();
+    }
   }
 
   renderProblem = () =>
@@ -112,8 +121,7 @@ class ProblemWrapper extends React.Component {
         {puil === false && (
           <div 
             className={`option ${isDisabled ? '-disabled' : ''}`}
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent event bubbling
+            onClick={() => {
               if (!isDisabled) this.apiIgnore();
             }}
           >
@@ -123,8 +131,7 @@ class ProblemWrapper extends React.Component {
         {puil && puil.ifIgnored === true && (
           <div 
             className={`option ${isDisabled ? '-disabled' : ''}`}
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent event bubbling
+            onClick={() => {
               if (!isDisabled) this.apiUnlearnUnignore();
             }}
           >
@@ -135,8 +142,7 @@ class ProblemWrapper extends React.Component {
           <>
             <div 
               className={`option ${isDisabled ? '-disabled' : ''}`}
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent event bubbling
+              onClick={() => {
                 if (!isDisabled) this.apiIgnore();
               }}
             >
@@ -144,8 +150,7 @@ class ProblemWrapper extends React.Component {
             </div>
             <div 
               className={`option ${isDisabled ? '-disabled' : ''}`}
-              onClick={(e) => {
-                e.stopPropagation(); // Prevent event bubbling
+              onClick={() => {
                 if (!isDisabled) this.apiUnlearnUnignore();
               }}
             >
@@ -155,21 +160,11 @@ class ProblemWrapper extends React.Component {
         )}
         {canEdit && (
           <>
-            {/* Add separator line for delete option */}
             <div className="separator"></div>
             <DeleteFlashcardModal
               problemIds={[this.props.problem.id]}
               onDelete={this.onDeleteSuccess}
-              toggler={
-                <div 
-                  className="option delete-option"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent event bubbling
-                  }}
-                >
-                  <i className="fa fa-trash"/> Delete
-                </div>
-              }
+              toggler={<div className="option delete-option"><i className="fa fa-trash"/> Delete</div>}
             />
           </>
         )}
@@ -178,8 +173,6 @@ class ProblemWrapper extends React.Component {
   }
 
   renderThreeDotsMenu = () => {
-    const isDisabled = this.state.speIgnore.status === 'request' || this.state.speDelete.status === 'request';
-    
     return (
       <StandardTooltip
         tooltipEl={this.renderOptionsDropdown()}
@@ -187,18 +180,12 @@ class ProblemWrapper extends React.Component {
           className: 'problem-options-dropdown standard-tooltip -no-padding -dark',
           interactive: true,
           placement: 'bottom-end',
-          trigger: 'mouseenter',
+          trigger: 'mouseenter click',
           arrow: false
         }}
         width={120}
       >
-        <button 
-          type="button" 
-          className={`three-dots-menu ${isDisabled ? '-disabled' : ''}`}
-          onClick={(e) => {
-            e.stopPropagation(); // Prevent triggering learn action
-          }}
-        >
+        <button type="button" className="three-dots-menu">
           <i className="fa fa-ellipsis-v"/>
         </button>
       </StandardTooltip>
@@ -226,9 +213,11 @@ class ProblemWrapper extends React.Component {
     }
     
     return (
-      <div className={wrapperClass} onClick={onClickHandler}>
+      <div className="problem-wrapper-wrapper">
+        <div className={wrapperClass} onClick={onClickHandler}>
+          {this.renderProblem()}
+        </div>
         {this.renderThreeDotsMenu()}
-        {this.renderProblem()}
       </div>
     );
   }
