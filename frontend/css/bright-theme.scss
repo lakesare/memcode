@@ -31,6 +31,21 @@ body.-bright-theme .-articles-page{
     border-radius: 7px !important;
   }
 
+  .nav-and-current-user.-not-signed-in{
+    align-items: center;
+    .sign-in{
+      padding: 20px 13px !important;
+      height: 31px;
+    }
+    a:hover, button:hover, a:focus, button:focus{
+      opacity: 1;
+      background: rgb(234, 225, 220) !important;
+    }
+    a, button{
+      font-weight: 600 !important;
+    }
+  }
+
   .pagination{
     .epsilon{ color: rgb(65, 52, 44); }
     .page-n{

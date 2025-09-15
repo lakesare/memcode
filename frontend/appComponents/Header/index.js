@@ -61,7 +61,7 @@ class Header extends React.Component {
       <div className="container">
         <Logo currentUser={this.props.currentUser}/>
 
-        <div className="nav-and-current-user">
+        <div className={`nav-and-current-user ${!this.props.currentUser ? '-not-signed-in' : ''}`}>
           {this.renderNavigation()}
           {this.renderUser()}
         </div>
