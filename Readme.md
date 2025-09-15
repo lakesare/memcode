@@ -19,7 +19,7 @@
 </div>
 <br/>
 <div align="center">
-  <b>Try it live: <a href="https://www.memcode.com/courses">memcode.com</a></b><br/> <i>(no signup required)</i>
+  <b>Try it live: <a href="http://localhost:3000/courses/32020/review/simulated">memcode.com</a></b><br/> <i>(no signup required)</i>
 </div>
 <br/>
 <br/>
