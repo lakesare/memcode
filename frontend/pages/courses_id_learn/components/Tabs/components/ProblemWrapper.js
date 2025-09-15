@@ -1,12 +1,17 @@
 import { orFalse } from '~/services/orFalse';
 import api from '~/api';
 import MyDuck from '~/ducks/MyDuck';
+import Roles from '~/services/Roles';
 
 import Problem from '~/components/Problem';
 import StandardTooltip from '~/components/StandardTooltip';
+import DeleteFlashcardModal from '~/appComponents/DeleteFlashcardModal';
 
 @connect(
-  () => ({}),
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false,
+    courseData: state.global.My.speCourseForActions
+  }),
   (dispatch) => ({
     MyActions: dispatch(MyDuck.getActions)
   })
@@ -15,7 +20,9 @@ class ProblemWrapper extends React.Component {
   static propTypes = {
     problem: PropTypes.object.isRequired,
     puil: orFalse(PropTypes.object).isRequired,
-    MyActions: PropTypes.object.isRequired
+    MyActions: PropTypes.object.isRequired,
+    currentUser: orFalse(PropTypes.object).isRequired,
+    courseData: PropTypes.object.isRequired
   }
 
   state = {
@@ -75,6 +82,19 @@ class ProblemWrapper extends React.Component {
       .then(() => { this.setState({ puil: false }); });
   }
 
+  canIEditCourse = () => {
+    const currentUser = this.props.currentUser;
+    const courseData = this.props.courseData;
+    if (!currentUser || courseData.status !== 'success') return false;
+    const { coauthors, course } = courseData.payload;
+    return Roles.canIEditCourse({ currentUser, coauthors, course });
+  }
+
+  onDeleteSuccess = () => {
+    // Refresh the page to reflect the deletion
+    window.location.reload();
+  }
+
   renderProblem = () =>
     <Problem
       mode="show"
@@ -85,6 +105,7 @@ class ProblemWrapper extends React.Component {
   renderOptionsDropdown = () => {
     const puil = this.state.puil;
     const isDisabled = this.state.speIgnore.status === 'request' || this.state.speDelete.status === 'request';
+    const canEdit = this.canIEditCourse();
     
     return (
       <div className="options-dropdown">
@@ -130,6 +151,26 @@ class ProblemWrapper extends React.Component {
             >
               <i className="fa fa-undo"/> Unlearn
             </div>
+          </>
+        )}
+        {canEdit && (
+          <>
+            {/* Add separator line for delete option */}
+            <div className="separator"></div>
+            <DeleteFlashcardModal
+              problemIds={[this.props.problem.id]}
+              onDelete={this.onDeleteSuccess}
+              toggler={
+                <div 
+                  className="option delete-option"
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent event bubbling
+                  }}
+                >
+                  <i className="fa fa-trash"/> Delete
+                </div>
+              }
+            />
           </>
         )}
       </div>

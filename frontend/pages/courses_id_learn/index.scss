@@ -119,6 +119,12 @@
       
       // Options dropdown styling
       .options-dropdown {
+        .separator {
+          height: 1px;
+          background: rgba(255, 255, 255, 0.2);
+          margin: 4px 0;
+        }
+        
         .option {
           padding: 8px 12px;
           cursor: pointer;
@@ -134,6 +140,14 @@
           &.-disabled {
             opacity: 0.5;
             cursor: not-allowed;
+          }
+          
+          &.delete-option {
+            color: rgb(255, 100, 100);
+            
+            &:hover {
+              background: rgba(255, 100, 100, 0.1);
+            }
           }
           
           i {

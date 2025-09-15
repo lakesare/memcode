@@ -6,7 +6,7 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import Problem from '~/components/Problem';
 import Checkbox from './components/Checkbox';
-import DeleteFlashcardsModal from './components/DeleteFlashcardsModal';
+import DeleteFlashcardModal from '~/appComponents/DeleteFlashcardModal';
 import ExportFlashcardsModal from './components/ExportFlashcardsModal';
 import switchType from '../services/switchType';
 
@@ -196,10 +196,13 @@ class OldProblem extends React.Component {
           createdCoursesForSelect={this.props.createdCoursesForSelect}
         />
 
-        <DeleteFlashcardsModal
+        <DeleteFlashcardModal
+          problemIds={this.props.idsOfCheckedProblems}
+          onDelete={() => {
+            const ids = this.props.idsOfCheckedProblems;
+            this.props.uiRemoveOldProblems(ids);
+          }}
           toggler={<button type="button" tabIndex={-1} onClick={this.uiCheck} className="button delete-button">Delete</button>}
-          uiRemoveOldProblems={this.props.uiRemoveOldProblems}
-          idsOfCheckedProblems={this.props.idsOfCheckedProblems}
         />
 
         {
