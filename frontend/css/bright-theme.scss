@@ -323,6 +323,10 @@ body.-bright-theme .-articles-page{
     background: #25b08b;
   }
 
+  nav > section.instructions em {
+    font-weight: 600;
+  }
+
   .problem-wrapper-wrapper{
     .three-dots-menu{
       border-radius: 50%;
@@ -407,10 +411,14 @@ body.-bright-theme .-articles-page{
     opacity: 0.8;
   }
 
+  header nav .link{
+    font-weight: 600 !important;
+  }
+
   .ProblemBeingSolved{
     div.instructions{
-      em.review-emphasis{ color: rgb(37, 176, 139); }
-      em.red-emphasis{ text-shadow: none !important; }
+      em.review-emphasis{ color: rgb(37, 176, 139); font-weight: 600; }
+      em.red-emphasis{ text-shadow: none !important; font-weight: 600; }
     }
     section.problem{
       // background: $yellowish;
