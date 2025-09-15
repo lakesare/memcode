@@ -13,10 +13,12 @@ class TogglerAndModal extends Component {
     className: PropTypes.string,
 
     afterClose: PropTypes.func,
+    afterOpen: PropTypes.func,
   }
 
   static defaultProps = {
     afterClose: () => {},
+    afterOpen: () => {},
     className: ''
   }
 
@@ -25,7 +27,10 @@ class TogglerAndModal extends Component {
   }
 
   openModal = () => {
-    this.setState({ isOpen: true });
+    this.setState({ isOpen: true }, () => {
+      // Call afterOpen callback when modal is opened
+      this.props.afterOpen();
+    });
   }
 
   closeModal = () => {

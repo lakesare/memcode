@@ -13,25 +13,7 @@ class CourseDescriptionAndStats extends React.Component {
     My: PropTypes.object.isRequired
   }
 
-  state = {
-    stats: []
-  }
-
-  componentDidMount() {
-    this.getStats();
-  }
-
-  getStats = () =>
-    api.get.CourseApi.getStudentsStats(
-      (spe) => spe.status === 'success',
-      { courseId: this.props.courseDto.course.id, authorId: this.props.courseDto.author.id }
-    )
-      .then((payload) => {
-        this.setState({ 
-          stats: payload.students,
-          remainingStudents: payload._remainingStudents 
-        });
-      })
+  state = {}
 
   ifCanRateCourse = () => (
     this.props.currentUser &&
@@ -109,8 +91,6 @@ class CourseDescriptionAndStats extends React.Component {
                 </a>
               }
               course={this.props.courseDto.course}
-              stats={this.state.stats}
-              remainingStudents={this.state.remainingStudents || 0}
               currentUser={this.props.currentUser}
               author={this.props.courseDto.author}
             />

@@ -1,25 +1,36 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
+import Loading from '~/components/Loading';
 import css from './index.scss';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { orderBy } from 'lodash';
 import getUserAvatar from '~/services/getUserAvatar';
+import api from '~/api';
 
 class StatsModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
     course: PropTypes.object.isRequired,
-    stats: PropTypes.array.isRequired,
-    remainingStudents: PropTypes.number,
     currentUser: PropTypes.object.isRequired,
     author: PropTypes.object.isRequired
   }
 
-  getStats = () => {
-    return orderBy(this.props.stats, (user) => user.lastReviewedAt ? dayjs(user.lastReviewedAt).unix() : 0, 'desc');
+  state = {
+    speGetStats: {}
   }
 
-  renderTable = () =>
+  getStats = () => {
+    api.get.CourseApi.getStudentsStats(
+      (speGetStats) => this.setState({ speGetStats }),
+      { courseId: this.props.course.id, authorId: this.props.author.id }
+    );
+  }
+
+  getSortedStats = (stats) => {
+    return orderBy(stats, (user) => user.lastReviewedAt ? dayjs(user.lastReviewedAt).unix() : 0, 'desc');
+  }
+
+  renderTable = (stats) =>
     <table className="standard-table">
       <thead>
         <tr>
@@ -31,7 +42,7 @@ class StatsModal extends React.Component {
       </thead>
 
       <tbody>
-        {this.getStats().map((user) =>
+        {this.getSortedStats(stats.students).map((user) =>
           <tr key={user.id}>
             <td className="user">
 
@@ -54,22 +65,34 @@ class StatsModal extends React.Component {
       </tbody>
     </table>
 
+  handleModalOpen = () => {
+    // Load stats when modal opens if not already loaded/loading
+    if (!this.state.speGetStats.status) {
+      this.getStats();
+    }
+  }
+
   render = () =>
-    <TogglerAndModal toggler={this.props.toggler}>{() =>
+    <TogglerAndModal 
+      toggler={this.props.toggler}
+      afterOpen={this.handleModalOpen}
+    >{() =>
       <section className={"standard-modal standard-modal--md " + css.modal}>
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Students statistics</h2>
         </div>
 
         <div className="standard-modal__main">
-          <div className="table-wrapper">
-            {this.renderTable()}
-            {this.props.remainingStudents > 0 &&
-              <div className="remaining-students-note">
-                ... and {this.props.remainingStudents} more students
-              </div>
-            }
-          </div>
+          <Loading spe={this.state.speGetStats}>{(stats) =>
+            <div className="table-wrapper">
+              {this.renderTable(stats)}
+              {stats._remainingStudents > 0 &&
+                <div className="remaining-students-note">
+                  ... and {stats._remainingStudents} more students
+                </div>
+              }
+            </div>
+          }</Loading>
         </div>
       </section>
     }</TogglerAndModal>
