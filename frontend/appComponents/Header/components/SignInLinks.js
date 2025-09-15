@@ -3,7 +3,7 @@ import SignInButtons from '~/appComponents/SignInButtons';
 
 class SignInLinks extends React.Component {
   render = () =>
-    <TogglerAndModal toggler={<button className="button sign-in">Sign In</button>}>{() =>
+    <TogglerAndModal className="sign-in-modal" toggler={<button className="button sign-in">Sign In</button>}>{() =>
       <div className="standard-modal standard-modal--sm">
         <div className="standard-modal__header">
           <h2 className="standard-modal__title">Sign In</h2>
