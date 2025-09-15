@@ -53,16 +53,12 @@
       padding: 23px;
       margin: 0 auto;
       margin-bottom: 10px;
-      margin-right: 117px;
-      margin-left: 70px;
-
       border-radius: 5px;
-      // box-shadow: 0px 0px 32px 4px rgba(224, 174, 234, 0.08);
-      box-shadow: 0px 0px 32px 4px rgba(23, 68, 68, 0.39);
+      background: rgba(247, 247, 253, 0.04);
       .quill{
         height: 100%;
       }
-      .ql-editor{ cursor: default; }
+      .ql-editor, .ql-editor *{ cursor: pointer !important; }
       &.-ignored{
         background: rgb(23, 23, 22);
         section.problem{
@@ -72,80 +68,80 @@
       }
       &.-learned{
         background: variables.$learn-button-color;
-        .button-wrapper.-unlearn{
-          // overlay with -learn wrapper so that whole problem is clickable
-          width: 100%;
-          cursor: pointer;
-          z-index: 1001;
+        cursor: pointer;
+        &:hover{
+          opacity: 0.8;
+          transition-duration: 300ms;
         }
       }
       &.-yet-to-learn{
+        cursor: pointer;
         &:hover{
           background: rgb(25, 70, 71);
           transition-duration: 300ms;
         }
-        .button-wrapper.-learn{
-          // overlay with -learn wrapper so that whole problem is clickable
-          width: 100%;
-          cursor: pointer;
-          z-index: 1001;
-        }
       }
 
       position: relative;
-      .button-wrapper{
+      
+      // 3-dot menu positioned in top right corner
+      .three-dots-menu {
         position: absolute;
-        top: 0; bottom: 0;
-        right: 0;
-        &.-disabled{
-          // opacity: 0.3;
-          cursor: default;
-          button{ cursor: default; }
+        top: 10px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 3px;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        opacity: 0.7;
+        z-index: 1000;
+        cursor: pointer;
+        
+        &:hover {
+          opacity: 1;
+          background: rgba(0, 0, 0, 0.7);
         }
-
-        // &.-learn:hover{
-        //   button{
-        //     background: $learn-button-color !important;
-        //   }
-        // }
-        button{
-          position: absolute;
-          left: calc(100% + 15px);
-          padding: 10px 5px;
-          font-size: 10px;
-          min-width: 92px;
-          margin-top: 23px;
-          &.-ignore, &.-unignore{
-            top: 42px;
-          }
-
-          // color of buttons
-          &.-ignore, &.-unignore{
-            color: rgb(169, 177, 223);
-            background: rgb(33, 37, 67);
-          }
-          &.-learn, &.-unlearn{
-            background: rgb(25, 70, 71);
-            // color: rgb(167, 242, 244);
-            color: white;
-            &:hover{
-              background: variables.$learn-button-color;
-              transition-duration: 300ms;
-            }
-          }
-
-          // for the undo icon
-          display: flex;
-          align-items: center;
-          > i.fa-undo{ padding-right: 5px; }
+        
+        &.-disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+        
+        i {
+          font-size: 12px;
         }
       }
-    }
-  }
-
-  @media(max-width: 1300px){
-    .problem-wrapper{
-      margin-left: 0 !important;
+      
+      // Options dropdown styling
+      .options-dropdown {
+        .option {
+          padding: 8px 12px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          font-size: 12px;
+          color: white;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.1);
+          }
+          
+          &.-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+          
+          i {
+            margin-right: 8px;
+            width: 14px;
+          }
+        }
+      }
     }
   }
 
@@ -155,8 +151,6 @@
     }
     nav ul.tab-links{ display: none; }
     .problem-wrapper{
-      margin-right: 0 !important;
-      .button-wrapper button{ display: none !important; }
       section.problem{
         display: block;
         div.first-column,
