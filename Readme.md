@@ -26,7 +26,8 @@
 
 
 <div align="center">
-We obsess over the small things.<br/>The way cards flip. The way images load. The feel of typing in your answer.<br/>Because learning happens in those tiny moments - they should feel right.
+We obsess over the small things.<br/>The way cards flip. The way images load. The feel of typing in your answer.<br/>
+  Because when you're deep in thought, everything else should fade away.
 </div>
 
 ___
