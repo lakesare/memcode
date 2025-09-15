@@ -104,27 +104,10 @@
     transition: all 0.4s ease;
     border-radius: 0;
 
-    &::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
-      transform: rotate(45deg) translateX(-100%);
-      transition: transform 0.6s ease;
-      opacity: 0;
-    }
-
     &:hover {
-      background: linear-gradient(45deg, rgb(136, 125, 220), #8338ec, #3a86ff, rgb(136, 125, 220)) !important;
-      background-size: 400% 400%;
-      animation: holo-bg 3s ease infinite;
-      &::before {
-        opacity: 1;
-        transform: rotate(45deg) translateX(100%);
-      }
+      background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0) 66%), rgb(36, 38, 54);
+      background-size: 400% 100%, cover;
+      animation: change 1s linear;
     }
 
     @keyframes holo-bg {
