@@ -30,14 +30,15 @@
     > section.instructions{
       margin-top: 20px;
       margin-bottom: 20px;
-      font-size: 13px;
+      font-size: 15px;
       text-align: center;
-      line-height: 20px;
+      line-height: 22px;
       letter-spacing: 0.2px;
       font-family: 'Open Sans';
       em{
         font-style: normal;
         text-transform: uppercase;
+        font-weight: 400;
       }
       em.review{ color: variables.$review-button-color; }
       em.learn{ color: variables.$learn-button-color; }

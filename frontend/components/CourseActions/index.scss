@@ -68,6 +68,8 @@
       > section.course-title_and_category_and_author{
         display: flex;
         min-height: 40px;
+        font-size: 11px;
+        align-items: center;
         > h1.title{
           word-break: break-all;
           max-width: 700px;
@@ -80,13 +82,12 @@
           padding-left: 14px;
           margin-left: 14px;
           border-left: 1px solid #e5e6ee1f;
-          > div.category, div.author{
-            cursor: default;
+          > div.category, > div.author{
             height: 50%;
             display: flex;
             align-items: center;
+            padding: 4px 10px;
 
-            font-size: 10px;
             letter-spacing: 0.9px;
             text-transform: uppercase;
             > .in-or-by{
@@ -94,19 +95,23 @@
               width: 20px;
             }
           }
+          > div.author{
+            margin-top: 2px;
+          }
         }
         > section.edit-invite-buttons{        
           margin-left: 10px;
-          // margin-top: 2px;
           > button.edit-button, > button.invite-coauthor-button{
             align-self: flex-start;
             min-width: auto;
-            padding: 0 10px;
+            padding: 4px 10px;
             height: 50%;
-
-            font-size: 10px;
+            font-size: 11px;
             align-items: center;
             i{ padding-right: 3px; }
+          }
+          > button.invite-coauthor-button{
+            margin-top: 2px;
           }
         }
 
