@@ -17,10 +17,19 @@
 <div align="center">
   <img width="950" alt="image" src="https://github.com/user-attachments/assets/c8ac293e-6890-4572-bb78-bf3ce2c248a2" />
 </div>
-
+<br/>
 <div align="center">
   <b>Try it live: <a href="https://www.memcode.com/courses">memcode.com</a></b><br/> <i>(no signup required)</i>
 </div>
+<br/>
+<br/>
+
+
+<div align="center">
+We obsess over the small things.<br/>The way cards flip. The way images load. The feel of typing in your answer.<br/>Because learning happens in those tiny moments - they should feel right.
+</div>
+
+___
 
 ### Features
 
@@ -28,6 +37,8 @@
 - **quality text-to-speech** (powered by OpenAI)
 - **powerful flashcard formatting** (code blocks, LaTeX formulas, bold text)
 - **llm-friendly just-text imports and exports**
+
+___
 
 ### Contact
 
