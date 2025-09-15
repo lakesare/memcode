@@ -1,0 +1,90 @@
+.diagonal-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.diagonal-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 6px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.diagonal-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+  z-index: 2;
+  animation: diagonalShiftOnLoad 1.5s ease-in-out;
+  animation-iteration-count: 1;
+  animation-delay: 0s;
+}
+
+.diagonal-logo:hover .diagonal-icon::before {
+  animation: diagonalShiftHover 1.5s ease-in-out;
+}
+
+@keyframes diagonalShiftOnLoad {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+@keyframes diagonalShiftHover {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: 100%; }
+}
+
+.diagonal-cell {
+  background: #e2e8f0;
+  border-radius: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.diagonal-cell.diagonal {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  // animation: diagonalPulse 2.5s ease-in-out infinite;
+  // animation-iteration-count: 1;
+}
+
+// @keyframes diagonalPulse {
+//   0%, 100% { 
+//     opacity: 1;
+//     transform: scale(1);
+//   }
+//   50% { 
+//     opacity: 0.8;
+//     transform: scale(0.9);
+//   }
+// }
+
+.diagonal-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  letter-spacing: -0.5px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.tagline {
+  color: #6b7280;
+  font-size: 14px;
+  margin-top: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}

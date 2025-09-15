@@ -4,6 +4,7 @@ import moment from "moment";
 import 'moment-timezone';
 import { FormState } from './TYPES';
 import Settings from './components/Settings';
+import Header from './components/Header';
 
 function App() {
   const userTimezone : number = moment.tz(moment.tz.guess()).utcOffset() / 60;
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header />
       <Settings formState={formState} setFormState={setFormState} userTimezone={userTimezone}/>
       <Calendar formState={formState} userTimezone={userTimezone}/>
     </div>
