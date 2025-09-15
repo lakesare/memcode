@@ -315,7 +315,7 @@ body.-bright-theme .-articles-page{
   }
 }
 
-.-bright-theme:not(.-articles-page){
+.-bright-theme .-without-bg:not(.-articles-page){
   // _________BORDER RADIUS_________
   .button{
     border-radius: 10px !important;

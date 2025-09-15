@@ -78,7 +78,7 @@ class Page_contact extends React.Component {
             <p>
               Missing some functionality? Having some question? Seeing some bug? Having some ideas that would make your presence on Memcode more comfortable?
             </p>
-            <p>Write me, I'll try to answer within the day.</p>
+            <p>Write us, we will try to answer within one day.</p>
           </article>
         </div>
 
