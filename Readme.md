@@ -11,7 +11,7 @@
 </h1>
 
 <h3 align="center">
-  Flashcards. Pretty. Open-source, free for all.
+  Flashcards. Beautiful. Effortless.
 </h3>
 
 <div align="center">
