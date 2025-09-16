@@ -26,7 +26,7 @@ const getBest4 = async (request, response) => {
     .map(id => courseMap.get(id))
     .filter(course => course !== undefined);
 
-  response.status(200).json({ courses: coursesInOrder });
+  response.success({ courses: coursesInOrder });
 };
 
 export default getBest4;

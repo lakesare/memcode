@@ -1,7 +1,7 @@
 import knex from '#~/db/knex.js';
 
-const allCreated = (userId) =>
-  knex
+const allCreated = async (userId) => {
+  const courses = await knex
     .select(
       knex.raw('row_to_json(course.*) AS course'),
       knex.raw('row_to_json("user".*) AS author'),
@@ -14,6 +14,13 @@ const allCreated = (userId) =>
     .innerJoin('course_category', 'course.course_category_id', 'course_category.id')
     .where('course.user_id', userId)
     .groupBy('course.id', 'user.id', 'course_category.id');
+  
+  // Convert amount_of_problems to integer
+  return courses.map(course => ({
+    ...course,
+    amountOfProblems: parseInt(course.amountOfProblems || 0)
+  }));
+};
 
 // all public courses with 2 or more problems,
 // sorted by amount of learners
@@ -119,9 +126,9 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
   // Add the count to each course record and convert strings to integers
   const coursesWithCount = courses.map(course => ({
     ...course,
-    amountOfUsersLearningThisCourse: parseInt(course.amountOfUsersLearningThisCourse),
-    amountOfProblems: parseInt(course.amountOfProblems),
-    nOfAllCourses: parseInt(countResult.totalCount)
+    amountOfUsersLearningThisCourse: parseInt(course.amountOfUsersLearningThisCourse || 0),
+    amountOfProblems: parseInt(course.amountOfProblems || 0),
+    nOfAllCourses: parseInt(countResult.totalCount || 0)
   }));
   
   return coursesWithCount;
