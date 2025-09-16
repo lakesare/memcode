@@ -15,31 +15,26 @@
       }
       .button.total-n-to-review-button{
         position: absolute;
-        left: 7px;
-        top: 4px;
+        left: 7px; top: 4px;
 
-        
-        padding: 0 5px;
+        background: variables.$review-button-color;
+
+        padding: 0;
+        letter-spacing: 0px;
         font-size: 9px;
-        height: 23px;
-        // min-width: 23px !important;
-        // aspect-ratio: 1;
+        min-width: 23px;
+        border-radius: 50%;
+        aspect-ratio: 1;
         transition: all 0.3s ease;
-        &.-saving{
-          aspect-ratio: 1;
-          border-radius: 50%
-        }
+        color: white;
         &.-zero.-not-loading{
           background: #ffffff2b;
-          border-radius: 50%;
-          min-width: 23px;
-          aspect-ratio: 1;
           &:hover{ background: #ffffff2b; }
         }
         &:hover{
           background: variables.$review-button-color;
         }
-        &.-saving {
+        &.-loading {
           cursor: default;
           pointer-events: none;
 
@@ -49,7 +44,8 @@
         }
 
         &.-just-saved {
-          background: rgb(238, 92, 15);
+          background: rgb(255, 68, 0);
+          // animation: flash 1s ease-out;
         }
       }
     }

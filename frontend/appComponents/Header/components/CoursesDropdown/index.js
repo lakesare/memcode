@@ -136,7 +136,7 @@ class CoursesDropdown extends React.Component {
     const dtosToReview = MyModel.getDtosToReview(this.props.My.courses);
     const nOfProblems = MyModel.countAllProblemsToReview(dtosToReview);
 
-    return <div className={`button -to-review total-n-to-review-button ${this.props.My.speCourses.status === 'request' ? '-saving' : '-not-loading'} ${this.props.My.speCourses.status === 'success' ? '-just-saved' : ''} ${nOfProblems === 0 ? '-zero' : ''}`}>
+    return <div className={`button total-n-to-review-button ${this.props.My.speCourses.status === 'request' ? '-loading' : '-not-loading'} ${this.props.My.speCourses.status === 'success' ? '-just-saved' : ''} ${nOfProblems === 0 ? '-zero' : ''}`}>
       {nOfProblems || ""}
     </div>;
   }
