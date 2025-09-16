@@ -60,6 +60,14 @@ class Page extends React.Component {
     });
   }
 
+  formatDayOnly = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  }
+
   formatDateTime = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -233,6 +241,62 @@ class Page extends React.Component {
                   {displayStats.map((stat, index) => (
                     <tr key={index}>
                       <td>{this.formatYearMonth(stat.month)}</td>
+                      <td>{this.formatNumber(stat.usersCreated)}</td>
+                      <td>{this.formatNumber(stat.coursesCreated)}</td>
+                      <td>{this.formatNumber(stat.flashcardsCreated)}</td>
+                      <td>
+                        {stat.flashcardsReviewed > 0 ? (
+                          this.formatNumber(stat.flashcardsReviewed)
+                        ) : (
+                          <span className="noData">—</span>
+                        )}
+                      </td>
+                      <td>
+                        {stat.uniqueReviewers > 0 ? (
+                          this.formatNumber(stat.uniqueReviewers)
+                        ) : (
+                          <span className="noData">—</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  renderDailyStatsSection = () => {
+    const { dailyStats } = this.state.stats;
+    
+    return (
+      <section className="standard-admin-section">
+        <h2 className="standard-admin-section-title">Daily Activity Overview (Last 30 Days)</h2>
+        
+        <div className="chartSection">
+          <div className="registrationChart">
+            <div className="chartHeader">
+              <h3>Activity by Day</h3>
+            </div>
+            <div className="scrollableTable">
+              <table className="dataTable">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Users Created</th>
+                    <th>Courses Created</th>
+                    <th>Flashcards Created</th>
+                    <th>Flashcards Reviewed</th>
+                    <th>Reviewed by Users</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dailyStats.map((stat, index) => (
+                    <tr key={index}>
+                      <td>{this.formatDayOnly(stat.day)}</td>
                       <td>{this.formatNumber(stat.usersCreated)}</td>
                       <td>{this.formatNumber(stat.coursesCreated)}</td>
                       <td>{this.formatNumber(stat.flashcardsCreated)}</td>
@@ -457,6 +521,7 @@ class Page extends React.Component {
               <>
                 {this.renderOverviewSection()}
                 {this.renderMonthlyStatsSection()}
+                {this.renderDailyStatsSection()}
                 {this.renderContentStatsSection()}
                 {this.renderTopUsersSection()}
                 {this.renderRecentReviewsSection()}

@@ -55,6 +55,52 @@ const getStats = async (request, response) => {
       ORDER BY months.month DESC
     `);
 
+    // Get daily stats for the last 30 days
+    const dailyStats = await knex.raw(`
+      WITH days AS (
+        SELECT DATE_TRUNC('day', CURRENT_DATE - INTERVAL '1 day' * generate_series(0, 29)) as day
+      )
+      SELECT 
+        days.day,
+        COALESCE(users.count, 0) as users_created,
+        COALESCE(courses.count, 0) as courses_created,
+        COALESCE(problems.count, 0) as flashcards_created,
+        COALESCE(reviews.count, 0) as flashcards_reviewed,
+        COALESCE(reviewers.count, 0) as unique_reviewers
+      FROM days
+      LEFT JOIN (
+        SELECT DATE_TRUNC('day', created_at) as day, COUNT(*) as count
+        FROM "user" 
+        WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+        GROUP BY DATE_TRUNC('day', created_at)
+      ) users ON days.day = users.day
+      LEFT JOIN (
+        SELECT DATE_TRUNC('day', created_at) as day, COUNT(*) as count
+        FROM course 
+        WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+        GROUP BY DATE_TRUNC('day', created_at)
+      ) courses ON days.day = courses.day
+      LEFT JOIN (
+        SELECT DATE_TRUNC('day', created_at) as day, COUNT(*) as count
+        FROM problem 
+        WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+        GROUP BY DATE_TRUNC('day', created_at)
+      ) problems ON days.day = problems.day
+      LEFT JOIN (
+        SELECT DATE_TRUNC('day', reviewed_at) as day, COUNT(*) as count
+        FROM stats_problem_review 
+        WHERE reviewed_at >= CURRENT_DATE - INTERVAL '30 days'
+        GROUP BY DATE_TRUNC('day', reviewed_at)
+      ) reviews ON days.day = reviews.day
+      LEFT JOIN (
+        SELECT DATE_TRUNC('day', reviewed_at) as day, COUNT(DISTINCT user_id) as count
+        FROM stats_problem_review 
+        WHERE reviewed_at >= CURRENT_DATE - INTERVAL '30 days'
+        GROUP BY DATE_TRUNC('day', reviewed_at)
+      ) reviewers ON days.day = reviewers.day
+      ORDER BY days.day DESC
+    `);
+
     // Get total course count
     const totalCourses = await knex('course')
       .count('* as count')
@@ -126,6 +172,14 @@ const getStats = async (request, response) => {
       },
       monthlyStats: monthlyStats.rows.map(stat => ({
         month: stat.month,
+        usersCreated: parseInt(stat.users_created),
+        coursesCreated: parseInt(stat.courses_created),
+        flashcardsCreated: parseInt(stat.flashcards_created),
+        flashcardsReviewed: parseInt(stat.flashcards_reviewed),
+        uniqueReviewers: parseInt(stat.unique_reviewers)
+      })),
+      dailyStats: dailyStats.rows.map(stat => ({
+        day: stat.day,
         usersCreated: parseInt(stat.users_created),
         coursesCreated: parseInt(stat.courses_created),
         flashcardsCreated: parseInt(stat.flashcards_created),
