@@ -10,6 +10,7 @@ class Page extends React.Component {
     speGetStats: {},
     stats: null,
     showAllMonths: false,
+    showAllDays: false,
     expandedFlashcards: new Set(),
     showAllReviews: false
   }
@@ -225,8 +226,7 @@ class Page extends React.Component {
                 </button>
               )}
             </div>
-            <div className="scrollableTable">
-              <table className="dataTable">
+            <table className="dataTable">
                 <thead>
                   <tr>
                     <th>Year Month</th>
@@ -262,7 +262,6 @@ class Page extends React.Component {
                   ))}
                 </tbody>
               </table>
-            </div>
           </div>
         </div>
       </section>
@@ -271,6 +270,10 @@ class Page extends React.Component {
 
   renderDailyStatsSection = () => {
     const { dailyStats } = this.state.stats;
+    const { showAllDays } = this.state;
+    
+    // Show only last 7 days by default
+    const displayStats = showAllDays ? dailyStats : dailyStats.slice(0, 7);
     
     return (
       <section className="standard-admin-section">
@@ -280,9 +283,16 @@ class Page extends React.Component {
           <div className="registrationChart">
             <div className="chartHeader">
               <h3>Activity by Day</h3>
+              {dailyStats.length > 7 && (
+                <button 
+                  className="expandButton" 
+                  onClick={() => this.setState({ showAllDays: !showAllDays })}
+                >
+                  {showAllDays ? 'Show Less' : `Show All (${dailyStats.length} days)`}
+                </button>
+              )}
             </div>
-            <div className="scrollableTable">
-              <table className="dataTable">
+            <table className="dataTable">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -294,7 +304,7 @@ class Page extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {dailyStats.map((stat, index) => (
+                  {displayStats.map((stat, index) => (
                     <tr key={index}>
                       <td>{this.formatDayOnly(stat.day)}</td>
                       <td>{this.formatNumber(stat.usersCreated)}</td>
@@ -318,7 +328,6 @@ class Page extends React.Component {
                   ))}
                 </tbody>
               </table>
-            </div>
           </div>
         </div>
       </section>
