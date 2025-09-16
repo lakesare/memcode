@@ -343,22 +343,22 @@ body.-bright-theme .-articles-page{
         width: 23px; height: 23px;
       }
     }
-  }
-  .problem-wrapper{
-    background: rgb(234, 225, 220) !important;
-    border-radius: 22px !important;
-    @media(max-width: 600px){
-      border-radius: 12px !important;
+    .problem-wrapper{
+      background: rgb(234, 225, 220) !important;
+      border-radius: 22px !important;
+      @media(max-width: 600px){
+        border-radius: 12px !important;
+      }
     }
-  }
-
-  .problem-wrapper.-yet-to-learn:hover{
-    background: #25b08b70 !important;
-  }
-  .problem-wrapper.-learned{
-    background: variables.$learn-button-color !important;
-    &:hover{
-      opacity: 1 !important;
+  
+    .problem-wrapper.-yet-to-learn:hover{
+      background: #25b08b70 !important;
+    }
+    .problem-wrapper.-learned{
+      background: variables.$learn-button-color !important;
+      &:hover{
+        opacity: 1 !important;
+      }
     }
   }
 
