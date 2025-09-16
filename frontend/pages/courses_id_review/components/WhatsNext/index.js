@@ -101,6 +101,7 @@ class WhatsNext extends React.Component {
 
         {
           this.props.currentUser &&
+          this.getNextDueDateIn() &&
           <div className="next-review-time">
             <i className="material-icons timer-icon">timer</i>
             Next review: {` `}
