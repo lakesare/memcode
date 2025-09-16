@@ -391,6 +391,7 @@ body.-bright-theme .-articles-page{
   .button.total-n-to-review-button{
     aspect-ratio: 1;
     border-radius: 50% !important;
+    &.-zero.-not-loading{ background: #df9b6a4a !important; &:hover{ background: #df9b6a4a; } }
   }
   input.answer-input{
     border-radius: 6px !important;

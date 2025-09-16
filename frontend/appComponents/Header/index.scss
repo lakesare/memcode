@@ -8,19 +8,34 @@
       margin-right: 10px;
       min-width: 116px;
       padding-left: 0;
+
       .position-relative-wrapper{
         position: relative;
         height: 31px;
       }
-      .button.-to-review{
+      .button.total-n-to-review-button{
         position: absolute;
         left: 7px;
         top: 4px;
 
-        min-width: 0 !important;
+        
         padding: 0 5px;
         font-size: 9px;
         height: 23px;
+        // min-width: 23px !important;
+        // aspect-ratio: 1;
+        transition: all 0.3s ease;
+        &.-saving{
+          aspect-ratio: 1;
+          border-radius: 50%
+        }
+        &.-zero.-not-loading{
+          background: #ffffff2b;
+          border-radius: 50%;
+          min-width: 23px;
+          aspect-ratio: 1;
+          &:hover{ background: #ffffff2b; }
+        }
         &:hover{
           background: variables.$review-button-color;
         }
@@ -28,7 +43,7 @@
           cursor: default;
           pointer-events: none;
 
-          background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0) 66%), variables.$review-button-color;
+          background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0) 66%), variables.$review-button-color;
           background-size: 400% 100%, cover;
           animation: change 1s linear infinite;
         }
@@ -61,7 +76,6 @@
     justify-content: space-between;
 
     .button{
-      height: 31px;
       font-size: 11px;
       text-transform: uppercase;
       min-width: auto;
