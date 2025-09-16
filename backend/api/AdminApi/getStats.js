@@ -20,6 +20,8 @@ const getStats = async (request, response) => {
           SELECT created_at FROM course
           UNION
           SELECT created_at FROM problem
+          UNION
+          SELECT reviewed_at as created_at FROM stats_problem_review
         ) all_dates
       )
       SELECT 
@@ -27,7 +29,8 @@ const getStats = async (request, response) => {
         COALESCE(users.count, 0) as users_created,
         COALESCE(courses.count, 0) as courses_created,
         COALESCE(problems.count, 0) as flashcards_created,
-        COALESCE(reviews.count, 0) as flashcards_reviewed
+        COALESCE(reviews.count, 0) as flashcards_reviewed,
+        COALESCE(reviewers.count, 0) as unique_reviewers
       FROM months
       LEFT JOIN (
         SELECT DATE_TRUNC('month', created_at) as month, COUNT(*) as count
@@ -45,6 +48,10 @@ const getStats = async (request, response) => {
         SELECT DATE_TRUNC('month', reviewed_at) as month, COUNT(*) as count
         FROM stats_problem_review GROUP BY DATE_TRUNC('month', reviewed_at)
       ) reviews ON months.month = reviews.month
+      LEFT JOIN (
+        SELECT DATE_TRUNC('month', reviewed_at) as month, COUNT(DISTINCT user_id) as count
+        FROM stats_problem_review GROUP BY DATE_TRUNC('month', reviewed_at)
+      ) reviewers ON months.month = reviewers.month
       ORDER BY months.month DESC
     `);
 
@@ -122,7 +129,8 @@ const getStats = async (request, response) => {
         usersCreated: parseInt(stat.users_created),
         coursesCreated: parseInt(stat.courses_created),
         flashcardsCreated: parseInt(stat.flashcards_created),
-        flashcardsReviewed: parseInt(stat.flashcards_reviewed)
+        flashcardsReviewed: parseInt(stat.flashcards_reviewed),
+        uniqueReviewers: parseInt(stat.unique_reviewers)
       })),
       courseStats: {
         visibilityBreakdown: courseVisibilityStats.map(stat => ({

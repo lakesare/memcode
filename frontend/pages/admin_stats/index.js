@@ -226,6 +226,7 @@ class Page extends React.Component {
                     <th>Courses Created</th>
                     <th>Flashcards Created</th>
                     <th>Flashcards Reviewed</th>
+                    <th>Reviewed by Users</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -238,6 +239,13 @@ class Page extends React.Component {
                       <td>
                         {stat.flashcardsReviewed > 0 ? (
                           this.formatNumber(stat.flashcardsReviewed)
+                        ) : (
+                          <span className="noData">—</span>
+                        )}
+                      </td>
+                      <td>
+                        {stat.uniqueReviewers > 0 ? (
+                          this.formatNumber(stat.uniqueReviewers)
                         ) : (
                           <span className="noData">—</span>
                         )}
