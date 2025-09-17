@@ -43,7 +43,7 @@ class CurrentUser extends React.Component {
     >
       <div className="_tippy-needs-this-div">
         <Link className="avatar" to={`/users/${this.props.currentUser.id}`}>
-          <img src={getUserAvatar(this.props.currentUser)} alt="User"/>
+          <img src={getUserAvatar(this.props.currentUser)}/>
         </Link>
       </div>
     </StandardTooltip>
