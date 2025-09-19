@@ -21,8 +21,7 @@
 <div align="center">
   <b>Try it live: <a href="https://www.memcode.com/courses/32019/review/simulated">memcode.com</a></b><br/> <i>(no signup required)</i>
 </div>
-<br/>
-<br/>
+
 ___
 
 ### Features
