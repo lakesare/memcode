@@ -21,14 +21,6 @@
 <div align="center">
   <b>Try it live: <a href="https://www.memcode.com/courses/32019/review/simulated">memcode.com</a></b><br/> <i>(no signup required)</i>
 </div>
-<br/>
-<br/>
-
-
-<div align="center">
-We obsess over the small things.<br/>The way cards flip. The way images load. The feel of typing in your answer.<br/>
-  Because when you're deep in thought, everything else should fade away.
-</div>
 
 ___
 
