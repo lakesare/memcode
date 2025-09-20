@@ -1,0 +1,198 @@
+<html>
+<head>
+    <title>Memcode Updates</title>
+    <style>
+        .Unsubscribe--unsubscribeLink, .Unsubscribe--unsubscribePreferences{
+            color: #403f3f !important;
+        }
+        a:hover{
+            text-decoration: underline !important;
+        }
+        
+        body{
+            background-color: #faf8f3 !important;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .wrapper {
+            background-color: #faf8f3;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background-color: #ffffff;
+            border: 1px solid #e8e3d8;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 5px;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            font-size: 18px;
+            padding: 40px;
+            color: #341e1e;
+        }
+        
+        h1 {
+            font-size: 27px;
+            color: #8b4513;
+            margin: 30px 0 15px 0;
+            border-bottom: 1px solid #e8e3d8;
+            padding-bottom: 8px;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        li {
+            margin-bottom: 20px;
+            padding-left: 0px;
+        }
+        
+        .bullet {
+            color: #8b4513;
+            font-weight: bold;
+            margin-right: 8px;
+            display: inline;
+        }
+        
+        img {
+            margin: 10px 0;
+            border-radius: 5px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        i{color: #8b4513;}
+        b {
+            color: #8b4513;
+            font-weight: inherit;
+        }
+        
+        .ui-path {
+            background-color: #f5f2ed;
+            color: #8b4513;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 15px;
+            border: 1px solid #e8e3d8;
+        }
+        
+        .bug-fixes-intro {
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            color: #8b4513;
+            margin-bottom: 5px;
+            display: inline-block;
+            /*padding-left: 5px;*/
+            margin-left: 5px;
+        }
+        
+        .feature-description {
+            color: #341e1e;
+            line-height: 1.5;
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="greeting">Hello, dear Memcode users!</div>
+            
+            <div class="intro">In the past few months Memcode has seen a number of important updates.</div>
+            <div class="intro">As always - if you have some questions, simply respond to this email, we read everything.</div>
+            
+            <h1>New stuff</h1>
+            <ul>
+                <li>
+                    <span class="bullet">•</span><span class="feature-title">Bright Theme Improvements</span>
+                    <div class="feature-description">The bright theme looks <i>really</i> good now.</div>
+                </li>
+                
+                <li>
+                    <span class="bullet">•</span><span class="feature-title">Text-to-Speech Support</span>
+                    <div class="feature-description">Memcode can <b>read flashcards aloud</b> now!<br>
+                    Our voicing (backed by OpenAI's TTS) supports all widespread languages - English, German, Japanese, et cetera.<br/>
+                    To enable text-to-speech, click on the audio button on the flashcard review page.<br/>
+                    <img width="200" src="http://cdn.mcauto-images-production.sendgrid.net/face8a6b2173cb1f/5c149043-1c3a-4140-9aae-42e7ac3c2792/542x173.png"/>
+                    </div>
+                </li>
+                
+                <li>
+                    <span class="bullet">•</span><span class="feature-title">LLM Integration</span>
+                    <div class="feature-description">
+                    In the <b>Import/Export</b> modal (<span class="ui-path">flashcard creation page ➤ IMPORT</span>), you can:
+                    <br/>
+                    <b style="font-weight: bold;font-size: 12px;">1)</b> copy the correct-flashcard-format prompt for your LLM<br>
+                    <b style="font-weight: bold; font-size: 12px;">2)</b> feed this prompt to your LLM of choice<br/>
+                    <b style="font-weight: bold; font-size: 12px;">3)</b> import the plaintext flashcards LLM created for you<br>
+                    You can now use Memcode with your favorite LLM!
+                    </div>
+                </li>
+                
+                <li>
+                    <span class="bullet">•</span><span class="feature-title">New way to review flashcards: Just-click</span>
+                    <div class="feature-description">
+                    In the <b>Settings</b> modal (<span class="ui-path">hover over your avatar ➤ Settings</span>), you now have a setting for letting you CLICK on the hidden word to reveal it.
+                    <img width="300" src="http://cdn.mcauto-images-production.sendgrid.net/face8a6b2173cb1f/2bdd21a1-fd15-4143-ae4f-28fadb4c4058/974x919.png"/>
+                    <br/>
+                    This is useful for when you're on your phone and do not feel like typing out the full answer.
+                    </div>
+                </li>
+                
+                <li>
+                    <span class="bullet">•</span><span class="feature-title">Email Signups</span>
+                    <div class="feature-description">
+                        You can now sign up by email (or just username) & password on Memcode.<br/>
+                        This is important for people who value privacy, and simplifies memcode setup for schools.
+                    </div>
+                </li>
+            </ul>
+            
+            <h1>Bug fixes</h1>
+            <ul>
+                <li><span class="bullet">•</span><span class="feature-title">"Image stuck loading" fix</span>
+                    <div class="feature-description">
+                You can click wherever when your image is uploading; you can upload multiple images in different flashcards at the same time, etc. - this will all work.
+                </div>
+                </li>
+                <li><span class="bullet">•</span><span class="feature-title">Image compression</span>
+                <div class="feature-description">
+                From now on, the images you upload will be automatically compressed (converted to max 600px in width&amp;height). This doesn't affect the quality of the displayed images (all of our interfaces are under 600px), but reduces the loading time of courses. <br/>You don't have to think about the image size before uploading it anymore!
+                </div>
+                </li>
+                <li><span class="bullet">•</span><span class="feature-title">Flashcard order fixed</span>
+                <div class="feature-description">
+                Flashcard ordering & reordering was working weirdly - this is fully fixed now.<br/>
+                SHIFT-clicking to select multiple flashcards works perfectly now too.
+                </div>
+                </li>
+            </ul>
+            
+            <h1>New Courses</h1>
+            <div>We just crafted a beginner language course for 20 languages (German, Italian, Spanish, etc.) - check them out at <a href="http://memcode.com/courses" style="color: #8b4513;">memcode.com/courses</a>!</div>
+        </div>
+    </div>
+    
+    <div data-role="module-unsubscribe" class="module" role="module" data-type="unsubscribe" style="color:#444444; font-size:12px; line-height:20px; padding:16px 16px 16px 16px; text-align:Center;" data-muid="4e838cf3-9892-4a6d-94d6-170e474d21e5">
+        <p style="font-size:12px; line-height:20px;">
+            <a class="Unsubscribe--unsubscribeLink" href="{{{unsubscribe}}}" target="_blank" style="font-family:sans-serif;text-decoration:none;">
+                Unsubscribe
+            </a>
+              •
+            <a href="{{{unsubscribe_preferences}}}" target="_blank" class="Unsubscribe--unsubscribePreferences" style="font-family:sans-serif;text-decoration:none;">
+                Subscription Preferences
+            </a>
+        </p>
+    </div>
+</body>
+</html>
