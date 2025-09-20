@@ -18,6 +18,7 @@ CREATE TABLE "user" (
   email TEXT,
   password_hash VARCHAR,
   did_see_notifications BOOLEAN DEFAULT true,
+  is_subscribed_to_marketing_emails BOOLEAN DEFAULT true NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   unique (oauth_provider, oauth_id)
 );

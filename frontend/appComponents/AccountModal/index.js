@@ -1,6 +1,6 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
 import TabNavigation from '~/components/TabNavigation';
-import { TextInput, FileInput } from '~/components/_standardForm';
+import { TextInput, FileInput, Select } from '~/components/_standardForm';
 import Loading from '~/components/Loading';
 import { AuthenticationActions } from '~/reducers/Authentication';
 import api from '~/api';
@@ -31,7 +31,8 @@ class AccountModal extends React.Component {
     formState: {
       username: '',
       email: '',
-      avatar: null
+      avatar: null,
+      isSubscribedToMarketingEmails: 'true'
     },
     formValidation: {},
     speUpdateAccount: {},
@@ -48,7 +49,8 @@ class AccountModal extends React.Component {
       formState: {
         username: currentUser.username || '',
         email: currentUser.email || '',
-        avatar: null
+        avatar: null,
+        isSubscribedToMarketingEmails: String(currentUser.isSubscribedToMarketingEmails)
       }
     });
   }
@@ -69,7 +71,8 @@ class AccountModal extends React.Component {
     return (
       formState.username !== (currentUser.username || '') ||
       formState.email !== (currentUser.email || '') ||
-      formState.avatar !== null
+      formState.avatar !== null ||
+      formState.isSubscribedToMarketingEmails !== String(currentUser.isSubscribedToMarketingEmails)
     );
   }
 
@@ -119,7 +122,8 @@ class AccountModal extends React.Component {
       // Prepare data for user update
       const updateData = {
         username: formState.username,
-        email: formState.email
+        email: formState.email,
+        isSubscribedToMarketingEmails: formState.isSubscribedToMarketingEmails === 'true'
       };
       
       // Include avatar_url if we uploaded a new one
@@ -149,7 +153,8 @@ class AccountModal extends React.Component {
       // Continue with account update even if avatar upload fails
       const updateData = {
         username: formState.username,
-        email: formState.email
+        email: formState.email,
+        isSubscribedToMarketingEmails: formState.isSubscribedToMarketingEmails === 'true'
       };
       
       api.post.UserApi.updateAccount(
@@ -226,6 +231,16 @@ class AccountModal extends React.Component {
             name="email"
             type="email"
             placeholder="Enter your email"
+          />
+
+          <Select
+            {...this.inputProps()}
+            label="Marketing Emails"
+            name="isSubscribedToMarketingEmails"
+            possibleValues={{
+              true: 'Subscribed - Receive updates about new features',
+              false: 'Unsubscribed - Do not send me marketing emails'
+            }}
           />
 
           <FileInput

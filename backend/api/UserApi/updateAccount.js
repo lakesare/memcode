@@ -5,7 +5,7 @@ import { mustBeAuthenticated } from '#~/services/auth.js';
 const updateAccount = async (request, response, next) => {
   await mustBeAuthenticated(request.currentUser);
 
-  const { username, email, avatar_url } = request.body;
+  const { username, email, avatar_url, isSubscribedToMarketingEmails } = request.body;
   const userId = request.currentUser.id;
 
   // Validate inputs
@@ -36,6 +36,9 @@ const updateAccount = async (request, response, next) => {
       email: email.trim()
     };
     
+    // Update email subscription preference
+    updateData.is_subscribed_to_marketing_emails = isSubscribedToMarketingEmails;
+    
     // Only update avatar_url if provided
     if (avatar_url) {
       updateData.avatar_url = avatar_url;
@@ -47,7 +50,7 @@ const updateAccount = async (request, response, next) => {
 
     // Fetch updated user data
     const updatedUser = await knex('user')
-      .select('id', 'username', 'email', 'avatar_url', 'oauth_provider', 'oauth_id')
+      .select('id', 'username', 'email', 'avatar_url', 'oauth_provider', 'oauth_id', 'is_subscribed_to_marketing_emails')
       .where('id', userId)
       .first();
 
