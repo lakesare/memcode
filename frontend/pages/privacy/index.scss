@@ -1,0 +1,17 @@
+:local(.main) {
+  padding-bottom: 100px;
+  .article-section{
+    padding-top: 0 !important;
+  }
+  .section-heading{
+    margin-top: 40px !important;
+    margin-bottom: 30px !important;
+  }
+  .section-content {
+
+    
+    strong {
+      font-weight: 600;
+    }
+  }
+}

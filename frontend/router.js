@@ -20,6 +20,7 @@ import Page_pleaseSignIn from './pages/pleaseSignIn';
 import Page_articles_comparison from './pages/articles_comparison';
 import Page_articles_welcome from './pages/articles_welcome';
 import Page_contact from './pages/contact';
+import Page_privacy from './pages/privacy';
 import Page_home from './pages/home';
 
 import Page_admin_notifications from './pages/admin_notifications';
@@ -55,6 +56,7 @@ const router =
       {/* static pages */}
       <Route exact path="/please-sign-in" component={Page_pleaseSignIn}/>
       <Route exact path="/contact"        component={Page_contact}/>
+      <Route exact path="/privacy"        component={Page_privacy}/>
 
       {/* articles */}
       <Route exact path="/"                    component={onEnters.redirectToOwnCoursesIfAuthenticated(Page_articles_welcome)}/>
