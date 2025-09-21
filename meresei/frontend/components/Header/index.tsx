@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import './index.scss';
 
 const Header: React.FC = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -19,10 +31,19 @@ const Header: React.FC = () => {
           </div>
         </Link>
         
-        <nav className="header-nav">
-          <NavLink to="/" className="nav-link">Home</NavLink>
-          <NavLink to="/sleep-tracker" className="nav-link">Sleep Tracker</NavLink>
-          <NavLink to="/about" className="nav-link">About</NavLink>
+        <IconButton 
+          className="mobile-menu-toggle"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle navigation menu"
+          color="inherit"
+        >
+          {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+        </IconButton>
+        
+        <nav className={`header-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+          <NavLink to="/" className="nav-link" onClick={closeMobileMenu}>Home</NavLink>
+          <NavLink to="/sleep-tracker" className="nav-link" onClick={closeMobileMenu}>Sleep Tracker</NavLink>
+          <NavLink to="/about" className="nav-link" onClick={closeMobileMenu}>About</NavLink>
         </nav>
       </div>
     </header>

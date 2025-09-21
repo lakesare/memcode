@@ -1,11 +1,11 @@
 .header {
   margin-bottom: 32px;
+  position: relative;
 
   .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
   }
 
   .diagonal-logo {
@@ -17,6 +17,11 @@
     &:hover {
       opacity: 0.8;
     }
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+    color: #333;
   }
 
   .header-nav {
@@ -43,18 +48,43 @@
     }
   }
 
-  // Responsive design
+  // Mobile styles
   @media (max-width: 768px) {
-    .container {
-      flex-direction: column;
-      gap: 1rem;
+    .mobile-menu-toggle {
+      display: flex;
     }
     
     .header-nav {
-      gap: 1rem;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid #eee;
+      flex-direction: column;
+      gap: 0;
+      padding: 1rem;
+      transform: translateY(-100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+      
+      &.mobile-open {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
       
       .nav-link {
-        padding: 0.5rem;
+        padding: 1rem;
+        border-radius: 0;
+        border-bottom: 1px solid #eee;
+        
+        &:last-child {
+          border-bottom: none;
+        }
       }
     }
   }
