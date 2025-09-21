@@ -202,7 +202,70 @@ const SleepTrackerPage: React.FC = () => {
     <div className="sleep-tracker-page standard-article">
       <div className="container">
         <div className="sleep-tracker-container">
-        <h2>Sleep Rhythm Analyzer</h2>
+        <h2>Determining your circadian rhythm</h2>
+
+        <p>
+          Determining the length of your circadian rhythm is in no way obvious.<br/>
+          I thought my sleep schedule is random for years (from 16 to 27).<br/>
+          For a first few years, I thought it's a discipline and "working with americans" thing, for the past few years, when staying awake for 30 hours became a weekly thing (pretty torturous weekly thing), I thought my circadian rhythm is random.
+          <br/>
+          What happens is - our sleep is guided by two coupled oscillators (homeostatic component, aka when was the last time we slept; and circadian component, aka our circadian rhythm), and this combo is surprisingly easy to mistake for chaos.<br/>
+
+          In order to fall asleep, we need BOTH of these chemical cocktails to be in us simultaneously. Dr Piotr Wozniak describes these rhythm in his book "Good sleep, good learning, good life" (I highly advise this book):
+
+          <blockquote>
+            There are two components of sleepiness that drive you to bed:
+            <ul>
+                <li>circadian component - sleepiness comes back to us in cycles which are usually about one day long</li>
+                <li>homeostatic component - sleepiness increases with the length of time we stay awake</li>
+            </ul>
+            Only a combination of these two components determines the optimum time for sleep. Most importantly, you should remember that even strong sleepiness resulting from the homeostatic component may not be sufficient to get good sleep if the timing goes against the greatest sleep propensity determined by the circadian component.
+          </blockquote>
+        </p>
+
+
+        <p>
+          <h2>How to determine what my circadian rhythm us</h2>
+
+          So, it might seem that if you had a real nonchaotic circadian rhythm (be it 24 hours, 25 hours, or any fixed n of hours), then it would be easy to discover - you would just notice you wake up 1 (or 2, or 3) hours later every day if you don't try to control it.<br/>
+          However, if you try to losen control over your sleep, that won't happen.<br/>
+          We don't notice it, but people with normal 24h sleep schedules CONTROL their sleep all the time. If they wake up in the middle of the night, they look outside, see that it's dark, and go back to sleep. That's control.<br/>
+          They look at their clock, see it's 23:00, and interpret their vague tiredness as "I want to sleep now, got to go to bed". That's control. People with normal schedules don't just "feel it in their bones" when to go to sleep, they consult outside environment such as clocks and how sunny it is outside to correctly interpret what they should do now wrt to sleep.<br/><br/>
+
+          Now - your schedule might indeed be chaotic, but it's good to keep in mind that unless you make explicit effort to follow some kind of schedule (like 24-h people do by accident - because they see the sun, because they see the clocks), your schedule *will* appear chaotic and random. That's what two couples occillators tend to turn into unless you explicitly try to sync them!
+        </p>
+
+        <p>
+          <h2>What you should do</h2>
+
+          1. <b>Determine how many hours after the waking-up you want to sleep again</b>
+          Your first task is to determine the following: after you have had enough sleep - how many hours does it take for you to start feeling tired.
+          In my case, the answer is "16 hours".
+          This is not very easy to determine if your sleep schedul is chaotic. Your sleep components (circadian and homeostatic) might be wildly out of sync, and you might be waking up after, say, 4 hours of sleep, which logically leads to the incorrect understanding of "after how many hours after my wake-up do I feel like sleeping again".
+          The easiest thing to do in such a case is to wait for a time when your sleep schedule will start seeming stable for a few days; and record the time you start feeling semi-intense "feel like sleeping now" feeling.<br/>
+          2. Now, we know how many awake hours you have in a day, let's call that number A. Next step is we want to determine how many hours of *sleep* you need naturally.<br/>
+          To determine that, you need to do the following.<br/>
+          Every day, record the time when you woke up.
+          After you woke up, set up a timer - you must go to sleep in exactly A hours.
+          The next day, record when you woke up. And, again, you must go to sleep in exactly A hours.
+          This is probably obvious - do not try to control this in any way, do not set up any alarms, do not try to wake up earlier and later that what you naturally feel like. When you wake up, try to fall asleep again - get as much sleep as you might possibly want.<br/>
+
+          Continue this schedule for about a few weeks, ideally for a month. After this month is over, you will have 30 recorinds of when you were waking up. Insert them into the following form.
+          
+        </p>
+
+
+        <p>
+          Now, you know what how many hours your circadian cycle is!<br/>
+
+          What you should do next is the following: by a clock. This will be your sun, this will be your moon.
+          It cannot be underestimated how much stability 24-h people get from the fact that . Having non-24 feels like riding on some sort of carousel, you have no idea what time of the day it is. We have a strong cultural associations with "sun === awake", "13:00 === time to work". In order to follow your circadian rhythm, you need to have your own sun, moon, and a clock - the clock you buy will have this role.<br/>
+          I bought the following clock, it cost me $5.
+          It's a countdown clock.
+          Every day when I wake up, I set the countdown timer to 16 hours. You should set it to your "A" hours.
+          When the countdown timer nears 00:00, I go to sleep, it's a strict rule for me.
+          If I wake up in the middle of the night, there is no way for me to determine that this is my middle of the night (people don't really feel that kind fo stuff! again - people only think they can feel it because they get so many hints from the environemnt, and because it seems like such a natural bodily fucntion to know when you are in the middle of your night). If I wake up in the middle of the night, I look at my countdown timer (it shows negative time at this point). If I see I have only slept for 4 hours, I go to sleep. If I see I slept for around 8-9 hours, I can wake up if I feel like it.
+        </p>
 
         {/* <section>
           <h2>How to Use This Tool</h2>
@@ -215,7 +278,7 @@ const SleepTrackerPage: React.FC = () => {
           </ol>
         </section>
          */}
-        <section className="input-section">
+        {/* <section className="input-section">
           <h2>Enter Your Sleep Times</h2>
           <p>Enter your bedtime for each day, separated by spaces (24-hour format). For example: <code>23:50 01:20 02:15 03:45</code></p>
           
@@ -241,7 +304,7 @@ const SleepTrackerPage: React.FC = () => {
               <strong>Parsed {sleepTimes.length} sleep times:</strong> {sleepTimes.join(', ')}
             </div>
           )}
-        </section>
+        </section> */}
 
         {analysis && sleepTimes.length >= 2 && (
           <section className="analysis-section">
