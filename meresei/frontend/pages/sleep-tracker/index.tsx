@@ -26,20 +26,8 @@ ChartJS.register(
 
 const SleepTrackerPage: React.FC = () => {
   const sampleDataText = '04:00 04:33 03:46 04:15 06:30 07:30 08:44 09:29 09:11 10:09 13:00 13:04 12:40 13:00 14:00 16:22 15:37 18:00 17:30 17:20 19:30 19:30 21:21 22:27 23:51';
-  const [inputText, setInputText] = useState(sampleDataText);
-  const [sleepTimes, setSleepTimes] = useState<string[]>(() => {
-    const parseText = (text: string): string[] => {
-      return text
-        .split(/\s+/)
-        .map(time => time.trim())
-        .filter(time => time && /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/.test(time))
-        .map(time => {
-          const [hours, minutes] = time.split(':');
-          return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
-        });
-    };
-    return parseText(sampleDataText);
-  });
+  const [inputText, setInputText] = useState('');
+  const [sleepTimes, setSleepTimes] = useState<string[]>([]);
   const [analysis, setAnalysis] = useState<{slope: number, rSquared: number} | null>(null);
 
   // Convert time string to decimal hours
@@ -211,11 +199,22 @@ const SleepTrackerPage: React.FC = () => {
   };
 
   return (
-    <div className="sleep-tracker-page">
+    <div className="sleep-tracker-page standard-article">
       <div className="container">
         <div className="sleep-tracker-container">
-        <h1>Sleep Rhythm Analyzer</h1>
-        
+        <h2>Sleep Rhythm Analyzer</h2>
+
+        {/* <section>
+          <h2>How to Use This Tool</h2>
+          <ol>
+            <li>Track your natural bedtime for at least 7-14 days</li>
+            <li>Don't try to force a "normal" schedule - record when you naturally feel sleepy</li>
+            <li>Enter each day's bedtime using the time input above</li>
+            <li>The tool will calculate the average shift in your sleep time per day</li>
+            <li>A shift of +1 hour per day suggests a 25-hour natural rhythm (Non-24)</li>
+          </ol>
+        </section>
+         */}
         <section className="input-section">
           <h2>Enter Your Sleep Times</h2>
           <p>Enter your bedtime for each day, separated by spaces (24-hour format). For example: <code>23:50 01:20 02:15 03:45</code></p>
@@ -283,34 +282,12 @@ const SleepTrackerPage: React.FC = () => {
                       {interpretation.type}
                     </h3>
                     <p>{interpretation.description}</p>
-                    
-                    {analysis.slope > 0.5 && (
-                      <div className="recommendation">
-                        <h4>Recommended Actions:</h4>
-                        <ul>
-                          <li>Consult with a sleep specialist or medical professional</li>
-                          <li>Consider light therapy and melatonin supplementation (under medical guidance)</li>
-                          <li>Use the Meresei calendar to plan your schedule around your natural rhythm</li>
-                        </ul>
-                      </div>
-                    )}
                   </div>
                 );
               })()}
             </div>
           </section>
         )}
-
-        <section className="info-section">
-          <h2>How to Use This Tool</h2>
-          <ol>
-            <li>Track your natural bedtime for at least 7-14 days</li>
-            <li>Don't try to force a "normal" schedule - record when you naturally feel sleepy</li>
-            <li>Enter each day's bedtime using the time input above</li>
-            <li>The tool will calculate the average shift in your sleep time per day</li>
-            <li>A shift of +1 hour per day suggests a 25-hour natural rhythm (Non-24)</li>
-          </ol>
-        </section>
         </div>
       </div>
     </div>

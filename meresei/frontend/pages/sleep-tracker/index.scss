@@ -1,15 +1,7 @@
 .sleep-tracker-page {
-  padding: 2rem;
-  line-height: 1.6;
   color: #333;
 
   .sleep-tracker-container {
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      color: #2c3e50;
-      padding-bottom: 0.5rem;
-    }
 
     section {
       margin-bottom: 2.5rem;
@@ -202,26 +194,6 @@
           margin-bottom: 1rem;
           line-height: 1.6;
         }
-
-        .recommendation {
-          margin-top: 1.5rem;
-          padding-top: 1.5rem;
-          border-top: 1px solid #dee2e6;
-
-          h4 {
-            color: #2c3e50;
-            margin-bottom: 0.8rem;
-          }
-
-          ul {
-            padding-left: 1.5rem;
-
-            li {
-              margin-bottom: 0.5rem;
-              line-height: 1.5;
-            }
-          }
-        }
       }
     }
   }
@@ -237,16 +209,6 @@
         margin-bottom: 0.8rem;
         line-height: 1.5;
       }
-    }
-
-    .disclaimer {
-      background-color: rgba(255, 193, 7, 0.1);
-      border: 1px solid #ffc107;
-      border-radius: 4px;
-      padding: 1rem;
-      margin-top: 1.5rem;
-      font-style: italic;
-      line-height: 1.5;
     }
   }
 
