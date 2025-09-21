@@ -310,11 +310,6 @@ const SleepTrackerPage: React.FC = () => {
             <li>The tool will calculate the average shift in your sleep time per day</li>
             <li>A shift of +1 hour per day suggests a 25-hour natural rhythm (Non-24)</li>
           </ol>
-          
-          <div className="disclaimer">
-            <strong>Disclaimer:</strong> This tool is for educational purposes only and is not a medical diagnostic tool. 
-            If you suspect you have a sleep disorder, please consult with a healthcare professional.
-          </div>
         </section>
         </div>
       </div>

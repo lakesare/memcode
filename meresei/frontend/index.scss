@@ -16,3 +16,13 @@ body{
   max-width: 1080px;
   margin: 0 auto;
 }
+
+.standard-article{
+  line-height: 30px;
+  color: rgb(31, 41, 55);
+  a{
+    color: inherit;
+    text-underline-offset: 3px;
+    
+  }
+}
