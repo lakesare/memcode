@@ -1,0 +1,70 @@
+.about-page {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #333;
+
+  .about-container {
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #2c3e50;
+      padding-bottom: 0.5rem;
+    }
+
+    .about-section {
+      margin-bottom: 2.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+      }
+
+      p {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        text-align: justify;
+      }
+
+      ul, ol {
+        margin: 1rem 0;
+        padding-left: 2rem;
+
+        li {
+          margin-bottom: 0.5rem;
+
+          strong {
+            color: #2c3e50;
+          }
+        }
+      }
+
+      .disclaimer {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-left: 4px solid #ffc107;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 0.25rem;
+        font-style: italic;
+      }
+
+      a {
+        color: #333;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s ease;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+
+        &:hover {
+          background-color: rgba(143, 143, 141, 0.17);
+          border-bottom-color: transparent;
+        }
+      }
+    }
+  }
+}

@@ -24,6 +24,7 @@
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.9.1"
   }
 }
