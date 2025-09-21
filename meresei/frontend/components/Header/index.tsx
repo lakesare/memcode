@@ -15,10 +15,20 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const handleLogoHover = () => {
+    const icon = document.querySelector('.diagonal-icon');
+    if (icon) {
+      icon.classList.remove('shine');
+      // Force reflow to restart animation
+      icon.offsetHeight;
+      icon.classList.add('shine');
+    }
+  };
+
   return (
     <header className="header">
       <div className="container">
-        <Link to="/" className="diagonal-logo">
+        <Link to="/" className="diagonal-logo" onMouseEnter={handleLogoHover}>
           <div className="diagonal-icon">
             <div className="diagonal-cell diagonal"></div>
             <div className="diagonal-cell"></div>
