@@ -52,7 +52,7 @@ const Header: React.FC = () => {
         
         <nav className={`header-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <NavLink to="/" className="nav-link" onClick={closeMobileMenu}>Home</NavLink>
-          {/* <NavLink to="/sleep-tracker" className="nav-link" onClick={closeMobileMenu}>Sleep Tracker</NavLink> */}
+          <NavLink to="/sleep-tracker" className="nav-link" onClick={closeMobileMenu}>Sleep Tracker</NavLink>
           <NavLink to="/about" className="nav-link" onClick={closeMobileMenu}>About</NavLink>
         </nav>
       </div>
