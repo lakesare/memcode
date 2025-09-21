@@ -5,7 +5,7 @@ import './index.scss';
 const Header: React.FC = () => {
   return (
     <header className="header">
-      <div className="header-content">
+      <div className="container">
         <Link to="/" className="diagonal-logo">
           <div className="diagonal-icon">
             <div className="diagonal-cell diagonal"></div>

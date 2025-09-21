@@ -4,7 +4,8 @@ import './index.scss';
 const AboutPage: React.FC = () => {
   return (
     <div className="about-page">
-      <div className="about-container">
+      <div className="container">
+        <div className="about-container">
         <h1>About Meresei</h1>
         
         <section className="about-section">
@@ -82,6 +83,7 @@ const AboutPage: React.FC = () => {
             </a>.
           </p>
         </section>
+        </div>
       </div>
     </div>
   );

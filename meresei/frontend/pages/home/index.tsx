@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
   });
 
   return (
-    <div>
+    <div className="container">
       <Settings formState={formState} setFormState={setFormState} userTimezone={userTimezone}/>
       <Calendar formState={formState} userTimezone={userTimezone}/>
     </div>

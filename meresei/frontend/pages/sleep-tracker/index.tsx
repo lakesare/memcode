@@ -212,7 +212,8 @@ const SleepTrackerPage: React.FC = () => {
 
   return (
     <div className="sleep-tracker-page">
-      <div className="sleep-tracker-container">
+      <div className="container">
+        <div className="sleep-tracker-container">
         <h1>Sleep Rhythm Analyzer</h1>
         
         <section className="input-section">
@@ -315,6 +316,7 @@ const SleepTrackerPage: React.FC = () => {
             If you suspect you have a sleep disorder, please consult with a healthcare professional.
           </div>
         </section>
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,7 @@
 .header {
-  width: 100%;
-  max-width: 1080px;
-  margin: 0 auto 32px auto;
+  margin-bottom: 32px;
 
-  .header-content {
+  .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,7 +45,7 @@
 
   // Responsive design
   @media (max-width: 768px) {
-    .header-content {
+    .container {
       flex-direction: column;
       gap: 1rem;
     }
