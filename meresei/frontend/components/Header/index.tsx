@@ -1,10 +1,8 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './index.scss';
 
 const Header: React.FC = () => {
-  const location = useLocation();
-
   return (
     <header className="header">
       <div className="header-content">
@@ -22,18 +20,9 @@ const Header: React.FC = () => {
         </Link>
         
         <nav className="header-nav">
-          <Link 
-            to="/" 
-            className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}
-          >
-            Home
-          </Link>
-          <Link 
-            to="/about" 
-            className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}
-          >
-            About
-          </Link>
+          <NavLink to="/" className="nav-link">Home</NavLink>
+          <NavLink to="/sleep-tracker" className="nav-link">Sleep Tracker</NavLink>
+          <NavLink to="/about" className="nav-link">About</NavLink>
         </nav>
       </div>
     </header>
