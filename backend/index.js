@@ -30,16 +30,11 @@ app.use(vhost('meresei.com', mereseiRouter));
 app.use(vhost('www.meresei.com', mereseiRouter));
 
 // =============================================================================
-// FOR LOCAL DEVELOPMENT: Comment/uncomment these sections as needed
+// FOR LOCAL DEVELOPMENT: uncomment this section to work on meresei
+// =============================================================================
+// app.use(mereseiRouter);
 // =============================================================================
 
-// OPTION 1: Work on MERESEI (uncomment this, comment out memcode section below)
-// if (process.env.NODE_ENV !== 'production') {
-//   app.use(mereseiRouter);
-// }
-
-// OPTION 2: Work on MEMCODE (uncomment this, comment out meresei section above)
-// Default to memcode router
 import router from './router.js';
 app.use(router);
 
