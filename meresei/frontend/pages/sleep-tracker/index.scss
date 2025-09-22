@@ -42,82 +42,47 @@
 
 
 
-table {
-  width: 100%;
-  border-spacing: 0;
-  margin: 20px 0;
-  border-radius: 3px;
-  overflow: hidden;
-  border: 1px solid rgb(217, 215, 215);
-  
-  th, td {
-    padding: 15px;
-    vertical-align: top;
-    border-bottom: 1px solid rgb(217, 215, 215);
-    border-right: 1px solid rgb(217, 215, 215);
-  }
-  th:last-child, td:last-child {
-    border-right: none;
-  }
-  tr:last-child td {
-    border-bottom: none;
-  }
-  th {
-    background-color: #f8f9fa;
-    text-align: left;
-  }
-  th:first-child {
-    border-top-left-radius: 3px;
-  }
-  th:last-child {
-    border-top-right-radius: 3px;
-  }
-  tr:last-child td:first-child {
-    border-bottom-left-radius: 3px;
-  }
-  tr:last-child td:last-child {
-    border-bottom-right-radius: 3px;
-  }
-  td {
-    line-height: 1.5;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  .sleep-tracker-container {
-
-    section {
-      margin-bottom: 2.5rem;
-      padding: 1.5rem;
+  table {
+    width: 100%;
+    border-spacing: 0;
+    margin: 20px 0;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid rgb(217, 215, 215);
+    
+    th, td {
+      padding: 15px;
+      vertical-align: top;
+      border-bottom: 1px solid rgb(217, 215, 215);
+      border-right: 1px solid rgb(217, 215, 215);
+    }
+    th:last-child, td:last-child {
+      border-right: none;
+    }
+    tr:last-child td {
+      border-bottom: none;
+    }
+    th {
       background-color: #f8f9fa;
-      border-radius: 8px;
-      border-left: 4px solid rgba(143, 143, 141, 0.17);
-
-      h2 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: #2c3e50;
-      }
-
-      h3 {
-        font-size: 1.2rem;
-        margin-bottom: 0.8rem;
-        color: #2c3e50;
-      }
+      text-align: left;
+    }
+    th:first-child {
+      border-top-left-radius: 3px;
+    }
+    th:last-child {
+      border-top-right-radius: 3px;
+    }
+    tr:last-child td:first-child {
+      border-bottom-left-radius: 3px;
+    }
+    tr:last-child td:last-child {
+      border-bottom-right-radius: 3px;
+    }
+    td {
+      line-height: 1.5;
     }
   }
+
 
   .input-section {
     textarea {
@@ -125,10 +90,11 @@ table {
       padding: 0.75rem;
       border: 1px solid #ddd;
       border-radius: 8px;
-      font-size: 1rem;
+      font-size: 14px;
       font-family: 'Courier New', monospace;
       resize: none;
       margin-bottom: 15px;
+      line-height: 22px;
       
       &:focus {
         outline: none;
@@ -220,7 +186,7 @@ table {
 
     .stat-card {
       background-color: white;
-      padding: 1.5rem;
+      padding: 10px;
       border-radius: 8px;
       border: 1px solid #dee2e6;
       text-align: center;
