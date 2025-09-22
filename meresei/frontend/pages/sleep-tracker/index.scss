@@ -1,8 +1,5 @@
 .sleep-tracker-page {
 
-  h2 {
-      padding-bottom: 10px;
-  }
   blockquote {
       background-color: #f8f9fa;
       border-left: 4px solid #3498db;
@@ -35,10 +32,56 @@
     line-height: 22px;
     border-left: 4px solid #2e2c2c1c;
     margin: 6px 0;
+    font-size: 0.9em;
+    font-style: italic;
+    i{
+      color: #4e4d4d78;
+    }
   }
 
 
 
+
+table {
+  width: 100%;
+  border-spacing: 0;
+  margin: 20px 0;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid rgb(217, 215, 215);
+  
+  th, td {
+    padding: 15px;
+    vertical-align: top;
+    border-bottom: 1px solid rgb(217, 215, 215);
+    border-right: 1px solid rgb(217, 215, 215);
+  }
+  th:last-child, td:last-child {
+    border-right: none;
+  }
+  tr:last-child td {
+    border-bottom: none;
+  }
+  th {
+    background-color: #f8f9fa;
+    text-align: left;
+  }
+  th:first-child {
+    border-top-left-radius: 3px;
+  }
+  th:last-child {
+    border-top-right-radius: 3px;
+  }
+  tr:last-child td:first-child {
+    border-bottom-left-radius: 3px;
+  }
+  tr:last-child td:last-child {
+    border-bottom-right-radius: 3px;
+  }
+  td {
+    line-height: 1.5;
+  }
+}
 
 
 

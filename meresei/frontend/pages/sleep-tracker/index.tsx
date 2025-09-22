@@ -239,7 +239,7 @@ const SleepTrackerPage: React.FC = () => {
         </p>
         
         <p>
-          People with normal schedules don't just "feel it in their bones" when to sleep—they consult their environment (clocks, sunlight) to correctly interpret what they should do regarding sleep.
+          People with normal schedules don't just "feel it in their bones" when to sleep - they consult their environment (clocks, sunlight) to correctly interpret what they should do regarding sleep.
         </p>
         
         <p>
@@ -274,9 +274,9 @@ const SleepTrackerPage: React.FC = () => {
           </p>
           <ul>
             <li>Every day, record the time when you woke up</li>
-            <li>After you wake up, set a timer—you must go to sleep in exactly A hours</li>
+            <li>After you wake up, set a timer - you must go to sleep in exactly A hours</li>
             <li>The next day, record when you woke up, and again, go to sleep in exactly A hours</li>
-            <li>Do NOT try to control this in any way—no alarms, no forcing yourself to wake up earlier or later</li>
+            <li>Do NOT try to control this in any way - no alarms, no forcing yourself to wake up earlier or later</li>
             <li>When you wake up, try to get as much sleep as you naturally want</li>
           </ul>
           <p>
@@ -292,7 +292,7 @@ const SleepTrackerPage: React.FC = () => {
             Next step: <strong>buy a clock</strong>. This will be your sun and moon.
           </p>
           <p>
-            It cannot be overstated how much stability 24-hour people get from environmental cues. Having Non-24 feels like riding a carousel—you have no idea what time of day it is. We have strong cultural associations: "sun = awake," "1:00 PM = work time."
+            It cannot be overstated how much stability 24-hour people get from environmental cues. Having Non-24 feels like riding a carousel - you have no idea what time of day it is. We have strong cultural associations: "sun = awake," "1:00 PM = work time."
           </p>
           <p>
             To follow your circadian rhythm, you need your own sun, moon, and clock. I use a simple $5 countdown timer.
@@ -303,7 +303,7 @@ const SleepTrackerPage: React.FC = () => {
           </p>
           <ul>
             <li>Every day when I wake up, I set the countdown timer to 16 hours (use your "A" hours)</li>
-            <li>When the countdown nears 00:00, I go to sleep—this is a strict rule</li>
+            <li>When the countdown nears 00:00, I go to sleep - this is a strict rule</li>
             <li>If I wake up in the middle of the night, I check the timer (it shows negative time at this point)</li>
             <li>If I've only slept 4 hours, I go back to sleep</li>
             <li>If I've slept 8-9 hours, I can wake up if I feel like it</li>
@@ -316,7 +316,7 @@ const SleepTrackerPage: React.FC = () => {
         <h2>Result</h2>
         
       <p>
-        What's described here is called "free-running" sleep. There's a lot of confusion that chaotic sleep schedules are the same as free-running—these couldn't be more different!
+        What's described here is called "free-running" sleep. There's a lot of confusion that chaotic sleep schedules are the same as free-running - these couldn't be more different!
       </p>
       
       <p>
@@ -326,22 +326,47 @@ const SleepTrackerPage: React.FC = () => {
       <p>
         <strong>Free-running Non-24:</strong> You know your exact rhythm and follow it religiously. Your sleep systems work together predictably.
       </p>
-      
+
       <p>
-        When I had a chaotic sleep schedule, I had the following glitches:
+        When I had a chaotic sleep schedule vs. free-running schedule:
       </p>
-      <ul>
-        <li>My memory only worked via associations and spaced-repetition. In general memorizing things was very hard. I went to a psychiatrist about this—he told me "you work too much".
-          <aside> Aside: I created <a href="https://www.memcode.com/articles/welcome">memcode.com</a> site to counteract the memory thing.<br/>See the <i>"Memorizing is hard. Let's make everything else easy."</i> tagline on the main page?<br/>I do not find it relatable anymore, I do not relate to the tagline I wrote myself.</aside>
-          Now I can remember things automatically with little conscious effort, particularly if I "think" about them before falling asleep. This sleep-induced memorisation wasn't happening when I was sleeping at incorrect-for-me circadian time.
-        </li>
-        <li>My eyes were dry and the sun was hurting them a lot. I went to an eye doctor about this—she said it's because my neck doesn't get enough blood to the head, and prescribed me the eye drops. Eye drops barely helped. <br/>
-        Now that I'm guaranteed to sleep every night, my eyes are <i>never</i> dry, no matter how much time I spent on a computer.</li>
-        <li>My skin was hurting and I couldn't sit at tables unless there is a blanket on a table so that I can place my arms on it. 
-          I thought it's normal, and other people just persevere. I mentioned this briefly to my therapist, and she said her skin quite literally doesn't hurt at all when she touches wood.<br/>
-          Needless to say, after I started following my circadian rhythm, my skin doesn't hurt from stuff like this.</li>
-      </ul>
-      
+
+      <table>
+        <thead>
+          <tr>
+            <th>Chaotic Non-24</th>
+            <th>Free-running Non-24</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>Memory:</strong> Only worked via associations and spaced-repetition. Memorizing things was very hard. Went to a psychiatrist about this, he told me it happens because I work too much.
+              <aside>Aside: I created <a href="https://www.memcode.com/articles/welcome">memcode.com</a> site to counteract the memory thing.<br/>See the <i>"Memorizing is hard. Let's make everything else easy."</i> tagline on the main page?<br/>I do not find it relatable anymore, I do not relate to the tagline I wrote myself.</aside>
+            </td>
+            <td>
+              I can remember things automatically with little conscious effort, particularly if I "think" about them before falling asleep. This sleep-induced memorisation wasn't happening when I was sleeping at incorrect-for-me circadian time.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Eyes:</strong> Were dry and the sun hurt them a lot. Went to an eye doctor - she said it's because my neck doesn't get enough blood to the head, prescribed eye drops. Eye drops barely helped.
+            </td>
+            <td>
+              Now that I'm guaranteed to sleep every night, my eyes are <i>never</i> dry, no matter how much time I spend on a computer.
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Skin:</strong> Was hurting and I couldn't sit at tables unless there was a blanket so I could place my arms on it. I thought it's normal, and other people just persevere. Mentioned this to my therapist - she said her skin literally doesn't hurt at all when she touches wood.
+            </td>
+            <td>
+              After I started following my circadian rhythm, my skin doesn't hurt from stuff like this.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+        
       <p>
         When I had a chaotic rhythm, I couldn't plan anything. I couldn't tell someone "we can meet at 2:00 PM on Monday" and be sure it wouldn't be my middle of the night. I was always using alarm clocks.
       </p>
@@ -351,7 +376,7 @@ const SleepTrackerPage: React.FC = () => {
       </p>
       
       <p>
-        It cannot be underestimated how important it is to be religiously free-running when you have Non-24. I think this should be considered a cure—Non-24 just not a bother to me anymore. Chaotic Non-24 is a real, debilitating disability. Free-running Non-24 is just some extra calculations when coordinating with people.
+        It cannot be underestimated how important it is to be religiously free-running when you have Non-24. I think this should be considered a cure - Non-24 just not a bother to me anymore. Chaotic Non-24 is a real, debilitating disability. Free-running Non-24 is just some extra calculations when coordinating with people.
       </p>
       
       <p>
