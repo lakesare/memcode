@@ -13,11 +13,12 @@
             background-color: #faf8f3 !important;
             margin: 0;
             padding: 0;
+            
         }
         
         .wrapper {
             background-color: #faf8f3;
-            padding: 20px;
+            padding: 20px 5px;
             min-height: 100vh;
         }
         
@@ -38,19 +39,9 @@
         h1 {
             font-size: 27px;
             color: #8b4513;
-            margin: 30px 0 15px 0;
+            margin: 0 0 15px 0;
             border-bottom: 1px solid #e8e3d8;
             padding-bottom: 8px;
-        }
-        
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        li {
-            margin-bottom: 20px;
-            padding-left: 0px;
         }
         
         .bullet {
@@ -91,95 +82,164 @@
             color: #8b4513;
             margin-bottom: 5px;
             display: inline-block;
-            /*padding-left: 5px;*/
-            margin-left: 5px;
+            /*margin-left: 5px;*/
         }
         
         .feature-description {
             color: #341e1e;
             line-height: 1.5;
             margin-top: 5px;
-            margin-left: 20px;
+            /*margin-left: 20px;*/
+        }
+        
+        .bullet-cell {
+            width: 20px;
+            vertical-align: top;
+        }
+        
+        .content-cell {
+            vertical-align: top;
+            padding-bottom: 20px;
+        }
+        table, .text{
+            font-size: 16px;
+        }
+        .intro{ margin-bottom: 20px }
+        
+        @media screen and (max-width: 500px) {
+            .container {
+                
+                padding: 10px !important;
+            }
+            .bullet-cell{display: none;}
+            table, .text{
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="container">
-            <div class="greeting">Hello, dear Memcode users!</div>
+            <div class="intro text">
+            Hello, dear Memcode users!<br/>
             
-            <div class="intro">In the past few months Memcode has seen a number of important updates.</div>
-            <div class="intro">As always - if you have some questions, simply respond to this email, we read everything.</div>
+            In the past few months Memcode has seen a number of important updates.<br/>
+            As always - if you have some questions, simply respond to this email, we read everything.
+            </div>
             
             <h1>New stuff</h1>
-            <ul>
-                <li>
-                    <span class="bullet">•</span><span class="feature-title">Bright Theme Improvements</span>
-                    <div class="feature-description">The bright theme looks <i>really</i> good now.</div>
-                </li>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">Bright Theme Improvements</span>
+                        <div class="feature-description">The bright theme looks <i>really</i> good now.</div>
+                    </td>
+                </tr>
                 
-                <li>
-                    <span class="bullet">•</span><span class="feature-title">Text-to-Speech Support</span>
-                    <div class="feature-description">Memcode can <b>read flashcards aloud</b> now!<br>
-                    Our voicing (backed by OpenAI's TTS) supports all widespread languages - English, German, Japanese, et cetera.<br/>
-                    To enable text-to-speech, click on the audio button on the flashcard review page.<br/>
-                    <img width="200" src="http://cdn.mcauto-images-production.sendgrid.net/face8a6b2173cb1f/5c149043-1c3a-4140-9aae-42e7ac3c2792/542x173.png"/>
-                    </div>
-                </li>
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">Text-to-Speech Support</span>
+                        <div class="feature-description">Memcode can <b>read flashcards aloud</b> now!<br>
+                        Our voicing (backed by OpenAI's TTS) supports all widespread languages - English, German, Japanese, et cetera.<br/>
+                        To enable text-to-speech, click on the audio button on the flashcard review page.<br/>
+                        <img width="200" src="http://cdn.mcauto-images-production.sendgrid.net/face8a6b2173cb1f/5c149043-1c3a-4140-9aae-42e7ac3c2792/542x173.png"/>
+                        </div>
+                    </td>
+                </tr>
                 
-                <li>
-                    <span class="bullet">•</span><span class="feature-title">LLM Integration</span>
-                    <div class="feature-description">
-                    In the <b>Import/Export</b> modal (<span class="ui-path">flashcard creation page ➤ IMPORT</span>), you can:
-                    <br/>
-                    <b style="font-weight: bold;font-size: 12px;">1)</b> copy the correct-flashcard-format prompt for your LLM<br>
-                    <b style="font-weight: bold; font-size: 12px;">2)</b> feed this prompt to your LLM of choice<br/>
-                    <b style="font-weight: bold; font-size: 12px;">3)</b> import the plaintext flashcards LLM created for you<br>
-                    You can now use Memcode with your favorite LLM!
-                    </div>
-                </li>
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">LLM Integration</span>
+                        <div class="feature-description">
+                        In the <b>Import/Export</b> modal (<span class="ui-path">flashcard creation page ➤ IMPORT</span>), you can:
+                        <br/>
+                        <b style="font-weight: bold;font-size: 12px;">1)</b> copy the correct-flashcard-format prompt for your LLM<br>
+                        <b style="font-weight: bold; font-size: 12px;">2)</b> feed this prompt to your LLM of choice<br/>
+                        <b style="font-weight: bold; font-size: 12px;">3)</b> import the plaintext flashcards LLM created for you<br>
+                        You can now use Memcode with your favorite LLM!
+                        </div>
+                    </td>
+                </tr>
                 
-                <li>
-                    <span class="bullet">•</span><span class="feature-title">New way to review flashcards: Just-click</span>
-                    <div class="feature-description">
-                    In the <b>Settings</b> modal (<span class="ui-path">hover over your avatar ➤ Settings</span>), you now have a setting for letting you CLICK on the hidden word to reveal it.
-                    <img width="300" src="http://cdn.mcauto-images-production.sendgrid.net/face8a6b2173cb1f/2bdd21a1-fd15-4143-ae4f-28fadb4c4058/974x919.png"/>
-                    <br/>
-                    This is useful for when you're on your phone and do not feel like typing out the full answer.
-                    </div>
-                </li>
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">New way to review flashcards: Just-click</span>
+                        <div class="feature-description">
+                        In the <b>Settings</b> modal (<span class="ui-path">hover over your avatar ➤ Settings</span>), you now have a setting for letting you CLICK on the hidden word to reveal it.
+                        <img width="300" src="http://cdn.mcauto-images-production.sendgrid.net/face8a6b2173cb1f/2bdd21a1-fd15-4143-ae4f-28fadb4c4058/974x919.png"/>
+                        <br/>
+                        This is useful for when you're on your phone and do not feel like typing out the full answer.
+                        </div>
+                    </td>
+                </tr>
                 
-                <li>
-                    <span class="bullet">•</span><span class="feature-title">Email Signups</span>
-                    <div class="feature-description">
-                        You can now sign up by email (or just username) & password on Memcode.<br/>
-                        This is important for people who value privacy, and simplifies memcode setup for schools.
-                    </div>
-                </li>
-            </ul>
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">Email Signups</span>
+                        <div class="feature-description">
+                            You can now sign up by email (or just username) & password on Memcode.<br/>
+                            This is important for people who value privacy, and simplifies memcode setup for schools.
+                        </div>
+                    </td>
+                </tr>
+            </table>
             
             <h1>Bug fixes</h1>
-            <ul>
-                <li><span class="bullet">•</span><span class="feature-title">"Image stuck loading" fix</span>
-                    <div class="feature-description">
-                You can click wherever when your image is uploading; you can upload multiple images in different flashcards at the same time, etc. - this will all work.
-                </div>
-                </li>
-                <li><span class="bullet">•</span><span class="feature-title">Image compression</span>
-                <div class="feature-description">
-                From now on, the images you upload will be automatically compressed (converted to max 600px in width&amp;height). This doesn't affect the quality of the displayed images (all of our interfaces are under 600px), but reduces the loading time of courses. <br/>You don't have to think about the image size before uploading it anymore!
-                </div>
-                </li>
-                <li><span class="bullet">•</span><span class="feature-title">Flashcard order fixed</span>
-                <div class="feature-description">
-                Flashcard ordering & reordering was working weirdly - this is fully fixed now.<br/>
-                SHIFT-clicking to select multiple flashcards works perfectly now too.
-                </div>
-                </li>
-            </ul>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">"Image stuck loading" fix</span>
+                        <div class="feature-description">
+                        You can click wherever when your image is uploading; you can upload multiple images in different flashcards at the same time, etc. - this will all work.
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">Image compression</span>
+                        <div class="feature-description">
+                        From now on, the images you upload will be automatically compressed (converted to max 600px in width&amp;height). This doesn't affect the quality of the displayed images (all of our interfaces are under 600px), but reduces the loading time of courses. <br/>You don't have to think about the image size before uploading it anymore!
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bullet-cell">
+                        <span class="bullet">•</span>
+                    </td>
+                    <td class="content-cell">
+                        <span class="feature-title">Flashcard order fixed</span>
+                        <div class="feature-description">
+                        Flashcard ordering & reordering was working weirdly - this is fully fixed now.<br/>
+                        SHIFT-clicking to select multiple flashcards works perfectly now too.
+                        </div>
+                    </td>
+                </tr>
+            </table>
             
             <h1>New Courses</h1>
-            <div>We just crafted a beginner language course for 20 languages (German, Italian, Spanish, etc.) - check them out at <a href="http://memcode.com/courses" style="color: #8b4513;">memcode.com/courses</a>!</div>
+            <div class="text">We just crafted a beginner language course for 20 languages (German, Italian, Spanish, etc.) - check them out at <a href="http://memcode.com/courses" style="color: #8b4513;">memcode.com/courses</a>!</div>
         </div>
     </div>
     
