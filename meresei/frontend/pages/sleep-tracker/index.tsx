@@ -107,7 +107,7 @@ const SleepTrackerPage: React.FC = () => {
   const chartData = {
     datasets: [
       {
-        label: 'Sleep Times',
+        label: 'Wake-up Times',
         data: sleepTimes.map((time, index) => ({
           x: index + 1,
           y: timeToDecimal(time)
@@ -185,18 +185,74 @@ const SleepTrackerPage: React.FC = () => {
     }
   };
 
-  const getRhythmInterpretation = (slope: number) => {
-    if (Math.abs(slope) < 0.1) {
-      return { type: "Normal 24-hour rhythm", color: "#28a745", description: "Your sleep time stays relatively consistent, indicating a normal 24-hour circadian rhythm." };
-    } else if (slope > 0.5) {
-      return { type: "Non-24 Sleep-Wake Disorder (likely)", color: "#dc3545", description: "Your sleep time shifts later by more than 30 minutes per day, suggesting Non-24-Hour Sleep-Wake Disorder." };
-    } else if (slope > 0.1) {
-      return { type: "Delayed Sleep Phase", color: "#fd7e14", description: "Your sleep time gradually shifts later, which may indicate Delayed Sleep Phase Syndrome or mild circadian rhythm issues." };
-    } else if (slope < -0.1) {
-      return { type: "Advanced Sleep Phase", color: "#6f42c1", description: "Your sleep time shifts earlier, which may indicate Advanced Sleep Phase Syndrome." };
-    }
-    return { type: "Irregular pattern", color: "#6c757d", description: "Your sleep pattern doesn't show a clear trend." };
-  };
+  const renderInputSection = () =>
+    <section className="input-section">
+      <textarea
+        value={inputText}
+        onChange={(e) => handleInputChange(e.target.value)}
+        placeholder="Enter your wake-up times separated by spaces (e.g., 23:50 01:20 02:15 03:45 05:30)"
+        className="sleep-times-input"
+        rows={3}
+      />
+      
+      <div className="input-actions">
+        <button onClick={loadSampleData} className="sample-button">
+          Load Sample Data
+        </button>
+        <button onClick={clearAllTimes} className="clear-button">
+          Clear All
+        </button>
+      </div>
+      
+      {
+        sleepTimes.length > 0 &&
+        <div className="parsed-times">
+          <strong>Parsed {sleepTimes.length} sleep times:</strong> {sleepTimes.join(', ')}
+        </div>
+      }
+
+      {
+        analysis && sleepTimes.length >= 1 &&
+        <div className="chart-container">
+          <Scatter key={sleepTimes.length} data={chartData} options={chartOptions} />
+        </div>
+      }
+
+      {
+        analysis && sleepTimes.length >= 1 &&
+        <div className="stats">
+          <div className="stat-card">
+            <h3>Average Daily Shift</h3>
+            <div className="stat-value">
+              {analysis.slope > 0 ? '+ ' : ''}{(analysis.slope * 60).toFixed(0)} minutes/day
+            </div>
+            <div className="stat-description">
+              {analysis.slope > 0 ? 'Later each day' : analysis.slope < 0 ? 'Earlier each day' : 'No consistent shift'}
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <h3>Your Non-24 Is How Many Hours</h3>
+            <div className="stat-value">
+              {(24 + analysis.slope).toFixed(1)} hours
+            </div>
+            <div className="stat-description">
+              Your total circadian cycle length
+            </div>
+          </div>
+
+          <div className="stat-card">
+            <h3>Pattern Consistency</h3>
+            <div className="stat-value">
+              {(analysis.rSquared * 100).toFixed(1)}%
+            </div>
+            <div className="stat-description">
+              How well the trend line fits your data
+            </div>
+          </div>
+        </div>
+      }
+    </section>
 
   const renderArticle = () => {
     return (
@@ -282,6 +338,7 @@ const SleepTrackerPage: React.FC = () => {
           <p>
             Continue this schedule for about a month. After 30 days, you'll have 30 records of your wake-up times. Insert them into the following form to calculate your circadian rhythm length.
           </p>
+          {renderInputSection()}
         </div>
 
         <div className="step">
@@ -389,92 +446,7 @@ const SleepTrackerPage: React.FC = () => {
     <div className="sleep-tracker-page standard-article">
       <div className="container">
         <div className="sleep-tracker-container">
-        {renderArticle()}
-
-        {/* <section>
-          <h2>How to Use This Tool</h2>
-          <ol>
-            <li>Track your natural bedtime for at least 7-14 days</li>
-            <li>Don't try to force a "normal" schedule - record when you naturally feel sleepy</li>
-            <li>Enter each day's bedtime using the time input above</li>
-            <li>The tool will calculate the average shift in your sleep time per day</li>
-            <li>A shift of +1 hour per day suggests a 25-hour natural rhythm (Non-24)</li>
-          </ol>
-        </section>
-         */}
-        {/* <section className="input-section">
-          <h2>Enter Your Sleep Times</h2>
-          <p>Enter your bedtime for each day, separated by spaces (24-hour format). For example: <code>23:50 01:20 02:15 03:45</code></p>
-          
-          <textarea
-            value={inputText}
-            onChange={(e) => handleInputChange(e.target.value)}
-            placeholder="Enter sleep times separated by spaces (e.g., 23:50 01:20 02:15 03:45 05:30)"
-            className="sleep-times-input"
-            rows={3}
-          />
-          
-          <div className="input-actions">
-            <button onClick={loadSampleData} className="sample-button">
-              Load Sample Data
-            </button>
-            <button onClick={clearAllTimes} className="clear-button">
-              Clear All
-            </button>
-          </div>
-          
-          {sleepTimes.length > 0 && (
-            <div className="parsed-times">
-              <strong>Parsed {sleepTimes.length} sleep times:</strong> {sleepTimes.join(', ')}
-            </div>
-          )}
-        </section> */}
-
-        {analysis && sleepTimes.length >= 2 && (
-          <section className="analysis-section">
-            <h2>Analysis Results</h2>
-            
-            <div className="chart-container">
-              <Scatter key={sleepTimes.length} data={chartData} options={chartOptions} />
-            </div>
-
-            <div className="stats">
-              <div className="stat-card">
-                <h3>Average Daily Shift</h3>
-                <div className="stat-value">
-                  {analysis.slope > 0 ? '+' : ''}{(analysis.slope * 60).toFixed(1)} minutes/day
-                </div>
-                <div className="stat-description">
-                  {analysis.slope > 0 ? 'Later each day' : analysis.slope < 0 ? 'Earlier each day' : 'No consistent shift'}
-                </div>
-              </div>
-
-              <div className="stat-card">
-                <h3>Pattern Consistency</h3>
-                <div className="stat-value">
-                  {(analysis.rSquared * 100).toFixed(1)}%
-                </div>
-                <div className="stat-description">
-                  How well the trend line fits your data
-                </div>
-              </div>
-            </div>
-
-            <div className="interpretation">
-              {(() => {
-                const interpretation = getRhythmInterpretation(analysis.slope);
-                return (
-                  <div className="interpretation-card" style={{ borderLeftColor: interpretation.color }}>
-                    <h3 style={{ color: interpretation.color }}>
-                      {interpretation.type}
-                    </h3>
-                    <p>{interpretation.description}</p>
-                  </div>
-                );
-              })()}
-            </div>
-          </section>
-        )}
+          {renderArticle()}
         </div>
       </div>
     </div>

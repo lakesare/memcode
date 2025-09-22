@@ -9,6 +9,7 @@ body{
   font-family: "Roboto";
   color: rgb(85, 85, 85);
   padding: 20px;
+  * { box-sizing: border-box; }
 }
 
 .container {
