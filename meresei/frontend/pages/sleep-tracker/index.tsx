@@ -191,7 +191,6 @@ const SleepTrackerPage: React.FC = () => {
         value={inputText}
         onChange={(e) => handleInputChange(e.target.value)}
         placeholder="Enter your wake-up times separated by spaces (e.g., 23:50 01:20 02:15 03:45 05:30)"
-        className="sleep-times-input"
         rows={3}
       />
       
@@ -203,23 +202,16 @@ const SleepTrackerPage: React.FC = () => {
           Clear All
         </button>
       </div>
-      
-      {
-        sleepTimes.length > 0 &&
-        <div className="parsed-times">
-          <strong>Parsed {sleepTimes.length} sleep times:</strong> {sleepTimes.join(', ')}
-        </div>
-      }
 
       {
-        analysis && sleepTimes.length >= 1 &&
+        sleepTimes.length >= 1 &&
         <div className="chart-container">
           <Scatter key={sleepTimes.length} data={chartData} options={chartOptions} />
         </div>
       }
 
       {
-        analysis && sleepTimes.length >= 1 &&
+        analysis && sleepTimes.length >= 2 &&
         <div className="stats">
           <div className="stat-card">
             <h3>Average Daily Shift</h3>
