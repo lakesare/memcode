@@ -115,11 +115,14 @@
       resize: none;
       margin-bottom: 15px;
       line-height: 22px;
-      
+      background: #ffffff74;
+      transition: all 100ms ease;
+      height: 70px;
       &:focus {
         outline: none;
+        background: white;
         // border-color: transparent;
-        box-shadow: 0 0 0 2px rgba(143, 143, 141, 0.17);
+        // box-shadow: 0 0 0 2px rgba(143, 143, 141, 0.17);
       }
     }
 
