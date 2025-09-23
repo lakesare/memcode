@@ -43,3 +43,5 @@ heroku-db-migrate:
 heroku-db-pull:
 	make db-drop
 	heroku pg:pull DATABASE_URL memcode --app memcode
+heroku-export-emails:
+	psql $$(heroku config:get DATABASE_URL --app memcode) -c "\COPY (SELECT DISTINCT email FROM \"user\" WHERE email IS NOT NULL AND is_subscribed_to_marketing_emails = true ORDER BY email) TO STDOUT WITH CSV HEADER" > emails.csv
