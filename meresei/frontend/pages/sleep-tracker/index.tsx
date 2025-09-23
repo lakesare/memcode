@@ -13,7 +13,7 @@ const SleepTrackerPage: React.FC = () => (
         This article is for people who think they have a chaotic sleep schedule that doesn't fit into a standard non-24 diagnosis; or for people who suspect they have non-24, but cannot seem to figure out their circadian rhythm length.
       </p>
       <p>
-        This article is called "Cure" because determining my circadian rhythm and following it religiously practically eliminated all the health problems I was getting from my non-24. There are many protocols on how to try to entrain your circadian rhythm into a 24h window, but very little information on the web on how to determine and follow your natural circadian rhythm. People end up thinking they have some chaotic variant of non-24 or a simple insomnia. 
+        This article is called "Cure" because determining my circadian rhythm and following it religiously practically eliminated all the health problems I was getting from my non-24. There are many protocols on how to entrain your circadian rhythm to 24 hours, but very little information on the web on how to determine and follow your natural circadian rhythm. People end up thinking they have some chaotic variant of non-24 or a simple insomnia. 
       </p>
       <p>
         Needless to say, entrainment protocols didn't work for me (and don't work for almost anyone with non-24).<br/>
