@@ -10,6 +10,12 @@ let ctx = await esbuild.context({
   loader: {
     ".json": "json",
     ".css": "css",
+    ".png": "file",
+    ".jpg": "file",
+    ".jpeg": "file",
+    ".gif": "file",
+    ".svg": "file",
+    ".webp": "file",
   },
   plugins: [sassPlugin()],
   logLevel: "info",

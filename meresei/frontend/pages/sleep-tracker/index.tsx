@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from './components/Chart';
 import './index.scss';
+import clockPic from './clock.jpg';
 
 const SleepTrackerPage: React.FC = () => (
   <div className="sleep-tracker-page standard-article">
@@ -91,7 +92,10 @@ const SleepTrackerPage: React.FC = () => (
 
       <div className="step">
         <h3>Step 3: Create Your Personal "Sun and Moon"</h3>
+        <figure> <img src={clockPic} alt="small white clock"/> <figcaption>☀️ <span>My sun&moon</span> 🌙</figcaption> </figure>
         <p>
+          
+          
           Now you know your circadian cycle length!
           You can now predict when you'll be awake and when you'll be asleep! Meresei.com calendar can draft a schedule for you for months ahead. But that's not all.
           Next step: <strong>buy a clock</strong>. This will be your sun and moon.
@@ -101,7 +105,7 @@ const SleepTrackerPage: React.FC = () => (
         </p>
         <p>
           To follow your circadian rhythm, you need your own sun, moon, and clock. I use a simple $5 countdown timer.
-          #TODO pic
+          
         </p>
         <p>
           <strong>My routine:</strong>

@@ -83,6 +83,26 @@
     }
   }
 
+  img{
+
+    border-radius: 9px;
+    max-width: 100%;
+  }
+  figure{
+    float: right;
+    margin-left: 20px;
+    max-width: 100%;
+    width: 200px;
+  }
+  figcaption{
+    text-align: center;
+    color: #7f8785;
+    span{font-style: italic;}
+    
+    font-size: 14px;
+    font-weight: normal;
+    margin-top: -10px;
+  }
 
   .input-section {
     textarea {
