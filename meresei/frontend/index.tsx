@@ -22,7 +22,6 @@ function App() {
 }
 
 import ReactDOM from 'react-dom/client';
-import Calendar from 'components/Calendar';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
