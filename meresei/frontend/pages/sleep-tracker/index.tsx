@@ -13,7 +13,7 @@ const SleepTrackerPage: React.FC = () => (
         This article is for people who think they have a chaotic sleep schedule that doesn't fit into a standard non-24 diagnosis; or for people who suspect they have non-24, but cannot seem to figure out their circadian rhythm length.
       </p>
       <p>
-        This article is called "Cure" because determining my circadian rhythm and following it religiously practically eliminated all the health problems I was getting from my non-24. There are many protocols on how to entrain your circadian rhythm to 24 hours, but very little information on the web on how to determine and follow your natural circadian rhythm. People end up thinking they have some chaotic variant of non-24 or a simple insomnia. 
+        This article is called "Cure" because determining my circadian rhythm and following it religiously practically eliminated all the health problems I was getting from my non-24. There are many protocols on how to try to entrain your circadian rhythm to 24 hours, but very little information on the web on how to determine and follow your natural circadian rhythm. People end up thinking they have some chaotic variant of non-24 or a simple insomnia. 
       </p>
       <p>
         Needless to say, entrainment protocols didn't work for me (and don't work for almost anyone with non-24).<br/>
@@ -192,17 +192,22 @@ const SleepTrackerPage: React.FC = () => (
       </table>
       
       <p>
-        When I had a chaotic rhythm, I couldn't plan anything. I couldn't tell someone "we can meet at 2:00 PM on Monday" and be sure it wouldn't be my middle of the night. I was always using alarm clocks. Now I rarely need alarm clocks. I can plan stuff during my awake times with confidence.
+        Apart from the physical improvements just mentioned, rigorous free-running has been great for my mental health. I'm never sleepy during my daytime, I'm guaranteed to fall asleep every night, I don't spend hours trying to fall asleep, and I now have something I didn't know I needed - ability to <i>plan</i>.
+      </p>
+
+      <p>
+        When I had a chaotic rhythm, I couldn't plan. I couldn't tell someone "we can meet at 2:00 PM on Monday" and be sure it wouldn't be my middle of the night. Hairdresser appointments in the middle of my night, math exams in the middle of my night, dentist visits in the middle of my night.<br/>
+
+        Waking up in the middle of the night is something 24h people experience when they are having a flight, or when there's fire in their house - it should be a matter of emergency rather than a habitual weekly occurrence. A matter of <i>alarm</i>.<br/>
+
+        Rigorous free-running fixed it for me, I don't wake up in the middle of my night "to go get a haircut" anymore.
       </p>
       
       <p>
-        Now that I've learned to rigorously free-run, Non-24 is just not a bother to me anymore. Chaotic Non-24 is a real, debilitating disability. Free-running Non-24 is borderline fun, just some extra calculations when coordinating with people.
+        I'd go as far as to say that now that I've learned to rigorously free-run, Non-24 is just not a bother to me anymore. Chaotic Non-24 is a real, debilitating disability. Free-running Non-24 is borderline fun, just some extra calculations when coordinating with people. 
+        Hopefully, if you manage to start following a proper, predictable free-running schedule, you won't just stop feeling like you have a disability, but end up with the kind of sleep quality most people wish they had.
       </p>
-      
-      <p>
-        Hopefully, if you manage to start following a proper, predictable free-running schedule, you won't just stop feeling like you have a disability, but end up sleeping better than most people.
-      </p>
-        
+
     </div>
   </div>
 );
