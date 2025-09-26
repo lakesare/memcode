@@ -239,7 +239,12 @@
 
   // Responsive design
   @media (max-width: 768px) {
-    padding: 1rem;
+
+    figure{
+      float: none;
+      display: block;
+      margin: 0 auto;
+    }
 
     .sleep-tracker-container {
       h1 {
