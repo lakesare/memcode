@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-// because there is no alternative to el.readOnly
-import { ReadonlyEditor } from '~/components/ReadonlyEditor';
 import AudioButton from '~/components/AudioButton';
 import splitAltAnswers from './utils/splitAltAnswers';
 import TtsService from '~/services/ttsService';
@@ -94,14 +92,18 @@ const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
 const attachOnclick = (arrayOfAnswerEls, onRightAnswerGiven) => {
   arrayOfAnswerEls.forEach((el) => {
     el.addEventListener('click', () => {
-      const answer = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
-      el.value = answer;
-      el.setAttribute('data-answered', 'wrong');
-      el.readOnly = true;
-      el.setAttribute('tabindex', -1);
-      _adjustWidthToInput(el);
+      if (el.getAttribute('data-answered') === 'waiting') {
+        const answer = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
+        el.value = answer;
+        el.setAttribute('data-answered', 'wrong');
+        el.readOnly = true;
+        el.setAttribute('tabindex', -1);
+        _adjustWidthToInput(el);
 
-      onRightAnswerGiven(answer);
+        onRightAnswerGiven(answer);
+      } else {
+        // TODO
+      }
     });
   });
 }
