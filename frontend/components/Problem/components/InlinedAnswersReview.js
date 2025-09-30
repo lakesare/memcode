@@ -12,7 +12,7 @@ const focusOnTheFirstAnswer = (arrayOfAnswerEls) => {
   }
 };
 
-const succumb = (arrayOfAnswerEls) => {
+const succumb = (arrayOfAnswerEls, clozeDeletionMode) => {
   arrayOfAnswerEls.forEach((el) => {
     if (el.getAttribute('data-answered') !== 'right') {
       // ___why el.value instead of el.setAttribute('value')?
@@ -21,7 +21,11 @@ const succumb = (arrayOfAnswerEls) => {
       //   value attribute is just the default value
       //   https://stackoverflow.com/a/29929977/3192470
       el.value = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
-      el.setAttribute('data-answered', 'wrong');
+      if (clozeDeletionMode === 'clicking') {
+        el.setAttribute('data-answered', 'right');
+      } else {
+        el.setAttribute('data-answered', 'wrong');
+      }
       el.readOnly = true;
       el.setAttribute('tabindex', -1);
 
@@ -89,20 +93,23 @@ const attachKeyup = (arrayOfAnswerEls, onRightAnswerGiven) => {
   });
 };
 
-const attachOnclick = (arrayOfAnswerEls, onRightAnswerGiven) => {
+const attachOnclick = (arrayOfAnswerEls, onRightAnswerGiven, enterPressed) => {
   arrayOfAnswerEls.forEach((el) => {
     el.addEventListener('click', () => {
       if (el.getAttribute('data-answered') === 'waiting') {
         const answer = splitAltAnswers(el.getAttribute('data-answer')).join(' or ');
         el.value = answer;
-        el.setAttribute('data-answered', 'wrong');
+        el.setAttribute('data-answered', 'right');
         el.readOnly = true;
         el.setAttribute('tabindex', -1);
         _adjustWidthToInput(el);
 
         onRightAnswerGiven(answer);
       } else {
-        // TODO
+        const allInputsAlreadyClickedOn = !arrayOfAnswerEls.some((el) => el.getAttribute('data-answered') === 'waiting')
+        if (allInputsAlreadyClickedOn) {
+          enterPressed();
+        }
       }
     });
   });
@@ -125,7 +132,8 @@ class InlinedAnswersReview extends React.Component {
     }).isRequired,
 
     onRightAnswerGiven: PropTypes.func.isRequired,
-    clozeDeletionMode: PropTypes.string.isRequired
+    clozeDeletionMode: PropTypes.string.isRequired,
+    enterPressed: PropTypes.func
   }
 
   componentDidMount() {
@@ -141,7 +149,7 @@ class InlinedAnswersReview extends React.Component {
     const ifJustSuccumbed =
       prevStatus === 'solving' &&
       nextStatus === 'seeingAnswer';
-    if (ifJustSuccumbed) succumb(arrayOfAnswerEls);
+    if (ifJustSuccumbed) succumb(arrayOfAnswerEls, this.props.clozeDeletionMode);
 
     const ifJustDecidedToRetry =
       prevStatus === 'seeingAnswer' &&
@@ -163,11 +171,9 @@ class InlinedAnswersReview extends React.Component {
       attachKeyup(arrayOfAnswerEls, this.props.onRightAnswerGiven);
     } else if (this.props.clozeDeletionMode === 'clicking') {
       const arrayOfAnswerEls = this.getArrayOfAnswerInputs();
-      attachOnclick(arrayOfAnswerEls, this.props.onRightAnswerGiven)
+      attachOnclick(arrayOfAnswerEls, this.props.onRightAnswerGiven, this.props.enterPressed)
     }
   }
-
-  // No longer needed - SequenceAudioButton handles this
 
   render = () => {
     // '<mark class="answer">' => '</mark>'

@@ -12,7 +12,8 @@ class Problem extends React.Component {
     mode: PropTypes.string.isRequired,
     // Only useful for 'mode: edit'
     ifWithPlaceholder: PropTypes.bool,
-    onUploadStateChange: PropTypes.func
+    onUploadStateChange: PropTypes.func,
+    enterPressed: PropTypes.func
   }
 
   render = () => {
