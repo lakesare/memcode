@@ -21,7 +21,8 @@ const uploadFile = async (dispatch, file) => {
         initialQuality: 0.95 // High quality, let dimension reduction do the work
       };
       
-      fileToUpload = await imageCompression(file, options);
+      fileToUpload = file
+      // fileToUpload = await imageCompression(file, options);
       console.log(`Image compressed: ${(file.size / 1024 / 1024).toFixed(2)}MB → ${(fileToUpload.size / 1024 / 1024).toFixed(2)}MB`);
     } catch (error) {
       console.warn('Image compression failed, uploading original:', error);
