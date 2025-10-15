@@ -233,7 +233,7 @@ class Editor extends React.Component {
         ...this.props.toolbarHandlers,
         // eslint-disable-next-line object-shorthand
         image: function uploadImageHandlerWrapper() {
-          uploadImageHandler(this.quill, {
+          uploadImageHandler(this.quillRef.current.getEditor(), {
             onSuccess: this.onBlur,
             editorComponent: this
           });
