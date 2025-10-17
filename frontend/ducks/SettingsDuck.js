@@ -41,7 +41,14 @@ const initialState = {
     "clicking" : "typing",
   theme: localStorage.getItem('theme') || 'dark',
   hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false,
-  focusedCategoryId: localStorage.getItem('focusedCategoryId') ? parseInt(localStorage.getItem('focusedCategoryId'), 10) : null
+  focusedCategoryId: (() => {
+    const stored = localStorage.getItem('focusedCategoryId');
+    if (!stored || stored === 'null' || stored === 'undefined') {
+      return null;
+    }
+    const parsed = parseInt(stored, 10);
+    return isNaN(parsed) ? null : parsed;
+  })()
 };
 
 // Reducer

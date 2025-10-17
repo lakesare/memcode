@@ -134,8 +134,7 @@ const filterCoursesByFocusMode = (courses, focusedCategoryId) => {
 
   return courses.filter((course) => {
     const categoryId = course.courseCategory ? course.courseCategory.id : null;
-    const matches = categoryId === focusedCategoryId;
-    return matches;
+    return categoryId === focusedCategoryId;
   });
 };
 

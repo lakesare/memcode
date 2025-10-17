@@ -4,5 +4,23 @@
       position: relative;
       right: -9px;
     }
+
+    .focus-item {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+
+      .focus-indicator {
+        width: 5px;
+        height: 5px;
+        background-color: rgb(148, 156, 248);
+        border-radius: 50%;
+        content: "";
+        font-size: 0;
+        line-height: 0;
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+    }
   }
 }

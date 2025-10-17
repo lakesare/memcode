@@ -6,12 +6,23 @@ import AccountModal from '~/appComponents/AccountModal';
 import FocusModeModal from '~/appComponents/FocusModeModal';
 import getUserAvatar from '~/services/getUserAvatar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
+import SettingsDuck from '~/ducks/SettingsDuck';
 
 import css from './index.scss';
 
+@connect(
+  (state) => ({
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)
 class CurrentUser extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
+    SettingsActions: PropTypes.object.isRequired
   }
 
 
@@ -27,7 +38,14 @@ class CurrentUser extends React.Component {
         <AccountModal toggler={<button type="button" className="dropdown-item">Account</button>}/>
       </li>
       <li>
-        <FocusModeModal toggler={<button type="button" className="dropdown-item">Focus</button>}/>
+        <FocusModeModal toggler={
+          <button type="button" className="dropdown-item focus-item">
+            {this.props.Settings.focusedCategoryId && (
+              <span className="focus-indicator" aria-hidden="true">•</span>
+            )}
+            Focus
+          </button>
+        }/>
       </li>
       <li>
         <ThemeToggleButton/>
