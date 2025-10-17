@@ -40,7 +40,8 @@ const initialState = {
   clozeDeletionMode: localStorage.getItem('clozeDeletionMode') === "clicking" ?
     "clicking" : "typing",
   theme: localStorage.getItem('theme') || 'dark',
-  hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false
+  hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false,
+  focusedCategoryId: localStorage.getItem('focusedCategoryId') ? parseInt(localStorage.getItem('focusedCategoryId'), 10) : null
 };
 
 // Reducer

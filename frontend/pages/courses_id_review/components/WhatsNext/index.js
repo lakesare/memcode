@@ -1,5 +1,6 @@
 import { orFalse } from '~/services/orFalse';
 import MyModel from '~/models/MyModel';
+import SettingsDuck from '~/ducks/SettingsDuck';
 
 import CourseCardLearnReview from '~/appComponents/CourseCardLearnReview';
 
@@ -7,12 +8,22 @@ import css from './index.scss';
 
 // import GitHubButton from 'react-github-btn';
 
+@connect(
+  (state) => ({
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)
 class WhatsNext extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
     ifDisplay: PropTypes.bool.isRequired,
     My: PropTypes.object.isRequired,
+    Settings: PropTypes.object.isRequired,
+    SettingsActions: PropTypes.object.isRequired
   }
 
   state = { speCourses: {} }
@@ -43,7 +54,11 @@ class WhatsNext extends React.Component {
   }
 
   renderCourses = () => {
-    const courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
+    let courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
+
+    if (this.props.Settings.focusedCategoryId) {
+      courseDtos = MyModel.filterCoursesByFocusMode(courseDtos, this.props.Settings.focusedCategoryId);
+    }
 
     const toReview = MyModel.getDtosToReview(courseDtos);
     // Also from the same category is a sweet idea.

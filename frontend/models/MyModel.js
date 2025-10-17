@@ -127,6 +127,18 @@ const dtoToCourseCardProps = (dto) => {
   };
 };
 
+const filterCoursesByFocusMode = (courses, focusedCategoryId) => {
+  if (!focusedCategoryId) {
+    return courses;
+  }
+
+  return courses.filter((course) => {
+    const categoryId = course.courseCategory ? course.courseCategory.id : null;
+    const matches = categoryId === focusedCategoryId;
+    return matches;
+  });
+};
+
 export default {
   isProblemToReview, isProblemToLearn,
   getDtosToLearn, countAllProblemsToLearn,
@@ -135,5 +147,6 @@ export default {
   getNextDueProblem,
   getNextDueDateIn,
   nextDueDateInToString,
-  dtoToCourseCardProps
+  dtoToCourseCardProps,
+  filterCoursesByFocusMode,
 };

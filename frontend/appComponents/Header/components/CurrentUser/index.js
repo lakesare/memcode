@@ -3,6 +3,7 @@ import StandardTooltip from '~/components/StandardTooltip';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 import SettingsModal from '~/appComponents/SettingsModal';
 import AccountModal from '~/appComponents/AccountModal';
+import FocusModeModal from '~/appComponents/FocusModeModal';
 import getUserAvatar from '~/services/getUserAvatar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 
@@ -24,6 +25,9 @@ class CurrentUser extends React.Component {
       </li>
       <li>
         <AccountModal toggler={<button type="button" className="dropdown-item">Account</button>}/>
+      </li>
+      <li>
+        <FocusModeModal toggler={<button type="button" className="dropdown-item">Focus</button>}/>
       </li>
       <li>
         <ThemeToggleButton/>

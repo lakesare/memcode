@@ -65,15 +65,28 @@ class CoursesDropdown extends React.Component {
     )
 
   getCourseDtos = () => {
-    const courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
+    let courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
+    
+    // Apply focus mode filter if active
+    if (this.props.Settings.focusedCategoryId) {
+      courseDtos = MyModel.filterCoursesByFocusMode(courseDtos, this.props.Settings.focusedCategoryId);
+    }
+    
     MyModel.sortByHowMuchToDo(courseDtos);
     return courseDtos;
   }
 
   getPinnedCourses = () => {
-    const pinned = this.props.My.courses.filter((dto) =>
+    let pinned = this.props.My.courses.filter((dto) =>
       this.props.Settings.pinnedCourseIds.includes(dto.course.id)
-    )
+    );
+    
+    // Apply focus mode filter if active
+    if (this.props.Settings.focusedCategoryId) {
+      pinned = MyModel.filterCoursesByFocusMode(pinned, this.props.Settings.focusedCategoryId);
+    }
+    
+    pinned = pinned
       .map(MyModel.dtoToCourseCardProps)
       .sort((a, b) => a.course.title.localeCompare(b.course.title));
     return pinned;
@@ -133,7 +146,14 @@ class CoursesDropdown extends React.Component {
   }
 
   renderNOfProblemsToReview = () => {
-    const dtosToReview = MyModel.getDtosToReview(this.props.My.courses);
+    let courses = this.props.My.courses;
+    
+    // Apply focus mode filter if active
+    if (this.props.Settings.focusedCategoryId) {
+      courses = MyModel.filterCoursesByFocusMode(courses, this.props.Settings.focusedCategoryId);
+    }
+    
+    const dtosToReview = MyModel.getDtosToReview(courses);
     const nOfProblems = MyModel.countAllProblemsToReview(dtosToReview);
 
     return <div className={`button total-n-to-review-button ${this.props.My.speCourses.status === 'request' ? '-loading' : '-not-loading'} ${this.props.My.speCourses.status === 'success' ? '-just-saved' : ''} ${nOfProblems === 0 ? '-zero' : ''}`}>
