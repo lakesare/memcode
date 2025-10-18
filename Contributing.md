@@ -3,6 +3,15 @@
 First of all - you are welcome to contribute, Memcode is a joint effort.   
 Feel free to ask questions/propose features in github issues, or email contact@memcode.com.
 
+# Github Codespaces
+
+If you would like to develop in the browser, you can simply open Github Codespaces - after a few minutes of waiting, in the PORTS tab, a few ports will appear. Click on the port 3000. This will open a browser window, where you can see normal memcode.com ui.
+You can now edit both frontend and backend code in Github Codespaces - the changes will get reflected in the ui automatically.
+
+When developing in Github Codespaces, please username&password to register.
+
+# Local setup
+
 ### One-Time Setup
 
 #### Create a database
