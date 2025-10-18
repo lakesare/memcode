@@ -56,5 +56,29 @@ fi
 
 echo "🎯 Starting Memcode application..."
 
-# Start the application
-exec node backend/index.js
+# Check if we're in development mode
+if [ "$NODE_ENV" = "development" ]; then
+    echo "🔄 Starting in development mode with hot reload..."
+    
+    # Start frontend webpack watcher in background
+    echo "📦 Starting frontend webpack watcher..."
+    cd /app/frontend
+    NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/development.config.js --watch &
+    WEBPACK_PID=$!
+    cd /app
+    
+    # Function to cleanup background processes
+    cleanup() {
+        echo "🔄 Shutting down background processes..."
+        kill $WEBPACK_PID 2>/dev/null || true
+        exit 0
+    }
+    trap cleanup SIGTERM SIGINT
+    
+    # Start backend with nodemon for auto-restart
+    echo "🚀 Starting backend with nodemon..."
+    exec node_modules/.bin/nodemon --inspect=0.0.0.0:9229 --watch backend backend/index.js
+else
+    # Production mode
+    exec node backend/index.js
+fi

@@ -20,7 +20,7 @@
 
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally
-  "forwardPorts": [3000, 5432],
+  "forwardPorts": [3000, 5432, 9229],
   "portsAttributes": {
     "3000": {
       "label": "Memcode App",
@@ -28,6 +28,10 @@
     },
     "5432": {
       "label": "PostgreSQL Database"
+    },
+    "9229": {
+      "label": "Debug Port",
+      "protocol": "debug"
     }
   },
 

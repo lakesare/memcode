@@ -165,6 +165,11 @@ show_help() {
     echo "  3. Open http://localhost:3000 in your browser"
 }
 
+# Initialize COMPOSE_CMD for non-setup commands
+if [ "$1" != "setup" ] && [ "$1" != "help" ] && [ "$1" != "--help" ] && [ "$1" != "-h" ] && [ "$1" != "" ]; then
+    check_docker_compose
+fi
+
 # Main script logic
 case "$1" in
     "setup")

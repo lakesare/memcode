@@ -5,6 +5,7 @@ services:
     build: .
     ports:
       - "3000:3000"
+      - "9229:9229"  # Node.js debug port
     depends_on:
       - postgres
     environment:
