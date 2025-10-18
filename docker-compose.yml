@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      - NODE_ENV=development
+      # Database connection
+      - DB_USER=memcode
+      - DB_PASSWORD=memcode
+      - DB_NAME=memcode
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      # Required application settings
+      - JWT_SECRET=docker_development_secret_not_for_production
+      - CONTACT_EMAIL=contact@memcode.com
+      # OAuth providers (empty for Docker development)
+      - GITHUB_OAUTH_ID=
+      - GITHUB_OAUTH_SECRET=
+      - GOOGLE_OAUTH_ID=
+      - GOOGLE_OAUTH_SECRET=
+      - GOOGLE_OAUTH_CALLBACK=http://localhost:3000/api/auth/google/callback
+      # AWS S3 (empty for Docker development)
+      - AWS_ACCESS_KEY_ID=
+      - AWS_SECRET_ACCESS_KEY=
+      - AWS_REGION=
+      - AWS_BUCKET_NAME=
+      # OpenAI (empty for Docker development)
+      - OPENAI_API_KEY=
+    volumes:
+      # Mount source code for development
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+      # Exclude node_modules from being overwritten
+      - /app/node_modules
+      # Mount webpacked files
+      - ./backend/webpacked:/app/backend/webpacked
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: memcode
+      POSTGRES_USER: memcode
+      POSTGRES_PASSWORD: memcode
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Mount schema for initialization
+      - ./backend/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
