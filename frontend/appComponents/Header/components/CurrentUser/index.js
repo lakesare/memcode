@@ -40,7 +40,7 @@ class CurrentUser extends React.Component {
       <li>
         <FocusModeModal toggler={
           <button type="button" className="dropdown-item focus-item">
-            {this.props.Settings.focusedCategoryId && (
+            {(this.props.Settings.focusedCategoryId || (this.props.Settings.focusedSubstring && this.props.Settings.focusedSubstring.trim() !== '')) && (
               <span className="focus-indicator" aria-hidden="true">•</span>
             )}
             Focus

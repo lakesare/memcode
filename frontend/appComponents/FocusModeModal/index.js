@@ -32,6 +32,16 @@ class FocusModeModal extends React.Component {
     }
   }
 
+  handleSubstringChange = (event) => {
+    const substring = event.target.value;
+    this.props.SettingsActions.updateSetting('focusedSubstring', substring);
+    
+    // If substring is entered, clear category selection
+    if (substring.trim() !== '' && this.props.Settings.focusedCategoryId) {
+      this.props.SettingsActions.updateSetting('focusedCategoryId', null);
+    }
+  }
+
   getUserCategories = () => {
     if (!this.props.My.courses || this.props.My.courses.length === 0) {
       return [];
@@ -69,16 +79,20 @@ class FocusModeModal extends React.Component {
     return this.props.Settings.focusedCategoryId === categoryId;
   }
 
-  renderCategoryButton = (category) => (
-    <button
-      key={category.id}
-      type="button"
-      className={`category-button ${this.ifCategoryIsActive(category.id) ? '-active' : ''}`}
-      onClick={() => this.handleCategorySelect(category.id)}
-    >
-      <span>{category.name}</span> <span className="n">({category.count} course{category.count !== 1 ? 's' : ''})</span>
-    </button>
-  )
+  renderCategoryButton = (category) => {
+    const isSubstringActive = this.props.Settings.focusedSubstring && this.props.Settings.focusedSubstring.trim() !== '';
+    return (
+      <button
+        key={category.id}
+        type="button"
+        className={`category-button ${this.ifCategoryIsActive(category.id) ? '-active' : ''} ${isSubstringActive ? '-disabled' : ''}`}
+        onClick={() => this.handleCategorySelect(category.id)}
+        disabled={isSubstringActive}
+      >
+        <span>{category.name}</span> <span className="n">({category.count} course{category.count !== 1 ? 's' : ''})</span>
+      </button>
+    );
+  }
 
   render = () =>
     <TogglerAndModal toggler={this.props.toggler}>{(closeModal) => (
@@ -91,11 +105,29 @@ class FocusModeModal extends React.Component {
         <div className="standard-modal__main">
           <div className="focus-content">
             <div className="setting">
+              <div className="substring-filter">
+                <label className="label">Filter by course title:</label>
+                <input
+                  type="text"
+                  className="standard-input -TextInput"
+                  value={this.props.Settings.focusedSubstring || ''}
+                  onChange={this.handleSubstringChange}
+                  placeholder="Enter beginning of course title..."
+                />
+                {this.props.Settings.focusedSubstring && this.props.Settings.focusedSubstring.trim() !== '' && (
+                  <div className="info-text">Categories are disabled when filtering by title</div>
+                )}
+              </div>
+              
               <div className="categories-grid">
                 <button
                   type="button"
-                  className={`category-button none-button ${!this.props.Settings.focusedCategoryId ? '-active' : ''}`}
-                  onClick={() => this.props.SettingsActions.updateSetting('focusedCategoryId', null)}
+                  className={`category-button none-button ${!this.props.Settings.focusedCategoryId && (!this.props.Settings.focusedSubstring || this.props.Settings.focusedSubstring.trim() === '') ? '-active' : ''} ${this.props.Settings.focusedSubstring && this.props.Settings.focusedSubstring.trim() !== '' ? '-disabled' : ''}`}
+                  onClick={() => {
+                    this.props.SettingsActions.updateSetting('focusedCategoryId', null);
+                    this.props.SettingsActions.updateSetting('focusedSubstring', '');
+                  }}
+                  disabled={this.props.Settings.focusedSubstring && this.props.Settings.focusedSubstring.trim() !== ''}
                 >
                   <span>All Categories</span> <span className="n">({this.props.My.courses?.length || 0} courses)</span>
                 </button>

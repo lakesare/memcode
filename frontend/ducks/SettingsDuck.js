@@ -48,7 +48,8 @@ const initialState = {
     }
     const parsed = parseInt(stored, 10);
     return isNaN(parsed) ? null : parsed;
-  })()
+  })(),
+  focusedSubstring: localStorage.getItem('focusedSubstring') || ''
 };
 
 // Reducer

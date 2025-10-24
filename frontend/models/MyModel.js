@@ -127,15 +127,25 @@ const dtoToCourseCardProps = (dto) => {
   };
 };
 
-const filterCoursesByFocusMode = (courses, focusedCategoryId) => {
-  if (!focusedCategoryId) {
-    return courses;
+const filterCoursesByFocus = (courses, focusedCategoryId, focusedSubstring) => {
+  // If substring is active, only apply substring filter (categories disabled)
+  if (focusedSubstring && focusedSubstring.trim() !== '') {
+    return courses.filter((course) => {
+      const courseTitle = course.course ? course.course.title : course.title;
+      return courseTitle.toLowerCase().startsWith(focusedSubstring.toLowerCase());
+    });
   }
-
-  return courses.filter((course) => {
-    const categoryId = course.courseCategory ? course.courseCategory.id : null;
-    return categoryId === focusedCategoryId;
-  });
+  
+  // Otherwise apply category filter
+  if (focusedCategoryId) {
+    return courses.filter((course) => {
+      const categoryId = course.courseCategory ? course.courseCategory.id : null;
+      return categoryId === focusedCategoryId;
+    });
+  }
+  
+  // No filtering active
+  return courses;
 };
 
 export default {
@@ -147,5 +157,5 @@ export default {
   getNextDueDateIn,
   nextDueDateInToString,
   dtoToCourseCardProps,
-  filterCoursesByFocusMode,
+  filterCoursesByFocus,
 };

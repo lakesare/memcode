@@ -56,9 +56,8 @@ class WhatsNext extends React.Component {
   renderCourses = () => {
     let courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
 
-    if (this.props.Settings.focusedCategoryId) {
-      courseDtos = MyModel.filterCoursesByFocusMode(courseDtos, this.props.Settings.focusedCategoryId);
-    }
+    // Apply focus filtering (category or substring)
+    courseDtos = MyModel.filterCoursesByFocus(courseDtos, this.props.Settings.focusedCategoryId, this.props.Settings.focusedSubstring);
 
     const toReview = MyModel.getDtosToReview(courseDtos);
     // Also from the same category is a sweet idea.

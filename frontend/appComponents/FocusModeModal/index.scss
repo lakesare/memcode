@@ -1,4 +1,27 @@
 :local(.local) {
+  .substring-filter {
+    margin-bottom: 30px;
+    
+    .label {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .standard-input {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+    
+    .info-text {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      font-style: italic;
+    }
+  }
+
   .category-button{
     background: rgba(255, 255, 255, 0.05);
     padding: 6px 20px;
@@ -18,6 +41,14 @@
     }
     &.-active{
       background: rgba(175, 180, 242, 0.65);
+    }
+    &.-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      
+      .n {
+        opacity: 0.6;
+      }
     }
   }
 
