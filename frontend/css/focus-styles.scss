@@ -59,7 +59,7 @@ ul.categories a.name,
 .notifications-toggler,
 button.edit-button, button.invite-coauthor-button, .stop-learning-button,
 section.course-actions h1.title a{
-  &:hover, &:focus{
+  &:hover, &:focus, &[aria-expanded=true]{
     background: rgba(243, 243, 249, 0.05) !important;
   }
 }
@@ -71,14 +71,14 @@ header a.logo.focus-visible{
 header nav{
   .link{
     &.active{
-      background: rgba(243, 243, 249, 0.07);
+      background: rgba(243, 243, 249, 0.05);
     }
     &:hover:not(.active), &:focus:not(.active){
       background: rgba(243, 243, 249, 0.05);
     }
   }
   .my-courses-toggler[aria-expanded=true] .link.courses{
-    background: rgba(243, 243, 249, 0.07);
+    background: rgba(243, 243, 249, 0.05);
   }
   .my-courses-toggler[aria-expanded=false] .link.courses:hover{
     background: rgba(243, 243, 249, 0.05) !important;

@@ -175,9 +175,9 @@ class CoursesDropdown extends React.Component {
       <div className="my-courses-toggler">
         <button type="button" className="button link courses" onClick={this.state.isDropdownVisible ? this.uiHideDropdown : this.uiShowDropdown}>
           Courses
-          <div className="position-relative-wrapper">
-            {this.renderNOfProblemsToReview()}
-          </div>
+          
+          {this.renderNOfProblemsToReview()}
+
         </button>
       </div>
     </StandardTooltip>

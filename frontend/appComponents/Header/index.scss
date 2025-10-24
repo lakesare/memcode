@@ -1,23 +1,15 @@
 @use '~/css/variables.scss';
 
 :local(.header){
-  background: rgba(34, 38, 74, 0.27);
-  
   .my-courses-toggler{
     .link.courses{
       margin-right: 10px;
       min-width: 116px;
-      padding-left: 0;
+      // padding-left: 0;
 
-      .position-relative-wrapper{
-        position: relative;
-        height: 31px;
-      }
       .button.total-n-to-review-button{
-        position: absolute;
-        left: 7px; top: 4px;
-
         background: variables.$review-button-color;
+        margin-left: 5px;
 
         padding: 0;
         letter-spacing: 0px;
@@ -76,8 +68,16 @@
       text-transform: uppercase;
       min-width: auto;
     }
+    .my-courses-toggler{
+      height: 100%;
+    }
     .link.create, .link.contact, .link.courses{
       margin-right: 10px;
+      height: 100%;
+      // border-radius: 0;
+    }
+    .link.courses{
+      padding-right: 14px;
     }
   }
 
@@ -138,13 +138,6 @@
 :local(header.header){
   @media(max-width: 500px){
     a.logo img.halloween{ width: 45px; }
-
-    // .position-relative-wrapper{
-    //   height: auto !important;
-    //   .button.-to-review{
-    //     top: -12px !important;
-    //   }
-    // }
 
     .link.create, .notifications-toggler{
       display: none;
