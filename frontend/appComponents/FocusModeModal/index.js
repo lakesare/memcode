@@ -23,6 +23,10 @@ class FocusModeModal extends React.Component {
     MyActions: PropTypes.object.isRequired
   }
 
+  state = {
+    showMatchingCourses: false
+  }
+
 
   handleCategorySelect = (categoryId) => {
     if (this.ifCategoryIsActive(categoryId)){
@@ -40,6 +44,41 @@ class FocusModeModal extends React.Component {
     if (substring.trim() !== '' && this.props.Settings.focusedCategoryId) {
       this.props.SettingsActions.updateSetting('focusedCategoryId', null);
     }
+  }
+
+  handleInputFocus = () => {
+    this.setState({ showMatchingCourses: true });
+  }
+
+  handleInputBlur = () => {
+    // Delay hiding to allow for interaction with the preview
+    setTimeout(() => {
+      this.setState({ showMatchingCourses: false });
+    }, 200);
+  }
+
+  getMatchingCourses = () => {
+    if (!this.props.My.courses || this.props.My.courses.length === 0) {
+      return [];
+    }
+
+    const substring = this.props.Settings.focusedSubstring || '';
+    
+    // If input is focused but no substring, show all courses
+    if (this.state.showMatchingCourses && substring.trim() === '') {
+      return this.props.My.courses;
+    }
+    
+    // If there's a substring, always show filtered results (even when not focused)
+    if (substring.trim() !== '') {
+      return this.props.My.courses.filter((course) => {
+        const courseTitle = course.course ? course.course.title : course.title;
+        return courseTitle.toLowerCase().startsWith(substring.toLowerCase());
+      });
+    }
+
+    // If not focused and no substring, don't show any courses
+    return [];
   }
 
   getUserCategories = () => {
@@ -79,6 +118,49 @@ class FocusModeModal extends React.Component {
     return this.props.Settings.focusedCategoryId === categoryId;
   }
 
+  renderCourseTitle = (course) => {
+    const courseTitle = course.course ? course.course.title : course.title;
+    const substring = this.props.Settings.focusedSubstring || '';
+    
+    if (substring.trim() === '') {
+      return courseTitle;
+    }
+    
+    const lowerTitle = courseTitle.toLowerCase();
+    const lowerSubstring = substring.toLowerCase();
+    
+    if (lowerTitle.startsWith(lowerSubstring)) {
+      const highlightedPart = courseTitle.substring(0, substring.length);
+      const remainingPart = courseTitle.substring(substring.length);
+      return (
+        <span>
+          <span className="highlighted">{highlightedPart}</span>
+          {remainingPart}
+        </span>
+      );
+    }
+    
+    return courseTitle;
+  }
+
+  renderMatchingCourses = () => {
+    const matchingCourses = this.getMatchingCourses();
+    
+    if (matchingCourses.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="matching-courses-list">
+        {matchingCourses.map((course) => (
+          <div key={course.course.id} className="course-item">
+            {this.renderCourseTitle(course)}
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   renderCategoryButton = (category) => {
     const isSubstringActive = this.props.Settings.focusedSubstring && this.props.Settings.focusedSubstring.trim() !== '';
     return (
@@ -107,16 +189,18 @@ class FocusModeModal extends React.Component {
             <div className="setting">
               <div className="substring-filter">
                 <label className="label">Filter by course title:</label>
-                <input
-                  type="text"
-                  className="standard-input -TextInput"
-                  value={this.props.Settings.focusedSubstring || ''}
-                  onChange={this.handleSubstringChange}
-                  placeholder="Enter beginning of course title..."
-                />
-                {this.props.Settings.focusedSubstring && this.props.Settings.focusedSubstring.trim() !== '' && (
-                  <div className="info-text">Categories are disabled when filtering by title</div>
-                )}
+                <div className="input-container">
+                  <input
+                    type="text"
+                    className="standard-input -TextInput"
+                    value={this.props.Settings.focusedSubstring || ''}
+                    onChange={this.handleSubstringChange}
+                    onFocus={this.handleInputFocus}
+                    onBlur={this.handleInputBlur}
+                    placeholder="Enter beginning of course title..."
+                  />
+                </div>
+                {this.renderMatchingCourses()}
               </div>
               
               <div className="categories-grid">

@@ -1,3 +1,5 @@
+@use '~/css/variables.scss';
+
 :local(.local) {
   .substring-filter {
     margin-bottom: 30px;
@@ -10,9 +12,23 @@
       font-weight: 500;
     }
     
-    .standard-input {
-      width: 100%;
-      margin-bottom: 8px;
+    .input-container {
+      .standard-input {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
+    
+    .matching-courses-list {
+      .course-item {
+        // padding: 4px 0;
+        font-size: 13px;
+        
+        .highlighted {
+          // background-color: rgba(255, 235, 59, 0.3);
+          color: variables.$purple;
+        }
+      }
     }
     
     .info-text {
