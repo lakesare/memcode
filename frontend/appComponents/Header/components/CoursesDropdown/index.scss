@@ -2,10 +2,6 @@
 @use '~/css/variables.scss';
 
 :local(.tooltip){
-  .not-learning-placeholder{
-    padding: 20px;
-    font-size: 13px;
-  }
   .course-li{
     margin-bottom: 2px;
     font-size: 15px;

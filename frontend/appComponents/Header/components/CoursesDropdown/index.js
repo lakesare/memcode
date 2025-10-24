@@ -88,17 +88,14 @@ class CoursesDropdown extends React.Component {
     return pinned;
   }
 
-  renderNoCourses = () =>
-    <div className="not-learning-placeholder">
-      You are not learning any courses at the moment.<br/>
-      When you start learning some course, it will appear in this dropdown.
-    </div>
-
   renderDropdown = () => {
     if (!this.props.My.coursesAlreadyFetched) {
-      return <div>Loading courses...</div>;
+      return <div style={{ padding: "5px 10px", fontSize: "12px" }}>Loading courses...</div>;
     } else if (this.getCourseDtos().length === 0) {
-      return this.renderNoCourses();
+      return <div style={{ padding: "5px 10px", fontSize: "12px" }}>
+        You are not learning any courses at the moment.<br/>
+        When you start learning some course, it will appear in this dropdown.
+      </div>
     } else {
       return <div className={css.tooltip}>
         <div className="pinned-courses">
