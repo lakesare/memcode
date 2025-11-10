@@ -182,7 +182,8 @@ class Editor extends React.Component {
         case 'ql-blockquote': { tip(button, 'Quote', '⌘ Shift K'); break; }
         case 'ql-code-block': { tip(button, 'Block of code', '⌘ Shift C'); break; }
         case 'ql-link':       { tip(button, 'Link', null, 'Select some text and click here'); break; }
-        case 'ql-image':      { tip(button, 'Image', '⌘ v', 'For a full-quality image,<br/> press SHIFT first.'); break; }
+        // 'For a full-quality image,<br/> press SHIFT first.'
+        case 'ql-image':      { tip(button, 'Image', '⌘ v', null); break; }
         case 'ql-clean':      { tip(button, 'Clear formatting'); break; }
         case 'ql-formula':    { tip(button, 'Insert KaTeX formula', '⌘ Shift F'); break; }
         case 'ql-answer':     { tip(button, 'Answer', '⌘ Shift ENTER', 'Select some text, and mark it as an answer.<br/>Use | to provide alternative answers.'); break; }

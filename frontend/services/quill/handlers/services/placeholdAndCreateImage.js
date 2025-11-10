@@ -14,7 +14,7 @@ const uploadFile = async (dispatch, file) => {
   
   if (file.type.startsWith('image/')) {
     // Check if user pressed Shift recently to skip compression (for formulas)
-    const shouldSkipCompression = shiftKeyTracker.shouldSkipCompression();
+    const shouldSkipCompression = true; // shiftKeyTracker.shouldSkipCompression();
     
     if (shouldSkipCompression) {
       console.log('Skipping compression - Shift was pressed (formula mode)');
