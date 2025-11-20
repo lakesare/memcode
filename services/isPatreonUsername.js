@@ -1,4 +1,4 @@
 const isPatreonUsername = (username) =>
-  ['lakesare', 'charlie42', 'daniel-eder', 'inoryy', 'Dhruv B', 'Anders Hagen Jarmund', 'luclu', 'earstick'].includes(username)
+  ['lakesare', 'charlie42', 'theTisch21'].includes(username)
 
 export default isPatreonUsername;
