@@ -1,36 +1,137 @@
 @use '~/css/variables.scss';
 
 :local(.local) {
-  .substring-filter {
-    margin-bottom: 30px;
-    
-    .label {
-      display: block;
-      margin-bottom: 8px;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 14px;
-      font-weight: 500;
+  .standard-modal__main {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .categories-grid {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 8px;
+
+    // Scrollbar styling
+    &::-webkit-scrollbar {
+      width: 8px;
     }
-    
-    .input-container {
-      .standard-input {
-        width: 100%;
-        margin-bottom: 8px;
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.3);
       }
     }
-    
-    .matching-courses-list {
-      .course-item {
-        // padding: 4px 0;
-        font-size: 13px;
-        
-        .highlighted {
-          // background-color: rgba(255, 235, 59, 0.3);
-          color: variables.$purple;
+  }
+
+  .substring-filter {
+    .saved-course-titles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+
+      .saved-title-item {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+        overflow: hidden;
+        transition: background 0.2s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        .title-button {
+          padding: 6px 10px;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.9);
+          cursor: pointer;
+          transition: color 0.2s ease;
+          white-space: nowrap;
+
+          &:hover {
+            color: rgb(175, 180, 242);
+          }
+        }
+
+        .delete-button {
+          padding: 6px 8px;
+          font-size: 18px;
+          line-height: 1;
+          color: rgba(255, 255, 255, 0.5);
+          cursor: pointer;
+          transition: color 0.2s ease;
+          border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+          &:hover {
+            color: #ff6b6b;
+          }
         }
       }
     }
-    
+
+    .input-container {
+      position: relative;
+
+      .standard-input {
+        width: 100%;
+      }
+    }
+
+    .matching-courses-list {
+      max-height: 100px;
+      overflow-y: auto;
+      border-radius: 4px;
+      margin-top: 8px;
+
+      .course-item {
+        padding: 6px 8px;
+        font-size: 13px;
+        border-radius: 3px;
+        transition: background 0.15s ease;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.15);
+        }
+
+        .highlighted {
+          color: variables.$purple;
+          font-weight: 500;
+        }
+      }
+
+      // Scrollbar styling
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      }
+    }
+
     .info-text {
       color: rgba(255, 255, 255, 0.7);
       font-size: 12px;
@@ -58,10 +159,9 @@
     &.-active{
       background: rgba(175, 180, 242, 0.65);
     }
-    &.-disabled {
+    &.-faded {
       opacity: 0.4;
-      cursor: not-allowed;
-      
+
       .n {
         opacity: 0.6;
       }
@@ -69,8 +169,9 @@
   }
 
   .buttons{
-    margin-top: 30px;
     display: flex;
     justify-content: center;
+    margin-top: auto;
+    padding-top: 20px;
   }
 }
