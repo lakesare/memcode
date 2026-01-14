@@ -96,14 +96,14 @@ class ProblemBeingSolved extends React.Component {
       } else {
         return(
           <>
+            <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
+              NEXT
+            </button>
+
             <SeparateAnswerSelfScore
               giveScore={this.props.separateAnswerSelfScoreGiven}
               score={this.props.statusOfSolving.typeSpecific.selfScore}
             />
-
-            <button type="button" className="button next-button -purple" onClick={this.props.enterPressed}>
-              NEXT
-            </button>
           </>
         )
       }
