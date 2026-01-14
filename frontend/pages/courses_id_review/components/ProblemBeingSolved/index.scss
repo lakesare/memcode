@@ -27,6 +27,13 @@
     padding: 18px;
     border-radius: 5px;
 
+    .ql-editor{
+      cursor: default !important;
+      img{
+        cursor: default !important;
+      }
+    }
+
     &.-withInlinedAnswers{
       .ql-editor{
         box-shadow: $purple-question-box-shadow;
