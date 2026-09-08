@@ -1,0 +1,17 @@
+-- [claude comment] Migration 20: fixed-interval review schedule (see services/repetitions.js)
+
+ALTER TABLE course_user_is_learning
+  ADD COLUMN repeat_every_hours INTEGER DEFAULT NULL
+    CHECK (repeat_every_hours IS NULL OR repeat_every_hours > 0);
+
+-- [claude comment] NULL last_reviewed_at = learned, but never reviewed
+ALTER TABLE problem_user_is_learning
+  ALTER COLUMN last_reviewed_at DROP NOT NULL,
+  ALTER COLUMN last_reviewed_at DROP DEFAULT;
+
+-- [claude comment] backfill: a flashcard that was only ever learned still carries its untouched initial score, and its due date never got pushed out by getNextScore (min 0.2 days).
+UPDATE problem_user_is_learning
+SET last_reviewed_at = NULL
+WHERE easiness = 2.5
+  AND consecutive_correct_answers = 0
+  AND next_due_date < last_reviewed_at + INTERVAL '1 hour';
