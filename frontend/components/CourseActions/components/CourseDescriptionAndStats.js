@@ -53,13 +53,12 @@ class CourseDescriptionAndStats extends React.Component {
     }
     return this.renderStat(
       <i className="fa fa-hourglass-start"/>,
-      <>
-        Review in
-        <span className="number review-in-stat-number">
-          {nextDueDateIn.amount}
-          <span className="measure">{nextDueDateIn.measure}</span>
-        </span>
-      </>
+      <div className="stat-line">
+        <span className="label">Review in</span>
+        {/* [claude comment] "a few seconds" comes through with no amount of its own */}
+        {nextDueDateIn.amount !== '' && <span className="number">{nextDueDateIn.amount}</span>}
+        <span className="label">{nextDueDateIn.measure}</span>
+      </div>
     );
   }
 
@@ -82,8 +81,9 @@ class CourseDescriptionAndStats extends React.Component {
             <i className="fa fa-users"/>,
             <StatsModal
               toggler={
-                <a className="-fade-out-on-hover">
-                  <span className="number">{this.props.courseDto.learners.length}</span> students
+                <a className="stat-line -fade-out-on-hover">
+                  <span className="number">{this.props.courseDto.learners.length}</span>
+                  <span className="label">students</span>
                 </a>
               }
               course={this.props.courseDto.course}
@@ -94,7 +94,10 @@ class CourseDescriptionAndStats extends React.Component {
 
           {this.renderStat(
             <i className="fa fa-list"/>,
-            <div><span className="number">{this.props.courseDto.amountOfProblems}</span> flashcards</div>
+            <div className="stat-line">
+              <span className="number">{this.props.courseDto.amountOfProblems}</span>
+              <span className="label">flashcards</span>
+            </div>
           )}
 
           {/* <CourseStarRating */}

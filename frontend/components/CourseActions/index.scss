@@ -169,34 +169,38 @@
         flex-shrink: 1;
 
         cursor: default;
+        // [claude comment] the bright theme's own near-black reads better than this tint, so only the dark theme sets a colour and bright inherits the page's
+        body:not(.-bright-theme) &{
+          color: rgb(172, 181, 218);
+        }
+        a{ color: inherit; }
         > li{
-          padding: 3px 0;
+          padding: 4px 0;
           width: 100%;
           display: flex;
           align-items: center;
           justify-content: flex-end;
           > div.icon{
-            // text-shadow: 0 0 6px #fbfbfb47;
-            font-size: 15px;
+            font-size: 14px;
             width: 27px;
             text-align: center;
           }
           > div.stat{
-            font-size: 11px;
             padding-right: 10px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            span.number{
-              padding-right: 2px;
-              font-size: 13px;
-              opacity: 0.92;
-            }
-            span.number.review-in-stat-number{
-              padding-left: 5px;
-              padding-right: 0;
-              .measure{
-                padding-left: 5px;
-                font-size: 11px;
+            // [claude comment] one gap everywhere instead of a padding picked per span, which is what made the spacing look uneven
+            .stat-line{
+              display: flex;
+              align-items: baseline;
+              justify-content: flex-end;
+              gap: 5px;
+              font-size: 11px;
+              letter-spacing: 0.5px;
+              text-transform: uppercase;
+              white-space: nowrap;
+              .number{
+                font-size: 13px;
+                // [claude comment] tracking is for the uppercase labels - on digits it just reads as a stray gap
+                letter-spacing: 0;
               }
             }
           }
