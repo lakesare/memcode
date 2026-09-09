@@ -7,6 +7,7 @@ import StandardTooltip from '~/components/StandardTooltip';
 import TogglerAndModal from '~/components/TogglerAndModal';
 import InviteCoauthorModal from './InviteCoauthorModal';
 import CourseModal from './CourseModal';
+import LearningSettingsModal from './LearningSettingsModal';
 import ImportExportModal from '~/appComponents/ImportExportModal';
 
 @withRouter
@@ -17,6 +18,7 @@ class CuilButtons extends React.Component {
 
     nOfProblemsToLearn: PropTypes.number.isRequired,
     nOfProblemsToReview: PropTypes.number.isRequired,
+    repetitionsDue: PropTypes.number,
     courseDto: PropTypes.shape({
       course: PropTypes.object.isRequired,
       amountOfProblems: PropTypes.number.isRequired,
@@ -35,6 +37,7 @@ class CuilButtons extends React.Component {
     currentProblem: PropTypes.object,
     type: PropTypes.string.isRequired,
     canIEditCourse: PropTypes.bool,
+    restartReview: PropTypes.func,
     onProblemsImported: PropTypes.func,
     uiUpdateCourse: PropTypes.func
   }
@@ -88,11 +91,26 @@ class CuilButtons extends React.Component {
     >LEARN ({this.props.nOfProblemsToLearn})</Link>
 
   // You have ${this.props.nOfProblemsToReview} flashcards to repeat! Click here, and try to recall the answers to your flashcards.
+  // [claude comment] on the review page itself a <Link/> goes nowhere - react-router won't remount the route it is already on - so catching up on a fixed-interval course would leave you stuck on "you successfully reviewed this course"
   renderReviewButton = () =>
-    <Link
-      to={`/courses/${this.props.courseDto.course.id}/review`}
-      className="button -to-review"
-    >REVIEW ({this.props.nOfProblemsToReview})</Link>
+    this.props.restartReview ?
+      <button
+        type="button"
+        className="button -to-review"
+        onClick={this.props.restartReview}
+      >REVIEW ({this.props.nOfProblemsToReview})</button> :
+      <Link
+        to={`/courses/${this.props.courseDto.course.id}/review`}
+        className="button -to-review"
+      >REVIEW ({this.props.nOfProblemsToReview})</Link>
+
+  renderRepetitionsDue = () =>
+    <StandardTooltip
+      tooltipEl={`You've missed some repetitions of this course - go through it ${this.props.repetitionsDue} times to catch up.`}
+      tooltipProps={{ placement: 'bottom' }}
+    >
+      <div className="repetitions-due">&times;{this.props.repetitionsDue}</div>
+    </StandardTooltip>
 
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
@@ -141,6 +159,28 @@ class CuilButtons extends React.Component {
           />
         </li>
       }
+      {
+        this.ifCourseIsLearnedAndActive() &&
+        <li>
+          <LearningSettingsModal
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(120, 175, 244)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Learning Settings</div>
+                <div className="comment -white">
+                  Choose how you want to review this course.
+                </div>
+              </button>
+            }
+            courseUserIsLearning={this.props.courseDto.courseUserIsLearning}
+            MyActions={this.props.MyActions}
+          />
+        </li>
+      }
+
       {
         this.ifCourseIsLearnedAndActive() &&
         <li>
@@ -375,6 +415,13 @@ class CuilButtons extends React.Component {
             this.props.courseDto.courseUserIsLearning &&
             this.props.nOfProblemsToLearn > 0 &&
             this.renderLearnButton()
+          }
+
+          {
+            this.props.courseDto.courseUserIsLearning &&
+            this.props.nOfProblemsToReview > 0 &&
+            this.props.repetitionsDue > 1 &&
+            this.renderRepetitionsDue()
           }
 
           {

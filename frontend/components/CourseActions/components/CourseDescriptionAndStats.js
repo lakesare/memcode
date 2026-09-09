@@ -53,17 +53,13 @@ class CourseDescriptionAndStats extends React.Component {
     }
     return this.renderStat(
       <i className="fa fa-hourglass-start"/>,
-      (
-        nextDueDateIn === 'now' ?
-          'Review now!' :
-          <>
-            Review in
-            <span className="number review-in-stat-number">
-              {nextDueDateIn.amount}
-              <span className="measure">{nextDueDateIn.measure}</span>
-            </span>
-          </>
-      )
+      <>
+        Review in
+        <span className="number review-in-stat-number">
+          {nextDueDateIn.amount}
+          <span className="measure">{nextDueDateIn.measure}</span>
+        </span>
+      </>
     );
   }
 

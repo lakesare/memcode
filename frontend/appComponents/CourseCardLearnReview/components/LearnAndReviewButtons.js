@@ -7,6 +7,7 @@ class LearnAndReviewButtons extends React.Component {
       course: PropTypes.object.isRequired,
       amountOfProblemsToLearn: PropTypes.number.isRequired,
       amountOfProblemsToReview: PropTypes.number.isRequired,
+      repetitionsDue: PropTypes.number
     })
   }
 
@@ -17,6 +18,11 @@ class LearnAndReviewButtons extends React.Component {
       </Link>
       <section className="amount-footer -review">
         {n} to review
+        {
+          // [claude comment] only worth saying once the user is more than one repetition behind
+          this.props.courseDto.repetitionsDue > 1 &&
+          <span className="repetitions-due">&times;{this.props.courseDto.repetitionsDue}</span>
+        }
       </section>
     </div>
 

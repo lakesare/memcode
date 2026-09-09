@@ -45,6 +45,8 @@ SELECT "user".username,
     JOIN course ON course.id = course_user_is_learning.course_id
     JOIN problem ON problem.id = problem_user_is_learning.problem_id
  WHERE "user".username::text <> 'lakesare'::text
+   -- [claude comment] NULL = learned but never reviewed, which this timeline isn't about
+   AND problem_user_is_learning.last_reviewed_at IS NOT NULL
  ORDER BY problem_user_is_learning.last_reviewed_at DESC;
 
 

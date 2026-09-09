@@ -56,6 +56,19 @@
           .button{
             margin-left: 10px;
           }
+          .repetitions-due{
+            display: flex;
+            align-items: center;
+            align-self: stretch;
+            padding: 0 9px;
+            margin-left: 10px;
+            border: 1px solid rgb(233, 116, 42);
+            border-radius: 2px;
+            color: rgb(233, 116, 42);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: default;
+          }
           .more-button{
             margin-left: 5px;
             min-width: 0;

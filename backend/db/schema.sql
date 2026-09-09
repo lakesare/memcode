@@ -95,6 +95,10 @@ CREATE TABLE course_user_is_learning (
   active BOOLEAN NOT NULL,
   started_learning_at TIMESTAMPTZ NOT NULL DEFAULT now(),
 
+  -- [claude comment] review schedule, NULL hours = spaced repetition (services/repetitions.js)
+  repeat_every_hours INTEGER DEFAULT NULL
+    CHECK (repeat_every_hours IS NULL OR repeat_every_hours > 0),
+
   course_id INTEGER REFERENCES course (id) ON DELETE CASCADE NOT NULL,
   user_id INTEGER REFERENCES "user" (id) ON DELETE CASCADE NOT NULL,
   unique (course_id, user_id)
@@ -108,7 +112,8 @@ CREATE TABLE problem_user_is_learning (
   consecutive_correct_answers SMALLINT NOT NULL,
   next_due_date TIMESTAMPTZ NOT NULL,
   if_ignored BOOLEAN DEFAULT false,
-  last_reviewed_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  -- [claude comment] NULL = learned, but never reviewed
+  last_reviewed_at TIMESTAMPTZ DEFAULT NULL,
 
   problem_id INTEGER REFERENCES problem (id) ON DELETE CASCADE NOT NULL,
   course_user_is_learning_id INTEGER REFERENCES "course_user_is_learning" (id) ON DELETE CASCADE NOT NULL,

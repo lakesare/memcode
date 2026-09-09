@@ -27,7 +27,8 @@ class CourseActions extends React.Component {
     SettingsActions: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
-    onProblemsImported: PropTypes.func
+    onProblemsImported: PropTypes.func,
+    restartReview: PropTypes.func
   }
 
   apiStartLearning = () =>
@@ -147,7 +148,8 @@ class CourseActions extends React.Component {
   renderTitleAndButtons = (courseDto) => {
     const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
     const nOfProblemsToLearn = (dto && dto.problems.filter(MyModel.isProblemToLearn).length) || 0;
-    const nOfProblemsToReview = (dto && dto.problems.filter(MyModel.isProblemToReview).length) || 0;
+    const nOfProblemsToReview = (dto && MyModel.getProblemsToReview(dto).length) || 0;
+    const repetitionsDue = (dto && MyModel.countRepetitionsDue(dto)) || 0;
 
     return <section className="title-and-buttons">
       <div className="container">
@@ -237,6 +239,7 @@ class CourseActions extends React.Component {
         <CuilButtons
           nOfProblemsToLearn={nOfProblemsToLearn}
           nOfProblemsToReview={nOfProblemsToReview}
+          repetitionsDue={repetitionsDue}
           currentUser={this.props.currentUser}
           courseDto={courseDto}
           author={courseDto.author}
@@ -252,6 +255,7 @@ class CourseActions extends React.Component {
           type={this.props.type}
           currentProblem={this.props.currentProblem}
           ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
+          restartReview={this.props.restartReview}
           
           canIEditCourse={this.canIEditCourse()}
           onProblemsImported={this.props.onProblemsImported}

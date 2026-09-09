@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import getNextScore from '~/../services/getNextScore';
+import repetitions from '~/../services/repetitions';
 import initialScore from '~/../services/initialScore';
 
 const namespace = 'global.my';
@@ -89,6 +90,23 @@ const reducer = (state = initialState, action) => {
 
       return newState;
     }
+    // [claude comment] MyModel reads the review schedule off the dto, so mirror it there too
+    case `${namespace}.UPDATE_COURSE_USER_IS_LEARNING`: {
+      const newState = JSON.parse(JSON.stringify(state));
+      const courseUserIsLearning = action.payload.courseUserIsLearning;
+
+      const courseDtoIndex = newState.courses.findIndex((courseDto) =>
+        courseDto.course.id === courseUserIsLearning.courseId
+      );
+      if (courseDtoIndex !== -1) {
+        newState.courses[courseDtoIndex].repeatEveryHours = courseUserIsLearning.repeatEveryHours;
+      }
+      if (newState.speCourseForActions.payload) {
+        newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
+      }
+
+      return newState;
+    }
     // PROBLEM CRUD
     case `${namespace}.CREATE_PROBLEM`: {
       const newState = JSON.parse(JSON.stringify(state));
@@ -141,6 +159,8 @@ const reducer = (state = initialState, action) => {
         _learned: true,
         ifIgnored: false,
         nextDueDate: dayjs().format(),
+        // [claude comment] mirrors createPuil - learning isn't reviewing
+        lastReviewedAt: null,
         easiness: initialScore().easiness,
         consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers
       }));
@@ -154,6 +174,7 @@ const reducer = (state = initialState, action) => {
         _learned: true,
         ifIgnored: true,
         nextDueDate: dayjs().format(),
+        lastReviewedAt: null,
         easiness: initialScore().easiness,
         consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers
       }));
@@ -173,13 +194,27 @@ const reducer = (state = initialState, action) => {
       const problemId = action.payload.problemId;
       const score = action.payload.score;
 
+      // [claude comment] mirrors ProblemUserIsLearningApi.reviewProblem, so the counts move before the api answers - a fixed-interval course keeps its own rhythm
+      const courseDto = state.courses.find((dto) => dto.course.id === courseId);
+      const repeatEveryHours = courseDto && courseDto.repeatEveryHours;
+
       const newState = setProblem(state, courseId, problemId, (problem) => {
         const newScore = getNextScore(problem.easiness, problem.consecutiveCorrectAnswers, score);
+        const nextDueDate = repeatEveryHours ?
+          repetitions.nextDueDateAfterReview(
+            courseDto.problems.filter((one) => one._learned && !one.ifIgnored),
+            problem,
+            repeatEveryHours
+          ) :
+          dayjs().add(newScore.msToNextReview, 'ms').toDate();
+
         return {
           id: problem.id,
           _learned: true,
           ifIgnored: false,
-          nextDueDate: dayjs().add(newScore.msToNextReview, 'ms').format(),
+          // [claude comment] to the millisecond - dayjs().format() rounds to whole seconds, which would leave the flashcard a hair inside the batch it was just reviewed out of
+          nextDueDate: nextDueDate.toISOString(),
+          lastReviewedAt: dayjs().format(),
           easiness: newScore.easiness,
           consecutiveCorrectAnswers: newScore.consecutiveCorrectAnswers
         };
@@ -244,6 +279,9 @@ const getActions = (dispatch, getState) => ({
   },
   reviewProblem: (courseId, problemId, score) => {
     dispatch({ type: `${namespace}.REVIEW_PROBLEM`, payload: { courseId, problemId, score } });
+  },
+  updateCourseUserIsLearning: (courseUserIsLearning) => {
+    dispatch({ type: `${namespace}.UPDATE_COURSE_USER_IS_LEARNING`, payload: { courseUserIsLearning } });
   },
   createProblem: (courseId, problemId) => {
     dispatch({ type: `${namespace}.CREATE_PROBLEM`, payload: { courseId, problemId } });

@@ -1,17 +1,21 @@
 import dayjs from 'dayjs';
+import repetitions from '~/../services/repetitions';
 
-// => null
-// => 'now'
-// => { amount: 5, measure: 'hours' }
-const getNextDueDateIn = (dto) => {
-  const nextDueProblem = getNextDueProblem(dto);
-  if (!nextDueProblem) return null;
+const getLearnedProblems = (dto) =>
+  dto.problems.filter((problem) => problem._learned && !problem.ifIgnored);
 
-  if (isProblemToReview(nextDueProblem)) {
-    return 'now';
-  }
+// [claude comment] null = not a fixed-interval course (services/repetitions.js)
+const countRepetitionsDue = (dto) =>
+  repetitions.countRepetitionsDue(getLearnedProblems(dto), dto.repeatEveryHours);
 
-  const string = dayjs(nextDueProblem.nextDueDate).from(dayjs(), true);
+// [claude comment] a fixed-interval course comes due as one batch, so what's left to review is the earliest batch of overdue flashcards - reviewing one takes it out of the count
+const getProblemsToReview = (dto) =>
+  dto.repeatEveryHours ?
+    repetitions.problemsDueNow(getLearnedProblems(dto), dto.repeatEveryHours) :
+    dto.problems.filter(isProblemToReview);
+
+const dateToDueIn = (date) => {
+  const string = dayjs(date).from(dayjs(), true);
   const [amount, measure] = string.split(' ');
   if (string === 'a few seconds') {
     return { amount: '', measure: 'a few seconds' };
@@ -19,15 +23,32 @@ const getNextDueDateIn = (dto) => {
   return { amount: (amount === 'a' || amount === 'an') ? 1 : amount, measure };
 };
 
-const nextDueDateInToString = (nextDueDateIn) => {
-  if (nextDueDateIn === null) {
-    return null;
-  } else if (nextDueDateIn === 'now') {
-    return 'Now';
-  } else {
-    return `In ${nextDueDateIn.amount} ${nextDueDateIn.measure}`;
+// [claude comment] when the review pile next grows - a fixed-interval course arrives whole on its next cycle boundary, a spaced repetition one whenever its soonest not-yet-due flashcard comes round. null = nothing more is coming, which for spaced repetition means everything is already waiting
+const getNextArrivalAt = (dto) => {
+  const learnedProblems = getLearnedProblems(dto);
+
+  if (dto.repeatEveryHours) {
+    return repetitions.nextRepetitionAt(learnedProblems, dto.repeatEveryHours);
   }
+
+  const now = Date.now();
+  const upcoming = learnedProblems
+    .map((problem) => new Date(problem.nextDueDate).getTime())
+    .filter((time) => time > now);
+
+  return upcoming.length ? new Date(Math.min(...upcoming)) : null;
 };
+
+// => null
+// => { amount: 5, measure: 'hours' }
+const getNextDueDateIn = (dto) => {
+  const nextArrivalAt = getNextArrivalAt(dto);
+
+  return nextArrivalAt ? dateToDueIn(nextArrivalAt) : null;
+};
+
+const nextDueDateInToString = (nextDueDateIn) =>
+  nextDueDateIn ? `In ${nextDueDateIn.amount} ${nextDueDateIn.measure}` : null;
 
 const isProblemToReview = (problem) => {
   if (!problem._learned || problem.ifIgnored) return false;
@@ -57,13 +78,13 @@ const countAllProblemsToLearn = (dtos) => {
 
 const getDtosToReview = (dtos) => {
   return dtos.filter((course) =>
-    course.problems.find(isProblemToReview)
+    getProblemsToReview(course).length > 0
   );
 };
 
 const countAllProblemsToReview = (dtos) => {
   return dtos.reduce((acc, course) => {
-    return acc + course.problems.filter(isProblemToReview).length;
+    return acc + getProblemsToReview(course).length;
   }, 0);
 };
 
@@ -117,12 +138,13 @@ const getNextDueProblem = (dto) => {
 const dtoToCourseCardProps = (dto) => {
   const nextDueProblem = getNextDueProblem(dto);
   const problemsToLearn = dto.problems.filter(isProblemToLearn);
-  const problemsToReview = dto.problems.filter(isProblemToReview);
+  const problemsToReview = getProblemsToReview(dto);
 
   return {
     ...dto,
     amountOfProblemsToLearn: problemsToLearn.length,
     amountOfProblemsToReview: problemsToReview.length,
+    repetitionsDue: countRepetitionsDue(dto),
     nextDueDate: nextDueProblem ? nextDueProblem.nextDueDate : null,
   };
 };
@@ -150,6 +172,7 @@ const filterCoursesByFocus = (courses, focusedCategoryId, focusedSubstring) => {
 
 export default {
   isProblemToReview, isProblemToLearn,
+  countRepetitionsDue, getProblemsToReview,
   getDtosToLearn, countAllProblemsToLearn,
   getDtosToReview, countAllProblemsToReview,
   sortByHowMuchToDo,

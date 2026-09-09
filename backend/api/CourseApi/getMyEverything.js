@@ -11,7 +11,10 @@ const getMyEverything = async (request, response) => {
     `SELECT
       row_to_json(course.*)          AS course,
       row_to_json("user".*)          AS author,
-      row_to_json(course_category.*) AS course_category
+      row_to_json(course_category.*) AS course_category,
+
+      -- [claude comment] flat and pre-camelized, because row_to_json() above keeps snake_case
+      course_user_is_learning.repeat_every_hours AS "repeatEveryHours"
     FROM course
 
     INNER JOIN course_user_is_learning
@@ -85,6 +88,7 @@ const getMyEverything = async (request, response) => {
           _learned: true,
           courseId: myLearnedProblem.courseId,
           nextDueDate: myLearnedProblem.nextDueDate,
+          lastReviewedAt: myLearnedProblem.lastReviewedAt,
           ifIgnored: myLearnedProblem.ifIgnored,
           easiness: myLearnedProblem.easiness,
           consecutiveCorrectAnswers: myLearnedProblem.consecutiveCorrectAnswers

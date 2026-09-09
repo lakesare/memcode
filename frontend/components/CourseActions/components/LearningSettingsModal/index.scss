@@ -1,0 +1,83 @@
+:local(.local){
+  max-width: 500px;
+
+  h2.title{
+    margin-bottom: 10px;
+  }
+
+  .settings-tab{
+    section.part-of-the-website{
+      div.setting{
+        margin-bottom: 10px;
+        background: rgba(255, 255, 255, 0.04);
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        .comment{
+          width: 100%;
+          padding-left: 10px;
+          overflow-wrap: anywhere;
+        }
+        .react-select{
+          margin-left: 20px;
+          min-width: 200px;
+        }
+        // [claude comment] react-select draws its own box, so match it by hand
+        .hours-input{
+          margin-left: 20px;
+          min-width: 200px;
+          // [claude comment] 38px is react-select's own control height
+          min-height: 38px;
+          box-sizing: border-box;
+          padding: 9px 12px;
+          background-color: rgba(21, 23, 55, 0.48);
+          color: white;
+          font-size: inherit;
+          border-radius: 4px;
+          &:focus, &:hover{
+            background-color: rgba(21, 23, 55, 0.664);
+          }
+        }
+      }
+    }
+
+    .validation-error{
+      margin-top: 15px;
+      color: rgb(252, 126, 126);
+      font-size: 13px;
+    }
+
+    .reset-warning{
+      margin-top: 20px;
+      padding: 12px 16px;
+      border-left: 2px solid rgb(252, 126, 126);
+      background: rgba(252, 126, 126, 0.08);
+      color: rgb(252, 126, 126);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .buttons{
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 30px;
+    }
+  }
+
+  @media (max-width: 400px){
+    .settings-tab{
+      .setting{
+        flex-wrap: wrap;
+        padding: 10px 20px;
+      }
+      .react-select, .hours-input{
+        width: 100%;
+        margin-left: 0 !important;
+        margin-top: 10px !important;
+      }
+      .comment{ padding-left: 0 !important; }
+    }
+  }
+}

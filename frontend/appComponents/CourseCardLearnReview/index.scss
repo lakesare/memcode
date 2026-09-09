@@ -102,6 +102,13 @@
         &.-review{
           background: variables.$review-button-color;
         }
+        > span.repetitions-due{
+          margin-left: 5px;
+          padding: 0 4px;
+          border: 1px solid rgba(255, 255, 255, 0.55);
+          border-radius: 2px;
+          font-weight: 600;
+        }
         &.-next-due{
           color: white;
           i.timer-icon{

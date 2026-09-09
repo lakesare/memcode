@@ -14,6 +14,8 @@ const createPuil = async (problemId, userId, { ifIgnored }) => {
       consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers,
       ifIgnored,
       nextDueDate: dayjs().format(),
+      // [claude comment] learning isn't reviewing
+      lastReviewedAt: null,
       courseUserIsLearningId,
       problemId,
     })

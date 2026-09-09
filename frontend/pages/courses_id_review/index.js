@@ -148,7 +148,7 @@ class Page_courses_id_review extends React.Component {
 
   renderPlaceholder = () => {
     const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
-    const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
+    const nOfProblemsToReview = dto && MyModel.getProblemsToReview(dto).length;
 
     return <section className={`ProblemBeingSolved ${cssProblemBeingSolved.section}`}>
       <Subheader
@@ -183,6 +183,7 @@ class Page_courses_id_review extends React.Component {
         SettingsActions={this.props.SettingsActions}
         currentProblem={this.props.currentProblem}
         ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
+        restartReview={() => this.props.getPage(this.props.courseId)}
       />
 
       {
