@@ -1,4 +1,5 @@
 import orFalse from '~/services/orFalse';
+import pluralize from '~/services/pluralize';
 import MyModel from '~/models/MyModel';
 
 import ReadonlyEditor from '~/components/ReadonlyEditor';
@@ -83,7 +84,7 @@ class CourseDescriptionAndStats extends React.Component {
               toggler={
                 <a className="stat-line -fade-out-on-hover">
                   <span className="number">{this.props.courseDto.learners.length}</span>
-                  <span className="label">students</span>
+                  <span className="label">{pluralize(this.props.courseDto.learners.length, 'student', 'students')}</span>
                 </a>
               }
               course={this.props.courseDto.course}
@@ -96,7 +97,7 @@ class CourseDescriptionAndStats extends React.Component {
             <i className="fa fa-list"/>,
             <div className="stat-line">
               <span className="number">{this.props.courseDto.amountOfProblems}</span>
-              <span className="label">flashcards</span>
+              <span className="label">{pluralize(this.props.courseDto.amountOfProblems, 'flashcard', 'flashcards')}</span>
             </div>
           )}
 
