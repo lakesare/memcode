@@ -749,6 +749,27 @@ body.-bright-theme .tippy-box:not(.bg-button-dropdown){
       color: rgb(234, 225, 220);
     }
   }
+  .standard-tooltip-dropdown{
+    li > button, li > a{
+      color: rgb(65, 52, 44) !important;
+      .text{
+        font-weight: 600;
+      }
+      &:hover, &:hover .text{
+        opacity: 1;
+      }
+      &:hover{
+        color: rgb(26, 18, 13) !important;
+        .comment{
+          color: rgb(65, 52, 44);
+        }
+      }
+    }
+    .comment, .comment.-white{
+      color: rgb(118, 100, 86);
+      font-weight: 400;
+    }
+  }
   .quill-toolbar-tooltip{
     .explanation{
       font-weight: 700;

@@ -37,6 +37,17 @@ class Select extends Component {
     withGroups: false,
   }
 
+  state = { ifMenuIsOpen: false }
+
+  onMenuOpen = () => this.setState({ ifMenuIsOpen: true })
+  onMenuClose = () => this.setState({ ifMenuIsOpen: false })
+
+  onKeyDown = (event) => {
+    if (event.key === 'Escape' && this.state.ifMenuIsOpen) {
+      event.stopPropagation();
+    }
+  }
+
   render = () => {
     let options;
     let value;
@@ -91,6 +102,9 @@ class Select extends Component {
         value={value}
         onChange={onChange}
         options={options}
+        onMenuOpen={this.onMenuOpen}
+        onMenuClose={this.onMenuClose}
+        onKeyDown={this.onKeyDown}
       />
     );
   }

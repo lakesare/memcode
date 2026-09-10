@@ -69,7 +69,7 @@ class TabEditCourseDetails extends React.Component {
 
         <button
           className="button -purple standard-submit-button"
-          type="submit"
+          type="button"
           onClick={this.apiUpdateCourse}
         >Update</button>
 
