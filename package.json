@@ -159,6 +159,76 @@
   "overrides": {
     "pg-promise": {
       "pg": "8.7.3"
+    },
+    "babel-loader": {
+      "cipher-base": "1.0.5"
+    },
+    "browserify-aes": {
+      "cipher-base": "1.0.5"
+    },
+    "browserify-cipher": {
+      "cipher-base": "1.0.5"
+    },
+    "browserify-des": {
+      "cipher-base": "1.0.5"
+    },
+    "browserify-sign": {
+      "cipher-base": "1.0.5"
+    },
+    "cipher-base": "1.0.5",
+    "copy-webpack-plugin": {
+      "cipher-base": "1.0.5"
+    },
+    "create-hash": {
+      "cipher-base": "1.0.5"
+    },
+    "create-hmac": {
+      "cipher-base": "1.0.5"
+    },
+    "crypto-browserify": {
+      "cipher-base": "1.0.5"
+    },
+    "css-loader": {
+      "cipher-base": "1.0.5"
+    },
+    "eslint-loader": {
+      "cipher-base": "1.0.5"
+    },
+    "file-loader": {
+      "cipher-base": "1.0.5"
+    },
+    "html-webpack-plugin": {
+      "cipher-base": "1.0.5"
+    },
+    "mini-css-extract-plugin": {
+      "cipher-base": "1.0.5"
+    },
+    "node-libs-browser": {
+      "cipher-base": "1.0.5"
+    },
+    "parse-asn1": {
+      "cipher-base": "1.0.5"
+    },
+    "pbkdf2": {
+      "cipher-base": "1.0.5"
+    },
+    "public-encrypt": {
+      "cipher-base": "1.0.5"
+    },
+    "sass-loader": {
+      "cipher-base": "1.0.5"
+    },
+    "terser-webpack-plugin": {
+      "cipher-base": "1.0.5"
+    },
+    "webpack": {
+      "cipher-base": "1.0.5"
+    },
+    "webpack-cli": {
+      "cipher-base": "1.0.5"
+    },
+    "workbox-webpack-plugin": {
+      "cipher-base": "1.0.5"
     }
   }
 }
