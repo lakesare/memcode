@@ -28,28 +28,4 @@
       }
     }
   }
-  &.-Select{
-    button.toggler{
-      font-size: 15px;
-
-      cursor: pointer;
-      // center text and an arrow
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      i.fa-caret-down{
-        color: variables.$purple;
-        padding-left: 10px;
-      }
-      @extend .extendable-pretty-input;
-    }
-
-    .standard-dropdown{
-      a, button{
-        padding: 10px;
-        padding-left: 20px;
-      }
-    }
-  }
 }

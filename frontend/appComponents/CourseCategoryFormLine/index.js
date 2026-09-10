@@ -23,6 +23,7 @@ class CourseCategoryFormLine extends React.Component {
       formValidation={this.props.formValidation}
     >
       <CourseCategorySelect
+        inputId={this.props.name}
         courseCategoryId={this.props.formState[this.props.name] || false}
         updateCourseCategoryId={this.updateFormState}
       />

@@ -10,10 +10,7 @@ header .avatar{
   }
 }
 
-input.standard-input:not(.answer-input):not(.toggler),
-.standard-input.-Select button.toggler,
-.standard-dropdown a, .standard-dropdown button,
-.standard-input.-Select ul.groups button{
+input.standard-input:not(.answer-input):not(.toggler){
   &:focus, &:hover{
     background: rgb(27, 31, 65);
   }  

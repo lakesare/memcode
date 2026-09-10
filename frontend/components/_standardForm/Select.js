@@ -1,5 +1,5 @@
 import FormLineLayout from './components/FormLineLayout';
-import SelectDropdown from '~/components/SelectDropdown';
+import ReactSelectWrapper from '~/components/Select';
 
 // why is there value={this.props.formState[name] || ''} in all inputs?
 // to avoid this issue: https://github.com/twisty/formsy-react-components/issues/66
@@ -21,18 +21,28 @@ class Select extends React.Component {
       [this.props.name]: value
     })
 
+  deriveOptions = () =>
+    Object.keys(this.props.possibleValues).map((value) => ({
+      value,
+      label: this.props.possibleValues[value]
+    }))
+
+  deriveValue = () => {
+    const value = String(this.props.formState[this.props.name]);
+    return Object.prototype.hasOwnProperty.call(this.props.possibleValues, value) ? value : null;
+  }
+
   render = () =>
     <FormLineLayout
       label={this.props.label}
       name={this.props.name}
       formValidation={this.props.formValidation}
     >
-      <SelectDropdown
-        value={String(this.props.formState[this.props.name])}
+      <ReactSelectWrapper
+        inputId={this.props.name}
+        options={this.deriveOptions()}
+        value={this.deriveValue()}
         updateValue={this.updateFormState}
-        possibleValues={this.props.possibleValues}
-        className="standard-input -Select standard-dropdown-wrapper"
-        dropdownClassName="standard-dropdown -purple"
       />
     </FormLineLayout>
 }
