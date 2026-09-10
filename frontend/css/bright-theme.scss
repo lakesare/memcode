@@ -37,7 +37,8 @@ body.-bright-theme .-articles-page{
 
 // Not using the body tag for the /courses/1490/review/print page (we have to manually assign .-bright-theme, and assigning it to the body is not that easy from inside the page)
 // Exclude articles pages from bright theme styles
-.-bright-theme .-without-bg:not(.-articles-page){
+// [claude comment] :is() rather than plain `main` so this stays at two-class specificity - almost every declaration in here is !important, so !important ties against the dark theme are decided by specificity alone and dropping a class would flip them.
+.-bright-theme :is(.-with-bg, .-without-bg):not(.-articles-page){
 
   .standard-navigation_and_courses .search-bar{
     background-color: rgb(234, 225, 220);
@@ -461,17 +462,50 @@ body.-bright-theme .-articles-page{
   .Subheader .buttons{
     color: rgba(124, 106, 92, 0.85);
   }
-  .randomize-button, .randomize-button:hover{
+  .randomize-button{
     color: rgba(124, 106, 92, 0.85);
     border: 1px solid rgba(124, 106, 92, 0.6);
     opacity: 1;
   }
+
+  // [claude comment] focus-styles.scss gives these four a rgba(255,255,255,0.09) hover wash, which is invisible on a light ground, so the wash is inverted to ink and the muted glyphs go to full ink; translucent rather than a solid tint because these sit over the wallpaper on this page.
+  button.bg-image-button, button.volume-button, .randomize-button{
+    border-radius: 10px;
+    &:hover{
+      transition: background 60ms ease-in-out;
+      background: rgba(65, 52, 44, 0.1) !important;
+      color: rgb(65, 52, 44);
+      opacity: 1;
+    }
+  }
+  .randomize-button:hover{
+    border: 1px solid rgba(65, 52, 44, 0.5);
+  }
+  .toggle-button:hover .toggle-button-label-left{
+    &:after{
+      transition: background 60ms ease-in-out;
+      background: rgba(65, 52, 44, 0.1);
+      border-color: rgba(65, 52, 44, 0.5);
+    }
+    &:before{ background: rgba(65, 52, 44, 0.5); }
+  }
+  // [claude comment] The dark theme leaves this tray transparent and makes the chips a 7% white wash over the wallpaper, so the same ink wash is used here rather than solid fills.
   .bg-button-dropdown{
+    color: rgb(65, 52, 44);
     button{
-      background: rgba(96, 94, 94, 0.69);
-      &.-active{
-        background: rgba(96, 94, 94, 0.9) !important;        
+      background: rgba(65, 52, 44, 0.1);
+      color: rgb(65, 52, 44);
+      &:hover{
+        background: rgba(65, 52, 44, 0.17);
+        opacity: 1;
       }
+      &.-active{
+        background: rgba(65, 52, 44, 0.28) !important;
+      }
+    }
+    input::placeholder{
+      color: rgba(65, 52, 44, 0.55);
+      opacity: 1;
     }
   }
   .toggle-button-label-left{
@@ -542,7 +576,7 @@ body.-bright-theme .-articles-page{
   }
 }
 
-.-bright-theme .-without-bg:not(.-articles-page){
+.-bright-theme :is(.-with-bg, .-without-bg):not(.-articles-page){
   // _________BORDER RADIUS_________
   .button{
     border-radius: 10px !important;
@@ -707,8 +741,8 @@ body.-bright-theme .-articles-page{
   }
 }
 
-// [claude comment] Tippy portals these to <body>, outside main.-without-bg, so the theme's usual scope can never reach them - hence the body-level selector.
-body.-bright-theme .tippy-box{
+// [claude comment] Tippy portals most tooltips to <body>, outside main, where the theme's usual scope can never reach them - hence the body-level selector; .bg-button-dropdown is excluded because it renders inline and wants the dark theme's transparent tray.
+body.-bright-theme .tippy-box:not(.bg-button-dropdown){
   &, &.-bright, &[data-theme='-bright'], &.-dark, &[data-theme='-dark']{
     background-color: rgb(234, 225, 220);
     color: rgb(65, 52, 44);

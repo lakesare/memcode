@@ -69,6 +69,16 @@ class Main extends React.Component {
 
   // https://images.unsplash.com/photo-1545614154-450a332ba71a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80
 
+  // [claude comment] The overlay has to follow the theme, not the image: the bright theme's ink is a dark brown, so darkening the wallpaper the way the dark theme does leaves that text sitting on a near-black ground.
+  backgroundImageOverlay = () => {
+    if (this.props.Settings.theme === 'bright') {
+      return 'linear-gradient(rgba(242, 236, 233, 0.82), rgba(242, 236, 233, 0.55)),';
+    }
+    return this.props.Settings.backgroundImage.includes('d46bf351cd6e') ?
+      'linear-gradient(rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.1)),' :
+      'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),';
+  }
+
   render = () =>
     <main
       key={this.state.key}
@@ -78,9 +88,7 @@ class Main extends React.Component {
       `}
       style={this.props.Settings.backgroundImage ? {
         backgroundImage:
-        (this.props.Settings.backgroundImage.includes('d46bf351cd6e') ?
-          'linear-gradient(rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.1)),' :
-          'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)),') +
+          this.backgroundImageOverlay() +
           ` url("${this.props.Settings.backgroundImage}")`
       } : {}}
     >
