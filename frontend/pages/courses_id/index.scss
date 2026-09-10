@@ -18,7 +18,8 @@
     left: calc(100% + 6px);
   }
   section.how-to-create, section.choose-type, section.save-changes{
-    width: 92px;
+    // [claude comment] 104 not 92 so "FLASHCARD TYPE" fits on one line; the rails sit inside the container's 120px side padding, so this does not move the editor columns.
+    width: 104px;
   }
 
   .choose-type button, .save-changes-button, .how-to-create button, .checkbox{

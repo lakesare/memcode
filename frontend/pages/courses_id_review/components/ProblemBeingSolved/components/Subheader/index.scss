@@ -4,6 +4,10 @@
   .-mobile{ display: none; }
   .-desktop{ display: block; }
 
+  // [claude comment] These were inline styles on the spans, which no stylesheet could override per theme; values unchanged so the dark theme renders exactly as before.
+  .rate-worse{ color: rgb(242, 112, 110); }
+  .rate-better{ color: rgb(134, 244, 159); }
+
   > .container{
     min-height: 57px;
     display: flex;

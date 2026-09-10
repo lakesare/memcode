@@ -1,7 +1,5 @@
 @use '~/css/variables.scss';
 
-@import url('https://fonts.googleapis.com/css?family=Libre+Franklin|Montserrat:100,200,300,400,500,600,700&display=swap');
-
 :local(main.main){
   // header .sign-in{
   //   background: none !important;
@@ -239,7 +237,7 @@
           border-top-left-radius: 5px;
           // color: $purple;
           font-weight: 600;
-          font-family: 'Libre Franklin', sans-serif;
+          font-family: 'Roboto';
           font-size: 18px;
         }
 

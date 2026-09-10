@@ -114,6 +114,11 @@ body.-bright-theme .-articles-page{
         background: none !important;
         color: rgb(65, 52, 44) !important;
       }
+      // [claude comment] These sit on the solid review/learn fills, where the theme's inherited rgb(65,52,44) only reaches 2.91:1.
+      .course-li.-review .action,
+      .course-li.-learn .action{
+        color: white !important;
+      }
       .course-li.-next-due-date-in .action{
         background: #d6baaf6b !important;
         color: #684f4fa1;
@@ -149,21 +154,42 @@ body.-bright-theme .-articles-page{
     .notifications-dropdown{
       .header{
         border-bottom: 1px solid rgba(216, 179, 153, 0.15) !important;
+        div.title, .read-all-button{
+          font-weight: 700;
+          color: rgb(65, 52, 44);
+        }
       }
       .-already-read .circle{
         background: rgba(157, 101, 101, 0.209);
       }
       li.-not-yet-read{
-        background: rgba(255, 160, 227, 0.33) !important;
+        background: rgba(214, 186, 175, 0.5) !important;
+      }
+      // [claude comment] Each notification type hardcodes a neon inline style tuned for the dark theme (magenta rgb(219,16,242), green rgb(78,215,76), ...) which lands at ~1.2:1 here; brightness() darkens each hue in place so the type stays recognisable and no colour is hardcoded against an inline style.
+      li div.title span{
+        filter: brightness(0.45);
+      }
+      li i.fa{
+        filter: brightness(0.52);
+      }
+      li div.title{
+        color: rgb(65, 52, 44);
+      }
+      li a{
+        color: rgb(65, 52, 44) !important;
+        font-weight: 600;
       }
       div.created-at{
         color: #684f4fa1;
       }
     }
+    // [claude comment] The dropdown opens on mouseenter, so aria-expanded="true" outranks :hover - without the same background here the bell just never highlights.
     .notifications-toggler[aria-expanded="true"]{
-      // background: rgba(255, 255, 255, 0.29) !important;
-      // border-radius: 10px;
-      background: none !important;
+      background: rgb(234, 225, 220) !important;
+    }
+    // 10px to match CREATE / COURSES, which get it from .button.
+    .notifications-toggler{
+      border-radius: 10px;
     }
 
   }
@@ -172,32 +198,163 @@ body.-bright-theme .-articles-page{
 
 
   color: rgb(65, 52, 44);
-  font-family: 'Open Sans' !important;
-  font-weight: 500 !important;
+  font-family: 'Open Sans';
+  font-weight: 400;
+
   h1, h2, h3, h4, h5, h6{
-    font-family: 'Open Sans' !important;
-    font-weight: 500 !important;
+    font-family: 'Open Sans';
+    font-weight: 600 !important;
   }
   .button, input, textarea, select, button, label{
-    font-family: 'Open Sans' !important;
-    font-weight: 500 !important;
+    font-family: 'Open Sans';
+  }
+  .button, button, label, select, .dropdown-item{
+    font-weight: 600;
+  }
+  input, textarea{
+    font-weight: 400;
+  }
+
+  // [claude comment] One spec for every small uppercase label - they sat at four different letter-spacings (0.9/1/0.5/0), two weights and four sizes, and uppercase with zero tracking is why the rail labels read cramped.
+  .category_and_author .category,
+  .category_and_author .author,
+  .course-stats .label,
+  section.choose-type label,
+  section.how-to-create label,
+  section.how-to-create .shortcut,
+  .edit-button,
+  .invite-coauthor-button,
+  .resume-learning-button,
+  .how-to-create button{
+    font-size: 11px !important;
+    font-weight: 600;
+    letter-spacing: 0.8px !important;
+    text-transform: uppercase;
+  }
+  // The stat itself is a number, not a label - it stays a step larger and untracked.
+  .course-stats .number{
+    font-size: 13px !important;
+    font-weight: 600;
+    letter-spacing: normal !important;
+  }
+
+  // [claude comment] $orange flattens to rgb(249,122,37) on this ground while REVIEW and the review-count badge are rgb(212,85,18) - two oranges a shade apart read as a mistake, and the darker one also lifts white text from 2.68:1 to 4.11:1.
+  .button.-orange,
+  .resume-learning-button,
+  .choose-type button,
+  .how-to-create button,
+  .save-changes-button,
+  section.checkbox,
+  div.index{
+    background: rgb(212, 85, 18) !important;
+  }
+
+  // [claude comment] Two hover mechanisms only: transparent controls get the surface tint rgb(234,225,220) that this theme already uses for the search bar, dropdowns and pagination, and filled controls darken via brightness() so no accent colour is hardcoded here.
+  // [claude comment] The dark theme's hover washes (rgba(243,243,249,.05) and rgba(255,255,255,.09)) resolve to rgb(242,236,234) on this ground - a one-value shift - so anything relying on them had no feedback at all.
+  .button.link:hover,
+  .notifications-toggler:hover,
+  .edit-button:hover,
+  .invite-coauthor-button:hover,
+  .more-button:hover,
+  .course-categories-nav li a.name:hover,
+  ul.categories > li a.cross:hover,
+  section.problem .ql-toolbar button:hover{
+    background: rgb(234, 225, 220) !important;
+    opacity: 1 !important;
+    border-radius: 10px;
+  }
+
+  // The avatar is already a circular image, so it fades rather than taking a background.
+  a.avatar:hover{
+    background: none !important;
+    opacity: 0.8 !important;
+  }
+
+  // [claude comment] The logo fills the full 62px header height, so a tint on it was a tall block; it fades like the course title instead.
+  a.logo:hover{
+    background: none !important;
+    opacity: 0.7 !important;
+  }
+
+  // Quill's snow theme turns toolbar icons #0066cc on hover, which is the one cold
+  // colour left on the page; the tint above carries the feedback instead.
+  section.problem .ql-toolbar button:hover{
+    border-radius: 4px;
+    .ql-stroke{ stroke: rgb(65, 52, 44) !important; }
+    .ql-fill{ fill: rgb(65, 52, 44) !important; }
+    color: rgb(65, 52, 44) !important;
+  }
+
+  // [claude comment] Hover tone for the editor's orange controls, matching what FILL-IN ANSWER resolves to when hovered; an explicit colour rather than brightness() because an 8% darken of rgb(212,85,18) is imperceptible. REVIEW and the review-count badge deliberately keep their own hovers.
+  .button.-orange:hover,
+  .resume-learning-button:hover,
+  .choose-type button:not(.-active):hover,
+  button.reveal:hover,
+  .see-answer-button:hover{
+    background: rgb(221, 130, 83) !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .how-to-create button:hover,
+  .save-changes-button:hover,
+  section.checkbox:hover,
+  .old-problem-wrapper.-not-checked > section.checkbox:hover{
+    background: #c04d10 !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .how-to-create button:not(:hover){
+    opacity: 1;
+  }
+
+  // [claude comment] These stretch to the full 62px header height, so the hover tint was a tall block around 15px of text.
+  // [claude comment] One height for all three header hover targets: the vertical padding is dropped because the 23px review-count badge inside COURSES would otherwise force it to 39px while CREATE and the bell sat at 31px.
+  .button.link,
+  .notifications-toggler{
+    height: 31px;
+    align-self: center;
+  }
+  .button.link{
+    padding: 0 12px;
+  }
+  // [claude comment] COURSES sits inside this block-level wrapper, where align-self does nothing - without this it hangs from the top of the header while CREATE is centred.
+  .my-courses-toggler{
+    display: flex;
+    align-items: center;
+  }
+
+  // Hierarchy comes from colour, not weight, so the labels stay one visual family.
+  .category_and_author .category,
+  .category_and_author .author{
+    color: rgb(118, 100, 86) !important;
   }
   header a.logo{
-    font-weight: 600 !important;
+    font-weight: 700 !important;
+  }
+  strong, b{
+    font-weight: 700;
   }
 
   .notifications-toggler i, .next-review-time, section.whats-next > h2{
     color: rgb(65, 52, 44) !important;
   }
 
-  section.title-and-buttons section.category_and_author, .standard-course-card .category{
-    border-left: 1px solid rgba(173, 173, 173, 0.55) !important;
+  // [claude comment] 1px at .4 alpha resolved to only 1.7:1 against the ground, which is why the rule looked washed out rather than deliberate.
+  section.title-and-buttons section.category_and_author{
+    border-left: 2px solid rgba(118, 100, 86, 0.8) !important;
+  }
+  // [claude comment] No leading rule on the card: there is nothing before the author on the same row, so the single line read as a stray mark - the 6px indent goes with it so the category lines up with the title.
+  .standard-course-card .category{
+    border-left: none !important;
+    padding-left: 0 !important;
   }
 
   section.how-to-create label, section.choose-type label, section.how-to-create .shortcut,
   .course-description  .placeholder,
   .wrapper .user .created-at{
-    color: rgba(173, 173, 173, 0.9) !important;
+    color: rgb(118, 100, 86) !important;
   }
 
 
@@ -233,7 +390,7 @@ body.-bright-theme .-articles-page{
     }
     .amount-of-courses{
       // color: inherit;
-      color: #9f9e9e !important;
+      color: rgb(118, 100, 86) !important;
     }
     li a.name:hover{
       opacity: 0.6;
@@ -247,8 +404,10 @@ body.-bright-theme .-articles-page{
   section.problem .ql-toolbar{
     background: none;
     button{
+      // [claude comment] Quill draws these 18x18 icons at stroke-width 1, which reads as a hairline at this size.
       .ql-stroke{
         stroke: rgb(65, 52, 44) !important;
+        stroke-width: 1.7;
       }
       .ql-fill{
         fill: rgb(65, 52, 44) !important;
@@ -265,10 +424,18 @@ body.-bright-theme .-articles-page{
   }
 
   .standard-course-card{
-    background: white;
-    &.-focusable-link:hover{
-      opacity: 0.7;
-      background: white;
+    // [claude comment] Warm off-white on the same hue as the ground and the ink (~20-23): less saturated than the ground reads grey, but pushing the hue toward yellow instead makes the ground look grey by contrast, so only saturation is the free variable here.
+    background: rgb(254, 249, 246);
+    // [claude comment] The .go strip is a blue-grey wash from the dark theme that blends to within a few values of the ground, so the top of the card looked like a gap.
+    > .go{
+      background: none !important;
+    }
+    // [claude comment] Hover WARMS rather than darkens: brightness() on a near-white card takes it below the page's own lightness, at which point it reads as a recess rather than a raised card. This stays lighter than the ground (250 vs 242) while roughly doubling saturation, and also blocks the dark theme's rgb(32,35,73) hover on the learn/review variant.
+    &:hover, &.-focusable-link:hover{
+      background: rgb(250, 240, 235) !important;
+      filter: none !important;
+      // [claude comment] The theme fades cards to .7 on hover, which literally makes them see-through; the warm background above is the feedback instead.
+      opacity: 1 !important;
     }
     .go{
       color: rgb(65, 52, 44);
@@ -280,21 +447,23 @@ body.-bright-theme .-articles-page{
   }
 
   .wrapper{
+    // [claude comment] Kept recessed - a shade darker than the ground, as the original blue-leaning wash was - but warm rather than cool, with a warm hairline; making these brighter than the ground turns them into cream cards, which is not what this layout wants.
     .user, .skills, .stats{
-      background: #e0e0e326;
-      box-shadow: 0 1px 0 0 #cacbce63, 0 0 0 1px #ededf073;
+      background: rgb(238, 231, 227);
+      box-shadow: 0 1px 2px rgba(120, 96, 66, 0.06), 0 0 0 1px rgba(120, 96, 66, 0.1);
     }
+    // The track has to sit under the warm surface to stay visible, so it darkens rather than going white.
     .skill .progress-bar{
-      background: white !important;
+      background: rgb(238, 229, 223) !important;
     }
   }
 
   .Subheader .buttons{
-    color: #a6a3a3c9;
+    color: rgba(124, 106, 92, 0.85);
   }
   .randomize-button, .randomize-button:hover{
-    color: #a6a3a3c9;
-    border: 1px solid #a6a3a399;
+    color: rgba(124, 106, 92, 0.85);
+    border: 1px solid rgba(124, 106, 92, 0.6);
     opacity: 1;
   }
   .bg-button-dropdown{
@@ -306,8 +475,8 @@ body.-bright-theme .-articles-page{
     }
   }
   .toggle-button-label-left{
-    &:after{ border-color: #a6a3a399; }
-    &:before{ background: #a6a3a399; }
+    &:after{ border-color: rgba(124, 106, 92, 0.6); }
+    &:before{ background: rgba(124, 106, 92, 0.6); }
   }
 
   section.amount-footer{
@@ -417,7 +586,11 @@ body.-bright-theme .-articles-page{
 
   .ProblemBeingSolved{
     div.instructions{
-      em.review-emphasis{ color: rgb(37, 176, 139); font-weight: 600; }
+      // [claude comment] The dark theme's mint reaches only 2.34:1 here; same hue (164), darkened to clear AA.
+      em.review-emphasis{ color: rgb(24, 120, 94); font-weight: 600; }
+      // [claude comment] The rating arrows were 2.45:1 and 1.16:1 - the right arrow was effectively invisible. Hues kept (1 and 164) so left still reads as fail and right as pass, and both greens now match.
+      .rate-worse{ color: rgb(186, 58, 56) !important; }
+      .rate-better{ color: rgb(24, 120, 94) !important; }
       em.red-emphasis{ text-shadow: none !important; font-weight: 600; }
     }
     section.problem{
@@ -478,11 +651,11 @@ body.-bright-theme .-articles-page{
         border-width: 3px;
       }
       border-width: 3px !important;
-      color: rgb(49, 51, 54);
+      color: rgb(58, 47, 39);
       // color: rgb(206, 199, 245);
       // We need !important-s because we have to override styles copypasted by users
       span, em, strong, b, a, sup, sub, mark, p, ul, ol{
-        color: rgb(49, 51, 54) !important;
+        color: rgb(58, 47, 39) !important;
         background: transparent !important;
       }
       strong{
@@ -490,22 +663,22 @@ body.-bright-theme .-articles-page{
         font-weight: 600 !important;
       }
       em{
-        color: rgb(124, 134, 147) !important;
+        color: rgb(133, 115, 100) !important;
         font-weight: inherit;
       }
       a{
-        color: rgb(124, 134, 147) !important;
+        color: rgb(133, 115, 100) !important;
       }
 
       pre.ql-syntax, code, code *{
-        background: rgb(243, 243, 243) !important;
-        color: rgb(67, 67, 69) !important;
+        background: rgb(244, 239, 231) !important;
+        color: rgb(90, 74, 62) !important;
       }
 
       blockquote{
-        color: rgb(49, 51, 54) !important;
-        background: rgba(135, 135, 135, 0.04) !important;
-        border-left: 3px solid rgba(142, 141, 141, 0.18);
+        color: rgb(58, 47, 39) !important;
+        background: rgba(120, 96, 66, 0.05) !important;
+        border-left: 3px solid rgba(120, 96, 66, 0.2);
       }
     }
     button.see-answer-button{
@@ -520,7 +693,7 @@ body.-bright-theme .-articles-page{
     }
     &.-withInlinedAnswers{
       input.answer-input[data-answered='waiting']{
-        color: rgb(49, 51, 54) !important;
+        color: rgb(58, 47, 39) !important;
         border: 2px solid #71e3c5 !important;
         &:hover, &:focus{
           background: none !important;
@@ -529,7 +702,28 @@ body.-bright-theme .-articles-page{
     }
     // placeholder!
     > .ql-container > .ql-editor.ql-blank::before{
-      color: rgb(49, 51, 54);
+      color: rgb(58, 47, 39);
+    }
+  }
+}
+
+// [claude comment] Tippy portals these to <body>, outside main.-without-bg, so the theme's usual scope can never reach them - hence the body-level selector.
+body.-bright-theme .tippy-box{
+  &, &.-bright, &[data-theme='-bright'], &.-dark, &[data-theme='-dark']{
+    background-color: rgb(234, 225, 220);
+    color: rgb(65, 52, 44);
+    > .tippy-arrow{
+      color: rgb(234, 225, 220);
+    }
+  }
+  .quill-toolbar-tooltip{
+    // [claude comment] 700 not 600 because these portalled tooltips render in Roboto, which has no 600.
+    .explanation{
+      font-weight: 700;
+    }
+    // $green and $purple are dark-theme accents; both land near 1.5:1 on this surface.
+    .shortcut, .instruction{
+      color: rgb(118, 100, 86);
     }
   }
 }

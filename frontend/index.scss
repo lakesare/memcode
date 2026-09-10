@@ -3,10 +3,8 @@
 
 @import '~font-awesome/css/font-awesome.css';
 
-// for flashcards, we need all the languages and weights!
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese');
-// for the UI
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500,700');
+// [claude comment] Roboto has no 600 and Open Sans has no 300, so those weights silently render as 700 and 400 respectively.
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
 
 
 @include meta.load-css('css/clear-default-css.scss');

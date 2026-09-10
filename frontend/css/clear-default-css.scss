@@ -40,7 +40,7 @@ main{
 }
 
 body{
-  font-family: variables.$body-font, serif;
+  font-family: 'Roboto';
   color: variables.$body-color;
   margin: 0;
   box-sizing: border-box;
@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, h6{
   margin-top: 0; margin-bottom: 0;
   font-weight: 300;
   letter-spacing: 0.3px;
-  font-family: variables.$heading-font;
+  font-family: 'Roboto';
 }
 // only use these
 h1{ font-size: 25px; }
@@ -82,7 +82,7 @@ input, textarea, select, button{
   // because mac makes it tiny 11px
   font-size: inherit;
   // because font defaults to system despite body style
-  font-family: variables.$body-font;
+  font-family: 'Roboto';
   font-weight: 300;
 
   background: none;

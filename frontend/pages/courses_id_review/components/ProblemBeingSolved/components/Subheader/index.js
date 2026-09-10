@@ -54,7 +54,7 @@ class Subheader extends React.Component {
       <div className="container">
         <div className="instructions -desktop">
           <em className="review-emphasis">Test drive</em> - results will not be recorded. Press <em className="review-emphasis">ENTER</em> to reveal answers.
-          Use arrows <span style={{ color: 'rgb(242, 112, 110)' }}>◄</span> <span style={{ color: 'rgb(134, 244, 159)' }}>►</span> to rate yourself.
+          Use arrows <span className="rate-worse">◄</span> <span className="rate-better">►</span> to rate yourself.
         </div>
         {/* <div className="instructions -mobile"> */}
         {/*   <em className="yellow-emphasis">Test drive</em> - results are not recorded. */}
@@ -206,7 +206,7 @@ class Subheader extends React.Component {
         <div className="instructions -desktop">
           <em className="review-emphasis">REVIEW</em> - we are repeating due flashcards.
           Press <em className="review-emphasis">ENTER</em> to reveal answers.
-          Use arrows <span style={{ color: 'rgb(242, 112, 110)' }}>◄</span> <span style={{ color: 'rgb(134, 244, 159)' }}>►</span> to rate yourself.
+          Use arrows <span className="rate-worse">◄</span> <span className="rate-better">►</span> to rate yourself.
         </div>
 
         {/* for flexbox to float randomize buttons to the right */}
