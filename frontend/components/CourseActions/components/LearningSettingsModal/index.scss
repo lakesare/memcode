@@ -22,11 +22,9 @@
           margin-left: 20px;
           min-width: 200px;
         }
-        // [claude comment] react-select draws its own box, so match it by hand
         .hours-input{
           margin-left: 20px;
           min-width: 200px;
-          // [claude comment] 38px is react-select's own control height
           min-height: 38px;
           box-sizing: border-box;
           padding: 9px 12px;

@@ -169,7 +169,6 @@
         flex-shrink: 1;
 
         cursor: default;
-        // [claude comment] the bright theme's own near-black reads better than this tint, so only the dark theme sets a colour and bright inherits the page's
         body:not(.-bright-theme) &{
           color: rgb(172, 181, 218);
         }
@@ -187,7 +186,6 @@
           }
           > div.stat{
             padding-right: 10px;
-            // [claude comment] one gap everywhere instead of a padding picked per span, which is what made the spacing look uneven
             .stat-line{
               display: flex;
               align-items: baseline;
@@ -199,7 +197,6 @@
               white-space: nowrap;
               .number{
                 font-size: 13px;
-                // [claude comment] tracking is for the uppercase labels - on digits it just reads as a stray gap
                 letter-spacing: 0;
               }
             }
