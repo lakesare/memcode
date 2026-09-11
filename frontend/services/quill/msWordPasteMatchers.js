@@ -1,6 +1,6 @@
 // See https://github.com/quilljs/quill/issues/1225#issuecomment-1000785590
 
-import Delta from 'quill-delta';
+import { Delta } from 'quill';
 
 function matchMsWordList(node, delta) {
     // Clone the operations

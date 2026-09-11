@@ -1,4 +1,4 @@
-import { Quill } from 'react-quill';
+import Quill from 'quill';
 
 const BlockEmbed = Quill.import('blots/block/embed');
 class LoadingImageBlot extends BlockEmbed {

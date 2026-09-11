@@ -10,7 +10,7 @@ import superScriptHandler      from '~/services/quill/handlers/superScriptHandle
 import subScriptHandler        from '~/services/quill/handlers/subScriptHandler';
 import formulaHandler        from '~/services/quill/handlers/formulaHandler';
 
-import ReactQuill from 'react-quill';
+import QuillEditor from '~/components/QuillEditor';
 
 import { tippy } from '@tippyjs/react';
 
@@ -251,7 +251,7 @@ class Editor extends React.Component {
       // https://github.com/lakesare/memcode/pull/163
       matchers: msWordPasteMatchers
     },
-    imageResize: {
+    resize: {
       modules: ['Resize']
     },
     moduleDropOrPasteImage: {
@@ -266,7 +266,7 @@ class Editor extends React.Component {
   }
 
   render = () =>
-    <ReactQuill
+    <QuillEditor
       className={this.props.className}
       value={this.props.editorState}
       onChange={this.onChange}

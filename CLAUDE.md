@@ -205,6 +205,7 @@ These were carried over from the old `.eslintrc.cjs`. They are conventions to fo
   }
   ```
 - **Long lines are fine, especially comments.** No `max-len`: "I don't see why comments can't be long, doesn't everyone have wrapping in their text editors?" Never hard-wrap a comment onto a second line.
+- **Comments Claude writes**: only when absolutely necessary - the default is none. When one is unavoidable, prefix it `[claude comment]` and keep it to a single line (one `//`, never wrapped across several).
 - **`if { return } else { return }`** is preferred over `if { return }; return` - it reads more clearly.
 - **`hi ? hi : 'else'`** is preferred over `hi || 'else'`.
 - **`export { hi }`** is fine; a default export is not required.

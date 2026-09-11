@@ -1,7 +1,7 @@
-import { Quill } from 'react-quill';
+import Quill from 'quill';
 
-import ImageResize from 'quill-image-resize-module';
-Quill.register('modules/imageResize', ImageResize);
+import ImageResize from 'quill-resize-module';
+Quill.register('modules/resize', ImageResize);
 
 import moduleDropOrPasteImage from './moduleDropOrPasteImage';
 Quill.register('modules/moduleDropOrPasteImage', moduleDropOrPasteImage);

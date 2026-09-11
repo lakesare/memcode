@@ -1,5 +1,4 @@
-import Delta from 'quill-delta';
-import { Quill } from 'react-quill';
+import Quill, { Delta } from 'quill';
 import imageCompression from 'browser-image-compression';
 
 import fromFileToDataUrl from '~/services/fromFileToDataUrl';
@@ -101,7 +100,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
             quill.updateContents(
               new Delta()
                 .retain(index)
-                .delete(2) // delete the placeholder (I'm not sure why .delete(1) doesn't work)
+                .delete(1) // [claude comment] deletes the placeholder blot (1 delta position)
                 .insert({ image: response.url })
             );
 
@@ -125,7 +124,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
             newQuill.updateContents(
               new Delta()
                 .retain(index)
-                .delete(2) // delete the placeholder (I'm not sure why .delete(1) doesn't work)
+                .delete(1) // [claude comment] deletes the placeholder blot (1 delta position)
                 .insert({ image: response.url })
             );
 

@@ -1,4 +1,4 @@
-import { Quill } from 'react-quill';
+import Quill from 'quill';
 
 import Answer from './blots/Answer';
 Quill.register(Answer);

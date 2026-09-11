@@ -1,4 +1,4 @@
-import { Quill } from 'react-quill';
+import Quill from 'quill';
 
 const Inline = Quill.import('blots/inline');
 class Answer extends Inline {
