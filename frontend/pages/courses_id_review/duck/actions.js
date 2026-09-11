@@ -75,7 +75,6 @@ const enterPressed = () =>
 const enterPressedInFailedMode = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
-    const currentProblem = selectors.deriveCurrentProblem(state);
     switch (state.statusOfSolving.status) {
       case 'solving':
         dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });

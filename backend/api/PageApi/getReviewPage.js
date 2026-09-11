@@ -3,7 +3,6 @@ import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 import dayjs from 'dayjs';
 import repetitions from '../../../services/repetitions.js';
 
-const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
 
 const getReviewPage = async (request, response) => {
   const courseId = request.body['courseId'];

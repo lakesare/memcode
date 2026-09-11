@@ -1,7 +1,6 @@
 import knex from '#~/db/knex.js';
 import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 
-const cantAccessError = "Sorry, this course is private. Only the author and coauthors and can access it.";
 
 const getAllPage = async (request, response) => {
   const courseId = request.body['courseId'];

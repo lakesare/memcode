@@ -78,7 +78,6 @@ class FileInput extends React.Component {
   }
 
   render = () => {
-    const file = this.props.formState[this.props.name];
     
     return (
       <FormLineLayout

@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import AudioButton from '~/components/AudioButton';
 import splitAltAnswers from './utils/splitAltAnswers';
 import TtsService from '~/services/ttsService';

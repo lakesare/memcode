@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 function codeBlockHandler (range, context) {
   if (context.format['code-block']) {
     this.quill.formatLine(range, 'code-block', false);

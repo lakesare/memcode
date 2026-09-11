@@ -4,7 +4,6 @@ import MyDuck from '~/ducks/MyDuck';
 import ErrorBoundary from '~/components/ErrorBoundary';
 import Header from '~/appComponents/Header';
 
-import download from './image-1.jpg';
 
 let alreadyFetched = false;
 

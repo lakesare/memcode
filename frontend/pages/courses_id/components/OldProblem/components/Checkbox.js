@@ -1,11 +1,3 @@
-const getExclusiveIndexesInBetween = (int_1, int_2) => {
-  const inBetweenIntegers = [];
-  for (let integer = int_1 + 1; integer < int_2; integer++) {
-    inBetweenIntegers.push(integer);
-  }
-  return inBetweenIntegers;
-};
-
 class Checkbox extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,

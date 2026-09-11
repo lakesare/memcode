@@ -72,10 +72,9 @@ class Page_courses_id_review extends React.Component {
       <Loading spe={this.state.speGetPage}>{({ problems }) =>
         <div className="container">{
           problems.map((problem, index) =>
-            <div className="problem-wrapper">
+            <div className="problem-wrapper" key={problem.id}>
               <div className="index">{index + 1}</div>
               <Problem
-                key={problem.id}
                 mode="show"
                 problemContent={problem.content}
                 problemType={problem.type}

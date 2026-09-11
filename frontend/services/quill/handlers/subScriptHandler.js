@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 function subScriptHandler (range, context) {
   if (context.format.script === 'sub') {
     this.quill.formatText(range, 'script', false);

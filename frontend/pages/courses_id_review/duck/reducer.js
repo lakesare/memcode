@@ -26,7 +26,6 @@ const reducer = (state = initialState, action) => {
     case 'INLINED_ANSWER_GIVEN': {
       const given = state.statusOfSolving.typeSpecific.amountOfRightAnswersGiven + 1;
       const wanted = TtsService.countAnswerBlanks(currentProblem.content.content);
-      const answer = action.payload; // The individual answer text
 
       // Only play TTS when all answers are completed
       if (given === wanted && TtsService.isVolumeEnabled()) {

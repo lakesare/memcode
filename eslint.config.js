@@ -39,7 +39,9 @@ export default [
         PropTypes: 'readonly',
         connect: 'readonly',
         Quill: 'readonly',
-        process: 'readonly'
+        process: 'readonly',
+        // esbuild resolves require() of an asset into its emitted URL
+        require: 'readonly'
       }
     },
     plugins: { react },

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 
 import Main from '~/appComponents/Main';
 import SignInButtons from '~/appComponents/SignInButtons';

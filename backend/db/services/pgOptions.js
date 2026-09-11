@@ -1,6 +1,6 @@
 import pgPromise from 'pg-promise';
 
-/* eslint-disable */ // because it's taken from online source, may want to rewrite some time
+// because it's taken from online source, may want to rewrite some time
 const _camelizeColumns = (data) => {
   const template = data[0];
   for (let prop in template) {

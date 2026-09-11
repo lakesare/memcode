@@ -2,9 +2,7 @@ import capitalize from '~/services/capitalize';
 import getUserAvatar from '~/services/getUserAvatar';
 
 import { Pie } from 'react-chartjs-2';
-import { Link } from 'react-router-dom';
 import Loading from '~/components/Loading';
-import SettingsModal from '~/appComponents/SettingsModal';
 
 import { Chart, ArcElement, Tooltip } from "chart.js";
 Chart.register(ArcElement, Tooltip);

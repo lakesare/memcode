@@ -23,7 +23,7 @@ class TtsService {
         const availableSpace = estimate.quota - (estimate.usage || 0);
         this.MAX_CACHE_STORAGE = availableSpace / 2;
       }
-    } catch (error) {
+    } catch {
       // Use default 100MB
     }
     
@@ -576,7 +576,7 @@ class TtsService {
         }
         
         if (textToCache) {
-          const result = await this.getCachedOrFetch(textToCache, false, 'TTS PRECACHE');
+          await this.getCachedOrFetch(textToCache, false, 'TTS PRECACHE');
         }
       } catch (error) {
         console.warn(`Failed to precache problem ${index}:`, error);

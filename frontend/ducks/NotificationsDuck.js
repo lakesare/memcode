@@ -9,7 +9,7 @@ const initialState = {
 
 const NotificationsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SPE_NOTIFICATIONS_AND_STATS:
+    case SPE_NOTIFICATIONS_AND_STATS: {
       const didSeeNotifications = action.spe.status === 'success' && action.spe.payload && action.spe.payload.stats
         ? action.spe.payload.stats.didSeeNotifications
         : state.didSeeNotifications;
@@ -19,6 +19,7 @@ const NotificationsReducer = (state = initialState, action) => {
         speNotificationsAndStats: action.spe,
         didSeeNotifications 
       };
+    }
     
     case `${namespace}.SET_DID_SEE_NOTIFICATIONS`:
       return { ...state, didSeeNotifications: action.payload };

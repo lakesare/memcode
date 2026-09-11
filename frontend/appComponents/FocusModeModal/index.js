@@ -39,7 +39,7 @@ class FocusModeModal extends React.Component {
     if (saved) {
       try {
         this.setState({ savedCourseTitles: JSON.parse(saved) });
-      } catch (e) {
+      } catch {
         // If parsing fails, reset to empty array
         localStorage.removeItem('focusModeSavedCourseTitles');
       }

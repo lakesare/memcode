@@ -23,8 +23,7 @@ class TtsApi {
         model: "tts-1",
         voice: voice,
         input: text.substring(0, 100), // Ensure we don't exceed limits
-        speed: 1,
-        voice: 'shimmer'
+        speed: 1
       });
       
       const buffer = Buffer.from(await ttsResponse.arrayBuffer());

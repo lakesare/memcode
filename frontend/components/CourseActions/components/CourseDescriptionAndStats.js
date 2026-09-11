@@ -4,7 +4,6 @@ import MyModel from '~/models/MyModel';
 
 import ReadonlyEditor from '~/components/ReadonlyEditor';
 import StatsModal from '../components/StatsModal';
-import api from '~/api';
 
 class CourseDescriptionAndStats extends React.Component {
   static propTypes = {

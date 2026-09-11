@@ -1,5 +1,4 @@
 import MyModel from '~/models/MyModel';
-import speCreator from '~/services/speCreator';
 
 import Loading from '~/components/Loading';
 import CourseCategories from '~/appComponents/CourseCategories';
