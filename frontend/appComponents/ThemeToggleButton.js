@@ -2,14 +2,6 @@ import { connect } from 'react-redux';
 import ToggleButton from '~/components/ToggleButton';
 import SettingsDuck from '~/ducks/SettingsDuck';
 
-@connect(
-  (state) => ({
-    theme: state.global.Settings.theme
-  }),
-  (dispatch) => ({
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class ThemeToggleButton extends React.Component {
   static propTypes = {
     theme: PropTypes.string.isRequired,
@@ -28,4 +20,11 @@ class ThemeToggleButton extends React.Component {
     />
 }
 
-export default ThemeToggleButton;
+export default connect(
+  (state) => ({
+    theme: state.global.Settings.theme
+  }),
+  (dispatch) => ({
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(ThemeToggleButton);

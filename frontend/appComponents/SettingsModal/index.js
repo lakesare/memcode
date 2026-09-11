@@ -5,17 +5,6 @@ import Select from '~/components/Select';
 
 import css from './index.scss';
 
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser || false,
-    My: state.global.My,
-    Settings: state.global.Settings
-  }),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions),
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class SettingsModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
@@ -196,4 +185,14 @@ class SettingsModal extends React.Component {
     )}</TogglerAndModal>
 }
 
-export default SettingsModal;
+export default connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false,
+    My: state.global.My,
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(SettingsModal);

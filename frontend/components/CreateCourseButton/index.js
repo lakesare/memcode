@@ -5,11 +5,6 @@ import CourseCreationModal from '~/components/CourseCreationModal';
 import TogglerAndModal from '~/components/TogglerAndModal';
 import SignInButtons from '~/appComponents/SignInButtons';
 
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser
-  })
-)
 class CreateCourseButton extends React.Component {
   static propTypes = {
     currentUser: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]).isRequired,
@@ -40,4 +35,8 @@ class CreateCourseButton extends React.Component {
   }
 }
 
-export default CreateCourseButton;
+export default connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser
+  })
+)(CreateCourseButton);

@@ -12,12 +12,6 @@ import Courses from './components/Courses';
 
 import css from './index.scss';
 
-@withRouter
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser
-  }),
-)
 class Page_users_id extends React.Component {
   static propTypes = {
     match: PropTypes.object.isRequired,
@@ -71,4 +65,8 @@ class Page_users_id extends React.Component {
     </Main>
 }
 
-export default Page_users_id;
+export default withRouter(connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser
+  }),
+)(Page_users_id));

@@ -7,16 +7,6 @@ import Header from '~/appComponents/Header';
 
 let alreadyFetched = false;
 
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser || false,
-    My: state.global.My,
-    Settings: state.global.Settings
-  }),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions)
-  })
-)
 class Main extends React.Component {
   static propTypes = {
     className: PropTypes.string,
@@ -100,4 +90,13 @@ class Main extends React.Component {
     </main>
 }
 
-export default Main;
+export default connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false,
+    My: state.global.My,
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)(Main);

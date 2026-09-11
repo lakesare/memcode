@@ -5,16 +5,6 @@ import MyDuck from '~/ducks/MyDuck';
 
 import css from './index.scss';
 
-@connect(
-  (state) => ({
-    Settings: state.global.Settings,
-    My: state.global.My
-  }),
-  (dispatch) => ({
-    SettingsActions: SettingsDuck.getActions(dispatch),
-    MyActions: dispatch(MyDuck.getActions)
-  })
-)
 class FocusModeModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
@@ -359,4 +349,13 @@ class FocusModeModal extends React.Component {
     )}</TogglerAndModal>
 }
 
-export default FocusModeModal;
+export default connect(
+  (state) => ({
+    Settings: state.global.Settings,
+    My: state.global.My
+  }),
+  (dispatch) => ({
+    SettingsActions: SettingsDuck.getActions(dispatch),
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)(FocusModeModal);

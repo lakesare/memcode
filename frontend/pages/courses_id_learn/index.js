@@ -8,18 +8,6 @@ import css from './index.scss';
 import MyDuck from '~/ducks/MyDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
 
-@connect(
-  (state, ownProps) => ({
-    courseId: Number.parseInt(ownProps.match.params.id),
-    currentUser: state.global.Authentication.currentUser || false,
-    My: state.global.My,
-    Settings: state.global.Settings
-  }),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions),
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class Page extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -56,4 +44,15 @@ class Page extends React.Component {
     </Main>
 }
 
-export default Page;
+export default connect(
+  (state, ownProps) => ({
+    courseId: Number.parseInt(ownProps.match.params.id),
+    currentUser: state.global.Authentication.currentUser || false,
+    My: state.global.My,
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(Page);

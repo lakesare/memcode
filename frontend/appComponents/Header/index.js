@@ -8,11 +8,6 @@ import CreateCourseButton from '~/components/CreateCourseButton';
 
 import css from './index.scss';
 
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser || false
-  })
-)
 class Header extends React.Component {
   static propTypes = {
     currentUser: orFalse(PropTypes.object).isRequired,
@@ -69,4 +64,8 @@ class Header extends React.Component {
 }
 
 export { Header };
-export default Header;
+export default connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false
+  })
+)(Header);

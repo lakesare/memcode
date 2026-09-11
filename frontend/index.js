@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { Provider } from 'react-redux';
 
@@ -26,13 +26,12 @@ const rootElement = document.getElementById('root');
 
 ReactModal.setAppElement(rootElement);
 
-ReactDOM.render(
+createRoot(rootElement).render(
   <Provider store={store}>
     <ErrorBoundary>
       {router}
     </ErrorBoundary>
-  </Provider>,
-  rootElement
+  </Provider>
 );
 
 

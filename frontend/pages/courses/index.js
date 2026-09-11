@@ -50,12 +50,6 @@ const isSelectedCategoryActive = (props, searchString = '') => {
   return !searchString.trim() && (categoryId === false || categoryId === 'selected') && categoryId !== 'all';
 };
 
-@withRouter
-@connect(
-  (state) => ({
-    My: state.global.My
-  }),
-)
 class Page_courses extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
@@ -298,4 +292,8 @@ class Page_courses extends React.Component {
     </Main>
 }
 
-export default Page_courses;
+export default withRouter(connect(
+  (state) => ({
+    My: state.global.My
+  }),
+)(Page_courses));

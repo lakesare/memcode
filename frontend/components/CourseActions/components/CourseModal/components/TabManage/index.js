@@ -5,9 +5,6 @@ import Loading from '~/components/Loading';
 
 import css from './index.scss';
 
-@connect((state) => ({
-  currentUser: state.global.Authentication.currentUser
-}))
 class TabManage extends React.Component {
   static propTypes = {
     course: PropTypes.object.isRequired,
@@ -48,4 +45,6 @@ class TabManage extends React.Component {
     </div>
 }
 
-export default TabManage;
+export default connect((state) => ({
+  currentUser: state.global.Authentication.currentUser
+}))(TabManage);

@@ -6,17 +6,6 @@ import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 import StandardTooltip from '~/components/StandardTooltip';
 import css from './index.scss';
 
-@connect(
-  (state) => ({
-    My: state.global.My,
-    Settings: state.global.Settings,
-    currentUser: state.global.Authentication.currentUser
-  }),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions),
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class Subheader extends React.Component {
   static propTypes = {
     statusOfSolving: PropTypes.object.isRequired,
@@ -244,4 +233,14 @@ class Subheader extends React.Component {
   }
 }
 
-export default Subheader;
+export default connect(
+  (state) => ({
+    My: state.global.My,
+    Settings: state.global.Settings,
+    currentUser: state.global.Authentication.currentUser
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(Subheader);

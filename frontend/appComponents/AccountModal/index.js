@@ -9,15 +9,6 @@ import getUserAvatar from '~/services/getUserAvatar';
 
 import css from './index.scss';
 
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser || false,
-  }),
-  (dispatch) => ({
-    signOut: () => AuthenticationActions.signOut(dispatch),
-    updateCurrentUser: (user) => AuthenticationActions.updateCurrentUser(dispatch, user)
-  })
-)
 class AccountModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
@@ -290,4 +281,12 @@ class AccountModal extends React.Component {
     )}</TogglerAndModal>
 }
 
-export default AccountModal;
+export default connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false,
+  }),
+  (dispatch) => ({
+    signOut: () => AuthenticationActions.signOut(dispatch),
+    updateCurrentUser: (user) => AuthenticationActions.updateCurrentUser(dispatch, user)
+  })
+)(AccountModal);

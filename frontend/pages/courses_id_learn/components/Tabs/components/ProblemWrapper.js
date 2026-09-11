@@ -7,15 +7,6 @@ import Problem from '~/components/Problem';
 import StandardTooltip from '~/components/StandardTooltip';
 import DeleteFlashcardModal from '~/appComponents/DeleteFlashcardModal';
 
-@connect(
-  (state) => ({
-    currentUser: state.global.Authentication.currentUser || false,
-    courseData: state.global.My.speCourseForActions
-  }),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions)
-  })
-)
 class ProblemWrapper extends React.Component {
   static propTypes = {
     problem: PropTypes.object.isRequired,
@@ -223,4 +214,14 @@ class ProblemWrapper extends React.Component {
   }
 }
 
-export { ProblemWrapper };
+const ConnectedProblemWrapper = connect(
+  (state) => ({
+    currentUser: state.global.Authentication.currentUser || false,
+    courseData: state.global.My.speCourseForActions
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)(ProblemWrapper);
+
+export { ConnectedProblemWrapper as ProblemWrapper };

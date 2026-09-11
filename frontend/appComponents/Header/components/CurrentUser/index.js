@@ -10,14 +10,6 @@ import SettingsDuck from '~/ducks/SettingsDuck';
 
 import css from './index.scss';
 
-@connect(
-  (state) => ({
-    Settings: state.global.Settings
-  }),
-  (dispatch) => ({
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class CurrentUser extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
@@ -77,4 +69,11 @@ class CurrentUser extends React.Component {
     </section>
 }
 
-export default CurrentUser;
+export default connect(
+  (state) => ({
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(CurrentUser);

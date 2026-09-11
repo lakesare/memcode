@@ -15,11 +15,6 @@ const getCategoryId = (location) => {
   return categoryId ? parseInt(categoryId) : false;
 };
 
-@connect(
-  (state) => ({
-    My: state.global.My
-  })
-)
 class Courses extends React.Component {
   static propTypes = {
     My: PropTypes.object.isRequired,
@@ -95,4 +90,8 @@ class Courses extends React.Component {
   }
 }
 
-export default Courses;
+export default connect(
+  (state) => ({
+    My: state.global.My
+  })
+)(Courses);

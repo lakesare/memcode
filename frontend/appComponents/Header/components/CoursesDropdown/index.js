@@ -8,16 +8,6 @@ import MyDuck from '~/ducks/MyDuck';
 
 import css from './index.scss';
 
-@withRouter
-@connect(
-  (state) => ({
-    My: state.global.My,
-    Settings: state.global.Settings
-  }),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions)
-  })
-)
 class CoursesDropdown extends React.Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
@@ -183,4 +173,12 @@ class CoursesDropdown extends React.Component {
     </StandardTooltip>
 }
 
-export default CoursesDropdown;
+export default withRouter(connect(
+  (state) => ({
+    My: state.global.My,
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)(CoursesDropdown));

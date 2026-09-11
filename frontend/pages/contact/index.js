@@ -8,13 +8,6 @@ import Footer from '~/appComponents/Footer';
 
 import css from './index.scss';
 
-@connect((state) => ({
-  email:
-    (
-      state.global.Authentication.currentUser &&
-      state.global.Authentication.currentUser.email
-    ) || ''
-}))
 class Page_contact extends React.Component {
   static propTypes = {
     email: PropTypes.string
@@ -111,4 +104,10 @@ class Page_contact extends React.Component {
     </Main>
 }
 
-export default Page_contact;
+export default connect((state) => ({
+  email:
+    (
+      state.global.Authentication.currentUser &&
+      state.global.Authentication.currentUser.email
+    ) || ''
+}))(Page_contact);

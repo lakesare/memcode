@@ -114,10 +114,6 @@ const attachOnclick = (arrayOfAnswerEls, onRightAnswerGiven, enterPressed) => {
   });
 }
 
-@connect((state, ownProps) => ({
-  clozeDeletionMode: state.global.Settings.clozeDeletionMode,
-  ...ownProps
-}))
 class InlinedAnswersReview extends React.Component {
   static propTypes = {
     problemId: PropTypes.number.isRequired,
@@ -217,4 +213,9 @@ class InlinedAnswersReview extends React.Component {
   }
 }
 
-export { InlinedAnswersReview };
+const ConnectedInlinedAnswersReview = connect((state, ownProps) => ({
+  clozeDeletionMode: state.global.Settings.clozeDeletionMode,
+  ...ownProps
+}))(InlinedAnswersReview);
+
+export { ConnectedInlinedAnswersReview as InlinedAnswersReview };

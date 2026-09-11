@@ -5,7 +5,7 @@ import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
 import api from '~/api';
 import Roles from '~/services/Roles';
 
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';
 import Problem from '~/components/Problem';
@@ -20,18 +20,6 @@ import css from './index.scss';
 import MyDuck from '~/ducks/MyDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
 
-@connect(
-  (state, ownProps) => ({
-    courseId: Number.parseInt(ownProps.match.params.id),
-    currentUser: state.global.Authentication.currentUser || false,
-    My: state.global.My,
-    Settings: state.global.Settings
-  }),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions),
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class Page_courses_id extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -303,4 +291,15 @@ class Page_courses_id extends React.Component {
     </Main>
 }
 
-export default Page_courses_id;
+export default connect(
+  (state, ownProps) => ({
+    courseId: Number.parseInt(ownProps.match.params.id),
+    currentUser: state.global.Authentication.currentUser || false,
+    My: state.global.My,
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(Page_courses_id);

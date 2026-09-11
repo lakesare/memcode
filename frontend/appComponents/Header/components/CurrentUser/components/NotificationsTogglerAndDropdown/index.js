@@ -8,14 +8,6 @@ import NotificationLi from './components/NotificationLi';
 
 import css from './index.scss';
 
-@connect(
-  (state) => ({
-    notifications: state.global.Notifications
-  }),
-  (dispatch) => ({
-    NotificationsActions: dispatch(NotificationsDuck.getActions)
-  })
-)
 class NotificationsTogglerAndDropdown extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
@@ -179,4 +171,11 @@ class NotificationsTogglerAndDropdown extends React.Component {
     </StandardTooltip>
 }
 
-export default NotificationsTogglerAndDropdown;
+export default connect(
+  (state) => ({
+    notifications: state.global.Notifications
+  }),
+  (dispatch) => ({
+    NotificationsActions: dispatch(NotificationsDuck.getActions)
+  })
+)(NotificationsTogglerAndDropdown);

@@ -2,8 +2,6 @@ import css from './index.scss';
 import { withRouter } from 'react-router-dom';
 import AuthModal from '~/appComponents/AuthModal';
 
-@withRouter
-
 class Page_pleaseSignIn extends React.Component {
     
   redirectBackTo = () => {
@@ -37,4 +35,4 @@ class Page_pleaseSignIn extends React.Component {
     </div>
 }
 
-export default Page_pleaseSignIn;
+export default withRouter(Page_pleaseSignIn);

@@ -8,14 +8,6 @@ import css from './index.scss';
 
 // import GitHubButton from 'react-github-btn';
 
-@connect(
-  (state) => ({
-    Settings: state.global.Settings
-  }),
-  (dispatch) => ({
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class WhatsNext extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -164,4 +156,11 @@ class WhatsNext extends React.Component {
     </section>
 }
 
-export default WhatsNext;
+export default connect(
+  (state) => ({
+    Settings: state.global.Settings
+  }),
+  (dispatch) => ({
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(WhatsNext);

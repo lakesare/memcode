@@ -29,55 +29,6 @@ import SettingsDuck from '~/ducks/SettingsDuck';
 //     -> we accept problem and move to the next problem
 import selectors from './duck/selectors';
 import actions from './duck/actions';
-@connect(
-  (state, ownProps) => {
-    const pageState = state.pages.Page_courses_id_review;
-    return {
-      courseId: Number.parseInt(ownProps.match.params.id),
-      currentUser: state.global.Authentication.currentUser || false,
-      currentProblem: selectors.deriveCurrentProblem(pageState),
-      speGetPage: pageState.speGetPage,
-      ifReviewingFailedProblems: pageState.ifReviewingFailedProblems,
-
-      ...pageState.speGetPage.status === 'success' &&
-        {
-          statusOfSolving:  pageState.statusOfSolving,
-          amountOfProblems: pageState.speGetPage.payload.problems.length
-        },
-      amountOfFailedProblems: pageState.amountOfFailedProblems,
-      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
-
-      My: state.global.My,
-      Settings: state.global.Settings
-    };
-  },
-  (dispatch, ownProps) => ({
-    getPage: (courseId) => dispatch(
-      actions.getPage(courseId, ownProps.simulated, ownProps.persistent)
-    ),
-    enterPressed: () => {
-      if (ownProps.simulated){
-        dispatch(actions.enterPressedInSimulatedReview());
-      } else if (ownProps.persistent){
-        dispatch(actions.enterPressedInPersistentReview());
-      } else {
-        dispatch(actions.enterPressed());
-      }
-    },
-    separateAnswerSelfScoreGiven: (selfScore) =>
-      dispatch({
-        type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
-        payload: selfScore
-      }),
-    onRightAnswerGiven: (answer) => dispatch({ type: 'INLINED_ANSWER_GIVEN', payload: answer }),
-    randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
-    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
-
-    MyActions: dispatch(MyDuck.getActions),
-    SettingsActions: SettingsDuck.getActions(dispatch),
-    ignoreCurrentFlashcard: () => dispatch(actions.ignoreCurrentFlashcard())
-  })
-)
 class Page_courses_id_review extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -222,4 +173,52 @@ class Page_courses_id_review extends React.Component {
     </Main>
 }
 
-export default Page_courses_id_review;
+export default connect(
+  (state, ownProps) => {
+    const pageState = state.pages.Page_courses_id_review;
+    return {
+      courseId: Number.parseInt(ownProps.match.params.id),
+      currentUser: state.global.Authentication.currentUser || false,
+      currentProblem: selectors.deriveCurrentProblem(pageState),
+      speGetPage: pageState.speGetPage,
+      ifReviewingFailedProblems: pageState.ifReviewingFailedProblems,
+
+      ...pageState.speGetPage.status === 'success' &&
+        {
+          statusOfSolving:  pageState.statusOfSolving,
+          amountOfProblems: pageState.speGetPage.payload.problems.length
+        },
+      amountOfFailedProblems: pageState.amountOfFailedProblems,
+      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
+
+      My: state.global.My,
+      Settings: state.global.Settings
+    };
+  },
+  (dispatch, ownProps) => ({
+    getPage: (courseId) => dispatch(
+      actions.getPage(courseId, ownProps.simulated, ownProps.persistent)
+    ),
+    enterPressed: () => {
+      if (ownProps.simulated){
+        dispatch(actions.enterPressedInSimulatedReview());
+      } else if (ownProps.persistent){
+        dispatch(actions.enterPressedInPersistentReview());
+      } else {
+        dispatch(actions.enterPressed());
+      }
+    },
+    separateAnswerSelfScoreGiven: (selfScore) =>
+      dispatch({
+        type: 'SEPARATE_ANSWER_SELF_SCORE_GIVEN',
+        payload: selfScore
+      }),
+    onRightAnswerGiven: (answer) => dispatch({ type: 'INLINED_ANSWER_GIVEN', payload: answer }),
+    randomizeProblems: () => dispatch({ type: 'RANDOMIZE_PROBLEMS' }),
+    switchQuestionAndAnswer: () => dispatch({ type: 'SWITCH_QUESTION_AND_ANSWER' }),
+
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch),
+    ignoreCurrentFlashcard: () => dispatch(actions.ignoreCurrentFlashcard())
+  })
+)(Page_courses_id_review);

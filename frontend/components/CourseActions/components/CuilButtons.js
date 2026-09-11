@@ -10,7 +10,6 @@ import CourseModal from './CourseModal';
 import LearningSettingsModal from './LearningSettingsModal';
 import ImportExportModal from '~/appComponents/ImportExportModal';
 
-@withRouter
 class CuilButtons extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
@@ -457,4 +456,4 @@ class CuilButtons extends React.Component {
       </div>
 }
 
-export default CuilButtons;
+export default withRouter(CuilButtons);

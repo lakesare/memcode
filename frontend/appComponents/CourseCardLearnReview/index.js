@@ -5,9 +5,6 @@ import LearnAndReviewButtons from './components/LearnAndReviewButtons';
 
 import css from './index.scss';
 
-@connect((state) => ({
-  currentUser: state.global.Authentication.currentUser
-}))
 class CourseCardLearnReview extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
@@ -83,4 +80,6 @@ class CourseCardLearnReview extends React.Component {
   }
 }
 
-export default CourseCardLearnReview;
+export default connect((state) => ({
+  currentUser: state.global.Authentication.currentUser
+}))(CourseCardLearnReview);

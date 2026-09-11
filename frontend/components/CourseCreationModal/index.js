@@ -11,13 +11,6 @@ import { TextInput } from '~/components/_standardForm';
 import CourseModel from '~/models/CourseModel';
 import api from '~/api';
 
-@withRouter
-@connect(
-  () => ({}),
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions)
-  })
-)
 class CourseCreationModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
@@ -101,4 +94,9 @@ class CourseCreationModal extends React.Component {
     }}</TogglerAndModal>
 }
 
-export default CourseCreationModal;
+export default withRouter(connect(
+  () => ({}),
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions)
+  })
+)(CourseCreationModal));

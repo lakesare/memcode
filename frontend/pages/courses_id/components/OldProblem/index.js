@@ -2,7 +2,7 @@ import _ from 'lodash';
 import api from '~/api';
 import isProblemContentTheSame from '~/services/isProblemContentTheSame';
 
-import { Draggable } from 'react-beautiful-dnd';
+import { Draggable } from '@hello-pangea/dnd';
 
 import Problem from '~/components/Problem';
 import Checkbox from './components/Checkbox';
@@ -244,7 +244,7 @@ class OldProblem extends React.Component {
 
   render = () => (
     this.ifNotOptimistic() ?
-      <Draggable draggableId={this.props.problem.id} index={this.props.index}>{(provided) =>
+      <Draggable draggableId={String(this.props.problem.id)} index={this.props.index}>{(provided) =>
         <div
           className={`old-problem-wrapper ${css['old-problem']} ${this.ifChecked() ? '-checked' : '-not-checked'} ${this.ifLastChecked() ? '-last-checked' : ''}`}
           id={this.uniqueId}

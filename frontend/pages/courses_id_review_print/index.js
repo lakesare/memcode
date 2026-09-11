@@ -11,29 +11,6 @@ import SettingsDuck from '~/ducks/SettingsDuck';
 
 import api from '~/api';
 
-@connect(
-  (state, ownProps) => {
-    const pageState = state.pages.Page_courses_id_review;
-    return {
-      courseId: Number.parseInt(ownProps.match.params.id),
-      currentUser: state.global.Authentication.currentUser || false,
-      ...pageState.speGetPage.status === 'success' &&
-        {
-          statusOfSolving:  pageState.statusOfSolving,
-          amountOfProblems: pageState.speGetPage.payload.problems.length
-        },
-      amountOfFailedProblems: pageState.amountOfFailedProblems,
-      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
-
-      My: state.global.My,
-      Settings: state.global.Settings
-    };
-  },
-  (dispatch) => ({
-    MyActions: dispatch(MyDuck.getActions),
-    SettingsActions: SettingsDuck.getActions(dispatch)
-  })
-)
 class Page_courses_id_review extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -86,4 +63,26 @@ class Page_courses_id_review extends React.Component {
     </Main>
 }
 
-export default Page_courses_id_review;
+export default connect(
+  (state, ownProps) => {
+    const pageState = state.pages.Page_courses_id_review;
+    return {
+      courseId: Number.parseInt(ownProps.match.params.id),
+      currentUser: state.global.Authentication.currentUser || false,
+      ...pageState.speGetPage.status === 'success' &&
+        {
+          statusOfSolving:  pageState.statusOfSolving,
+          amountOfProblems: pageState.speGetPage.payload.problems.length
+        },
+      amountOfFailedProblems: pageState.amountOfFailedProblems,
+      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
+
+      My: state.global.My,
+      Settings: state.global.Settings
+    };
+  },
+  (dispatch) => ({
+    MyActions: dispatch(MyDuck.getActions),
+    SettingsActions: SettingsDuck.getActions(dispatch)
+  })
+)(Page_courses_id_review);
