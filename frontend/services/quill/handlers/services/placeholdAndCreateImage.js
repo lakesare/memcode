@@ -1,5 +1,5 @@
 import Delta from 'quill-delta';
-import Parchment from 'parchment';
+import { Quill } from 'react-quill';
 import imageCompression from 'browser-image-compression';
 
 import fromFileToDataUrl from '~/services/fromFileToDataUrl';
@@ -95,7 +95,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
           // Will be false when we save a new card, and quill container el changes.
           if (placeholderEl) {
             // Find blot
-            const blot = Parchment.find(placeholderEl);
+            const blot = Quill.find(placeholderEl);
             const index = blot.offset(quill.scroll);
 
             quill.updateContents(
@@ -119,7 +119,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
             const newQuill = newQuillReact.editor;
 
             // Find blot
-            const blot = Parchment.find(el);
+            const blot = Quill.find(el);
             const index = blot.offset(newQuill.scroll);
 
             newQuill.updateContents(
