@@ -33,7 +33,7 @@ When developing in Github Codespaces, please username&password to register.
 
 #### Install the needed libraries
 
-1. Install node v22.19.0
+1. Install node v24 (current LTS)
 1. Install npm
 2. Run `npm install`
 

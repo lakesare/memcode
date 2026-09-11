@@ -7,7 +7,7 @@
     "url": "https://github.com/lakesare/memcode.git"
   },
   "engines": {
-    "node": "22.19.0"
+    "node": "24.x"
   },
   "type": "module",
   "imports": {
@@ -39,33 +39,30 @@
     "workbox-strategies": "^7.4.1"
   },
   "dependencies": {
-    "@sendgrid/mail": "^7.0.1",
+    "@aws-sdk/client-s3": "^3.1130.0",
+    "@sendgrid/mail": "^8.1.6",
     "@tippyjs/react": "^4.0.2",
-    "aws-sdk": "^2.814.0",
     "bcrypt": "^6.0.0",
-    "body-parser": "^1.19.0",
     "browser-image-compression": "^2.0.2",
     "buffer": "^5.6.0",
     "chart.js": "^3.8.0",
     "dayjs": "^1.8.35",
     "dotenv": "^6.2.0",
     "exceljs": "^1.15.0",
-    "express": "^4.17.1",
+    "express": "^5.2.1",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
-    "form-data": "^2.5.1",
     "heroku-ssl-redirect": "0.0.4",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.19.5",
-    "knex-stringcase": "^1.4.1",
+    "jsonwebtoken": "^9.0.3",
+    "knex": "^3.3.0",
+    "knex-stringcase": "^1.6.0",
     "lodash": "^4.17.15",
-    "multer": "^1.4.2",
-    "multer-s3": "^2.9.0",
-    "node-fetch": "^2.6.0",
+    "multer": "^2.3.0",
+    "multer-s3": "^3.0.1",
     "openai": "^4.104.0",
     "parchment": "^1.1.4",
     "pg": "^8.7.3",
-    "pg-promise": "^8.7.5",
+    "pg-promise": "^12.7.1",
     "pretty-error": "^2.0.2",
     "prop-types": "^15.7.2",
     "quill": "^1.3.7",
@@ -88,10 +85,5 @@
     "reselect": "^4.0.0",
     "source-map-support": "^0.5.19",
     "striptags": "^3.1.1"
-  },
-  "overrides": {
-    "pg-promise": {
-      "pg": "8.7.3"
-    }
   }
 }

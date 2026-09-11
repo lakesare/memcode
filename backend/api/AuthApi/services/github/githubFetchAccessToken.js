@@ -1,6 +1,3 @@
-import fetch from 'node-fetch';
-import FormData from 'form-data';
-
 // getting access token by sending github authorization code that will prove to github that we are the application (client_id, client_secret) that user gave access to
 const githubFetchAccessToken = async (oauthId, oauthSecret, code) => {
   const data = new FormData();

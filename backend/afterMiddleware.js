@@ -2,7 +2,7 @@ import router from '#~/router.js';
 import nocache from '#~/middlewares/nocache.js';
 
 import html from '#~/html.js';
-router.get('*', nocache(), (request, response) => response.send(html));
+router.get('/{*splat}', nocache(), (request, response) => response.send(html));
 
 import handleErrors from '#~/middlewares/handleErrors.js';
 router.use(handleErrors);

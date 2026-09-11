@@ -24,7 +24,7 @@ mereseiRouter.use(nonWebpackedFiles);
 // AFTER middleware
 import html from './html.js';
 import nocache from '#~/middlewares/nocache.js';
-mereseiRouter.get('*', nocache(), (request, response) => response.send(html));
+mereseiRouter.get('/{*splat}', nocache(), (request, response) => response.send(html));
 
 import handleErrors from '#~/middlewares/handleErrors.js';
 mereseiRouter.use(handleErrors);

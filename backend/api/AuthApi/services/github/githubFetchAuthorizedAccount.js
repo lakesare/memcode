@@ -1,5 +1,3 @@
-import fetch from 'node-fetch';
-
 // getting the profile details
 const fetchProfile = (accessToken) => fetch('https://api.github.com/user', {
   headers: {
