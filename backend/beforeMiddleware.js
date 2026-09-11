@@ -1,7 +1,8 @@
 import router from '#~/router.js';
 
 // only in NODE_ENV=PRODUCTION - this will redirect all http requests to https
-import sslRedirect from 'heroku-ssl-redirect';
+import sslRedirectModule from 'heroku-ssl-redirect';
+const sslRedirect = sslRedirectModule.default;
 router.use(sslRedirect());
 
 import allowCrossDomain from '#~/middlewares/allowCrossDomain.js';

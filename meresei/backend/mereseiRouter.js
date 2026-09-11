@@ -12,7 +12,8 @@ const mereseiRouter = express.Router();
 // import stopPropagationForAssets from '~/middlewares/stopPropagationForAssets';
 // router.use(stopPropagationForAssets);
 
-import sslRedirect from 'heroku-ssl-redirect';
+import sslRedirectModule from 'heroku-ssl-redirect';
+const sslRedirect = sslRedirectModule.default;
 mereseiRouter.use(sslRedirect());
 
 const webpackedFiles = express.static(path.join(__dirname, '../../meresei/frontend/dist'));

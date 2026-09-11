@@ -1,19 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
-import babelParser from '@babel/eslint-parser';
 import react from 'eslint-plugin-react';
-
-const babelLanguageOptions = {
-  parser: babelParser,
-  parserOptions: {
-    requireConfigFile: false,
-    babelOptions: {
-      parserOpts: {
-        plugins: ['jsx', ['decorators', { version: '2023-11' }]]
-      }
-    }
-  }
-};
 
 export default [
   {
@@ -29,7 +16,7 @@ export default [
     files: ['frontend/**/*.js'],
     ...js.configs.recommended,
     languageOptions: {
-      ...babelLanguageOptions,
+      parserOptions: { ecmaFeatures: { jsx: true } },
       ecmaVersion: 2024,
       sourceType: 'module',
       globals: {
