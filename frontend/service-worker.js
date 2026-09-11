@@ -1,5 +1,15 @@
+import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
+import { registerRoute, NavigationRoute } from 'workbox-routing';
+import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { ExpirationPlugin } from 'workbox-expiration';
+
 console.log('this is my custom service worker');
-workbox.precaching.precacheAndRoute(self.__precacheManifest || []);
+
+precacheAndRoute([
+  ...self.__WB_MANIFEST,
+  { url: '/index.html', revision: new Date().getTime().toString() }
+]);
 
 self.addEventListener('install', () => {
   // The promise that skipWaiting() returns can be safely ignored.
@@ -15,75 +25,59 @@ self.addEventListener('activate', (event) => {
         caches.delete('api'),
         caches.delete('api_v4'),
         // Delete old precaches from previous versions
-        ...cacheNames.filter(cacheName => 
-          cacheName.startsWith('workbox-precache-') && 
+        ...cacheNames.filter(cacheName =>
+          cacheName.startsWith('workbox-precache-') &&
           !cacheName.includes(self.location.href.split('/').pop())
         ).map(cacheName => caches.delete(cacheName))
       ]);
     })
   );
 });
-// 
-// workbox.precaching.precache([
-//   { url: 'https://images6.alphacoders.com/744/thumb-1920-744566.jpg' }
-// ]);
 
-workbox.precaching.precache([
-  { url: '/index.html', revision: new Date().getTime().toString() }
-]);
-workbox.routing.registerNavigationRoute(
-  '/index.html',
+registerRoute(new NavigationRoute(
+  createHandlerBoundToURL('/index.html'),
   {
-    blacklist: [
+    denylist: [
       // aaaaaa for fucking OAuth, don't remove bitch
       new RegExp('/api/.*')
     ]
   }
-);
+));
 
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('.*/api/courseCategories/withGroups'),
-  workbox.strategies.staleWhileRevalidate({
-    cacheName: 'api_v5'
-  })
+  new StaleWhileRevalidate({ cacheName: 'api_v5' })
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('.*/api/PageApi\\.getUserPage.*'),
-  workbox.strategies.staleWhileRevalidate({
-    cacheName: 'api_v5'
-  })
+  new StaleWhileRevalidate({ cacheName: 'api_v5' })
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('.*/api/CourseApi\\.getPublicCourses.*'),
-  workbox.strategies.staleWhileRevalidate({
-    cacheName: 'api_v5'
-  })
+  new StaleWhileRevalidate({ cacheName: 'api_v5' })
 );
 
 // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.
-workbox.routing.registerRoute(
+registerRoute(
   /^https:\/\/fonts\.googleapis\.com/,
-  workbox.strategies.staleWhileRevalidate({
-    cacheName: 'google-fonts-stylesheets',
-  })
+  new StaleWhileRevalidate({ cacheName: 'google-fonts-stylesheets' })
 );
 
 // Cache the underlying font files with a cache-first strategy for 1 year.
-workbox.routing.registerRoute(
+registerRoute(
   /^https:\/\/fonts\.gstatic\.com/,
-  workbox.strategies.cacheFirst({
+  new CacheFirst({
     cacheName: 'google-fonts-webfonts',
     plugins: [
-      new workbox.cacheableResponse.Plugin({
+      new CacheableResponsePlugin({
         statuses: [0, 200],
       }),
-      new workbox.expiration.Plugin({
+      new ExpirationPlugin({
         maxAgeSeconds: 60 * 60 * 24 * 365,
         maxEntries: 30,
       }),
     ],
   })
 );
-

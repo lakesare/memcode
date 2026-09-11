@@ -4,7 +4,7 @@ start:
 	NODE_ENV=development node_modules/.bin/nodemon --inspect --watch backend backend/index.js
 
 frontend-webpack:
-	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/development.config.js -w
+	cd frontend; NODE_ENV=development node esbuild.config.js --watch
 
 LOCAL_DB_URL = postgresql://memcode:memcode@localhost/memcode
 LOCAL_POSTGRES_URL = postgresql://memcode:memcode@localhost/postgres
@@ -16,6 +16,8 @@ db-reset:
 	psql $(LOCAL_DB_URL) -f backend/db/schema.sql
 test:
 	node --test $$(find . -name '*.test.js' -not -path './node_modules/*')
+lint:
+	node_modules/.bin/eslint .
 db-migrate:
 	psql $(LOCAL_DB_URL) -f backend/db/migrations/21.sql
 
@@ -29,7 +31,7 @@ heroku-postbuild:
 heroku-deploy:
 	git push https://git.heroku.com/memcode.git master
 heroku-frontend-webpack:
-	cd frontend; NODE_OPTIONS="--openssl-legacy-provider" ../node_modules/.bin/webpack --config ./webpack/production.config.js
+	cd frontend; NODE_ENV=production node esbuild.config.js
 heroku-meresei-frontend-webpack:
 	cd meresei/frontend; npm install && npm run production
 

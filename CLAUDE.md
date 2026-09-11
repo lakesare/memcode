@@ -1,6 +1,6 @@
-# WARP.md
+# CLAUDE.md
 
-This file provides guidance to WARP (warp.dev) when working with code in this repository.
+This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
 
@@ -28,10 +28,10 @@ make db-restore
 
 ### Development Server
 ```bash
-# Start backend development server with hot reload and debugging
+# Start backend development server with auto-restart and debugging
 make start
 
-# Start frontend webpack compilation with hot reload 
+# Start frontend esbuild compilation in watch mode
 make frontend-webpack
 
 # Both commands should be run simultaneously for full development
@@ -185,10 +185,43 @@ Core entities:
 3. Access app at `http://localhost:3000`
 
 ### Code Style
-- ESLint configured with Airbnb style guide (extensive customizations in `.eslintrc.js`)
+- ESLint 9 flat config in `eslint.config.js`, run with `make lint`. Deliberately a small set of high-signal rules, not a style guide - the project used to extend `airbnb` and most of the config was switched off again, so the airbnb rules are gone rather than re-disabled one by one.
 - Relaxed rules for development velocity over strict adherence
-- Supports both class and functional React components
+- Supports both class and functional React components. **Do not convert class components to function components.**
 - **DO NOT use `export const`** - Always use default exports or named exports in object form
+
+#### Formatting and style preferences
+
+These were carried over from the old `.eslintrc.cjs`. They are conventions to follow, not enforced rules.
+
+- **Align values with extra spaces.** Both aligned assignments and aligned object values are wanted, so don't collapse them:
+  ```js
+  openModal  = () => this.setState({ ifModalIsOpen: true })
+  closeModal = () => this.setState({ ifModalIsOpen: false })
+
+  {
+    a:         1,
+    bbbbbbbbb: 2
+  }
+  ```
+- **Long lines are fine, especially comments.** No `max-len`: "I don't see why comments can't be long, doesn't everyone have wrapping in their text editors?" Never hard-wrap a comment onto a second line.
+- **`if { return } else { return }`** is preferred over `if { return }; return` - it reads more clearly.
+- **`hi ? hi : 'else'`** is preferred over `hi || 'else'`.
+- **`export { hi }`** is fine; a default export is not required.
+- **`Page_courses_new`** style naming is intentional for page components - no camelCase enforcement.
+- **Arrow parens omitted** for a single argument: `saveFn => ...`, not `(saveFn) => ...`.
+- **Bracket access is fine** where it reads better: `request.body['course']`.
+- **Single-quoted SQL with `${}`** is intentional - that is pg-promise's interpolation, not a template literal.
+- **Grouped exports on one line** are fine:
+  ```js
+  export default {
+    sortByAmountOfCourses, sortByAlphabet,
+    deriveCategoriesPerGroup
+  };
+  ```
+- **`false && <section>...</section>`** in JSX is a deliberate way to park a block, not a mistake.
+- **React component member order:** static methods, lifecycle, everything else, `render` last.
+- Own judgement on `` ` `` vs `"` vs `'`, on `await` inside a loop, and on when an arrow body needs braces.
 
 ### Testing Philosophy
 - Minimal test coverage by design - only critical utility functions are tested
@@ -210,7 +243,7 @@ Service worker registered for production builds to enable offline flashcard revi
 Single deployment supports both Memcode and Meresei apps through vhost routing, allowing domain-based application switching.
 
 ### Build Process
-- Frontend: Webpack compilation to `backend/webpacked/` for serving
+- Frontend: esbuild compilation to `frontend/webpackedFiles/` for serving
 - Backend: ES modules with import/export syntax
 - Production: Heroku-compatible with automatic builds
 
@@ -352,7 +385,6 @@ handleSubmit = (event) => {
 
 - Use `make` commands rather than direct npm/node commands
 - Database resets are safe and fast for development
-- Frontend hot reload works through webpack dev config
 - Backend auto-restart via nodemon for file changes
 - Manual testing is preferred over writing automated tests
 - When creating new API endpoints, use Knex instead of pg-promise

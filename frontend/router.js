@@ -9,7 +9,6 @@ import Page_courses_id_review from './pages/courses_id_review';
 import Page_courses_id_learn from './pages/courses_id_learn';
 import Page_courses_id from './pages/courses_id';
 
-import Page_profile from './pages/profile';
 import Page_users_id from './pages/users_id';
 
 // import Page_offline_courses from './pages/offline_courses';
@@ -45,7 +44,6 @@ const router =
       {/* demo route */}
       <Route exact path="/demo" render={() => <Redirect to="/courses/32019/review/simulated" />}/>
 
-      {/* <Route exact path="/profile" component={Page_profile}/> */}
       <Route exact path="/users/:id" component={onEnters.signIn(Page_users_id)}/>
       <Route exact path="/home" component={Page_home}/>
 
