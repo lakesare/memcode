@@ -29,6 +29,7 @@ import SettingsDuck from '~/ducks/SettingsDuck';
 //     -> we accept problem and move to the next problem
 import selectors from './duck/selectors';
 import actions from './duck/actions';
+import withRouter from '~/services/withRouter';
 class Page_courses_id_review extends React.Component {
   static propTypes = {
     courseId: PropTypes.number.isRequired,
@@ -173,7 +174,7 @@ class Page_courses_id_review extends React.Component {
     </Main>
 }
 
-export default connect(
+export default withRouter(connect(
   (state, ownProps) => {
     const pageState = state.pages.Page_courses_id_review;
     return {
@@ -221,4 +222,4 @@ export default connect(
     SettingsActions: SettingsDuck.getActions(dispatch),
     ignoreCurrentFlashcard: () => dispatch(actions.ignoreCurrentFlashcard())
   })
-)(Page_courses_id_review);
+)(Page_courses_id_review));

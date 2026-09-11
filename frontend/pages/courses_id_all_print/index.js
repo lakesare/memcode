@@ -10,6 +10,7 @@ import MyDuck from '~/ducks/MyDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
 
 import api from '~/api';
+import withRouter from '~/services/withRouter';
 
 class Page_courses_id_all extends React.Component {
   static propTypes = {
@@ -63,7 +64,7 @@ class Page_courses_id_all extends React.Component {
     </Main>
 }
 
-export default connect(
+export default withRouter(connect(
   (state, ownProps) => {
     const pageState = state.pages.Page_courses_id_review;
     return {
@@ -85,4 +86,4 @@ export default connect(
     MyActions: dispatch(MyDuck.getActions),
     SettingsActions: SettingsDuck.getActions(dispatch)
   })
-)(Page_courses_id_all);
+)(Page_courses_id_all));

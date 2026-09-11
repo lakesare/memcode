@@ -1,7 +1,8 @@
 import orFalse from '~/services/orFalse';
 import api from '~/api';
 
-import { withRouter, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import withRouter from '~/services/withRouter';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import StandardTooltip from '~/components/StandardTooltip';
 import TogglerAndModal from '~/components/TogglerAndModal';

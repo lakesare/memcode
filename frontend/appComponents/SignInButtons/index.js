@@ -1,5 +1,5 @@
 import css from './index.scss';
-import { withRouter } from 'react-router-dom';
+import withRouter from '~/services/withRouter';
 import AuthModal from '~/appComponents/AuthModal';
 
 class Page_pleaseSignIn extends React.Component {

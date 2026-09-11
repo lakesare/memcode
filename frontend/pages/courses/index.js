@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { withRouter } from 'react-router-dom';
+import withRouter from '~/services/withRouter';
 import { Helmet } from 'react-helmet';
 import Main from '~/appComponents/Main';
 import Loading from '~/components/Loading';

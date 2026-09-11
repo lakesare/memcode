@@ -1,4 +1,4 @@
-import { withRouter } from 'react-router-dom';
+import withRouter from '~/services/withRouter';
 
 import StandardTooltip from '~/components/StandardTooltip';
 import CourseCard from './components/CourseCard';

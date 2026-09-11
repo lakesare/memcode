@@ -19,7 +19,7 @@ class Header extends React.Component {
       {
         !this.props.currentUser &&
         <NavLink
-          exact
+          end
           to="/courses"
           className="button link courses"
         >Courses</NavLink>
@@ -34,7 +34,7 @@ class Header extends React.Component {
       {
         !this.props.currentUser &&
         <NavLink
-          exact
+          end
           to="/contact"
           className="button link contact"
         >Contact</NavLink>

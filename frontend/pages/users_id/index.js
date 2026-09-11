@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet';
-import { withRouter } from 'react-router-dom';
+import withRouter from '~/services/withRouter';
 
 import api from '~/api';
 import capitalize from '~/services/capitalize';

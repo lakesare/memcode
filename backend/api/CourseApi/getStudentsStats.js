@@ -1,8 +1,6 @@
 import knex from '#~/db/knex.js';
-import { mustBeAuthorOrCoauthor } from '#~/services/auth.js';
 
 const getStudentsStats = async (request, response) => {
-  const authorId = request.body['authorId'];
   const courseId = request.body['courseId'];
 
   // Get all active students, ordered by most recent activity (if any), then limit to 300

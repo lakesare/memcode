@@ -19,6 +19,7 @@ import css from './index.scss';
 
 import MyDuck from '~/ducks/MyDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
+import withRouter from '~/services/withRouter';
 
 class Page_courses_id extends React.Component {
   static propTypes = {
@@ -291,7 +292,7 @@ class Page_courses_id extends React.Component {
     </Main>
 }
 
-export default connect(
+export default withRouter(connect(
   (state, ownProps) => ({
     courseId: Number.parseInt(ownProps.match.params.id),
     currentUser: state.global.Authentication.currentUser || false,
@@ -302,4 +303,4 @@ export default connect(
     MyActions: dispatch(MyDuck.getActions),
     SettingsActions: SettingsDuck.getActions(dispatch)
   })
-)(Page_courses_id);
+)(Page_courses_id));

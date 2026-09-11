@@ -7,6 +7,7 @@ import Tabs from './components/Tabs';
 import css from './index.scss';
 import MyDuck from '~/ducks/MyDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
+import withRouter from '~/services/withRouter';
 
 class Page extends React.Component {
   static propTypes = {
@@ -44,7 +45,7 @@ class Page extends React.Component {
     </Main>
 }
 
-export default connect(
+export default withRouter(connect(
   (state, ownProps) => ({
     courseId: Number.parseInt(ownProps.match.params.id),
     currentUser: state.global.Authentication.currentUser || false,
@@ -55,4 +56,4 @@ export default connect(
     MyActions: dispatch(MyDuck.getActions),
     SettingsActions: SettingsDuck.getActions(dispatch)
   })
-)(Page);
+)(Page));
