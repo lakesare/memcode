@@ -2,9 +2,7 @@
 import '~/services/quill/registerBlots';
 import '~/services/quill/registerModules';
 
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime);
+import '~/services/dayjsRelativeTime';
 
 import { createRoot } from 'react-dom/client';
 

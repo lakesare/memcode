@@ -55,8 +55,7 @@ class CourseDescriptionAndStats extends React.Component {
       <i className="fa fa-hourglass-start"/>,
       <div className="stat-line">
         <span className="label">Review in</span>
-        {/* [claude comment] "a few seconds" comes through with no amount of its own */}
-        {nextDueDateIn.amount !== '' && <span className="number">{nextDueDateIn.amount}</span>}
+        <span className="number">{nextDueDateIn.amount}</span>
         <span className="label">{nextDueDateIn.measure}</span>
       </div>
     );

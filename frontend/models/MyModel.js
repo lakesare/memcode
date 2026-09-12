@@ -15,12 +15,8 @@ const getProblemsToReview = (dto) =>
     dto.problems.filter(isProblemToReview);
 
 const dateToDueIn = (date) => {
-  const string = dayjs(date).from(dayjs(), true);
-  const [amount, measure] = string.split(' ');
-  if (string === 'a few seconds') {
-    return { amount: '', measure: 'a few seconds' };
-  }
-  return { amount: (amount === 'a' || amount === 'an') ? 1 : amount, measure };
+  const [amount, measure] = dayjs(date).from(dayjs(), true).split(' ');
+  return { amount, measure };
 };
 
 // [claude comment] when the review pile next grows - a fixed-interval course arrives whole on its next cycle boundary, a spaced repetition one whenever its soonest not-yet-due flashcard comes round. null = nothing more is coming, which for spaced repetition means everything is already waiting
