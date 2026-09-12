@@ -70,7 +70,7 @@
     }
   }
 
-  &.-to-learn, &.-to-review{
+  &.-to-learn, &.-to-review, &.-to-failed{
     color: white;
     font-size: 10px;
     letter-spacing: 0;
@@ -95,6 +95,9 @@
   }
   &.-to-review{
     background: variables.$review-button-color;
+  }
+  &.-to-failed{
+    background: variables.$failed-button-color;
   }
 
   &.-pink{

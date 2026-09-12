@@ -28,7 +28,8 @@ class CourseActions extends React.Component {
     MyActions: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
     onProblemsImported: PropTypes.func,
-    restartReview: PropTypes.func
+    restartReview: PropTypes.func,
+    restartFailedReview: PropTypes.func
   }
 
   apiStartLearning = () =>
@@ -256,6 +257,7 @@ class CourseActions extends React.Component {
           currentProblem={this.props.currentProblem}
           ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
           restartReview={this.props.restartReview}
+          restartFailedReview={this.props.restartFailedReview}
           
           canIEditCourse={this.canIEditCourse()}
           onProblemsImported={this.props.onProblemsImported}

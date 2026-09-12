@@ -1,5 +1,6 @@
 import api from '~/api';
 import MyDuck from '~/ducks/MyDuck';
+import FailedFlashcardsDuck from '~/ducks/FailedFlashcardsDuck';
 
 import selectors from './selectors';
 
@@ -36,7 +37,7 @@ const enterPressed = () =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
     if (state.ifReviewingFailedProblems) {
-      enterPressedInFailedMode()(dispatch, getState);
+      enterPressedInFailedMode(true)(dispatch, getState);
     } else {
       const currentProblem = selectors.deriveCurrentProblem(state);
       switch (state.statusOfSolving.status) {
@@ -54,11 +55,16 @@ const enterPressed = () =>
               performanceRating: score
             }
           );
+          // [claude comment] this review is recorded, so it is also what puts the flashcard on the red FAILED pile or takes it off again
+          const FailedFlashcardsActions = FailedFlashcardsDuck.getActions(dispatch, getState);
           if (score < 5) {
+            FailedFlashcardsActions.addProblem(currentProblem.courseId, currentProblem.id);
             dispatch({
               type: 'ADD_TO_FAILED_PROBLEMS',
               payload: currentIndex
             });
+          } else {
+            FailedFlashcardsActions.removeProblem(currentProblem.courseId, currentProblem.id);
           }
           dispatch({
             type: 'SET_NEXT_PROBLEM',
@@ -72,7 +78,7 @@ const enterPressed = () =>
     }
   };
 
-const enterPressedInFailedMode = () =>
+const enterPressedInFailedMode = (ifTrackingFailedPile = false) =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
     switch (state.statusOfSolving.status) {
@@ -80,6 +86,7 @@ const enterPressedInFailedMode = () =>
         dispatch({ type: 'SET_STATUS_TO_SEEING_ANSWER' });
         break;
       case 'seeingAnswer': {
+        const currentProblem = selectors.deriveCurrentProblem(state);
         const score = selectors.deriveScore(state, getState().global.Settings.clozeDeletionMode);
         const currentIndex = state.statusOfSolving.index;
 
@@ -94,6 +101,16 @@ const enterPressedInFailedMode = () =>
             type: 'ADD_TO_FAILED_PROBLEMS',
             payload: currentIndex
           });
+        }
+
+        // [claude comment] the red FAILED pile follows this drill too, so getting a flashcard right by heart is what takes it off the pile - a test drive is the one review that leaves the pile alone
+        if (ifTrackingFailedPile) {
+          const FailedFlashcardsActions = FailedFlashcardsDuck.getActions(dispatch, getState);
+          if (score < 5) {
+            FailedFlashcardsActions.addProblem(currentProblem.courseId, currentProblem.id);
+          } else {
+            FailedFlashcardsActions.removeProblem(currentProblem.courseId, currentProblem.id);
+          }
         }
 
         const ifNextReReviewProblem = state.indexesOfFailedProblems[0];
@@ -123,7 +140,7 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
   (dispatch, getState) => {
     const state = getState().pages.Page_courses_id_review;
     if (state.ifReviewingFailedProblems) {
-      enterPressedInFailedMode()(dispatch, getState);
+      enterPressedInFailedMode(isPersistentReview)(dispatch, getState);
     } else {
       const currentProblem = selectors.deriveCurrentProblem(state);
       switch (state.statusOfSolving.status) {
@@ -151,6 +168,7 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
               }
             );
             MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id, score);
+            FailedFlashcardsDuck.getActions(dispatch, getState).addProblem(currentProblem.courseId, currentProblem.id);
           }
 
           dispatch({
@@ -163,20 +181,31 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
     }
   };
 
-const getPage = (courseId, simulated, persistent) =>
-  (dispatch) => {
-    let apiMethod;
+const getPage = (courseId, simulated, persistent, failed) =>
+  (dispatch, getState) => {
+    const setSpe = (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe });
+
     if (simulated) {
-      apiMethod = api.get.PageApi.getReviewSimulatedPage;
+      return api.get.PageApi.getReviewSimulatedPage(setSpe, { courseId });
     } else if (persistent) {
-      apiMethod = api.get.PageApi.getReviewPersistentPage;
+      return api.get.PageApi.getReviewPersistentPage(setSpe, { courseId });
+    } else if (failed) {
+      // [claude comment] the pile lives in this browser, so its ids travel to the server rather than the other way round - POST because a query string can't carry an array
+      const problemIds = FailedFlashcardsDuck.getProblemIds(getState().global.FailedFlashcards, courseId);
+
+      return api.post.PageApi.getReviewFailedPage(setSpe, { courseId, problemIds })
+        .then((payload) => {
+          // [claude comment] flashcards deleted or ignored since they were failed never come back from the server - drop them here, or the red count could never reach zero
+          const returnedIds = payload.problems.map((problem) => problem.id);
+          const FailedFlashcardsActions = FailedFlashcardsDuck.getActions(dispatch, getState);
+
+          problemIds
+            .filter((problemId) => !returnedIds.includes(problemId))
+            .forEach((problemId) => FailedFlashcardsActions.removeProblem(courseId, problemId));
+        });
     } else {
-      apiMethod = api.get.PageApi.getReviewPage;
+      return api.get.PageApi.getReviewPage(setSpe, { courseId });
     }
-    return apiMethod(
-      (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe }),
-      { courseId }
-    );
   };
 
 export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage, ignoreCurrentFlashcard };

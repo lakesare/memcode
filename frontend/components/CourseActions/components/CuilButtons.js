@@ -1,5 +1,6 @@
 import orFalse from '~/services/orFalse';
 import api from '~/api';
+import FailedFlashcardsDuck from '~/ducks/FailedFlashcardsDuck';
 
 import { Link } from 'react-router-dom';
 import withRouter from '~/services/withRouter';
@@ -18,6 +19,7 @@ class CuilButtons extends React.Component {
 
     nOfProblemsToLearn: PropTypes.number.isRequired,
     nOfProblemsToReview: PropTypes.number.isRequired,
+    nOfFailedProblems: PropTypes.number.isRequired,
     repetitionsDue: PropTypes.number,
     courseDto: PropTypes.shape({
       course: PropTypes.object.isRequired,
@@ -38,6 +40,7 @@ class CuilButtons extends React.Component {
     type: PropTypes.string.isRequired,
     canIEditCourse: PropTypes.bool,
     restartReview: PropTypes.func,
+    restartFailedReview: PropTypes.func,
     onProblemsImported: PropTypes.func,
     uiUpdateCourse: PropTypes.func
   }
@@ -103,6 +106,19 @@ class CuilButtons extends React.Component {
         to={`/courses/${this.props.courseDto.course.id}/review`}
         className="button -to-review"
       >REVIEW ({this.props.nOfProblemsToReview})</Link>
+
+  // [claude comment] the pile of flashcards you got wrong, counted in this browser alone (~/ducks/FailedFlashcardsDuck) - a button on the failed review page itself, since react-router won't remount the route it is already on
+  renderFailedButton = () =>
+    this.props.restartFailedReview ?
+      <button
+        type="button"
+        className="button -to-failed"
+        onClick={this.props.restartFailedReview}
+      >FAILED ({this.props.nOfFailedProblems})</button> :
+      <Link
+        to={`/courses/${this.props.courseDto.course.id}/review/failed`}
+        className="button -to-failed"
+      >FAILED ({this.props.nOfFailedProblems})</Link>
 
   renderRepetitionsDue = () =>
     <StandardTooltip
@@ -413,6 +429,12 @@ class CuilButtons extends React.Component {
         <div className="learn-and-review-buttons">
           {
             this.props.courseDto.courseUserIsLearning &&
+            this.props.nOfFailedProblems > 0 &&
+            this.renderFailedButton()
+          }
+
+          {
+            this.props.courseDto.courseUserIsLearning &&
             this.props.nOfProblemsToLearn > 0 &&
             this.renderLearnButton()
           }
@@ -457,4 +479,10 @@ class CuilButtons extends React.Component {
       </div>
 }
 
-export default withRouter(CuilButtons);
+export default withRouter(connect(
+  (state, ownProps) => ({
+    nOfFailedProblems: FailedFlashcardsDuck.getProblemIds(
+      state.global.FailedFlashcards, ownProps.courseDto.course.id
+    ).length
+  })
+)(CuilButtons));

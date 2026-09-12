@@ -5,6 +5,7 @@ import { AuthenticationReducer } from '~/reducers/Authentication';
 import MyDuck from '~/ducks/MyDuck';
 import NotificationsDuck from '~/ducks/NotificationsDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
+import FailedFlashcardsDuck from '~/ducks/FailedFlashcardsDuck';
 
 // per-page state
 // [named like: page component name + _Reducer]
@@ -18,6 +19,7 @@ const reducers = combineReducers({
     Notifications: NotificationsDuck.reducer,
     My: MyDuck.reducer,
     Settings: SettingsDuck.reducer,
+    FailedFlashcards: FailedFlashcardsDuck.reducer,
   }),
 
   // per-page state

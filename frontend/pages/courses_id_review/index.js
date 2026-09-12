@@ -35,6 +35,7 @@ class Page_courses_id_review extends React.Component {
     courseId: PropTypes.number.isRequired,
     simulated: PropTypes.bool,
     persistent: PropTypes.bool,
+    failed: PropTypes.bool,
     getPage: PropTypes.func.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
@@ -61,7 +62,8 @@ class Page_courses_id_review extends React.Component {
 
   static defaultProps = {
     simulated: false,
-    persistent: false
+    persistent: false,
+    failed: false
   }
 
   state = {
@@ -80,7 +82,8 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if (prevProps.courseId !== this.props.courseId) {
+    // [claude comment] /review and /review/failed render the same component, so react-router hands us new props instead of remounting
+    if (prevProps.courseId !== this.props.courseId || prevProps.failed !== this.props.failed) {
       this.props.getPage(this.props.courseId);
       this.props.MyActions.apiGetCourseForActions(this.props.courseId);
     }
@@ -118,6 +121,7 @@ class Page_courses_id_review extends React.Component {
 
         ifReviewIsSimulated={this.props.simulated}
         ifReviewIsPersistent={this.props.persistent}
+        ifReviewIsFailed={this.props.failed}
         ifReviewingFailedProblems={false}
       />
     </section>;
@@ -135,7 +139,8 @@ class Page_courses_id_review extends React.Component {
         SettingsActions={this.props.SettingsActions}
         currentProblem={this.props.currentProblem}
         ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
-        restartReview={() => this.props.getPage(this.props.courseId)}
+        restartReview={this.props.failed ? undefined : () => this.props.getPage(this.props.courseId)}
+        restartFailedReview={this.props.failed ? () => this.props.getPage(this.props.courseId) : undefined}
       />
 
       {
@@ -144,6 +149,7 @@ class Page_courses_id_review extends React.Component {
           problem={this.props.currentProblem}
           ifReviewIsSimulated={this.props.simulated}
           ifReviewIsPersistent={this.props.persistent}
+          ifReviewIsFailed={this.props.failed}
           ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
           statusOfSolving={this.props.statusOfSolving}
           amountOfProblems={this.props.amountOfProblems}
@@ -198,7 +204,7 @@ export default withRouter(connect(
   },
   (dispatch, ownProps) => ({
     getPage: (courseId) => dispatch(
-      actions.getPage(courseId, ownProps.simulated, ownProps.persistent)
+      actions.getPage(courseId, ownProps.simulated, ownProps.persistent, ownProps.failed)
     ),
     enterPressed: () => {
       if (ownProps.simulated){

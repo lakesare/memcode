@@ -52,6 +52,7 @@ const router =
       <Route path="/courses/:id/all/print" element={<AllPrint/>}/>
       <Route path="/courses/:id/review/simulated" element={<Page_courses_id_review simulated/>}/>
       <Route path="/courses/:id/review/persistent" element={<Page_courses_id_review persistent/>}/>
+      <Route path="/courses/:id/review/failed" element={<Review failed/>}/>
 
       {/* demo route */}
       <Route path="/demo" element={<Navigate to="/courses/32019/review/simulated" replace/>}/>

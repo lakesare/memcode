@@ -52,6 +52,12 @@ button.volume-button, button.bg-image-button{
   }
 }
 
+.button.-to-failed{
+  &:hover, &:focus{
+    background: rgb(176, 32, 32);
+  }
+}
+
 ul.categories a.name,
 .notifications-toggler,
 button.edit-button, button.invite-coauthor-button, .stop-learning-button,

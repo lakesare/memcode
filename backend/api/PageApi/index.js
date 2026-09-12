@@ -6,6 +6,7 @@ import getAllPage from './getAllPage.js';
 import getLearnPage from './getLearnPage.js';
 import getReviewPersistentPage from './getReviewPersistentPage.js';
 import getReviewSimulatedPage from './getReviewSimulatedPage.js';
+import getReviewFailedPage from './getReviewFailedPage.js';
 import getCoursePage from './getCoursePage.js';
 
 export default {
@@ -16,5 +17,6 @@ export default {
   getLearnPage,
   getReviewPersistentPage,
   getReviewSimulatedPage,
+  getReviewFailedPage,
   getCoursePage,
 };

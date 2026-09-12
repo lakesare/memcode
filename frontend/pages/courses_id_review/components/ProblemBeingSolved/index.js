@@ -21,6 +21,7 @@ class ProblemBeingSolved extends React.Component {
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
     ifReviewIsPersistent: PropTypes.bool.isRequired,
+    ifReviewIsFailed: PropTypes.bool.isRequired,
     ifReviewingFailedProblems: PropTypes.bool.isRequired,
     onRightAnswerGiven: PropTypes.func.isRequired,
   }
@@ -68,8 +69,10 @@ class ProblemBeingSolved extends React.Component {
       max = this.props.amountOfProblems;
     }
 
+    const ifFailedFlashcards = this.props.ifReviewingFailedProblems || this.props.ifReviewIsFailed;
+
     return (
-      <div className={`n-of-problems-left ${this.props.ifReviewingFailedProblems ? '-failed' : ''}`}>
+      <div className={`n-of-problems-left ${ifFailedFlashcards ? '-failed' : ''}`}>
         <div className="container">
           <ProgressBar currentAmount={current} maxAmount={max}/>
         </div>
@@ -136,6 +139,7 @@ class ProblemBeingSolved extends React.Component {
 
         ifReviewIsSimulated={this.props.ifReviewIsSimulated}
         ifReviewIsPersistent={this.props.ifReviewIsPersistent}
+        ifReviewIsFailed={this.props.ifReviewIsFailed}
         ifReviewingFailedProblems={this.props.ifReviewingFailedProblems}
       />
 

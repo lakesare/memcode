@@ -15,6 +15,7 @@ class Subheader extends React.Component {
 
     ifReviewIsSimulated: PropTypes.bool.isRequired,
     ifReviewIsPersistent: PropTypes.bool.isRequired,
+    ifReviewIsFailed: PropTypes.bool.isRequired,
     ifReviewingFailedProblems: PropTypes.bool.isRequired,
 
     MyActions: PropTypes.object.isRequired,
@@ -222,14 +223,14 @@ class Subheader extends React.Component {
     </section>
 
   render = () => {
-    if (!this.props.ifReviewIsSimulated && !this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
-      return this.renderUsualReview();
-    } else if (this.props.ifReviewIsPersistent && !this.props.ifReviewingFailedProblems) {
-      return this.renderPersistentReview();
-    } else if (this.props.ifReviewIsSimulated && !this.props.ifReviewingFailedProblems) {
-      return this.renderSimulatedReview();
-    } else if (this.props.ifReviewingFailedProblems) {
+    if (this.props.ifReviewingFailedProblems || this.props.ifReviewIsFailed) {
       return this.renderFailedFlashcardsReview();
+    } else if (this.props.ifReviewIsPersistent) {
+      return this.renderPersistentReview();
+    } else if (this.props.ifReviewIsSimulated) {
+      return this.renderSimulatedReview();
+    } else {
+      return this.renderUsualReview();
     }
   }
 }
