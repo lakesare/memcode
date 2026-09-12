@@ -251,6 +251,9 @@ class Editor extends React.Component {
       // https://github.com/lakesare/memcode/pull/163
       matchers: msWordPasteMatchers
     },
+    // [claude comment] quill 2 turns its own `uploader` module on by default - it would insert a second, base64 copy of every dropped image, next to the one moduleDropOrPasteImage uploads to S3
+    uploader: false,
+
     resize: {
       modules: ['Resize']
     },

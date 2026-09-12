@@ -4,6 +4,8 @@
 @use 'ql-toolbar.scss';
 @use 'placeholder-for-loading-image.scss';
 
+@import '~quill-resize-module/dist/resize.css';
+
 .quill{
   position: relative;
   &.-readOnly{
