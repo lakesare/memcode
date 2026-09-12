@@ -194,33 +194,26 @@ const reducer = (state = initialState, action) => {
       const problemId = action.payload.problemId;
       const score = action.payload.score;
 
-      // [claude comment] mirrors ProblemUserIsLearningApi.reviewProblem, so the counts move before the api answers - a fixed-interval course keeps its own rhythm, and anything short of a perfect answer stays due now
+      // [claude comment] mirrors ProblemUserIsLearningApi.reviewProblem, so the counts move before the api answers - a fixed-interval course keeps its own rhythm
       const courseDto = state.courses.find((dto) => dto.course.id === courseId);
       const repeatEveryHours = courseDto && courseDto.repeatEveryHours;
 
       const newState = setProblem(state, courseId, problemId, (problem) => {
         const newScore = getNextScore(problem.easiness, problem.consecutiveCorrectAnswers, score);
-
-        const deriveNextDueDate = () => {
-          if (!repeatEveryHours) {
-            return dayjs().add(newScore.msToNextReview, 'ms').toDate();
-          } else if (score < 5) {
-            return new Date();
-          } else {
-            return repetitions.nextDueDateAfterReview(
-              courseDto.problems.filter((one) => one._learned && !one.ifIgnored),
-              problem,
-              repeatEveryHours
-            );
-          }
-        };
+        const nextDueDate = repeatEveryHours ?
+          repetitions.nextDueDateAfterReview(
+            courseDto.problems.filter((one) => one._learned && !one.ifIgnored),
+            problem,
+            repeatEveryHours
+          ) :
+          dayjs().add(newScore.msToNextReview, 'ms').toDate();
 
         return {
           id: problem.id,
           _learned: true,
           ifIgnored: false,
           // [claude comment] to the millisecond - dayjs().format() rounds to whole seconds, which would leave the flashcard a hair inside the batch it was just reviewed out of
-          nextDueDate: deriveNextDueDate().toISOString(),
+          nextDueDate: nextDueDate.toISOString(),
           lastReviewedAt: dayjs().format(),
           easiness: newScore.easiness,
           consecutiveCorrectAnswers: newScore.consecutiveCorrectAnswers
