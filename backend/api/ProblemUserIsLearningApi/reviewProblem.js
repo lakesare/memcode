@@ -16,16 +16,20 @@ const reviewProblem = async (request, response) => {
   const nextScore = getNextScore(puil.easiness, puil.consecutiveCorrectAnswers, performanceRating);
   const now = dayjs();
 
-  // [claude comment] a fixed-interval course keeps its own rhythm - how well it went doesn't change when the flashcard comes back (services/repetitions.js)
+  // [claude comment] a fixed-interval course keeps its own rhythm, except that anything short of a perfect answer stays due now instead of moving on - it rejoins the batch on the first review it gets right (services/repetitions.js)
   const cuil = await knex('courseUserIsLearning').where({ id: courseUserIsLearningId }).first();
   let nextDueDate;
   if (cuil.repeatEveryHours) {
-    const wholeCourse = await knex('problemUserIsLearning')
-      .where({ courseUserIsLearningId, ifIgnored: false });
+    if (performanceRating < 5) {
+      nextDueDate = now.toDate();
+    } else {
+      const wholeCourse = await knex('problemUserIsLearning')
+        .where({ courseUserIsLearningId, ifIgnored: false });
 
-    nextDueDate = repetitions.nextDueDateAfterReview(
-      wholeCourse, puil, cuil.repeatEveryHours, now.valueOf()
-    );
+      nextDueDate = repetitions.nextDueDateAfterReview(
+        wholeCourse, puil, cuil.repeatEveryHours, now.valueOf()
+      );
+    }
   } else {
     nextDueDate = now.add(nextScore.msToNextReview, 'ms').toDate();
   }
