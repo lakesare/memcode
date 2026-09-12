@@ -138,6 +138,7 @@ class Subheader extends React.Component {
                 type="text"
                 style={{ "width": 20, "paddingLeft": 3 }}
                 placeholder="url"
+                defaultValue={this.props.Settings.backgroundImage || ''}
                 onChange={(e) => {
                   const url = e.target.value;
                   this.props.SettingsActions.updateSetting('backgroundImage', url);

@@ -20,7 +20,7 @@ class SettingsModal extends React.Component {
       clozeDeletionMode: 'typing',
       flashcardOrder: true,
       ifMonospace: false,
-      editorTheme: 'dark',
+      editorTheme: 'followTheme',
     }
   }
 
@@ -168,6 +168,7 @@ class SettingsModal extends React.Component {
               value={this.state.formState.editorTheme}
               updateValue={(val) => this.updateFormState({ ...this.state.formState, editorTheme: val })}
               options={[
+                { value: 'followTheme', label: 'Follow Theme' },
                 { value: 'dark', label: 'Dark' },
                 { value: 'bright', label: 'Bright' },
               ]}

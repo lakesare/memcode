@@ -7,6 +7,14 @@ const parsePinnedCourseIdsFromLS = (pinnedCourseIds) => {
   return pinnedCourseIds ? JSON.parse(pinnedCourseIds) : [];
 };
 
+// [claude comment] recomputes from localStorage (not just the value passed in) since 'followTheme' also depends on the theme setting
+const applyEditorThemeClass = () => {
+  const theme = localStorage.getItem('theme') || 'dark';
+  const editorTheme = localStorage.getItem('editorTheme') || 'followTheme';
+  const ifBright = editorTheme === 'followTheme' ? theme === 'bright' : editorTheme === 'bright';
+  document.body.classList.toggle('-bright-editor-theme', ifBright);
+};
+
 // Side effect functions for DOM manipulation
 const sideEffects = {
   theme: (theme) => {
@@ -16,15 +24,11 @@ const sideEffects = {
     } else {
       bodyEl.classList.remove("-bright-theme");
     }
+    applyEditorThemeClass();
   },
 
-  editorTheme: (editorTheme) => {
-    const bodyEl = document.body;
-    if (editorTheme === 'bright') {
-      bodyEl.classList.add("-bright-editor-theme");
-    } else {
-      bodyEl.classList.remove("-bright-editor-theme");
-    }
+  editorTheme: () => {
+    applyEditorThemeClass();
   },
 
   hideSocialButtons: (hideSocialButtons) => {
@@ -49,7 +53,7 @@ const initialState = {
   clozeDeletionMode: localStorage.getItem('clozeDeletionMode') === "clicking" ?
     "clicking" : "typing",
   theme: localStorage.getItem('theme') || 'dark',
-  editorTheme: localStorage.getItem('editorTheme') || 'dark',
+  editorTheme: localStorage.getItem('editorTheme') || 'followTheme',
   hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false,
   focusedCategoryId: (() => {
     const stored = localStorage.getItem('focusedCategoryId');
