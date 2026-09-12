@@ -10,6 +10,7 @@ import TogglerAndModal from '~/components/TogglerAndModal';
 import InviteCoauthorModal from './InviteCoauthorModal';
 import CourseModal from './CourseModal';
 import LearningSettingsModal from './LearningSettingsModal';
+import MakeAllDueModal from './MakeAllDueModal';
 import ImportExportModal from '~/appComponents/ImportExportModal';
 
 class CuilButtons extends React.Component {
@@ -245,6 +246,7 @@ class CuilButtons extends React.Component {
       }
 
       {
+        false &&
         this.props.courseDto.amountOfProblems > 0 && this.ifCourseIsLearnedAndActive() &&
         <li>
           <Link
@@ -257,6 +259,28 @@ class CuilButtons extends React.Component {
               Review all the flashcards you learned without waiting for their due time.
             </div>
           </Link>
+        </li>
+      }
+
+      {
+        this.props.courseDto.amountOfProblems > 0 && this.ifCourseIsLearnedAndActive() &&
+        <li>
+          <MakeAllDueModal
+            courseUserIsLearning={this.props.courseDto.courseUserIsLearning}
+            MyActions={this.props.MyActions}
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(212, 85, 18)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Make all flashcards due</div>
+                <div className="comment -white">
+                  Bring every flashcard you learned back into the review pile right now.
+                </div>
+              </button>
+            }
+          />
         </li>
       }
 
