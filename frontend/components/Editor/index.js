@@ -60,7 +60,7 @@ const bindings = {
   },
 
   markAsAnswerOnCmdA: {
-    key: 'ENTER',
+    key: 'Enter',
     shortKey: true,
     shiftKey: true,
     handler: markAsAnswerHandler

@@ -1,5 +1,7 @@
 import Quill from 'quill';
 
+import latinizeShortcutKey from '~/services/quill/latinizeShortcutKey';
+
 class QuillEditor extends React.Component {
   static propTypes = {
     value: PropTypes.string,
@@ -38,10 +40,13 @@ class QuillEditor extends React.Component {
     });
     this.editor.setContents(this.editor.clipboard.convert({ html: this.value }));
     this.editor.on('editor-change', this.onEditorChange);
+    // [claude comment] capture on the container, so this runs before Quill's own keydown listener on .ql-editor
+    this.editor.container.addEventListener('keydown', latinizeShortcutKey, true);
   }
 
   componentWillUnmount = () => {
     this.editor.off('editor-change', this.onEditorChange);
+    this.editor.container.removeEventListener('keydown', latinizeShortcutKey, true);
   }
 
   componentDidUpdate = (prevProps) => {
