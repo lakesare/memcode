@@ -20,6 +20,7 @@ class SettingsModal extends React.Component {
       clozeDeletionMode: 'typing',
       flashcardOrder: true,
       ifMonospace: false,
+      editorTheme: 'dark',
     }
   }
 
@@ -34,6 +35,7 @@ class SettingsModal extends React.Component {
         clozeDeletionMode: this.props.Settings.clozeDeletionMode,
         flashcardOrder: this.props.Settings.flashcardOrder,
         ifMonospace: this.props.Settings.ifMonospace,
+        editorTheme: this.props.Settings.editorTheme,
       }
     });
   }
@@ -49,7 +51,8 @@ class SettingsModal extends React.Component {
       formState.hideSocialButtons !== Settings.hideSocialButtons ||
       formState.clozeDeletionMode !== Settings.clozeDeletionMode ||
       formState.flashcardOrder !== Settings.flashcardOrder ||
-      formState.ifMonospace !== Settings.ifMonospace
+      formState.ifMonospace !== Settings.ifMonospace ||
+      formState.editorTheme !== Settings.editorTheme
     );
   }
 
@@ -146,6 +149,27 @@ class SettingsModal extends React.Component {
               options={[
                 { value: true, label: 'Monospace' },
                 { value: false, label: 'Normal' },
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="part-of-the-website">
+        <h2 className="title">Editor</h2>
+
+        <div className="settings">
+          <div className="setting">
+            <div className="comment">
+              Editor theme
+            </div>
+            <Select
+              className="react-select -settings"
+              value={this.state.formState.editorTheme}
+              updateValue={(val) => this.updateFormState({ ...this.state.formState, editorTheme: val })}
+              options={[
+                { value: 'dark', label: 'Dark' },
+                { value: 'bright', label: 'Bright' },
               ]}
             />
           </div>

@@ -1,0 +1,106 @@
+// [claude comment] driven by the editorTheme setting (SettingsDuck.js) - independent of body.-bright-theme.
+
+body.-bright-editor-theme{
+  // [claude comment] toolbar sits on the still-dark page, not the bright editor below it, so icons stay white at rest and only turn brown on hover
+  section.problem .ql-toolbar{
+    button.ql-answer{
+      border: 1px solid rgb(37, 176, 139) !important;
+      color: rgb(37, 176, 139) !important;
+    }
+    button:hover{
+      background: rgb(234, 225, 220) !important;
+      opacity: 1 !important;
+      border-radius: 4px;
+      .ql-stroke{ stroke: rgb(65, 52, 44) !important; }
+      .ql-fill{ fill: rgb(65, 52, 44) !important; }
+      color: rgb(65, 52, 44) !important;
+    }
+  }
+
+  .ql-editor{
+    border-radius: 10px !important;
+  }
+  .see-answer-button{
+    border-radius: 10px !important;
+  }
+  button.see-answer-button{
+    box-shadow: none !important;
+    border: 3px solid rgb(37, 176, 139) !important;
+    background: rgb(161, 221, 205) !important;
+    color: rgb(50, 50, 50) !important;
+    font-weight: 400 !important;
+    &:hover, &:focus{
+      background: rgb(144, 221, 200) !important;
+    }
+  }
+
+  .ProblemBeingSolved section.problem .ql-editor{
+    border: 5px solid rgb(37, 176, 139) !important;
+  }
+  section.problem.-withSeparateAnswer .second-column .ql-editor{
+    border: 2px solid rgba(37, 176, 139, 0.56);
+  }
+  section.problem .quill > .ql-container > .ql-editor{
+    background: #ffffff !important;
+  }
+
+  // [claude comment] .course-description-and-stats is deliberately excluded here - it never gets a bright background, so this text color would go unreadable against the still-dark page
+  section.problem{
+    .quill > .ql-container > .ql-editor{
+      box-shadow: none !important;
+      font-size: 16.5px;
+      mark.answer{
+        border-width: 3px;
+      }
+      border-width: 3px !important;
+      color: rgb(58, 47, 39);
+      // We need !important-s because we have to override styles copypasted by users
+      span, em, strong, b, a, sup, sub, mark, p, ul, ol{
+        color: rgb(58, 47, 39) !important;
+        background: transparent !important;
+      }
+      strong{
+        font-weight: 600 !important;
+      }
+      em{
+        color: rgb(133, 115, 100) !important;
+        font-weight: inherit;
+      }
+      a{
+        color: rgb(133, 115, 100) !important;
+      }
+
+      pre.ql-syntax, code, code *{
+        background: rgb(244, 239, 231) !important;
+        color: rgb(90, 74, 62) !important;
+      }
+
+      blockquote{
+        color: rgb(58, 47, 39) !important;
+        background: rgba(120, 96, 66, 0.05) !important;
+        border-left: 3px solid rgba(120, 96, 66, 0.2);
+      }
+    }
+    // placeholder!
+    > .ql-container > .ql-editor.ql-blank::before{
+      color: rgb(58, 47, 39);
+    }
+  }
+
+  // [claude comment] theme: '-dark' is only ever passed to tippy() for this tooltip (Editor/index.js), so .tippy-box.-dark uniquely targets it
+  .tippy-box.-dark{
+    background-color: rgb(234, 225, 220);
+    color: rgb(65, 52, 44);
+    > .tippy-arrow{
+      color: rgb(234, 225, 220);
+    }
+    .quill-toolbar-tooltip{
+      .explanation{
+        font-weight: 700;
+      }
+      .shortcut, .instruction{
+        color: rgb(118, 100, 86);
+      }
+    }
+  }
+}

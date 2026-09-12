@@ -17,7 +17,16 @@ const sideEffects = {
       bodyEl.classList.remove("-bright-theme");
     }
   },
-  
+
+  editorTheme: (editorTheme) => {
+    const bodyEl = document.body;
+    if (editorTheme === 'bright') {
+      bodyEl.classList.add("-bright-editor-theme");
+    } else {
+      bodyEl.classList.remove("-bright-editor-theme");
+    }
+  },
+
   hideSocialButtons: (hideSocialButtons) => {
     const bodyEl = document.body;
     if (hideSocialButtons) {
@@ -40,6 +49,7 @@ const initialState = {
   clozeDeletionMode: localStorage.getItem('clozeDeletionMode') === "clicking" ?
     "clicking" : "typing",
   theme: localStorage.getItem('theme') || 'dark',
+  editorTheme: localStorage.getItem('editorTheme') || 'dark',
   hideSocialButtons: localStorage.getItem('hideSocialButtons') === 'true' ? true : false,
   focusedCategoryId: (() => {
     const stored = localStorage.getItem('focusedCategoryId');

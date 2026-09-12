@@ -243,6 +243,12 @@
             height: auto;
             overflow-y: hidden;
             cursor: default;
+            // [claude comment] matches the muted "students"/"flashcards" stats color instead of the global editor's bright near-white; strong/em/code keep their own branded colors
+            body:not(.-bright-theme) &{
+              span, b, a, sup, sub, mark, p, ul, ol, u, blockquote{
+                color: rgb(172, 181, 218) !important;
+              }
+            }
             .placeholder{
               padding-right: 10px;
               line-height: 20px;

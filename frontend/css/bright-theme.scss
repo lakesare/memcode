@@ -263,8 +263,7 @@ body.-bright-theme .-articles-page{
   .invite-coauthor-button:hover,
   .more-button:hover,
   .course-categories-nav li a.name:hover,
-  ul.categories > li a.cross:hover,
-  section.problem .ql-toolbar button:hover{
+  ul.categories > li a.cross:hover{
     background: rgb(234, 225, 220) !important;
     opacity: 1 !important;
     border-radius: 10px;
@@ -281,20 +280,10 @@ body.-bright-theme .-articles-page{
     opacity: 0.7 !important;
   }
 
-  // Quill's snow theme turns toolbar icons #0066cc on hover, which is the one cold
-  // colour left on the page; the tint above carries the feedback instead.
-  section.problem .ql-toolbar button:hover{
-    border-radius: 4px;
-    .ql-stroke{ stroke: rgb(65, 52, 44) !important; }
-    .ql-fill{ fill: rgb(65, 52, 44) !important; }
-    color: rgb(65, 52, 44) !important;
-  }
-
   .button.-orange:hover,
   .resume-learning-button:hover,
   .choose-type button:not(.-active):hover,
-  button.reveal:hover,
-  .see-answer-button:hover{
+  button.reveal:hover{
     background: rgb(221, 130, 83) !important;
     opacity: 1 !important;
     filter: none !important;
@@ -398,23 +387,6 @@ body.-bright-theme .-articles-page{
 
   .standard-course-card, .link.create, .course-title_and_category_and_author h1.title{
     &:hover{ opacity: 0.7; }
-  }
-
-  section.problem .ql-toolbar{
-    background: none;
-    button{
-      .ql-stroke{
-        stroke: rgb(65, 52, 44) !important;
-        stroke-width: 1.7;
-      }
-      .ql-fill{
-        fill: rgb(65, 52, 44) !important;
-      }
-    }
-    button.ql-answer{
-      border: 1px solid rgb(37, 176, 139) !important;
-      color: rgb(37, 176, 139) !important;
-    }
   }
 
   .flashcard-buttons button{
@@ -590,7 +562,7 @@ body.-bright-theme .-articles-page{
     border-bottom-right-radius: 5px;
   }
 
-  .ql-editor, .see-answer-button, .audio-button{
+  .audio-button{
     border-radius: 10px !important;
   }
   .button.total-n-to-review-button{
@@ -629,10 +601,6 @@ body.-bright-theme .-articles-page{
     }
     section.problem{
       // background: $yellowish;
-      .ql-editor{
-        border: 5px solid rgb(37, 176, 139) !important;
-      }
-
       @media(max-width: 900px){
         background: transparent;
       }
@@ -669,62 +637,9 @@ body.-bright-theme .-articles-page{
       border-right: 1px solid rgba(255, 255, 255, 0.83);
     }
   }
-  section.problem.-withSeparateAnswer .second-column .ql-editor {
-    border: 2px solid rgba(37, 176, 139, 0.56);
-  }
-  section.problem .quill > .ql-container > .ql-editor{
-    background: #ffffffe8 !important;
-  }
   section.problem, .course-description-and-stats{
     font-weight: 400;
 
-    .quill > .ql-container > .ql-editor{
-      box-shadow: none !important;
-      font-size: 16.5px;
-      mark.answer{
-        border-width: 3px;
-      }
-      border-width: 3px !important;
-      color: rgb(58, 47, 39);
-      // color: rgb(206, 199, 245);
-      // We need !important-s because we have to override styles copypasted by users
-      span, em, strong, b, a, sup, sub, mark, p, ul, ol{
-        color: rgb(58, 47, 39) !important;
-        background: transparent !important;
-      }
-      strong{
-        // color: rgb(33 165 130) !important;
-        font-weight: 600 !important;
-      }
-      em{
-        color: rgb(133, 115, 100) !important;
-        font-weight: inherit;
-      }
-      a{
-        color: rgb(133, 115, 100) !important;
-      }
-
-      pre.ql-syntax, code, code *{
-        background: rgb(244, 239, 231) !important;
-        color: rgb(90, 74, 62) !important;
-      }
-
-      blockquote{
-        color: rgb(58, 47, 39) !important;
-        background: rgba(120, 96, 66, 0.05) !important;
-        border-left: 3px solid rgba(120, 96, 66, 0.2);
-      }
-    }
-    button.see-answer-button{
-      box-shadow: none !important;
-      border: 3px solid rgb(37, 176, 139) !important;
-      background: rgb(161, 221, 205) !important;
-      color: rgb(50, 50, 50) !important;
-      font-weight: 400 !important;
-      &:hover, &:focus{
-        background: rgb(144, 221, 200) !important;
-      }
-    }
     &.-withInlinedAnswers{
       input.answer-input[data-answered='waiting']{
         color: rgb(58, 47, 39) !important;
@@ -733,10 +648,6 @@ body.-bright-theme .-articles-page{
           background: none !important;
         }
       }
-    }
-    // placeholder!
-    > .ql-container > .ql-editor.ql-blank::before{
-      color: rgb(58, 47, 39);
     }
   }
 }
@@ -768,15 +679,6 @@ body.-bright-theme .tippy-box:not(.bg-button-dropdown){
     .comment, .comment.-white{
       color: rgb(118, 100, 86);
       font-weight: 400;
-    }
-  }
-  .quill-toolbar-tooltip{
-    .explanation{
-      font-weight: 700;
-    }
-    // $green and $purple are dark-theme accents; both land near 1.5:1 on this surface.
-    .shortcut, .instruction{
-      color: rgb(118, 100, 86);
     }
   }
 }

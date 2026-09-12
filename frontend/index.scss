@@ -9,6 +9,7 @@
 @include meta.load-css('css/clear-default-css.scss');
 @include meta.load-css('css/focus-styles.scss');
 @include meta.load-css('css/bright-theme.scss');
+@include meta.load-css('css/bright-theme-quill.scss');
 
 @include meta.load-css('css/react-select.scss');
 @include meta.load-css('css/quill/index.scss');
