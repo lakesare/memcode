@@ -80,7 +80,8 @@
 
       > section.course-title_and_category_and_author{
         display: flex;
-        min-height: 40px;
+        // [claude comment] the exact height of .category_and_author (21 + 21 + 2), so the header doesn't jump on /review, where that block and the edit/import buttons aren't rendered
+        min-height: 44px;
         font-size: 11px;
         align-items: center;
         > h1.title{
@@ -314,6 +315,8 @@
         > section.course-title_and_category_and_author{
           flex-wrap: wrap;
           width: 100%;
+          // [claude comment] .category_and_author is hidden this small, so both pages match anyway - no need to reserve its height
+          min-height: 40px;
 
           > h1.title{
             order: 1;
