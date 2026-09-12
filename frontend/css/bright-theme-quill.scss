@@ -1,6 +1,7 @@
 body.-bright-editor-theme{
   // [claude comment] toolbar sits on the still-dark page, not the bright editor below it, so icons stay white at rest and only turn brown on hover
   section.problem .ql-toolbar{
+    background: transparent;
     button.ql-answer{
       border: 1px solid rgb(37, 176, 139) !important;
       color: rgb(37, 176, 139) !important;
@@ -85,8 +86,8 @@ body.-bright-editor-theme{
     }
   }
 
-  // [claude comment] theme: '-dark' is only ever passed to tippy() for this tooltip (Editor/index.js), so .tippy-box.-dark uniquely targets it
-  .tippy-box.-dark{
+  // [claude comment] targets the attribute tippy() sets (theme: '-dark' in Editor/index.js), not a literal "-dark" class - other tooltips like bg-button-dropdown use that class name directly
+  .tippy-box[data-theme='-dark']{
     background-color: rgb(234, 225, 220);
     color: rgb(65, 52, 44);
     > .tippy-arrow{
