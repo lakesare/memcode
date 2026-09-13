@@ -24,7 +24,7 @@ main{
 
   &.-in-monospace{
     .quill{
-      pre.ql-syntax, code{
+      pre.ql-syntax, .ql-code-block-container, code{
         font-family: 'monospace';
       }
     }
@@ -32,7 +32,7 @@ main{
 
   &.-in-normal-font{
     .quill{
-      pre.ql-syntax, code{
+      pre.ql-syntax, .ql-code-block-container, code{
         font-family: 'Open Sans';
       }
     }
