@@ -3,9 +3,17 @@
 :local(.local) {
   .standard-modal__main {
     min-height: 400px;
+    max-height: calc(100vh - 180px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  .focus-content, .setting {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 
   .categories-grid {
@@ -34,6 +42,11 @@
   }
 
   .substring-filter {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+
     .saved-course-titles {
       display: flex;
       flex-wrap: wrap;
@@ -83,6 +96,10 @@
 
     .input-container {
       position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
 
       .standard-input {
         width: 100%;
@@ -90,7 +107,8 @@
     }
 
     .matching-courses-list {
-      max-height: 100px;
+      flex: 1;
+      min-height: 0;
       overflow-y: auto;
       border-radius: 4px;
       margin-top: 8px;

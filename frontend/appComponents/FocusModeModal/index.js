@@ -16,7 +16,7 @@ class FocusModeModal extends React.Component {
 
   state = {
     showMatchingCourses: false,
-    selectedTab: 'By Category',
+    selectedTab: this.props.Settings.focusedSubstring ? 'By Course Title' : 'By Category',
     savedCourseTitles: []
   }
 
@@ -49,6 +49,9 @@ class FocusModeModal extends React.Component {
   }
 
   removeSavedCourseTitle = (title) => {
+    if (this.props.Settings.focusedSubstring === title) {
+      this.props.SettingsActions.updateSetting('focusedSubstring', '');
+    }
     this.setState((prevState) => {
       const newTitles = prevState.savedCourseTitles.filter(t => t !== title);
       localStorage.setItem('focusModeSavedCourseTitles', JSON.stringify(newTitles));
