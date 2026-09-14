@@ -12,8 +12,9 @@ import SettingsDuck from '~/ducks/SettingsDuck';
 import api from '~/api';
 import withRouter from '~/services/withRouter';
 
-class Page_courses_id_review extends React.Component {
+class Page_courses_id_print extends React.Component {
   static propTypes = {
+    kind: PropTypes.oneOf(['all', 'due', 'learned']).isRequired,
     courseId: PropTypes.number.isRequired,
     currentUser: orFalse(PropTypes.object).isRequired,
 
@@ -27,8 +28,14 @@ class Page_courses_id_review extends React.Component {
     speGetPage: {}
   }
 
+  deriveApiMethod = () => ({
+    all:     api.get.PageApi.getCoursePage,
+    due:     api.get.PageApi.getReviewPage,
+    learned: api.get.PageApi.getAllPage
+  }[this.props.kind])
+
   componentDidMount = () => {
-    api.get.PageApi.getReviewPage(
+    this.deriveApiMethod()(
       (spe) => this.setState({ speGetPage: spe }),
       { courseId: this.props.courseId }
     );
@@ -65,25 +72,14 @@ class Page_courses_id_review extends React.Component {
 }
 
 export default withRouter(connect(
-  (state, ownProps) => {
-    const pageState = state.pages.Page_courses_id_review;
-    return {
-      courseId: Number.parseInt(ownProps.match.params.id),
-      currentUser: state.global.Authentication.currentUser || false,
-      ...pageState.speGetPage.status === 'success' &&
-        {
-          statusOfSolving:  pageState.statusOfSolving,
-          amountOfProblems: pageState.speGetPage.payload.problems.length
-        },
-      amountOfFailedProblems: pageState.amountOfFailedProblems,
-      amountOfFailedProblemsLeft: pageState.indexesOfFailedProblems.length,
-
-      My: state.global.My,
-      Settings: state.global.Settings
-    };
-  },
+  (state, ownProps) => ({
+    courseId: Number.parseInt(ownProps.match.params.id),
+    currentUser: state.global.Authentication.currentUser || false,
+    My: state.global.My,
+    Settings: state.global.Settings
+  }),
   (dispatch) => ({
     MyActions: dispatch(MyDuck.getActions),
     SettingsActions: SettingsDuck.getActions(dispatch)
   })
-)(Page_courses_id_review));
+)(Page_courses_id_print));

@@ -287,34 +287,55 @@ class CuilButtons extends React.Component {
       {
         this.ifCourseIsLearnedAndActive() &&
         <li>
-          <Link
-            to={`/courses/${this.props.courseDto.course.id}/review/print`}
-            target="_blank"
-            style={{ color: 'rgb(219, 219, 216)' }}
-            onClick={this.closeDropdown}
-          >
-            <div className="text">Print Out</div>
-            <div className="comment -white">
-              Open a page suitable for printing out the flashcards ready for the review.
-            </div>
-          </Link>
-        </li>
-      }
+          <TogglerAndModal
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(219, 219, 216)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Print</div>
+                <div className="comment -white">
+                  Open a page suitable for printing the flashcards.
+                </div>
+              </button>
+            }
+          >{(closeModal) =>
+            <section className="standard-modal standard-modal--sm">
+              <div className="standard-modal__header">
+                <h2 className="standard-modal__title">Print</h2>
+              </div>
 
-      {
-        this.ifCourseIsLearnedAndActive() &&
-        <li>
-          <Link
-            to={`/courses/${this.props.courseDto.course.id}/all/print`}
-            target="_blank"
-            style={{ color: 'rgb(219, 219, 216)' }}
-            onClick={this.closeDropdown}
-          >
-            <div className="text">Print All Out</div>
-            <div className="comment -white">
-              Open a page suitable for printing all cards within this deck.
-            </div>
-          </Link>
+              <div className="standard-modal__main">
+                <section className="buttons" style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                  <Link
+                    to={`/courses/${this.props.courseDto.course.id}/print-due`}
+                    target="_blank"
+                    className="button -white"
+                    onClick={closeModal}
+                  >
+                    Print Due Flashcards
+                  </Link>
+                  <Link
+                    to={`/courses/${this.props.courseDto.course.id}/print-learned`}
+                    target="_blank"
+                    className="button -white"
+                    onClick={closeModal}
+                  >
+                    Print All Learned Flashcards
+                  </Link>
+                  <Link
+                    to={`/courses/${this.props.courseDto.course.id}/print`}
+                    target="_blank"
+                    className="button -white"
+                    onClick={closeModal}
+                  >
+                    Print All Flashcards
+                  </Link>
+                </section>
+              </div>
+            </section>
+          }</TogglerAndModal>
         </li>
       }
 

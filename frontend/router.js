@@ -3,8 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import onEnters from '~/services/onEnters';
 
 import Page_courses from './pages/courses';
-import Page_courses_id_review_print from './pages/courses_id_review_print';
-import Page_courses_id_all_print from './pages/courses_id_all_print';
+import Page_courses_id_print from './pages/courses_id_print';
 import Page_courses_id_review from './pages/courses_id_review';
 import Page_courses_id_learn from './pages/courses_id_learn';
 import Page_courses_id from './pages/courses_id';
@@ -32,8 +31,7 @@ const auth = onEnters.requireAuthentication;
 // is still snapshotted at boot - behaviour preserved deliberately
 const Learn = auth(Page_courses_id_learn);
 const Review = auth(Page_courses_id_review);
-const ReviewPrint = auth(Page_courses_id_review_print);
-const AllPrint = auth(Page_courses_id_all_print);
+const Print = auth(Page_courses_id_print);
 const UsersId = onEnters.signIn(Page_users_id);
 const Welcome = onEnters.redirectToOwnCoursesIfAuthenticated(Page_articles_welcome);
 const AdminStats = onEnters.requireAdmin(Page_admin_stats);
@@ -48,8 +46,9 @@ const router =
       <Route path="/courses/:id"        element={<Page_courses_id/>}/>
       <Route path="/courses/:id/learn"  element={<Learn/>}/>
       <Route path="/courses/:id/review" element={<Review simulated={false} persistent={false}/>}/>
-      <Route path="/courses/:id/review/print" element={<ReviewPrint/>}/>
-      <Route path="/courses/:id/all/print" element={<AllPrint/>}/>
+      <Route path="/courses/:id/print" element={<Print kind="all"/>}/>
+      <Route path="/courses/:id/print-due" element={<Print kind="due"/>}/>
+      <Route path="/courses/:id/print-learned" element={<Print kind="learned"/>}/>
       <Route path="/courses/:id/review/simulated" element={<Page_courses_id_review simulated/>}/>
       <Route path="/courses/:id/review/persistent" element={<Page_courses_id_review persistent/>}/>
       <Route path="/courses/:id/review/failed" element={<Review failed/>}/>
