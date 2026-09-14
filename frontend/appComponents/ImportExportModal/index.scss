@@ -90,6 +90,10 @@
         line-height: 22px;
         field-sizing: content; // doesnt work for Firefox, but should already work for other browsers
         resize: vertical;
+        color: white;
+        &::placeholder{
+          color: white;
+        }
       }
       .instructions textarea{
         margin-top: 4px;
