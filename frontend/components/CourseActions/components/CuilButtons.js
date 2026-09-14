@@ -393,7 +393,7 @@ class CuilButtons extends React.Component {
               >
                 <div className="text">Invite Coauthors</div>
                 <div className="comment -white">
-                  Add another Memcode user as a coauthor, learning together with someone special is more fun!
+                  Add another Memcode user as a coauthor.
                 </div>
               </button>
             }
