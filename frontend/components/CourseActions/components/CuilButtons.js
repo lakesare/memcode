@@ -421,6 +421,27 @@ class CuilButtons extends React.Component {
           </button>
         </li>
       }
+
+      {
+        this.props.currentProblem &&
+        <li>
+          <button
+            type="button"
+            onClick={() => {
+              this.props.MyActions.unlearnUnignoreProblem(this.props.courseDto.course.id, this.props.currentProblem.id);
+              this.props.ignoreCurrentFlashcard();
+              api.post.ProblemUserIsLearningApi.unlearnAlreadyLearnedProblem(() => {}, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id });
+              this.closeDropdown();
+            }}
+            style={{ color: 'rgb(120, 175, 244)' }}
+          >
+            <div className="text">Unlearn</div>
+            <div className="comment -white">
+              Unlearn this flashcard
+            </div>
+          </button>
+        </li>
+      }
     </ul>
 
   renderModal = () =>
