@@ -19,11 +19,6 @@ body.-bright-editor-theme{
   .ql-editor{
     border-radius: 10px !important;
   }
-  // [claude comment] an editor with a toolbar above it must keep square top corners so it joins the toolbar instead of rounding away under it
-  .ql-toolbar + .ql-container > .ql-editor{
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-  }
   .see-answer-button{
     border-radius: 10px !important;
   }
