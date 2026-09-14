@@ -87,6 +87,8 @@ class CuilButtons extends React.Component {
     return cuil && cuil.active;
   }
 
+  ifReviewMode = () => this.props.type === 'review'
+
   renderLearnButton = () =>
     <Link
       to={`/courses/${this.props.courseDto.course.id}/learn`}
@@ -130,6 +132,7 @@ class CuilButtons extends React.Component {
 
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
+      {!this.ifReviewMode() && <>
       {
         this.props.canIEditCourse &&
         <li className="mobile-only-edit-button">
@@ -377,6 +380,7 @@ class CuilButtons extends React.Component {
           </button>
         </li>
       }
+      </>}
 
       {
         this.props.currentProblem &&
