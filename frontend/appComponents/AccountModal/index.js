@@ -27,7 +27,13 @@ class AccountModal extends React.Component {
     },
     formValidation: {},
     speUpdateAccount: {},
-    speUploadAvatar: {}
+    speUploadAvatar: {},
+    speDeleteAccount: {},
+    deletionCountdown: null
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.deletionTimer);
   }
 
   componentDidMount = () => {
@@ -181,14 +187,48 @@ class AccountModal extends React.Component {
     <TabNavigation
       selectTab={(selectedTab) => this.setState({ selectedTab })}
       selectedTab={this.state.selectedTab}
-      tabs={['Account', 'Security']}
+      tabs={['Account', 'Security', 'Manage']}
     />
 
   renderSelectedTab = (closeModal) => {
     return {
       'Account': () => this.renderAccountTab(closeModal),
-      'Security': this.renderSecurityTab
+      'Security': this.renderSecurityTab,
+      'Manage': this.renderManageTab
     }[this.state.selectedTab]();
+  }
+
+  apiDeleteAccount = () => {
+    if (this.state.speDeleteAccount.status === 'request') return;
+
+    api.post.UserApi.deleteAccount(
+      (speDeleteAccount) => {
+        this.setState({ speDeleteAccount });
+        if (speDeleteAccount.status === 'success') {
+          this.props.signOut();
+        }
+      },
+      {}
+    );
+  }
+
+  startDeletionCountdown = () => {
+    this.setState({ deletionCountdown: 10 });
+    this.deletionTimer = setInterval(() => {
+      this.setState((prevState) => {
+        if (prevState.deletionCountdown <= 1) {
+          clearInterval(this.deletionTimer);
+          this.apiDeleteAccount();
+          return { deletionCountdown: 0 };
+        }
+        return { deletionCountdown: prevState.deletionCountdown - 1 };
+      });
+    }, 1000);
+  }
+
+  cancelDeletion = () => {
+    clearInterval(this.deletionTimer);
+    this.setState({ deletionCountdown: null });
   }
 
   renderSecurityTab = () =>
@@ -201,6 +241,61 @@ class AccountModal extends React.Component {
       >
         Sign Out
       </button>
+    </div>
+
+  renderManageTab = () =>
+    <div className="manage-tab">
+      <h2 className="title delete-account-title">Delete your account</h2>
+      <p className="delete-account-description">
+        This permanently deletes your account and <b>everything tied to it</b> - the courses you created, all their flashcards, and your learning progress. This cannot be undone.
+      </p>
+
+      {this.state.deletionCountdown !== null ? (
+        <div className="delete-account-countdown">
+          <p>Deleting your account in <b>{this.state.deletionCountdown}</b>...</p>
+          <Loading enabledStatuses={['failure']} spe={this.state.speDeleteAccount} />
+          <button
+            type="button"
+            className="button -white"
+            onClick={this.cancelDeletion}
+          >
+            Cancel Deleting ({this.state.deletionCountdown})
+          </button>
+        </div>
+      ) : (
+        <TogglerAndModal
+          toggler={
+            <button type="button" className="button -red">
+              Delete account
+            </button>
+          }
+        >{(closeConfirm) =>
+          <section className="standard-modal" style={{ maxWidth: '470px' }}>
+            <div className="standard-modal__header">
+              <h2 className="standard-modal__title">Delete account?</h2>
+            </div>
+
+            <div className="standard-modal__main">
+              <div className="standard-modal__description">
+                Are you absolutely sure? This permanently deletes your account and everything tied to it. There is no way back.
+              </div>
+
+              <section className="buttons" style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginTop: '35px' }}>
+                <button type="button" className="button -white" onClick={closeConfirm}>
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="button -red"
+                  onClick={() => { closeConfirm(); this.startDeletionCountdown(); }}
+                >
+                  Yes, delete my account
+                </button>
+              </section>
+            </div>
+          </section>
+        }</TogglerAndModal>
+      )}
     </div>
 
   renderAccountTab = (closeModal) =>

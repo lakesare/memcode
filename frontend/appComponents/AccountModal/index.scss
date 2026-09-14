@@ -48,6 +48,29 @@
     }
   }
 
+  .manage-tab {
+    .delete-account-title {
+      color: rgb(252, 126, 126);
+    }
+    .delete-account-description {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .delete-account-countdown {
+      > p {
+        margin-top: 25px;
+        font-weight: 600;
+      }
+      > button {
+        margin-top: 15px;
+      }
+    }
+    > button {
+      margin-top: 20px;
+    }
+  }
+
   .standard-form {
     .form-buttons {
       display: flex;
