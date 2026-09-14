@@ -1,4 +1,3 @@
-import TogglerAndModal from '~/components/TogglerAndModal';
 import css from './index.scss';
 import UserSelect from '~/appComponents/UserSelect';
 import api from '~/api';
@@ -6,13 +5,11 @@ import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import Loading from '~/components/Loading';
 import getUserAvatar from '~/services/getUserAvatar';
 
-// rgba(25, 26, 46, 0.27)
-class InviteCoauthorModal extends React.Component {
+class TabInviteCoauthors extends React.Component {
   static propTypes = {
-    toggler: PropTypes.element.isRequired,
+    closeModal: PropTypes.func.isRequired,
     course: PropTypes.object.isRequired,
     coauthors: PropTypes.array.isRequired,
-    currentUser: PropTypes.object.isRequired,
     author: PropTypes.object.isRequired
   }
 
@@ -21,7 +18,7 @@ class InviteCoauthorModal extends React.Component {
     speUpdate: {}
   }
 
-  apiUpdateCoauthors = (closeModal) => {
+  apiUpdateCoauthors = () => {
     api.post.CourseApi.updateCoauthors(
       (spe) => this.setState({ speUpdate: spe }),
       {
@@ -30,7 +27,7 @@ class InviteCoauthorModal extends React.Component {
       }
     )
       .then(() => {
-        closeModal();
+        this.props.closeModal();
       });
   }
 
@@ -92,39 +89,32 @@ class InviteCoauthorModal extends React.Component {
     </table>
 
   render = () =>
-    <TogglerAndModal toggler={this.props.toggler}>{(closeModal) =>
-      <section className={"standard-modal standard-modal--md " + css.modal}>
-        <div className="standard-modal__header">
-          <h2 className="standard-modal__title">Invite Coauthors</h2>
-          <div className="standard-modal__description">Add another Memcode user as a coauthor, learning together with someone special is more fun!</div>
-        </div>
+    <div className={css.tab}>
+      <div className="standard-modal__description">Add another Memcode user as a coauthor.</div>
 
-        <div className="standard-modal__main">
-          <div className="label-and-select">
-            <label>Find new coauthor:</label>
+      <div className="label-and-select">
+        <label>Find new coauthor:</label>
 
-            <UserSelect
-              onSelect={this.onSelectUser}
-            />
-          </div>
+        <UserSelect
+          onSelect={this.onSelectUser}
+        />
+      </div>
 
-          <div className="table-wrapper">
-            {this.renderTable()}
-          </div>
+      <div className="table-wrapper">
+        {this.renderTable()}
+      </div>
 
-          <Loading enabledStatuses={['failure']} spe={this.state.speUpdate}/>
+      <Loading enabledStatuses={['failure']} spe={this.state.speUpdate}/>
 
-          <button
-            type="submit"
-            className="button -purple standard-submit-button"
-            onClick={() => this.apiUpdateCoauthors(closeModal)}
-            style={disableOnSpeRequest(this.state.speUpdate, { opacity: 0.7 })}
-          >
-            SAVE
-          </button>
-        </div>
-      </section>
-    }</TogglerAndModal>
+      <button
+        type="submit"
+        className="button -purple standard-submit-button"
+        onClick={this.apiUpdateCoauthors}
+        style={disableOnSpeRequest(this.state.speUpdate, { opacity: 0.7 })}
+      >
+        SAVE
+      </button>
+    </div>
 }
 
-export default InviteCoauthorModal;
+export default TabInviteCoauthors;

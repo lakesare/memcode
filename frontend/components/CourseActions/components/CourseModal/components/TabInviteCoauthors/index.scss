@@ -1,14 +1,8 @@
-:local(.modal){
-
-  // background: red;
+:local(.tab){
   .react-select-container{
     margin-top: 20px;
     margin-bottom: 20px;
     width: 350px;
-  }
-
-  .standard-modal__main{
-    padding-top: 0;
   }
 
   .label-and-select{

@@ -199,6 +199,8 @@ class CourseActions extends React.Component {
                 course={courseDto.course}
                 uiUpdateCourse={this.uiUpdateCourse}
                 MyActions={this.props.MyActions}
+                author={courseDto.author}
+                coauthors={courseDto.coauthors}
               />
 
               <ImportExportModal

@@ -7,7 +7,6 @@ import withRouter from '~/services/withRouter';
 import disableOnSpeRequest from '~/services/disableOnSpeRequest';
 import StandardTooltip from '~/components/StandardTooltip';
 import TogglerAndModal from '~/components/TogglerAndModal';
-import InviteCoauthorModal from './InviteCoauthorModal';
 import CourseModal from './CourseModal';
 import LearningSettingsModal from './LearningSettingsModal';
 import MakeAllDueModal from './MakeAllDueModal';
@@ -150,6 +149,8 @@ class CuilButtons extends React.Component {
             course={this.props.courseDto.course}
             uiUpdateCourse={this.props.uiUpdateCourse}
             MyActions={this.props.MyActions}
+            author={this.props.author}
+            coauthors={this.props.coauthors}
           />
         </li>
       }
@@ -377,51 +378,6 @@ class CuilButtons extends React.Component {
         </li>
       }
 
-      <li>
-        <TogglerAndModal
-          toggler={
-            <button
-              type="button"
-              style={{ color: 'rgb(232, 141, 230)' }}
-              onClick={this.closeDropdown}
-            >
-              <div className="text">
-                Embed
-              </div>
-              <div className="comment -white">
-                Embed the flashcards from this course into an iframe (useful if you use genial.ly)
-              </div>
-            </button>
-          }
-        >
-          {this.renderModal()}
-        </TogglerAndModal>
-      </li>
-
-      {
-        this.props.canIEditCourse && this.props.author && this.props.coauthors &&
-        <li>
-          <InviteCoauthorModal
-            course={this.props.courseDto.course}
-            author={this.props.author}
-            coauthors={this.props.coauthors}
-            currentUser={this.props.currentUser}
-            toggler={
-              <button
-                type="button"
-                style={{ color: 'rgb(120, 175, 244)' }}
-                onClick={this.closeDropdown}
-              >
-                <div className="text">Invite Coauthors</div>
-                <div className="comment -white">
-                  Add another Memcode user as a coauthor.
-                </div>
-              </button>
-            }
-          />
-        </li>
-      }
-
       {
         this.props.currentProblem &&
         <li>
@@ -464,19 +420,6 @@ class CuilButtons extends React.Component {
         </li>
       }
     </ul>
-
-  renderModal = () =>
-    <section className={"standard-modal standard-modal--md "}>
-      <div className="standard-modal__header">
-        <h2 className="standard-modal__title">Embed this course</h2>
-      </div>
-
-      <div className="standard-modal__main">
-        <p>
-          {`<iframe src="https://www.memcode.com/courses/${this.props.courseDto.course.id}/review/simulated?embed=true" scrolling="yes" style="width: 100%; height: 100%;"></iframe>`}
-        </p>
-      </div>
-    </section>
 
   render = () =>
     this.props.currentUser ?
