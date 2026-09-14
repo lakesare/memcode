@@ -272,10 +272,10 @@ class CuilButtons extends React.Component {
             toggler={
               <button
                 type="button"
-                style={{ color: 'rgb(212, 85, 18)' }}
+                style={{ color: 'rgb(219, 119, 67)' }}
                 onClick={this.closeDropdown}
               >
-                <div className="text">Make all flashcards due</div>
+                <div className="text">Make All Flashcards Due</div>
                 <div className="comment -white">
                   Bring every flashcard you learned back into the review pile right now.
                 </div>
