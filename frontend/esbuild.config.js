@@ -73,7 +73,9 @@ const sassCompiler = {
       return {
         contents: result.css,
         loader: 'global-css',
-        resolveDir: path.dirname(args.path)
+        resolveDir: path.dirname(args.path),
+        // [claude comment] sass resolves @use/@import itself, so esbuild can't see the nested partials - list them as watchFiles or editing a partial won't trigger a rebuild
+        watchFiles: result.loadedUrls.filter((url) => url.protocol === 'file:').map((url) => fileURLToPath(url))
       };
     });
   }
