@@ -208,4 +208,7 @@ const getPage = (courseId, simulated, persistent, failed) =>
     }
   };
 
-export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage, ignoreCurrentFlashcard };
+const updateCurrentProblem = (problem) =>
+  ({ type: 'UPDATE_CURRENT_PROBLEM', payload: problem });
+
+export default { enterPressed, enterPressedInSimulatedReview, enterPressedInPersistentReview, getPage, ignoreCurrentFlashcard, updateCurrentProblem };

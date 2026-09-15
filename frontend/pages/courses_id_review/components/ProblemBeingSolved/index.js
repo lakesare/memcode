@@ -52,9 +52,10 @@ class ProblemBeingSolved extends React.Component {
   }
 
   onEnter = (event) => {
-    if (event.key === 'Enter') {
-      this.props.enterPressed();
-    }
+    if (event.key !== 'Enter') return;
+    // [claude comment] don't advance the review when Enter is pressed inside a modal (e.g. editing the flashcard)
+    if (event.target.closest && event.target.closest('.ReactModalPortal')) return;
+    this.props.enterPressed();
   }
 
   renderProgressBar = () => {

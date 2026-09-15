@@ -240,6 +240,23 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case 'UPDATE_CURRENT_PROBLEM': {
+      const updated = action.payload;
+      const problems = state.speGetPage.payload.problems.map((problem) =>
+        problem.id === updated.id ?
+          { ...problem, type: updated.type, content: updated.content } :
+          problem
+      );
+
+      return {
+        ...state,
+        speGetPage: {
+          ...state.speGetPage,
+          payload: { ...state.speGetPage.payload, problems }
+        }
+      };
+    }
+
     default:
       return state;
   }

@@ -27,6 +27,7 @@ class CourseActions extends React.Component {
     SettingsActions: PropTypes.object.isRequired,
     MyActions: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
+    updateCurrentProblem: PropTypes.func,
     onProblemsImported: PropTypes.func,
     restartReview: PropTypes.func,
     restartFailedReview: PropTypes.func
@@ -257,6 +258,7 @@ class CourseActions extends React.Component {
           SettingsActions={this.props.SettingsActions}
           type={this.props.type}
           currentProblem={this.props.currentProblem}
+          updateCurrentProblem={this.props.updateCurrentProblem}
           ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
           restartReview={this.props.restartReview}
           restartFailedReview={this.props.restartFailedReview}

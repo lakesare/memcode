@@ -11,6 +11,7 @@ import CourseModal from './CourseModal';
 import LearningSettingsModal from './LearningSettingsModal';
 import MakeAllDueModal from './MakeAllDueModal';
 import ImportExportModal from '~/appComponents/ImportExportModal';
+import EditFlashcardModal from '~/appComponents/EditFlashcardModal';
 
 class CuilButtons extends React.Component {
   static propTypes = {
@@ -37,6 +38,7 @@ class CuilButtons extends React.Component {
     Settings: PropTypes.object.isRequired,
     SettingsActions: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
+    updateCurrentProblem: PropTypes.func,
     type: PropTypes.string.isRequired,
     canIEditCourse: PropTypes.bool,
     restartReview: PropTypes.func,
@@ -381,6 +383,29 @@ class CuilButtons extends React.Component {
         </li>
       }
       </>}
+
+      {
+        this.props.currentProblem &&
+        this.props.canIEditCourse &&
+        <li>
+          <EditFlashcardModal
+            problem={this.props.currentProblem}
+            onSaved={this.props.updateCurrentProblem}
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(120, 175, 244)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Edit</div>
+                <div className="comment -white">
+                  Edit this flashcard
+                </div>
+              </button>
+            }
+          />
+        </li>
+      }
 
       {
         this.props.currentProblem &&

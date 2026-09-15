@@ -1,0 +1,149 @@
+@use '~/css/variables.scss';
+
+:local(.editFlashcardModal){
+  // [claude comment] quill floats its toolbar buttons, so in a narrow column they wrap and the fixed-height toolbar shows a scrollbar - let it grow instead
+  .ql-toolbar{
+    overflow: visible;
+    height: auto;
+  }
+
+  section.problem{
+    align-items: stretch;
+    // [claude comment] problem.scss zeroes the gap at <=900px because the course page stacks there, but the modal only stacks at <=640px - keep the gap until then
+    gap: 20px;
+
+    .first-column, .second-column{
+      display: flex;
+    }
+    .quill{
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .ql-container{
+      flex: 1 1 auto;
+      height: auto;
+    }
+
+    // [claude comment] the "Mark As Answer" button gets its label/styling from the course page's scope, which the modal is outside of - replicate it here
+    &.-withInlinedAnswers > .first-column .ql-toolbar{
+      .ql-formats{ margin-right: 9px !important; }
+      .ql-formats:first-child{ margin-right: 2px !important; }
+      padding-right: 0;
+
+      button.ql-answer{
+        font-size: 10px;
+        width: 50px !important;
+        padding: 0;
+        text-align: center;
+        border-radius: 2px;
+        line-height: 10px;
+        border: 1px solid rgb(44, 225, 83);
+        color: rgb(166, 241, 182);
+        font-weight: 300;
+
+        &.ql-active, &:hover{
+          text-shadow: 0 0 1px rgba(243, 243, 243, 0.5);
+        }
+        &::after{
+          content: "Mark As Answer";
+        }
+      }
+    }
+  }
+
+  .footer{
+    margin-top: 30px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 20px;
+
+    .actions{
+      display: flex;
+      gap: 20px;
+    }
+    .actions button.button{
+      min-width: 120px;
+    }
+  }
+
+  section.choose-type{
+    display: flex;
+
+    .buttons{
+      display: flex;
+    }
+
+    button.button{
+      min-width: auto;
+      padding: 13px 18px;
+      white-space: nowrap;
+      background: variables.$orange;
+      color: white;
+      font-size: 10px;
+      opacity: 0.5;
+
+      &:first-child{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+      &:last-child{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      &.-active{
+        opacity: 1;
+        cursor: default;
+      }
+      &:not(.-active):hover{
+        opacity: 0.7;
+      }
+    }
+  }
+
+  // [claude comment] on small screens two side-by-side editors get too narrow to use, so stack them full-width (as the course page does)
+  @media(max-width: 640px){
+    section.problem{
+      display: block;
+
+      .first-column, .second-column{
+        display: block;
+        width: 100%;
+      }
+      .second-column{
+        padding-top: 20px;
+      }
+      .quill{
+        display: block;
+        height: auto;
+      }
+      .ql-container{
+        flex: none;
+        height: auto;
+      }
+    }
+  }
+
+  // [claude comment] the type toggle and Cancel/Save no longer fit on one row here, so stack them
+  @media(max-width: 560px){
+    .footer{
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+
+      section.choose-type,
+      section.choose-type .buttons{
+        width: 100%;
+      }
+      section.choose-type button.button{
+        flex: 1;
+      }
+      .actions{
+        justify-content: flex-end;
+      }
+    }
+  }
+}

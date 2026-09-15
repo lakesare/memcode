@@ -138,6 +138,7 @@ class Page_courses_id_review extends React.Component {
         MyActions={this.props.MyActions}
         SettingsActions={this.props.SettingsActions}
         currentProblem={this.props.currentProblem}
+        updateCurrentProblem={this.props.updateCurrentProblem}
         ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
         restartReview={this.props.failed ? undefined : () => this.props.getPage(this.props.courseId)}
         restartFailedReview={this.props.failed ? () => this.props.getPage(this.props.courseId) : undefined}
@@ -226,6 +227,7 @@ export default withRouter(connect(
 
     MyActions: dispatch(MyDuck.getActions),
     SettingsActions: SettingsDuck.getActions(dispatch),
-    ignoreCurrentFlashcard: () => dispatch(actions.ignoreCurrentFlashcard())
+    ignoreCurrentFlashcard: () => dispatch(actions.ignoreCurrentFlashcard()),
+    updateCurrentProblem: (problem) => dispatch(actions.updateCurrentProblem(problem))
   })
 )(Page_courses_id_review));
