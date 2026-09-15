@@ -184,6 +184,14 @@ Core entities:
 2. Start frontend build: `make frontend-webpack` (watches for changes)
 3. Access app at `http://localhost:3000`
 
+### Logging in locally (forge a JWT)
+
+No real OAuth locally, so forge a JWT. The token is just the `user` row in camelCase, signed with `JWT_SECRET` from `env.js`; the frontend reads it from `localStorage.jwt`. Local DB is a copy of prod, so pick a real user (e.g. id 1971, `daniel-eder`, has lots of courses):
+```bash
+node -e "const jwt=require('jsonwebtoken'); console.log(jwt.sign({id:1971,username:'daniel-eder',oauthProvider:'github',oauthId:'1525711',avatarUrl:'',email:''}, 'lamlalamkflre'));"
+```
+Then in the browser console: `localStorage.setItem('jwt', '<token>'); location.href = '/courses';`
+
 ### Code Style
 - ESLint 9 flat config in `eslint.config.js`, run with `make lint`. Deliberately a small set of high-signal rules, not a style guide - the project used to extend `airbnb` and most of the config was switched off again, so the airbnb rules are gone rather than re-disabled one by one.
 - Relaxed rules for development velocity over strict adherence
