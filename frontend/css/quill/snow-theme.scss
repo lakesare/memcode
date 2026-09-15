@@ -39,13 +39,14 @@ $border_color_1: #000;
     visibility: hidden;
   }
   .ql-editor {
-    ul[data-checked] {
-      >li {
-        &::before {
-          pointer-events: none;
-        }
-      }
+    li[data-list=checked] > .ql-ui, li[data-list=unchecked] > .ql-ui {
+      pointer-events: none;
     }
+  }
+}
+.ql-container:not(.ql-disabled) {
+  li[data-list=checked] > .ql-ui, li[data-list=unchecked] > .ql-ui {
+    cursor: pointer;
   }
 }
 .ql-clipboard {
@@ -61,6 +62,7 @@ $border_color_1: #000;
 }
 .ql-editor {
   box-sizing: border-box;
+  counter-reset: list-0 list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
   cursor: text;
   line-height: 1.42;
   height: 100%;
@@ -75,96 +77,88 @@ $border_color_1: #000;
   p {
     margin: 0;
     padding: 0;
-    counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+    counter-reset: list-0 list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
   }
   ol {
     margin: 0;
     padding: 0;
+  }
+  li {
+    list-style-type: none;
+    padding-left: 1.5em;
+    position: relative;
     counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
-    >li {
-      list-style-type: none;
+    > .ql-ui:before {
+      display: inline-block;
+      margin-left: -1.5em;
+      margin-right: 0.3em;
+      text-align: right;
+      white-space: nowrap;
+      width: 1.2em;
     }
-    li {
-      counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
-      counter-increment: list-num;
-      &:before {
-        content: counter(list-num, decimal) '. ';
-      }
+  }
+  li[data-list=bullet] > .ql-ui:before {
+    content: '\2022';
+  }
+  li[data-list=checked] > .ql-ui, li[data-list=unchecked] > .ql-ui {
+    color: $color_1;
+  }
+  li[data-list=checked] > .ql-ui:before {
+    content: '\2611';
+  }
+  li[data-list=unchecked] > .ql-ui:before {
+    content: '\2610';
+  }
+  li[data-list=ordered] {
+    counter-increment: list-0;
+    > .ql-ui:before {
+      content: counter(list-0, decimal) '. ';
     }
-    li.ql-indent-1 {
+    &.ql-indent-1 {
       counter-increment: list-1;
-      counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
-      &:before {
-        content: counter(list-1, decimal) '. ';
-      }
+      > .ql-ui:before { content: counter(list-1, lower-alpha) '. '; }
     }
-    li.ql-indent-2 {
+    &.ql-indent-2 {
       counter-increment: list-2;
-      counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9;
-      &:before {
-        content: counter(list-2, decimal) '. ';
-      }
+      > .ql-ui:before { content: counter(list-2, lower-roman) '. '; }
     }
-    li.ql-indent-3 {
+    &.ql-indent-3 {
       counter-increment: list-3;
-      counter-reset: list-4 list-5 list-6 list-7 list-8 list-9;
-      &:before {
-        content: counter(list-3, decimal) '. ';
-      }
+      > .ql-ui:before { content: counter(list-3, decimal) '. '; }
     }
-    li.ql-indent-4 {
+    &.ql-indent-4 {
       counter-increment: list-4;
-      counter-reset: list-5 list-6 list-7 list-8 list-9;
-      &:before {
-        content: counter(list-4, decimal) '. ';
-      }
+      > .ql-ui:before { content: counter(list-4, lower-alpha) '. '; }
     }
-    li.ql-indent-5 {
+    &.ql-indent-5 {
       counter-increment: list-5;
-      counter-reset: list-6 list-7 list-8 list-9;
-      &:before {
-        content: counter(list-5, lower-roman) '. ';
-      }
+      > .ql-ui:before { content: counter(list-5, lower-roman) '. '; }
     }
-    li.ql-indent-6 {
+    &.ql-indent-6 {
       counter-increment: list-6;
-      counter-reset: list-7 list-8 list-9;
-      &:before {
-        content: counter(list-6, decimal) '. ';
-      }
+      > .ql-ui:before { content: counter(list-6, decimal) '. '; }
     }
-    li.ql-indent-7 {
+    &.ql-indent-7 {
       counter-increment: list-7;
-      counter-reset: list-8 list-9;
-      &:before {
-        content: counter(list-7, lower-alpha) '. ';
-      }
+      > .ql-ui:before { content: counter(list-7, lower-alpha) '. '; }
     }
-    li.ql-indent-8 {
+    &.ql-indent-8 {
       counter-increment: list-8;
-      counter-reset: list-9;
-      &:before {
-        content: counter(list-8, lower-roman) '. ';
-      }
+      > .ql-ui:before { content: counter(list-8, lower-roman) '. '; }
     }
-    li.ql-indent-9 {
+    &.ql-indent-9 {
       counter-increment: list-9;
-      &:before {
-        content: counter(list-9, decimal) '. ';
-      }
+      > .ql-ui:before { content: counter(list-9, decimal) '. '; }
     }
   }
-  ul {
-    margin: 0;
-    padding: 0;
-    counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
-    >li {
-      list-style-type: none;
-      &::before {
-        content: '\2022';
-      }
-    }
-  }
+  li[data-list].ql-indent-1 { counter-reset: list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9; }
+  li[data-list].ql-indent-2 { counter-reset: list-3 list-4 list-5 list-6 list-7 list-8 list-9; }
+  li[data-list].ql-indent-3 { counter-reset: list-4 list-5 list-6 list-7 list-8 list-9; }
+  li[data-list].ql-indent-4 { counter-reset: list-5 list-6 list-7 list-8 list-9; }
+  li[data-list].ql-indent-5 { counter-reset: list-6 list-7 list-8 list-9; }
+  li[data-list].ql-indent-6 { counter-reset: list-7 list-8 list-9; }
+  li[data-list].ql-indent-7 { counter-reset: list-8 list-9; }
+  li[data-list].ql-indent-8 { counter-reset: list-9; }
   pre {
     margin: 0;
     padding: 0;
@@ -205,49 +199,10 @@ $border_color_1: #000;
     padding: 0;
     counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
   }
-  ul[data-checked=true] {
-    pointer-events: none;
-    >li {
-      * {
-        pointer-events: all;
-      }
-      &::before {
-        color: $color_1;
-        cursor: pointer;
-        pointer-events: all;
-        content: '\2611';
-      }
-    }
-  }
-  ul[data-checked=false] {
-    pointer-events: none;
-    >li {
-      * {
-        pointer-events: all;
-      }
-      &::before {
-        color: $color_1;
-        cursor: pointer;
-        pointer-events: all;
-        content: '\2610';
-      }
-    }
-  }
-  li {
-    &::before {
-      display: inline-block;
-      white-space: nowrap;
-      width: 1.2em;
-      text-align: right;
-      margin-right: 0.3em;
-      margin-left: -1.5em;
-    }
-  }
-  li.ql-direction-rtl {
-    &::before {
-      text-align: left;
-      margin-left: 0.3em;
-    }
+  li.ql-direction-rtl > .ql-ui:before {
+    text-align: left;
+    margin-left: 0.3em;
+    margin-right: -1.5em;
   }
   .ql-indent-1 {
     &:not(.ql-direction-rtl) {
