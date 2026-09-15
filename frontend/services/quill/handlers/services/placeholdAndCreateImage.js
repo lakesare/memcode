@@ -52,14 +52,46 @@ const uploadFile = async (dispatch, file) => {
   );
 };
 
-window.findReactComponent = (el) => {
-  for (const key in el) {
-    if (key.startsWith('__reactInternalInstance$')) {
-      const fiberNode = el[key];
-      return fiberNode && fiberNode.return && fiberNode.return.stateNode;
-    }
+const findReactComponent = (el, predicate) => {
+  const fiberKey = Object.keys(el).find((key) => key.startsWith('__reactFiber$'));
+  let fiber = fiberKey ? el[fiberKey] : null;
+
+  while (fiber) {
+    if (fiber.stateNode && predicate(fiber.stateNode)) return fiber.stateNode;
+    fiber = fiber.return;
   }
   return null;
+};
+
+// [claude comment] Quill.find() falls back to returning blots, and <ReadonlyEditor/> renders a .ql-container with no Quill attached to it at all
+const findLiveQuillFor = (el) => {
+  const containerEl = el.closest('.ql-container');
+  const found = containerEl ? Quill.find(containerEl) : null;
+  return found instanceof Quill ? found : null;
+};
+
+// [claude comment] saving a card mid-upload moves the placeholder into a brand new editor, which for the first instants is a readonly <Problem mode='show'/> with no Quill of its own - so keep looking for a live one for a while
+const replacePlaceholderWithImage = (randomId, url, onDone, attemptsLeft = 50) => {
+  const el = document.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
+  const liveQuill = el ? findLiveQuillFor(el) : null;
+
+  if (!liveQuill) {
+    if (el && attemptsLeft > 0) {
+      setTimeout(() => replacePlaceholderWithImage(randomId, url, onDone, attemptsLeft - 1), 200);
+    } else {
+      onDone(null);
+    }
+    return;
+  }
+
+  const blot = Quill.find(el);
+  liveQuill.updateContents(
+    new Delta()
+      .retain(blot.offset(liveQuill.scroll))
+      .delete(1) // [claude comment] deletes the placeholder blot (1 delta position)
+      .insert({ image: url })
+  );
+  onDone(liveQuill);
 };
 
 const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComponent = null } = {}) => {
@@ -88,57 +120,21 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
     uploadFile(false, file)
       .then((response) => {
         preloadImage(response.url, () => {
-          const placeholderEl = quill.container.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
-          console.log({ placeholderEl });
-
-          // Will be false when we save a new card, and quill container el changes.
-          if (placeholderEl) {
-            // Find blot
-            const blot = Quill.find(placeholderEl);
-            const index = blot.offset(quill.scroll);
-
-            quill.updateContents(
-              new Delta()
-                .retain(index)
-                .delete(1) // [claude comment] deletes the placeholder blot (1 delta position)
-                .insert({ image: response.url })
-            );
-
-            // Notify editor component that upload completed
+          replacePlaceholderWithImage(randomId, response.url, (liveQuill) => {
             if (editorComponent && editorComponent.removePendingUpload) {
               editorComponent.removePendingUpload(randomId);
             }
 
-            onSuccess();
-          } else {
-            const el = document.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
-            const newQuillEl = el.closest('.quill');
-            const newQuillReact = window.findReactComponent(newQuillEl);
-
-            const newQuill = newQuillReact.editor;
-
-            // Find blot
-            const blot = Quill.find(el);
-            const index = blot.offset(newQuill.scroll);
-
-            newQuill.updateContents(
-              new Delta()
-                .retain(index)
-                .delete(1) // [claude comment] deletes the placeholder blot (1 delta position)
-                .insert({ image: response.url })
-            );
-
-            // Notify editor component that upload completed (for new quill instance)
-            const newEditorComponent = newQuillReact.findReactComponent && newQuillReact.findReactComponent();
-            if (newEditorComponent && newEditorComponent.removePendingUpload) {
-              newEditorComponent.removePendingUpload(randomId);
-            } else if (editorComponent && editorComponent.removePendingUpload) {
-              // Fallback to original editor component
-              editorComponent.removePendingUpload(randomId);
+            if (liveQuill && liveQuill !== quill) {
+              // [claude comment] the new card only learns about the replaced image through a redux dispatch, so let React flush before asking its editor to save
+              setTimeout(() => {
+                const newEditorComponent = findReactComponent(liveQuill.container, (instance) => instance.onBlur && instance.removePendingUpload);
+                if (newEditorComponent) { newEditorComponent.onBlur(); }
+              }, 0);
+            } else {
+              onSuccess();
             }
-
-            newQuillReact.props.onBlur();
-          }
+          });
         });
       })
       .catch((error) => {

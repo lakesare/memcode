@@ -293,7 +293,7 @@ class OldProblem extends React.Component {
                   tabIndex={-1}
                   disabled={this.state.uploadsPending}
                 >
-                  {this.state.uploadsPending ? 'UPLOADING...' : (this.state.speSave.status === 'success' ? 'SAVED' : 'SAVE')}
+                  {this.state.uploadsPending ? 'UPLOADING' : (this.state.speSave.status === 'success' ? 'SAVED' : 'SAVE')}
                 </button>
 
                 <div className="shortcut">
