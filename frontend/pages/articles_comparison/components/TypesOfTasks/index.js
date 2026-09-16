@@ -87,10 +87,10 @@ const TypesOfTasks = () =>
       </Site>
 
       <Conclusion>
-        <mark>Memrise</mark> and <mark>Memcode</mark> are suitable for fast learning, their interface is slick, they can be navigated via the keyboard.<br/>
+        <mark>Memrise</mark> and <mark>Memcode</mark> are suitable for fast learning: their interfaces are slick, and they can be navigated via the keyboard.<br/>
         Unlike <mark>Memrise</mark>, however, <mark>Memcode</mark> has rich formatting available for flashcards, which means we have bold text, images, lists, code excerpts, and math formulas in our flashcards. These are essential if you are learning something more extensive than languages (coding, medicine, math—and even with languages, images won't hurt).<br/>
         <mark>Memrise</mark> also doesn't have cloze deletion cards, which are extremely helpful for learning foreign words in the context of the sentences they appear in.<br/>
-        <mark>Quizlet</mark> on the other hand clearly attempts to gamify the learning process. It's refreshing to be able to switch the task types, but there is too much going on to be able to parse through your items at a fast pace.<br/>
+        <mark>Quizlet</mark>, on the other hand, clearly attempts to gamify the learning process. It's refreshing to be able to switch the task types, but there is too much going on to be able to parse through your items at a fast pace.<br/>
         <mark>Brainscape</mark> is the only clear loser here. The process is both unfun and slow with it.
       </Conclusion>
     </div>

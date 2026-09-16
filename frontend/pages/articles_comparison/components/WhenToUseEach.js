@@ -8,13 +8,13 @@ const WhenToUseEach = () =>
 
     <div className="sites">
       <Site name="Memrise" answer="When you want to learn some language.">
-        <mark>Memrise</mark> was created with this in mind, hence the inability to format tasks or limits on their length.<br/>
-        I had a great experience using the 'meme' feature (you and other users create images that help them remember the word) when I was learning Finnish. It will be beneficial for any cryptic syntax, but not so much for fields such as programming or physics, where memories mostly form by connecting known concepts rather than by memorizing particular syntax.
+        <mark>Memrise</mark> was created with this in mind, hence the inability to format tasks or the limits on their length.<br/>
+        I had a great experience using the 'meme' feature (you and other users create images that help you remember the word) when I was learning Finnish. It will be beneficial for any cryptic syntax, but not so much for fields such as programming or physics, where memories mostly form by connecting known concepts rather than by memorizing particular syntax.
       </Site>
 
       <Site name="Quizlet" answer="When you want to cram for a test.">
         <mark>Quizlet</mark> was created with this in mind.<br/>
-        It's not meant to be used for a long period of time, that's why they didn't introduce any learning algorithm. It's meant to be the 'learn now' app. And it's great in what it does!<br/>
+        It's not meant to be used for a long period of time, that's why they didn't introduce any learning algorithm. It's meant to be the 'learn now' app. And it's great at what it does!<br/>
         You will not get lost on a real test after you try to recall your newly-formed memories using 6 different types of tasks.<br/>
         Another use case for this app is a unique automatic voiceover feature. You may want to use it to train your listening skills in some language, or to study with your eyes closed :-).<br/>
         One more thing <mark>Quizlet</mark> excels in is gamification. <mark>Quizlet</mark> took it to its logical end, so you will hardly get bored learning anything there.
