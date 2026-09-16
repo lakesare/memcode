@@ -1,110 +1,212 @@
 @use '~/css/variables.scss';
 
 :local(main.main){
-  article{
+  --text:         rgb(219, 222, 249);
+  --text-strong:  rgb(255, 255, 255);
+  --muted:        rgb(148, 154, 196);
+  --accent:       #{variables.$purple};
+  --border:       rgba(247, 247, 253, 0.1);
+  --card-bg:      rgba(255, 255, 255, 0.09);
+  --card-border:  rgba(136, 125, 220, 0.13);
+  --rating:       rgb(169, 159, 246);
+  --tile-bg:      rgba(15, 17, 34, 0.55);
+}
+body.-bright-theme :local(main.main){
+  --text:         rgb(65, 52, 44);
+  --text-strong:  rgb(38, 29, 24);
+  --muted:        rgb(118, 100, 86);
+  --accent:       rgb(178, 74, 22);
+  --border:       rgba(118, 100, 86, 0.18);
+  --card-bg:      rgb(250, 247, 245);
+  --card-border:  rgba(118, 100, 86, 0.18);
+  --rating:       rgb(178, 74, 22);
+  --tile-bg:      rgb(242, 236, 233);
+}
 
-    .how-did-I-choose-sites-for-comparison{
-      margin-top: 40px;
-      ul{
-        padding-top: 10px;
-        li{ padding-bottom: 0; }
-      }
+:local(main.main){
+  article{
+    max-width: none;
+    padding-top: 70px;
+    padding-bottom: 120px;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.7;
+
+    mark{
+      background: none;
+      color: var(--accent);
     }
-    // shared among children
-    .sites{
-      .site{
-        border-left: 3px solid rgba(136, 125, 220, 0.13);
-        background: #ffffff17;
-        margin-top: 20px;
-        padding: 30px 50px;
-        border-radius: 5px;
-        h3{
-          margin-bottom: 17px;
-          color: variables.$purple;
-          width: 160px;
-          text-transform: uppercase;
-          font-weight: 300;
-          font-size: 15px;
+    b, strong{
+      font-weight: 600;
+    }
+    a{ text-decoration: none; }
+
+    section.article-headings{
+      h1{
+        font-family: 'Open Sans';
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 1.15;
+        letter-spacing: -0.01em;
+        color: var(--text-strong);
+      }
+      h2{
+        margin-top: 22px;
+        font-family: 'Open Sans';
+        font-weight: 400;
+        font-size: 21px;
+        line-height: 1.5;
+        color: var(--muted);
+        mark{ font-weight: 600; }
+      }
+      nav.toc{
+        margin-top: 44px;
+        padding-top: 22px;
+        border-top: 1px solid var(--border);
+        ol{
           display: flex;
-          align-items: center;
-          > span.rating{
-            font-size: 14px;
-            font-weight: 300;
-            color: rgb(255, 255, 255);
-            text-shadow: 0 0 5px #ffffff7d;
-            padding-left: 10px;
-            &:after{
-              content: '/5';
+          flex-wrap: wrap;
+          gap: 8px 26px;
+          li{
+            font-family: 'Open Sans';
+            font-weight: 600;
+            font-size: 17px;
+            letter-spacing: -0.005em;
+            color: var(--text-strong);
+            a{
+              transition: color 0.15s ease;
+              &:hover{ color: var(--accent); }
             }
           }
         }
       }
+    }
+
+    section.article-section{
+      padding-top: 0;
+      margin-top: 100px;
+      scroll-margin-top: 30px;
+      h2.section-heading{
+        margin: 0 0 20px 0;
+        font-family: 'Open Sans';
+        font-weight: 600;
+        font-size: 32px;
+        line-height: 1.2;
+        letter-spacing: -0.005em;
+        color: var(--text-strong);
+      }
+    }
+
+    // shared among children
+    .sites{
+      .site{
+        margin-top: 20px;
+        padding: 30px 40px 34px;
+        border-left: 3px solid var(--card-border);
+        border-radius: 8px;
+        background: var(--card-bg);
+        h3.site-heading{
+          display: flex;
+          flex-wrap: wrap;
+          align-items: baseline;
+          gap: 4px 12px;
+          margin-bottom: 16px;
+          font-family: 'Roboto';
+          font-weight: 500;
+          font-size: 13px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--accent);
+          .rating{
+            letter-spacing: 0.04em;
+            color: var(--rating);
+            .outOf{ color: var(--muted); }
+          }
+          .answer{
+            font-family: 'Open Sans';
+            font-weight: 600;
+            font-size: 17px;
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--text-strong);
+          }
+        }
+        .description .intervals{
+          display: inline-block;
+          margin-top: 4px;
+          font-family: 'Roboto';
+          font-size: 15px;
+          color: var(--muted);
+        }
+      }
+
       .conclusion{
         margin-top: 20px;
-        padding: 20px;
-        background: rgba(136, 125, 220, 0.13);
-        width: 100%;
-        padding-left: 50px;
+        padding: 26px 40px 30px;
+        border-left: 3px solid var(--accent);
+        border-radius: 8px;
+        background: var(--card-bg);
         h3{
-          display: none;
-          font-size: 20px;
-          padding: 5px;
-          padding-left: 10px;
+          margin-bottom: 10px;
+          font-family: 'Roboto';
+          font-weight: 500;
+          font-size: 13px;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--accent);
         }
       }
     }
 
     // child-specific
     section.article-section#types-of-tasks{
-      .site.brainscape ul.list-of-flashcard-types{
-        box-shadow: none;
-        li{
-          box-shadow: 5px 2px 20px 0px #1e203a;
-        }
-      }
       ul.list-of-flashcard-types{
-        margin-top: 30px;
-        display: flex;
-        flex-wrap: wrap;
-
-        box-shadow: 5px 2px 20px 0px #1e203a;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 18px;
         li{
-          width: 50%;
-          padding: 14px;
-          box-sizing: border-box;
-          box-shadow: 0px 0px 6px 0px #0f1122;
-          text-align: center;
-          background: rgb(31, 32, 58);
-          line-height: 22px;
+          grid-row: span 3;
+          display: grid;
+          grid-template-rows: subgrid;
+          padding: 18px 18px 20px;
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          background: var(--tile-bg);
           font-size: 15px;
-          min-height: 205px;
+          line-height: 1.55;
+          b.type-name{
+            grid-row: 1;
+            margin-bottom: 6px;
+            font-size: 16px;
+          }
+          p{
+            grid-row: 2;
+            margin: 0 0 14px;
+            color: var(--muted);
+          }
           img{
-            width: 100%;
-            // max-width: 310px;
-            margin: 0 auto;
+            grid-row: 3;
             display: block;
-            margin-top: 10px;
-            // border: 2px solid rgb(8, 9, 16);
+            width: 100%;
+            align-self: end;
+            border-radius: 6px;
+          }
+          &.-text-only{
+            grid-row: auto;
+            grid-column: 1 / -1;
+            display: list-item;
+            list-style: disc;
+            margin-left: 22px;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            background: none;
+            font-size: inherit;
+            line-height: inherit;
+            &::marker{ color: var(--accent); }
           }
         }
-      }
-    }
-
-    section.article-section#when-to-use-each{
-      .site h3{
-        width: auto;
-        justify-content: flex-start;
-        > span.answer{
-          padding-left: 15px;
-          text-transform: none;
-        }
-      }
-    }
-
-    section.article-section#ui{
-      .description b{
-        font-weight: 300;
-        color: variables.$purple;
       }
     }
   }
@@ -112,17 +214,19 @@
 
 :local(main.main){
   @media(max-width: 900px){
-    .sites{
-      section.site{
-        padding-left: 20px;
+    article{
+      padding-top: 40px;
+      font-size: 16px;
+      section.article-headings h1{ font-size: 38px; }
+      section.article-headings h2{ font-size: 18px; }
+      section.article-section{
+        margin-top: 70px;
+        h2.section-heading{ font-size: 30px; }
       }
-    }
-
-    section.article-section#types-of-tasks{
-      ul.list-of-flashcard-types{
-        > li{
-          width: 100% !important;
-        }
+      .sites .site{ padding: 20px 20px 24px; }
+      .sites .conclusion{ padding: 20px 20px 24px; }
+      section.article-section#types-of-tasks ul.list-of-flashcard-types{
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   }

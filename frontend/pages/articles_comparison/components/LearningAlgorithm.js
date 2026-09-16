@@ -1,51 +1,33 @@
 import { Heading } from './Heading';
+import { Site } from './Site';
+import { Conclusion } from './Conclusion';
 
 const LearningAlgorithm = () =>
   <section className="article-section" id="learning-algorithm">
     <Heading text="Learning Algorithm"/>
 
     <div className="sites">
-      <section className="site">
-        <h3>Memrise: <span className="rating">5</span></h3>
+      <Site name="Memrise" rating="5">
+        SM2, approximate frequency of review with all the answers given right:<br/>
+        <span className="intervals">4 hours, 12 hours, 1 day, 6 days, 12 days, 24 days, 48 days, 96 days, 180 days</span>
+      </Site>
 
-        <div className="description">
-          SM2, approximate frequency of review with all the answers given right:<br/>
-          4 hours, 12 hours, 1 day, 6 days, 12 days, 24 days, 48 days, 96 days, 180 days
-        </div>
-      </section>
+      <Site name="Quizlet" rating="0">
+        Basic: either know or don't know.
+      </Site>
 
-      <section className="site">
-        <h3>Quizlet: <span className="rating">0</span></h3>
+      <Site name="Brainscape" rating="5">
+        SM2
+      </Site>
 
-        <div className="description">
-          Basic: either know or don't know.
-        </div>
-      </section>
+      <Site name="Memcode" rating="5">
+        SM2, approximate frequency of review with all the answers given right:<br/>
+        <span className="intervals">4 hours, 1 day, 4 days, 8 days, 13 days, 19 days, 25 days, 32 days, 41 days, etc.</span>
+      </Site>
 
-      <section className="site">
-        <h3>Brainscape: <span className="rating">5</span></h3>
-
-        <div className="description">
-          SM2
-        </div>
-      </section>
-
-      <section className="site">
-        <h3>Memcode: <span className="rating">5</span></h3>
-
-        <div className="description">
-          SM2, approximate frequency of review with all the answers given right:<br/>
-          4 hours, 1 day, 4 days, 8 days, 13 days, 19 days, 25 days, 32 days, 41 days, etc.
-        </div>
-      </section>
-
-      <section className="conclusion">
-        <h3>Conclusion</h3>
-
-        <div className="description">
-          Everyone here uses some variation of SM2 (an algorithm that calculates the increase of repetition intervals depending on how well you know the item. Its ultimate goal is to make you repeat the flashcard as soon as you start forgetting it), except for <mark>Quizlet</mark>. This essentially makes <mark>Quizlet</mark> unsuitable for any kind of long-term learning.
-        </div>
-      </section>
+      <Conclusion>
+        Everyone here uses some variation of SM2 (an algorithm that calculates the increase of repetition intervals depending on how well you know the item. Its ultimate goal is to make you repeat the flashcard as soon as you start forgetting it), except for <mark>Quizlet</mark>. This essentially makes <mark>Quizlet</mark> unsuitable for any kind of long-term learning.
+      </Conclusion>
     </div>
   </section>;
 

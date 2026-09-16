@@ -12,7 +12,7 @@ import css from './index.scss';
 
 class Page_articles_comparison extends React.Component {
   render = () =>
-    <Main className={`${css.main} -articles-page`}>
+    <Main className={css.main}>
       <article className="standard-article-formatting">
         <div className="container">
           <section className="article-headings">
@@ -23,6 +23,16 @@ class Page_articles_comparison extends React.Component {
             <h2>
               Comparison of popular <mark>repetition-based learning</mark> sites.
             </h2>
+
+            <nav className="toc" aria-label="Sections">
+              <ol>
+                <li><a href="#quality-of-courses">Quality Of Courses</a></li>
+                <li><a href="#types-of-tasks">Types of tasks</a></li>
+                <li><a href="#learning-algorithm">Learning Algorithm</a></li>
+                <li><a href="#ui">UI</a></li>
+                <li><a href="#when-to-use-each">So, when to use each?</a></li>
+              </ol>
+            </nav>
           </section>
 
           {
