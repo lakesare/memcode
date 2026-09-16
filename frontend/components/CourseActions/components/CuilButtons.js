@@ -134,7 +134,7 @@ class CuilButtons extends React.Component {
 
   renderDropdown = () =>
     <ul className="standard-tooltip-dropdown">
-      {!this.ifReviewMode() && <>
+      {(!this.ifReviewMode() || !this.props.currentProblem) && <>
       {
         this.props.canIEditCourse &&
         <li className="mobile-only-edit-button">
