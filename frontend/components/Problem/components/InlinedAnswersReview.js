@@ -131,6 +131,8 @@ class InlinedAnswersReview extends React.Component {
     enterPressed: PropTypes.func
   }
 
+  problemRef = React.createRef()
+
   componentDidMount() {
     this.attachOnchangeToInputs();
   }
@@ -157,7 +159,7 @@ class InlinedAnswersReview extends React.Component {
   }
 
   getArrayOfAnswerInputs = () =>
-    Array.from(this.refs.problem.querySelectorAll('input.answer-input'));
+    Array.from(this.problemRef.current.querySelectorAll('input.answer-input'));
 
   attachOnchangeToInputs = () => {
     if (this.props.clozeDeletionMode === 'typing') {
@@ -186,9 +188,9 @@ class InlinedAnswersReview extends React.Component {
       );
 
     const isSuccumbed = this.props.statusOfSolving.status === 'seeingAnswer';
-    const answerInputs = this.refs.problem ? this.getArrayOfAnswerInputs() : [];
+    const answerInputs = this.problemRef.current ? this.getArrayOfAnswerInputs() : [];
 
-    return <section className="problem -withInlinedAnswers" ref="problem">
+    return <section className="problem -withInlinedAnswers" ref={this.problemRef}>
       <div className={`quill -readOnly first-column -with-audio`}>
         <div className="ql-container ql-snow">
           <div className="ql-editor" dangerouslySetInnerHTML={{ __html: content }}/>
