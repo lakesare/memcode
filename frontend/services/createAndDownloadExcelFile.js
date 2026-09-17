@@ -1,10 +1,10 @@
-import * as Excel from 'exceljs/dist/exceljs.min.js';
 import FileSaver from 'file-saver';
 
-const createAndDownloadExcelFile = (arrayOfHashes, fileName, worksheetName) => {
+const createAndDownloadExcelFile = async (arrayOfHashes, fileName, worksheetName) => {
   // no content? just don't do a thing.
   if (arrayOfHashes.length === 0) return;
 
+  const Excel = (await import('exceljs/dist/exceljs.min.js')).default;
   const workbook = new Excel.Workbook();
   const worksheet = workbook.addWorksheet(worksheetName, {
     properties: { showGridLines: true }

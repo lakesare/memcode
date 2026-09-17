@@ -67,7 +67,7 @@ const html = `
     </script>
 
     <!-- main js file -->
-    <script type="text/javascript" src="/index_2.js" defer></script>
+    <script type="module" src="/index_2.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 
