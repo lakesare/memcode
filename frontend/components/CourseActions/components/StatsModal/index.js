@@ -1,7 +1,7 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
 import Loading from '~/components/Loading';
 import css from './index.scss';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import dayjs from 'dayjs';
 import { orderBy } from 'lodash';
 import getUserAvatar from '~/services/getUserAvatar';

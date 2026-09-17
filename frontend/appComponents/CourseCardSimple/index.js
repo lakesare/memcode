@@ -1,7 +1,7 @@
 import stripTags from '~/services/stripTags';
 import Urls from '~/services/Urls';
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import css from './index.scss';
 

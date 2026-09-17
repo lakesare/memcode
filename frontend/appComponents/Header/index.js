@@ -1,5 +1,5 @@
 import orFalse from '~/services/orFalse';
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 import { SignInLinks } from './components/SignInLinks';
 import CurrentUser from './components/CurrentUser';
 import Logo from './components/Logo';

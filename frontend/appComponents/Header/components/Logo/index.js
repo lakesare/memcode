@@ -1,6 +1,6 @@
 import orFalse from '~/services/orFalse';
 import Urls from '~/services/Urls';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import getSeasonalTheme from '~/services/getSeasonalTheme';
 
 import halloweenLogo from './halloweenLogo.png';

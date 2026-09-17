@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router';
 
 // react-router 7 removed withRouter - class components can't use hooks, so we inject
 // the v5-shaped props (history/location/match) that our components already expect.

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import CreateCourseButton from '~/components/CreateCourseButton';
 
 class ForBeginners extends React.Component {

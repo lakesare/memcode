@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import StandardTooltip from '~/components/StandardTooltip';
 
 class SortBySelect extends React.Component {

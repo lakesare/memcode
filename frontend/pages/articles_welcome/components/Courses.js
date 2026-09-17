@@ -1,5 +1,5 @@
 import api from '~/api';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import Loading from '~/components/Loading';
 import CourseCardSimple from '~/appComponents/CourseCardSimple';

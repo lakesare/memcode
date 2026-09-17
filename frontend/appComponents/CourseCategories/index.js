@@ -1,7 +1,7 @@
 import CourseCategoryModel from '~/models/CourseCategoryModel';
 import CourseCategoryGroupModel from '~/models/CourseCategoryGroupModel';
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import css from './index.scss';
 

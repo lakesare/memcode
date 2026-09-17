@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import MyModel from '~/models/MyModel';
 
 class LearnAndReviewButtons extends React.Component {

@@ -1,7 +1,7 @@
 import Urls from '~/services/Urls';
 import MyModel from '~/models/MyModel';
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 class CourseCard extends React.Component {
   static propTypes = {

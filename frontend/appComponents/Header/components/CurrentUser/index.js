@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import StandardTooltip from '~/components/StandardTooltip';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 import SettingsModal from '~/appComponents/SettingsModal';

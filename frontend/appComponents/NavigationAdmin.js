@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router';
 
 class NavigationAdmin extends React.Component {
   render = () =>

@@ -4,7 +4,7 @@ import api from '~/api';
 import Roles from '~/services/Roles';
 import MyModel from '~/models/MyModel';
 
-import { Link }        from 'react-router-dom';
+import { Link }        from 'react-router';
 import StandardTooltip from '~/components/StandardTooltip';
 import MetaTags        from './components/MetaTags';
 import Loading         from '~/components/Loading';
