@@ -34,7 +34,7 @@ const signIn = (Component) => {
     AuthenticationActions.signIn(store.dispatch, token);
     // Removes the ?token from the url, and allows react-router to refresh
     window.location = window.location.pathname;
-    return null;
+    return () => null;
   } else {
     return (props) => <Component {...props}/>;
   }
