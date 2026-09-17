@@ -1,11 +1,13 @@
 import _ from 'lodash';
 import api from '~/api';
+import orFalse from '~/services/orFalse';
 import isProblemContentTheSame from '~/services/isProblemContentTheSame';
 
 import { Draggable } from '@hello-pangea/dnd';
 
 import Problem from '~/components/Problem';
 import Checkbox from './components/Checkbox';
+import FlashcardStatus from '../FlashcardStatus';
 import DeleteFlashcardModal from '~/appComponents/DeleteFlashcardModal';
 import ExportFlashcardsModal from './components/ExportFlashcardsModal';
 import switchType from '../services/switchType';
@@ -32,6 +34,8 @@ class OldProblem extends React.Component {
     isShiftPressed: PropTypes.bool,
     hoveredIndex: PropTypes.number,
     setHoveredIndex: PropTypes.func,
+    puil: orFalse(PropTypes.object),
+    removePuil: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -233,6 +237,14 @@ class OldProblem extends React.Component {
       {/* </div> */}
     </section>
 
+  renderStatus = () =>
+    <FlashcardStatus
+      courseId={this.props.problem.courseId}
+      problemId={this.props.problem.id}
+      puil={this.props.puil}
+      removePuil={this.props.removePuil}
+    />
+
   onUploadStateChange = (pending) => {
     this.setState({ uploadsPending: pending }, () => {
       if (!pending && this.state.saveQueuedAfterUploads && this.didProblemContentChange()) {
@@ -279,6 +291,8 @@ class OldProblem extends React.Component {
             hoveredIndex={this.props.hoveredIndex}
             setHoveredIndex={this.props.setHoveredIndex}
           />
+
+          {this.renderStatus()}
 
           {this.renderButtons()}
 

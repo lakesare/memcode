@@ -1,0 +1,39 @@
+@use '~/css/variables.scss';
+
+:local(.flashcardStatus){
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  cursor: default;
+
+  transition-duration: 200ms;
+  transition-property: transform, box-shadow;
+
+  &.-yet-to-learn{
+    background: variables.$green;
+  }
+  &.-ignored{
+    background: rgb(114, 120, 150);
+  }
+  &:hover{
+    transform: scale(1.4);
+  }
+}
+
+.flashcard-status-tooltip{
+  .text{
+    line-height: 15px;
+  }
+  button.unignore-button{
+    margin-top: 8px;
+    width: 100%;
+    min-width: 0;
+    height: 24px;
+    padding: 0;
+    font-size: 11px;
+    background: rgba(114, 120, 150, 0.55);
+    &:hover, &:focus{
+      background: rgb(114, 120, 150);
+    }
+  }
+}

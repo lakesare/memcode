@@ -12,6 +12,7 @@ import Problem from '~/components/Problem';
 import CourseActions from '~/components/CourseActions';
 import OldProblem from './components/OldProblem';
 import NewProblem from './components/NewProblem';
+import FlashcardStatus from './components/FlashcardStatus';
 // import { Cheatsheet } from './components/Cheatsheet';
 // import { Instructions } from './components/Instructions';
 
@@ -169,6 +170,26 @@ class Page_courses_id extends React.Component {
     }, this.apiReorderProblems);
   }
 
+  // null - we don't learn this course, so there is no status to show, false - not learned yet
+  findPuil = (problemId) => {
+    const payload = this.state.speGetProblems.payload;
+    if (!payload || !payload.ifLearningCourse) {
+      return null;
+    } else {
+      const puil = payload.problemUserIsLearnings.find((one) => one.problemId === problemId);
+      return puil ? puil : false;
+    }
+  }
+
+  removePuil = (problemId) => {
+    this.setState({
+      speGetProblems:
+      _update(this.state.speGetProblems, `payload.problemUserIsLearnings`,
+        (puils) => puils.filter((puil) => puil.problemId !== problemId)
+      )
+    });
+  }
+
   setLastClickedIndex = (index) => {
     this.setState({ lastClickedIndex: index });
   }
@@ -217,6 +238,8 @@ class Page_courses_id extends React.Component {
                 isShiftPressed={this.state.isShiftPressed}
                 hoveredIndex={this.state.hoveredIndex}
                 setHoveredIndex={this.setHoveredIndex}
+                puil={this.findPuil(problem.id)}
+                removePuil={this.removePuil}
               />
             )}
             {provided.placeholder}
@@ -264,6 +287,12 @@ class Page_courses_id extends React.Component {
                 mode="show"
                 problemContent={problem.content}
                 problemType={problem.type}
+              />
+              <FlashcardStatus
+                courseId={this.props.courseId}
+                problemId={problem.id}
+                puil={this.findPuil(problem.id)}
+                removePuil={this.removePuil}
               />
             </div>
           )}

@@ -34,6 +34,13 @@
     opacity: 0.4;
   }
 
+  section.flashcard-status{
+    position: absolute;
+    left: calc(100% + 8px);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
   .old-problem-wrapper{
     &.-not-checked > section.checkbox:hover{
       // background: rgb(153, 63, 13);
@@ -285,6 +292,7 @@
     padding-bottom: 100px;
 
     div.problem-wrapper{
+      position: relative;
       margin-bottom: 30px;
       display: flex;
 
@@ -308,6 +316,12 @@
         .quill{
           height: 100%;
         }
+      }
+      > section.flashcard-status{
+        position: absolute;
+        left: calc(100% + 8px);
+        top: 50%;
+        transform: translateY(-50%);
       }
     }
   }
