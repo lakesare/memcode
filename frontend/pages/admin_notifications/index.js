@@ -12,6 +12,51 @@ class Page extends React.Component {
     memcode_added_some_feature_notificationHtml: ''
   }
 
+  uploadImage = (file) => {
+    const formData = new FormData();
+    // 'file' string has to correspond to uploadFileToAwsS3.single('file') in backend/api/FileApi
+    formData.append('file', file);
+
+    return fetch('/api/files/upload', { method: 'POST', body: formData })
+      .then((response) => response.ok ? response.json() : Promise.reject(new Error(`Upload failed with ${response.status}`)));
+  }
+
+  replaceInHtml = (placeholder, replacement) =>
+    this.setState(({ memcode_added_some_feature_notificationHtml }) => ({
+      memcode_added_some_feature_notificationHtml: memcode_added_some_feature_notificationHtml.replace(placeholder, replacement)
+    }))
+
+  handlePaste = (event) => {
+    const imageFiles = Array.from(event.clipboardData.files).filter(file => file.type.startsWith('image/'));
+    if (imageFiles.length === 0) return;
+
+    event.preventDefault();
+
+    const textarea = event.target;
+    const { selectionStart, selectionEnd } = textarea;
+    const html = this.state.memcode_added_some_feature_notificationHtml;
+
+    // => '⏳uploading-624608⏳'
+    const placeholders = imageFiles.map(() => `⏳uploading-${Math.floor(Math.random() * 1000000)}⏳`);
+    const insertion = placeholders.join('');
+
+    this.setState({
+      memcode_added_some_feature_notificationHtml: html.slice(0, selectionStart) + insertion + html.slice(selectionEnd)
+    }, () => {
+      const caretAt = selectionStart + insertion.length;
+      textarea.setSelectionRange(caretAt, caretAt);
+    });
+
+    imageFiles.forEach((file, i) =>
+      this.uploadImage(file)
+        .then(({ url }) => this.replaceInHtml(placeholders[i], `<img style="max-width: 100%" src="${url}"/>`))
+        .catch((error) => {
+          console.error('Image upload failed:', error);
+          this.replaceInHtml(placeholders[i], '');
+        })
+    );
+  }
+
   apiAnnounceAFeature = () =>
     api.post.AdminApi.announceNewFeature(
       (spe) => this.setState({ speAnnounceAFeature: spe }),
@@ -34,6 +79,7 @@ class Page extends React.Component {
             style={{ border: '1px solid grey', width: 400, height: 60, padding: 10 }}
             value={this.state.memcode_added_some_feature_notificationHtml}
             onChange={(e) => this.setState({ memcode_added_some_feature_notificationHtml: e.target.value })}
+            onPaste={this.handlePaste}
           />
 
           <div className="space"/>
