@@ -36,7 +36,6 @@ class Page_courses_id extends React.Component {
     speGetProblems: {},
     idsOfCheckedProblems: [],
     lastClickedIndex: null,
-    lastClickAction: null, // 'select' or 'unselect' - tracks what the last normal click did
     isShiftPressed: false,
     hoveredIndex: null
   }
@@ -194,10 +193,6 @@ class Page_courses_id extends React.Component {
     this.setState({ lastClickedIndex: index });
   }
 
-  setLastClickAction = (action) => {
-    this.setState({ lastClickAction: action });
-  }
-
   renderOldProblemsToEdit = () => {
     const createdCoursesForSelect = this.props.My.courses
       .filter((courseDto) => {
@@ -231,8 +226,6 @@ class Page_courses_id extends React.Component {
                 flashcardOrder={this.props.Settings.flashcardOrder}
                 lastClickedIndex={this.state.lastClickedIndex}
                 setLastClickedIndex={this.setLastClickedIndex}
-                lastClickAction={this.state.lastClickAction}
-                setLastClickAction={this.setLastClickAction}
                 uiAddOptimisticProblem={this.uiAddOptimisticProblem}
                 uiUpdateOptimisticProblemIntoOld={this.uiUpdateOptimisticProblemIntoOld}
                 isShiftPressed={this.state.isShiftPressed}
