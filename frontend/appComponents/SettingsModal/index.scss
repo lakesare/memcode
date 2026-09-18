@@ -10,7 +10,8 @@
     margin-bottom: 10px;
   }
 
-  .design-tab{
+  // UI tab
+  .ui-tab{
     section.part-of-the-website:first-child{ margin-top: 0; }
     section.part-of-the-website{
       margin-top: 30px;
@@ -42,14 +43,63 @@
     }
   }
 
-  .manage-tab{
-    button{
-      margin-top: 25px;
+  // Profile tab
+  .standard-form{
+    .form-line{
+      margin-bottom: 20px;
+    }
+    .file-input-container{
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .file-preview{ flex-shrink: 0; }
+
+      .file-input-wrapper{
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .file-input-button{
+          flex-shrink: 0;
+          padding: 8px 16px;
+          font-size: 14px;
+          cursor: pointer;
+          &:hover{ background-color: rgba(255, 255, 255, 0.1); }
+        }
+      }
+    }
+
+    .form-buttons{
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+      margin: 0 auto;
+      margin-top: 30px;
     }
   }
 
+  // Manage tab
+  .manage-tab{
+    h2.title{ margin-top: 30px; }
+    h2.title:first-child{ margin-top: 0; }
+
+    .delete-account-title{ color: rgb(252, 126, 126); }
+    .delete-account-description{
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .delete-account-countdown{
+      > p{ margin-top: 25px; font-weight: 600; }
+      > button{ margin-top: 15px; }
+    }
+    > button{ margin-top: 20px; }
+  }
+
   @media (max-width: 400px){
-    .design-tab{
+    .ui-tab{
       .setting{
         flex-wrap: wrap;
         padding: 10px 20px;
