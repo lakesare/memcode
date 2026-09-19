@@ -19,7 +19,6 @@ const getConnectionString = () => {
       };
     case 'production':
       // this variable is set automatically after we do heroku addons:create heroku-postgresql:hobby-dev
-      // Use connection string + SSL object configuration (works for both pg-promise and knex)
       return {
         connectionString: process.env.DATABASE_URL,
         ssl: {

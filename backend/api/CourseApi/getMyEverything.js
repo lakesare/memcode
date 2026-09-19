@@ -1,80 +1,46 @@
-import db from '#~/db/init.js';
+import knex from '#~/db/knex.js';
 import { mustBeAuthenticated } from '#~/services/auth.js';
 
-// TODO - we should get rif of ~/db/init.js, this file is the only remaining use of that api
+// [claude comment] row_to_json() keeps snake_case inside each nested object, and knex-stringcase only camelizes the top-level result keys - so course/author/courseCategory reach the frontend snake_cased, while repeatEveryHours next to them is camelCase
 const getMyEverything = async (request, response) => {
   await mustBeAuthenticated(request.currentUser);
   const userId = request.currentUser.id;
 
-  // COALESCE(json_agg(problem.id) FILTER (WHERE problem.id IS NOT NULL), '[]')
-  const courses = await db.any(
-    `SELECT
-      row_to_json(course.*)          AS course,
-      row_to_json("user".*)          AS author,
-      row_to_json(course_category.*) AS course_category,
+  const courses = await knex('course')
+    .select(
+      knex.raw('row_to_json(course.*) AS course'),
+      knex.raw('row_to_json("user".*) AS author'),
+      knex.raw('row_to_json(course_category.*) AS course_category'),
+      'courseUserIsLearning.repeatEveryHours'
+    )
+    .innerJoin('courseUserIsLearning', 'courseUserIsLearning.courseId', 'course.id')
+    .innerJoin('courseCategory', 'courseCategory.id', 'course.courseCategoryId')
+    .innerJoin('user', 'user.id', 'course.userId')
+    .where({
+      'courseUserIsLearning.userId': userId,
+      'courseUserIsLearning.active': true
+    })
+    .orderBy('course.id');
 
-      -- [claude comment] flat and pre-camelized, because row_to_json() above keeps snake_case
-      course_user_is_learning.repeat_every_hours AS "repeatEveryHours"
-    FROM course
+  const myLearnedProblems = await knex('problemUserIsLearning')
+    .select('problemUserIsLearning.*', 'courseUserIsLearning.courseId')
+    .innerJoin('courseUserIsLearning', 'courseUserIsLearning.id', 'problemUserIsLearning.courseUserIsLearningId')
+    .where({
+      'courseUserIsLearning.userId': userId,
+      'courseUserIsLearning.active': true
+    });
 
-    INNER JOIN course_user_is_learning
-      ON (
-        course_user_is_learning.course_id = course.id
-        AND
-        course_user_is_learning.user_id = \${userId}
-        AND
-        course_user_is_learning.active = true
-      )
-
-    INNER JOIN course_category
-      ON course.course_category_id = course_category.id
-
-    -- author
-    INNER JOIN "user"
-      ON course.user_id = "user".id
-
-    GROUP BY course_user_is_learning.id, course.id, "user".id, course_category.id`,
-    { userId }
-  );
-
-  const myLearnedProblems = await db.any(
-    `
-      SELECT
-        problem_user_is_learning.*,
-        course_user_is_learning.course_id AS course_id
-      FROM problem_user_is_learning
-      INNER JOIN course_user_is_learning
-        ON course_user_is_learning.id = problem_user_is_learning.course_user_is_learning_id
-      WHERE
-          course_user_is_learning.user_id = \${userId}
-        AND
-          course_user_is_learning.active = true
-    `,
-    { userId }
-  );
-
-  const allProblemsIMayLearn = await db.any(
-    `
-      SELECT
-        problem.id AS problem_id,
-        course_user_is_learning.course_id AS course_id
-      FROM problem
-      INNER JOIN course_user_is_learning
-        ON course_user_is_learning.course_id = problem.course_id
-      WHERE
-          course_user_is_learning.user_id = \${userId}
-        AND
-          course_user_is_learning.active = true
-    `,
-    { userId }
-  );
-
+  const allProblemsIMayLearn = await knex('problem')
+    .select('problem.id as problemId', 'courseUserIsLearning.courseId')
+    .innerJoin('courseUserIsLearning', 'courseUserIsLearning.courseId', 'problem.courseId')
+    .where({
+      'courseUserIsLearning.userId': userId,
+      'courseUserIsLearning.active': true
+    });
 
   const allProblemsNotLearned = allProblemsIMayLearn.filter((problem) =>
     !myLearnedProblems.find((learnedProblem) => learnedProblem.problemId === problem.problemId)
   );
-  // 357ms without js
-  // 500ms with js
 
   const dto = courses.map((course) => {
     const courseId = course.course.id;
