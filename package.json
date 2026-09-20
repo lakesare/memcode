@@ -59,7 +59,6 @@
     "multer-s3": "^3.0.1",
     "openai": "^7.15.0",
     "pg": "^8.7.3",
-    "pretty-error": "^4.0.0",
     "prop-types": "^15.7.2",
     "quill": "^2.0.3",
     "quill-resize-module": "^2.1.3",
