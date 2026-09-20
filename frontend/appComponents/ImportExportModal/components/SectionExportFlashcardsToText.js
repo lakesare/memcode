@@ -39,7 +39,7 @@ class SectionExportFlashcardsToText extends React.Component {
     try {
       await navigator.clipboard.writeText(this.state.exportedText);
       this.setState({ textCopied: true });
-      
+
       // Reset the copied state after 2 seconds
       setTimeout(() => {
         this.setState({ textCopied: false });
@@ -76,13 +76,13 @@ class SectionExportFlashcardsToText extends React.Component {
 
       <Loading spe={this.state.speGetFlashcards}>{(flashcards) => {
         if (!this.state.isExported) return null;
-        
+
         return (
           <div>
             <div className="standard-success-message">
               Success! <b>{flashcards.length} flashcards</b> have been <b>exported to text format</b>.
             </div>
-            
+
             <div style={{ marginTop: '20px' }}>
               <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                 <button
@@ -103,7 +103,7 @@ class SectionExportFlashcardsToText extends React.Component {
                   Download as file
                 </button>
               </div>
-              
+
               <textarea
                 value={this.state.exportedText}
                 readOnly

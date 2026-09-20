@@ -64,13 +64,13 @@ class CourseActions extends React.Component {
 
   uiUpdateCourse = (courseData) => {
     const spe = this.props.My.speCourseForActions;
-    this.props.MyActions.setSpeCourseForActions({ 
-      ...spe, 
-      payload: { 
-        ...spe.payload, 
+    this.props.MyActions.setSpeCourseForActions({
+      ...spe,
+      payload: {
+        ...spe.payload,
         course: courseData.course,
         courseCategory: courseData.courseCategory || spe.payload.courseCategory
-      } 
+      }
     });
   }
 
@@ -87,7 +87,7 @@ class CourseActions extends React.Component {
     const dto = this.props.My.courses.find((someDto) => someDto.course.id === this.props.courseId);
 //     const nOfProblemsToLearn = dto && dto.problems.filter(MyModel.isProblemToLearn).length;
 //     const nOfProblemsToReview = dto && dto.problems.filter(MyModel.isProblemToReview).length;
-// 
+//
 //     console.log(dto);
 
 
@@ -115,7 +115,7 @@ class CourseActions extends React.Component {
 //               nOfProblemsToReview={nOfProblemsToReview}
 //               currentUser={this.props.currentUser}
 //               courseDto={dto}
-// 
+//
 //               apiStartLearning={this.apiStartLearning}
 //               apiStopLearning={this.apiStopLearning}
 //               apiResumeLearning={this.apiResumeLearning}
@@ -262,7 +262,7 @@ class CourseActions extends React.Component {
           ignoreCurrentFlashcard={this.props.ignoreCurrentFlashcard}
           restartReview={this.props.restartReview}
           restartFailedReview={this.props.restartFailedReview}
-          
+
           canIEditCourse={this.canIEditCourse()}
           onProblemsImported={this.props.onProblemsImported}
           uiUpdateCourse={this.uiUpdateCourse}

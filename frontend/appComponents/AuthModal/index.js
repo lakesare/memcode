@@ -51,7 +51,7 @@ class AuthModal extends React.Component {
 
   handleSignupSubmit = (event) => {
     event.preventDefault();
-    
+
     if (this.state.speSignup.status === 'request') return;
 
     api.post.AuthApi.signup(
@@ -60,7 +60,7 @@ class AuthModal extends React.Component {
         if (speSignup.status === 'success') {
           // Store JWT token
           localStorage.setItem('jwt', speSignup.payload.token);
-          
+
           // Redirect to user profile page
           window.location.href = `/users/${speSignup.payload.user.id}?token=${encodeURIComponent(speSignup.payload.token)}`;
         }
@@ -71,7 +71,7 @@ class AuthModal extends React.Component {
 
   handleSigninSubmit = (event) => {
     event.preventDefault();
-    
+
     if (this.state.speSignin.status === 'request') return;
 
     api.post.AuthApi.login(
@@ -80,7 +80,7 @@ class AuthModal extends React.Component {
         if (speSignin.status === 'success') {
           // Store JWT token
           localStorage.setItem('jwt', speSignin.payload.token);
-          
+
           // Redirect to user profile page
           window.location.href = `/users/${speSignin.payload.user.id}?token=${encodeURIComponent(speSignin.payload.token)}`;
         }

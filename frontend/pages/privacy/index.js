@@ -22,12 +22,12 @@ class Page_privacy extends React.Component {
             <h2 className="subtitle">Last updated: September 20, 2025</h2>
           </section>
 
-          {this.renderSection('What Information We Collect', 
+          {this.renderSection('What Information We Collect',
             <>
               <p><strong>Account Information:</strong> When you create a Memcode account, we collect your username, email address, and password (stored securely).</p>
-              
+
               <p><strong>Learning Data:</strong> We store the courses you create, flashcards you make, and your learning progress to provide the spaced repetition service.</p>
-              
+
               <p><strong>Usage Information:</strong> We collect basic analytics about how you use Memcode (pages visited, features used) to improve the platform.</p>
             </>
           )}
@@ -35,9 +35,9 @@ class Page_privacy extends React.Component {
           {this.renderSection('How We Use Your Information',
             <>
               <p><strong>To Provide Our Service:</strong> Your data enables core Memcode functionality - creating courses, tracking learning progress, and spaced repetition scheduling.</p>
-              
+
               <p><strong>To Communicate With You:</strong> We use your email address to send important account updates, new feature announcements, and respond to your questions.</p>
-              
+
               <p><strong>To Improve Memcode:</strong> Anonymous usage data helps us understand which features work well and what needs improvement.</p>
             </>
           )}
@@ -45,14 +45,14 @@ class Page_privacy extends React.Component {
           {this.renderSection('Information Sharing',
             <>
               <p><strong>We don't sell your data.</strong> Ever.</p>
-              
+
               <p><strong>We don't share your personal information</strong> with third parties except:</p>
               <ul>
                 <li>When required by law</li>
                 <li>To protect the security of our service</li>
                 <li>With your explicit consent</li>
               </ul>
-              
+
               <p><strong>Public Courses:</strong> If you mark a course as public, other users can see and learn from it. Your username will be displayed as the creator.</p>
             </>
           )}
@@ -60,9 +60,9 @@ class Page_privacy extends React.Component {
           {this.renderSection('Your Data Rights',
             <>
               <p><strong>Access:</strong> You can download your courses and flashcards anytime through the export feature.</p>
-              
+
               <p><strong>Deletion:</strong> Contact us at <a href="mailto:contact@memcode.com" className="standard-link">contact@memcode.com</a> to delete your account and all associated data.</p>
-              
+
               <p><strong>Email Preferences:</strong> You can unsubscribe from our emails using the link in any message or through your account settings.</p>
             </>
           )}
@@ -76,9 +76,9 @@ class Page_privacy extends React.Component {
           {this.renderSection('Third-Party Services',
             <>
               <p><strong>OpenAI:</strong> We use OpenAI's text-to-speech service for audio features. Audio is processed but not stored by OpenAI.</p>
-              
+
               <p><strong>Amazon AWS:</strong> We use Amazon Web Services to store uploaded images and course data. AWS provides secure, encrypted storage.</p>
-              
+
               <p><strong>Analytics:</strong> We use basic web analytics to understand site usage. This data is anonymized.</p>
             </>
           )}

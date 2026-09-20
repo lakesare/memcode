@@ -14,20 +14,20 @@ const getStudentsStats = async (request, response) => {
     .limit(300);
 
   const totalAmountOfCards = await knex('problem').select().where({ courseId });
-  
+
   // Get total count of all students for metadata
   const totalStudentsResult = await knex('course_user_is_learning')
     .count('* as count')
     .where({ course_id: courseId, active: true })
     .first();
   const totalStudents = parseInt(totalStudentsResult.count);
-  
+
   // Get all problems for these students in a single query instead of N+1 queries
   const cuilIds = students.map(s => s.cuilId);
   const allProblems = await knex('problem_user_is_learning')
     .select()
     .whereIn('course_user_is_learning_id', cuilIds);
-  
+
   // Group problems by course_user_is_learning_id
   const problemsByCuil = {};
   allProblems.forEach(problem => {
@@ -35,7 +35,7 @@ const getStudentsStats = async (request, response) => {
     if (!problemsByCuil[cuilId]) problemsByCuil[cuilId] = [];
     problemsByCuil[cuilId].push(problem);
   });
-  
+
   const filteredProblems = students.map(student => problemsByCuil[student.cuilId] || []);
 
   const dto = []
@@ -48,8 +48,8 @@ const getStudentsStats = async (request, response) => {
       id: students[index].id,
       username: students[index].username,
       avatarUrl: students[index].avatarUrl,
-      lastReviewedAt: 
-        latestReviewedFlashcard !== undefined && 
+      lastReviewedAt:
+        latestReviewedFlashcard !== undefined &&
         latestReviewedFlashcard.lastReviewedAt !== null ? latestReviewedFlashcard.lastReviewedAt : undefined,
       easinessMean: problems.length > 0 ? problems
         .reduce((a, b) => a + b.easiness, 0) / problems.length : 0,

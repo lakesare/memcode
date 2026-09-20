@@ -11,7 +11,7 @@ const deleteUser = async (request, response) => {
   }
 
   const user = await knex('user').where('id', userId).first();
-  
+
   if (!user) {
     return response.error('User not found');
   }

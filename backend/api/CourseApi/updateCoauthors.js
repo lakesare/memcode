@@ -6,8 +6,7 @@ const updateCoauthors = async (request, response) => {
   const currentUser = request.currentUser;
   const courseId = request.body['courseId'];
   const newUserIds = request.body['userIds'];
-  
-  // Only course authors can manage coauthors
+
   await mustBeAuthor(courseId, currentUser);
 
   const course = await knex('course').where({ id: courseId }).first();

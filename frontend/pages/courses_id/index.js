@@ -42,7 +42,7 @@ class Page_courses_id extends React.Component {
 
   componentDidMount = () => {
     this.apiGetPage();
-    
+
     // Add global keyboard event listeners for shift key tracking
     document.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keyup', this.handleKeyUp);
@@ -204,7 +204,7 @@ class Page_courses_id extends React.Component {
 
     return <Loading spe={this.state.speGetProblems} enabledStatuses={['success', 'failure']}>{({ problems }) => {
       const displayOrderedProblems = !this.props.Settings.flashcardOrder ? problems : problems.slice(0).reverse();
-      
+
       return <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="problems">{(provided) =>
           <section

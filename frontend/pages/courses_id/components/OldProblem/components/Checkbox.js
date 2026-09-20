@@ -50,7 +50,7 @@ class Checkbox extends React.Component {
           rangeIds.push(problemAtThisDisplayIndex.id);
         }
       }
-      
+
       const shouldSelectRange = !this.props.ifChecked;
 
       let newSelection;
@@ -60,7 +60,7 @@ class Checkbox extends React.Component {
       } else {
         newSelection = this.props.idsOfCheckedProblems.filter(id => !rangeIds.includes(id));
       }
-      
+
       this.props.updateIdsOfCheckedProblems(newSelection);
     } else {
       if (this.props.ifChecked) {
@@ -79,22 +79,22 @@ class Checkbox extends React.Component {
   }
 
   render = () => {
-    const checkboxNumber = this.props.flashcardOrder ? 
-      this.props.problems.length - this.props.index : 
+    const checkboxNumber = this.props.flashcardOrder ?
+      this.props.problems.length - this.props.index :
       this.props.index + 1;
-    
+
     const ifRangeSelectIsAvailable = this.props.isShiftPressed && this.props.idsOfCheckedProblems.length > 0;
     const isAnchor = this.props.lastClickedIndex === this.props.index;
     let isInRange = false;
-    
-    if (ifRangeSelectIsAvailable && 
-        this.props.hoveredIndex !== null && 
+
+    if (ifRangeSelectIsAvailable &&
+        this.props.hoveredIndex !== null &&
         this.props.lastClickedIndex !== null) {
       const startIndex = Math.min(this.props.lastClickedIndex, this.props.hoveredIndex);
       const endIndex = Math.max(this.props.lastClickedIndex, this.props.hoveredIndex);
       isInRange = this.props.index >= startIndex && this.props.index <= endIndex;
     }
-    
+
     let className = "checkbox";
     if (isAnchor && ifRangeSelectIsAvailable) {
       className += " -shift-anchor";
@@ -102,7 +102,7 @@ class Checkbox extends React.Component {
     if (isInRange && ifRangeSelectIsAvailable && this.props.hoveredIndex !== null) {
       className += " -shift-range";
     }
-    
+
     return (
       <section
         className={className}

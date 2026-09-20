@@ -18,13 +18,13 @@ class Page extends React.Component {
   }
 
   onSelectUser = (user) => {
-    this.setState({ 
-      selectedUser: user, 
+    this.setState({
+      selectedUser: user,
       deleteConfirmation: '',
       userStats: null,
       deletionSuccess: null
     });
-    
+
     // Fetch user deletion stats
     this.fetchUserStats(user.id);
   }
@@ -71,7 +71,7 @@ class Page extends React.Component {
     }
 
     const courses = this.state.userStats.courses;
-    
+
     if (courses.length === 0) {
       return (
         <div className="coursesSection">
@@ -91,7 +91,7 @@ class Page extends React.Component {
           <summary className="coursesSummary">
             <strong>Courses Created ({courses.length}) - Click to view details</strong>
           </summary>
-          
+
           <div className="coursesTableWrapper">
             <table className="coursesTable">
               <thead>
@@ -111,10 +111,10 @@ class Page extends React.Component {
                       </span>
                     </td>
                     <td className="courseDate">
-                      {new Date(course.createdAt).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
+                      {new Date(course.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
                       })}
                     </td>
                   </tr>
@@ -162,10 +162,10 @@ class Page extends React.Component {
                 </td>
                 <td className="userTableValue">{user.id}</td>
                 <td className="userTableValue">
-                  {new Date(user.createdAt).toLocaleDateString('en-US', { 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                  {new Date(user.createdAt).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                   })}
                 </td>
               </tr>
@@ -186,7 +186,7 @@ class Page extends React.Component {
           <p className="warningText">
             This will permanently delete <strong>{user.username}</strong> and ALL their related data:
           </p>
-          
+
           <div className="statsTableWrapper">
             <table className="statsTable">
               <thead>
@@ -273,7 +273,7 @@ class Page extends React.Component {
         <div className={`standard-admin-sections sections`}>
           <section className="standard-admin-section">
             <h2 className="standard-admin-section-title">Delete User</h2>
-            
+
             <div className="description">
               Select a user to permanently delete them and all their associated data.
               <strong> This action cannot be undone.</strong>
@@ -293,7 +293,7 @@ class Page extends React.Component {
             {this.renderSelectedUserSection()}
           </section>
         </div>
-        
+
         {this.state.deletionSuccess && (
           <div className="bottomSuccessNotification">
             <h3>✅ User Deleted Successfully</h3>

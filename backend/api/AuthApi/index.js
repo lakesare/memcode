@@ -67,12 +67,12 @@ const createOauthCallbackRoute = async (oauthProviderName, code, response) => {
       default:
         throw new Error(`No such oauthProvider as '${oauthProviderName}'.`);
     }
-    
+
     [dbUser] = await knex('user').insert(userData).returning('*');
-    
+
     // Setup new user with welcome notification and course
     await setupNewUser(dbUser);
-    
+
     // await sendWelcomeEmail(oauthProfile.email);
   }
 

@@ -64,7 +64,7 @@ class CourseCategories extends React.Component {
         to={!this.props.isSelectedCategoryActive ? `${window.location.pathname}?categoryId=selected` : `${window.location.pathname}?categoryId=all`}
       >
         Selected
-        
+
         {
           this.props.ifShowAmountOfCoursesInCategory &&
           <span className="amount-of-courses">(20)</span>
@@ -91,7 +91,7 @@ class CourseCategories extends React.Component {
             </ul>
           </li>
         }
-        
+
         {CourseCategoryGroupModel.sort(this.props.courseCategoryGroups)
           .map((group) =>
             <li className="group" key={group.id}>

@@ -17,22 +17,22 @@ class AudioButton extends React.Component {
 
   handleClick = async () => {
     if (this.state.isLoading) return;
-    
+
     try {
       // Check if it's cached (async)
       const isCached = await TtsService.isCached(this.props.text);
-      
+
       if (!isCached) {
         // Not cached - show loading indicator for API call
         this.setState({ isLoading: true });
       }
-      
+
       // Play audio (from cache or API)
       await TtsService.speakText(this.props.text);
 
       // Reset loading state
       this.setState({ isLoading: false });
-      
+
     } catch (error) {
       console.error('Error playing audio:', error);
       this.setState({ isLoading: false });

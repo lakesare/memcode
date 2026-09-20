@@ -18,7 +18,7 @@ class ReadonlyEditor extends React.Component {
         <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.props.html }}/>
       </div>
       {this.props.audioText && (
-        <AudioButton 
+        <AudioButton
           text={this.props.audioText}
           className="readonly-editor-audio-btn"
         />

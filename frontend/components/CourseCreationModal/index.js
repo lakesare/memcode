@@ -61,7 +61,7 @@ class CourseCreationModal extends React.Component {
     <TogglerAndModal toggler={this.props.toggler}>{(closeModal) => {
       // Store closeModal reference for use in apiCreateCourse
       this.closeModal = closeModal;
-      
+
       return (
         <div className="standard-modal standard-modal--sm">
           <div className="standard-modal__header">
@@ -71,7 +71,7 @@ class CourseCreationModal extends React.Component {
               You'll be able to import flashcards or make the course public after creation.
             </div>
           </div>
-          
+
           <div className="standard-modal__main">
 
             <form className="standard-form -no-padding" onSubmit={this.apiCreateCourse}>

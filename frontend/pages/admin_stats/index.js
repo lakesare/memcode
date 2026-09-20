@@ -100,7 +100,7 @@ class Page extends React.Component {
 
   formatFlashcardTooltip = (problemContent) => {
     if (!problemContent) return '';
-    
+
     // Handle JSON content structure for flashcards
     let content = problemContent;
     if (typeof content === 'object') {
@@ -119,14 +119,14 @@ class Page extends React.Component {
         return this.extractTextContent(content.content);
       }
     }
-    
+
     // Fallback for string content
     return this.extractTextContent(content);
   }
 
   formatFlashcardHtml = (problemContent) => {
     if (!problemContent) return '';
-    
+
     // Handle JSON content structure for flashcards, preserving HTML
     let content = problemContent;
     if (typeof content === 'object') {
@@ -145,7 +145,7 @@ class Page extends React.Component {
         return content.content;
       }
     }
-    
+
     // Fallback for string content
     return content || '';
   }
@@ -174,28 +174,28 @@ class Page extends React.Component {
 
   renderOverviewSection = () => {
     const { overview } = this.state.stats;
-    
+
     return (
       <section className="standard-admin-section">
         <h2 className="standard-admin-section-title">Overview</h2>
-        
+
         <div className="overviewGrid">
           <div className="statCard">
             <div className="statNumber">{this.formatNumber(overview.totalUsers)}</div>
             <div className="statLabel">Total Users</div>
           </div>
-          
+
           <div className="statCard">
             <div className="statNumber">{this.formatNumber(overview.totalCourses)}</div>
             <div className="statLabel">Total Courses</div>
           </div>
-          
+
           <div className="statCard">
             <div className="statNumber">{this.formatNumber(overview.totalProblems)}</div>
             <div className="statLabel">Total Flashcards</div>
           </div>
-          
-          
+
+
         </div>
       </section>
     );
@@ -205,21 +205,21 @@ class Page extends React.Component {
   renderMonthlyStatsSection = () => {
     const { monthlyStats } = this.state.stats;
     const { showAllMonths } = this.state;
-    
+
     // Show only last 12 months by default
     const displayStats = showAllMonths ? monthlyStats : monthlyStats.slice(0, 12);
-    
+
     return (
       <section className="standard-admin-section">
         <h2 className="standard-admin-section-title">Monthly Activity Overview</h2>
-        
+
         <div className="chartSection">
           <div className="registrationChart">
             <div className="chartHeader">
               <h3>Activity by Month (All Time)</h3>
               {monthlyStats.length > 12 && (
-                <button 
-                  className="expandButton" 
+                <button
+                  className="expandButton"
                   onClick={() => this.setState({ showAllMonths: !showAllMonths })}
                 >
                   {showAllMonths ? 'Show Less' : `Show All (${monthlyStats.length} months)`}
@@ -271,21 +271,21 @@ class Page extends React.Component {
   renderDailyStatsSection = () => {
     const { dailyStats } = this.state.stats;
     const { showAllDays } = this.state;
-    
+
     // Show only last 7 days by default
     const displayStats = showAllDays ? dailyStats : dailyStats.slice(0, 7);
-    
+
     return (
       <section className="standard-admin-section">
         <h2 className="standard-admin-section-title">Daily Activity Overview (Last 30 Days)</h2>
-        
+
         <div className="chartSection">
           <div className="registrationChart">
             <div className="chartHeader">
               <h3>Activity by Day</h3>
               {dailyStats.length > 7 && (
-                <button 
-                  className="expandButton" 
+                <button
+                  className="expandButton"
                   onClick={() => this.setState({ showAllDays: !showAllDays })}
                 >
                   {showAllDays ? 'Show Less' : `Show All (${dailyStats.length} days)`}
@@ -336,11 +336,11 @@ class Page extends React.Component {
 
   renderContentStatsSection = () => {
     const { courseStats, problemStats } = this.state.stats;
-    
+
     return (
       <section className="standard-admin-section">
         <h2 className="standard-admin-section-title">Content Statistics</h2>
-        
+
         <div className="statsGrid threeColumn">
           <div className="statsCard">
             <h3>Course Visibility</h3>
@@ -361,7 +361,7 @@ class Page extends React.Component {
               </tbody>
             </table>
           </div>
-          
+
           <div className="statsCard">
             <h3>Course Categories</h3>
             <table className="dataTable">
@@ -381,7 +381,7 @@ class Page extends React.Component {
               </tbody>
             </table>
           </div>
-          
+
           <div className="statsCard">
             <h3>Problem Types</h3>
             <table className="dataTable">
@@ -409,11 +409,11 @@ class Page extends React.Component {
 
   renderTopUsersSection = () => {
     const { topUsers } = this.state.stats;
-    
+
     return (
       <section className="standard-admin-section">
         <h2 className="standard-admin-section-title">Top Course Creators</h2>
-        
+
         <div className="statsCard">
           <table className="dataTable">
             <thead>
@@ -445,15 +445,15 @@ class Page extends React.Component {
   renderRecentReviewsSection = () => {
     const { recentReviews } = this.state.stats;
     const { showAllReviews } = this.state;
-    
+
     // Show only first 20 reviews by default
     const displayReviews = showAllReviews ? recentReviews : recentReviews.slice(0, 20);
     const hasMoreReviews = recentReviews.length > 20;
-    
+
     return (
       <section className="standard-admin-section">
         <h2 className="standard-admin-section-title">Recent Flashcard Reviews (Last 300)</h2>
-        
+
         <div className="timelineContainer">
           <table className="dataTable timelineTable">
             <thead>
@@ -480,12 +480,12 @@ class Page extends React.Component {
                     </a>
                   </td>
                   <td className="contentCell">
-                    <div 
+                    <div
                       className={`flashcardContent ${this.isFlashcardExpanded(index) ? 'expanded' : 'collapsed'}`}
                       onClick={() => this.toggleFlashcardExpansion(index)}
                     >
                       {this.isFlashcardExpanded(index) ? (
-                        <div 
+                        <div
                           className="fullContent"
                           dangerouslySetInnerHTML={{ __html: this.formatFlashcardHtml(review.problemContent) }}
                         />
@@ -505,11 +505,11 @@ class Page extends React.Component {
               ))}
             </tbody>
           </table>
-          
+
           {hasMoreReviews && (
             <div className="showMoreContainer">
-              <button 
-                className="showMoreButton" 
+              <button
+                className="showMoreButton"
                 onClick={() => this.setState({ showAllReviews: !showAllReviews })}
               >
                 {showAllReviews ? `Show Less (Show only 20)` : `Show More (${recentReviews.length - 20} more reviews)`}

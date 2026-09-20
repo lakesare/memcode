@@ -38,21 +38,21 @@ class ProblemWrapper extends React.Component {
     this.props.MyActions.ignoreProblem(this.props.problem.courseId, this.props.problem.id);
 
     const puil = this.state.puil;
-    
+
     if (puil && puil.id) {
       // Problem is already learned, use ignoreAlreadyLearnedProblem API
       api.post.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(
         (spe) => this.setState({ speIgnore: spe }),
-        { 
+        {
           problemId: this.props.problem.id,
-          cuilId: puil.courseUserIsLearningId 
+          cuilId: puil.courseUserIsLearningId
         }
       )
-        .then(() => { 
+        .then(() => {
           // Update the local puil state to reflect the ignore
-          this.setState({ 
-            puil: { ...puil, ifIgnored: true } 
-          }); 
+          this.setState({
+            puil: { ...puil, ifIgnored: true }
+          });
         });
     } else {
       // Problem is not learned yet, use regular ignoreProblem API
@@ -85,7 +85,7 @@ class ProblemWrapper extends React.Component {
   onDeleteSuccess = () => {
     // Update global Redux state
     this.props.MyActions.deleteProblem(this.props.problem.courseId, this.props.problem.id);
-    
+
     // Update local UI state to remove the problem immediately
     if (this.props.uiRemoveProblem) {
       this.props.uiRemoveProblem(this.props.problem.id);
@@ -106,11 +106,11 @@ class ProblemWrapper extends React.Component {
     const puil = this.state.puil;
     const isDisabled = this.state.speIgnore.status === 'request' || this.state.speDelete.status === 'request';
     const canEdit = this.canIEditCourse();
-    
+
     return (
       <div className="options-dropdown">
         {puil === false && (
-          <div 
+          <div
             className={`option ${isDisabled ? '-disabled' : ''}`}
             onClick={() => {
               if (!isDisabled) this.apiIgnore();
@@ -120,7 +120,7 @@ class ProblemWrapper extends React.Component {
           </div>
         )}
         {puil && puil.ifIgnored === true && (
-          <div 
+          <div
             className={`option ${isDisabled ? '-disabled' : ''}`}
             onClick={() => {
               if (!isDisabled) this.apiUnlearnUnignore();
@@ -131,7 +131,7 @@ class ProblemWrapper extends React.Component {
         )}
         {puil && puil.ifIgnored !== true && (
           <>
-            <div 
+            <div
               className={`option ${isDisabled ? '-disabled' : ''}`}
               onClick={() => {
                 if (!isDisabled) this.apiIgnore();
@@ -139,7 +139,7 @@ class ProblemWrapper extends React.Component {
             >
               <i className="fa fa-eye-slash"/> Ignore
             </div>
-            <div 
+            <div
               className={`option ${isDisabled ? '-disabled' : ''}`}
               onClick={() => {
                 if (!isDisabled) this.apiUnlearnUnignore();
@@ -187,7 +187,7 @@ class ProblemWrapper extends React.Component {
     const puil = this.state.puil;
     let wrapperClass = 'problem-wrapper';
     let onClickHandler = undefined;
-    
+
     // Determine wrapper class and click handler based on state
     if (this.state.speLearn.status === 'request' || (puil && puil.ifIgnored !== true)) {
       wrapperClass += ' -learned';
@@ -202,7 +202,7 @@ class ProblemWrapper extends React.Component {
       // Unlearned flashcards are clickable to learn them
       onClickHandler = this.apiLearn;
     }
-    
+
     return (
       <div className="problem-wrapper-wrapper">
         <div className={wrapperClass} onClick={onClickHandler}>

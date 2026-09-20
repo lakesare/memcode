@@ -153,7 +153,7 @@ const filterCoursesByFocus = (courses, focusedCategoryId, focusedSubstring) => {
       return courseTitle.toLowerCase().startsWith(focusedSubstring.toLowerCase());
     });
   }
-  
+
   // Otherwise apply category filter
   if (focusedCategoryId) {
     return courses.filter((course) => {
@@ -161,7 +161,7 @@ const filterCoursesByFocus = (courses, focusedCategoryId, focusedSubstring) => {
       return categoryId === focusedCategoryId;
     });
   }
-  
+
   // No filtering active
   return courses;
 };

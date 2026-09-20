@@ -5,7 +5,7 @@ const uploadAvatar = (dispatch, file) => {
   // Return a promise that wraps the SPE pattern
   return new Promise((resolve, reject) => {
     dispatch({ status: 'request' });
-    
+
     fetch('/api/files/upload', {
       method: 'POST',
       body: formData

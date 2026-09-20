@@ -5,14 +5,13 @@ import { mustOwnAllProblemsInSameCourse, mustBeAuthorOrCoauthor } from '#~/servi
 const moveToCourseMany = async (request, response) => {
   const problemIds = request.body['problemIds'];
   const courseId = request.body['courseId'];
-  
-  // Validate all problems belong to same source course and user has permission
+
   const sourceCourseId = await mustOwnAllProblemsInSameCourse(problemIds, request.currentUser);
-  
+
   if (sourceCourseId === null) {
     return response.success(); // Empty array, nothing to do
   }
-  
+
   // Check permission for destination course
   await mustBeAuthorOrCoauthor(courseId, request.currentUser);
 
@@ -21,7 +20,7 @@ const moveToCourseMany = async (request, response) => {
     .where({ courseId: courseId })
     .max('position as max_position')
     .first();
-    
+
   const startingPosition = (maxPositionResult?.maxPosition || 0) + 1;
 
   // 1. Find the flashcards to insert
@@ -51,11 +50,11 @@ const moveToCourseMany = async (request, response) => {
     .where({ courseId: sourceCourseId })
     .orderBy('position', 'asc')
     .select('id');
-    
+
   const updatePromises = remainingProblems.map((problem, index) =>
     knex('problem').where({ id: problem.id }).update({ position: index + 1 })
   );
-  
+
   await Promise.all(updatePromises);
 
   response.success();

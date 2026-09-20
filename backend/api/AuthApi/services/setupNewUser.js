@@ -8,14 +8,14 @@ import NotificationModel from '#~/models/NotificationModel.js';
 const setupNewUser = async (user) => {
   // Create welcome notification
   await NotificationModel.create({ type: 'welcome_to_memcode', content: {}, userId: user.id });
-  
+
   // Only assign welcome course in production
   if (process.env.NODE_ENV === 'production') {
     const welcomeCourseId = 6868;
-    await knex('courseUserIsLearning').insert({ 
-      courseId: welcomeCourseId, 
-      userId: user.id, 
-      active: true 
+    await knex('courseUserIsLearning').insert({
+      courseId: welcomeCourseId,
+      userId: user.id,
+      active: true
     });
   }
 };

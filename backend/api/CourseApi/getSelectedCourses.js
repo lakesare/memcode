@@ -36,7 +36,7 @@ const getSelectedCourses = async (request, response) => {
 
   // All selected course IDs combined
   const allSelectedIds = [...regularLanguageIds, ...fancyAlphabetIds, ...funRareLanguageIds];
-  
+
   // Fetch all courses at once using the existing optimized query
   const allCourses = await CourseModel.allPublic({
     limit: allSelectedIds.length,
@@ -63,10 +63,10 @@ const getSelectedCourses = async (request, response) => {
     const fancyAlphabetLanguages = getCoursesInOrder(fancyAlphabetIds);
     const funRareLanguages = getCoursesInOrder(funRareLanguageIds);
 
-    response.success({ 
+    response.success({
       regularLanguages,
       fancyAlphabetLanguages,
-      funRareLanguages 
+      funRareLanguages
     });
   } catch (error) {
     console.error('Error fetching selected courses:', error);

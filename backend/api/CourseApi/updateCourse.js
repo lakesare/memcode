@@ -4,10 +4,9 @@ import { mustBeAuthorOrCoauthor } from '#~/services/auth.js';
 const updateCourse = async (request, response) => {
   const courseId = request.body.courseId;
   const courseData = request.body.course;
-  
-  // Authors and coauthors can update courses
+
   await mustBeAuthorOrCoauthor(courseId, request.currentUser);
-  
+
   // Update the course
   const [updatedCourse] = await knex('course')
     .where({ id: courseId })

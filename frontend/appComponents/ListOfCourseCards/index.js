@@ -6,7 +6,7 @@ import css from './index.scss';
 class ListOfCourseCards extends React.Component {
   static propTypes = {
     courseDtos: PropTypes.array.isRequired,
-    // every Dto can have a type, or we can provide a single type for all dtos 
+    // every Dto can have a type, or we can provide a single type for all dtos
     type: PropTypes.oneOf(['simple', 'learnReview']),
     className: PropTypes.string
   }

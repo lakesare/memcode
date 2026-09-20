@@ -5,7 +5,6 @@ import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 const getAllPage = async (request, response) => {
   const courseId = request.body['courseId'];
 
-  // Check if user can read the course (throws error if not allowed)
   await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   const courseUserIsLearning = (await knex('courseUserIsLearning')
@@ -16,15 +15,15 @@ const getAllPage = async (request, response) => {
     .join('problem_user_is_learning', {
       'problem_user_is_learning.problem_id': 'problem.id'
     })
-    .where({ 
+    .where({
       'problem_user_is_learning.course_user_is_learning_id': courseUserIsLearning.id,
       'problem_user_is_learning.if_ignored': false
     })
-    .orderBy([ 
+    .orderBy([
       { column: 'position' },
       { column: 'created_at' }
     ]);
-  
+
   response.success({ courseUserIsLearning, problems });
 
 };

@@ -14,7 +14,6 @@ const getLearnedProblemsByCuilId = (cuilId) =>
 const getReviewPersistentPage = async (request, response) => {
   const courseId = request.body['courseId'];
 
-  // Check if user can read the course (throws error if not allowed)
   await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   const courseUserIsLearning = (await knex('courseUserIsLearning')

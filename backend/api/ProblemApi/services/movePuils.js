@@ -1,7 +1,7 @@
 import knex from '#~/db/knex.js';
 /**
  * Moves the all "problemUserIsLearning" (Puils) for the given problemIds to the given course Id
- * @param {*} problemIds the problemIds to move Puils for. 
+ * @param {*} problemIds the problemIds to move Puils for.
  * @param {*} insertedProblems the inserted problems with their new IDs
  * @param {*} courseId the id of the course to move to
  */
@@ -9,7 +9,7 @@ const movePuils = async (problemIds, insertedProblems, courseId) => {
   //get the puils for the given problem ids
   const puils = await knex('problemUserIsLearning').whereIn('problem_id', problemIds);
 
-  //map the inserted problems to the old problem's puils. 
+  //map the inserted problems to the old problem's puils.
   //  We need to do this, because not every problem necessarily has a puil.
   //  Directly connecting them via problem ID is not possible -> the newly inserted problems have a different id than in the old course.
   const mappedPuils = puils.map(puil => {

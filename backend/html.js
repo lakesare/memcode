@@ -54,7 +54,7 @@ const html = `
         }
       })();
     </script>
-    
+
     <div id="root"></div>
 
     <!-- env vars -->

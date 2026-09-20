@@ -65,7 +65,7 @@ const reducer = (state = initialState, action) => {
       if (currentProblem && TtsService.isVolumeEnabled() && currentProblem.type === 'inlinedAnswers') {
         TtsService.playSuccumbSequence(currentProblem.content.content);
       }
-      
+
       return {
         ...state,
         statusOfSolving: { ...state.statusOfSolving, status: 'seeingAnswer' }
@@ -80,16 +80,16 @@ const reducer = (state = initialState, action) => {
       if (!nextProblem && state.indexesOfFailedProblems.length > 0) {
         const firstFailedIndex = state.indexesOfFailedProblems[0];
         const reReviewProblem = state.speGetPage.payload.problems[firstFailedIndex];
-        
+
         // Auto-read the re-review problem
         playAutoTts(reReviewProblem);
-        
+
         // Precache upcoming problems in background
-        const failedProblems = state.indexesOfFailedProblems.map(index => 
+        const failedProblems = state.indexesOfFailedProblems.map(index =>
           state.speGetPage.payload.problems[index]
         );
         TtsService.precacheUpcoming(failedProblems, 0, 3);
-        
+
         if (state.ifReviewingFailedProblems) {
           return {
             ...state,
@@ -106,10 +106,10 @@ const reducer = (state = initialState, action) => {
       } else {
         // Auto-read the next problem
         playAutoTts(nextProblem);
-        
+
         // Precache next 3 problems in background
         TtsService.precacheUpcoming(state.speGetPage.payload.problems, nextIndex, 3);
-        
+
         return {
           ...state,
           statusOfSolving: freshStatusOfSolving(nextProblem, nextIndex)
@@ -120,16 +120,16 @@ const reducer = (state = initialState, action) => {
     case 'SET_NEXT_REREVIEW_PROBLEM': { // (action.payload: problem index relating to .indexesOfFailedProblems)
       const nextProblemIndex = state.indexesOfFailedProblems[0];
       const reReviewProblem = state.speGetPage.payload.problems[nextProblemIndex];
-      
+
       // Auto-read the re-review problem
       playAutoTts(reReviewProblem);
-      
+
       // Precache upcoming failed problems in background
-      const failedProblems = state.indexesOfFailedProblems.map(index => 
+      const failedProblems = state.indexesOfFailedProblems.map(index =>
         state.speGetPage.payload.problems[index]
       );
       TtsService.precacheUpcoming(failedProblems, 0, 3);
-      
+
       return {
         ...state,
         statusOfSolving: freshStatusOfSolving(reReviewProblem, nextProblemIndex)
@@ -154,13 +154,13 @@ const reducer = (state = initialState, action) => {
       const spe = action.payload;
       if (action.payload.status === 'success') {
         const firstProblem = spe.payload.problems[0];
-        
+
         // Auto-read the first problem
         playAutoTts(firstProblem);
-        
+
         // Precache next 3 problems in background from the start
         TtsService.precacheUpcoming(spe.payload.problems, 0, 3);
-        
+
         return {
           ...state,
           speGetPage: spe,
@@ -192,13 +192,13 @@ const reducer = (state = initialState, action) => {
       }
 
       const newCurrentProblem = randomProblems[currentProblemIndex];
-      
+
       // Auto-read the new randomized problem
       playAutoTts(newCurrentProblem);
-      
+
       // Precache next 3 problems after randomization
       TtsService.precacheUpcoming(randomProblems, currentProblemIndex, 3);
-      
+
       return {
         ...state,
         speGetPage: {

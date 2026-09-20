@@ -56,10 +56,10 @@ class CoursesDropdown extends React.Component {
 
   getCourseDtos = () => {
     let courseDtos = this.props.My.courses.map(MyModel.dtoToCourseCardProps);
-    
+
     // Apply focus filtering (category or substring)
     courseDtos = MyModel.filterCoursesByFocus(courseDtos, this.props.Settings.focusedCategoryId, this.props.Settings.focusedSubstring);
-    
+
     MyModel.sortByHowMuchToDo(courseDtos);
     return courseDtos;
   }
@@ -68,10 +68,10 @@ class CoursesDropdown extends React.Component {
     let pinned = this.props.My.courses.filter((dto) =>
       this.props.Settings.pinnedCourseIds.includes(dto.course.id)
     );
-    
+
     // Apply focus filtering (category or substring)
     pinned = MyModel.filterCoursesByFocus(pinned, this.props.Settings.focusedCategoryId, this.props.Settings.focusedSubstring);
-    
+
     pinned = pinned
       .map(MyModel.dtoToCourseCardProps)
       .sort((a, b) => a.course.title.localeCompare(b.course.title));
@@ -130,10 +130,10 @@ class CoursesDropdown extends React.Component {
 
   renderNOfProblemsToReview = () => {
     let courses = this.props.My.courses;
-    
+
     // Apply focus filtering (category or substring)
     courses = MyModel.filterCoursesByFocus(courses, this.props.Settings.focusedCategoryId, this.props.Settings.focusedSubstring);
-    
+
     const dtosToReview = MyModel.getDtosToReview(courses);
     const nOfProblems = MyModel.countAllProblemsToReview(dtosToReview);
 
@@ -165,7 +165,7 @@ class CoursesDropdown extends React.Component {
       <div className="my-courses-toggler">
         <button type="button" className="button link courses" onClick={this.state.isDropdownVisible ? this.uiHideDropdown : this.uiShowDropdown}>
           Courses
-          
+
           {this.renderNOfProblemsToReview()}
 
         </button>

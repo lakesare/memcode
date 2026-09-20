@@ -13,17 +13,17 @@ const NotificationsReducer = (state = initialState, action) => {
       const didSeeNotifications = action.spe.status === 'success' && action.spe.payload && action.spe.payload.stats
         ? action.spe.payload.stats.didSeeNotifications
         : state.didSeeNotifications;
-      
-      return { 
-        ...state, 
+
+      return {
+        ...state,
         speNotificationsAndStats: action.spe,
-        didSeeNotifications 
+        didSeeNotifications
       };
     }
-    
+
     case `${namespace}.SET_DID_SEE_NOTIFICATIONS`:
       return { ...state, didSeeNotifications: action.payload };
-    
+
     case `${namespace}.MARK_ALL_AS_READ`:
       if (state.speNotificationsAndStats.status === 'success') {
         return {
@@ -45,24 +45,24 @@ const NotificationsReducer = (state = initialState, action) => {
         };
       }
       return state;
-    
+
     case `${namespace}.UPDATE_NOTIFICATION`:
       if (state.speNotificationsAndStats.status === 'success') {
         const oldNotification = state.speNotificationsAndStats.payload.notifications.find(n => n.id === action.payload.id);
         const wasRead = oldNotification && oldNotification.ifRead;
         const isNowRead = action.payload.ifRead;
-        
+
         let unreadChange = 0;
         if (!wasRead && isNowRead) unreadChange = -1;
         if (wasRead && !isNowRead) unreadChange = 1;
-        
+
         return {
           ...state,
           speNotificationsAndStats: {
             ...state.speNotificationsAndStats,
             payload: {
               ...state.speNotificationsAndStats.payload,
-              notifications: state.speNotificationsAndStats.payload.notifications.map(notification => 
+              notifications: state.speNotificationsAndStats.payload.notifications.map(notification =>
                 notification.id === action.payload.id ? action.payload : notification
               ),
               stats: {
@@ -74,7 +74,7 @@ const NotificationsReducer = (state = initialState, action) => {
         };
       }
       return state;
-    
+
     default:
       return state;
   }
@@ -91,16 +91,16 @@ const getActions = (dispatch, getState) => ({
       { userId, limit, offset }
     );
   },
-  
+
   apiGetNotificationsAndStatsSilent: (userId, limit = 15, offset = 0) => {
     const currentState = getState().global.Notifications.speNotificationsAndStats;
     const hasExistingData = currentState.status === 'success';
-    
+
     // If we don't have existing data, show loading state
     if (!hasExistingData) {
       dispatch({ type: SPE_NOTIFICATIONS_AND_STATS, spe: { status: 'request' } });
     }
-    
+
     api.get.NotificationApi.getNotificationsAndStatsForUser(
       (spe) => {
         // Only dispatch if we got a successful response or if we don't have existing data
@@ -111,7 +111,7 @@ const getActions = (dispatch, getState) => ({
       { userId, limit, offset }
     );
   },
-  
+
   apiLoadMoreNotifications: (userId, offset) => {
     return api.get.NotificationApi.getNotificationsAndStatsForUser(
       (spe) => {
@@ -135,7 +135,7 @@ const getActions = (dispatch, getState) => ({
       { userId, limit: 10, offset }
     );
   },
-  
+
   apiMarkNotificationsAsSeen: (userId) => {
     api.post.NotificationApi.markNotificationsAsSeen(
       (spe) => {
@@ -146,26 +146,26 @@ const getActions = (dispatch, getState) => ({
       { userId }
     );
   },
-  
+
   markAllAsRead: () => {
     dispatch({ type: `${namespace}.MARK_ALL_AS_READ` });
   },
-  
+
   updateNotification: (notification) => {
     dispatch({ type: `${namespace}.UPDATE_NOTIFICATION`, payload: notification });
   },
-  
+
   setDidSeeNotifications: (didSee) => {
     dispatch({ type: `${namespace}.SET_DID_SEE_NOTIFICATIONS`, payload: didSee });
   },
-  
+
   apiMarkAsReadOrUnread: (notificationId, ifRead) => {
     api.post.NotificationApi.markAsReadOrUnread(null, {
       id: notificationId,
       ifRead
     });
   },
-  
+
   apiMarkAllNotificationsAsRead: (userId) => {
     api.post.NotificationApi.markAllNotificationsAsRead(null, { userId });
   }

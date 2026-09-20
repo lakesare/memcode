@@ -6,8 +6,7 @@ import repetitions from '../../../services/repetitions.js';
 
 const reviewProblem = async (request, response) => {
   const courseUserIsLearningId = request.body['id'];
-  
-  // Ensure user owns this learning record
+
   await mustOwnCuil(courseUserIsLearningId, request.currentUser);
   const problemId = request.body['problemId'];
   const performanceRating = request.body['performanceRating'];
@@ -29,7 +28,7 @@ const reviewProblem = async (request, response) => {
   } else {
     nextDueDate = now.add(nextScore.msToNextReview, 'ms').toDate();
   }
-  
+
   // Update the problem learning record
   const updatedPuil = (await knex('problemUserIsLearning')
     .where({ id: puil.id })
@@ -40,7 +39,7 @@ const reviewProblem = async (request, response) => {
       lastReviewedAt: now.format()
     })
     .returning('*'))[0];
-  
+
   // Log the review event for analytics
   await knex('stats_problem_review').insert({
     problem_id: problemId,
@@ -48,7 +47,7 @@ const reviewProblem = async (request, response) => {
     was_correct: performanceRating >= 4, // Same logic as isAnswerCorrect in getNextScore
     reviewed_at: now.format()
   });
-  
+
   response.success(updatedPuil);
 };
 

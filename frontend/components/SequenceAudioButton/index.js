@@ -21,15 +21,15 @@ class SequenceAudioButton extends React.Component {
 
   handleClick = async () => {
     if (this.state.isLoading) return;
-    
+
     try {
       // Check cache and show loading indicator if needed
       let showLoading = false;
-      
+
       if (this.props.playFullText) {
         // For succumb sequence, check if it's cached
         const isCachedAnywhere = await TtsService.isCached(this.props.content);
-        
+
         if (!isCachedAnywhere) {
           showLoading = true;
         }
@@ -38,7 +38,7 @@ class SequenceAudioButton extends React.Component {
         // This gives better UX by showing loading when parts aren't cached
         const textParts = TtsService.splitIntoTextParts(this.props.content);
         const answers = TtsService.getAnswerTexts(this.props.content);
-        
+
         // Check if any non-answer parts need to be fetched
         for (const part of textParts) {
           const isAnswer = answers.includes(part);
@@ -54,11 +54,11 @@ class SequenceAudioButton extends React.Component {
           }
         }
       }
-      
+
       if (showLoading) {
         this.setState({ isLoading: true });
       }
-      
+
       // Play audio
       if (this.props.playFullText) {
         // Play succumb sequence (handles both single and multi-cloze)
@@ -70,7 +70,7 @@ class SequenceAudioButton extends React.Component {
 
       // Reset loading state
       this.setState({ isLoading: false });
-      
+
     } catch (error) {
       console.error('Error playing sequence audio:', error);
       this.setState({ isLoading: false });

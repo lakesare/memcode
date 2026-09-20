@@ -14,7 +14,7 @@ const allCreated = async (userId) => {
     .innerJoin('course_category', 'course.course_category_id', 'course_category.id')
     .where('course.user_id', userId)
     .groupBy('course.id', 'user.id', 'course_category.id');
-  
+
   // Convert amount_of_problems to integer
   return courses.map(course => ({
     ...course,
@@ -31,23 +31,23 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
     .innerJoin('problem', 'problem.course_id', 'course.id')
     .innerJoin('course_category', 'course.course_category_id', 'course_category.id')
     .where('course.if_public', true);
-  
+
   if (courseCategoryId) {
     baseQuery.where('course.course_category_id', courseCategoryId);
   }
-  
+
   if (searchString && searchString.trim() !== '') {
     baseQuery.where('course.title', 'ilike', `%${searchString.trim()}%`);
   }
-  
+
   if (userId) {
     baseQuery.where('course.user_id', userId);
   }
-  
+
   if (courseIds && courseIds.length > 0) {
     baseQuery.whereIn('course.id', courseIds);
   }
-  
+
   // Get total count with a separate, optimized query
   const countResult = await knex
     .count('* as total_count')
@@ -60,7 +60,7 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
         .as('filtered_courses')
     )
     .first();
-  
+
   // Build main query
   let mainQuery = knex
     .select(
@@ -79,29 +79,29 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
     .innerJoin('user', 'course.user_id', 'user.id')
     .innerJoin('course_category', 'course.course_category_id', 'course_category.id')
     .where('course.if_public', true);
-  
+
   // Add filters
   if (courseCategoryId) {
     mainQuery = mainQuery.where('course.course_category_id', courseCategoryId);
   }
-  
+
   if (searchString && searchString.trim() !== '') {
     mainQuery = mainQuery.where('course.title', 'ilike', `%${searchString.trim()}%`);
   }
-  
+
   if (userId) {
     mainQuery = mainQuery.where('course.user_id', userId);
   }
-  
+
   if (courseIds && courseIds.length > 0) {
     mainQuery = mainQuery.whereIn('course.id', courseIds);
   }
-  
+
   // Add grouping and having
   mainQuery = mainQuery
     .groupBy('course.id', 'user.id', 'course_category.id')
     .havingRaw('COUNT(distinct problem.id) >= 2');
-  
+
   // Add sorting
   if (sortBy === 'popular') {
     mainQuery = mainQuery
@@ -112,7 +112,7 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
   } else if (sortBy === 'random') {
     mainQuery = mainQuery.orderByRaw('random()');
   }
-  
+
   // Add pagination
   if (limit) {
     mainQuery = mainQuery.limit(limit);
@@ -120,9 +120,9 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
   if (offset) {
     mainQuery = mainQuery.offset(offset);
   }
-  
+
   const courses = await mainQuery;
-  
+
   // Add the count to each course record and convert strings to integers
   const coursesWithCount = courses.map(course => ({
     ...course,
@@ -130,7 +130,7 @@ const allPublic = async ({ sortBy, limit, offset, courseCategoryId, searchString
     amountOfProblems: parseInt(course.amountOfProblems || 0),
     nOfAllCourses: parseInt(countResult.totalCount || 0)
   }));
-  
+
   return coursesWithCount;
 };
 

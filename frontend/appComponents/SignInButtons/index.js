@@ -3,7 +3,7 @@ import withRouter from '~/services/withRouter';
 import AuthModal from '~/appComponents/AuthModal';
 
 class Page_pleaseSignIn extends React.Component {
-    
+
   redirectBackTo = () => {
     // Store current page for redirect after sign-in
     sessionStorage.setItem("lastpage", window.location.pathname);

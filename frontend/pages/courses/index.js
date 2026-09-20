@@ -72,7 +72,7 @@ class Page_courses extends React.Component {
     this.setState({ searchString: urlSearchString }, () => {
       this.apiGetCourses();
     });
-    
+
     // Always fetch selected courses
     api.get.CourseApi.getSelectedCourses(
       (spe) => this.setState({ speSelectedCourses: spe }),
@@ -104,7 +104,7 @@ class Page_courses extends React.Component {
     if (isSelectedCategoryActive(this.props, this.state.searchString)) {
       return;
     }
-    
+
     const searchString = this.state.searchString;
     api.get.CourseApi.getPublicCourses(
       (spe) => {
@@ -170,13 +170,13 @@ class Page_courses extends React.Component {
       // Update URL with search query
       const newQuery = getQuery(this.props);
       newQuery.set('page', 1); // Reset to first page when searching
-      
+
       if (searchString.trim()) {
         newQuery.set('query', encodeURIComponent(searchString));
       } else {
         newQuery.delete('query');
       }
-      
+
       const newUrl = this.props.location.pathname + '?' + newQuery.toString();
       this.props.history.push(newUrl);
     });
@@ -236,7 +236,7 @@ class Page_courses extends React.Component {
             </div>
 
             {this.renderSearchBar("for-mobile")}
-            
+
             {isSelectedCategoryActive(this.props, this.state.searchString) ? (
               // Show selected courses in three sections
               <Loading spe={this.state.speSelectedCourses}>{({ regularLanguages, fancyAlphabetLanguages, funRareLanguages }) =>

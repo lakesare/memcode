@@ -28,10 +28,10 @@ class NotificationsTogglerAndDropdown extends React.Component {
   apiLoadMoreNotifications = () => {
     const spe = this.props.notifications.speNotificationsAndStats;
     if (spe.status !== 'success' || !spe.payload) return;
-    
+
     const currentNotifications = spe.payload.notifications;
     const offset = currentNotifications.length;
-    
+
     this.props.NotificationsActions.apiLoadMoreNotifications(
       this.props.currentUser.id,
       offset
@@ -40,10 +40,10 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
   apiMarkAsReadOrUnread = (notification, ifRead) => {
     const updatedNotification = { ...notification, ifRead };
-    
+
     // Update Redux state first
     this.props.NotificationsActions.updateNotification(updatedNotification);
-    
+
     // Then make API call
     this.props.NotificationsActions.apiMarkAsReadOrUnread(notification.id, ifRead);
   }
@@ -51,7 +51,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
   apiMarkAllNotificationsAsRead = () => {
     // Update Redux state first
     this.props.NotificationsActions.markAllAsRead();
-    
+
     // Then make API call
     this.props.NotificationsActions.apiMarkAllNotificationsAsRead(this.props.currentUser.id);
   }
@@ -62,11 +62,11 @@ class NotificationsTogglerAndDropdown extends React.Component {
 
   isFooterShown = () => {
     const spe = this.props.notifications.speNotificationsAndStats;
-    
+
     if (spe.status !== 'success' || !spe.payload) {
       return false;
     }
-    
+
     const notifications = spe.payload.notifications;
     const totalNotifications = spe.payload.stats.amountOfAllNotifications;
     return totalNotifications > notifications.length;
@@ -77,7 +77,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
     const hasUnreadNotifications = spe.status === 'success' && spe.payload && spe.payload.stats.amountOfUnreadNotifications > 0;
     const shouldAnimate = hasUnreadNotifications && !this.props.notifications.didSeeNotifications;
     const shouldShowCount = hasUnreadNotifications && !this.props.notifications.didSeeNotifications;
-    
+
     return (
       <button
         type="button"
@@ -102,7 +102,7 @@ class NotificationsTogglerAndDropdown extends React.Component {
   renderDropdownHeader = () => {
     const spe = this.props.notifications.speNotificationsAndStats;
     const hasUnreadNotifications = spe.status === 'success' && spe.payload && spe.payload.stats.amountOfUnreadNotifications > 0;
-    
+
     return (
       <div className="header">
         <div className="title">

@@ -35,15 +35,15 @@ const updateAccount = async (request, response, next) => {
       username: username.trim(),
       email: email.trim()
     };
-    
+
     // Update email subscription preference
     updateData.is_subscribed_to_marketing_emails = isSubscribedToMarketingEmails;
-    
+
     // Only update avatar_url if provided
     if (avatar_url) {
       updateData.avatar_url = avatar_url;
     }
-    
+
     await knex('user')
       .where('id', userId)
       .update(updateData);

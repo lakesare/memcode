@@ -9,7 +9,7 @@ class TtsApi {
   static generateSpeech = async (request, response) => {
     try {
       const { text, voice = 'alloy' } = request.body;
-      
+
       if (!text) {
         return response.validation(['Text is required']);
       }
@@ -25,12 +25,12 @@ class TtsApi {
         input: text.substring(0, 100), // Ensure we don't exceed limits
         speed: 1
       });
-      
+
       const buffer = Buffer.from(await ttsResponse.arrayBuffer());
-      
+
       response.set('Content-Type', 'audio/mpeg');
       response.send(buffer);
-      
+
     } catch (error) {
       console.error('TTS Error:', error);
       response.error('Failed to generate speech');

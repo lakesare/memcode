@@ -7,7 +7,7 @@ const update = async (request, response) => {
 
   const problem = await knex('problem').where({ id }).first();
   await mustBeAuthorOrCoauthor(problem.courseId, request.currentUser);
-  
+
   await knex('problem').where({ id }).update({
     type: problemData.type,
     content: problemData.content

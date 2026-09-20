@@ -27,9 +27,9 @@ const signup = async (request, response) => {
 
   // Check if username already exists (for password users: oauthProvider='password', oauthId=username)
   const existingUserByUsername = await knex('user')
-    .where({ 
+    .where({
       oauthProvider: 'password',
-      oauthId: username 
+      oauthId: username
     })
     .first();
   if (existingUserByUsername) {
@@ -38,7 +38,7 @@ const signup = async (request, response) => {
 
   // Check if email already exists among password users
   const existingUserByEmail = await knex('user')
-    .where({ 
+    .where({
       email,
       oauthProvider: 'password'
     })
@@ -50,7 +50,7 @@ const signup = async (request, response) => {
   // Hash password and create user
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);
-  
+
   const [dbUser] = await knex('user')
     .insert({
       oauthProvider: 'password',
@@ -66,7 +66,7 @@ const signup = async (request, response) => {
 
   // Generate JWT token
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
-  
+
   response.success({ token, user: dbUser });
 };
 

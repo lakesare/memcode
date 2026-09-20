@@ -12,7 +12,7 @@ class TabText extends React.Component {
 
   render = () =>
     <div className="tab-text">
-      <SectionImportFlashcardsFromText 
+      <SectionImportFlashcardsFromText
         courseId={this.props.courseId}
         MyActions={this.props.MyActions}
         onProblemsImported={this.props.onProblemsImported}

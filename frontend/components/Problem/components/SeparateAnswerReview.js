@@ -32,16 +32,16 @@ class SeparateAnswerReview extends React.Component {
 
   render = () =>
     <section className="problem -withSeparateAnswer">
-      <ReadonlyEditor 
-        className="question first-column" 
+      <ReadonlyEditor
+        className="question first-column"
         html={this.props.problemContent.content}
         audioText={TtsService.stripHtml(this.props.problemContent.content)}
       />
 
       {
         this.props.statusOfSolving.status === 'seeingAnswer' ?
-          <ReadonlyEditor 
-            className="answer second-column" 
+          <ReadonlyEditor
+            className="answer second-column"
             html={this.props.problemContent.answer}
             audioText={TtsService.stripHtml(this.props.problemContent.answer)}
           /> :

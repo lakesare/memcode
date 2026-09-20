@@ -12,9 +12,9 @@ const login = async (request, response) => {
 
   // Find password user (oauthProvider='password', oauthId=username)
   const dbUser = await knex('user')
-    .where({ 
+    .where({
       oauthProvider: 'password',
-      oauthId: username 
+      oauthId: username
     })
     .first();
   if (!dbUser) {
@@ -25,7 +25,7 @@ const login = async (request, response) => {
   if (!dbUser.passwordHash) {
     return response.validation('Invalid username or password');
   }
-  
+
   const isValidPassword = await bcrypt.compare(password, dbUser.passwordHash);
   if (!isValidPassword) {
     return response.validation('Invalid username or password');
@@ -33,7 +33,7 @@ const login = async (request, response) => {
 
   // Generate JWT token
   const token = jwt.sign(dbUser, process.env['JWT_SECRET']);
-  
+
   response.success({ token, user: dbUser });
 };
 

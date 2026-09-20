@@ -10,11 +10,11 @@ import shiftKeyTracker from '~/services/capsLockTracker';
 const uploadFile = async (dispatch, file) => {
   // Compress image before upload if it's an image file
   let fileToUpload = file;
-  
+
   if (file.type.startsWith('image/')) {
     // Check if user pressed Shift recently to skip compression (for formulas)
     const shouldSkipCompression = true; // shiftKeyTracker.shouldSkipCompression();
-    
+
     if (shouldSkipCompression) {
       console.log('Skipping compression - Shift was pressed (formula mode)');
     } else {
@@ -26,7 +26,7 @@ const uploadFile = async (dispatch, file) => {
           preserveExif: false, // Remove metadata to save space
           initialQuality: 0.95 // High quality, let dimension reduction do the work
         };
-        
+
         fileToUpload = await imageCompression(file, options);
         console.log(`Image compressed: ${(file.size / 1024 / 1024).toFixed(2)}MB → ${(fileToUpload.size / 1024 / 1024).toFixed(2)}MB`);
       } catch (error) {
@@ -34,7 +34,7 @@ const uploadFile = async (dispatch, file) => {
         // Continue with original file if compression fails
       }
     }
-    
+
     // Reset Shift key tracker after compression decision is made
     shiftKeyTracker.reset();
   }
@@ -104,7 +104,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
 
   // => 'placeholder-624608'
   const randomId = 'placeholder-' + String(Math.floor(Math.random() * 1000000));
-  
+
   // Notify editor component that upload started
   if (editorComponent && editorComponent.addPendingUpload) {
     editorComponent.addPendingUpload(randomId);
@@ -116,7 +116,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
         .retain(selectionAt)
         .insert({ loadingImage: { src: dataUrl, className: 'placeholder-for-loading-image', id: randomId } })
     );
-    
+
     uploadFile(false, file)
       .then((response) => {
         preloadImage(response.url, () => {

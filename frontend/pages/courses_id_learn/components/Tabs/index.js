@@ -56,9 +56,9 @@ class Tabs extends React.Component {
       <TabNavigation currentTab={this.state.currentTab} updateCurrentTab={this.updateCurrentTab}/>
 
       <Loading spe={this.state.speGetPage}>{({ problems, problemUserIsLearnings }) =>
-        <TabContent 
-          currentTab={this.state.currentTab} 
-          problems={problems} 
+        <TabContent
+          currentTab={this.state.currentTab}
+          problems={problems}
           puils={problemUserIsLearnings}
           uiRemoveProblem={this.uiRemoveProblem}
         />

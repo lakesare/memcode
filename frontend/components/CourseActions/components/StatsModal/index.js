@@ -73,7 +73,7 @@ class StatsModal extends React.Component {
   }
 
   render = () =>
-    <TogglerAndModal 
+    <TogglerAndModal
       toggler={this.props.toggler}
       afterOpen={this.handleModalOpen}
     >{() =>

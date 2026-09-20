@@ -195,7 +195,7 @@ class InlinedAnswersReview extends React.Component {
         <div className="ql-container ql-snow">
           <div className="ql-editor" dangerouslySetInnerHTML={{ __html: content }}/>
         </div>
-        <SequenceAudioButton 
+        <SequenceAudioButton
           content={this.props.problemContent.content}
           answerInputs={answerInputs}
           playFullText={isSuccumbed}
@@ -206,7 +206,7 @@ class InlinedAnswersReview extends React.Component {
         <div className="ql-container ql-snow">
           <div className="ql-editor" dangerouslySetInnerHTML={{ __html: this.props.problemContent.explanation }}/>
         </div>
-        <AudioButton 
+        <AudioButton
           text={TtsService.stripHtml(this.props.problemContent.explanation)}
           className="readonly-editor-audio-btn"
         />

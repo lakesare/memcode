@@ -17,7 +17,7 @@ class ShiftKeyTracker {
       }
     });
 
-    // Track keyup events globally  
+    // Track keyup events globally
     document.addEventListener('keyup', (event) => {
       if (event.key === 'Shift') {
         // Shift was released, now set the flag for a brief period
@@ -37,7 +37,7 @@ class ShiftKeyTracker {
   handleShiftRelease() {
     // Set the flag indicating Shift was recently pressed and released
     this.wasRecentlyPressed = true;
-    
+
     // Clear the flag after 3 seconds
     this.timeoutId = setTimeout(() => {
       this.wasRecentlyPressed = false;

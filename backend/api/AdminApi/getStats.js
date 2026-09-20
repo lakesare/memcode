@@ -24,7 +24,7 @@ const getStats = async (request, response) => {
           SELECT reviewed_at as created_at FROM stats_problem_review
         ) all_dates
       )
-      SELECT 
+      SELECT
         months.month,
         COALESCE(users.count, 0) as users_created,
         COALESCE(courses.count, 0) as courses_created,
@@ -60,7 +60,7 @@ const getStats = async (request, response) => {
       WITH days AS (
         SELECT DATE_TRUNC('day', CURRENT_DATE - INTERVAL '1 day' * generate_series(0, 29)) as day
       )
-      SELECT 
+      SELECT
         days.day,
         COALESCE(users.count, 0) as users_created,
         COALESCE(courses.count, 0) as courses_created,
@@ -70,31 +70,31 @@ const getStats = async (request, response) => {
       FROM days
       LEFT JOIN (
         SELECT DATE_TRUNC('day', created_at) as day, COUNT(*) as count
-        FROM "user" 
+        FROM "user"
         WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
         GROUP BY DATE_TRUNC('day', created_at)
       ) users ON days.day = users.day
       LEFT JOIN (
         SELECT DATE_TRUNC('day', created_at) as day, COUNT(*) as count
-        FROM course 
+        FROM course
         WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
         GROUP BY DATE_TRUNC('day', created_at)
       ) courses ON days.day = courses.day
       LEFT JOIN (
         SELECT DATE_TRUNC('day', created_at) as day, COUNT(*) as count
-        FROM problem 
+        FROM problem
         WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
         GROUP BY DATE_TRUNC('day', created_at)
       ) problems ON days.day = problems.day
       LEFT JOIN (
         SELECT DATE_TRUNC('day', reviewed_at) as day, COUNT(*) as count
-        FROM stats_problem_review 
+        FROM stats_problem_review
         WHERE reviewed_at >= CURRENT_DATE - INTERVAL '30 days'
         GROUP BY DATE_TRUNC('day', reviewed_at)
       ) reviews ON days.day = reviews.day
       LEFT JOIN (
         SELECT DATE_TRUNC('day', reviewed_at) as day, COUNT(DISTINCT user_id) as count
-        FROM stats_problem_review 
+        FROM stats_problem_review
         WHERE reviewed_at >= CURRENT_DATE - INTERVAL '30 days'
         GROUP BY DATE_TRUNC('day', reviewed_at)
       ) reviewers ON days.day = reviewers.day

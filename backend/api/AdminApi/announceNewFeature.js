@@ -15,7 +15,7 @@ const announceNewFeature = async (request, response) => {
         .insert({ type, content, ifRead: false, userId: user.id })
         .into('notification')
     ))
-    
+
     // Mark all users as having unseen notifications
     await trx('user').update({ did_see_notifications: false });
   });

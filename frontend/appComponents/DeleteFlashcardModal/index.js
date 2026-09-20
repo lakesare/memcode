@@ -20,7 +20,7 @@ class DeleteFlashcardModal extends React.Component {
 
   apiDeleteProblems = (closeModal) => {
     if (this.state.speDelete.status === 'request') return;
-    
+
     api.post.ProblemApi.deleteMany(
       (spe) => this.setState({ speDelete: spe }),
       { ids: this.props.problemIds }
@@ -49,7 +49,7 @@ class DeleteFlashcardModal extends React.Component {
   }
 
   render = () =>
-    <TogglerAndModal 
+    <TogglerAndModal
       toggler={this.props.toggler}
       afterClose={this.props.onCancel}
     >{(closeModal) =>
@@ -71,7 +71,7 @@ class DeleteFlashcardModal extends React.Component {
             >
               {this.state.speDelete.status === 'request' ? 'Deleting...' : 'Delete'}
             </button>
-            
+
             <button
               type="button"
               className="button -white -move-up-on-hover"

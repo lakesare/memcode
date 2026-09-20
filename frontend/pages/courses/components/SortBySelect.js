@@ -39,7 +39,7 @@ class SortBySelect extends React.Component {
       <button type="button" className="sort-by-dropdown-wrapper standard-dropdown-wrapper">
         {this.possibleValues[this.props.sortBy]}
         <i className="fa fa-caret-down"/>
-      </button> 
+      </button>
     </StandardTooltip>
 }
 

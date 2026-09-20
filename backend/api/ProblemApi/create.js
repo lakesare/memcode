@@ -3,8 +3,7 @@ import { mustBeAuthorOrCoauthor } from '#~/services/auth.js';
 
 const create = async (request, response) => {
   const problem = request.body['problem'];
-  
-  // Authors and coauthors can create problems
+
   await mustBeAuthorOrCoauthor(problem.courseId, request.currentUser);
 
   // Get the current maximum position for this course and assign next position
@@ -12,9 +11,9 @@ const create = async (request, response) => {
     .where({ course_id: problem.courseId })
     .max('position as max_position')
     .first();
-  
+
   const nextPosition = (maxPositionResult?.maxPosition || 0) + 1;
-  
+
   const problemWithPosition = {
     ...problem,
     position: nextPosition

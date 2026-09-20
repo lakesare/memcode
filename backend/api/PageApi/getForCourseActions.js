@@ -4,10 +4,9 @@ import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 const getForCourseActions = async (request, response) => {
   const courseId = request.body['courseId'];
   const currentUser = request.currentUser;
-  
-  // Check if user can read the course
+
   await mustBeAbleToReadCourse(courseId, request.currentUser);
-  
+
   // Get course data
   const course = await knex('course').where({ id: courseId }).first();
 

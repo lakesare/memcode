@@ -11,7 +11,7 @@ const wherePublic = `
 const searchCourses = async (request, response) => {
   const userId = request.currentUser && request.currentUser.id;
   const searchString = `%${request.body.searchString}%`;
-  
+
   const courses = await knex.raw(`
     SELECT
       row_to_json(course.*) AS course,
@@ -36,7 +36,7 @@ const searchCourses = async (request, response) => {
         course.user_id = "user".id
     INNER JOIN
       course_category ON
-        course.course_category_id = course_category.id 
+        course.course_category_id = course_category.id
     LEFT OUTER JOIN
       course_user_is_learning ON (
         course.id = course_user_is_learning.course_id
@@ -74,7 +74,7 @@ const searchCourses = async (request, response) => {
       -- if course is popular - place first
       amount_of_users_learning_this_course DESC
   `, [userId, searchString, searchString, userId, searchString, userId]);
-  
+
   response.success(courses.rows);
 };
 

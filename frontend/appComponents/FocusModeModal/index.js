@@ -100,12 +100,12 @@ class FocusModeModal extends React.Component {
     }
 
     const substring = this.props.Settings.focusedSubstring || '';
-    
+
     // If input is focused but no substring, show all courses
     if (this.state.showMatchingCourses && substring.trim() === '') {
       return this.props.My.courses;
     }
-    
+
     // If there's a substring, always show filtered results (even when not focused)
     if (substring.trim() !== '') {
       return this.props.My.courses.filter((course) => {
@@ -125,12 +125,12 @@ class FocusModeModal extends React.Component {
 
     // Group courses by category and count them
     const categoryMap = {};
-    
+
     this.props.My.courses.forEach((course) => {
       if (course.courseCategory) {
         const categoryId = course.courseCategory.id;
         const categoryName = course.courseCategory.name;
-        
+
         if (!categoryMap[categoryId]) {
           categoryMap[categoryId] = {
             id: categoryId,
@@ -158,14 +158,14 @@ class FocusModeModal extends React.Component {
   renderCourseTitle = (course) => {
     const courseTitle = course.course ? course.course.title : course.title;
     const substring = this.props.Settings.focusedSubstring || '';
-    
+
     if (substring.trim() === '') {
       return courseTitle;
     }
-    
+
     const lowerTitle = courseTitle.toLowerCase();
     const lowerSubstring = substring.toLowerCase();
-    
+
     if (lowerTitle.startsWith(lowerSubstring)) {
       const highlightedPart = courseTitle.substring(0, substring.length);
       const remainingPart = courseTitle.substring(substring.length);
@@ -176,7 +176,7 @@ class FocusModeModal extends React.Component {
         </span>
       );
     }
-    
+
     return courseTitle;
   }
 

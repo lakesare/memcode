@@ -4,8 +4,7 @@ import { mustBeAbleToReadCourse } from '#~/services/auth.js';
 const duplicate = async (request, response) => {
   const userId = request.currentUser.id;
   const courseId = request.body['courseId'];
-  
-  // Check if user can read the course
+
   await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   const oldCourseSql = await knex('course').where({ id: courseId });

@@ -7,7 +7,6 @@ const getReviewFailedPage = async (request, response) => {
   const courseId = request.body['courseId'];
   const problemIds = request.body['problemIds'];
 
-  // Check if user can read the course (throws error if not allowed)
   await mustBeAbleToReadCourse(courseId, request.currentUser);
 
   const courseUserIsLearning = (await knex('courseUserIsLearning')

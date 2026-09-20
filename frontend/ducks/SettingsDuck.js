@@ -86,43 +86,43 @@ const getActions = (dispatch) => ({
     if (key === 'pinnedCourseIds') {
       storageValue = JSON.stringify(value);
     }
-    
+
     // Persist to localStorage
     localStorage.setItem(key, storageValue);
-    
+
     // Apply side effects if any
     if (sideEffects[key]) {
       sideEffects[key](value);
     }
-    
+
     // Dispatch Redux action
     dispatch({ type: UPDATE_SETTING, payload: { key, value } });
   },
-  
+
   // Convenience methods for common operations
   toggleSetting: (key, currentValue) => {
     const actions = getActions(dispatch);
     actions.updateSetting(key, !currentValue);
   },
-  
+
   addPinnedCourse: (courseId, currentIds) => {
     const safeCurrentIds = Array.isArray(currentIds) ? currentIds : [];
     const newIds = [...safeCurrentIds, courseId];
-    
+
     // Persist to localStorage
     localStorage.setItem('pinnedCourseIds', JSON.stringify(newIds));
-    
+
     // Dispatch Redux action
     dispatch({ type: UPDATE_SETTING, payload: { key: 'pinnedCourseIds', value: newIds } });
   },
-  
+
   removePinnedCourse: (courseId, currentIds) => {
     const safeCurrentIds = Array.isArray(currentIds) ? currentIds : [];
     const newIds = safeCurrentIds.filter(id => id !== courseId);
-    
+
     // Persist to localStorage
     localStorage.setItem('pinnedCourseIds', JSON.stringify(newIds));
-    
+
     // Dispatch Redux action
     dispatch({ type: UPDATE_SETTING, payload: { key: 'pinnedCourseIds', value: newIds } });
   }

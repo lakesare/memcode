@@ -59,17 +59,17 @@ class SectionImportFlashcardsFromText extends React.Component {
             this.props.MyActions.createProblem(this.props.courseId, problemId);
           });
         }
-        
+
         // Refresh page state and wait for it to complete
         if (this.props.onProblemsImported) {
           await this.props.onProblemsImported();
         }
-        
+
         // Close modal immediately after page refresh completes
         if (this.props.closeModal) {
           this.props.closeModal();
         }
-        
+
         this.setState({ flashcardsToBeImported: [] });
       })
 
@@ -77,7 +77,7 @@ class SectionImportFlashcardsFromText extends React.Component {
     try {
       await navigator.clipboard.writeText(instructionsForLLM);
       this.setState({ instructionsCopied: true });
-      
+
       // Reset the copied state after 2 seconds
       setTimeout(() => {
         this.setState({ instructionsCopied: false });
@@ -91,7 +91,7 @@ class SectionImportFlashcardsFromText extends React.Component {
     const inputText = event.target.value.trim();
     const flashcardsToBeImported = [];
     const parsingErrors = [];
-    
+
     if (!inputText) {
       this.setState({ flashcardsToBeImported: [], parsingErrors: [] });
       return;
@@ -99,15 +99,15 @@ class SectionImportFlashcardsFromText extends React.Component {
 
     // Split by lines and filter out empty lines
     const lines = inputText.split('\n').filter(line => line.trim());
-    
+
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const lineNumber = i + 1;
       const truncatedLine = line.length > 50 ? line.substring(0, 50) + '...' : line;
-      
+
       // Split by ||| separator
       const parts = line.split('|||').map(part => part.trim());
-      
+
       if (parts.length !== 3) {
         parsingErrors.push({
           lineNumber,
@@ -116,9 +116,9 @@ class SectionImportFlashcardsFromText extends React.Component {
         });
         continue;
       }
-      
+
       const [cardType, question, answer] = parts;
-      
+
       // Check for empty card type only
       if (!cardType) {
         parsingErrors.push({
@@ -128,7 +128,7 @@ class SectionImportFlashcardsFromText extends React.Component {
         });
         continue;
       }
-      
+
       if (cardType === 'cloze-deletion') {
         flashcardsToBeImported.push({
           type: 'inlinedAnswers',
@@ -153,7 +153,7 @@ class SectionImportFlashcardsFromText extends React.Component {
         });
       }
     }
-    
+
     this.setState({ flashcardsToBeImported, parsingErrors });
   }
 
@@ -190,8 +190,8 @@ class SectionImportFlashcardsFromText extends React.Component {
         </h3>
         <ul style={{ listStyle: 'none' }}>
           {this.state.parsingErrors.map((error, index) => (
-            <li key={index} style={{ 
-              color: '#d32f2f', 
+            <li key={index} style={{
+              color: '#d32f2f',
               marginBottom: '4px'
             }}>
               Line {error.lineNumber} (<span style={{ color: 'white' }}>"{error.truncatedLine}"</span>): {error.message}
@@ -220,7 +220,7 @@ class SectionImportFlashcardsFromText extends React.Component {
         </p>
         <p>
           <b>Instructions for LLM</b><br/>
-          Click <button 
+          Click <button
             type="button"
             onClick={this.copyLLMInstructionsToClipboard}
             style={{
@@ -260,7 +260,7 @@ readOnly
       {this.renderParsingErrors()}
       {this.renderCreateFlashcardsButton()}
 
-      <Loading spe={this.state.speImport}/> 
+      <Loading spe={this.state.speImport}/>
 
     </section>
 }
