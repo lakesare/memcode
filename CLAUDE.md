@@ -218,7 +218,6 @@ These were carried over from the old `.eslintrc.cjs`. They are conventions to fo
 - **`hi ? hi : 'else'`** is preferred over `hi || 'else'`.
 - **`export { hi }`** is fine; a default export is not required.
 - **`Page_courses_new`** style naming is intentional for page components - no camelCase enforcement.
-- **Arrow parens omitted** for a single argument: `saveFn => ...`, not `(saveFn) => ...`.
 - **Bracket access is fine** where it reads better: `request.body['course']`.
 - **Single-quoted SQL with `${}`** is intentional - that is pg-promise's interpolation, not a template literal.
 - **Grouped exports on one line** are fine:

@@ -8,22 +8,27 @@ const namespace = 'global.my';
 const SPE_COURSES = `${namespace}.SPE_COURSES`;
 const SPE_CATEGORIES = `${namespace}.SPE_CATEGORIES`;
 
-const setProblem = (state, courseId, problemId, setFn) => {
-  const newState = JSON.parse(JSON.stringify(state));
+const setProblem = (state, courseId, problemId, setFn) => ({
+  ...state,
+  courses: state.courses.map((courseDto) =>
+    courseDto.course.id !== courseId ?
+      courseDto :
+      {
+        ...courseDto,
+        problems: courseDto.problems.map((problem) =>
+          problem.id !== problemId ? problem : setFn(problem)
+        )
+      }
+  )
+});
 
-  const courseDtoIndex = newState.courses.findIndex((courseDto) =>
-    courseDto.course.id === courseId
-  );
-
-  const problems = newState.courses[courseDtoIndex].problems;
-  const problemIndex = problems.findIndex((problem) =>
-    problem.id === problemId
-  );
-  const oldProblem = problems[problemIndex];
-  problems[problemIndex] = setFn(oldProblem);
-
-  return newState;
-};
+const setSpeCourseForActionsPayload = (state, setFn) => ({
+  ...state,
+  speCourseForActions: {
+    ...state.speCourseForActions,
+    payload: setFn(state.speCourseForActions.payload)
+  }
+});
 
 
 const initialState = {
@@ -41,10 +46,10 @@ const reducer = (state = initialState, action) => {
     }
     case `${namespace}.SET`:
       return action.payload;
-    case 'SET_SPE_GET_COURSE': {
+    case `${namespace}.SET_SPE_GET_COURSE`: {
       return { ...state, speCourseForActions: action.payload };
     }
-    case 'RESET_SPE_COURSES': {
+    case `${namespace}.RESET_SPE_COURSES`: {
       return { ...state, speCourses: {} };
     }
     case SPE_COURSES: {
@@ -56,99 +61,101 @@ const reducer = (state = initialState, action) => {
     }
     // COURSES
     case `${namespace}.START_LEARNING_COURSE`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const currentUser = action.payload.currentUser;
       const courseUserIsLearning = action.payload.courseUserIsLearning;
 
-      newState.speCourseForActions.payload.learners.push(currentUser);
-      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-
-      return newState;
+      return setSpeCourseForActionsPayload(state, (payload) => ({
+        ...payload,
+        learners: [...payload.learners, currentUser],
+        courseUserIsLearning
+      }));
     }
     case `${namespace}.STOP_LEARNING_COURSE`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const courseUserIsLearning = action.payload.courseUserIsLearning;
       const currentUser = action.payload.currentUser;
 
-      const courseDtoIndex = state.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseUserIsLearning.courseId
-      );
+      const stateWithoutCourse = {
+        ...state,
+        courses: state.courses.filter((courseDto) =>
+          courseDto.course.id !== courseUserIsLearning.courseId
+        )
+      };
 
-      newState.courses.splice(courseDtoIndex, 1);
-      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-      newState.speCourseForActions.payload.learners = newState.speCourseForActions.payload.learners.filter((learner) => learner.id !== currentUser.id);
-
-      return newState;
+      return setSpeCourseForActionsPayload(stateWithoutCourse, (payload) => ({
+        ...payload,
+        courseUserIsLearning,
+        learners: payload.learners.filter((learner) => learner.id !== currentUser.id)
+      }));
     }
     case `${namespace}.RESUME_LEARNING_COURSE`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const courseUserIsLearning = action.payload.courseUserIsLearning;
       const currentUser = action.payload.currentUser;
 
-      newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-      newState.speCourseForActions.payload.learners.push(currentUser);
-
-      return newState;
+      return setSpeCourseForActionsPayload(state, (payload) => ({
+        ...payload,
+        courseUserIsLearning,
+        learners: [...payload.learners, currentUser]
+      }));
     }
     // [claude comment] MyModel reads the review schedule off the dto, so mirror it there too
     case `${namespace}.UPDATE_COURSE_USER_IS_LEARNING`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const courseUserIsLearning = action.payload.courseUserIsLearning;
 
-      const courseDtoIndex = newState.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseUserIsLearning.courseId
-      );
-      if (courseDtoIndex !== -1) {
-        newState.courses[courseDtoIndex].repeatEveryHours = courseUserIsLearning.repeatEveryHours;
-      }
-      if (newState.speCourseForActions.payload) {
-        newState.speCourseForActions.payload.courseUserIsLearning = courseUserIsLearning;
-      }
+      const stateWithNewSchedule = {
+        ...state,
+        courses: state.courses.map((courseDto) =>
+          courseDto.course.id !== courseUserIsLearning.courseId ?
+            courseDto :
+            { ...courseDto, repeatEveryHours: courseUserIsLearning.repeatEveryHours }
+        )
+      };
 
-      return newState;
+      if (state.speCourseForActions.payload) {
+        return setSpeCourseForActionsPayload(stateWithNewSchedule, (payload) => ({
+          ...payload,
+          courseUserIsLearning
+        }));
+      } else {
+        return stateWithNewSchedule;
+      }
     }
     // PROBLEM CRUD
     case `${namespace}.CREATE_PROBLEM`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
-
-      const courseDtoIndex = newState.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseId
-      );
 
       // We need to be using .amountOfProblems too, because people who don't yet learn the current course don't have My.courses data structure :-)
-      newState.speCourseForActions.payload.amountOfProblems += 1;
+      const stateWithNewCount = setSpeCourseForActionsPayload(state, (payload) => ({
+        ...payload,
+        amountOfProblems: payload.amountOfProblems + 1
+      }));
 
-      // Not learning course
-      if (courseDtoIndex === -1) return newState;
-
-      const newProblem = {
-        id: problemId,
-        _learned: false
+      return {
+        ...stateWithNewCount,
+        courses: stateWithNewCount.courses.map((courseDto) =>
+          courseDto.course.id !== courseId ?
+            courseDto :
+            { ...courseDto, problems: [...courseDto.problems, { id: problemId, _learned: false }] }
+        )
       };
-
-      newState.courses[courseDtoIndex].problems.push(newProblem);
-      return newState;
     }
     case `${namespace}.DELETE_PROBLEM`: {
-      const newState = JSON.parse(JSON.stringify(state));
       const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
 
-      newState.speCourseForActions.payload.amountOfProblems -= 1;
+      const stateWithNewCount = setSpeCourseForActionsPayload(state, (payload) => ({
+        ...payload,
+        amountOfProblems: payload.amountOfProblems - 1
+      }));
 
-      const courseDtoIndex = state.courses.findIndex((courseDto) =>
-        courseDto.course.id === courseId
-      );
-
-      // Not learning course
-      if (courseDtoIndex === -1) return newState;
-
-      const problems = newState.courses[courseDtoIndex].problems;
-      const newProblems = problems.filter((problem) => problem.id !== problemId);
-      newState.courses[courseDtoIndex].problems = newProblems;
-      return newState;
+      return {
+        ...stateWithNewCount,
+        courses: stateWithNewCount.courses.map((courseDto) =>
+          courseDto.course.id !== courseId ?
+            courseDto :
+            { ...courseDto, problems: courseDto.problems.filter((problem) => problem.id !== problemId) }
+        )
+      };
     }
     // PROBLEM REVIEW
     case `${namespace}.LEARN_PROBLEM`: {
@@ -244,7 +251,7 @@ const getActions = (dispatch, getState) => ({
     api.get.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }), {})
       .then(() => {
         setTimeout(() => {
-          dispatch({ type: 'RESET_SPE_COURSES' });
+          dispatch({ type: `${namespace}.RESET_SPE_COURSES` });
         }, 200);
       });
   },
@@ -260,7 +267,7 @@ const getActions = (dispatch, getState) => ({
 
     if (!isAlreadyLoadedCourse) {
       api.get.PageApi.getForCourseActions(
-        (spe) => dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe }),
+        (spe) => dispatch({ type: `${namespace}.SET_SPE_GET_COURSE`, payload: spe }),
         { courseId }
       );
     }
@@ -275,7 +282,7 @@ const getActions = (dispatch, getState) => ({
     dispatch({ type: `${namespace}.RESUME_LEARNING_COURSE`, payload: { courseUserIsLearning, currentUser } });
   },
   setSpeCourseForActions: (spe) => {
-    dispatch({ type: 'SET_SPE_GET_COURSE', payload: spe });
+    dispatch({ type: `${namespace}.SET_SPE_GET_COURSE`, payload: spe });
   },
   reviewProblem: (courseId, problemId, score) => {
     dispatch({ type: `${namespace}.REVIEW_PROBLEM`, payload: { courseId, problemId, score } });
@@ -299,26 +306,6 @@ const getActions = (dispatch, getState) => ({
     dispatch({ type: `${namespace}.UNLEARN_UNIGNORE_PROBLEM`, payload: { courseId, problemId } });
   },
 });
-
-// import { createSelector } from 'reselect'
-
-// const getVisibilityFilter = (state) => state.visibilityFilter
-// const getTodos = (state) => state.todos
-
-
-// export const getVisibleTodos = createSelector(
-//   [getVisibilityFilter, getTodos],
-//   (visibilityFilter, todos) => {
-//     switch (visibilityFilter) {
-//       case 'SHOW_ALL':
-//         return todos
-//       case 'SHOW_COMPLETED':
-//         return todos.filter(t => t.completed)
-//       case 'SHOW_ACTIVE':
-//         return todos.filter(t => !t.completed)
-//     }
-//   }
-// )
 
 const selectors = {};
 
