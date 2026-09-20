@@ -21,7 +21,7 @@ import fetchWrapper from './services/fetchWrapper';
 //   .catch((error) => this.setState({ error }))
 //
 // if it's a GET request - just omit the body argument.
-const commonFetch = (dispatch, method, url, body = undefined) => {
+const commonFetch = (dispatch, method, url, body = undefined, options = {}) => {
   const jwt = localStorage.getItem('jwt');
   return fetchWrapper(
     dispatch,
@@ -31,7 +31,8 @@ const commonFetch = (dispatch, method, url, body = undefined) => {
         'Content-Type': 'application/json',
         ...(jwt ? { Authorization: `Bearer ${jwt}` } : {})
       }),
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
+      ...options
     })
   );
 };

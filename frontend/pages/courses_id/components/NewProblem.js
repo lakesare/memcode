@@ -4,6 +4,17 @@ import api from '~/api';
 import Problem from '~/components/Problem';
 import Loading from '~/components/Loading';
 import switchType from './services/switchType';
+import NewFlashcardDraft from '~/services/NewFlashcardDraft';
+
+const restoreDraft = (courseId) => {
+  const draft = NewFlashcardDraft.read(courseId);
+
+  if (draft) {
+    return { currentProblemType: draft.type, problemContent: draft.content };
+  } else {
+    return { currentProblemType: 'separateAnswer', problemContent: createEmptyEditorState('separateAnswer') };
+  }
+};
 
 const createEmptyEditorState = (type) => {
   switch (type) {
@@ -26,8 +37,7 @@ class NewProblem extends React.Component {
 
   state = {
     speCreateProblem: {},
-    currentProblemType: 'separateAnswer',
-    problemContent: createEmptyEditorState('separateAnswer')
+    ...restoreDraft(this.props.courseId)
   }
 
   componentDidMount = () => {
@@ -72,6 +82,7 @@ class NewProblem extends React.Component {
       _optimistic_id: optimisticId
     };
     this.props.uiAddOptimisticProblem(optimisticProblem);
+    NewFlashcardDraft.clear(this.props.courseId);
     this.setState({
       problemContent: createEmptyEditorState(this.state.currentProblemType)
     });
@@ -86,14 +97,14 @@ class NewProblem extends React.Component {
   }
 
   updateProblemContent = (problemContent) => {
+    NewFlashcardDraft.write(this.props.courseId, this.state.currentProblemType, problemContent);
     this.setState({ problemContent, speCreateProblem: {} });
   }
 
   updateType = (newType) => {
-    this.setState({
-      currentProblemType: newType,
-      problemContent: switchType(this.state.problemContent, newType)
-    });
+    const problemContent = switchType(this.state.problemContent, newType);
+    NewFlashcardDraft.write(this.props.courseId, newType, problemContent);
+    this.setState({ currentProblemType: newType, problemContent });
   }
 
   renderTypeButton = (type, typeInHuman) =>

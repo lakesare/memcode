@@ -57,10 +57,27 @@ class OldProblem extends React.Component {
       this.setState({ mode: 'edit' });
     }, 500);
     document.addEventListener('keydown', this.saveOnCmdS, false);
+    window.addEventListener('pagehide', this.saveOnLeavingThePage);
   }
 
+  // [claude comment] clicking a <Link/> unmounts this flashcard without ever blurring its editor, so an unsaved edit is saved on the way out
   componentWillUnmount = () => {
     document.removeEventListener('keydown', this.saveOnCmdS, false);
+    window.removeEventListener('pagehide', this.saveOnLeavingThePage);
+    if (this.didProblemContentChange()) {
+      this.apiSave();
+    }
+  }
+
+  // [claude comment] closing the tab kills an ordinary fetch mid-flight - keepalive is what lets this one outlive the page
+  saveOnLeavingThePage = () => {
+    if (this.didProblemContentChange() && !this.state.uploadsPending) {
+      api.post.ProblemApi.update(
+        null,
+        { id: this.props.problem.id, problem: this.props.problem },
+        { keepalive: true }
+      );
+    }
   }
 
   saveOnCmdS = (event) => {

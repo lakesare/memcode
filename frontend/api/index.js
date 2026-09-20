@@ -12,11 +12,11 @@ import commonFetch from './commonFetch';
 import hashToQueryString from './services/hashToQueryString';
 
 const fetchFunctionCreator = (controllerName, methodName, method) =>
-  (dispatch, body) => {
+  (dispatch, body, options) => {
     if (method === "POST") {
       return commonFetch(dispatch || false,
         'POST', `/api/${controllerName}.${methodName}`,
-        body
+        body, options
       );
     } else if (method === "GET") {
       return commonFetch(dispatch || false,
