@@ -1,6 +1,7 @@
 import router from '#~/router.js';
 import catchAsync from '#~/services/catchAsync.js';
 
+import TtsApi                   from '#~/api/TtsApi/index.js';
 import UserApi                  from '#~/api/UserApi/index.js';
 import AuthApi                  from '#~/api/AuthApi/index.js';
 import PageApi                  from '#~/api/PageApi/index.js';
@@ -11,34 +12,29 @@ import NotificationApi          from '#~/api/NotificationApi/index.js';
 import CourseCategoryApi        from '#~/api/CourseCategoryApi/index.js';
 import CourseUserIsLearningApi  from '#~/api/CourseUserIsLearningApi/index.js';
 import ProblemUserIsLearningApi from '#~/api/ProblemUserIsLearningApi/index.js';
-import TtsApi                   from '#~/controllers/TtsApi.js';
 
-const getApiClass = (controllerName) => {
-  switch (controllerName) {
-    case 'UserApi':                  return UserApi;
-    case 'AuthApi':                  return AuthApi;
-    case 'PageApi':                  return PageApi;
-    case 'AdminApi':                 return AdminApi;
-    case 'CourseApi':                return CourseApi;
-    case 'ProblemApi':               return ProblemApi;
-    case 'NotificationApi':          return NotificationApi;
-    case 'CourseCategoryApi':        return CourseCategoryApi;
-    case 'CourseUserIsLearningApi':  return CourseUserIsLearningApi;
-    case 'ProblemUserIsLearningApi': return ProblemUserIsLearningApi;
-    case 'TtsApi':                   return TtsApi;
-  }
+const apis = {
+  TtsApi, UserApi, AuthApi, PageApi, AdminApi, CourseApi, ProblemApi,
+  NotificationApi, CourseCategoryApi, CourseUserIsLearningApi,
+  ProblemUserIsLearningApi
 };
 
-router.post('/api/:controllerName.:methodName', catchAsync(async (request, response, next) => {
-  const SomeApi = getApiClass(request.params.controllerName);
-  await SomeApi[request.params.methodName](request, response, next);
-}));
+const callApiMethod = (ifGet) =>
+  catchAsync(async (request, response, next) => {
+    if (ifGet) { request.body = request.query; }
 
-router.get('/api/:controllerName.:methodName', catchAsync(async (request, response, next) => {
-  request.body = request.query;
-  const SomeApi = getApiClass(request.params.controllerName);
-  await SomeApi[request.params.methodName](request, response, next);
-}));
+    const { controllerName, methodName } = request.params;
+    const SomeApi = Object.hasOwn(apis, controllerName) ? apis[controllerName] : null;
+
+    if (SomeApi && Object.hasOwn(SomeApi, methodName)) {
+      await SomeApi[methodName](request, response, next);
+    } else {
+      response.error(`No such api method: ${controllerName}.${methodName}`);
+    }
+  });
+
+router.post('/api/:controllerName.:methodName', callApiMethod(false));
+router.get('/api/:controllerName.:methodName', callApiMethod(true));
 
 // MUST STAY AS STANDARD URLS
 // BECAUSE: oauth callbacks
