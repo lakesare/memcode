@@ -1,7 +1,5 @@
 /node_modules
 
-# we could rename this folder to /webpackedFiles at some point
-/backend/webpacked/**
 /frontend/webpackedFiles/*
 
 /env.js
