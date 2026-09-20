@@ -5,7 +5,7 @@ import SettingsDuck from '~/ducks/SettingsDuck';
 import Select from '~/components/Select';
 import { TextInput, FileInput, Select as FormSelect } from '~/components/_standardForm';
 import Loading from '~/components/Loading';
-import { AuthenticationActions } from '~/reducers/Authentication';
+import AuthenticationDuck from '~/ducks/AuthenticationDuck';
 import api from '~/api';
 import uploadAvatar from '~/services/uploadAvatar';
 import getUserAvatar from '~/services/getUserAvatar';
@@ -14,14 +14,13 @@ import css from './index.scss';
 
 class SettingsModal extends React.Component {
   static propTypes = {
-    toggler:              PropTypes.element.isRequired,
-    My:                   PropTypes.object.isRequired,
-    Settings:             PropTypes.object.isRequired,
-    MyActions:            PropTypes.object.isRequired,
-    SettingsActions:      PropTypes.object.isRequired,
-    currentUser:          PropTypes.object.isRequired,
-    signOut:              PropTypes.func.isRequired,
-    updateCurrentUser:    PropTypes.func.isRequired,
+    toggler:               PropTypes.element.isRequired,
+    My:                    PropTypes.object.isRequired,
+    Settings:              PropTypes.object.isRequired,
+    MyActions:             PropTypes.object.isRequired,
+    SettingsActions:       PropTypes.object.isRequired,
+    currentUser:           PropTypes.object.isRequired,
+    AuthenticationActions: PropTypes.object.isRequired,
   }
 
   state = {
@@ -177,7 +176,7 @@ class SettingsModal extends React.Component {
             if (speUpdateAccount.payload.token) {
               localStorage.setItem('jwt', speUpdateAccount.payload.token);
             }
-            this.props.updateCurrentUser(speUpdateAccount.payload.user);
+            this.props.AuthenticationActions.updateCurrentUser(speUpdateAccount.payload.user);
             closeModal();
           }
         },
@@ -196,7 +195,7 @@ class SettingsModal extends React.Component {
             if (speUpdateAccount.payload.token) {
               localStorage.setItem('jwt', speUpdateAccount.payload.token);
             }
-            this.props.updateCurrentUser(speUpdateAccount.payload.user);
+            this.props.AuthenticationActions.updateCurrentUser(speUpdateAccount.payload.user);
             closeModal();
           }
         },
@@ -216,7 +215,7 @@ class SettingsModal extends React.Component {
     api.post.UserApi.deleteAccount(
       speDeleteAccount => {
         this.setState({ speDeleteAccount });
-        if (speDeleteAccount.status === 'success') { this.props.signOut(); }
+        if (speDeleteAccount.status === 'success') { this.props.AuthenticationActions.signOut(); }
       },
       {}
     );
@@ -413,7 +412,7 @@ class SettingsModal extends React.Component {
       <button
         type="button"
         className="button -white"
-        onClick={this.props.signOut}
+        onClick={this.props.AuthenticationActions.signOut}
       >
         Sign Out
       </button>
@@ -503,9 +502,8 @@ export default connect(
     Settings:    state.global.Settings
   }),
   dispatch => ({
-    MyActions:         dispatch(MyDuck.getActions),
-    SettingsActions:   SettingsDuck.getActions(dispatch),
-    signOut:           () => AuthenticationActions.signOut(dispatch),
-    updateCurrentUser: user => AuthenticationActions.updateCurrentUser(dispatch, user)
+    MyActions:             dispatch(MyDuck.getActions),
+    SettingsActions:       SettingsDuck.getActions(dispatch),
+    AuthenticationActions: AuthenticationDuck.getActions(dispatch)
   })
 )(SettingsModal);

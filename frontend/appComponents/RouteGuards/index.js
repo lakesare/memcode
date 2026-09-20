@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
 
 import Urls from '~/services/Urls';
-import { AuthenticationActions } from '~/reducers/Authentication';
+import AuthenticationDuck from '~/ducks/AuthenticationDuck';
 import isUserAdmin from '../../../services/isUserAdmin.js';
 
 const useCurrentUser = () =>
@@ -52,7 +52,7 @@ const SignInFromUrlToken = ({ children }) => {
 
   useEffect(() => {
     if (!token) return;
-    AuthenticationActions.signIn(dispatch, token);
+    AuthenticationDuck.getActions(dispatch).signIn(token);
     // Removes the ?token from the url, and allows react-router to refresh
     window.location.replace(window.location.pathname);
   }, [token, dispatch]);
