@@ -154,6 +154,7 @@ class SettingsModal extends React.Component {
     const { profileFormState } = this.state;
     let avatarUrl = null;
 
+    // [claude comment] a failed avatar upload still saves the rest of the profile, just without the new avatar
     try {
       if (profileFormState.avatar && profileFormState.avatar instanceof File) {
         avatarUrl = await uploadAvatar(
@@ -161,47 +162,30 @@ class SettingsModal extends React.Component {
           profileFormState.avatar
         );
       }
-
-      const updateData = {
-        username:                     profileFormState.username,
-        email:                        profileFormState.email,
-        isSubscribedToMarketingEmails: profileFormState.isSubscribedToMarketingEmails === 'true'
-      };
-      if (avatarUrl) { updateData.avatar_url = avatarUrl; }
-
-      api.post.UserApi.updateAccount(
-        speUpdateAccount => {
-          this.setState({ speUpdateAccount });
-          if (speUpdateAccount.status === 'success') {
-            if (speUpdateAccount.payload.token) {
-              localStorage.setItem('jwt', speUpdateAccount.payload.token);
-            }
-            this.props.AuthenticationActions.updateCurrentUser(speUpdateAccount.payload.user);
-            closeModal();
-          }
-        },
-        updateData
-      );
     } catch (error) {
-      const updateData = {
-        username:                     profileFormState.username,
-        email:                        profileFormState.email,
-        isSubscribedToMarketingEmails: profileFormState.isSubscribedToMarketingEmails === 'true'
-      };
-      api.post.UserApi.updateAccount(
-        speUpdateAccount => {
-          this.setState({ speUpdateAccount });
-          if (speUpdateAccount.status === 'success') {
-            if (speUpdateAccount.payload.token) {
-              localStorage.setItem('jwt', speUpdateAccount.payload.token);
-            }
-            this.props.AuthenticationActions.updateCurrentUser(speUpdateAccount.payload.user);
-            closeModal();
-          }
-        },
-        updateData
-      );
+      console.error(error);
     }
+
+    const updateData = {
+      username:                      profileFormState.username,
+      email:                         profileFormState.email,
+      isSubscribedToMarketingEmails: profileFormState.isSubscribedToMarketingEmails === 'true'
+    };
+    if (avatarUrl) { updateData.avatar_url = avatarUrl; }
+
+    api.post.UserApi.updateAccount(
+      speUpdateAccount => {
+        this.setState({ speUpdateAccount });
+        if (speUpdateAccount.status === 'success') {
+          if (speUpdateAccount.payload.token) {
+            localStorage.setItem('jwt', speUpdateAccount.payload.token);
+          }
+          this.props.AuthenticationActions.updateCurrentUser(speUpdateAccount.payload.user);
+          closeModal();
+        }
+      },
+      updateData
+    );
   }
 
   handleProfileCancel = closeModal => {
