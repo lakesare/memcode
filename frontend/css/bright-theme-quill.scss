@@ -16,6 +16,16 @@ body.-bright-editor-theme{
     }
   }
 
+  // [claude comment] both classes live on <body>, so this block is the bright-page + bright-editor combination - the transparent toolbar now sits on a bright page, where white icons are invisible
+  &.-bright-theme section.problem .ql-toolbar{
+    .ql-stroke{ stroke: rgb(118, 100, 86); }
+    .ql-stroke-miter{ stroke: rgb(118, 100, 86); }
+    .ql-fill, .ql-stroke.ql-fill{ fill: rgb(118, 100, 86); }
+    button{
+      color: rgb(118, 100, 86);
+    }
+  }
+
   .ql-editor{
     border-radius: 10px !important;
   }
