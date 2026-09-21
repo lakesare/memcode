@@ -84,6 +84,14 @@
       color: rgb(238, 236, 246) !important;
       background: rgba(21, 23, 45, 0.38) !important;
       padding: 4px 16px;
+
+      // [claude comment] quill makes every quote line its own <blockquote>, so vertical padding is dropped between consecutive quote lines - otherwise pressing enter adds 8px of gap and splits the background into separate boxes
+      & + blockquote{
+        padding-top: 0;
+      }
+      &:has(+ blockquote){
+        padding-bottom: 0;
+      }
     }
 
     img{
