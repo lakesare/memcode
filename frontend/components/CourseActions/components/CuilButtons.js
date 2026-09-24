@@ -12,6 +12,7 @@ import LearningSettingsModal from './LearningSettingsModal';
 import MakeAllDueModal from './MakeAllDueModal';
 import ImportExportModal from '~/appComponents/ImportExportModal';
 import EditFlashcardModal from '~/appComponents/EditFlashcardModal';
+import DeleteFlashcardModal from '~/appComponents/DeleteFlashcardModal';
 
 class CuilButtons extends React.Component {
   static propTypes = {
@@ -39,6 +40,7 @@ class CuilButtons extends React.Component {
     SettingsActions: PropTypes.object.isRequired,
     currentProblem: PropTypes.object,
     updateCurrentProblem: PropTypes.func,
+    ignoreCurrentFlashcard: PropTypes.func,
     type: PropTypes.string.isRequired,
     canIEditCourse: PropTypes.bool,
     restartReview: PropTypes.func,
@@ -446,6 +448,32 @@ class CuilButtons extends React.Component {
               Unlearn this flashcard
             </div>
           </button>
+        </li>
+      }
+
+      {
+        this.props.currentProblem &&
+        this.props.canIEditCourse &&
+        <li>
+          <DeleteFlashcardModal
+            problemIds={[this.props.currentProblem.id]}
+            onDelete={() => {
+              this.props.MyActions.deleteProblem(this.props.courseDto.course.id, this.props.currentProblem.id);
+              this.props.ignoreCurrentFlashcard();
+            }}
+            toggler={
+              <button
+                type="button"
+                style={{ color: 'rgb(252, 126, 126)' }}
+                onClick={this.closeDropdown}
+              >
+                <div className="text">Delete</div>
+                <div className="comment -white">
+                  Permanently delete this flashcard
+                </div>
+              </button>
+            }
+          />
         </li>
       }
     </ul>
