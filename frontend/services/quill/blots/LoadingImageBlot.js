@@ -1,11 +1,15 @@
 import Quill from 'quill';
 
-const BlockEmbed = Quill.import('blots/block/embed');
-class LoadingImageBlot extends BlockEmbed {
-  static create({ src, className, id }) {
-    // node is a <section>
+const { EmbedBlot } = Quill.import('parchment');
+
+// [claude comment] an inline embed like quill's own image blot, so the placeholder sits inside the same <p> the uploaded image ends up in and the editor keeps the same height when the upload finishes
+class LoadingImageBlot extends EmbedBlot {
+  static blotName = 'loadingImage';
+  static tagName = 'span';
+  static className = 'placeholder-for-loading-image';
+
+  static create({ src, id }) {
     const node = super.create();
-    node.setAttribute('class', className);
     node.setAttribute('data-id', id);
 
     const img = document.createElement('img');
@@ -19,12 +23,9 @@ class LoadingImageBlot extends BlockEmbed {
   static value(node) {
     return {
       src: node.querySelector('img').getAttribute('src'),
-      className: node.getAttribute('class'),
       id: node.getAttribute('data-id')
     };
   }
 }
-LoadingImageBlot.blotName = 'loadingImage';
-LoadingImageBlot.tagName = 'section';
 
 export default LoadingImageBlot;

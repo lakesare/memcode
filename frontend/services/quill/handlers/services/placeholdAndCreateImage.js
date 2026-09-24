@@ -72,7 +72,7 @@ const findLiveQuillFor = (el) => {
 
 // [claude comment] saving a card mid-upload moves the placeholder into a brand new editor, which for the first instants is a readonly <Problem mode='show'/> with no Quill of its own - so keep looking for a live one for a while
 const replacePlaceholderWithImage = (randomId, url, onDone, attemptsLeft = 50) => {
-  const el = document.querySelector(`section.placeholder-for-loading-image[data-id="${randomId}"]`);
+  const el = document.querySelector(`.placeholder-for-loading-image[data-id="${randomId}"]`);
   const liveQuill = el ? findLiveQuillFor(el) : null;
 
   if (!liveQuill) {
@@ -114,7 +114,7 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
     quill.updateContents(
       new Delta()
         .retain(selectionAt)
-        .insert({ loadingImage: { src: dataUrl, className: 'placeholder-for-loading-image', id: randomId } })
+        .insert({ loadingImage: { src: dataUrl, id: randomId } })
     );
 
     uploadFile(false, file)

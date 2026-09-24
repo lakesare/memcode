@@ -1,6 +1,9 @@
 // placeholder for when image is uploading.
 // fades in and out, has a spinning loading icon.
-section.placeholder-for-loading-image{
+.placeholder-for-loading-image{
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: top;
   cursor: progress;
   pointer-events: none;
   img{
