@@ -203,6 +203,24 @@
             }
           }
         }
+        > li.-fixed-interval-label{
+          > div.stat{
+            padding-right: 0;
+            > .course-label{
+              padding: 6px;
+              font-size: 10px;
+              letter-spacing: 0.5px;
+              cursor: default;
+              border-radius: 2px;
+              color: rgb(120, 175, 244);
+              background: rgba(76, 138, 236, 0.18);
+              body.-bright-theme &{
+                color: rgb(38, 96, 196);
+                background: rgba(76, 138, 236, 0.15);
+              }
+            }
+          }
+        }
         > li.course-star-rating{
           min-height: 28px;
           > div.stat{

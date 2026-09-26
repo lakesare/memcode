@@ -1,9 +1,16 @@
+import dayjs from 'dayjs';
 import orFalse from '~/services/orFalse';
 import pluralize from '~/services/pluralize';
 import MyModel from '~/models/MyModel';
 
 import ReadonlyEditor from '~/components/ReadonlyEditor';
+import StandardTooltip from '~/components/StandardTooltip';
 import StatsModal from '../components/StatsModal';
+
+const repeatEveryHoursToLabel = (hours) => {
+  const { amount, measure } = MyModel.dateToDueIn(dayjs().add(hours, 'hour'), { shortHours: true });
+  return measure === 'h' ? `${amount}h` : `${amount} ${measure}`;
+};
 
 class CourseDescriptionAndStats extends React.Component {
   static propTypes = {
@@ -61,6 +68,23 @@ class CourseDescriptionAndStats extends React.Component {
     );
   }
 
+  renderFixedIntervalLabel = () => {
+    const cuil = this.props.courseDto.courseUserIsLearning;
+    if (!cuil || !cuil.active || !cuil.repeatEveryHours) {
+      return null;
+    }
+    return <li className="-fixed-interval-label">
+      <div className="stat">
+        <StandardTooltip
+          tooltipEl={`This course is on a fixed review schedule, you will be asked to review the flashcards every ${cuil.repeatEveryHours} ${pluralize(cuil.repeatEveryHours, 'hour', 'hours')}.`}
+          tooltipProps={{ placement: 'bottom' }}
+        >
+          <div className="course-label -fixed-interval">FIXED INTERVAL ({repeatEveryHoursToLabel(cuil.repeatEveryHours)})</div>
+        </StandardTooltip>
+      </div>
+    </li>;
+  }
+
   render = () =>
     <section className="course-description-and-stats">
       <div className="container">
@@ -70,6 +94,8 @@ class CourseDescriptionAndStats extends React.Component {
         />
 
         <ul className="course-stats">
+          {this.renderFixedIntervalLabel()}
+
           {
             this.props.courseDto.courseUserIsLearning &&
             this.props.courseDto.courseUserIsLearning.active &&

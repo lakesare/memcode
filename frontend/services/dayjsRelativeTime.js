@@ -10,7 +10,7 @@ dayjs.extend(relativeTime, {
     { l: 'mm', r: 44, d: 'minute' },
     { l: 'h',  r: 89 },
     { l: 'hh', r: 47, d: 'hour' },
-    { l: 'dd', r: 25, d: 'day' },
+    { l: 'dd', r: 29, d: 'day' },
     { l: 'M',  r: 45 },
     { l: 'MM', r: 10, d: 'month' },
     { l: 'y',  r: 17 },

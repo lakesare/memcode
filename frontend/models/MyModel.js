@@ -14,9 +14,15 @@ const getProblemsToReview = (dto) =>
     repetitions.problemsDueNow(getLearnedProblems(dto), dto.repeatEveryHours) :
     dto.problems.filter(isProblemToReview);
 
-const dateToDueIn = (date) => {
+// => { amount: '5', measure: 'hours' }
+// => { amount: '5', measure: 'h' } with { shortHours: true }
+const dateToDueIn = (date, { shortHours = false } = {}) => {
   const [amount, measure] = dayjs(date).from(dayjs(), true).split(' ');
-  return { amount, measure };
+  if (shortHours && (measure === 'hour' || measure === 'hours')) {
+    return { amount, measure: 'h' };
+  } else {
+    return { amount, measure };
+  }
 };
 
 // [claude comment] when the review pile next grows - a fixed-interval course arrives whole on its next cycle boundary, a spaced repetition one whenever its soonest not-yet-due flashcard comes round. null = nothing more is coming, which for spaced repetition means everything is already waiting
@@ -175,6 +181,7 @@ export default {
   getNextDueProblem,
   getNextDueDateIn,
   nextDueDateInToString,
+  dateToDueIn,
   dtoToCourseCardProps,
   filterCoursesByFocus,
 };
