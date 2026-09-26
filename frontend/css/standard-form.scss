@@ -65,8 +65,8 @@
   &[disabled]{
     cursor: default;
     pointer-events: none;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0) 66%), rgb(170, 160, 247);
-    background-size: 400% 100%, cover;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 33%, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0) 66%);
+    background-size: 400% 100%;
     animation: change 1s linear infinite;
   }
 }

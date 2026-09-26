@@ -1,4 +1,5 @@
 import Select from '~/components/Select';
+import Loading from '~/components/Loading';
 
 import TogglerAndModal from '~/components/TogglerAndModal';
 import api from '~/api';
@@ -16,16 +17,21 @@ class ExportFlashcardsModal extends React.Component {
     courseId: null
   }
 
-  apiMove = () => {
+  apiMove = (closeModal) => {
+    if (!this.state.courseId || this.state.speExport.status === 'request') return;
     const ids = this.props.idsOfCheckedProblems;
     api.post.ProblemApi.moveToCourseMany(
       (spe) => this.setState({ speExport: spe }),
       {
-        problemIds: this.props.idsOfCheckedProblems,
+        problemIds: ids,
         courseId: this.state.courseId
       }
-    );
-    this.props.uiRemoveOldProblems(ids);
+    )
+      .then(() => {
+        closeModal();
+        this.props.uiRemoveOldProblems(ids);
+      })
+      .catch(() => {});
   }
 
   renderSelect = () =>
@@ -48,11 +54,13 @@ class ExportFlashcardsModal extends React.Component {
 
           {this.renderSelect()}
 
+          <Loading enabledStatuses={['failure']} spe={this.state.speExport}/>
+
           <button
             type="button"
-            className="button -orange standard-submit-button -move-up-on-hover"
+            className={`button -orange standard-submit-button -move-up-on-hover ${this.state.courseId ? '' : '-disabled'}`}
             onClick={() => this.apiMove(closeModal)}
-            disabled={!this.state.courseId}
+            disabled={this.state.speExport.status === 'request'}
           >
             Move <i style={{ paddingLeft: 6 }} className="fa fa-exchange"/>
           </button>

@@ -4,6 +4,7 @@ import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
 
 import api from '~/api';
 import Roles from '~/services/Roles';
+import MyModel from '~/models/MyModel';
 
 import { DragDropContext, Droppable } from '@hello-pangea/dnd';
 import Main from '~/appComponents/Main';
@@ -194,12 +195,15 @@ class Page_courses_id extends React.Component {
   }
 
   renderOldProblemsToEdit = () => {
-    const createdCoursesForSelect = this.props.My.courses
+    const createdCourseDtos = this.props.My.courses
       .filter((courseDto) => {
         const ifAuthor = courseDto.course.user_id === this.props.currentUser.id;
         const ifCurrentCourse = courseDto.course.id === this.props.courseId;
         return ifAuthor && !ifCurrentCourse;
-      })
+      });
+    const focusedCourseDtos = MyModel.filterCoursesByFocus(createdCourseDtos, this.props.Settings.focusedCategoryId, this.props.Settings.focusedSubstring);
+    const unfocusedCourseDtos = createdCourseDtos.filter((courseDto) => !focusedCourseDtos.includes(courseDto));
+    const createdCoursesForSelect = [...focusedCourseDtos, ...unfocusedCourseDtos]
       .map((courseDto) => ({ value: courseDto.course.id, label: courseDto.course.title }));
 
     return <Loading spe={this.state.speGetProblems} enabledStatuses={['success', 'failure']}>{({ problems }) => {
