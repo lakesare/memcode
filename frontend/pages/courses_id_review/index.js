@@ -37,6 +37,7 @@ class Page_courses_id_review extends React.Component {
     persistent: PropTypes.bool,
     failed: PropTypes.bool,
     getPage: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired,
 
     speGetPage: PropTypes.object.isRequired,
 
@@ -82,8 +83,8 @@ class Page_courses_id_review extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    // [claude comment] /review and /review/failed render the same component, so react-router hands us new props instead of remounting
-    if (prevProps.courseId !== this.props.courseId || prevProps.failed !== this.props.failed) {
+    // [claude comment] restarts the review when you click a REVIEW link to this same course (in "What's next?" or in the header courses dropdown), or switch between /review and /review/failed
+    if (prevProps.location.key !== this.props.location.key) {
       this.props.getPage(this.props.courseId);
       this.props.MyActions.apiGetCourseForActions(this.props.courseId);
     }
