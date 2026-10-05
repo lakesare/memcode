@@ -10,6 +10,7 @@ import superScriptHandler      from '~/services/quill/handlers/superScriptHandle
 import subScriptHandler        from '~/services/quill/handlers/subScriptHandler';
 import formulaHandler        from '~/services/quill/handlers/formulaHandler';
 import { exitInlineFormatOnArrowRight, exitInlineFormatOnArrowLeft } from '~/services/quill/handlers/exitInlineFormatHandler';
+import { exitBlockFormatOnArrowDown, exitBlockFormatOnArrowUp } from '~/services/quill/handlers/exitBlockFormatHandler';
 
 import QuillEditor from '~/components/QuillEditor';
 
@@ -83,6 +84,18 @@ const bindings = {
   exitInlineFormatOnArrowLeft: {
     key: 'ArrowLeft',
     handler: exitInlineFormatOnArrowLeft
+  },
+
+  exitBlockFormatOnArrowDown: {
+    key: 'ArrowDown',
+    format: ['blockquote', 'code-block'],
+    handler: exitBlockFormatOnArrowDown
+  },
+
+  exitBlockFormatOnArrowUp: {
+    key: 'ArrowUp',
+    format: ['blockquote', 'code-block'],
+    handler: exitBlockFormatOnArrowUp
   },
 
   // blurOnEsc: {
