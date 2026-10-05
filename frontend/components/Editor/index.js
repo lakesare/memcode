@@ -261,7 +261,9 @@ class Editor extends React.Component {
     uploader: false,
 
     resize: {
-      modules: ['Resize']
+      modules: ['Resize'],
+      // [claude comment] without this, an image resize isn't saved if the user resizes the image before clicking into the text
+      onActive: () => this.setState({ focusedAtLeastOnce: true })
     },
     moduleDropOrPasteImage: {
       // add a custom image handler
