@@ -9,7 +9,7 @@ import quoteHandler            from '~/services/quill/handlers/quoteHandler';
 import superScriptHandler      from '~/services/quill/handlers/superScriptHandler';
 import subScriptHandler        from '~/services/quill/handlers/subScriptHandler';
 import formulaHandler        from '~/services/quill/handlers/formulaHandler';
-import exitInlineFormatHandler from '~/services/quill/handlers/exitInlineFormatHandler';
+import { exitInlineFormatOnArrowRight, exitInlineFormatOnArrowLeft } from '~/services/quill/handlers/exitInlineFormatHandler';
 
 import QuillEditor from '~/components/QuillEditor';
 
@@ -77,7 +77,12 @@ const bindings = {
 
   exitInlineFormatOnArrowRight: {
     key: 'ArrowRight',
-    handler: exitInlineFormatHandler
+    handler: exitInlineFormatOnArrowRight
+  },
+
+  exitInlineFormatOnArrowLeft: {
+    key: 'ArrowLeft',
+    handler: exitInlineFormatOnArrowLeft
   },
 
   // blurOnEsc: {
