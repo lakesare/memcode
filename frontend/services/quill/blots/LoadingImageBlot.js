@@ -8,12 +8,13 @@ class LoadingImageBlot extends EmbedBlot {
   static tagName = 'span';
   static className = 'placeholder-for-loading-image';
 
-  static create({ src, id }) {
+  static create({ src, id, width }) {
     const node = super.create();
     node.setAttribute('data-id', id);
 
     const img = document.createElement('img');
     img.setAttribute('src', src);
+    if (width) img.setAttribute('width', width);
     node.appendChild(img);
 
     return node;
@@ -22,8 +23,9 @@ class LoadingImageBlot extends EmbedBlot {
   // That's for reinitialising it from html (from backend) -> into Quill again
   static value(node) {
     return {
-      src: node.querySelector('img').getAttribute('src'),
-      id: node.getAttribute('data-id')
+      src:   node.querySelector('img').getAttribute('src'),
+      id:    node.getAttribute('data-id'),
+      width: node.querySelector('img').getAttribute('width')
     };
   }
 }

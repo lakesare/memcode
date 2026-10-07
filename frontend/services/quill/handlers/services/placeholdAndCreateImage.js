@@ -85,14 +85,21 @@ const replacePlaceholderWithImage = (randomId, url, onDone, attemptsLeft = 50) =
   }
 
   const blot = Quill.find(el);
+  const width = el.querySelector('img').getAttribute('width');
   liveQuill.updateContents(
     new Delta()
       .retain(blot.offset(liveQuill.scroll))
       .delete(1) // [claude comment] deletes the placeholder blot (1 delta position)
-      .insert({ image: url })
+      .insert({ image: url }, width ? { width } : undefined)
   );
   onDone(liveQuill);
 };
+
+// [claude comment] without this, a screenshot taken on a retina screen gets inserted twice as big as the area that was captured
+const getWidthAsOnScreen = (img) =>
+  window.devicePixelRatio > 1 && img.naturalWidth ?
+    String(Math.round(img.naturalWidth / window.devicePixelRatio)) :
+    null;
 
 const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComponent = null } = {}) => {
   // needed for quill.getSelection() to work
@@ -111,39 +118,41 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
   }
 
   fromFileToDataUrl(file, (dataUrl) => {
-    quill.updateContents(
-      new Delta()
-        .retain(selectionAt)
-        .insert({ loadingImage: { src: dataUrl, id: randomId } })
-    );
+    preloadImage(dataUrl, (img) => {
+      quill.updateContents(
+        new Delta()
+          .retain(selectionAt)
+          .insert({ loadingImage: { src: dataUrl, id: randomId, width: getWidthAsOnScreen(img) } })
+      );
 
-    uploadFile(false, file)
-      .then((response) => {
-        preloadImage(response.url, () => {
-          replacePlaceholderWithImage(randomId, response.url, (liveQuill) => {
-            if (editorComponent && editorComponent.removePendingUpload) {
-              editorComponent.removePendingUpload(randomId);
-            }
+      uploadFile(false, file)
+        .then((response) => {
+          preloadImage(response.url, () => {
+            replacePlaceholderWithImage(randomId, response.url, (liveQuill) => {
+              if (editorComponent && editorComponent.removePendingUpload) {
+                editorComponent.removePendingUpload(randomId);
+              }
 
-            if (liveQuill && liveQuill !== quill) {
-              // [claude comment] the new card only learns about the replaced image through a redux dispatch, so let React flush before asking its editor to save
-              setTimeout(() => {
-                const newEditorComponent = findReactComponent(liveQuill.container, (instance) => instance.onBlur && instance.removePendingUpload);
-                if (newEditorComponent) { newEditorComponent.onBlur(); }
-              }, 0);
-            } else {
-              onSuccess();
-            }
+              if (liveQuill && liveQuill !== quill) {
+                // [claude comment] the new card only learns about the replaced image through a redux dispatch, so let React flush before asking its editor to save
+                setTimeout(() => {
+                  const newEditorComponent = findReactComponent(liveQuill.container, (instance) => instance.onBlur && instance.removePendingUpload);
+                  if (newEditorComponent) { newEditorComponent.onBlur(); }
+                }, 0);
+              } else {
+                onSuccess();
+              }
+            });
           });
+        })
+        .catch((error) => {
+          console.error('Image upload failed:', error);
+          // Notify editor component that upload failed (remove from pending)
+          if (editorComponent && editorComponent.removePendingUpload) {
+            editorComponent.removePendingUpload(randomId);
+          }
         });
-      })
-      .catch((error) => {
-        console.error('Image upload failed:', error);
-        // Notify editor component that upload failed (remove from pending)
-        if (editorComponent && editorComponent.removePendingUpload) {
-          editorComponent.removePendingUpload(randomId);
-        }
-      });
+    });
   });
 };
 
