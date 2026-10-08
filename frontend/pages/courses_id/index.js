@@ -3,6 +3,10 @@ import _update from 'lodash/update';
 import injectFromOldToNewIndex from '~/services/injectFromOldToNewIndex';
 
 import api from '~/api';
+import withOfflineFallback from '~/services/offline/withOfflineFallback';
+import offlineFallbacks from '~/services/offline/fallbacks';
+import tempIds from '~/services/offline/tempIds';
+import offlineApi from '~/services/offline/offlineApi';
 import Roles from '~/services/Roles';
 import MyModel from '~/models/MyModel';
 
@@ -78,9 +82,12 @@ class Page_courses_id extends React.Component {
   }
 
   apiGetPage = () => {
-    api.get.PageApi.getCoursePage(
+    const courseId = this.props.courseId;
+    withOfflineFallback(
       (spe) => this.setState({ speGetProblems: spe }),
-      { courseId: this.props.courseId }
+      (dispatchSpe) => api.get.PageApi.getCoursePage(dispatchSpe, { courseId }),
+      () => offlineFallbacks.getCoursePage(courseId),
+      { ifOnlyOffline: tempIds.isTempId(courseId) }
     );
     this.props.MyActions.apiGetCourseForActions(this.props.courseId);
   }
@@ -145,12 +152,13 @@ class Page_courses_id extends React.Component {
   }
 
   apiReorderProblems = () =>
-    api.post.ProblemApi.reorder(
+    offlineApi.ProblemApi.reorder(
       false,
       this.state.speGetProblems.payload.problems.map((problem, index) => ({
         id: problem.id,
         position: index + 1
-      }))
+      })),
+      { courseId: this.props.courseId }
     )
 
   onDragEnd = (result) => {

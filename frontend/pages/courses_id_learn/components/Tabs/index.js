@@ -1,4 +1,7 @@
 import api from '~/api';
+import withOfflineFallback from '~/services/offline/withOfflineFallback';
+import offlineFallbacks from '~/services/offline/fallbacks';
+import tempIds from '~/services/offline/tempIds';
 import { Loading } from '~/components/Loading';
 import { TabNavigation } from './components/TabNavigation';
 import { TabContent } from './components/TabContent';
@@ -26,11 +29,15 @@ class Tabs extends React.Component {
     }
   }
 
-  apiGetProblems = () =>
-    api.get.PageApi.getLearnPage(
+  apiGetProblems = () => {
+    const courseId = this.props.courseId;
+    return withOfflineFallback(
       (spe) => this.setState({ speGetPage: spe }),
-      { courseId: this.props.courseId }
-    )
+      (dispatchSpe) => api.get.PageApi.getLearnPage(dispatchSpe, { courseId }),
+      () => offlineFallbacks.getLearnPage(courseId),
+      { ifOnlyOffline: tempIds.isTempId(courseId) }
+    );
+  }
 
   updateCurrentTab = (tabId) => {
     this.apiGetProblems();

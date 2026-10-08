@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 import Problem from '~/components/Problem';
 import Loading from '~/components/Loading';
 import switchType from './services/switchType';
@@ -87,7 +87,7 @@ class NewProblem extends React.Component {
       problemContent: createEmptyEditorState(this.state.currentProblemType)
     });
 
-    api.post.ProblemApi.create(
+    offlineApi.ProblemApi.create(
       (spe) => this.setState({ speCreateProblem: spe }),
       { problem: problemHash }
     )

@@ -1,0 +1,137 @@
+:local(.local) {
+  .offline-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    cursor: pointer;
+
+    input {
+      appearance: none;
+      flex-shrink: 0;
+      position: relative;
+      width: 36px;
+      height: 20px;
+      margin: 0;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: white;
+      }
+
+      &:checked {
+        background: rgb(148, 156, 248);
+
+        &::before {
+          transform: translateX(16px);
+        }
+      }
+    }
+  }
+
+  .what-is-offline {
+    font-size: 14px;
+
+    .last-synced {
+      margin-top: 4px;
+      font-size: 13px;
+      color: rgba(175, 180, 242, 0.75);
+    }
+  }
+
+  .include-images {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    margin-left: 46px;
+    cursor: pointer;
+
+    input {
+      width: 16px;
+      height: 16px;
+      accent-color: rgb(148, 156, 248);
+      cursor: pointer;
+    }
+  }
+
+  .progress {
+    margin-top: 20px;
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 30px;
+      margin-bottom: 6px;
+      font-size: 13px;
+
+      .failed {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .pause-button {
+        min-width: 0;
+        padding: 6px 14px;
+      }
+    }
+  }
+
+  .queued-changes {
+    margin-top: 20px;
+    font-size: 13px;
+    color: rgb(175, 180, 242);
+  }
+
+  .notices {
+    margin-top: 20px;
+
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px;
+      padding: 8px 10px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      font-size: 13px;
+
+      .text {
+        flex: 1;
+
+        a {
+          color: rgb(175, 180, 242);
+          text-decoration: underline;
+        }
+      }
+
+      .dismiss-button {
+        font-size: 16px;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .error {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #ff6b6b;
+  }
+}

@@ -1,4 +1,4 @@
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 import orFalse from '~/services/orFalse';
 import MyDuck from '~/ducks/MyDuck';
 
@@ -22,9 +22,10 @@ class FlashcardStatus extends React.Component {
   apiUnignore = () => {
     if (this.state.speUnignore.status === 'request') return;
 
-    api.post.ProblemUserIsLearningApi.unlearnUnignoreProblem(
+    offlineApi.ProblemUserIsLearningApi.unlearnUnignoreProblem(
       (speUnignore) => this.setState({ speUnignore }),
-      { id: this.props.puil.id }
+      { id: this.props.puil.id },
+      { courseId: this.props.courseId }
     )
       .then(() => {
         this.props.MyActions.unlearnUnignoreProblem(this.props.courseId, this.props.problemId);

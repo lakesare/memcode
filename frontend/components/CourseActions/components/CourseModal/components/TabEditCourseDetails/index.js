@@ -1,4 +1,4 @@
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 import CourseModel from '~/models/CourseModel';
 
 import Loading from '~/components/Loading';
@@ -24,9 +24,10 @@ class TabEditCourseDetails extends React.Component {
   apiUpdateCourse = () => {
     const formValidation = CourseModel.validateForm(this.state.formState);
     if (formValidation === true) {
-      api.post.CourseApi.updateCourse(
+      offlineApi.CourseApi.updateCourse(
         (spe) => this.setState({ speSave: spe }),
-        { courseId: this.props.course.id, course: this.state.formState }
+        { courseId: this.props.course.id, course: this.state.formState },
+        { courseId: this.props.course.id }
       )
         .then(this.props.uiUpdateCourse)
         .then(() => {

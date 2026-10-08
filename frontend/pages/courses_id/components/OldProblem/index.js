@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
+import hashProblem from '~/../services/hashProblem';
 import orFalse from '~/services/orFalse';
 import isProblemContentTheSame from '~/services/isProblemContentTheSame';
 
@@ -39,6 +40,8 @@ class OldProblem extends React.Component {
   constructor(props) {
     super(props);
     this.uniqueId = _.uniqueId('OldProblem_');
+    // [claude comment] the version the next save is an edit of - the server compares it with what it has, to warn when someone else's edit gets overwritten
+    this.baseProblem = props.problem;
   }
 
   state = {
@@ -72,10 +75,10 @@ class OldProblem extends React.Component {
   // [claude comment] closing the tab kills an ordinary fetch mid-flight - keepalive is what lets this one outlive the page
   saveOnLeavingThePage = () => {
     if (this.didProblemContentChange() && !this.state.uploadsPending) {
-      api.post.ProblemApi.update(
-        null,
-        { id: this.props.problem.id, problem: this.props.problem },
-        { keepalive: true }
+      offlineApi.runOnPageHide(
+        'ProblemApi', 'update',
+        { id: this.props.problem.id, problem: this.props.problem, baseHash: hashProblem(this.baseProblem) },
+        { courseId: this.props.problem.courseId }
       );
     }
   }
@@ -108,16 +111,18 @@ class OldProblem extends React.Component {
       this.setState({ saveQueuedAfterUploads: true });
       return;
     }
-    api.post.ProblemApi.update(
+    const savedProblem = this.props.problem;
+    const baseHash = hashProblem(this.baseProblem);
+    this.baseProblem = savedProblem;
+
+    offlineApi.ProblemApi.update(
       (spe) => this.setState({ speSave: spe }),
-      {
-        id: this.props.problem.id,
-        problem: this.props.problem
-      }
+      { id: savedProblem.id, problem: savedProblem, baseHash },
+      { courseId: savedProblem.courseId }
     )
       .then(() => {
         setTimeout(() => {
-          this.setState({ problemInApi: this.props.problem, speSave: {} });
+          this.setState({ problemInApi: savedProblem, speSave: {} });
         }, 200);
       });
   }
@@ -145,7 +150,7 @@ class OldProblem extends React.Component {
       _optimistic_id: optimisticId
     });
 
-    api.post.ProblemApi.create(
+    offlineApi.ProblemApi.create(
       (spe) => this.setState({ speSave: spe }),
       { problem: problemHash }
     )
@@ -209,6 +214,7 @@ class OldProblem extends React.Component {
         {/* <button className="button" style={{ background: 'rgb(58, 116, 205)' }}>Draft</button> */}
 
         <ExportFlashcardsModal
+          courseId={this.props.problem.courseId}
           toggler={<button type="button" tabIndex={-1} onClick={this.uiCheck} className="button export-button">Export</button>}
           uiRemoveOldProblems={this.props.uiRemoveOldProblems}
           idsOfCheckedProblems={this.props.idsOfCheckedProblems}
@@ -216,6 +222,7 @@ class OldProblem extends React.Component {
         />
 
         <DeleteFlashcardModal
+          courseId={this.props.problem.courseId}
           problemIds={this.props.idsOfCheckedProblems}
           onDelete={() => {
             const ids = this.props.idsOfCheckedProblems;

@@ -17,9 +17,12 @@ const createCourse = async (request, response) => {
     .returning('*'))[0];
 
   // Add to learned courses immediately
-  await knex('courseUserIsLearning').insert({ courseId: course.id, userId: currentUser.id, active: true });
+  const courseUserIsLearning = (await knex('courseUserIsLearning')
+    .insert({ courseId: course.id, userId: currentUser.id, active: true })
+    .returning('*'))[0];
 
-  response.success(course);
+  // [claude comment] a course created offline got a temporary learning record id, which this replaces
+  response.success({ ...course, courseUserIsLearningId: courseUserIsLearning.id });
 };
 
 export default createCourse;

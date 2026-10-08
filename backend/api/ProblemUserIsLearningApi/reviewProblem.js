@@ -10,10 +10,12 @@ const reviewProblem = async (request, response) => {
   await mustOwnCuil(courseUserIsLearningId, request.currentUser);
   const problemId = request.body['problemId'];
   const performanceRating = request.body['performanceRating'];
+  // [claude comment] reviews done offline are sent later, so the client says how long ago the review happened - an age rather than a timestamp, so a wrong phone clock doesn't matter
+  const reviewedMsAgo = Math.max(0, parseInt(request.body['reviewedMsAgo']) || 0);
 
   const puil = (await knex('problemUserIsLearning').where({ courseUserIsLearningId, problemId }))[0];
   const nextScore = getNextScore(puil.easiness, puil.consecutiveCorrectAnswers, performanceRating);
-  const now = dayjs();
+  const reviewedAt = dayjs().subtract(reviewedMsAgo, 'ms');
 
   // [claude comment] a fixed-interval course keeps its own rhythm - how well it went doesn't change when the flashcard comes back (services/repetitions.js)
   const cuil = await knex('courseUserIsLearning').where({ id: courseUserIsLearningId }).first();
@@ -23,10 +25,10 @@ const reviewProblem = async (request, response) => {
       .where({ courseUserIsLearningId, ifIgnored: false });
 
     nextDueDate = repetitions.nextDueDateAfterReview(
-      wholeCourse, puil, cuil.repeatEveryHours, now.valueOf()
+      wholeCourse, puil, cuil.repeatEveryHours, reviewedAt.valueOf()
     );
   } else {
-    nextDueDate = now.add(nextScore.msToNextReview, 'ms').toDate();
+    nextDueDate = reviewedAt.add(nextScore.msToNextReview, 'ms').toDate();
   }
 
   // Update the problem learning record
@@ -36,7 +38,7 @@ const reviewProblem = async (request, response) => {
       easiness: nextScore.easiness,
       consecutiveCorrectAnswers: nextScore.consecutiveCorrectAnswers,
       nextDueDate,
-      lastReviewedAt: now.format()
+      lastReviewedAt: reviewedAt.format()
     })
     .returning('*'))[0];
 
@@ -45,7 +47,7 @@ const reviewProblem = async (request, response) => {
     problem_id: problemId,
     user_id: request.currentUser.id,
     was_correct: performanceRating >= 4, // Same logic as isAnswerCorrect in getNextScore
-    reviewed_at: now.format()
+    reviewed_at: reviewedAt.format()
   });
 
   response.success(updatedPuil);

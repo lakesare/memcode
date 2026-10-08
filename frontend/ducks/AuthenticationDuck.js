@@ -1,4 +1,5 @@
 import jwtToUserObject from '~/services/jwtToUserObject';
+import offlineStorage from '~/services/offline/storage';
 
 const namespace = 'global.authentication';
 
@@ -27,7 +28,8 @@ const getActions = (dispatch) => ({
     localStorage.removeItem('jwt');
     // will issue a silly reflow
     // dispatch({ type: `${namespace}.SET_CURRENT_USER`, payload: null });
-    location.reload();
+    Promise.all([offlineStorage.deleteDownload(), offlineStorage.deleteNotices()])
+      .finally(() => location.reload());
   },
 
   updateCurrentUser: (user) => {

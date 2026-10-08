@@ -14,10 +14,7 @@ const getForCourseActions = async (request, response) => {
   const courseCategory = (await knex('courseCategory').where({ id: course.courseCategoryId }))[0];
   const amountOfProblems = Number.parseInt((await knex('problem').count('id as amount').where({ courseId: course.id }))[0].amount);
 
-  const learners = await knex('user')
-    .select('user.*')
-    .join('courseUserIsLearning', { 'courseUserIsLearning.userId': 'user.id' })
-    .where({ 'courseUserIsLearning.courseId': courseId, active: true });
+  const amountOfLearners = Number.parseInt((await knex('courseUserIsLearning').count('id as amount').where({ courseId, active: true }))[0].amount);
 
   // It's fine to expose emails of already-added users
   const coauthors = await knex('user')
@@ -37,7 +34,7 @@ const getForCourseActions = async (request, response) => {
     courseCategory,
     amountOfProblems,
     coauthors,
-    learners,
+    amountOfLearners,
   });
 };
 

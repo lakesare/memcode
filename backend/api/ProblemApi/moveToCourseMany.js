@@ -26,7 +26,7 @@ const moveToCourseMany = async (request, response) => {
   // 1. Find the flashcards to insert
   const flashcards = await knex('problem').whereIn('id', problemIds)
     .orderBy('position', 'asc')
-    .select('type', 'content');
+    .select('id', 'type', 'content');
 
   // 2. Add sequential positions and courseId to flashcards
   const flashcardsWithPositions = flashcards.map((flashcard, index) => ({
@@ -40,7 +40,8 @@ const moveToCourseMany = async (request, response) => {
   const insertedProblems = await knex('problem').insert(flashcardsWithPositions).returning('*');
 
   // 4. Move the problems user is learning to new course as well (needs to be done before deletion to avoid constraint violation)
-  await movePuils(problemIds, insertedProblems, courseId);
+  // [claude comment] insertedProblems are in position order, so the old ids passed along must be in that same order too
+  const newPuilIdsByOldId = await movePuils(flashcards.map((flashcard) => flashcard.id), insertedProblems, courseId);
 
   // 5. Delete the flashcards from the original course
   await knex('problem').whereIn('id', problemIds).del();
@@ -57,7 +58,11 @@ const moveToCourseMany = async (request, response) => {
 
   await Promise.all(updatePromises);
 
-  response.success();
+  // [claude comment] flashcards moved offline got temporary ids in the new course, which these replace
+  const newIdsByOldId = {};
+  flashcards.forEach((flashcard, index) => { newIdsByOldId[flashcard.id] = insertedProblems[index].id; });
+
+  response.success({ newIdsByOldId, newPuilIdsByOldId });
 };
 
 export default moveToCourseMany;

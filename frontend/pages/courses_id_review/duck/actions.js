@@ -1,6 +1,10 @@
 import api from '~/api';
 import MyDuck from '~/ducks/MyDuck';
 import FailedFlashcardsDuck from '~/ducks/FailedFlashcardsDuck';
+import offlineApi from '~/services/offline/offlineApi';
+import withOfflineFallback from '~/services/offline/withOfflineFallback';
+import offlineFallbacks from '~/services/offline/fallbacks';
+import tempIds from '~/services/offline/tempIds';
 
 import selectors from './selectors';
 
@@ -47,13 +51,14 @@ const enterPressed = () =>
         case 'seeingAnswer': {
           const score = selectors.deriveScore(state, getState().global.Settings.clozeDeletionMode);
           const currentIndex = state.statusOfSolving.index;
-          api.post.ProblemUserIsLearningApi.reviewProblem(
+          offlineApi.ProblemUserIsLearningApi.reviewProblem(
             false,
             {
               id: state.speGetPage.payload.courseUserIsLearning.id,
               problemId: currentProblem.id,
               performanceRating: score
-            }
+            },
+            { courseId: currentProblem.courseId }
           );
           // [claude comment] this review is recorded, so it is also what puts the flashcard on the red FAILED pile or takes it off again
           const FailedFlashcardsActions = FailedFlashcardsDuck.getActions(dispatch, getState);
@@ -159,13 +164,14 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
           }
 
           if (isPersistentReview && score < 5) {
-            api.post.ProblemUserIsLearningApi.reviewProblem(
+            offlineApi.ProblemUserIsLearningApi.reviewProblem(
               false,
               {
                 id: state.speGetPage.payload.courseUserIsLearning.id,
                 problemId: currentProblem.id,
                 performanceRating: score
-              }
+              },
+              { courseId: currentProblem.courseId }
             );
             MyDuck.getActions(dispatch, getState).reviewProblem(currentProblem.courseId, currentProblem.id, score);
             FailedFlashcardsDuck.getActions(dispatch, getState).addProblem(currentProblem.courseId, currentProblem.id);
@@ -184,27 +190,49 @@ const enterPressedInSimulatedReview = (isPersistentReview = false) =>
 const getPage = (courseId, simulated, persistent, failed) =>
   (dispatch, getState) => {
     const setSpe = (spe) => dispatch({ type: 'SET_SPE_GET_PAGE', payload: spe });
+    const options = { ifOnlyOffline: tempIds.isTempId(courseId) };
 
     if (simulated) {
-      return api.get.PageApi.getReviewSimulatedPage(setSpe, { courseId });
+      return withOfflineFallback(
+        setSpe,
+        (dispatchSpe) => api.get.PageApi.getReviewSimulatedPage(dispatchSpe, { courseId }),
+        () => offlineFallbacks.getReviewSimulatedPage(courseId),
+        options
+      );
     } else if (persistent) {
-      return api.get.PageApi.getReviewPersistentPage(setSpe, { courseId });
+      return withOfflineFallback(
+        setSpe,
+        (dispatchSpe) => api.get.PageApi.getReviewPersistentPage(dispatchSpe, { courseId }),
+        () => offlineFallbacks.getReviewPersistentPage(courseId),
+        options
+      );
     } else if (failed) {
       // [claude comment] the pile lives in this browser, so its ids travel to the server rather than the other way round - POST because a query string can't carry an array
       const problemIds = FailedFlashcardsDuck.getProblemIds(getState().global.FailedFlashcards, courseId);
 
-      return api.post.PageApi.getReviewFailedPage(setSpe, { courseId, problemIds })
-        .then((payload) => {
-          // [claude comment] flashcards deleted or ignored since they were failed never come back from the server - drop them here, or the red count could never reach zero
-          const returnedIds = payload.problems.map((problem) => problem.id);
-          const FailedFlashcardsActions = FailedFlashcardsDuck.getActions(dispatch, getState);
+      return withOfflineFallback(
+        setSpe,
+        (dispatchSpe) => api.post.PageApi.getReviewFailedPage(dispatchSpe, { courseId, problemIds })
+          .then((payload) => {
+            // [claude comment] flashcards deleted or ignored since they were failed never come back from the server - drop them here, or the red count could never reach zero (not done offline, the download may just predate the flashcard)
+            const returnedIds = payload.problems.map((problem) => problem.id);
+            const FailedFlashcardsActions = FailedFlashcardsDuck.getActions(dispatch, getState);
 
-          problemIds
-            .filter((problemId) => !returnedIds.includes(problemId))
-            .forEach((problemId) => FailedFlashcardsActions.removeProblem(courseId, problemId));
-        });
+            problemIds
+              .filter((problemId) => !returnedIds.includes(problemId))
+              .forEach((problemId) => FailedFlashcardsActions.removeProblem(courseId, problemId));
+            return payload;
+          }),
+        () => offlineFallbacks.getReviewFailedPage(courseId, problemIds),
+        options
+      );
     } else {
-      return api.get.PageApi.getReviewPage(setSpe, { courseId });
+      return withOfflineFallback(
+        setSpe,
+        (dispatchSpe) => api.get.PageApi.getReviewPage(dispatchSpe, { courseId }),
+        () => offlineFallbacks.getReviewPage(courseId),
+        options
+      );
     }
   };
 

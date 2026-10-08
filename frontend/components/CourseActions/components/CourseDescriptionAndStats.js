@@ -107,8 +107,8 @@ class CourseDescriptionAndStats extends React.Component {
             <StatsModal
               toggler={
                 <a className="stat-line -fade-out-on-hover">
-                  <span className="number">{this.props.courseDto.learners.length}</span>
-                  <span className="label">{pluralize(this.props.courseDto.learners.length, 'student', 'students')}</span>
+                  <span className="number">{this.props.courseDto.amountOfLearners}</span>
+                  <span className="label">{pluralize(this.props.courseDto.amountOfLearners, 'student', 'students')}</span>
                 </a>
               }
               course={this.props.courseDto.course}

@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet';
 import withRouter from '~/services/withRouter';
 
 import api from '~/api';
+import withOfflineFallback from '~/services/offline/withOfflineFallback';
+import offlineFallbacks from '~/services/offline/fallbacks';
 import capitalize from '~/services/capitalize';
 import orFalse from '~/services/orFalse';
 
@@ -34,9 +36,11 @@ class Page_users_id extends React.Component {
   }
 
   apiGetPage = () => {
-    api.get.PageApi.getUserPage(
+    const userId = this.props.match.params.id;
+    withOfflineFallback(
       (spe) => this.setState({ speGetPage: spe }),
-      { userId: this.props.match.params.id }
+      (dispatchSpe) => api.get.PageApi.getUserPage(dispatchSpe, { userId }),
+      () => offlineFallbacks.getUserPage(userId)
     );
   }
 

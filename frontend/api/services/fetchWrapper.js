@@ -13,7 +13,8 @@ const fetchWrapper = (dispatch, fetchPromise) => {
       // ___why should we keep this even though we see network responses anyway?
       //    because nonnetwork errors can get swallowed here just as well.
       console.log(error);
-      if (dispatch) dispatch(speCreator.failure(error));
+      // [claude comment] a TypeError means the request never reached the server - <Loading/> renders spe.error as text, and an Error object would crash it
+      if (dispatch) dispatch(speCreator.failure(error instanceof TypeError ? "Can't reach Memcode - you seem to be offline." : error));
       return Promise.reject(error);
     });
 };

@@ -7,6 +7,7 @@ import MyDuck from '~/ducks/MyDuck';
 import NotificationsDuck from '~/ducks/NotificationsDuck';
 import SettingsDuck from '~/ducks/SettingsDuck';
 import FailedFlashcardsDuck from '~/ducks/FailedFlashcardsDuck';
+import OfflineDuck from '~/ducks/OfflineDuck';
 
 // per-page state
 // [named like: page component name + _Reducer]
@@ -21,6 +22,7 @@ const reducers = combineReducers({
     My: MyDuck.reducer,
     Settings: SettingsDuck.reducer,
     FailedFlashcards: FailedFlashcardsDuck.reducer,
+    Offline: OfflineDuck.reducer,
   }),
 
   // per-page state
@@ -41,5 +43,6 @@ const store = createStore(
 
 // Initialize side effects based on current settings state
 SettingsDuck.initializeSideEffects(store.getState().global.Settings);
+OfflineDuck.initializeSideEffects(store);
 
 export default store;

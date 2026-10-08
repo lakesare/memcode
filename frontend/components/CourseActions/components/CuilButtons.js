@@ -1,5 +1,6 @@
 import orFalse from '~/services/orFalse';
 import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 import FailedFlashcardsDuck from '~/ducks/FailedFlashcardsDuck';
 
 import { Link } from 'react-router';
@@ -417,7 +418,7 @@ class CuilButtons extends React.Component {
             onClick={() => {
               this.props.MyActions.ignoreProblem(this.props.courseDto.course.id, this.props.currentProblem.id);
               this.props.ignoreCurrentFlashcard();
-              api.post.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(() => {}, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id });
+              offlineApi.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(false, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id }, { courseId: this.props.courseDto.course.id });
               this.closeDropdown();
             }}
             style={{ color: 'rgb(120, 175, 244)' }}
@@ -438,7 +439,7 @@ class CuilButtons extends React.Component {
             onClick={() => {
               this.props.MyActions.unlearnUnignoreProblem(this.props.courseDto.course.id, this.props.currentProblem.id);
               this.props.ignoreCurrentFlashcard();
-              api.post.ProblemUserIsLearningApi.unlearnAlreadyLearnedProblem(() => {}, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id });
+              offlineApi.ProblemUserIsLearningApi.unlearnAlreadyLearnedProblem(false, { problemId: this.props.currentProblem.id, cuilId: this.props.courseDto.courseUserIsLearning.id }, { courseId: this.props.courseDto.course.id });
               this.closeDropdown();
             }}
             style={{ color: 'rgb(120, 175, 244)' }}
@@ -456,6 +457,7 @@ class CuilButtons extends React.Component {
         this.props.canIEditCourse &&
         <li>
           <DeleteFlashcardModal
+            courseId={this.props.courseDto.course.id}
             problemIds={[this.props.currentProblem.id]}
             onDelete={() => {
               this.props.MyActions.deleteProblem(this.props.courseDto.course.id, this.props.currentProblem.id);

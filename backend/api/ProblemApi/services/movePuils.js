@@ -20,7 +20,13 @@ const movePuils = async (problemIds, insertedProblems, courseId) => {
   });
 
   //move each puil
-  await Promise.all(mappedPuils.map(async (mappedPuil) => await movePuil(mappedPuil, courseId)));
+  const newPuilIds = await Promise.all(mappedPuils.map(async (mappedPuil) => await movePuil(mappedPuil, courseId)));
+
+  const newPuilIdsByOldId = {};
+  mappedPuils.forEach((mappedPuil, index) => {
+    if (newPuilIds[index]) newPuilIdsByOldId[mappedPuil.puil.id] = newPuilIds[index];
+  });
+  return newPuilIdsByOldId;
 };
 
 const movePuil = async (mappedPuil, courseId) => {
@@ -33,7 +39,7 @@ const movePuil = async (mappedPuil, courseId) => {
 
   if (newCuil) {
     //insert new puil, old one will be deleted due to cascade on delete of problem in old course it is linked to
-    await knex('problemUserIsLearning')
+    const insertedPuil = (await knex('problemUserIsLearning')
       .insert({
         easiness: mappedPuil.puil.easiness,
         consecutiveCorrectAnswers: mappedPuil.puil.consecutiveCorrectAnswers,
@@ -42,7 +48,11 @@ const movePuil = async (mappedPuil, courseId) => {
         courseUserIsLearningId: newCuil.id,
         lastReviewedAt: mappedPuil.puil.lastReviewedAt,
         problemId: mappedPuil.insertedProblem.id,
-      });
+      })
+      .returning('id'))[0];
+    return insertedPuil.id;
+  } else {
+    return null;
   }
 }
 

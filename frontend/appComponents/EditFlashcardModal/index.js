@@ -1,5 +1,6 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
+import hashProblem from '~/../services/hashProblem';
 import Problem from '~/components/Problem';
 import Loading from '~/components/Loading';
 import switchType from '~/pages/courses_id/components/services/switchType';
@@ -54,9 +55,10 @@ class EditFlashcardModal extends React.Component {
       content: this.state.problemContent
     };
 
-    api.post.ProblemApi.update(
+    offlineApi.ProblemApi.update(
       (spe) => this.setState({ speSave: spe }),
-      { id: this.props.problem.id, problem: updatedProblem }
+      { id: this.props.problem.id, problem: updatedProblem, baseHash: hashProblem(this.props.problem) },
+      { courseId: this.props.problem.courseId }
     )
       .then(() => {
         this.props.onSaved(updatedProblem);

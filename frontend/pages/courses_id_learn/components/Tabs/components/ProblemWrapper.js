@@ -1,5 +1,5 @@
 import { orFalse } from '~/services/orFalse';
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 import MyDuck from '~/ducks/MyDuck';
 import Roles from '~/services/Roles';
 
@@ -27,9 +27,10 @@ class ProblemWrapper extends React.Component {
   apiLearn = () => {
     this.props.MyActions.learnProblem(this.props.problem.courseId, this.props.problem.id);
 
-    api.post.ProblemUserIsLearningApi.learnProblem(
+    offlineApi.ProblemUserIsLearningApi.learnProblem(
       (spe) => this.setState({ speLearn: spe }),
-      { problemId: this.props.problem.id }
+      { problemId: this.props.problem.id },
+      { courseId: this.props.problem.courseId }
     )
       .then((puil) => this.setState({ puil }));
   }
@@ -41,12 +42,13 @@ class ProblemWrapper extends React.Component {
 
     if (puil && puil.id) {
       // Problem is already learned, use ignoreAlreadyLearnedProblem API
-      api.post.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(
+      offlineApi.ProblemUserIsLearningApi.ignoreAlreadyLearnedProblem(
         (spe) => this.setState({ speIgnore: spe }),
         {
           problemId: this.props.problem.id,
           cuilId: puil.courseUserIsLearningId
-        }
+        },
+        { courseId: this.props.problem.courseId }
       )
         .then(() => {
           // Update the local puil state to reflect the ignore
@@ -56,9 +58,10 @@ class ProblemWrapper extends React.Component {
         });
     } else {
       // Problem is not learned yet, use regular ignoreProblem API
-      api.post.ProblemUserIsLearningApi.ignoreProblem(
+      offlineApi.ProblemUserIsLearningApi.ignoreProblem(
         (spe) => this.setState({ speIgnore: spe }),
-        { problemId: this.props.problem.id }
+        { problemId: this.props.problem.id },
+        { courseId: this.props.problem.courseId }
       )
         .then((puil) => { this.setState({ puil }); });
     }
@@ -67,9 +70,10 @@ class ProblemWrapper extends React.Component {
   apiUnlearnUnignore = () => {
     this.props.MyActions.unlearnUnignoreProblem(this.props.problem.courseId, this.props.problem.id);
 
-    api.post.ProblemUserIsLearningApi.unlearnUnignoreProblem(
+    offlineApi.ProblemUserIsLearningApi.unlearnUnignoreProblem(
       (spe) => this.setState({ speDelete: spe }),
-      { id: this.state.puil.id }
+      { id: this.state.puil.id },
+      { courseId: this.props.problem.courseId }
     )
       .then(() => { this.setState({ puil: false }); });
   }
@@ -153,6 +157,7 @@ class ProblemWrapper extends React.Component {
           <>
             <div className="separator"></div>
             <DeleteFlashcardModal
+              courseId={this.props.problem.courseId}
               problemIds={[this.props.problem.id]}
               onDelete={this.onDeleteSuccess}
               toggler={<div className="option delete-option"><i className="fa fa-trash"/> Delete</div>}

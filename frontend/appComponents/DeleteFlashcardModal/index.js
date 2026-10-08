@@ -1,9 +1,10 @@
 import TogglerAndModal from '~/components/TogglerAndModal';
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 
 class DeleteFlashcardModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
+    courseId: PropTypes.number.isRequired,
     problemIds: PropTypes.array.isRequired,
     onDelete: PropTypes.func, // Optional callback after successful deletion
     onCancel: PropTypes.func  // Optional callback when cancelled
@@ -21,9 +22,10 @@ class DeleteFlashcardModal extends React.Component {
   apiDeleteProblems = (closeModal) => {
     if (this.state.speDelete.status === 'request') return;
 
-    api.post.ProblemApi.deleteMany(
+    offlineApi.ProblemApi.deleteMany(
       (spe) => this.setState({ speDelete: spe }),
-      { ids: this.props.problemIds }
+      { ids: this.props.problemIds },
+      { courseId: this.props.courseId }
     )
       .then(() => {
         closeModal();

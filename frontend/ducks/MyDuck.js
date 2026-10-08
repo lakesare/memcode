@@ -2,6 +2,10 @@ import dayjs from 'dayjs';
 import getNextScore from '~/../services/getNextScore';
 import repetitions from '~/../services/repetitions';
 import initialScore from '~/../services/initialScore';
+import withOfflineFallback from '~/services/offline/withOfflineFallback';
+import offlineFallbacks from '~/services/offline/fallbacks';
+import OfflineDuck from '~/ducks/OfflineDuck';
+import tempIds from '~/services/offline/tempIds';
 
 const namespace = 'global.my';
 
@@ -46,6 +50,79 @@ const reducer = (state = initialState, action) => {
     }
     case `${namespace}.SET`:
       return action.payload;
+    case OfflineDuck.actionTypes.COURSE_CREATED: {
+      const courseDto = action.payload;
+      return {
+        ...state,
+        courses: [...state.courses.filter((dto) => dto.course.id !== courseDto.course.id), courseDto]
+      };
+    }
+    case OfflineDuck.actionTypes.COURSE_UPDATED: {
+      const { courseId, course, courseCategory } = action.payload;
+      return {
+        ...state,
+        courses: state.courses.map((dto) =>
+          dto.course.id !== courseId ?
+            dto :
+            {
+              ...dto,
+              course: {
+                ...dto.course,
+                title: course.title,
+                description: course.description,
+                if_public: course.ifPublic,
+                course_category_id: course.courseCategoryId
+              },
+              courseCategory
+            }
+        )
+      };
+    }
+    // [claude comment] mirrors ProblemApi.moveToCourseMany - the flashcards get new ids in the target course, and keep their learning progress
+    case OfflineDuck.actionTypes.FLASHCARDS_MOVED: {
+      const { sourceCourseId, targetCourseId, newIdsByOldId } = action.payload;
+      const ifMoved = (problem) => newIdsByOldId[problem.id] !== undefined;
+      const sourceDto = state.courses.find((dto) => dto.course.id === sourceCourseId);
+      const movedProblems = sourceDto ? sourceDto.problems.filter(ifMoved) : [];
+
+      return {
+        ...state,
+        courses: state.courses.map((dto) => {
+          if (dto.course.id === sourceCourseId) {
+            return { ...dto, problems: dto.problems.filter((problem) => !ifMoved(problem)) };
+          } else if (dto.course.id === targetCourseId) {
+            return {
+              ...dto,
+              problems: [
+                ...dto.problems,
+                ...movedProblems.map((problem) => ({ ...problem, id: newIdsByOldId[problem.id], courseId: targetCourseId }))
+              ]
+            };
+          } else {
+            return dto;
+          }
+        })
+      };
+    }
+    // [claude comment] courses that changed on other devices or by coauthors (OfflineDuck.updateChangedCourses)
+    case OfflineDuck.actionTypes.COURSES_UPDATED: {
+      if (!state.coursesAlreadyFetched) return state;
+      const { courseDtos, removedCourseIds } = action.payload;
+      const updatedDtoById = new Map(courseDtos.map((dto) => [dto.course.id, dto]));
+      const keptCourses = state.courses
+        .filter((dto) => !removedCourseIds.includes(dto.course.id))
+        .map((dto) => (updatedDtoById.has(dto.course.id) ? updatedDtoById.get(dto.course.id) : dto));
+      const newCourses = courseDtos.filter((dto) => !state.courses.some((one) => one.course.id === dto.course.id));
+      return { ...state, courses: [...keptCourses, ...newCourses] };
+    }
+    case OfflineDuck.actionTypes.TEMP_IDS_REPLACED: {
+      const idMap = action.payload;
+      return {
+        ...state,
+        courses: tempIds.replaceTempIds(state.courses, idMap),
+        speCourseForActions: tempIds.replaceTempIds(state.speCourseForActions, idMap)
+      };
+    }
     case `${namespace}.SET_SPE_GET_COURSE`: {
       return { ...state, speCourseForActions: action.payload };
     }
@@ -61,18 +138,16 @@ const reducer = (state = initialState, action) => {
     }
     // COURSES
     case `${namespace}.START_LEARNING_COURSE`: {
-      const currentUser = action.payload.currentUser;
       const courseUserIsLearning = action.payload.courseUserIsLearning;
 
       return setSpeCourseForActionsPayload(state, (payload) => ({
         ...payload,
-        learners: [...payload.learners, currentUser],
+        amountOfLearners: payload.amountOfLearners + 1,
         courseUserIsLearning
       }));
     }
     case `${namespace}.STOP_LEARNING_COURSE`: {
       const courseUserIsLearning = action.payload.courseUserIsLearning;
-      const currentUser = action.payload.currentUser;
 
       const stateWithoutCourse = {
         ...state,
@@ -84,17 +159,16 @@ const reducer = (state = initialState, action) => {
       return setSpeCourseForActionsPayload(stateWithoutCourse, (payload) => ({
         ...payload,
         courseUserIsLearning,
-        learners: payload.learners.filter((learner) => learner.id !== currentUser.id)
+        amountOfLearners: payload.amountOfLearners - 1
       }));
     }
     case `${namespace}.RESUME_LEARNING_COURSE`: {
       const courseUserIsLearning = action.payload.courseUserIsLearning;
-      const currentUser = action.payload.currentUser;
 
       return setSpeCourseForActionsPayload(state, (payload) => ({
         ...payload,
         courseUserIsLearning,
-        learners: [...payload.learners, currentUser]
+        amountOfLearners: payload.amountOfLearners + 1
       }));
     }
     // [claude comment] MyModel reads the review schedule off the dto, so mirror it there too
@@ -248,7 +322,14 @@ const getActions = (dispatch, getState) => ({
     //     console.log("Couldn't parse apiSync() payload from localStorage");
     //   }
     // }
-    api.get.CourseApi.getMyEverything((spe) => dispatch({ type: SPE_COURSES, spe }), {})
+    // [claude comment] reviews made offline get sent first, otherwise the server answers with the schedule from before them
+    OfflineDuck.getActions(dispatch, getState).sendQueuedChanges()
+      .catch(() => {})
+      .then(() => withOfflineFallback(
+        (spe) => dispatch({ type: SPE_COURSES, spe }),
+        (dispatchSpe) => api.get.CourseApi.getMyEverything(dispatchSpe, {}),
+        offlineFallbacks.getMyEverything
+      ))
       .then(() => {
         setTimeout(() => {
           dispatch({ type: `${namespace}.RESET_SPE_COURSES` });
@@ -256,7 +337,11 @@ const getActions = (dispatch, getState) => ({
       });
   },
   apiGetCategories: () => {
-    api.get.CourseCategoryApi.getAll((spe) => dispatch({ type: SPE_CATEGORIES, spe }), {});
+    withOfflineFallback(
+      (spe) => dispatch({ type: SPE_CATEGORIES, spe }),
+      (dispatchSpe) => api.get.CourseCategoryApi.getAll(dispatchSpe, {}),
+      offlineFallbacks.getAllCategories
+    );
   },
   apiGetCourseForActions: (courseId) => {
     // console.log(getState());
@@ -266,9 +351,11 @@ const getActions = (dispatch, getState) => ({
       oldSpe.payload.course.id === courseId;
 
     if (!isAlreadyLoadedCourse) {
-      api.get.PageApi.getForCourseActions(
+      withOfflineFallback(
         (spe) => dispatch({ type: `${namespace}.SET_SPE_GET_COURSE`, payload: spe }),
-        { courseId }
+        (dispatchSpe) => api.get.PageApi.getForCourseActions(dispatchSpe, { courseId }),
+        () => offlineFallbacks.getForCourseActions(courseId),
+        { ifOnlyOffline: tempIds.isTempId(courseId) }
       );
     }
   },

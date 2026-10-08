@@ -9,7 +9,7 @@ import Loading from '~/components/Loading';
 import { TextInput } from '~/components/_standardForm';
 
 import CourseModel from '~/models/CourseModel';
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 
 class CourseCreationModal extends React.Component {
   static propTypes = {
@@ -33,7 +33,7 @@ class CourseCreationModal extends React.Component {
     event.preventDefault();
     const formValidation = CourseModel.validateForm(this.state.formState);
     if (formValidation === true) {
-      api.post.CourseApi.createCourse(
+      offlineApi.CourseApi.createCourse(
         spe => this.setState({ speSave: spe }),
         { course: this.state.formState }
       )

@@ -173,6 +173,7 @@ const filterCoursesByFocus = (courses, focusedCategoryId, focusedSubstring) => {
 };
 
 export default {
+  getLearnedProblems,
   isProblemToReview, isProblemToLearn,
   countRepetitionsDue, getProblemsToReview,
   getDtosToLearn, countAllProblemsToLearn,

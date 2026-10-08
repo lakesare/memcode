@@ -1,15 +1,19 @@
-import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
+import { precacheAndRoute, createHandlerBoundToURL, cleanupOutdatedCaches } from 'workbox-precaching';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { StaleWhileRevalidate, CacheFirst } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { ExpirationPlugin } from 'workbox-expiration';
+import offlineStorage from './services/offline/storage.js';
 
 console.log('this is my custom service worker');
 
 precacheAndRoute([
   ...self.__WB_MANIFEST,
-  { url: '/index.html', revision: new Date().getTime().toString() }
+  // [claude comment] fixed at build time - the browser re-runs this file whenever it restarts the worker, and the precache looks /index.html up by this revision
+  { url: '/index.html', revision: process.env.SW_BUILD_ID }
 ]);
+
+cleanupOutdatedCaches();
 
 self.addEventListener('install', () => {
   // The promise that skipWaiting() returns can be safely ignored.
@@ -18,19 +22,11 @@ self.addEventListener('install', () => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    // clearing cached responses and old precache manifests!
-    caches.keys().then((cacheNames) => {
-      return Promise.all([
-        // Delete old API caches
-        caches.delete('api'),
-        caches.delete('api_v4'),
-        // Delete old precaches from previous versions
-        ...cacheNames.filter(cacheName =>
-          cacheName.startsWith('workbox-precache-') &&
-          !cacheName.includes(self.location.href.split('/').pop())
-        ).map(cacheName => caches.delete(cacheName))
-      ]);
-    })
+    // Delete old API caches
+    Promise.all([
+      caches.delete('api'),
+      caches.delete('api_v4')
+    ])
   );
 });
 
@@ -57,6 +53,37 @@ registerRoute(
 registerRoute(
   new RegExp('.*/api/CourseApi\\.getPublicCourses.*'),
   new StaleWhileRevalidate({ cacheName: 'api_v5' })
+);
+
+// [claude comment] images saved by the offline download (<OfflineModal/>) come from its cache, all other images go to the network as before
+registerRoute(
+  ({ request }) => request.destination === 'image',
+  async ({ request }) => {
+    const cachedResponse = await caches.match(request, { cacheName: offlineStorage.imagesCacheName, ignoreVary: true });
+    // [claude comment] an opaque response hides its status, so it may be a saved error page - it's only used when the network fails
+    if (cachedResponse && cachedResponse.type !== 'opaque') {
+      return cachedResponse;
+    } else {
+      try {
+        return await fetch(request);
+      } catch (error) {
+        if (cachedResponse) {
+          return cachedResponse;
+        } else {
+          throw error;
+        }
+      }
+    }
+  }
+);
+
+// [claude comment] the katex version is pinned in backend/html.js, so its files never change
+registerRoute(
+  /^https:\/\/cdn\.jsdelivr\.net\/npm\/katex@/,
+  new CacheFirst({
+    cacheName: 'katex',
+    plugins: [new CacheableResponsePlugin({ statuses: [200] })]
+  })
 );
 
 // Cache the Google Fonts stylesheets with a stale-while-revalidate strategy.

@@ -126,9 +126,15 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
       );
 
       uploadFile(false, file)
-        .then((response) => {
-          preloadImage(response.url, () => {
-            replacePlaceholderWithImage(randomId, response.url, (liveQuill) => {
+        .then((response) => response.url)
+        // [claude comment] the image stays inside the flashcard as a data: url, and gets uploaded when the flashcard reaches the server (services/offline/uploadDataUrlImages.js)
+        .catch((error) => {
+          console.error('Image upload failed:', error);
+          return dataUrl;
+        })
+        .then((url) => {
+          preloadImage(url, () => {
+            replacePlaceholderWithImage(randomId, url, (liveQuill) => {
               if (editorComponent && editorComponent.removePendingUpload) {
                 editorComponent.removePendingUpload(randomId);
               }
@@ -144,13 +150,6 @@ const placeholdAndCreateImage = (file, quill, { onSuccess = () => {}, editorComp
               }
             });
           });
-        })
-        .catch((error) => {
-          console.error('Image upload failed:', error);
-          // Notify editor component that upload failed (remove from pending)
-          if (editorComponent && editorComponent.removePendingUpload) {
-            editorComponent.removePendingUpload(randomId);
-          }
         });
     });
   });

@@ -139,7 +139,10 @@ const buildServiceWorker = async () => {
     platform: 'browser',
     target: 'es2020',
     minify: isProduction,
-    define: { 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      'process.env.SW_BUILD_ID': JSON.stringify(Date.now().toString())
+    },
     logLevel: 'info'
   });
 

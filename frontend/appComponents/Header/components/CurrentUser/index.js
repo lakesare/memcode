@@ -3,6 +3,7 @@ import StandardTooltip from '~/components/StandardTooltip';
 import NotificationsTogglerAndDropdown from './components/NotificationsTogglerAndDropdown';
 import SettingsModal from '~/appComponents/SettingsModal';
 import FocusModeModal from '~/appComponents/FocusModeModal';
+import OfflineModal from '~/appComponents/OfflineModal';
 import getUserAvatar from '~/services/getUserAvatar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 import SettingsDuck from '~/ducks/SettingsDuck';
@@ -13,7 +14,8 @@ class CurrentUser extends React.Component {
   static propTypes = {
     currentUser: PropTypes.object.isRequired,
     Settings: PropTypes.object.isRequired,
-    SettingsActions: PropTypes.object.isRequired
+    SettingsActions: PropTypes.object.isRequired,
+    Offline: PropTypes.object.isRequired
   }
 
 
@@ -32,6 +34,16 @@ class CurrentUser extends React.Component {
               <span className="focus-indicator" aria-hidden="true">•</span>
             )}
             Focus
+          </button>
+        }/>
+      </li>
+      <li>
+        <OfflineModal toggler={
+          <button type="button" className="dropdown-item offline-item">
+            {this.props.Offline.notices.length > 0 && (
+              <span className="focus-indicator" aria-hidden="true">•</span>
+            )}
+            Offline
           </button>
         }/>
       </li>
@@ -67,7 +79,8 @@ class CurrentUser extends React.Component {
 
 export default connect(
   (state) => ({
-    Settings: state.global.Settings
+    Settings: state.global.Settings,
+    Offline: state.global.Offline
   }),
   (dispatch) => ({
     SettingsActions: SettingsDuck.getActions(dispatch)

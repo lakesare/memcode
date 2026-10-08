@@ -5,6 +5,9 @@ import { mustBeAuthenticated } from '#~/services/auth.js';
 const getMyEverything = async (request, response) => {
   await mustBeAuthenticated(request.currentUser);
   const userId = request.currentUser.id;
+  // [claude comment] optional - the offline copy asks only for the courses that changed
+  const courseIds = request.body['courseIds'];
+  const onlyCourseIds = (query, column) => (courseIds ? query.whereIn(column, courseIds) : query);
 
   const courses = await knex('course')
     .select(
@@ -20,6 +23,7 @@ const getMyEverything = async (request, response) => {
       'courseUserIsLearning.userId': userId,
       'courseUserIsLearning.active': true
     })
+    .modify(onlyCourseIds, 'courseUserIsLearning.courseId')
     .orderBy('course.id');
 
   const myLearnedProblems = await knex('problemUserIsLearning')
@@ -28,7 +32,8 @@ const getMyEverything = async (request, response) => {
     .where({
       'courseUserIsLearning.userId': userId,
       'courseUserIsLearning.active': true
-    });
+    })
+    .modify(onlyCourseIds, 'courseUserIsLearning.courseId');
 
   const allProblemsIMayLearn = await knex('problem')
     .select('problem.id as problemId', 'courseUserIsLearning.courseId')
@@ -36,7 +41,8 @@ const getMyEverything = async (request, response) => {
     .where({
       'courseUserIsLearning.userId': userId,
       'courseUserIsLearning.active': true
-    });
+    })
+    .modify(onlyCourseIds, 'courseUserIsLearning.courseId');
 
   const allProblemsNotLearned = allProblemsIMayLearn.filter((problem) =>
     !myLearnedProblems.find((learnedProblem) => learnedProblem.problemId === problem.problemId)

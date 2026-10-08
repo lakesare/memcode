@@ -2,11 +2,12 @@ import Select from '~/components/Select';
 import Loading from '~/components/Loading';
 
 import TogglerAndModal from '~/components/TogglerAndModal';
-import api from '~/api';
+import offlineApi from '~/services/offline/offlineApi';
 
 class ExportFlashcardsModal extends React.Component {
   static propTypes = {
     toggler: PropTypes.element.isRequired,
+    courseId: PropTypes.number.isRequired,
     uiRemoveOldProblems: PropTypes.func.isRequired,
     idsOfCheckedProblems: PropTypes.array.isRequired,
     createdCoursesForSelect: PropTypes.array.isRequired
@@ -20,12 +21,13 @@ class ExportFlashcardsModal extends React.Component {
   apiMove = (closeModal) => {
     if (!this.state.courseId || this.state.speExport.status === 'request') return;
     const ids = this.props.idsOfCheckedProblems;
-    api.post.ProblemApi.moveToCourseMany(
+    offlineApi.ProblemApi.moveToCourseMany(
       (spe) => this.setState({ speExport: spe }),
       {
         problemIds: ids,
         courseId: this.state.courseId
-      }
+      },
+      { courseId: this.props.courseId }
     )
       .then(() => {
         closeModal();

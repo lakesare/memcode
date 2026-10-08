@@ -1,5 +1,7 @@
 // [claude comment] the pile of flashcards you got wrong, kept in localStorage only - it survives a refresh, and deliberately doesn't follow you onto another device
 
+import tempIds from '~/services/offline/tempIds';
+
 const namespace = 'global.failedFlashcards';
 
 const SET_PROBLEM_IDS = `${namespace}.SET_PROBLEM_IDS`;
@@ -60,6 +62,16 @@ const getActions = (dispatch, getState) => {
         setProblemIds(courseId, problemIds.filter((one) => one !== problemId));
       } else {
         return;
+      }
+    },
+
+    // [claude comment] flashcards and courses created offline are on the pile under temporary ids until they reach the server
+    replaceTempIds: (idMap) => {
+      const problemIdsPerCourse = getState().global.FailedFlashcards.problemIdsPerCourse;
+      const replaced = tempIds.replaceTempIds(problemIdsPerCourse, idMap);
+      if (replaced !== problemIdsPerCourse) {
+        localStorage.setItem(storageKey, JSON.stringify(replaced));
+        dispatch({ type: SET_PROBLEM_IDS, payload: replaced });
       }
     }
   };
