@@ -1,7 +1,7 @@
 import Quill from 'quill';
 
 import latinizeShortcutKey from '~/services/quill/latinizeShortcutKey';
-import htmlWithPreservedSpaces from '~/services/quill/htmlWithPreservedSpaces';
+import savedHtmlToDelta from '~/services/quill/savedHtmlToDelta';
 
 class QuillEditor extends React.Component {
   static propTypes = {
@@ -39,7 +39,7 @@ class QuillEditor extends React.Component {
       placeholder: this.props.placeholder,
       readOnly: this.props.readOnly
     });
-    this.editor.setContents(this.editor.clipboard.convert({ html: htmlWithPreservedSpaces(this.value) }));
+    this.editor.setContents(savedHtmlToDelta(this.editor, this.value));
     this.editor.on('editor-change', this.onEditorChange);
     // [claude comment] capture on the container, so this runs before Quill's own keydown listener on .ql-editor
     this.editor.container.addEventListener('keydown', latinizeShortcutKey, true);
@@ -55,7 +55,7 @@ class QuillEditor extends React.Component {
     if (this.props.value !== prevProps.value && this.props.value !== this.value) {
       const selection = this.editor.getSelection();
       this.value = this.props.value;
-      this.editor.setContents(this.editor.clipboard.convert({ html: htmlWithPreservedSpaces(this.value) }));
+      this.editor.setContents(savedHtmlToDelta(this.editor, this.value));
       if (selection) {
         Promise.resolve().then(() => this.editor.setSelection(selection));
       }
