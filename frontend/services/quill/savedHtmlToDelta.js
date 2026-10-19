@@ -1,5 +1,5 @@
 import Quill from 'quill';
-import { matchText } from 'quill/modules/clipboard';
+import { matchText } from 'quill/modules/clipboard.js';
 
 const { Scope } = Quill.import('parchment');
 

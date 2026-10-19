@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import sendChanges from './sendChanges.js';
-import changeTypes from './changeTypes.js';
-import storage from './storage.js';
+import sendChanges from '../frontend/services/offline/sendChanges.js';
+import changeTypes from '../frontend/services/offline/changeTypes.js';
+import storage from '../frontend/services/offline/storage.js';
 
 // [claude comment] mirrors what the real endpoints do with ids: they come from one counter, and a change referring to an id the server doesn't have (e.g. a temporary id that never got replaced) is refused
 const createFakeServer = () => {

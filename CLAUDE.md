@@ -39,15 +39,11 @@ make frontend-webpack
 
 ### Testing
 ```bash
-# Run backend tests
-make test-backend
-
-# Run frontend tests
-make test-frontend
-
-# Reset test database
-make test-db-reset
+# Run all tests (node:test, every tests/*.test.js)
+make test
 ```
+
+All tests live in `tests/`. Tests that need a DOM (e.g. ones that instantiate Quill) import `tests/setupDom.js` before anything else, which puts a jsdom window's globals onto `globalThis`.
 
 **Note on Testing**: This project has minimal tests by design. Only a few critical utility functions have tests. Do not write new tests unless specifically requested - the project prioritizes rapid development and manual testing over comprehensive test coverage.
 

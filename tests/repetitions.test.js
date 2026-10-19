@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import repetitions from './repetitions.js';
+import repetitions from '../services/repetitions.js';
 
 const HOURS = 24;
 const H = 60 * 60 * 1000;

@@ -15,7 +15,7 @@ db-reset:
 	psql $(LOCAL_POSTGRES_URL) -c 'CREATE DATABASE memcode'
 	psql $(LOCAL_DB_URL) -f backend/db/schema.sql
 test:
-	node --test $$(find . -name '*.test.js' -not -path './node_modules/*')
+	node --test tests/*.test.js
 lint:
 	node_modules/.bin/eslint .
 db-migrate:

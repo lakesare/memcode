@@ -48,7 +48,7 @@ export default [
     }
   },
   {
-    files: ['backend/**/*.js', 'services/**/*.js', 'env*.js', '*.config.js', 'frontend/esbuild*.js'],
+    files: ['backend/**/*.js', 'services/**/*.js', 'tests/**/*.js', 'env*.js', '*.config.js', 'frontend/esbuild*.js'],
     ...js.configs.recommended,
     languageOptions: {
       ecmaVersion: 2024,
