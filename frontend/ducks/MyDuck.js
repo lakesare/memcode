@@ -235,11 +235,15 @@ const reducer = (state = initialState, action) => {
     case `${namespace}.LEARN_PROBLEM`: {
       const courseId = action.payload.courseId;
       const problemId = action.payload.problemId;
+      const courseDto = state.courses.find((dto) => dto.course.id === courseId);
       const newState = setProblem(state, courseId, problemId, (problem) => ({
         id: problem.id,
         _learned: true,
         ifIgnored: false,
-        nextDueDate: dayjs().format(),
+        nextDueDate: repetitions.nextDueDateOnLearn(
+          courseDto ? courseDto.problems.filter((one) => one._learned && !one.ifIgnored) : [],
+          courseDto && courseDto.repeatEveryHours
+        ).toISOString(),
         // [claude comment] mirrors createPuil - learning isn't reviewing
         lastReviewedAt: null,
         easiness: initialScore().easiness,

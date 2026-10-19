@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import initialScore from '../../../services/initialScore.js';
+import repetitions from '../../../services/repetitions.js';
 import storage from './storage.js';
 import tempIds from './tempIds.js';
 
@@ -27,7 +28,10 @@ const preparePuil = async ({ problemId }, { courseId }, ifIgnored) => {
       ifIgnored,
       easiness: initialScore().easiness,
       consecutiveCorrectAnswers: initialScore().consecutiveCorrectAnswers,
-      nextDueDate: new Date().toISOString(),
+      nextDueDate: repetitions.nextDueDateOnLearn(
+        learnPage ? learnPage.problemUserIsLearnings.filter((puil) => !puil.ifIgnored) : [],
+        learnPage ? learnPage.courseUserIsLearning.repeatEveryHours : null
+      ).toISOString(),
       lastReviewedAt: null
     },
     tempIds: { [id]: 'id' }

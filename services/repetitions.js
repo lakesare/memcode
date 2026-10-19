@@ -62,6 +62,17 @@ const nextDueDateAfterReview = (problems, problem, repeatEveryHours, now = Date.
   return new Date(batch === undefined ? candidate : batch);
 };
 
+// [claude comment] if the course has overdue flashcards, a newly learned flashcard gets the due date of the most overdue flashcard - with a due date of "now", the new flashcard wouldn't show up in reviews until the user caught up on all missed reviews
+const nextDueDateOnLearn = (problems, repeatEveryHours, now = Date.now()) => {
+  const earliest = earliestDueTime(problems);
+
+  if (repeatEveryHours && earliest !== null && earliest < now) {
+    return new Date(earliest);
+  } else {
+    return new Date(now);
+  }
+};
+
 const parseRepeatEveryHours = (value) => {
   const hours = Number.parseInt(value, 10);
   if (Number.isNaN(hours) || hours <= 0) return null;
@@ -74,6 +85,7 @@ export default {
   countRepetitionsDue,
   nextRepetitionAt,
   nextDueDateAfterReview,
+  nextDueDateOnLearn,
   parseRepeatEveryHours,
   MAX_REPETITIONS_DUE
 };

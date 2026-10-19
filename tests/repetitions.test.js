@@ -97,7 +97,7 @@ test('a course left alone for a year owes at most the cap, and still counts down
 
 test('a flashcard learned mid-cycle is reviewable right away, then joins the batch', () => {
   const problems = deck(3, NOW + 5 * H);
-  const justLearned = { id: 99, nextDueDate: new Date(NOW) };
+  const justLearned = { id: 99, nextDueDate: repetitions.nextDueDateOnLearn(problems, HOURS, NOW) };
   problems.push(justLearned);
 
   assert.equal(amountDue(problems, NOW), 1, 'only the new flashcard, the deck is not due yet');
@@ -109,6 +109,24 @@ test('a flashcard learned mid-cycle is reviewable right away, then joins the bat
     'rejoins the deck instead of drifting off on a schedule of one'
   );
   assert.equal(amountDue(problems, NOW + 6 * H), 4, 'the whole course comes due together');
+});
+
+test('a flashcard learned while the course is overdue shows up in the current review', () => {
+  const problems = deck(3, NOW - 3 * DAY);
+  const justLearned = { id: 99, nextDueDate: repetitions.nextDueDateOnLearn(problems, HOURS, NOW) };
+  problems.push(justLearned);
+
+  assert.ok(repetitions.problemsDueNow(problems, HOURS, NOW).includes(justLearned), 'the new flashcard is in the current review');
+  assert.equal(repetitionsDue(problems, NOW), 4, 'learning a flashcard does not change the ×4 count');
+
+  let now = NOW;
+  for (let pass = 0; pass < 4; pass += 1) {
+    reviewWholePass(problems, now);
+    now += 5 * 60 * 1000;
+  }
+
+  assert.equal(repetitionsDue(problems, now), 0, 'four passes catch up');
+  assert.equal(new Set(problems.map((one) => new Date(one.nextDueDate).getTime())).size, 1, 'after catching up, all flashcards have the same due date');
 });
 
 test('flashcards reviewed in separate sittings resync onto one batch', () => {
