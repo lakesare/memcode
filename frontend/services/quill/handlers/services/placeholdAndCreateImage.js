@@ -70,6 +70,20 @@ const findLiveQuillFor = (el) => {
   return found instanceof Quill ? found : null;
 };
 
+// [claude comment] without this, a resize the user is in the middle of gets lost when the upload finishes
+const moveResizeOverlay = (quill, placeholderEl, imageBlot) => {
+  const resize = quill.getModule('resize');
+  if (resize.activeEle === placeholderEl) {
+    [resize, ...resize.modules].forEach((holder) => {
+      holder.activeEle = imageBlot.domNode;
+      holder.blot      = imageBlot;
+    });
+    imageBlot.domNode.classList.add(resize.options.activeClass);
+    imageBlot.domNode.style.width = placeholderEl.style.width;
+    resize.onUpdate();
+  }
+};
+
 // [claude comment] saving a card mid-upload moves the placeholder into a brand new editor, which for the first instants is a readonly <Problem mode='show'/> with no Quill of its own - so keep looking for a live one for a while
 const replacePlaceholderWithImage = (randomId, url, onDone, attemptsLeft = 50) => {
   const el = document.querySelector(`.placeholder-for-loading-image[data-id="${randomId}"]`);
@@ -84,14 +98,15 @@ const replacePlaceholderWithImage = (randomId, url, onDone, attemptsLeft = 50) =
     return;
   }
 
-  const blot = Quill.find(el);
+  const index = Quill.find(el).offset(liveQuill.scroll);
   const width = el.querySelector('img').getAttribute('width');
   liveQuill.updateContents(
     new Delta()
-      .retain(blot.offset(liveQuill.scroll))
+      .retain(index)
       .delete(1) // [claude comment] deletes the placeholder blot (1 delta position)
       .insert({ image: url }, width ? { width } : undefined)
   );
+  moveResizeOverlay(liveQuill, el, liveQuill.getLeaf(index + 1)[0]);
   onDone(liveQuill);
 };
 

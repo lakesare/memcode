@@ -1,43 +1,40 @@
 // placeholder for when image is uploading.
-// fades in and out, has a spinning loading icon.
+// a dashed border crawls around the image.
 .placeholder-for-loading-image{
+  --ants-color: rgb(169, 155, 255);
+
   display: inline-block;
+  position: relative;
   max-width: 100%;
   vertical-align: top;
-  cursor: progress;
-  pointer-events: none;
+
   img{
-    animation: fadeIn 1.3s infinite alternate;
-  }
-  // spinning icon
-  position: relative;
-  &:after{
-    content: " ";
     display: block;
+    max-width: 100%;
+    // [claude comment] without this, clicking a still-uploading image doesn't show the resize handles
+    pointer-events: none;
+  }
+  // [claude comment] without this, a still-uploading image doesn't follow the mouse while being resized
+  &[style*="width"] img{
+    width: 100%;
+  }
 
-    $radius: 20px;
-    width: $radius * 2;
-    height: $radius * 2;
+  &::before{
+    content: "";
     position: absolute;
-    left: calc(50% - #{$radius});
-    top: calc(50% - #{$radius});
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, var(--ants-color) 50%, transparent 50%) repeat-x,
+      linear-gradient(90deg, var(--ants-color) 50%, transparent 50%) repeat-x,
+      linear-gradient(0deg, var(--ants-color) 50%, transparent 50%) repeat-y,
+      linear-gradient(0deg, var(--ants-color) 50%, transparent 50%) repeat-y;
+    background-size: 12px 2px, 12px 2px, 2px 12px, 2px 12px;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+    animation: placeholder-for-loading-image-ants 0.6s linear infinite;
+  }
+}
 
-    margin: 1px;
-    border-radius: 50%;
-    border: 5px solid white;
-    border-color: white transparent white transparent;
-    animation: dual-ring 1.2s linear infinite;
-  }
-}
-@keyframes dual-ring{
-  0%{
-    transform: rotate(0deg);
-  }
-  100%{
-    transform: rotate(360deg);
-  }
-}
-@keyframes fadeIn{ 
-  from{ opacity: 0.2; }
-  to{ opacity: 0.3; }
+@keyframes placeholder-for-loading-image-ants{
+  to{ background-position: 12px 0, -12px 100%, 0 -12px, 100% 12px; }
 }

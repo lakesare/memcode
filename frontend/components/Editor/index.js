@@ -280,8 +280,15 @@ class Editor extends React.Component {
 
     resize: {
       modules: ['Resize'],
+      parchment: {
+        image:        { attribute: ['width'], limit: { minWidth: 100 } },
+        video:        { attribute: ['width', 'height'], limit: { minWidth: 200, ratio: 0.5625 } },
+        loadingImage: { attribute: ['width'], limit: { minWidth: 100 } }
+      },
       // [claude comment] without this, an image resize isn't saved if the user resizes the image before clicking into the text
-      onActive: () => this.setState({ focusedAtLeastOnce: true })
+      onActive: () => this.setState({ focusedAtLeastOnce: true }),
+      // [claude comment] without this, resizing an image that is still uploading doesn't stick
+      onChangeSize: (blot, activeEle, size) => blot.format('width', String(size.width))
     },
     moduleDropOrPasteImage: {
       // add a custom image handler

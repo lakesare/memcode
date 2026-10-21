@@ -28,6 +28,14 @@ class LoadingImageBlot extends EmbedBlot {
       width: node.querySelector('img').getAttribute('width')
     };
   }
+
+  format(name, value) {
+    if (name === 'width') {
+      this.domNode.querySelector('img').setAttribute('width', value);
+    } else {
+      super.format(name, value);
+    }
+  }
 }
 
 export default LoadingImageBlot;
