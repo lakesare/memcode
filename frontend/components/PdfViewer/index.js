@@ -24,6 +24,8 @@ class PdfPage extends React.PureComponent {
     sheetLeft: PropTypes.number.isRequired,
     trimEdit: PropTypes.array,
     onTrimHandleDown: PropTypes.func.isRequired,
+    searchRects: PropTypes.array,
+    searchKey: PropTypes.string,
     highlights: PropTypes.array.isRequired,
     bookmarks: PropTypes.array.isRequired,
     focusedBookmarkId: PropTypes.string,
@@ -61,6 +63,13 @@ class PdfPage extends React.PureComponent {
         )}
       </svg>
       <svg className="live-layer" viewBox={`0 0 ${this.props.sheetWidth} ${this.props.height}`}/>
+      {(this.props.searchRects || []).map((rect, index) =>
+        <div
+          key={`${this.props.searchKey}-${index}`}
+          className="search-mark"
+          style={{ left: `${rect.left * 100}%`, width: `${(rect.right - rect.left) * 100}%`, top: `${rect.top * 100}%`, height: `${(rect.bottom - rect.top) * 100}%` }}
+        />
+      )}
       </div>
 
       {
@@ -104,6 +113,7 @@ class PdfViewer extends React.Component {
     color: PropTypes.string.isRequired,
     zoom: PropTypes.number.isRequired,
     focus: PropTypes.object,
+    searchMark: PropTypes.object,
     onCreateHighlight: PropTypes.func.isRequired,
     onDeleteHighlight: PropTypes.func.isRequired,
     onBookmarkClick: PropTypes.func.isRequired,
@@ -517,6 +527,8 @@ class PdfViewer extends React.Component {
               sheetWidth={layout.sheetWidth}
               sheetLeft={-layout.left * layout.sheetWidth}
               trimEdit={this.state.trimEdit}
+              searchRects={this.props.searchMark && this.props.searchMark.page === page ? this.props.searchMark.rects : null}
+              searchKey={this.props.searchMark ? this.props.searchMark.key : null}
               onTrimHandleDown={this.onTrimHandleDown}
               highlights={highlights}
               bookmarks={bookmarks}

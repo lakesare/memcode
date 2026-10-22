@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import api from '~/api';
 import { loadPdf } from '~/services/pdf/loadPdf';
 import PdfViewer from '~/components/PdfViewer';
+import PdfSearch from '~/components/PdfSearch';
 import PdfPlaces, { PlaceSnippet, groupIntoPlaces, preloadSnapshots, forgetSnapshots } from '~/components/PdfPlaces';
 import icons from './icons';
 
@@ -71,12 +72,16 @@ class PdfReader extends React.Component {
     trim: readSetting(`trim.${this.props.pdfId}`, { mode: 'off', manual: null }),
     ifTrimMenuOpen: false,
     ifPageGridOpen: false,
+    ifSearchOpen: false,
+    // [claude comment] the search result shown on the page: { page, rects, key }
+    searchMark: null,
     // [claude comment] { "<page>": color } for page numbers coloured in the page grid, saved with the book
     pageColors: {},
     savedPreview: null
   }
 
   componentDidMount = () => {
+    document.addEventListener('keydown', this.onKeyDown);
     this.load();
   }
 
@@ -87,6 +92,7 @@ class PdfReader extends React.Component {
   }
 
   componentWillUnmount = () => {
+    document.removeEventListener('keydown', this.onKeyDown);
     this.unmounted = true;
     clearTimeout(this.toastTimeout);
     clearTimeout(this.savedPreviewTimeout);
@@ -253,6 +259,20 @@ class PdfReader extends React.Component {
       ifPlacesOpen: false,
       focus: { page: place.page, y: place.top, bookmarkId: place.bookmarks[0] ? place.bookmarks[0].id : null, key: `place-${place.key}-${Date.now()}` }
     });
+  }
+
+  // [claude comment] Ctrl/Cmd+F opens the book's own search instead of the browser's
+  onKeyDown = (event) => {
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'f' && this.state.status === 'success') {
+      event.preventDefault();
+      this.setState({ ifSearchOpen: true, ifPlacesOpen: false });
+    }
+  }
+
+  onSelectSearchResult = (result) => {
+    const top = Math.min(...result.rects.map((rect) => rect.top));
+    const key = `search-${result.key}-${Date.now()}`;
+    this.setState({ focus: { page: result.page, y: top, key }, searchMark: { page: result.page, rects: result.rects, key } });
   }
 
   goToPage = (page) => {
@@ -436,8 +456,19 @@ class PdfReader extends React.Component {
       <div className="right">
         <button
           type="button"
+          className={`search-button ${this.state.ifSearchOpen ? '-active' : ''}`}
+          onClick={() => this.setState((state) => ({ ifSearchOpen: !state.ifSearchOpen, ifPlacesOpen: false, searchMark: state.ifSearchOpen ? null : state.searchMark }))}
+          disabled={this.state.status !== 'success'}
+          aria-label="Search in this book"
+          aria-expanded={this.state.ifSearchOpen}
+          title="Search (Ctrl+F)"
+        >
+          {icons.search}
+        </button>
+        <button
+          type="button"
           className={`places-button ${this.state.ifPlacesOpen ? '-active' : ''} ${this.state.bookmarks.length > 0 ? '-has-count' : ''}`}
-          onClick={() => this.setState((state) => ({ ifPlacesOpen: !state.ifPlacesOpen, bookmarkPopover: null }))}
+          onClick={() => this.setState((state) => ({ ifPlacesOpen: !state.ifPlacesOpen, ifSearchOpen: false, bookmarkPopover: null }))}
           aria-expanded={this.state.ifPlacesOpen}
           disabled={this.state.status !== 'success'}
         >
@@ -446,6 +477,16 @@ class PdfReader extends React.Component {
           {this.state.bookmarks.length > 0 && <span className="count">{this.state.bookmarks.length}</span>}
         </button>
       </div>
+
+      {
+        this.state.ifSearchOpen &&
+        <PdfSearch
+          pdfjs={this.state.pdfjs}
+          pdfDocument={this.state.pdfDocument}
+          onSelect={this.onSelectSearchResult}
+          onClose={() => this.setState({ ifSearchOpen: false, searchMark: null })}
+        />
+      }
 
       {
         this.state.ifPlacesOpen &&
@@ -506,6 +547,7 @@ class PdfReader extends React.Component {
               color={this.state.color}
               zoom={1}
               focus={this.state.focus}
+              searchMark={this.state.searchMark}
               onCreateHighlight={this.onCreateHighlight}
               onDeleteHighlight={this.onDeleteHighlight}
               onBookmarkClick={this.onBookmarkClick}

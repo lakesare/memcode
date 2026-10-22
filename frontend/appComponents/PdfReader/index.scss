@@ -375,6 +375,24 @@
       display: flex;
       justify-content: flex-end;
 
+      gap: 8px;
+
+      .search-button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border: none;
+        border-radius: 10px;
+        background: #1f2340;
+        color: #fff;
+        cursor: pointer;
+        touch-action: manipulation;
+        &:hover, &.-active{ background: #282d52; }
+        &:disabled{ opacity: 0.4; }
+      }
+
       // [claude comment] same look as the .tools group in the middle
       .places-button{
         display: flex;

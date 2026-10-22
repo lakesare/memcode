@@ -23,7 +23,7 @@ const simplify = (points, epsilon) => {
   }
 };
 
-// text lines of a page as { x0, x1, yCenter, height } in fractions of the page's width/height
+// text lines of a page as { x0, x1, yCenter, height, str } in fractions of the page's width/height
 const getTextLines = async (pdfjs, pdfPage) => {
   const viewport = pdfPage.getViewport({ scale: 1 });
   const textContent = await pdfPage.getTextContent();
@@ -36,7 +36,8 @@ const getTextLines = async (pdfjs, pdfPage) => {
         x0:      tx[4] / viewport.width,
         x1:      (tx[4] + item.width * viewport.scale) / viewport.width,
         yCenter: (tx[5] - fontHeight * 0.32) / viewport.height,
-        height:  fontHeight / viewport.height
+        height:  fontHeight / viewport.height,
+        str:     item.str
       };
     })
     .filter((line) => line.height > 0 && line.height < 0.2);

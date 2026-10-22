@@ -1,0 +1,101 @@
+:local(.search){
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 8px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  width: min(440px, calc(100vw - 16px));
+  max-height: calc(100dvh - 80px);
+  border-radius: 10px;
+  background: #1f2340;
+  color: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+
+  header{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    input{
+      flex: 1;
+      min-width: 0;
+      height: 38px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      &::placeholder{ color: rgba(255, 255, 255, 0.45); }
+      &:focus{ outline: none; border-color: rgba(255, 255, 255, 0.6); }
+    }
+    .close{
+      width: 36px;
+      height: 36px;
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      &:hover{ color: #fff; }
+    }
+  }
+
+  .status{
+    padding: 8px 14px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .results{
+    list-style: none;
+    margin: 0;
+    padding: 0 6px 8px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    button{
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      padding: 9px 8px;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: #fff;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+      &:hover{ background: rgba(255, 255, 255, 0.07); }
+      &.-active{ background: rgba(255, 255, 255, 0.14); }
+
+      .page{
+        flex-shrink: 0;
+        min-width: 44px;
+        font-size: 12px;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.6);
+        font-variant-numeric: tabular-nums;
+      }
+      .snippet{
+        font-size: 13px;
+        line-height: 1.45;
+        color: rgba(255, 255, 255, 0.8);
+        overflow-wrap: anywhere;
+        mark{
+          padding: 0 1px;
+          border-radius: 2px;
+          background: #ffd84d;
+          color: #0f1122;
+        }
+      }
+    }
+  }
+}
