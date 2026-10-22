@@ -70,6 +70,9 @@ class PdfReader extends React.Component {
     // [claude comment] per book, in this browser only: { mode: 'off' | 'auto' | 'manual', manual: [left, right] | null }
     trim: readSetting(`trim.${this.props.pdfId}`, { mode: 'off', manual: null }),
     ifTrimMenuOpen: false,
+    ifPageGridOpen: false,
+    // [claude comment] per book, in this browser only: { "<page>": color } for page numbers coloured in the page grid
+    pageColors: readSetting(`pageColors.${this.props.pdfId}`, {}),
     savedPreview: null
   }
 
@@ -101,7 +104,7 @@ class PdfReader extends React.Component {
       const currentPosition = { page: Math.min(pdf.currentPage, pageSizes.length), y: pdf.currentY };
       this.setState((state) => ({
         status: 'success', pdf, highlights, bookmarks, pdfjs, pdfDocument, pageSizes, currentPosition,
-        focus: state.focus || { ...currentPosition, key: 'opened' }
+        focus: state.focus || this.lastViewedFocus(pageSizes.length) || { ...currentPosition, key: 'opened' }
       }));
       api.post.PdfApi.updatePdf(false, { pdfId: pdf.id, opened: true, nOfPages: pageSizes.length }).catch(() => {});
       this.preloadTimeout = setTimeout(() => preloadSnapshots(pdfjs, pdfDocument, this.state.highlights, this.state.bookmarks), 2000);
@@ -209,8 +212,15 @@ class PdfReader extends React.Component {
   }
 
   // ___navigation
+  // [claude comment] the book reopens on the page last looked at (this browser only), not on the reading position
+  lastViewedFocus = (nOfPages) => {
+    const page = readSetting(`lastViewedPage.${this.props.pdfId}`, null);
+    return page && page <= nOfPages ? { page, y: 0, key: 'opened' } : null;
+  }
+
   onPageChange = (viewedPage) => {
     this.setState({ viewedPage });
+    writeSetting(`lastViewedPage.${this.props.pdfId}`, viewedPage);
   }
 
   setTrim = (trim) => {
@@ -243,6 +253,56 @@ class PdfReader extends React.Component {
       ifPlacesOpen: false,
       focus: { page: place.page, y: place.top, bookmarkId: place.bookmarks[0] ? place.bookmarks[0].id : null, key: `place-${place.key}-${Date.now()}` }
     });
+  }
+
+  goToPage = (page) => {
+    this.setState({ focus: { page, y: 0, key: `page-${page}-${Date.now()}` } });
+  }
+
+  setPageColor = (page, color) => {
+    const pageColors = { ...this.state.pageColors };
+    if (color) { pageColors[page] = color; } else { delete pageColors[page]; }
+    this.setState({ pageColors });
+    writeSetting(`pageColors.${this.props.pdfId}`, pageColors);
+  }
+
+  renderPageGrid = () => {
+    const bookmarkedPages = new Set(this.state.bookmarks.map((b) => b.page));
+    const viewedPage = this.state.viewedPage;
+    return <div className="page-grid-popup" role="dialog" aria-label="Go to page">
+      <div className="page-color-row">
+        <span className="label">Colour p. {viewedPage}</span>
+        {MARKER_COLORS.map((color) =>
+          <button
+            type="button"
+            key={color.value}
+            className={`swatch ${this.state.pageColors[viewedPage] === color.value ? '-active' : ''}`}
+            style={{ background: color.value }}
+            onClick={() => this.setPageColor(viewedPage, this.state.pageColors[viewedPage] === color.value ? null : color.value)}
+            aria-label={`${color.name} page`}
+            aria-pressed={this.state.pageColors[viewedPage] === color.value}
+          />
+        )}
+      </div>
+      <div
+        className="page-grid"
+        ref={(el) => el && !el.dataset.scrolled && (el.dataset.scrolled = '1') && el.querySelector('.-current') && el.querySelector('.-current').scrollIntoView({ block: 'center' })}
+      >
+      {this.state.pageSizes.map((_, index) => {
+        const page = index + 1;
+        return <button
+          type="button"
+          key={page}
+          className={`${page === this.state.viewedPage ? '-current' : ''} ${page === this.state.currentPosition.page ? '-reading' : ''} ${this.state.pageColors[page] ? '-colored' : ''}`}
+          style={this.state.pageColors[page] ? { '--page-color': this.state.pageColors[page] } : null}
+          onClick={() => this.goToPage(page)}
+        >
+          {page}
+          {bookmarkedPages.has(page) && <span className="bookmarked" aria-label="bookmarked"/>}
+        </button>;
+      })}
+      </div>
+    </div>;
   }
 
   renderToolbar = () =>
@@ -356,7 +416,16 @@ class PdfReader extends React.Component {
           <button type="button" className="icon-button" onClick={() => this.viewer && this.viewer.previousPage()} disabled={this.state.viewedPage <= 1} aria-label="Previous page" title="Previous page (←)">
             {icons.back}
           </button>
-          <span className="page-number">{this.state.viewedPage} <span className="of">/ {this.state.pageSizes.length}</span></span>
+          <button
+            type="button"
+            className={`page-number ${this.state.ifPageGridOpen ? '-open' : ''}`}
+            onClick={() => this.setState((state) => ({ ifPageGridOpen: !state.ifPageGridOpen, ifColorMenuOpen: false, ifTrimMenuOpen: false }))}
+            aria-expanded={this.state.ifPageGridOpen}
+            title="Go to page…"
+          >
+            {this.state.viewedPage} <span className="of">/ {this.state.pageSizes.length}</span>
+          </button>
+          {this.state.ifPageGridOpen && this.renderPageGrid()}
           <button type="button" className="icon-button" onClick={() => this.viewer && this.viewer.nextPage()} disabled={this.state.viewedPage >= this.state.pageSizes.length} aria-label="Next page" title="Next page (→)">
             {icons.forward}
           </button>
@@ -424,7 +493,7 @@ class PdfReader extends React.Component {
     <div className={css.reader} ref={(el) => this.rootEl = el}>
       {this.renderToolbar()}
 
-      <div className="viewer-area" onPointerDownCapture={() => (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifTrimMenuOpen) && this.setState({ bookmarkPopover: null, ifColorMenuOpen: false, ifTrimMenuOpen: false })}>
+      <div className="viewer-area" onPointerDownCapture={() => (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifTrimMenuOpen || this.state.ifPageGridOpen) && this.setState({ bookmarkPopover: null, ifColorMenuOpen: false, ifTrimMenuOpen: false, ifPageGridOpen: false })}>
         {
           this.state.status === 'success' ?
             <PdfViewer
