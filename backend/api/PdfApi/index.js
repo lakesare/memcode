@@ -34,6 +34,7 @@ const updatePdf = async (request, response) => {
   ['title', 'currentPage', 'currentY', 'nOfPages'].forEach((key) => {
     if (request.body[key] !== undefined) changes[key] = request.body[key];
   });
+  if (request.body['pageColors'] !== undefined) changes.pageColors = JSON.stringify(request.body['pageColors']);
   if (request.body['opened']) changes.lastOpenedAt = new Date();
 
   const updated = (await knex('pdf').where({ id: pdf.id }).update(changes).returning('*'))[0];

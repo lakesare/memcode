@@ -288,6 +288,9 @@ CREATE INDEX pdf_folder_user_id ON pdf_folder (user_id);
 
 ALTER TABLE pdf ADD COLUMN folder_id INTEGER REFERENCES pdf_folder (id) ON DELETE SET NULL;
 
+-- [claude comment] colours given to page numbers in the reader's page grid, { "<page>": color }
+ALTER TABLE pdf ADD COLUMN page_colors JSONB NOT NULL DEFAULT '{}';
+
 -- Default category values
 INSERT INTO "public"."course_category_group" ("id", "name") VALUES
 ('2', 'Hard Sciences'),

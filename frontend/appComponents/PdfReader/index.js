@@ -71,8 +71,8 @@ class PdfReader extends React.Component {
     trim: readSetting(`trim.${this.props.pdfId}`, { mode: 'off', manual: null }),
     ifTrimMenuOpen: false,
     ifPageGridOpen: false,
-    // [claude comment] per book, in this browser only: { "<page>": color } for page numbers coloured in the page grid
-    pageColors: readSetting(`pageColors.${this.props.pdfId}`, {}),
+    // [claude comment] { "<page>": color } for page numbers coloured in the page grid, saved with the book
+    pageColors: {},
     savedPreview: null
   }
 
@@ -103,7 +103,7 @@ class PdfReader extends React.Component {
       if (this.unmounted) { loadingTask.destroy(); return; }
       const currentPosition = { page: Math.min(pdf.currentPage, pageSizes.length), y: pdf.currentY };
       this.setState((state) => ({
-        status: 'success', pdf, highlights, bookmarks, pdfjs, pdfDocument, pageSizes, currentPosition,
+        status: 'success', pdf, highlights, bookmarks, pdfjs, pdfDocument, pageSizes, currentPosition, pageColors: pdf.pageColors || {},
         focus: state.focus || this.lastViewedFocus(pageSizes.length) || { ...currentPosition, key: 'opened' }
       }));
       api.post.PdfApi.updatePdf(false, { pdfId: pdf.id, opened: true, nOfPages: pageSizes.length }).catch(() => {});
@@ -263,7 +263,7 @@ class PdfReader extends React.Component {
     const pageColors = { ...this.state.pageColors };
     if (color) { pageColors[page] = color; } else { delete pageColors[page]; }
     this.setState({ pageColors });
-    writeSetting(`pageColors.${this.props.pdfId}`, pageColors);
+    api.post.PdfApi.updatePdf(false, { pdfId: this.state.pdf.id, pageColors }).catch(this.saveFailed);
   }
 
   renderPageGrid = () => {
