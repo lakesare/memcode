@@ -109,6 +109,20 @@
           .info{
             flex: 1 1 auto;
             min-width: 0;
+            .rename-input{
+              width: 100%;
+              max-width: 420px;
+              height: 32px;
+              padding: 0 10px;
+              border: 1px solid rgba(255, 255, 255, 0.35);
+              border-radius: 7px;
+              background: rgba(255, 255, 255, 0.06);
+              color: inherit;
+              font-family: inherit;
+              font-size: 16px;
+              font-weight: 600;
+              &:focus{ outline: none; border-color: #fff; }
+            }
             h3{
               margin: 0;
               font-size: 16px;
@@ -160,6 +174,13 @@
             cursor: pointer;
           }
           .review{ background: rgba(255, 255, 255, 0.12); color: #fff; }
+          .rename{
+            width: 34px;
+            padding: 0;
+            background: transparent;
+            opacity: 0.4;
+            &:hover{ opacity: 0.9; background: rgba(247, 247, 253, 0.08); }
+          }
           .delete{
             width: 34px;
             padding: 0;
