@@ -330,7 +330,7 @@ class PdfReader extends React.Component {
       <div className="left">
         <Link to={this.props.backTo || '/pdfs'} className="icon-button back" aria-label="Back to library">{icons.back}</Link>
         <div className="title-and-page">
-          <div className="title">{this.state.pdf ? `${this.state.pdf.title}.pdf` : ''}</div>
+          <div className="title">{this.state.pdf ? this.state.pdf.title : ''}</div>
           {
             this.state.status === 'success' &&
             <div className="position">
