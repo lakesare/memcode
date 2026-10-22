@@ -75,8 +75,22 @@
       cursor: pointer;
       &:hover{ background: rgba(255, 255, 255, 0.07); }
       &.-active{ background: rgba(255, 255, 255, 0.14); }
+      &.-visited:not(.-active){
+        .snippet{ color: rgba(255, 255, 255, 0.45); mark{ background: rgba(255, 216, 77, 0.55); } }
+        .page{ color: rgba(255, 255, 255, 0.4); }
+      }
 
       .page{
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
+        .visited-dot{
+          width: 6px;
+          height: 6px;
+          margin-top: 5px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.55);
+        }
         flex-shrink: 0;
         min-width: 44px;
         font-size: 12px;
@@ -85,7 +99,8 @@
         font-variant-numeric: tabular-nums;
       }
       .snippet{
-        font-size: 13px;
+        white-space: pre-line;
+        font-size: 14px;
         line-height: 1.45;
         color: rgba(255, 255, 255, 0.8);
         overflow-wrap: anywhere;

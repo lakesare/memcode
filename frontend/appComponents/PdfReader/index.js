@@ -483,6 +483,7 @@ class PdfReader extends React.Component {
         <PdfSearch
           pdfjs={this.state.pdfjs}
           pdfDocument={this.state.pdfDocument}
+          pdfId={this.props.pdfId}
           onSelect={this.onSelectSearchResult}
           onClose={() => this.setState({ ifSearchOpen: false, searchMark: null })}
         />
