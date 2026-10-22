@@ -1,5 +1,6 @@
 import { pointsToHighlight, highlightToPathD } from '~/services/pdf/geometry';
 import { textLinesOf } from '~/services/pdf/textLinesOf';
+import { autoTrimOf } from '~/services/pdf/autoTrim';
 
 import css from './index.scss';
 
@@ -12,12 +13,17 @@ const MAX_BLANK_REDRAWS = 2;
 const VIEW_WIDTH = 1000;
 const DEFAULT_MARKER_WIDTH = 0.017;
 const SVG_NS = 'http://www.w3.org/2000/svg';
+const MIN_TRIMMED_WIDTH = 0.3;
 
 class PdfPage extends React.PureComponent {
   static propTypes = {
     pageNumber: PropTypes.number.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
+    sheetWidth: PropTypes.number.isRequired,
+    sheetLeft: PropTypes.number.isRequired,
+    trimEdit: PropTypes.array,
+    onTrimHandleDown: PropTypes.func.isRequired,
     highlights: PropTypes.array.isRequired,
     bookmarks: PropTypes.array.isRequired,
     focusedBookmarkId: PropTypes.string,
@@ -26,7 +32,8 @@ class PdfPage extends React.PureComponent {
   }
 
   render = () => {
-    const viewHeight = VIEW_WIDTH * this.props.height / this.props.width;
+    const viewHeight = VIEW_WIDTH * this.props.height / this.props.sheetWidth;
+    const trimEdit = this.props.trimEdit;
     return <div
       className="page"
       data-page={this.props.pageNumber}
@@ -39,6 +46,8 @@ class PdfPage extends React.PureComponent {
         <span className="text">p. {this.props.pageNumber}</span>
         <button type="button" className="retry" data-retry-page={this.props.pageNumber} onPointerDown={(event) => event.stopPropagation()}>Couldn't show this page · Retry</button>
       </div>
+      {/* [claude comment] the full page, shifted left by the trimmed margin - strokes and their coordinates are always relative to it */}
+      <div className="sheet" style={{ left: this.props.sheetLeft, width: this.props.sheetWidth }}>
       <svg className="highlights" viewBox={`0 0 ${VIEW_WIDTH} ${viewHeight}`} preserveAspectRatio="none">
         {this.props.highlights.map((highlight) =>
           <path
@@ -51,7 +60,18 @@ class PdfPage extends React.PureComponent {
           />
         )}
       </svg>
-      <svg className="live-layer" viewBox={`0 0 ${this.props.width} ${this.props.height}`}/>
+      <svg className="live-layer" viewBox={`0 0 ${this.props.sheetWidth} ${this.props.height}`}/>
+      </div>
+
+      {
+        trimEdit &&
+        <>
+          <div className="trim-shade -left" style={{ width: `${trimEdit[0] * 100}%` }}/>
+          <div className="trim-shade -right" style={{ width: `${(1 - trimEdit[1]) * 100}%` }}/>
+          <div className="trim-handle" style={{ left: `${trimEdit[0] * 100}%` }} onPointerDown={(event) => this.props.onTrimHandleDown(0, event)} role="slider" aria-label="Left trim" aria-valuenow={Math.round(trimEdit[0] * 100)}/>
+          <div className="trim-handle" style={{ left: `${trimEdit[1] * 100}%` }} onPointerDown={(event) => this.props.onTrimHandleDown(1, event)} role="slider" aria-label="Right trim" aria-valuenow={Math.round(trimEdit[1] * 100)}/>
+        </>
+      }
 
       {this.props.bookmarks.map((bookmark) =>
         <React.Fragment key={bookmark.id}>
@@ -87,12 +107,19 @@ class PdfViewer extends React.Component {
     onCreateHighlight: PropTypes.func.isRequired,
     onDeleteHighlight: PropTypes.func.isRequired,
     onBookmarkClick: PropTypes.func.isRequired,
-    onPageChange: PropTypes.func.isRequired
+    onPageChange: PropTypes.func.isRequired,
+    trimMode: PropTypes.oneOf(['off', 'auto', 'manual']).isRequired,
+    manualTrim: PropTypes.array,
+    onManualTrimSave: PropTypes.func.isRequired
   }
 
   state = {
     containerWidth: 0,
-    page: this.props.focus ? this.props.focus.page : 1
+    page: this.props.focus ? this.props.focus.page : 1,
+    // [claude comment] automatically found [left, right] edges of the book's text block, as fractions of the page width
+    autoTrim: null,
+    // [claude comment] [left, right] being set by hand (for every page), or null
+    trimEdit: null
   }
 
   // [claude comment] drawn pages (current and its two neighbours) as images, { pageNumber: { img, url, width } } - a page is drawn by pdf.js into a canvas, checked, turned into an image file, and the canvas is freed, so no canvas stays on screen (Firefox can lose a displayed canvas's contents and show white)
@@ -121,6 +148,7 @@ class PdfViewer extends React.Component {
     }
     if (prevState.page !== this.state.page) {
       this.props.onPageChange(this.state.page);
+      if (this.state.trimEdit) this.setState({ trimEdit: null });
     }
     if (prevState.containerWidth === 0 && this.state.containerWidth > 0 && this.props.focus) {
       this.scrollToY(this.props.focus.y);
@@ -173,9 +201,56 @@ class PdfViewer extends React.Component {
   // ___layout
   pageWidth = () => Math.max(200, Math.min(this.state.containerWidth - 24, MAX_PAGE_WIDTH) * this.props.zoom)
 
-  pageHeight = () => {
-    const size = this.props.pageSizes[this.state.page - 1];
-    return this.pageWidth() * size.height / size.width;
+  // [left, right] of the page that's shown, or null while the automatic trim isn't known yet
+  trimOf = (pageNumber) => {
+    if (this.state.trimEdit && pageNumber === this.state.page) return [0, 1];
+    if (this.props.trimMode === 'off') return [0, 1];
+    if (this.props.trimMode === 'manual') return this.props.manualTrim || [0, 1];
+    return this.state.autoTrim;
+  }
+
+  // the shown part fills the page width; the full page (the sheet) is wider by 1 / (right - left)
+  layoutOf = (pageNumber) => {
+    const [left, right] = this.trimOf(pageNumber) || [0, 1];
+    const size = this.props.pageSizes[pageNumber - 1];
+    const width = this.pageWidth();
+    const sheetWidth = width / (right - left);
+    return { left, right, width, sheetWidth, height: sheetWidth * size.height / size.width };
+  }
+
+  pageHeight = () => this.layoutOf(this.state.page).height
+
+  requestAutoTrim = () => {
+    if (this.ifAutoTrimRequested) return;
+    this.ifAutoTrimRequested = true;
+    autoTrimOf(this.props.pdfjs, this.props.pdfDocument).then((autoTrim) => !this.unmounted && this.setState({ autoTrim }));
+  }
+
+  // ___manual trim
+  startTrimming = () => {
+    this.setState({ trimEdit: [...(this.props.manualTrim || this.state.autoTrim || [0.08, 0.92])] });
+  }
+
+  saveTrim = () => {
+    this.props.onManualTrimSave(this.state.trimEdit.map((x) => Math.round(x * 1000) / 1000));
+    this.setState({ trimEdit: null });
+  }
+
+  onTrimHandleDown = (side, event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    this.pagesEl.setPointerCapture(event.pointerId);
+    this.trimDrag = { side, pointerId: event.pointerId };
+  }
+
+  moveTrimHandle = (event) => {
+    const rect = this.pageEl.getBoundingClientRect();
+    const x = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+    const [left, right] = this.state.trimEdit;
+    const trimEdit = this.trimDrag.side === 0 ?
+      [Math.min(x, right - MIN_TRIMMED_WIDTH), right] :
+      [left, Math.max(x, left + MIN_TRIMMED_WIDTH)];
+    this.setState({ trimEdit: trimEdit.map((v) => Math.max(0, Math.min(1, v))) });
   }
 
   // [claude comment] y=0 shows the top of the page; any other y is put 30% down the screen, the line getPosition() reads back
@@ -190,13 +265,16 @@ class PdfViewer extends React.Component {
   }
 
   // ___canvases
-  targetCanvasWidth = () => Math.round(this.pageWidth() * Math.min(window.devicePixelRatio || 1, 2))
+  imageKeyOf = (pageNumber) => {
+    const trim = this.trimOf(pageNumber);
+    return trim ? `${Math.round(this.pageWidth() * pixelRatio())}|${trim[0].toFixed(4)}|${trim[1].toFixed(4)}` : null;
+  }
 
   showAndSchedule = () => {
     if (this.state.containerWidth === 0 || this.unmounted) return;
     const page = this.state.page;
     const wanted = [page, page + 1, page - 1].filter((n) => n >= 1 && n <= this.props.pageSizes.length);
-    const targetWidth = this.targetCanvasWidth();
+    if (this.props.trimMode === 'auto') this.requestAutoTrim();
 
     Object.keys(this.pages).map(Number).filter((n) => !wanted.includes(n)).forEach((n) => {
       forgetImage(this.pages[n]);
@@ -208,20 +286,25 @@ class PdfViewer extends React.Component {
       this.rendering = null;
     }
 
-    const entry = this.pages[page];
+    const entry = this.pages[page] && this.pages[page].key === this.imageKeyOf(page) ? this.pages[page] : null;
     if (entry && this.pageEl && this.pageEl.dataset.page === String(page)) {
       const holder = this.pageEl.querySelector('.canvas-holder');
       if (holder.firstChild !== entry.img) holder.replaceChildren(entry.img);
       this.pageEl.classList.add('-rendered');
     }
+    if (this.pageEl && !entry) {
+      this.pageEl.classList.remove('-rendered');
+      if (this.pageEl.querySelector('.canvas-holder').firstChild) this.pageEl.querySelector('.canvas-holder').replaceChildren();
+    }
     if (this.pageEl) this.pageEl.classList.toggle('-failed', (this.renderAttempts[page] || 0) >= MAX_RENDER_ATTEMPTS && !entry);
 
     if (this.rendering) return;
-    const next = wanted.find((n) => (!this.pages[n] || this.pages[n].width !== targetWidth) && (this.renderAttempts[n] || 0) < MAX_RENDER_ATTEMPTS);
-    if (next) this.renderPage(next, targetWidth);
+    const next = wanted.find((n) => this.imageKeyOf(n) && (!this.pages[n] || this.pages[n].key !== this.imageKeyOf(n)) && (this.renderAttempts[n] || 0) < MAX_RENDER_ATTEMPTS);
+    if (next) this.renderPage(next, this.layoutOf(next), this.imageKeyOf(next));
   }
 
-  renderPage = async (pageNumber, targetWidth) => {
+  // [claude comment] only the shown (trimmed) part of the page is drawn, at the screen's resolution
+  renderPage = async (pageNumber, layout, key) => {
     const job = { pageNumber, startedAt: Date.now(), cancelled: false, cancel: () => { job.cancelled = true; } };
     this.rendering = job;
     let canvas = null;
@@ -229,18 +312,18 @@ class PdfViewer extends React.Component {
       const page = await this.props.pdfDocument.getPage(pageNumber);
       if (job.cancelled) return;
       const base = page.getViewport({ scale: 1 });
-      let scale = targetWidth / base.width;
-      if (base.width * base.height * scale * scale > MAX_CANVAS_PIXELS) {
-        scale = Math.sqrt(MAX_CANVAS_PIXELS / (base.width * base.height));
+      let ratio = pixelRatio();
+      if (layout.width * layout.height * ratio * ratio > MAX_CANVAS_PIXELS) {
+        ratio = Math.sqrt(MAX_CANVAS_PIXELS / (layout.width * layout.height));
       }
-      const viewport = page.getViewport({ scale });
+      const viewport = page.getViewport({ scale: layout.sheetWidth * ratio / base.width });
       canvas = document.createElement('canvas');
-      canvas.width = Math.floor(viewport.width);
-      canvas.height = Math.floor(viewport.height);
+      canvas.width = Math.round(layout.width * ratio);
+      canvas.height = Math.round(layout.height * ratio);
       const context = canvas.getContext('2d');
       if (!context) throw new Error('No canvas memory left');
 
-      const task = page.render({ canvasContext: context, viewport });
+      const task = page.render({ canvasContext: context, viewport, transform: [1, 0, 0, 1, -layout.left * viewport.width, 0] });
       job.cancel = () => { job.cancelled = true; task.cancel(); };
       await task.promise;
       if (job.cancelled || this.isBlankAndShouldRedraw(pageNumber, canvas)) return;
@@ -257,7 +340,7 @@ class PdfViewer extends React.Component {
         return;
       }
       if (this.pages[pageNumber]) forgetImage(this.pages[pageNumber]);
-      this.pages[pageNumber] = { img, url, width: targetWidth };
+      this.pages[pageNumber] = { img, url, key };
       delete this.renderAttempts[pageNumber];
     } catch (error) {
       if (!job.cancelled && !(error && error.name === 'RenderingCancelledException')) {
@@ -320,10 +403,11 @@ class PdfViewer extends React.Component {
     if (event.pointerType === 'touch') return;
     if (event.pointerType === 'mouse' && event.button !== 0) return;
 
+    if (this.state.trimEdit) return;
     const pageEl = event.target.closest('[data-page]');
     if (!pageEl) return;
     const pageNumber = parseInt(pageEl.dataset.page, 10);
-    const rect = pageEl.getBoundingClientRect();
+    const rect = pageEl.querySelector('.sheet').getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
@@ -340,6 +424,10 @@ class PdfViewer extends React.Component {
   }
 
   onPointerMove = (event) => {
+    if (this.trimDrag && event.pointerId === this.trimDrag.pointerId) {
+      this.moveTrimHandle(event);
+      return;
+    }
     if (this.stroke && event.pointerId === this.stroke.pointerId) {
       const events = event.getCoalescedEvents ? event.getCoalescedEvents() : [event];
       const { rect } = this.stroke;
@@ -350,6 +438,7 @@ class PdfViewer extends React.Component {
 
   onPointerUp = (event) => {
     if (event.pointerId === this.penDownId) this.penDownId = undefined;
+    if (this.trimDrag && event.pointerId === this.trimDrag.pointerId) this.trimDrag = null;
 
     if (this.stroke && event.pointerId === this.stroke.pointerId) {
       this.finishStroke(event.type === 'pointercancel');
@@ -402,7 +491,8 @@ class PdfViewer extends React.Component {
     const highlights = this.props.highlights.filter((h) => h.page === page);
     const bookmarks = this.props.bookmarks.filter((b) => b.page === page);
     const focusedBookmarkId = this.props.focus ? this.props.focus.bookmarkId : null;
-    const width = this.pageWidth();
+    const layout = this.layoutOf(page);
+    const width = layout.width;
 
     return <div className={css.viewer}>
       <div className="scroller" ref={(el) => this.scrollerEl = el}>
@@ -423,7 +513,11 @@ class PdfViewer extends React.Component {
               key={page}
               pageNumber={page}
               width={width}
-              height={this.pageHeight()}
+              height={layout.height}
+              sheetWidth={layout.sheetWidth}
+              sheetLeft={-layout.left * layout.sheetWidth}
+              trimEdit={this.state.trimEdit}
+              onTrimHandleDown={this.onTrimHandleDown}
               highlights={highlights}
               bookmarks={bookmarks}
               focusedBookmarkId={focusedBookmarkId}
@@ -433,6 +527,14 @@ class PdfViewer extends React.Component {
           }
         </div>
       </div>
+      {
+        this.state.trimEdit &&
+        <div className="trim-bar" role="toolbar" aria-label="Trim margins">
+          <span className="what">Drag the edges · applies to every page</span>
+          <button type="button" onClick={() => this.setState({ trimEdit: null })}>Cancel</button>
+          <button type="button" className="-primary" onClick={this.saveTrim}>Save</button>
+        </div>
+      }
     </div>
   }
 }
@@ -446,6 +548,8 @@ const isBlank = (canvas) => {
   }
   return true;
 };
+
+const pixelRatio = () => Math.min(window.devicePixelRatio || 1, 2);
 
 const forgetImage = (entry) => {
   URL.revokeObjectURL(entry.url);

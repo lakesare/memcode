@@ -25,6 +25,8 @@ const writeSetting = (key, value) => {
   try { localStorage.setItem(`pdfs.${key}`, JSON.stringify(value)); } catch { /* private mode */ }
 };
 
+const TRIM_MODE_NAMES = { off: 'Off', auto: 'Auto', manual: 'Manual' };
+
 const newId = () => (
   window.crypto && crypto.randomUUID ?
     crypto.randomUUID() :
@@ -65,6 +67,9 @@ class PdfReader extends React.Component {
     bookmarkPopover: null,
     toast: null,
     draft: null,
+    // [claude comment] per book, in this browser only: { mode: 'off' | 'auto' | 'manual', manual: [left, right] | null }
+    trim: readSetting(`trim.${this.props.pdfId}`, { mode: 'off', manual: null }),
+    ifTrimMenuOpen: false,
     savedPreview: null
   }
 
@@ -208,6 +213,20 @@ class PdfReader extends React.Component {
     this.setState({ viewedPage });
   }
 
+  setTrim = (trim) => {
+    this.setState({ trim, ifTrimMenuOpen: false });
+    writeSetting(`trim.${this.props.pdfId}`, trim);
+  }
+
+  chooseTrimMode = (mode) => {
+    if (mode === 'manual') {
+      this.setState({ ifTrimMenuOpen: false });
+      if (this.viewer) this.viewer.startTrimming();
+    } else {
+      this.setTrim({ ...this.state.trim, mode });
+    }
+  }
+
   // [claude comment] the reading position only moves when you say so - jumping around the book to look at highlights never loses it
   setAsCurrent = () => {
     const position = this.viewer.getPosition();
@@ -281,6 +300,36 @@ class PdfReader extends React.Component {
                   aria-checked={this.state.color === color.value}
                 >
                   <span className="swatch" style={{ background: color.value }}/>{color.name}
+                </button>
+              )}
+            </span>
+          }
+        </span>
+        <span className="trim-picker">
+          <button
+            type="button"
+            className={`tool trim-button ${this.state.ifTrimMenuOpen ? '-open' : ''}`}
+            onClick={() => this.setState((state) => ({ ifTrimMenuOpen: !state.ifTrimMenuOpen, ifColorMenuOpen: false }))}
+            disabled={this.state.status !== 'success'}
+            aria-expanded={this.state.ifTrimMenuOpen}
+            title="Trim margins"
+          >
+            {icons.trim}
+            <span className="label">Trim: {TRIM_MODE_NAMES[this.state.trim.mode]}</span>
+          </button>
+          {
+            this.state.ifTrimMenuOpen &&
+            <span className="trim-menu" role="menu">
+              {['off', 'auto', 'manual'].map((mode) =>
+                <button
+                  type="button"
+                  role="menuitemradio"
+                  key={mode}
+                  className={this.state.trim.mode === mode ? '-active' : ''}
+                  aria-checked={this.state.trim.mode === mode}
+                  onClick={() => this.chooseTrimMode(mode)}
+                >
+                  {TRIM_MODE_NAMES[mode]}{mode === 'manual' && <span className="hint">set edges…</span>}
                 </button>
               )}
             </span>
@@ -375,7 +424,7 @@ class PdfReader extends React.Component {
     <div className={css.reader} ref={(el) => this.rootEl = el}>
       {this.renderToolbar()}
 
-      <div className="viewer-area" onPointerDownCapture={() => (this.state.bookmarkPopover || this.state.ifColorMenuOpen) && this.setState({ bookmarkPopover: null, ifColorMenuOpen: false })}>
+      <div className="viewer-area" onPointerDownCapture={() => (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifTrimMenuOpen) && this.setState({ bookmarkPopover: null, ifColorMenuOpen: false, ifTrimMenuOpen: false })}>
         {
           this.state.status === 'success' ?
             <PdfViewer
@@ -392,6 +441,9 @@ class PdfReader extends React.Component {
               onDeleteHighlight={this.onDeleteHighlight}
               onBookmarkClick={this.onBookmarkClick}
               onPageChange={this.onPageChange}
+              trimMode={this.state.trim.mode}
+              manualTrim={this.state.trim.manual}
+              onManualTrimSave={(manual) => this.setTrim({ mode: 'manual', manual })}
             /> :
             this.renderLoading()
         }

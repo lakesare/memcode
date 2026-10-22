@@ -13,12 +13,50 @@
 
   .highlights path{ pointer-events: visibleStroke; }
 
+  .trim-bar{
+    position: absolute;
+    left: 50%;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    z-index: 4;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 5px 5px 14px;
+    border-radius: 12px;
+    background: #1f2340;
+    color: #fff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+
+    .what{
+      margin-right: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+    button{
+      height: 36px;
+      padding: 0 12px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      &:hover{ background: rgba(255, 255, 255, 0.08); }
+      &.-primary{ background: rgba(255, 255, 255, 0.18); }
+    }
+  }
+
   .pages{
     position: relative;
     touch-action: pan-x pan-y pinch-zoom;
     cursor: crosshair;
     margin: 0 auto;
-    padding: 14px 12px 35vh;
+    padding: 14px 12px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -32,7 +70,56 @@
   .page{
     position: relative;
     flex-shrink: 0;
+    overflow: hidden;
     background: #fff;
+
+    .sheet{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+
+    .trim-shade{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+      background: rgba(15, 17, 34, 0.45);
+      pointer-events: none;
+      &.-left{ left: 0; }
+      &.-right{ right: 0; }
+    }
+    .trim-handle{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 3;
+      width: 44px;
+      margin-left: -22px;
+      cursor: ew-resize;
+      touch-action: none;
+      &::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 21px;
+        width: 2px;
+        background: #262b4a;
+      }
+      &::after{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 14px;
+        width: 16px;
+        height: 56px;
+        margin-top: -28px;
+        border-radius: 8px;
+        background: #262b4a;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+    }
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0 6px 18px rgba(0, 0, 0, 0.18);
 
     .page-placeholder{
