@@ -124,7 +124,88 @@ const getBookmarksToReview = async (request, response) => {
   response.success(await query);
 };
 
+// ___folders
+const mustOwnFolder = async (folderId, currentUser) => {
+  await mustBeAuthenticated(currentUser);
+  const folder = await knex('pdfFolder').where({ id: folderId }).first();
+  if (!folder || folder.userId !== currentUser.id) {
+    const error = new Error('Folder not found');
+    error.status = 404;
+    throw error;
+  }
+  return folder;
+};
+
+const getMyFolders = async (request, response) => {
+  await mustBeAuthenticated(request.currentUser);
+  const folders = await knex('pdfFolder').where({ userId: request.currentUser.id }).orderBy(['position', 'createdAt']);
+  response.success(folders);
+};
+
+const createFolder = async (request, response) => {
+  await mustBeAuthenticated(request.currentUser);
+  const name = (request.body['name'] || '').trim();
+  if (!name) return response.validation(['Folder name is required']);
+  const last = await knex('pdfFolder').where({ userId: request.currentUser.id }).max('position as maxPosition').first();
+  const position = last && last.maxPosition !== null ? last.maxPosition + 1 : 0;
+  const folder = (await knex('pdfFolder').insert({ userId: request.currentUser.id, name, position }).returning('*'))[0];
+  response.success(folder);
+};
+
+const renameFolder = async (request, response) => {
+  const folder = await mustOwnFolder(request.body['folderId'], request.currentUser);
+  const name = (request.body['name'] || '').trim();
+  if (!name) return response.validation(['Folder name is required']);
+  const updated = (await knex('pdfFolder').where({ id: folder.id }).update({ name }).returning('*'))[0];
+  response.success(updated);
+};
+
+// [claude comment] the books inside become folderless (they still show under "All")
+const deleteFolder = async (request, response) => {
+  const folder = await mustOwnFolder(request.body['folderId'], request.currentUser);
+  await knex('pdfFolder').where({ id: folder.id }).del();
+  response.success({});
+};
+
+// [claude comment] one default folder per user; folderId null means the library opens on "All"
+const setDefaultFolder = async (request, response) => {
+  await mustBeAuthenticated(request.currentUser);
+  const folderId = request.body['folderId'];
+  if (folderId) await mustOwnFolder(folderId, request.currentUser);
+  await knex('pdfFolder').where({ userId: request.currentUser.id }).update({ isDefault: false });
+  if (folderId) await knex('pdfFolder').where({ id: folderId }).update({ isDefault: true });
+  response.success({});
+};
+
+// [claude comment] direction -1 swaps the folder with its left neighbour, 1 with its right one; positions are renumbered 0..n-1 on the way
+const moveFolder = async (request, response) => {
+  const folder = await mustOwnFolder(request.body['folderId'], request.currentUser);
+  const direction = request.body['direction'] === -1 ? -1 : 1;
+  const folders = await knex('pdfFolder').where({ userId: request.currentUser.id }).orderBy(['position', 'createdAt']);
+  const ids = folders.map((f) => f.id);
+  const index = ids.indexOf(folder.id);
+  const otherIndex = index + direction;
+  if (otherIndex >= 0 && otherIndex < ids.length) {
+    [ids[index], ids[otherIndex]] = [ids[otherIndex], ids[index]];
+  }
+  await knex.transaction(async (trx) => {
+    for (const [position, id] of ids.entries()) {
+      await trx('pdfFolder').where({ id }).update({ position });
+    }
+  });
+  response.success({ folderIds: ids });
+};
+
+const movePdf = async (request, response) => {
+  const pdf = await mustOwnPdf(request.body['pdfId'], request.currentUser);
+  const folderId = request.body['folderId'] || null;
+  if (folderId) await mustOwnFolder(folderId, request.currentUser);
+  const updated = (await knex('pdf').where({ id: pdf.id }).update({ folderId }).returning('*'))[0];
+  response.success(updated);
+};
+
 export default {
+  getMyFolders, createFolder, renameFolder, deleteFolder, setDefaultFolder, moveFolder, movePdf,
   getMyPdfs, getPdf, updatePdf, deletePdf,
   createHighlight, deleteHighlight,
   createBookmark, reviewBookmark, removeBookmark, getBookmarksToReview

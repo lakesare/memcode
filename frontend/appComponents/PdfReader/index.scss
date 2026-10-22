@@ -271,7 +271,7 @@
           min-width: 130px;
           padding: 4px;
           border-radius: 9px;
-          background: #f4f2ee;
+          background: #1f2340;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 
           button{
@@ -283,7 +283,7 @@
             border: none;
             border-radius: 6px;
             background: transparent;
-            color: #26282c;
+            color: #fff;
             font-size: 14px;
             font-weight: 600;
             text-align: left;
@@ -293,8 +293,8 @@
               height: 18px;
               border-radius: 50%;
             }
-            &:hover{ background: #e2ded6; }
-            &.-active .swatch{ box-shadow: 0 0 0 2px #f4f2ee, 0 0 0 4px #26282c; }
+            &:hover{ background: rgba(255, 255, 255, 0.1); }
+            &.-active .swatch{ box-shadow: 0 0 0 2px #1f2340, 0 0 0 4px #fff; }
           }
         }
       }
@@ -312,7 +312,7 @@
           min-width: 170px;
           padding: 4px;
           border-radius: 9px;
-          background: #f4f2ee;
+          background: #1f2340;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
           button{
             display: flex;
@@ -324,13 +324,13 @@
             border: none;
             border-radius: 6px;
             background: transparent;
-            color: #26282c;
+            color: #fff;
             font-size: 14px;
             font-weight: 600;
             text-align: left;
             cursor: pointer;
             .hint{ font-size: 12px; font-weight: 500; opacity: 0.55; }
-            &:hover, &.-active{ background: #e2ded6; }
+            &:hover, &.-active{ background: rgba(255, 255, 255, 0.1); }
           }
         }
       }
@@ -478,8 +478,8 @@
       width: min(340px, calc(100% - 24px));
       padding: 10px;
       border-radius: 10px;
-      background: #f4f2ee;
-      color: #26282c;
+      background: #1f2340;
+      color: #fff;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       pointer-events: none;
       .caption{
@@ -513,8 +513,8 @@
     gap: 10px;
     padding: 5px;
     border-radius: 8px;
-    background: #f4f2ee;
-    color: #5b5e66;
+    background: #1f2340;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 12px;
     white-space: nowrap;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
@@ -524,12 +524,12 @@
       padding: 0 10px;
       border: none;
       border-radius: 6px;
-      background: #e2ded6;
-      color: #26282c;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
-      &:hover{ background: #d6d1c7; }
+      &:hover{ background: rgba(255, 255, 255, 0.15); }
     }
   }
 

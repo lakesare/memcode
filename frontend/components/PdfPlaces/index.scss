@@ -6,8 +6,8 @@
   max-height: calc(100dvh - 80px);
   display: flex;
   flex-direction: column;
-  background: #f4f2ee;
-  color: #26282c;
+  background: #1f2340;
+  color: #fff;
   border-radius: 10px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   overflow: hidden;
@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 8px 8px 8px 10px;
-    border-bottom: 1px solid #dcd8d0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
     h3{
       margin: 0 0 0 4px;
@@ -46,7 +46,7 @@
       .count{
         margin-left: 4px;
         font-weight: 500;
-        color: #8a8d95;
+        color: rgba(255, 255, 255, 0.5);
         font-variant-numeric: tabular-nums;
       }
     }
@@ -60,14 +60,14 @@
         padding: 0 14px;
         border: none;
         border-radius: 8px;
-        background: #26282c;
+        background: rgba(255, 255, 255, 0.16);
         color: #fff;
         font-size: 14px;
         font-weight: 700;
         cursor: pointer;
         &.-active{
-          background: #e2ded6;
-          color: #26282c;
+          background: rgba(255, 255, 255, 0.28);
+          color: #fff;
         }
       }
       .close{
@@ -77,7 +77,7 @@
         background: transparent;
         font-size: 24px;
         line-height: 1;
-        color: #5b5e66;
+        color: rgba(255, 255, 255, 0.6);
         cursor: pointer;
       }
     }
@@ -94,7 +94,7 @@
 
     .empty{
       margin: 18px 8px;
-      color: #5b5e66;
+      color: rgba(255, 255, 255, 0.6);
       font-size: 14px;
       line-height: 1.5;
     }
@@ -114,26 +114,26 @@
           padding: 2px 0;
           border: none;
           background: transparent;
-          color: #5b5e66;
+          color: rgba(255, 255, 255, 0.6);
           font-size: 12px;
           font-weight: 700;
           font-variant-numeric: tabular-nums;
           letter-spacing: 0.02em;
           cursor: pointer;
           .go{ font-weight: 500; }
-          &:hover{ color: #1f5fd6; }
+          &:hover{ color: #fff; }
         }
         .remove{
           height: 30px;
           padding: 0 12px;
-          border: 1px solid #d6d1c7;
+          border: 1px solid rgba(255, 255, 255, 0.15);
           border-radius: 7px;
-          background: #fff;
-          color: #b0153a;
+          background: transparent;
+          color: #ff9a8f;
           font-size: 13px;
           font-weight: 700;
           cursor: pointer;
-          &:hover{ background: #fbeceb; border-color: #e7b5b1; }
+          &:hover{ background: rgba(255, 154, 143, 0.12); border-color: rgba(255, 154, 143, 0.4); }
         }
       }
 
@@ -144,8 +144,8 @@
         border: none;
         background: transparent;
         cursor: pointer;
-        &:focus-visible{ outline: none; .snippet{ box-shadow: 0 0 0 2px #1f5fd6; } }
-        &:hover .snippet{ box-shadow: 0 0 0 2px #1f5fd6; }
+        &:focus-visible{ outline: none; .snippet{ box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6); } }
+        &:hover .snippet{ box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.6); }
       }
 
       .snippet{

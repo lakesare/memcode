@@ -178,11 +178,13 @@ class PdfPlaces extends React.Component {
     currentPage: PropTypes.number,
     onSelect: PropTypes.func.isRequired,
     onRemoveBookmark: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
+    title: PropTypes.string,
+    ifAlwaysBig: PropTypes.bool
   }
 
   state = {
-    ifReviewing: false
+    ifReviewing: !!this.props.ifAlwaysBig
   }
 
   componentDidMount = () => {
@@ -200,7 +202,7 @@ class PdfPlaces extends React.Component {
 
   onKeyDown = (event) => {
     if (event.key === 'Escape') {
-      if (this.state.ifReviewing) { this.setState({ ifReviewing: false }); } else { this.props.onClose(); }
+      if (this.state.ifReviewing && !this.props.ifAlwaysBig) { this.setState({ ifReviewing: false }); } else { this.props.onClose(); }
     }
   }
 
@@ -217,10 +219,10 @@ class PdfPlaces extends React.Component {
     const ifReviewing = this.state.ifReviewing;
     return <div className={`${css.places} ${ifReviewing ? '-reviewing' : ''}`} role="dialog" aria-label="Bookmarks">
       <header>
-        <h3>Bookmarks <span className="count">{places.length}</span></h3>
+        <h3>{this.props.title ? this.props.title : 'Bookmarks'} <span className="count">{places.length}</span></h3>
         <div className="header-buttons">
           {
-            places.length > 0 &&
+            places.length > 0 && !this.props.ifAlwaysBig &&
             <button type="button" className={`review ${ifReviewing ? '-active' : ''}`} onClick={() => this.setState({ ifReviewing: !ifReviewing })}>
               {ifReviewing ? 'Done' : 'Review'}
             </button>

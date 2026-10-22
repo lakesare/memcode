@@ -49,6 +49,103 @@
       }
     }
 
+    .folders{
+      margin-bottom: 18px;
+
+      .folder-tabs{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+
+        .folder-tab{
+          height: 34px;
+          padding: 0 14px;
+          border: none;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.06);
+          color: #fff;
+          font-family: inherit;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          &:hover{ background: rgba(255, 255, 255, 0.1); }
+          &.-active{ background: rgba(255, 255, 255, 0.22); }
+          &.-all{ margin-left: auto; }
+        }
+
+        .folder-menu-holder{
+          position: relative;
+          .folder-menu-button{
+            width: 36px;
+            height: 34px;
+            padding: 0;
+            border: none;
+            border-radius: 999px;
+            background: transparent;
+            color: #fff;
+            font-size: 18px;
+            line-height: 1;
+            opacity: 0.55;
+            cursor: pointer;
+            &:hover, &[aria-expanded="true"]{ opacity: 1; background: rgba(255, 255, 255, 0.08); }
+          }
+          .folder-menu{
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            min-width: 220px;
+            padding: 4px;
+            border-radius: 10px;
+            background: #1f2340;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            .question{
+              padding: 8px 12px 4px;
+              color: rgba(255, 255, 255, 0.6);
+              font-size: 13px;
+              line-height: 1.4;
+            }
+            .separator{
+              height: 1px;
+              margin: 4px 6px;
+              background: rgba(255, 255, 255, 0.08);
+            }
+            button{
+              height: 38px;
+              padding: 0 12px;
+              border: none;
+              border-radius: 7px;
+              background: transparent;
+              color: #fff;
+              font-family: inherit;
+              font-size: 14px;
+              font-weight: 600;
+              text-align: left;
+              white-space: nowrap;
+              cursor: pointer;
+              &:hover{ background: rgba(255, 255, 255, 0.1); }
+              &.danger-text{ color: #ff9a8f; }
+            }
+          }
+        }
+        .folder-input{
+          height: 34px;
+          width: 170px;
+          padding: 0 14px;
+          border: 1px solid rgba(255, 255, 255, 0.4);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.06);
+          color: #fff;
+          font-family: inherit;
+          font-size: 14px;
+          &:focus{ outline: none; border-color: #fff; }
+        }
+      }
+    }
+
     .error{ color: #ff9a8f; }
     .empty{ opacity: 0.6; }
 
@@ -61,6 +158,8 @@
       gap: 8px;
 
       li.pdf{
+        position: relative;
+        &.-menu-open{ z-index: 5; }
         display: flex;
         align-items: center;
         gap: 12px;
@@ -140,6 +239,18 @@
               opacity: 0.6;
               font-variant-numeric: tabular-nums;
             }
+            .bookmarks{
+              padding: 0;
+              border: none;
+              background: transparent;
+              color: inherit;
+              font: inherit;
+              text-decoration: underline;
+              text-underline-offset: 3px;
+              text-decoration-color: rgba(255, 255, 255, 0.35);
+              cursor: pointer;
+              &:hover{ text-decoration-color: currentColor; }
+            }
             .progress{
               width: min(220px, 100%);
               height: 3px;
@@ -174,22 +285,52 @@
             cursor: pointer;
           }
           .review{ background: rgba(255, 255, 255, 0.12); color: #fff; }
-          .rename{
-            width: 34px;
-            padding: 0;
-            background: transparent;
-            opacity: 0.4;
-            &:hover{ opacity: 0.9; background: rgba(247, 247, 253, 0.08); }
-          }
-          .delete{
-            width: 34px;
-            padding: 0;
-            background: transparent;
-            opacity: 0.4;
-            &:hover{ opacity: 0.9; background: rgba(247, 247, 253, 0.08); }
+          .menu-holder{
+            position: relative;
+            .menu-button{
+              width: 36px;
+              padding: 0;
+              background: transparent;
+              font-size: 20px;
+              line-height: 1;
+              letter-spacing: 1px;
+              opacity: 0.55;
+              &:hover, &[aria-expanded="true"]{ opacity: 1; background: rgba(247, 247, 253, 0.08); }
+            }
+            .book-menu{
+              position: absolute;
+              top: calc(100% + 6px);
+              right: 0;
+              z-index: 30;
+              display: flex;
+              flex-direction: column;
+              min-width: 180px;
+              max-height: 320px;
+              overflow-y: auto;
+              padding: 4px;
+              border-radius: 10px;
+              background: #1f2340;
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+              button{
+                justify-content: flex-start;
+                height: 38px;
+                padding: 0 12px;
+                border-radius: 7px;
+                background: transparent;
+                color: #fff;
+                font-size: 14px;
+                font-weight: 600;
+                text-align: left;
+                white-space: nowrap;
+                &:hover{ background: rgba(255, 255, 255, 0.1); }
+                &.-current{ background: rgba(255, 255, 255, 0.1); }
+                &.back{ color: rgba(255, 255, 255, 0.6); }
+                &.danger-text{ color: #ff9a8f; }
+              }
+            }
           }
           .confirm{ display: flex; gap: 6px; }
-          .danger{ background: #b0253c; color: #fff; }
+          .danger{ background: #ff9a8f; color: #fff; }
         }
       }
     }
