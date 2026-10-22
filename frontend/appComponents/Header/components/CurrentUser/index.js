@@ -7,6 +7,7 @@ import OfflineModal from '~/appComponents/OfflineModal';
 import getUserAvatar from '~/services/getUserAvatar';
 import ThemeToggleButton from '~/appComponents/ThemeToggleButton';
 import SettingsDuck from '~/ducks/SettingsDuck';
+import isUserAdmin from '../../../../../services/isUserAdmin.js';
 
 import css from './index.scss';
 
@@ -24,6 +25,12 @@ class CurrentUser extends React.Component {
       <li>
         <Link to={`/users/${this.props.currentUser.id}`} className="dropdown-item">Home</Link>
       </li>
+      {
+        isUserAdmin(this.props.currentUser) &&
+        <li>
+          <Link to="/pdfs" className="dropdown-item">PDFs</Link>
+        </li>
+      }
       <li>
         <SettingsModal toggler={<button type="button" className="dropdown-item">Settings</button>}/>
       </li>

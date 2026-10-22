@@ -8,6 +8,7 @@ import PageApi                  from '#~/api/PageApi/index.js';
 import AdminApi                 from '#~/api/AdminApi/index.js';
 import CourseApi                from '#~/api/CourseApi/index.js';
 import ProblemApi               from '#~/api/ProblemApi/index.js';
+import PdfApi                   from '#~/api/PdfApi/index.js';
 import NotificationApi          from '#~/api/NotificationApi/index.js';
 import CourseCategoryApi        from '#~/api/CourseCategoryApi/index.js';
 import CourseUserIsLearningApi  from '#~/api/CourseUserIsLearningApi/index.js';
@@ -16,7 +17,7 @@ import ProblemUserIsLearningApi from '#~/api/ProblemUserIsLearningApi/index.js';
 const apis = {
   TtsApi, UserApi, AuthApi, PageApi, AdminApi, CourseApi, ProblemApi,
   NotificationApi, CourseCategoryApi, CourseUserIsLearningApi,
-  ProblemUserIsLearningApi
+  ProblemUserIsLearningApi, PdfApi
 };
 
 const callApiMethod = (ifGet) =>
@@ -42,3 +43,6 @@ router.use('/api/auth', AuthApi);
 // BECAUSE: multipart file uploads with multer middleware
 import FileApi from '#~/api/FileApi/index.js';
 router.use('/api/files', FileApi);
+// BECAUSE: multipart pdf uploads, and streaming pdfs from s3
+import PdfFileApi from '#~/api/PdfFileApi/index.js';
+router.use('/api/pdfs', PdfFileApi);

@@ -1,0 +1,176 @@
+:local(main.main){
+  .container.pdfs-page{
+    max-width: 880px;
+    padding-block: 40px 60px;
+
+    .top{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+
+      h1{
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+        .count{
+          margin-left: 6px;
+          font-weight: 400;
+          opacity: 0.45;
+          font-variant-numeric: tabular-nums;
+        }
+      }
+      .top-actions{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        a, label{
+          display: inline-flex;
+          align-items: center;
+          height: 40px;
+          padding: 0 18px;
+          border-radius: 999px;
+          font-weight: 700;
+          font-size: 14px;
+          text-decoration: none;
+          cursor: pointer;
+        }
+        .review-all{ background: rgba(255, 255, 255, 0.12); color: #fff; }
+        .upload{
+          background: #fff;
+          color: #0f1122;
+          input{ position: absolute; width: 1px; height: 1px; opacity: 0; }
+          &:hover{ background: #fff; }
+          &:focus-within{ outline: 2px solid #fff; outline-offset: 2px; }
+          &.-busy{ cursor: default; opacity: 0.8; font-variant-numeric: tabular-nums; }
+        }
+      }
+    }
+
+    .error{ color: #ff9a8f; }
+    .empty{ opacity: 0.6; }
+
+    ul.pdfs{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      li.pdf{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 12px 12px 14px;
+        border-radius: 12px;
+        background: rgba(247, 247, 253, 0.04);
+        transition: background 0.15s;
+        &:hover{ background: rgba(247, 247, 253, 0.07); }
+
+        .open{
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          flex: 1 1 auto;
+          min-width: 0;
+          color: inherit;
+          text-decoration: none;
+
+          .cover{
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 58px;
+            border-radius: 4px 7px 7px 4px;
+            background: #262b4a;
+            box-shadow: inset 3px 0 0 rgba(255, 255, 255, 0.08);
+            .initial{
+              font-family: Georgia, "Times New Roman", serif;
+              font-size: 22px;
+              color: #e6e4de;
+            }
+            .cover-ribbon{
+              position: absolute;
+              top: 0;
+              right: 7px;
+              width: 8px;
+              height: 15px;
+              background: rgba(255, 255, 255, 0.75);
+              clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+            }
+          }
+
+          .info{
+            flex: 1 1 auto;
+            min-width: 0;
+            h3{
+              margin: 0;
+              font-size: 16px;
+              font-weight: 600;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            .stats{
+              display: flex;
+              flex-wrap: wrap;
+              gap: 2px 14px;
+              margin-top: 3px;
+              font-size: 13px;
+              opacity: 0.6;
+              font-variant-numeric: tabular-nums;
+            }
+            .progress{
+              width: min(220px, 100%);
+              height: 3px;
+              margin-top: 8px;
+              border-radius: 2px;
+              background: rgba(255, 255, 255, 0.1);
+              overflow: hidden;
+              div{ height: 100%; background: rgba(255, 255, 255, 0.55); }
+            }
+          }
+        }
+
+        .actions{
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          flex-shrink: 0;
+          a, button{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 34px;
+            padding: 0 12px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(247, 247, 253, 0.08);
+            color: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            text-decoration: none;
+            cursor: pointer;
+          }
+          .review{ background: rgba(255, 255, 255, 0.12); color: #fff; }
+          .delete{
+            width: 34px;
+            padding: 0;
+            background: transparent;
+            opacity: 0.4;
+            &:hover{ opacity: 0.9; background: rgba(247, 247, 253, 0.08); }
+          }
+          .confirm{ display: flex; gap: 6px; }
+          .danger{ background: #b0253c; color: #fff; }
+        }
+      }
+    }
+  }
+}

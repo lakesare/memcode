@@ -1,0 +1,441 @@
+:local(.reader){
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #0f1122;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  z-index: 10;
+
+  button{ font-family: inherit; }
+
+  > .toolbar{
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 62px;
+    padding: calc(env(safe-area-inset-top, 0px) + 8px) 14px 8px 8px;
+    background: #181b33;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+    z-index: 5;
+
+    .left{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1 1 0;
+      min-width: 0;
+
+      .title-and-page{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 0;
+        .title{
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 1.2;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .position{
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          white-space: nowrap;
+
+          .page-number{
+            font-size: 12px;
+            font-variant-numeric: tabular-nums;
+          }
+          .position-control{
+            display: inline-flex;
+            align-items: stretch;
+            gap: 2px;
+            height: 28px;
+            border-radius: 999px;
+            overflow: hidden;
+            font-size: 12px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+
+            &.-here{
+              align-items: center;
+              gap: 6px;
+              padding: 0 10px;
+              background: rgba(255, 255, 255, 0.16);
+              color: #fff;
+              .dot{
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #fff;
+              }
+            }
+            button{
+              display: inline-flex;
+              align-items: center;
+              gap: 3px;
+              padding: 0 12px;
+              border: none;
+              color: #fff;
+              font-size: 12px;
+              font-weight: 600;
+              cursor: pointer;
+              touch-action: manipulation;
+              transition: background 0.15s;
+              svg{ width: 14px; height: 14px; stroke-width: 2.2; }
+            }
+            .back-to-current{
+              padding-left: 8px;
+              background: rgba(255, 255, 255, 0.16);
+              &:hover{ background: rgba(255, 255, 255, 0.24); }
+            }
+            .set-current{
+              background: rgba(255, 255, 255, 0.07);
+              color: rgba(255, 255, 255, 0.85);
+              &:hover{ background: rgba(255, 255, 255, 0.13); }
+            }
+          }
+        }
+      }
+    }
+
+    .center{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .pager{
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 3px;
+      border-radius: 10px;
+      background: #1f2340;
+
+      .page-number{
+        min-width: 64px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        .of{
+          font-weight: 500;
+          opacity: 0.55;
+        }
+      }
+    }
+
+    .tools{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px;
+      border-radius: 10px;
+      background: #1f2340;
+
+      .tool{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 42px;
+        padding: 0 10px;
+        border: none;
+        border-radius: 8px;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+        touch-action: manipulation;
+
+        .label{
+          font-size: 13px;
+          font-weight: 600;
+        }
+        &:not(:disabled):hover{ background: rgba(255, 255, 255, 0.07); }
+      }
+
+      .color-picker{
+        position: relative;
+
+        .color-button{
+          gap: 7px;
+          padding: 0 10px 0 12px;
+          .swatch{
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+          }
+          &.-open{ background: rgba(255, 255, 255, 0.08); }
+        }
+
+        .color-menu{
+          position: absolute;
+          top: calc(100% + 6px);
+          left: 0;
+          z-index: 25;
+          display: flex;
+          flex-direction: column;
+          min-width: 130px;
+          padding: 4px;
+          border-radius: 9px;
+          background: #f4f2ee;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+          button{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            height: 38px;
+            padding: 0 10px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #26282c;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            .swatch{
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
+            }
+            &:hover{ background: #e2ded6; }
+            &.-active .swatch{ box-shadow: 0 0 0 2px #f4f2ee, 0 0 0 4px #26282c; }
+          }
+        }
+      }
+
+      // [claude comment] both labels sit in one grid cell, so the button keeps the "Bookmark" width when it says "Save"
+      .bookmark-button{
+        .labels{
+          display: grid;
+          > span{
+            grid-area: 1 / 1;
+            text-align: center;
+            &.-hidden{ visibility: hidden; }
+          }
+        }
+        &.-drafting{
+          background: rgba(255, 255, 255, 0.16);
+          color: #fff;
+          &:disabled{ cursor: default; opacity: 0.7; }
+                  }
+      }
+
+    }
+
+    .icon-button{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+      &:disabled{ opacity: 0.35; cursor: default; }
+      &:not(:disabled):hover{ background: rgba(255, 255, 255, 0.07); }
+    }
+
+    .right{
+      flex: 1 1 0;
+      display: flex;
+      justify-content: flex-end;
+
+      // [claude comment] same look as the .tools group in the middle
+      .places-button{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        height: 48px;
+        padding: 0 14px 0 13px;
+        border: none;
+        border-radius: 10px;
+        background: #1f2340;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        touch-action: manipulation;
+        .count{
+          min-width: 20px;
+          height: 20px;
+          padding: 0 6px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.12);
+          font-size: 11px;
+          line-height: 20px;
+          text-align: center;
+          font-variant-numeric: tabular-nums;
+        }
+        &:hover, &.-active{ background: #282d52; }
+        &:disabled{ opacity: 0.4; }
+      }
+    }
+
+    button:focus-visible, a:focus-visible{
+      outline: 2px solid #ffd400;
+      outline-offset: 1px;
+    }
+  }
+
+  > .viewer-area{
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+
+    .loading{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      height: 100%;
+      padding: 0 16px;
+      color: #c9cbd1;
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+      .bar{
+        width: min(320px, 80%);
+        height: 4px;
+        border-radius: 2px;
+        background: #2e3356;
+        overflow: hidden;
+        div{ height: 100%; background: #ffd400; transition: width 0.2s; }
+      }
+      .error{ color: #ff9a8f; }
+    }
+
+    .hint{
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      top: 12px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(15, 17, 34, 0.88);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      pointer-events: none;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      .cancel{
+        padding: 3px 10px;
+        border: none;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #e6e4de;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        pointer-events: auto;
+        &:hover{ background: rgba(255, 255, 255, 0.18); }
+      }
+      white-space: nowrap;
+    }
+    .saved-preview{
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 4;
+      width: min(340px, calc(100% - 24px));
+      padding: 10px;
+      border-radius: 10px;
+      background: #f4f2ee;
+      color: #26282c;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      pointer-events: none;
+      .caption{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        .mini-ribbon{
+          width: 8px;
+          height: 13px;
+          background: #262b4a;
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+        }
+      }
+      .snippet{
+        background: #fff;
+        border-radius: 4px;
+        overflow: hidden;
+        img{ display: block; width: 100%; height: 100%; }
+      }
+    }
+  }
+
+  > .bookmark-popover{
+    position: absolute;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 8px;
+    background: #f4f2ee;
+    color: #5b5e66;
+    font-size: 12px;
+    white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+
+    .remove{
+      height: 26px;
+      padding: 0 10px;
+      border: none;
+      border-radius: 6px;
+      background: #e2ded6;
+      color: #26282c;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      &:hover{ background: #d6d1c7; }
+    }
+  }
+
+  > .toast{
+    position: absolute;
+    left: 50%;
+    bottom: 80px;
+    transform: translateX(-50%);
+    z-index: 30;
+    max-width: calc(100% - 32px);
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: #d81e47;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 900px){
+    > .toolbar{
+      flex-wrap: wrap;
+      padding-bottom: 6px;
+      .center{
+        order: 3;
+        width: 100%;
+        .tool .label{ display: none; }
+      }
+    }
+  }
+}

@@ -33,6 +33,10 @@ const copyFiles = (srcDir, destDir) => {
   });
 };
 copyFiles(path.join(__dirname, 'nonWebpackedFiles'), outputDir);
+// [claude comment] pdf.js parses pdfs in a web worker, loaded by url from /pdf.worker.min.mjs (see services/pdf/loadPdf.js)
+fs.copyFileSync(path.join(__dirname, '../node_modules/pdfjs-dist/build/pdf.worker.min.mjs'), path.join(outputDir, 'pdf.worker.min.mjs'));
+// [claude comment] fetched by pdf.js at runtime: wasm decoders (JBIG2/JPEG2000 scans render white without them), cmaps and standard fonts
+['wasm', 'cmaps', 'standard_fonts', 'iccs'].forEach((dir) => copyFiles(path.join(__dirname, '../node_modules/pdfjs-dist', dir), path.join(outputDir, 'pdfjs', dir)));
 
 // allows to import from the deep nested folders:
 // instead of: import '../../../../../services',
@@ -153,7 +157,7 @@ const buildServiceWorker = async () => {
     swDest: path.join(outputDir, 'webpacked-service-worker.js'),
     globDirectory: outputDir,
     globPatterns: ['**/*.{js,css,png,jpg,gif,svg,ico,mp3,woff,woff2,ttf,otf,eot,xml,webmanifest}'],
-    globIgnores: ['**/*.map', 'service-worker.bundled.js', 'webpacked-service-worker.js'],
+    globIgnores: ['**/*.map', 'service-worker.bundled.js', 'webpacked-service-worker.js', 'pdfjs/**'],
     maximumFileSizeToCacheInBytes: 10 * 1024 * 1024
   });
   warnings.forEach((warning) => console.warn(warning));

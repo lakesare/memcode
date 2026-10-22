@@ -1,0 +1,111 @@
+:local(.footer){
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: #181b33;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.06);
+  z-index: 5;
+
+  .where{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    font-size: 13px;
+    color: #a9abb2;
+    font-variant-numeric: tabular-nums;
+    .mini-ribbon{
+      flex-shrink: 0;
+      width: 10px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.75);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%);
+    }
+    .title{
+      color: #fff;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .page, .count{ white-space: nowrap; }
+  }
+
+  .buttons{
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    button{
+      height: 46px;
+      padding: 0 16px;
+      border: none;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+      .interval{
+        margin-left: 6px;
+        font-weight: 500;
+        opacity: 0.7;
+        font-variant-numeric: tabular-nums;
+      }
+      &:focus-visible{ outline: 2px solid #ffd400; outline-offset: 2px; }
+    }
+    .again{ background: #262b4a; color: #fff; }
+    .good{ background: #fff; color: #1b1d20; }
+    .understood{ background: #2f8f46; color: #fff; }
+  }
+
+  .error{
+    width: 100%;
+    color: #ff9a8f;
+    font-size: 13px;
+  }
+}
+
+:local(.done){
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  background: #0f1122;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  .card{
+    width: min(420px, 100%);
+    padding: 28px;
+    border-radius: 14px;
+    background: #181b33;
+    h2{ margin: 0 0 8px; font-size: 22px; }
+    p{ margin: 0; color: #a9abb2; line-height: 1.5; }
+    .actions{
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+      a, button{
+        display: inline-flex;
+        align-items: center;
+        height: 42px;
+        padding: 0 16px;
+        border: none;
+        border-radius: 9px;
+        background: #262b4a;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .primary{ background: #fff; color: #1b1d20; }
+    }
+  }
+}
