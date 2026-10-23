@@ -14,7 +14,6 @@ import Page_users_id from './pages/users_id';
 
 import Page_pdfs from './pages/pdfs';
 import Page_pdfs_id from './pages/pdfs_id';
-import Page_pdfs_review from './pages/pdfs_review';
 
 // import Page_offline_courses from './pages/offline_courses';
 // import Page_offline_courses_id_review from './pages/offline_courses_id_review';
@@ -47,7 +46,6 @@ const router =
       <Route path="/courses/:id/review/failed" element={<RequireAuth><Page_courses_id_review failed/></RequireAuth>}/>
 
       <Route path="/pdfs"        element={<RequireAuth><Page_pdfs/></RequireAuth>}/>
-      <Route path="/pdfs/review" element={<RequireAuth><Page_pdfs_review/></RequireAuth>}/>
       <Route path="/pdfs/:id"    element={<RequireAuth><Page_pdfs_id/></RequireAuth>}/>
 
       {/* demo route */}

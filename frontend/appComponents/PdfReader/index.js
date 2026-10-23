@@ -206,8 +206,7 @@ class PdfReader extends React.Component {
     const pageHighlights = ownHighlights.filter((h) => h.page === page);
     const top = Math.min(...pageHighlights.map((h) => Math.min(...h.points.map((p) => p[1])) - h.width / 2));
     const bookmark = {
-      id: newId(), pdfId: this.state.pdf.id, page, y: Math.max(0, top - 0.012),
-      nextDueAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      id: newId(), pdfId: this.state.pdf.id, page, y: Math.max(0, top - 0.012)
     };
     const highlightIds = pageHighlights.map((h) => h.id);
 

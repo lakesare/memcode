@@ -335,10 +335,6 @@ class Page_pdfs extends React.Component {
       </Open>
       <div className="actions">
         {
-          pdf.nOfDueBookmarks > 0 &&
-          <Link to={`/pdfs/review?pdfId=${pdf.id}`} className="review">Review {pdf.nOfDueBookmarks}</Link>
-        }
-        {
           this.state.confirmDeleteId === pdf.id ?
             <span className="confirm">
               <button type="button" className="danger" onClick={() => this.deletePdf(pdf.id)}>Delete book</button>
@@ -360,7 +356,6 @@ class Page_pdfs extends React.Component {
   }
 
   render = () => {
-    const nOfDue = this.state.pdfs.reduce((sum, p) => sum + p.nOfDueBookmarks, 0);
     const upload = this.state.upload;
     const selected = this.state.selectedFolder;
     const pdfs = this.state.pdfs.filter((p) => (selected === 'unsorted' ? !p.folderId : p.folderId === selected));
@@ -369,10 +364,6 @@ class Page_pdfs extends React.Component {
         <div className="top">
           <h1>Books {this.state.pdfs.length > 0 && <span className="count">{this.state.pdfs.length}</span>}</h1>
           <div className="top-actions">
-            {
-              nOfDue > 0 &&
-              <Link to="/pdfs/review" className="review-all">Review {nOfDue} {nOfDue === 1 ? 'place' : 'places'}</Link>
-            }
             <label className={`upload ${upload ? '-busy' : ''}`}>
               <input id="pdf-upload" type="file" accept="application/pdf,.pdf,application/epub+zip,.epub" multiple onChange={this.onFileChosen} disabled={!!upload}/>
               {upload ? `Uploading… ${Math.round(100 * upload.loaded / (upload.total || 1))}%` : '+ Add book'}
