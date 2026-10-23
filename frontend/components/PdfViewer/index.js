@@ -1,5 +1,5 @@
 import { pointsToHighlight, highlightToPathD } from '~/services/pdf/geometry';
-import { textLinesOf } from '~/services/pdf/textLinesOf';
+import { textLinesOf, lineSpacingOf, SNAPSHOT_CONTEXT_LINES } from '~/services/pdf/textLinesOf';
 import { autoTrimOf } from '~/services/pdf/autoTrim';
 
 import css from './index.scss';
@@ -25,6 +25,8 @@ class PdfPage extends React.PureComponent {
     trimEdit: PropTypes.array,
     onTrimHandleDown: PropTypes.func.isRequired,
     searchRects: PropTypes.array,
+    textRight: PropTypes.number.isRequired,
+    textLeft: PropTypes.number.isRequired,
     searchKey: PropTypes.string,
     highlights: PropTypes.array.isRequired,
     bookmarks: PropTypes.array.isRequired,
@@ -35,6 +37,8 @@ class PdfPage extends React.PureComponent {
 
   render = () => {
     const viewHeight = VIEW_WIDTH * this.props.height / this.props.sheetWidth;
+    // [claude comment] bookmarks hang just right of the text block, not at the page edge
+    const ribbonLeft = `calc(${this.props.textRight * 100}% + 8px)`;
     const trimEdit = this.props.trimEdit;
     return <div
       className="page"
@@ -63,6 +67,37 @@ class PdfPage extends React.PureComponent {
         )}
       </svg>
       <svg className="live-layer" viewBox={`0 0 ${this.props.sheetWidth} ${this.props.height}`}/>
+      {this.props.bookmarks.map((bookmark) =>
+        <React.Fragment key={bookmark.id}>
+          {
+            bookmark.id === this.props.focusedBookmarkId &&
+            <div
+              className="focus-area"
+              style={{
+                '--ribbon-color': bookmark.color || undefined,
+                left: `calc(${this.props.textLeft * 100}% - 8px)`,
+                width: `calc(${(this.props.textRight - this.props.textLeft) * 100}% + 48px)`,
+                top: `${bookmark.y * 100}%`,
+                height: `${Math.max(0, bookmark.bottom - bookmark.y) * 100}%`
+              }}
+            />
+          }
+          <div
+            className={`ribbon-line ${bookmark.id === this.props.focusedBookmarkId ? '-focused' : ''}`}
+            style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.y * 100}%`, height: `${Math.max(0, bookmark.bottom - bookmark.y) * 100}%` }}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => this.props.onBookmarkClick(bookmark, event.currentTarget.nextElementSibling)}
+          />
+          <button
+            type="button"
+            className={`ribbon ${bookmark.id === this.props.focusedBookmarkId ? '-focused' : ''}`}
+            style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.y * 100}%`, '--ribbon-travel': `${Math.max(0, (bookmark.bottom - bookmark.y) * this.props.height - 30)}px` }}
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => this.props.onBookmarkClick(bookmark, event.currentTarget)}
+            aria-label={`Bookmark on page ${this.props.pageNumber}`}
+          />
+        </React.Fragment>
+      )}
       {(this.props.searchRects || []).map((rect, index) =>
         <div
           key={`${this.props.searchKey}-${index}`}
@@ -82,22 +117,6 @@ class PdfPage extends React.PureComponent {
         </>
       }
 
-      {this.props.bookmarks.map((bookmark) =>
-        <React.Fragment key={bookmark.id}>
-          {
-            bookmark.id === this.props.focusedBookmarkId &&
-            <div className="focus-line" style={{ top: `${bookmark.y * 100}%` }}/>
-          }
-          <button
-            type="button"
-            className={`ribbon ${bookmark.id === this.props.focusedBookmarkId ? '-focused' : ''}`}
-            style={{ top: `${bookmark.y * 100}%` }}
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={(event) => this.props.onBookmarkClick(bookmark, event.currentTarget)}
-            aria-label={`Bookmark on page ${this.props.pageNumber}`}
-          />
-        </React.Fragment>
-      )}
 
     </div>
   }
@@ -128,6 +147,8 @@ class PdfViewer extends React.Component {
     page: this.props.focus ? this.props.focus.page : 1,
     // [claude comment] automatically found [left, right] edges of the book's text block, as fractions of the page width
     autoTrim: null,
+    // [claude comment] per page: distance between text lines (how far down a bookmark's snapshot reaches) and the right edge of the text (where bookmarks hang), { page: { spacing, right } }
+    pageMetrics: {},
     // [claude comment] [left, right] being set by hand (for every page), or null
     trimEdit: null
   }
@@ -230,6 +251,36 @@ class PdfViewer extends React.Component {
 
   pageHeight = () => this.layoutOf(this.state.page).height
 
+  // [claude comment] the bottom of what the bookmark's snapshot shows: its marked lines plus the context lines below them
+  snapshotBottomOf = (bookmark) => {
+    const own = this.props.highlights.filter((h) => h.bookmarkId === bookmark.id && h.page === bookmark.page);
+    const marked = own.length ? Math.max(...own.map((h) => Math.max(...h.points.map((p) => p[1])) + h.width / 2)) : bookmark.y + 0.03;
+    const metrics = this.pageMetricsOf(bookmark.page);
+    return Math.min(1, marked + (metrics ? metrics.spacing * SNAPSHOT_CONTEXT_LINES : 0.05));
+  }
+
+  // [claude comment] a bookmark takes the marker colour of the strokes it was made with
+  colorOf = (bookmark) => {
+    const own = this.props.highlights.find((h) => h.bookmarkId === bookmark.id);
+    return own ? own.color : null;
+  }
+
+  pageMetricsOf = (pageNumber) => {
+    if (!this.state.pageMetrics[pageNumber] && !this.pageMetricsRequests[pageNumber]) {
+      this.pageMetricsRequests[pageNumber] = true;
+      textLinesOf(this.props.pdfjs, this.props.pdfDocument, pageNumber).then((lines) => {
+        const rights = lines.filter((line) => line.x1 - line.x0 > 0.05).map((line) => line.x1).sort((a, b) => a - b);
+        const right = rights.length >= 3 ? rights[Math.floor(rights.length * 0.95)] : 0.9;
+        const lefts = lines.filter((line) => line.x1 - line.x0 > 0.05).map((line) => line.x0).sort((a, b) => a - b);
+        const left = lefts.length >= 3 ? lefts[Math.floor(lefts.length * 0.05)] : 0.1;
+        if (!this.unmounted) this.setState((state) => ({ pageMetrics: { ...state.pageMetrics, [pageNumber]: { spacing: lineSpacingOf(lines), right, left } } }));
+      });
+    }
+    return this.state.pageMetrics[pageNumber] || null;
+  }
+
+  pageMetricsRequests = {}
+
   requestAutoTrim = () => {
     if (this.ifAutoTrimRequested) return;
     this.ifAutoTrimRequested = true;
@@ -285,13 +336,16 @@ class PdfViewer extends React.Component {
     const page = this.state.page;
     const wanted = [page, page + 1, page - 1].filter((n) => n >= 1 && n <= this.props.pageSizes.length);
     if (this.props.trimMode === 'auto') this.requestAutoTrim();
+    // [claude comment] bookmarked pages are drawn ahead of time and kept (as small images), so jumping to a bookmark is instant
+    const kept = new Set(this.props.bookmarks.map((b) => b.page));
+    const ifNeedsDrawing = (n) => this.imageKeyOf(n) && (!this.pages[n] || this.pages[n].key !== this.imageKeyOf(n)) && (this.renderAttempts[n] || 0) < MAX_RENDER_ATTEMPTS;
 
-    Object.keys(this.pages).map(Number).filter((n) => !wanted.includes(n)).forEach((n) => {
+    Object.keys(this.pages).map(Number).filter((n) => !wanted.includes(n) && !kept.has(n)).forEach((n) => {
       forgetImage(this.pages[n]);
       delete this.pages[n];
       this.releasePage(n);
     });
-    if (this.rendering && !wanted.includes(this.rendering.pageNumber)) {
+    if (this.rendering && !wanted.includes(this.rendering.pageNumber) && (!kept.has(this.rendering.pageNumber) || wanted.some(ifNeedsDrawing))) {
       this.rendering.cancel();
       this.rendering = null;
     }
@@ -309,7 +363,8 @@ class PdfViewer extends React.Component {
     if (this.pageEl) this.pageEl.classList.toggle('-failed', (this.renderAttempts[page] || 0) >= MAX_RENDER_ATTEMPTS && !entry);
 
     if (this.rendering) return;
-    const next = wanted.find((n) => this.imageKeyOf(n) && (!this.pages[n] || this.pages[n].key !== this.imageKeyOf(n)) && (this.renderAttempts[n] || 0) < MAX_RENDER_ATTEMPTS);
+    const keptByDistance = [...kept].sort((a, b) => Math.abs(a - page) - Math.abs(b - page));
+    const next = wanted.find(ifNeedsDrawing) || keptByDistance.find(ifNeedsDrawing);
     if (next) this.renderPage(next, this.layoutOf(next), this.imageKeyOf(next));
   }
 
@@ -352,6 +407,8 @@ class PdfViewer extends React.Component {
       if (this.pages[pageNumber]) forgetImage(this.pages[pageNumber]);
       this.pages[pageNumber] = { img, url, key };
       delete this.renderAttempts[pageNumber];
+      // [claude comment] a page drawn ahead of time gives back its decoded scan right away - toBlob above already read the finished drawing
+      if (Math.abs(pageNumber - this.state.page) > 1) page.cleanup();
     } catch (error) {
       if (!job.cancelled && !(error && error.name === 'RenderingCancelledException')) {
         console.error(`Page ${pageNumber}:`, error);
@@ -499,7 +556,7 @@ class PdfViewer extends React.Component {
   render = () => {
     const page = this.state.page;
     const highlights = this.props.highlights.filter((h) => h.page === page);
-    const bookmarks = this.props.bookmarks.filter((b) => b.page === page);
+    const bookmarks = this.props.bookmarks.filter((b) => b.page === page).map((b) => ({ ...b, bottom: this.snapshotBottomOf(b), color: this.colorOf(b) }));
     const focusedBookmarkId = this.props.focus ? this.props.focus.bookmarkId : null;
     const layout = this.layoutOf(page);
     const width = layout.width;
@@ -527,6 +584,8 @@ class PdfViewer extends React.Component {
               sheetWidth={layout.sheetWidth}
               sheetLeft={-layout.left * layout.sheetWidth}
               trimEdit={this.state.trimEdit}
+              textRight={this.pageMetricsOf(page) ? this.pageMetricsOf(page).right : 0.9}
+              textLeft={this.pageMetricsOf(page) ? this.pageMetricsOf(page).left : 0.1}
               searchRects={this.props.searchMark && this.props.searchMark.page === page ? this.props.searchMark.rects : null}
               searchKey={this.props.searchMark ? this.props.searchMark.key : null}
               onTrimHandleDown={this.onTrimHandleDown}

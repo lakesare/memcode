@@ -1,8 +1,7 @@
-import { textLinesOf, lineSpacingOf } from '~/services/pdf/textLinesOf';
+import { textLinesOf, lineSpacingOf, SNAPSHOT_CONTEXT_LINES } from '~/services/pdf/textLinesOf';
 
 import css from './index.scss';
 
-const CONTEXT_LINES = 2.4;
 
 // [claude comment] one snapshot at a time - each one decodes a whole scanned page (~80MB)
 let snippetQueue = Promise.resolve();
@@ -51,8 +50,8 @@ const drawSnapshotNow = async (pdfjs, pdfDocument, place, pageHighlights) => {
   const linesNearby = textLines.filter((l) => l.yCenter > place.top - 0.2 && l.yCenter < place.bottom + 0.2);
   const left = linesNearby.length ? Math.max(0, Math.min(...linesNearby.map((l) => l.x0)) - 0.02) : 0.05;
   const right = linesNearby.length ? Math.min(1, Math.max(...linesNearby.map((l) => l.x1)) + 0.02) : 0.95;
-  const top = Math.max(0, place.top - spacing * CONTEXT_LINES);
-  const bottom = Math.min(1, place.bottom + spacing * CONTEXT_LINES);
+  const top = Math.max(0, place.top - spacing * SNAPSHOT_CONTEXT_LINES);
+  const bottom = Math.min(1, place.bottom + spacing * SNAPSHOT_CONTEXT_LINES);
 
   const cropWidth = (right - left) * base.width;
   const cropHeight = (bottom - top) * base.height;
@@ -184,11 +183,14 @@ class PdfPlaces extends React.Component {
   }
 
   state = {
-    ifReviewing: !!this.props.ifAlwaysBig
+    ifReviewing: !!this.props.ifAlwaysBig,
+    // [claude comment] the bookmark whose "⋯" menu is open
+    menuKey: null
   }
 
   componentDidMount = () => {
     document.addEventListener('keydown', this.onKeyDown);
+    document.addEventListener('pointerdown', this.onDocumentPointerDown);
     // [claude comment] start the list near where you are in the book
     requestAnimationFrame(() => {
       const current = this.listEl && this.listEl.querySelector('[data-current="true"]');
@@ -198,6 +200,11 @@ class PdfPlaces extends React.Component {
 
   componentWillUnmount = () => {
     document.removeEventListener('keydown', this.onKeyDown);
+    document.removeEventListener('pointerdown', this.onDocumentPointerDown);
+  }
+
+  onDocumentPointerDown = (event) => {
+    if (this.state.menuKey && !event.target.closest('.place-menu, .place-menu-button')) this.setState({ menuKey: null });
   }
 
   onKeyDown = (event) => {
@@ -249,10 +256,21 @@ class PdfPlaces extends React.Component {
                 <button type="button" className="page-label" onClick={() => this.props.onSelect(place)}>
                   p. {place.page}{ifReviewing && <span className="go"> · open in book</span>}
                 </button>
-                {
-                  ifReviewing &&
-                  <button type="button" className="remove" onClick={() => this.props.onRemoveBookmark(place.bookmarks[0].id)}>Remove</button>
-                }
+                <span className="place-menu-holder">
+                  <button
+                    type="button"
+                    className="place-menu-button"
+                    onClick={() => this.setState((state) => ({ menuKey: state.menuKey === place.key ? null : place.key }))}
+                    aria-label={`Options for the bookmark on p. ${place.page}`}
+                    aria-expanded={this.state.menuKey === place.key}
+                  >⋯</button>
+                  {
+                    this.state.menuKey === place.key &&
+                    <span className="place-menu" role="menu">
+                      <button type="button" role="menuitem" className="danger-text" onClick={() => { this.setState({ menuKey: null }); this.props.onRemoveBookmark(place.bookmarks[0].id); }}>Remove bookmark</button>
+                    </span>
+                  }
+                </span>
               </div>
               <button type="button" className="snippet-button" onClick={() => !ifReviewing && this.props.onSelect(place)} tabIndex={ifReviewing ? -1 : 0}>
                 <PlaceSnippet
@@ -270,5 +288,5 @@ class PdfPlaces extends React.Component {
   }
 }
 
-export { groupIntoPlaces, PlaceSnippet, preloadSnapshots, forgetSnapshots };
+export { groupIntoPlaces, extentOf, PlaceSnippet, preloadSnapshots, forgetSnapshots };
 export default PdfPlaces;

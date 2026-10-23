@@ -28,5 +28,8 @@ const lineSpacingOf = (textLines) => {
   return gaps.length ? gaps[Math.floor(gaps.length / 2)] : 0.022;
 };
 
-export { textLinesOf, lineSpacingOf };
+// [claude comment] how many lines of context a bookmark's snapshot shows above and below the marked lines
+const SNAPSHOT_CONTEXT_LINES = 2.4;
+
+export { textLinesOf, lineSpacingOf, SNAPSHOT_CONTEXT_LINES };
 export default textLinesOf;

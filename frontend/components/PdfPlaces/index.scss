@@ -123,17 +123,51 @@
           .go{ font-weight: 500; }
           &:hover{ color: #fff; }
         }
-        .remove{
-          height: 30px;
-          padding: 0 12px;
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          border-radius: 7px;
-          background: transparent;
-          color: #ff9a8f;
-          font-size: 13px;
-          font-weight: 700;
-          cursor: pointer;
-          &:hover{ background: rgba(255, 154, 143, 0.12); border-color: rgba(255, 154, 143, 0.4); }
+        .place-menu-holder{
+          position: relative;
+          .place-menu-button{
+            width: 32px;
+            height: 28px;
+            padding: 0;
+            border: none;
+            border-radius: 7px;
+            background: transparent;
+            color: #fff;
+            font-size: 18px;
+            line-height: 1;
+            opacity: 0.55;
+            cursor: pointer;
+            &:hover, &[aria-expanded="true"]{ opacity: 1; background: rgba(255, 255, 255, 0.08); }
+          }
+          .place-menu{
+            position: absolute;
+            top: calc(100% + 4px);
+            right: 0;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            min-width: 170px;
+            padding: 4px;
+            border-radius: 9px;
+            background: #282d52;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+            button{
+              height: 36px;
+              padding: 0 12px;
+              border: none;
+              border-radius: 6px;
+              background: transparent;
+              color: #fff;
+              font-family: inherit;
+              font-size: 14px;
+              font-weight: 600;
+              text-align: left;
+              white-space: nowrap;
+              cursor: pointer;
+              &:hover{ background: rgba(255, 255, 255, 0.1); }
+              &.danger-text{ color: #ff9a8f; }
+            }
+          }
         }
       }
 

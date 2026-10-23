@@ -207,13 +207,12 @@
 
     .ribbon{
       position: absolute;
-      right: 14px;
-      width: 16px;
-      height: 24px;
+      width: 32px;
+      height: 30px;
       margin-top: -4px;
       padding: 0;
       border: none;
-      background: #262b4a;
+      background: color-mix(in srgb, var(--ribbon-color, #262b4a) 88%, #0f1122);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
       cursor: pointer;
       z-index: 2;
@@ -225,7 +224,7 @@
         inset: -10px -14px;
       }
       &.-focused{
-        animation: ribbon-pulse 1.4s ease-in-out 3;
+        animation: ribbon-pulse 1.8s ease-in-out 1;
       }
       &:focus-visible{
         outline: 2px solid #1f5fd6;
@@ -233,14 +232,30 @@
       }
     }
 
-    .focus-line{
+    .ribbon-line{
       position: absolute;
-      left: 0;
-      right: 0;
-      height: 0;
-      border-top: 2px dashed rgba(38, 43, 74, 0.45);
+      z-index: 1;
+      width: 32px;
+      margin-top: -4px;
+      border-radius: 0 0 6px 6px;
+      background: color-mix(in srgb, var(--ribbon-color, #262b4a) 42%, transparent);
+      cursor: pointer;
+      touch-action: manipulation;
+      &:hover{ background: color-mix(in srgb, var(--ribbon-color, #262b4a) 55%, transparent); }
+      // [claude comment] while the passage is tinted, the tint covers the band too - the band comes back as the tint fades
+      &.-focused{ animation: ribbon-line-after-focus 2.4s ease-in forwards; }
+    }
+
+    // [claude comment] after jumping to a bookmark, its passage is tinted in the bookmark's colour for a few seconds
+    .focus-area{
+      position: absolute;
+      z-index: 1;
+      margin-top: -4px;
+      border-radius: 6px;
+      background: color-mix(in srgb, var(--ribbon-color, #262b4a) 42%, transparent);
+      mix-blend-mode: multiply;
       pointer-events: none;
-      animation: focus-line-fade 4s ease-out forwards;
+      animation: focus-area-fade 2.4s ease-in forwards;
     }
 
   }
@@ -254,11 +269,15 @@
   to{ transform: rotate(360deg); }
 }
 @keyframes ribbon-pulse{
-  0%, 100%{ transform: translateY(0); filter: none; }
-  50%{ transform: translateY(6px); filter: brightness(1.25); }
+  0%, 100%{ transform: translateY(0); }
+  50%{ transform: translateY(var(--ribbon-travel, 0px)); }
 }
-@keyframes focus-line-fade{
-  0%, 60%{ opacity: 1; }
+@keyframes ribbon-line-after-focus{
+  0%, 75%{ opacity: 0; }
+  100%{ opacity: 1; }
+}
+@keyframes focus-area-fade{
+  0%, 75%{ opacity: 1; }
   100%{ opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce){
