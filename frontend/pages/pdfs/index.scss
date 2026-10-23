@@ -235,8 +235,11 @@
               overflow: hidden;
               text-overflow: ellipsis;
             }
+            // [claude comment] as wide as the progress bar below, so the bookmarks link ends where the bar ends
             .stats{
               display: flex;
+              justify-content: space-between;
+              width: min(220px, 100%);
               flex-wrap: wrap;
               gap: 2px 14px;
               margin-top: 3px;
