@@ -53,23 +53,23 @@
             font-size: 12px;
             font-variant-numeric: tabular-nums;
           }
+          // [claude comment] same panel look as the .pager and .tools groups
           .position-control{
             display: inline-flex;
             align-items: stretch;
-            gap: 2px;
-            height: 28px;
-            border-radius: 999px;
+            height: 48px;
+            border-radius: 10px;
+            background: #1f2340;
             overflow: hidden;
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: 600;
             font-variant-numeric: tabular-nums;
 
             &.-here{
               align-items: center;
-              gap: 6px;
-              padding: 0 10px;
-              background: rgba(255, 255, 255, 0.16);
-              color: #fff;
+              gap: 7px;
+              padding: 0 16px;
+              color: rgba(255, 255, 255, 0.85);
               .dot{
                 width: 7px;
                 height: 7px;
@@ -80,27 +80,21 @@
             button{
               display: inline-flex;
               align-items: center;
-              gap: 3px;
-              padding: 0 12px;
+              gap: 4px;
+              padding: 0 15px;
               border: none;
+              background: transparent;
               color: #fff;
-              font-size: 12px;
+              font-family: inherit;
+              font-size: 13px;
               font-weight: 600;
               cursor: pointer;
               touch-action: manipulation;
-              transition: background 0.15s;
-              svg{ width: 14px; height: 14px; stroke-width: 2.2; }
+              &:hover{ background: #282d52; }
+              svg{ width: 16px; height: 16px; stroke-width: 2.2; }
             }
-            .back-to-current{
-              padding-left: 8px;
-              background: rgba(255, 255, 255, 0.16);
-              &:hover{ background: rgba(255, 255, 255, 0.24); }
-            }
-            .set-current{
-              background: rgba(255, 255, 255, 0.07);
-              color: rgba(255, 255, 255, 0.85);
-              &:hover{ background: rgba(255, 255, 255, 0.13); }
-            }
+            .back-to-current{ padding-left: 10px; }
+            .set-current{ border-left: 1px solid rgba(255, 255, 255, 0.09); }
           }
         }
       }
@@ -299,42 +293,6 @@
         }
       }
 
-      .trim-picker{
-        position: relative;
-        .trim-button.-open{ background: rgba(255, 255, 255, 0.08); }
-        .trim-menu{
-          position: absolute;
-          top: calc(100% + 6px);
-          left: 0;
-          z-index: 25;
-          display: flex;
-          flex-direction: column;
-          min-width: 170px;
-          padding: 4px;
-          border-radius: 9px;
-          background: #1f2340;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-          button{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            height: 38px;
-            padding: 0 10px;
-            border: none;
-            border-radius: 6px;
-            background: transparent;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            .hint{ font-size: 12px; font-weight: 500; opacity: 0.55; }
-            &:hover, &.-active{ background: rgba(255, 255, 255, 0.1); }
-          }
-        }
-      }
-
       // [claude comment] both labels sit in one grid cell, so the button keeps the "Bookmark" width when it says "Save"
       .bookmark-button{
         .labels{
@@ -421,6 +379,64 @@
         }
         &:hover, &.-active{ background: #282d52; }
         &:disabled{ opacity: 0.4; }
+      }
+
+      .more-holder{
+        position: relative;
+        .more-button{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 48px;
+          border: none;
+          border-radius: 10px;
+          background: #1f2340;
+          color: #fff;
+          cursor: pointer;
+          touch-action: manipulation;
+          &:hover, &.-active{ background: #282d52; }
+          &:disabled{ opacity: 0.4; }
+        }
+        .more-menu{
+          position: absolute;
+          top: calc(100% + 6px);
+          right: 0;
+          z-index: 25;
+          display: flex;
+          flex-direction: column;
+          min-width: 190px;
+          padding: 4px;
+          border-radius: 9px;
+          background: #1f2340;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+          .section-title{
+            padding: 8px 10px 4px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+          }
+          button{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            height: 38px;
+            padding: 0 10px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            .hint{ font-size: 12px; font-weight: 500; opacity: 0.55; }
+            &:hover, &.-active{ background: rgba(255, 255, 255, 0.1); }
+          }
+        }
       }
     }
 

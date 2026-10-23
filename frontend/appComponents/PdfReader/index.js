@@ -70,7 +70,7 @@ class PdfReader extends React.Component {
     draft: null,
     // [claude comment] per book, in this browser only: { mode: 'off' | 'auto' | 'manual', manual: [left, right] | null }
     trim: readSetting(`trim.${this.props.pdfId}`, { mode: 'off', manual: null }),
-    ifTrimMenuOpen: false,
+    ifMoreMenuOpen: false,
     ifPageGridOpen: false,
     ifSearchOpen: false,
     // [claude comment] the search result shown on the page: { page, rects, key }
@@ -230,13 +230,13 @@ class PdfReader extends React.Component {
   }
 
   setTrim = (trim) => {
-    this.setState({ trim, ifTrimMenuOpen: false });
+    this.setState({ trim, ifMoreMenuOpen: false });
     writeSetting(`trim.${this.props.pdfId}`, trim);
   }
 
   chooseTrimMode = (mode) => {
     if (mode === 'manual') {
-      this.setState({ ifTrimMenuOpen: false });
+      this.setState({ ifMoreMenuOpen: false });
       if (this.viewer) this.viewer.startTrimming();
     } else {
       this.setTrim({ ...this.state.trim, mode });
@@ -341,10 +341,10 @@ class PdfReader extends React.Component {
                   </span> :
                   <span className="position-control">
                     <button type="button" className="back-to-current" onClick={this.backToCurrent} title="Jump back to your reading position">
-                      {icons.back}Back to p. {this.state.currentPosition.page}
+                      {icons.back}Back to p.{this.state.currentPosition.page}
                     </button>
                     <button type="button" className="set-current" onClick={this.setAsCurrent} title="Move your reading position here">
-                      Set p. {this.state.viewedPage} as current
+                      Save p.{this.state.viewedPage}
                     </button>
                   </span>
               }
@@ -385,36 +385,6 @@ class PdfReader extends React.Component {
             </span>
           }
         </span>
-        <span className="trim-picker">
-          <button
-            type="button"
-            className={`tool trim-button ${this.state.ifTrimMenuOpen ? '-open' : ''}`}
-            onClick={() => this.setState((state) => ({ ifTrimMenuOpen: !state.ifTrimMenuOpen, ifColorMenuOpen: false }))}
-            disabled={this.state.status !== 'success'}
-            aria-expanded={this.state.ifTrimMenuOpen}
-            title="Trim margins"
-          >
-            {icons.trim}
-            <span className="label">Trim: {TRIM_MODE_NAMES[this.state.trim.mode]}</span>
-          </button>
-          {
-            this.state.ifTrimMenuOpen &&
-            <span className="trim-menu" role="menu">
-              {['off', 'auto', 'manual'].map((mode) =>
-                <button
-                  type="button"
-                  role="menuitemradio"
-                  key={mode}
-                  className={this.state.trim.mode === mode ? '-active' : ''}
-                  aria-checked={this.state.trim.mode === mode}
-                  onClick={() => this.chooseTrimMode(mode)}
-                >
-                  {TRIM_MODE_NAMES[mode]}{mode === 'manual' && <span className="hint">set edges…</span>}
-                </button>
-              )}
-            </span>
-          }
-        </span>
         <button
           type="button"
           className={`tool bookmark-button ${this.state.draft ? '-drafting' : ''}`}
@@ -439,7 +409,7 @@ class PdfReader extends React.Component {
           <button
             type="button"
             className={`page-number ${this.state.ifPageGridOpen ? '-open' : ''}`}
-            onClick={() => this.setState((state) => ({ ifPageGridOpen: !state.ifPageGridOpen, ifColorMenuOpen: false, ifTrimMenuOpen: false }))}
+            onClick={() => this.setState((state) => ({ ifPageGridOpen: !state.ifPageGridOpen, ifColorMenuOpen: false, ifMoreMenuOpen: false }))}
             aria-expanded={this.state.ifPageGridOpen}
             title="Go to page…"
           >
@@ -476,6 +446,37 @@ class PdfReader extends React.Component {
           <span className="label">All Bookmarks</span>
           {this.state.bookmarks.length > 0 && <span className="count">{this.state.bookmarks.length}</span>}
         </button>
+        <span className="more-holder">
+          <button
+            type="button"
+            className={`more-button ${this.state.ifMoreMenuOpen ? '-active' : ''}`}
+            onClick={() => this.setState((state) => ({ ifMoreMenuOpen: !state.ifMoreMenuOpen, ifColorMenuOpen: false, ifPageGridOpen: false }))}
+            disabled={this.state.status !== 'success'}
+            aria-label="More"
+            aria-expanded={this.state.ifMoreMenuOpen}
+            title="More"
+          >
+            {icons.more}
+          </button>
+          {
+            this.state.ifMoreMenuOpen &&
+            <span className="more-menu" role="menu">
+              <span className="section-title">Trim margins</span>
+              {['off', 'auto', 'manual'].map((mode) =>
+                <button
+                  type="button"
+                  role="menuitemradio"
+                  key={mode}
+                  className={this.state.trim.mode === mode ? '-active' : ''}
+                  aria-checked={this.state.trim.mode === mode}
+                  onClick={() => this.chooseTrimMode(mode)}
+                >
+                  {TRIM_MODE_NAMES[mode]}{mode === 'manual' && <span className="hint">set edges…</span>}
+                </button>
+              )}
+            </span>
+          }
+        </span>
       </div>
 
       {
@@ -535,7 +536,7 @@ class PdfReader extends React.Component {
     <div className={css.reader} ref={(el) => this.rootEl = el}>
       {this.renderToolbar()}
 
-      <div className="viewer-area" onPointerDownCapture={() => (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifTrimMenuOpen || this.state.ifPageGridOpen) && this.setState({ bookmarkPopover: null, ifColorMenuOpen: false, ifTrimMenuOpen: false, ifPageGridOpen: false })}>
+      <div className="viewer-area" onPointerDownCapture={() => (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifMoreMenuOpen || this.state.ifPageGridOpen) && this.setState({ bookmarkPopover: null, ifColorMenuOpen: false, ifMoreMenuOpen: false, ifPageGridOpen: false })}>
         {
           this.state.status === 'success' ?
             <PdfViewer
