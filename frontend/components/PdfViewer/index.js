@@ -1,4 +1,4 @@
-import { pointsToHighlight, highlightToPathD } from '~/services/pdf/geometry';
+import { pointsToHighlight, highlightToPathD, toReadMark, READ_MARK_COLOR } from '~/services/pdf/geometry';
 import { textLinesOf, lineSpacingOf, SNAPSHOT_CONTEXT_LINES } from '~/services/pdf/textLinesOf';
 import { autoTrimOf } from '~/services/pdf/autoTrim';
 
@@ -59,7 +59,7 @@ class PdfPage extends React.PureComponent {
       {/* [claude comment] the full page, shifted left by the trimmed margin - strokes and their coordinates are always relative to it */}
       <div className="sheet" style={{ left: this.props.sheetLeft, width: this.props.sheetWidth }}>
       <svg className="highlights" viewBox={`0 0 ${VIEW_WIDTH} ${viewHeight}`} preserveAspectRatio="none">
-        {this.props.highlights.map((highlight) =>
+        {this.props.highlights.filter((highlight) => highlight.color !== READ_MARK_COLOR).map((highlight) =>
           <path
             key={highlight.id}
             data-highlight-id={highlight.id}
@@ -71,6 +71,14 @@ class PdfPage extends React.PureComponent {
         )}
       </svg>
       <svg className="live-layer" viewBox={`0 0 ${this.props.sheetWidth} ${this.props.height}`}/>
+      {this.props.highlights.filter((highlight) => highlight.color === READ_MARK_COLOR).map((mark) =>
+        <div
+          key={mark.id}
+          className={`read-bar ${mark.points[0][1] <= 0 ? '-from-top' : ''} ${mark.points[1][1] >= 1 ? '-to-bottom' : ''}`}
+          data-highlight-id={mark.id}
+          style={{ left: ribbonLeft, top: `${mark.points[0][1] * 100}%`, height: `${(mark.points[1][1] - mark.points[0][1]) * 100}%` }}
+        />
+      )}
       {this.props.bookmarks.map((bookmark) => {
         const selection = this.props.selectedBookmark && this.props.selectedBookmark.id === bookmark.id ? this.props.selectedBookmark : null;
         const isFocused = !selection && bookmark.id === this.props.focusedBookmarkId;
@@ -555,6 +563,18 @@ class PdfViewer extends React.Component {
     this.pagesEl.setPointerCapture(event.pointerId);
 
     this.textLinesOf(pageNumber);
+    const metrics = this.pageMetricsOf(pageNumber);
+    const textRight = metrics ? metrics.right : 0.9;
+    if (x / rect.width > textRight) {
+      const barEl = document.createElement('div');
+      barEl.className = 'read-bar -live';
+      barEl.style.left = `calc(${textRight * 100}% + 8px)`;
+      barEl.style.top = `${y}px`;
+      barEl.style.height = '0px';
+      pageEl.querySelector('.sheet').appendChild(barEl);
+      this.stroke = { pointerId: event.pointerId, pageNumber, rect, points: [[x, y]], barEl, startClient: [event.clientX, event.clientY] };
+      return;
+    }
     const liveLayer = pageEl.querySelector('.live-layer');
     const pathEl = document.createElementNS(SVG_NS, 'path');
     pathEl.setAttribute('stroke', this.props.color);
@@ -576,6 +596,12 @@ class PdfViewer extends React.Component {
       const events = event.getCoalescedEvents ? event.getCoalescedEvents() : [event];
       const { rect } = this.stroke;
       (events.length ? events : [event]).forEach((e) => this.stroke.points.push([e.clientX - rect.left, e.clientY - rect.top]));
+      if (this.stroke.barEl) {
+        const ys = this.stroke.points.map((p) => p[1]);
+        this.stroke.barEl.style.top = `${Math.min(...ys)}px`;
+        this.stroke.barEl.style.height = `${Math.max(...ys) - Math.min(...ys)}px`;
+        return;
+      }
       this.stroke.pathEl.setAttribute('d', this.stroke.points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)} ${y.toFixed(1)}`).join(' '));
     }
   }
@@ -586,26 +612,37 @@ class PdfViewer extends React.Component {
     if (this.regionDrag && event.pointerId === this.regionDrag.pointerId) this.finishRegionDrag();
 
     if (this.stroke && event.pointerId === this.stroke.pointerId) {
-      this.finishStroke(event.type === 'pointercancel');
+      this.finishStroke(event.type === 'pointercancel' && !this.stroke.barEl);
     }
   }
 
   finishStroke = async (ifCancelled) => {
     const stroke = this.stroke;
     this.stroke = null;
+    const liveEl = stroke.barEl ? stroke.barEl : stroke.pathEl;
     if (ifCancelled) {
-      stroke.pathEl.remove();
+      liveEl.remove();
       return;
     }
     // [claude comment] a tap (no real movement) with the marker removes the highlight under it, there's no separate eraser
     const [x0, y0] = stroke.points[0];
     const ifTap = stroke.points.every(([x, y]) => Math.hypot(x - x0, y - y0) < 6);
     if (ifTap) {
-      stroke.pathEl.remove();
+      liveEl.remove();
       this.eraseAt(...stroke.startClient);
       return;
     }
     const textLines = await this.textLinesOf(stroke.pageNumber);
+    if (stroke.barEl) {
+      const ys = stroke.points.map((p) => p[1] / stroke.rect.height);
+      const metrics = this.pageMetricsOf(stroke.pageNumber);
+      const readMarks = this.props.highlights.filter((h) => h.page === stroke.pageNumber && h.color === READ_MARK_COLOR);
+      const mark = toReadMark(Math.min(...ys), Math.max(...ys), textLines, metrics ? metrics.spacing : 0.022, readMarks);
+      mark.mergedIds.forEach((id) => this.props.onDeleteHighlight(id));
+      this.props.onCreateHighlight({ page: stroke.pageNumber, color: READ_MARK_COLOR, width: 0, points: [[0, mark.top], [0, mark.bottom]] });
+      requestAnimationFrame(() => liveEl.remove());
+      return;
+    }
     const shape = pointsToHighlight(stroke.points, stroke.rect.width, stroke.rect.height, textLines, DEFAULT_MARKER_WIDTH);
     if (shape) {
       this.props.onCreateHighlight({ page: stroke.pageNumber, color: this.props.color, ...shape });

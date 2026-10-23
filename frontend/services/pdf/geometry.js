@@ -82,8 +82,36 @@ const pointsToHighlight = (rawPoints, pageWidth, pageHeight, textLines, defaultW
   }
 };
 
+// [claude comment] glides in the margin right of the text are stored as highlights with this colour: points are [[0, top], [0, bottom]] of the read lines
+const READ_MARK_COLOR = 'read';
+const PAGE_EDGE_SNAP = 0.015;
+
+// snaps a glide in the margin (y fractions of the page) onto whole text lines, then joins it with read marks it touches; returns { top, bottom, mergedIds }
+const toReadMark = (minY, maxY, textLines, spacing, readMarks) => {
+  const lines = textLines.filter((line) => line.x1 - line.x0 > 0.01);
+  const rows = lines.filter((line) => line.yCenter > minY - spacing * 0.5 && line.yCenter < maxY + spacing * 0.5);
+  const lineTop = (line) => line.yCenter - line.height * 0.75;
+  const lineBottom = (line) => line.yCenter + line.height * 0.55;
+  // [claude comment] an end inside the text snaps to a whole line, an end above or below all the text stays where the pen was
+  const textTop = lines.length ? Math.min(...lines.map(lineTop)) : 0;
+  const textBottom = lines.length ? Math.max(...lines.map(lineBottom)) : 1;
+  let top = minY < textTop || !rows.length ? minY : Math.min(...rows.map(lineTop));
+  let bottom = maxY > textBottom || !rows.length ? maxY : Math.max(...rows.map(lineBottom));
+  const mergedIds = [];
+  readMarks.forEach((mark) => {
+    const markTop = mark.points[0][1];
+    const markBottom = mark.points[1][1];
+    if (markTop < bottom + spacing * 0.9 && markBottom > top - spacing * 0.9) {
+      top = Math.min(top, markTop);
+      bottom = Math.max(bottom, markBottom);
+      mergedIds.push(mark.id);
+    }
+  });
+  return { top: top < PAGE_EDGE_SNAP ? 0 : top, bottom: bottom > 1 - PAGE_EDGE_SNAP ? 1 : bottom, mergedIds };
+};
+
 const highlightToPathD = (points, viewWidth, viewHeight) =>
   points.map(([x, y], index) => `${index === 0 ? 'M' : 'L'}${(x * viewWidth).toFixed(1)} ${(y * viewHeight).toFixed(1)}`).join(' ');
 
-export { simplify, getTextLines, pointsToHighlight, highlightToPathD };
-export default { simplify, getTextLines, pointsToHighlight, highlightToPathD };
+export { simplify, getTextLines, pointsToHighlight, highlightToPathD, toReadMark, READ_MARK_COLOR };
+export default { simplify, getTextLines, pointsToHighlight, highlightToPathD, toReadMark, READ_MARK_COLOR };

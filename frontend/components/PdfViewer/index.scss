@@ -205,6 +205,19 @@
     }
     svg.live-layer path{ stroke-linecap: butt; }
 
+    // [claude comment] a glide in the margin, snapped to whole lines - the same column and shape as a bookmark's band
+    .read-bar{
+      position: absolute;
+      z-index: 0;
+      width: 32px;
+      border-radius: 6px;
+      background: rgba(31, 35, 64, 0.16);
+      mix-blend-mode: multiply;
+      &.-live{ background: rgba(31, 35, 64, 0.1); }
+      &.-from-top{ border-top-left-radius: 0; border-top-right-radius: 0; }
+      &.-to-bottom{ border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    }
+
     .ribbon{
       position: absolute;
       width: 32px;

@@ -196,9 +196,10 @@
           cursor: pointer;
           touch-action: manipulation;
           &:hover{ background: rgba(255, 255, 255, 0.12); }
-          &.-reading{ box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45); }
+          // [claude comment] the parts of a page you've glided past lose the tile background, top to bottom like on the page
+          background: var(--read-background, rgba(255, 255, 255, 0.05));
           &.-colored{ background: var(--page-color); color: #0f1122; }
-          &.-current{ background: rgba(255, 255, 255, 0.28); color: #fff; }
+          &.-current{ box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7); }
           &.-current.-colored{ background: var(--page-color); color: #0f1122; box-shadow: inset 0 0 0 2px #fff; }
           .bookmarked{
             position: absolute;

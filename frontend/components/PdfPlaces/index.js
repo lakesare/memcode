@@ -1,4 +1,5 @@
 import { textLinesOf, lineSpacingOf, SNAPSHOT_CONTEXT_LINES } from '~/services/pdf/textLinesOf';
+import { READ_MARK_COLOR } from '~/services/pdf/geometry';
 
 import css from './index.scss';
 
@@ -71,7 +72,7 @@ const drawSnapshotNow = async (pdfjs, pdfDocument, place, pageHighlights) => {
   try {
     await page.render({ canvasContext: ctx, viewport, transform: [1, 0, 0, 1, -offsetX, -offsetY] }).promise;
 
-    pageHighlights.forEach((h) => {
+    pageHighlights.filter((h) => h.color !== READ_MARK_COLOR).forEach((h) => {
       ctx.save();
       ctx.globalCompositeOperation = 'multiply';
       ctx.globalAlpha = 0.42;

@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
 import api from '~/api';
 import { loadPdf } from '~/services/pdf/loadPdf';
+import { READ_MARK_COLOR } from '~/services/pdf/geometry';
+import { textLinesOf } from '~/services/pdf/textLinesOf';
 import PdfViewer from '~/components/PdfViewer';
 import PdfSearch from '~/components/PdfSearch';
 import PdfPlaces, { PlaceSnippet, groupIntoPlaces, preloadSnapshots, forgetSnapshots } from '~/components/PdfPlaces';
@@ -86,9 +88,12 @@ class PdfReader extends React.Component {
     this.load();
   }
 
-  componentDidUpdate = (prevProps) => {
+  componentDidUpdate = (prevProps, prevState) => {
     if (this.props.focus && (!prevProps.focus || prevProps.focus.key !== this.props.focus.key)) {
       this.setState({ focus: this.props.focus, bookmarkPopover: null });
+    }
+    if (this.state.ifPageGridOpen && (!prevState.ifPageGridOpen || prevState.highlights !== this.state.highlights)) {
+      this.loadReadSegments();
     }
   }
 
@@ -141,7 +146,7 @@ class PdfReader extends React.Component {
     const highlight = { id: newId(), pdfId: this.state.pdf.id, ...shape };
     this.setState((state) => ({
       highlights: [...state.highlights, highlight],
-      draft: state.draft ? { highlightIds: [...state.draft.highlightIds, highlight.id] } : null
+      draft: state.draft && highlight.color !== READ_MARK_COLOR ? { highlightIds: [...state.draft.highlightIds, highlight.id] } : state.draft
     }));
     const save = api.post.PdfApi.createHighlight(false, highlight).catch(this.saveFailed);
     this.pendingHighlightSaves[highlight.id] = save;
@@ -304,6 +309,39 @@ class PdfReader extends React.Component {
     api.post.PdfApi.updatePdf(false, { pdfId: this.state.pdf.id, pageColors }).catch(this.saveFailed);
   }
 
+  // [claude comment] per page, the read parts as [from, to] fractions of the page's text block (first to last line), so a page read from its first to its last line counts as fully read
+  loadReadSegments = async () => {
+    const marksByPage = {};
+    this.state.highlights.filter((h) => h.color === READ_MARK_COLOR).forEach((h) => { (marksByPage[h.page] = marksByPage[h.page] || []).push(h); });
+    const readSegments = {};
+    await Promise.all(Object.keys(marksByPage).map(async (page) => {
+      const lines = (await textLinesOf(this.state.pdfjs, this.state.pdfDocument, Number(page))).filter((line) => line.x1 - line.x0 > 0.01);
+      const textTop = lines.length ? Math.min(...lines.map((line) => line.yCenter - line.height * 0.75)) : 0;
+      const textBottom = lines.length ? Math.max(...lines.map((line) => line.yCenter + line.height * 0.55)) : 1;
+      const toText = (y) => Math.max(0, Math.min(1, (y - textTop) / Math.max(0.01, textBottom - textTop)));
+      readSegments[page] = marksByPage[page]
+        .map((mark) => [toText(mark.points[0][1]), toText(mark.points[1][1])])
+        .filter(([from, to]) => to - from > 0.005)
+        .sort((a, b) => a[0] - b[0]);
+    }));
+    if (!this.unmounted) this.setState({ readSegments });
+  }
+
+  readBackgroundOf = (page) => {
+    const segments = (this.state.readSegments || {})[page];
+    if (!segments || segments.length === 0) return null;
+    const UNREAD = 'rgba(255, 255, 255, 0.05)';
+    const stops = [];
+    let at = 0;
+    segments.forEach(([from, to]) => {
+      if (from > at) stops.push(`${UNREAD} ${at * 100}%`, `${UNREAD} ${from * 100}%`);
+      stops.push(`transparent ${Math.max(at, from) * 100}%`, `transparent ${to * 100}%`);
+      at = Math.max(at, to);
+    });
+    if (at < 1) stops.push(`${UNREAD} ${at * 100}%`, `${UNREAD} 100%`);
+    return `linear-gradient(to bottom, ${stops.join(', ')})`;
+  }
+
   renderPageGrid = () => {
     const bookmarkedPages = new Set(this.state.bookmarks.map((b) => b.page));
     const viewedPage = this.state.viewedPage;
@@ -332,7 +370,7 @@ class PdfReader extends React.Component {
           type="button"
           key={page}
           className={`${page === this.state.viewedPage ? '-current' : ''} ${page === this.state.currentPosition.page ? '-reading' : ''} ${this.state.pageColors[page] ? '-colored' : ''}`}
-          style={this.state.pageColors[page] ? { '--page-color': this.state.pageColors[page] } : null}
+          style={this.state.pageColors[page] ? { '--page-color': this.state.pageColors[page] } : { '--read-background': this.readBackgroundOf(page) || undefined }}
           onClick={() => this.goToPage(page)}
         >
           {page}
