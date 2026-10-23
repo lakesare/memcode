@@ -68,6 +68,7 @@ class PdfReader extends React.Component {
     ifPlacesOpen: false,
     ifColorMenuOpen: false,
     bookmarkPopover: null,
+    highlightMenu: null,
     selectedBookmark: null,
     toast: null,
     draft: null,
@@ -153,6 +154,30 @@ class PdfReader extends React.Component {
     save.finally(() => delete this.pendingHighlightSaves[highlight.id]);
   }
 
+  // [claude comment] tapping a stroke with the marker removes it right away while making a bookmark, otherwise asks what to do with it
+  onHighlightTap = (highlightId, clientX, clientY) => {
+    const highlight = this.state.highlights.find((h) => h.id === highlightId);
+    if (!highlight) return;
+    if (this.state.draft) {
+      this.onDeleteHighlight(highlightId);
+    } else {
+      const rootRect = this.rootEl.getBoundingClientRect();
+      this.setState({ highlightMenu: { highlight, top: clientY - rootRect.top + 10, left: Math.min(clientX - rootRect.left - 20, rootRect.width - 200) } });
+    }
+  }
+
+  renderHighlightMenu = () => {
+    const { highlight, top, left } = this.state.highlightMenu;
+    const ifCanBookmark = highlight.color !== READ_MARK_COLOR && !highlight.bookmarkId;
+    return <div className="highlight-menu" style={{ top, left: Math.max(8, left) }} role="menu">
+      {
+        ifCanBookmark &&
+        <button type="button" onClick={() => { this.setState({ highlightMenu: null }); this.createBookmarkFrom([highlight.id]); }}>Add as bookmark</button>
+      }
+      <button type="button" className="danger-text" onClick={() => { this.setState({ highlightMenu: null }); this.onDeleteHighlight(highlight.id); }}>Remove</button>
+    </div>;
+  }
+
   onDeleteHighlight = (highlightId) => {
     this.setState((state) => ({
       highlights: state.highlights.filter((h) => h.id !== highlightId),
@@ -171,8 +196,10 @@ class PdfReader extends React.Component {
     this.setState({ draft: null });
   }
 
-  saveDraft = async () => {
-    const ownHighlights = this.state.highlights.filter((h) => this.state.draft.highlightIds.includes(h.id));
+  saveDraft = () => this.createBookmarkFrom(this.state.draft.highlightIds)
+
+  createBookmarkFrom = async (ownHighlightIds) => {
+    const ownHighlights = this.state.highlights.filter((h) => ownHighlightIds.includes(h.id));
     if (ownHighlights.length === 0) return;
     const page = ownHighlights[0].page;
     const pageHighlights = ownHighlights.filter((h) => h.page === page);
@@ -583,9 +610,10 @@ class PdfReader extends React.Component {
 
   onViewerPointerDown = (event) => {
     const isOnBookmark = !!event.target.closest('.ribbon, .ribbon-line, .ribbon-more, .region-handle');
-    if (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifMoreMenuOpen || this.state.ifPageGridOpen || (this.state.selectedBookmark && !isOnBookmark)) {
+    if (this.state.highlightMenu || this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifMoreMenuOpen || this.state.ifPageGridOpen || (this.state.selectedBookmark && !isOnBookmark)) {
       this.setState((state) => ({
         bookmarkPopover:  isOnBookmark ? state.bookmarkPopover : null,
+        highlightMenu:    null,
         selectedBookmark: isOnBookmark ? state.selectedBookmark : null,
         ifColorMenuOpen:  false,
         ifMoreMenuOpen:   false,
@@ -621,6 +649,7 @@ class PdfReader extends React.Component {
               searchMark={this.state.searchMark}
               onCreateHighlight={this.onCreateHighlight}
               onDeleteHighlight={this.onDeleteHighlight}
+              onHighlightTap={this.onHighlightTap}
               onBookmarkClick={this.onBookmarkClick}
               selectedBookmark={this.state.selectedBookmark}
               onBookmarkMenuClick={this.onBookmarkMenuClick}
@@ -654,6 +683,7 @@ class PdfReader extends React.Component {
       </div>
 
       {this.state.bookmarkPopover && this.renderBookmarkPopover()}
+      {this.state.highlightMenu && this.renderHighlightMenu()}
       {this.state.toast && <div className="toast" role="status">{this.state.toast}</div>}
       {this.props.footer}
     </div>

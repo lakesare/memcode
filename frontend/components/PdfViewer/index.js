@@ -176,6 +176,7 @@ class PdfViewer extends React.Component {
     searchMark: PropTypes.object,
     onCreateHighlight: PropTypes.func.isRequired,
     onDeleteHighlight: PropTypes.func.isRequired,
+    onHighlightTap: PropTypes.func.isRequired,
     onBookmarkClick: PropTypes.func.isRequired,
     selectedBookmark: PropTypes.object,
     onBookmarkMenuClick: PropTypes.func.isRequired,
@@ -629,7 +630,7 @@ class PdfViewer extends React.Component {
     const ifTap = stroke.points.every(([x, y]) => Math.hypot(x - x0, y - y0) < 6);
     if (ifTap) {
       liveEl.remove();
-      this.eraseAt(...stroke.startClient);
+      this.tapAt(...stroke.startClient);
       return;
     }
     const textLines = await this.textLinesOf(stroke.pageNumber);
@@ -651,12 +652,12 @@ class PdfViewer extends React.Component {
     requestAnimationFrame(() => stroke.pathEl.remove());
   }
 
-  eraseAt = (clientX, clientY) => {
+  tapAt = (clientX, clientY) => {
     const offsets = [[0, 0], [6, 0], [-6, 0], [0, 6], [0, -6]];
     for (const [dx, dy] of offsets) {
       const hit = document.elementsFromPoint(clientX + dx, clientY + dy).find((el) => el.getAttribute && el.getAttribute('data-highlight-id'));
       if (hit) {
-        this.props.onDeleteHighlight(hit.getAttribute('data-highlight-id'));
+        this.props.onHighlightTap(hit.getAttribute('data-highlight-id'), clientX, clientY);
         return;
       }
     }
