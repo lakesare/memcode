@@ -110,6 +110,18 @@ const removeBookmark = async (request, response) => {
   response.success({});
 };
 
+const setBookmarkRegion = async (request, response) => {
+  const bookmark = await mustOwnBookmark(request.body['bookmarkId'], request.currentUser);
+  const regionTop = Number(request.body['regionTop']);
+  const regionBottom = Number(request.body['regionBottom']);
+  if (!(regionTop >= 0 && regionBottom <= 1 && regionTop < regionBottom)) {
+    response.validation(['The bookmarked part must lie within the page']);
+  } else {
+    await knex('pdfBookmark').where({ id: bookmark.id }).update({ regionTop, regionBottom });
+    response.success({});
+  }
+};
+
 // [claude comment] with ifAhead, also returns bookmarks that aren't due yet (soonest first) - for "review ahead"
 const getBookmarksToReview = async (request, response) => {
   await mustBeAuthenticated(request.currentUser);
@@ -209,5 +221,5 @@ export default {
   getMyFolders, createFolder, renameFolder, deleteFolder, setDefaultFolder, moveFolder, movePdf,
   getMyPdfs, getPdf, updatePdf, deletePdf,
   createHighlight, deleteHighlight,
-  createBookmark, reviewBookmark, removeBookmark, getBookmarksToReview
+  createBookmark, reviewBookmark, removeBookmark, setBookmarkRegion, getBookmarksToReview
 };

@@ -14,6 +14,7 @@ const VIEW_WIDTH = 1000;
 const DEFAULT_MARKER_WIDTH = 0.017;
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const MIN_TRIMMED_WIDTH = 0.3;
+const MIN_REGION_HEIGHT = 0.02;
 
 class PdfPage extends React.PureComponent {
   static propTypes = {
@@ -33,6 +34,7 @@ class PdfPage extends React.PureComponent {
     focusedBookmarkId: PropTypes.string,
     selectedBookmark: PropTypes.object,
     onBookmarkMenuClick: PropTypes.func.isRequired,
+    onRegionHandleDown: PropTypes.func.isRequired,
     registerPage: PropTypes.func.isRequired,
     onBookmarkClick: PropTypes.func.isRequired
   }
@@ -83,14 +85,14 @@ class PdfPage extends React.PureComponent {
                 '--ribbon-color': bookmark.color || undefined,
                 left: `calc(${this.props.textLeft * 100}% - 8px)`,
                 width: `calc(${(this.props.textRight - this.props.textLeft) * 100}% + 48px)`,
-                top: `${bookmark.y * 100}%`,
-                height: `${Math.max(0, bookmark.bottom - bookmark.y) * 100}%`
+                top: `${bookmark.top * 100}%`,
+                height: `${Math.max(0, bookmark.bottom - bookmark.top) * 100}%`
               }}
             />
           }
           <div
             className={`ribbon-line ${state}`}
-            style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.y * 100}%`, height: `${Math.max(0, bookmark.bottom - bookmark.y) * 100}%` }}
+            style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.top * 100}%`, height: `${Math.max(0, bookmark.bottom - bookmark.top) * 100}%` }}
             onPointerDown={(event) => event.stopPropagation()}
             onClick={() => this.props.onBookmarkClick(bookmark)}
           />
@@ -98,17 +100,28 @@ class PdfPage extends React.PureComponent {
             key={selection ? `${selection.key}-ribbon` : 'ribbon'}
             type="button"
             className={`ribbon ${state}`}
-            style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.y * 100}%`, '--ribbon-travel': `${Math.max(0, (bookmark.bottom - bookmark.y) * this.props.height - 30)}px` }}
+            style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.top * 100}%`, '--ribbon-travel': `${Math.max(0, (bookmark.bottom - bookmark.top) * this.props.height - 30)}px` }}
             onPointerDown={(event) => event.stopPropagation()}
             onClick={() => this.props.onBookmarkClick(bookmark)}
             aria-label={`Bookmark on page ${this.props.pageNumber}`}
           />
           {
             selection &&
+            ['top', 'bottom'].map((edge) =>
+              <div
+                key={edge}
+                className={`region-handle -${edge}`}
+                style={{ left: `calc(${(this.props.textLeft + this.props.textRight) * 50}% + 20px)`, top: `${bookmark[edge] * 100}%` }}
+                onPointerDown={(event) => this.props.onRegionHandleDown(bookmark, edge, event)}
+              />
+            )
+          }
+          {
+            selection &&
             <button
               type="button"
               className="ribbon-more"
-              style={{ left: `calc(${ribbonLeft} + 36px)`, top: `${bookmark.y * 100}%` }}
+              style={{ left: `calc(${ribbonLeft} + 36px)`, top: `${bookmark.top * 100}%` }}
               onPointerDown={(event) => event.stopPropagation()}
               onClick={(event) => this.props.onBookmarkMenuClick(bookmark, event.currentTarget)}
               aria-label="Bookmark options"
@@ -158,6 +171,7 @@ class PdfViewer extends React.Component {
     onBookmarkClick: PropTypes.func.isRequired,
     selectedBookmark: PropTypes.object,
     onBookmarkMenuClick: PropTypes.func.isRequired,
+    onBookmarkRegionChange: PropTypes.func.isRequired,
     onPageChange: PropTypes.func.isRequired,
     trimMode: PropTypes.oneOf(['off', 'auto', 'manual']).isRequired,
     manualTrim: PropTypes.array,
@@ -171,6 +185,7 @@ class PdfViewer extends React.Component {
     autoTrim: null,
     // [claude comment] per page: distance between text lines (how far down a bookmark's snapshot reaches) and the right edge of the text (where bookmarks hang), { page: { spacing, right } }
     pageMetrics: {},
+    regionDrag: null,
     // [claude comment] [left, right] being set by hand (for every page), or null
     trimEdit: null
   }
@@ -279,6 +294,42 @@ class PdfViewer extends React.Component {
     const marked = own.length ? Math.max(...own.map((h) => Math.max(...h.points.map((p) => p[1])) + h.width / 2)) : bookmark.y + 0.03;
     const metrics = this.pageMetricsOf(bookmark.page);
     return Math.min(1, marked + (metrics ? metrics.spacing * SNAPSHOT_CONTEXT_LINES : 0.05));
+  }
+
+  regionOf = (bookmark) => {
+    if (this.state.regionDrag && this.state.regionDrag.bookmarkId === bookmark.id) {
+      return this.state.regionDrag;
+    } else if (bookmark.regionTop !== null && bookmark.regionTop !== undefined) {
+      return { top: bookmark.regionTop, bottom: bookmark.regionBottom };
+    } else {
+      return { top: bookmark.y, bottom: this.snapshotBottomOf(bookmark) };
+    }
+  }
+
+  // ___stretching a bookmark
+  onRegionHandleDown = (bookmark, edge, event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    this.pagesEl.setPointerCapture(event.pointerId);
+    this.regionDrag = { pointerId: event.pointerId, bookmarkId: bookmark.id, edge, ...this.regionOf(bookmark) };
+    this.setState({ regionDrag: this.regionDrag });
+  }
+
+  moveRegionHandle = (event) => {
+    const rect = this.pageEl.querySelector('.sheet').getBoundingClientRect();
+    const y = Math.max(0, Math.min(1, (event.clientY - rect.top) / rect.height));
+    const drag = this.regionDrag;
+    this.regionDrag = drag.edge === 'top' ?
+      { ...drag, top: Math.min(y, drag.bottom - MIN_REGION_HEIGHT) } :
+      { ...drag, bottom: Math.max(y, drag.top + MIN_REGION_HEIGHT) };
+    this.setState({ regionDrag: this.regionDrag });
+  }
+
+  finishRegionDrag = () => {
+    const { bookmarkId, top, bottom } = this.regionDrag;
+    this.regionDrag = null;
+    this.props.onBookmarkRegionChange(bookmarkId, Math.round(top * 10000) / 10000, Math.round(bottom * 10000) / 10000);
+    this.setState({ regionDrag: null });
   }
 
   // [claude comment] a bookmark takes the marker colour of the strokes it was made with
@@ -513,6 +564,10 @@ class PdfViewer extends React.Component {
   }
 
   onPointerMove = (event) => {
+    if (this.regionDrag && event.pointerId === this.regionDrag.pointerId) {
+      this.moveRegionHandle(event);
+      return;
+    }
     if (this.trimDrag && event.pointerId === this.trimDrag.pointerId) {
       this.moveTrimHandle(event);
       return;
@@ -528,6 +583,7 @@ class PdfViewer extends React.Component {
   onPointerUp = (event) => {
     if (event.pointerId === this.penDownId) this.penDownId = undefined;
     if (this.trimDrag && event.pointerId === this.trimDrag.pointerId) this.trimDrag = null;
+    if (this.regionDrag && event.pointerId === this.regionDrag.pointerId) this.finishRegionDrag();
 
     if (this.stroke && event.pointerId === this.stroke.pointerId) {
       this.finishStroke(event.type === 'pointercancel');
@@ -578,7 +634,7 @@ class PdfViewer extends React.Component {
   render = () => {
     const page = this.state.page;
     const highlights = this.props.highlights.filter((h) => h.page === page);
-    const bookmarks = this.props.bookmarks.filter((b) => b.page === page).map((b) => ({ ...b, bottom: this.snapshotBottomOf(b), color: this.colorOf(b) }));
+    const bookmarks = this.props.bookmarks.filter((b) => b.page === page).map((b) => ({ ...b, ...this.regionOf(b), color: this.colorOf(b) }));
     const focusedBookmarkId = this.props.focus ? this.props.focus.bookmarkId : null;
     const layout = this.layoutOf(page);
     const width = layout.width;
@@ -618,6 +674,7 @@ class PdfViewer extends React.Component {
               registerPage={this.registerPage}
               onBookmarkClick={this.props.onBookmarkClick}
               onBookmarkMenuClick={this.props.onBookmarkMenuClick}
+              onRegionHandleDown={this.onRegionHandleDown}
             />
           }
         </div>

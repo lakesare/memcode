@@ -214,6 +214,7 @@
       border: none;
       background: color-mix(in srgb, var(--ribbon-color, #262b4a) 88%, #0f1122);
       clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+      border-radius: 6px 6px 0 0;
       cursor: pointer;
       z-index: 2;
       touch-action: manipulation;
@@ -237,14 +238,14 @@
       z-index: 1;
       width: 32px;
       margin-top: -4px;
-      border-radius: 0 0 6px 6px;
+      border-radius: 6px;
       background: color-mix(in srgb, var(--ribbon-color, #262b4a) 42%, transparent);
       cursor: pointer;
       touch-action: manipulation;
       &:hover{ background: color-mix(in srgb, var(--ribbon-color, #262b4a) 55%, transparent); }
       // [claude comment] while the passage is tinted, the tint covers the band too - the band comes back as the tint fades
       &.-focused{ animation: ribbon-line-after-focus 2.4s ease-in forwards; }
-      &.-selected{ opacity: 0; }
+      &.-selected{ background: color-mix(in srgb, var(--ribbon-color, #262b4a) 22%, transparent); }
     }
 
     // [claude comment] after jumping to a bookmark, its passage is tinted in the bookmark's colour for a few seconds
@@ -258,6 +259,30 @@
       pointer-events: none;
       animation: focus-area-fade 2.4s ease-in forwards;
       &.-selected{ animation: none; }
+    }
+
+    // [claude comment] grips on the top and bottom edge of a selected bookmark's tint, dragged to stretch it
+    .region-handle{
+      position: absolute;
+      z-index: 3;
+      width: 56px;
+      height: 28px;
+      margin-top: -4px;
+      transform: translate(-50%, -50%);
+      cursor: ns-resize;
+      touch-action: none;
+      &::after{
+        content: '';
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        top: 50%;
+        height: 6px;
+        margin-top: -3px;
+        border-radius: 3px;
+        background: #1f2340;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      }
     }
 
     .ribbon-more{

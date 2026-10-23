@@ -21,6 +21,9 @@ const groupIntoPlaces = (highlights, bookmarks) =>
   bookmarks.map((bookmark) => {
     const own = highlights.filter((h) => h.bookmarkId === bookmark.id && h.page === bookmark.page);
     const extents = own.map(extentOf);
+    if (bookmark.regionTop !== null && bookmark.regionTop !== undefined) {
+      return { key: `bookmark-${bookmark.id}`, page: bookmark.page, top: bookmark.regionTop, bottom: bookmark.regionBottom, ifExact: true, highlights: own, bookmarks: [bookmark] };
+    }
     return {
       key: `bookmark-${bookmark.id}`,
       page: bookmark.page,
@@ -50,8 +53,8 @@ const drawSnapshotNow = async (pdfjs, pdfDocument, place, pageHighlights) => {
   const linesNearby = textLines.filter((l) => l.yCenter > place.top - 0.2 && l.yCenter < place.bottom + 0.2);
   const left = linesNearby.length ? Math.max(0, Math.min(...linesNearby.map((l) => l.x0)) - 0.02) : 0.05;
   const right = linesNearby.length ? Math.min(1, Math.max(...linesNearby.map((l) => l.x1)) + 0.02) : 0.95;
-  const top = Math.max(0, place.top - spacing * SNAPSHOT_CONTEXT_LINES);
-  const bottom = Math.min(1, place.bottom + spacing * SNAPSHOT_CONTEXT_LINES);
+  const top = place.ifExact ? place.top : Math.max(0, place.top - spacing * SNAPSHOT_CONTEXT_LINES);
+  const bottom = place.ifExact ? place.bottom : Math.min(1, place.bottom + spacing * SNAPSHOT_CONTEXT_LINES);
 
   const cropWidth = (right - left) * base.width;
   const cropHeight = (bottom - top) * base.height;

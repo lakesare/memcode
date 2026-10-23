@@ -259,6 +259,8 @@ CREATE TABLE pdf_bookmark (
   next_due_at TIMESTAMPTZ NOT NULL DEFAULT now() + INTERVAL '1 day',
   last_reviewed_at TIMESTAMPTZ,
   archived_at TIMESTAMPTZ,
+  region_top REAL,
+  region_bottom REAL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX pdf_bookmark_pdf_id ON pdf_bookmark (pdf_id);

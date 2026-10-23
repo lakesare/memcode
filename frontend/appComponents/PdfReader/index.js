@@ -194,7 +194,10 @@ class PdfReader extends React.Component {
   }
 
   onBookmarkClick = (bookmark) => {
-    this.setState({ selectedBookmark: { id: bookmark.id, key: `selected-${Date.now()}` }, bookmarkPopover: null });
+    this.setState((state) => ({
+      selectedBookmark: state.selectedBookmark && state.selectedBookmark.id === bookmark.id ? null : { id: bookmark.id, key: `selected-${Date.now()}` },
+      bookmarkPopover:  null
+    }));
   }
 
   onBookmarkMenuClick = (bookmark, buttonEl) => {
@@ -211,6 +214,11 @@ class PdfReader extends React.Component {
         }
       });
     }
+  }
+
+  onBookmarkRegionChange = (bookmarkId, regionTop, regionBottom) => {
+    this.setState((state) => ({ bookmarks: state.bookmarks.map((b) => b.id === bookmarkId ? { ...b, regionTop, regionBottom } : b) }));
+    api.post.PdfApi.setBookmarkRegion(false, { bookmarkId, regionTop, regionBottom }).catch(this.saveFailed);
   }
 
   removeBookmarkLocally = (bookmarkId) => {
@@ -536,7 +544,7 @@ class PdfReader extends React.Component {
   }
 
   onViewerPointerDown = (event) => {
-    const isOnBookmark = !!event.target.closest('.ribbon, .ribbon-line, .ribbon-more');
+    const isOnBookmark = !!event.target.closest('.ribbon, .ribbon-line, .ribbon-more, .region-handle');
     if (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifMoreMenuOpen || this.state.ifPageGridOpen || (this.state.selectedBookmark && !isOnBookmark)) {
       this.setState((state) => ({
         bookmarkPopover:  isOnBookmark ? state.bookmarkPopover : null,
@@ -578,6 +586,7 @@ class PdfReader extends React.Component {
               onBookmarkClick={this.onBookmarkClick}
               selectedBookmark={this.state.selectedBookmark}
               onBookmarkMenuClick={this.onBookmarkMenuClick}
+              onBookmarkRegionChange={this.onBookmarkRegionChange}
               onPageChange={this.onPageChange}
               trimMode={this.state.trim.mode}
               manualTrim={this.state.trim.manual}
