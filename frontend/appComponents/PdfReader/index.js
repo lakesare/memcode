@@ -75,6 +75,7 @@ class PdfReader extends React.Component {
     // [claude comment] per book, in this browser only: { mode: 'off' | 'auto' | 'manual', manual: [left, right] | null }
     trim: readSetting(`trim.${this.props.pdfId}`, { mode: 'off', manual: null }),
     ifMoreMenuOpen: false,
+    ifPositionShown: readSetting('ifPositionShown', false),
     ifPageGridOpen: false,
     ifSearchOpen: false,
     // [claude comment] the search result shown on the page: { page, rects, key }
@@ -144,7 +145,7 @@ class PdfReader extends React.Component {
   pendingHighlightSaves = {}
 
   onCreateHighlight = (shape) => {
-    const highlight = { id: newId(), pdfId: this.state.pdf.id, ...shape };
+    const highlight = { id: newId(), pdfId: this.state.pdf.id, ...shape, bookmarkId: this.state.draft ? null : shape.bookmarkId };
     this.setState((state) => ({
       highlights: [...state.highlights, highlight],
       draft: state.draft && highlight.color !== READ_MARK_COLOR ? { highlightIds: [...state.draft.highlightIds, highlight.id] } : state.draft
@@ -284,6 +285,12 @@ class PdfReader extends React.Component {
     writeSetting(`trim.${this.props.pdfId}`, trim);
   }
 
+  togglePosition = () => {
+    const ifPositionShown = !this.state.ifPositionShown;
+    this.setState({ ifPositionShown, ifMoreMenuOpen: false });
+    writeSetting('ifPositionShown', ifPositionShown);
+  }
+
   chooseTrimMode = (mode) => {
     if (mode === 'manual') {
       this.setState({ ifMoreMenuOpen: false });
@@ -415,7 +422,7 @@ class PdfReader extends React.Component {
         <div className="title-and-page">
           <div className="title">{this.state.pdf ? this.state.pdf.title : ''}</div>
           {
-            this.state.status === 'success' &&
+            this.state.status === 'success' && this.state.ifPositionShown &&
             <div className="position">
               {
                 this.state.viewedPage === this.state.currentPosition.page ?
@@ -544,6 +551,15 @@ class PdfReader extends React.Component {
           {
             this.state.ifMoreMenuOpen &&
             <span className="more-menu" role="menu">
+              <button
+                type="button"
+                role="menuitemcheckbox"
+                aria-checked={this.state.ifPositionShown}
+                className={this.state.ifPositionShown ? '-active' : ''}
+                onClick={this.togglePosition}
+              >
+                Show reading position{this.state.ifPositionShown && <span className="hint">on</span>}
+              </button>
               <span className="section-title">Trim margins</span>
               {['off', 'auto', 'manual'].map((mode) =>
                 <button

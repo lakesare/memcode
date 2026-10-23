@@ -51,8 +51,9 @@ const deletePdf = async (request, response) => {
 const createHighlight = async (request, response) => {
   const { id, pdfId, page, color, width, points } = request.body;
   await mustOwnPdf(pdfId, request.currentUser);
+  const bookmark = request.body['bookmarkId'] ? await knex('pdfBookmark').where({ id: request.body['bookmarkId'], pdfId }).first() : null;
   const highlight = (await knex('pdfHighlight')
-    .insert({ id, pdfId, page, color, width, points: JSON.stringify(points) })
+    .insert({ id, pdfId, page, color, width, points: JSON.stringify(points), bookmarkId: bookmark ? bookmark.id : null })
     .onConflict('id').ignore()
     .returning('*')
   )[0];

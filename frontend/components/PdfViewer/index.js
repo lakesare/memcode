@@ -646,7 +646,16 @@ class PdfViewer extends React.Component {
     }
     const shape = pointsToHighlight(stroke.points, stroke.rect.width, stroke.rect.height, textLines, DEFAULT_MARKER_WIDTH);
     if (shape) {
-      this.props.onCreateHighlight({ page: stroke.pageNumber, color: this.props.color, ...shape });
+      // [claude comment] a stroke drawn within a bookmark's band becomes part of that bookmark
+      const ys = shape.points.map((p) => p[1]);
+      const strokeTop = Math.min(...ys) - shape.width / 2;
+      const strokeBottom = Math.max(...ys) + shape.width / 2;
+      const bookmark = this.props.bookmarks.find((b) => {
+        if (b.page !== stroke.pageNumber) return false;
+        const region = this.regionOf(b);
+        return strokeTop < region.bottom && strokeBottom > region.top;
+      });
+      this.props.onCreateHighlight({ page: stroke.pageNumber, color: this.props.color, ...shape, bookmarkId: bookmark ? bookmark.id : null });
     }
     // [claude comment] removed on the next frame so the stored highlight is already painted - no flicker
     requestAnimationFrame(() => stroke.pathEl.remove());

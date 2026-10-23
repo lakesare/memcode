@@ -203,6 +203,7 @@ class Page_pdfs extends React.Component {
 
   renderFolders = () => {
     const selected = this.state.selectedFolder;
+    const countOf = (folderId) => this.state.pdfs.filter((p) => (p.folderId ? p.folderId : null) === folderId).length;
     return <div className="folders">
       <div className="folder-tabs" role="tablist">
         {this.state.folders.map((f) => (
@@ -226,7 +227,7 @@ class Page_pdfs extends React.Component {
               className={`folder-tab ${selected === f.id ? '-active' : ''}`}
               onClick={() => this.setState({ selectedFolder: f.id, folderMenu: null })}
             >
-              {f.name}
+              {f.name}<span className="count">{countOf(f.id)}</span>
             </button>
         ))}
         {
@@ -250,7 +251,7 @@ class Page_pdfs extends React.Component {
           className={`folder-tab -all ${selected === 'unsorted' ? '-active' : ''}`}
           onClick={() => this.setState({ selectedFolder: 'unsorted', folderMenu: null })}
         >
-          All
+          All<span className="count">{countOf(null)}</span>
         </button>
         <span className="folder-menu-holder">
           <button
