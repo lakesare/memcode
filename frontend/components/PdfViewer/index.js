@@ -31,6 +31,8 @@ class PdfPage extends React.PureComponent {
     highlights: PropTypes.array.isRequired,
     bookmarks: PropTypes.array.isRequired,
     focusedBookmarkId: PropTypes.string,
+    selectedBookmark: PropTypes.object,
+    onBookmarkMenuClick: PropTypes.func.isRequired,
     registerPage: PropTypes.func.isRequired,
     onBookmarkClick: PropTypes.func.isRequired
   }
@@ -67,12 +69,16 @@ class PdfPage extends React.PureComponent {
         )}
       </svg>
       <svg className="live-layer" viewBox={`0 0 ${this.props.sheetWidth} ${this.props.height}`}/>
-      {this.props.bookmarks.map((bookmark) =>
-        <React.Fragment key={bookmark.id}>
+      {this.props.bookmarks.map((bookmark) => {
+        const selection = this.props.selectedBookmark && this.props.selectedBookmark.id === bookmark.id ? this.props.selectedBookmark : null;
+        const isFocused = !selection && bookmark.id === this.props.focusedBookmarkId;
+        const state = selection ? '-selected' : isFocused ? '-focused' : '';
+        return <React.Fragment key={bookmark.id}>
           {
-            bookmark.id === this.props.focusedBookmarkId &&
+            (selection || isFocused) &&
             <div
-              className="focus-area"
+              key={selection ? `${selection.key}-area` : 'focus-area'}
+              className={`focus-area ${state}`}
               style={{
                 '--ribbon-color': bookmark.color || undefined,
                 left: `calc(${this.props.textLeft * 100}% - 8px)`,
@@ -83,21 +89,35 @@ class PdfPage extends React.PureComponent {
             />
           }
           <div
-            className={`ribbon-line ${bookmark.id === this.props.focusedBookmarkId ? '-focused' : ''}`}
+            className={`ribbon-line ${state}`}
             style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.y * 100}%`, height: `${Math.max(0, bookmark.bottom - bookmark.y) * 100}%` }}
             onPointerDown={(event) => event.stopPropagation()}
-            onClick={(event) => this.props.onBookmarkClick(bookmark, event.currentTarget.nextElementSibling)}
+            onClick={() => this.props.onBookmarkClick(bookmark)}
           />
           <button
+            key={selection ? `${selection.key}-ribbon` : 'ribbon'}
             type="button"
-            className={`ribbon ${bookmark.id === this.props.focusedBookmarkId ? '-focused' : ''}`}
+            className={`ribbon ${state}`}
             style={{ '--ribbon-color': bookmark.color || undefined, left: ribbonLeft, top: `${bookmark.y * 100}%`, '--ribbon-travel': `${Math.max(0, (bookmark.bottom - bookmark.y) * this.props.height - 30)}px` }}
             onPointerDown={(event) => event.stopPropagation()}
-            onClick={(event) => this.props.onBookmarkClick(bookmark, event.currentTarget)}
+            onClick={() => this.props.onBookmarkClick(bookmark)}
             aria-label={`Bookmark on page ${this.props.pageNumber}`}
           />
-        </React.Fragment>
-      )}
+          {
+            selection &&
+            <button
+              type="button"
+              className="ribbon-more"
+              style={{ left: `calc(${ribbonLeft} + 36px)`, top: `${bookmark.y * 100}%` }}
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={(event) => this.props.onBookmarkMenuClick(bookmark, event.currentTarget)}
+              aria-label="Bookmark options"
+            >
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+            </button>
+          }
+        </React.Fragment>;
+      })}
       {(this.props.searchRects || []).map((rect, index) =>
         <div
           key={`${this.props.searchKey}-${index}`}
@@ -136,6 +156,8 @@ class PdfViewer extends React.Component {
     onCreateHighlight: PropTypes.func.isRequired,
     onDeleteHighlight: PropTypes.func.isRequired,
     onBookmarkClick: PropTypes.func.isRequired,
+    selectedBookmark: PropTypes.object,
+    onBookmarkMenuClick: PropTypes.func.isRequired,
     onPageChange: PropTypes.func.isRequired,
     trimMode: PropTypes.oneOf(['off', 'auto', 'manual']).isRequired,
     manualTrim: PropTypes.array,
@@ -592,8 +614,10 @@ class PdfViewer extends React.Component {
               highlights={highlights}
               bookmarks={bookmarks}
               focusedBookmarkId={focusedBookmarkId}
+              selectedBookmark={this.props.selectedBookmark}
               registerPage={this.registerPage}
               onBookmarkClick={this.props.onBookmarkClick}
+              onBookmarkMenuClick={this.props.onBookmarkMenuClick}
             />
           }
         </div>

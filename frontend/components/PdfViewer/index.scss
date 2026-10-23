@@ -223,7 +223,7 @@
         position: absolute;
         inset: -10px -14px;
       }
-      &.-focused{
+      &.-focused, &.-selected{
         animation: ribbon-pulse 1.8s ease-in-out 1;
       }
       &:focus-visible{
@@ -244,6 +244,7 @@
       &:hover{ background: color-mix(in srgb, var(--ribbon-color, #262b4a) 55%, transparent); }
       // [claude comment] while the passage is tinted, the tint covers the band too - the band comes back as the tint fades
       &.-focused{ animation: ribbon-line-after-focus 2.4s ease-in forwards; }
+      &.-selected{ opacity: 0; }
     }
 
     // [claude comment] after jumping to a bookmark, its passage is tinted in the bookmark's colour for a few seconds
@@ -256,6 +257,28 @@
       mix-blend-mode: multiply;
       pointer-events: none;
       animation: focus-area-fade 2.4s ease-in forwards;
+      &.-selected{ animation: none; }
+    }
+
+    .ribbon-more{
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin-top: -4px;
+      padding: 0;
+      border: none;
+      border-radius: 7px;
+      background: #1f2340;
+      color: #fff;
+      fill: currentColor;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      &:hover{ background: #282d52; }
     }
 
   }
@@ -282,7 +305,7 @@
 }
 @media (prefers-reduced-motion: reduce){
   :local(.viewer) .page{
-    .ribbon.-focused{ animation: none; }
+    .ribbon.-focused, .ribbon.-selected{ animation: none; }
     .page-placeholder .spinner{ animation-duration: 3s; }
   }
 }

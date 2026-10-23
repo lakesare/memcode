@@ -66,6 +66,7 @@ class PdfReader extends React.Component {
     ifPlacesOpen: false,
     ifColorMenuOpen: false,
     bookmarkPopover: null,
+    selectedBookmark: null,
     toast: null,
     draft: null,
     // [claude comment] per book, in this browser only: { mode: 'off' | 'auto' | 'manual', manual: [left, right] | null }
@@ -192,22 +193,31 @@ class PdfReader extends React.Component {
     api.post.PdfApi.createBookmark(false, { id: bookmark.id, pdfId: bookmark.pdfId, page, y: bookmark.y, highlightIds }).catch(this.saveFailed);
   }
 
-  onBookmarkClick = (bookmark, buttonEl) => {
-    const rect = buttonEl.getBoundingClientRect();
-    const rootRect = this.rootEl.getBoundingClientRect();
-    this.setState({
-      bookmarkPopover: {
-        bookmark,
-        top: rect.bottom - rootRect.top + 6,
-        right: Math.max(8, rootRect.right - rect.right - 4)
-      }
-    });
+  onBookmarkClick = (bookmark) => {
+    this.setState({ selectedBookmark: { id: bookmark.id, key: `selected-${Date.now()}` }, bookmarkPopover: null });
+  }
+
+  onBookmarkMenuClick = (bookmark, buttonEl) => {
+    if (this.state.bookmarkPopover && this.state.bookmarkPopover.bookmark.id === bookmark.id) {
+      this.setState({ bookmarkPopover: null });
+    } else {
+      const rect = buttonEl.getBoundingClientRect();
+      const rootRect = this.rootEl.getBoundingClientRect();
+      this.setState({
+        bookmarkPopover: {
+          bookmark,
+          top: rect.bottom - rootRect.top + 6,
+          right: Math.max(8, rootRect.right - rect.right)
+        }
+      });
+    }
   }
 
   removeBookmarkLocally = (bookmarkId) => {
     this.setState((state) => ({
       bookmarks: state.bookmarks.filter((b) => b.id !== bookmarkId),
-      bookmarkPopover: null
+      bookmarkPopover: null,
+      selectedBookmark: null
     }));
   }
 
@@ -525,6 +535,19 @@ class PdfReader extends React.Component {
     </div>;
   }
 
+  onViewerPointerDown = (event) => {
+    const isOnBookmark = !!event.target.closest('.ribbon, .ribbon-line, .ribbon-more');
+    if (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifMoreMenuOpen || this.state.ifPageGridOpen || (this.state.selectedBookmark && !isOnBookmark)) {
+      this.setState((state) => ({
+        bookmarkPopover:  isOnBookmark ? state.bookmarkPopover : null,
+        selectedBookmark: isOnBookmark ? state.selectedBookmark : null,
+        ifColorMenuOpen:  false,
+        ifMoreMenuOpen:   false,
+        ifPageGridOpen:   false
+      }));
+    }
+  }
+
   renderBookmarkPopover = () => {
     const { bookmark, top, right } = this.state.bookmarkPopover;
     return <div className="bookmark-popover" style={{ top, right }} role="dialog" aria-label="Bookmark">
@@ -536,7 +559,7 @@ class PdfReader extends React.Component {
     <div className={css.reader} ref={(el) => this.rootEl = el}>
       {this.renderToolbar()}
 
-      <div className="viewer-area" onPointerDownCapture={() => (this.state.bookmarkPopover || this.state.ifColorMenuOpen || this.state.ifMoreMenuOpen || this.state.ifPageGridOpen) && this.setState({ bookmarkPopover: null, ifColorMenuOpen: false, ifMoreMenuOpen: false, ifPageGridOpen: false })}>
+      <div className="viewer-area" onPointerDownCapture={this.onViewerPointerDown}>
         {
           this.state.status === 'success' ?
             <PdfViewer
@@ -553,6 +576,8 @@ class PdfReader extends React.Component {
               onCreateHighlight={this.onCreateHighlight}
               onDeleteHighlight={this.onDeleteHighlight}
               onBookmarkClick={this.onBookmarkClick}
+              selectedBookmark={this.state.selectedBookmark}
+              onBookmarkMenuClick={this.onBookmarkMenuClick}
               onPageChange={this.onPageChange}
               trimMode={this.state.trim.mode}
               manualTrim={this.state.trim.manual}
