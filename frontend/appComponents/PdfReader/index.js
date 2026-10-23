@@ -105,7 +105,7 @@ class PdfReader extends React.Component {
   load = async () => {
     try {
       const { pdf, highlights, bookmarks } = await api.get.PdfApi.getPdf(false, { pdfId: this.props.pdfId });
-      const { pdfjs, pdfDocument, pageSizes, loadingTask } = await loadPdf(pdf.id, pdf.sizeBytes, (loaded, total) => !this.unmounted && this.setState({ progress: { loaded, total } }));
+      const { pdfjs, pdfDocument, pageSizes, loadingTask } = await loadPdf(pdf, (loaded, total, phase) => !this.unmounted && this.setState({ progress: { loaded, total, phase } }));
       this.loadingTask = loadingTask;
       if (this.unmounted) { loadingTask.destroy(); return; }
       const currentPosition = { page: Math.min(pdf.currentPage, pageSizes.length), y: pdf.currentY };
@@ -533,9 +533,9 @@ class PdfReader extends React.Component {
             <div className="bar"><div style={{ width: progress && progress.total ? `${100 * progress.loaded / progress.total}%` : '15%' }}/></div>
             <p>
               {
-                progress && progress.total ?
-                  `Downloading ${(progress.loaded / 1e6).toFixed(1)} / ${(progress.total / 1e6).toFixed(1)} MB` :
-                  'Opening…'
+                progress && progress.total && progress.phase === 'layout' ? `Laying out chapter ${progress.loaded} / ${progress.total}` :
+                progress && progress.total ? `Downloading ${(progress.loaded / 1e6).toFixed(1)} / ${(progress.total / 1e6).toFixed(1)} MB` :
+                'Opening…'
               }
             </p>
           </>

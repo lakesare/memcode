@@ -37,6 +37,24 @@ copyFiles(path.join(__dirname, 'nonWebpackedFiles'), outputDir);
 fs.copyFileSync(path.join(__dirname, '../node_modules/pdfjs-dist/build/pdf.worker.min.mjs'), path.join(outputDir, 'pdf.worker.min.mjs'));
 // [claude comment] fetched by pdf.js at runtime: wasm decoders (JBIG2/JPEG2000 scans render white without them), cmaps and standard fonts
 ['wasm', 'cmaps', 'standard_fonts', 'iccs'].forEach((dir) => copyFiles(path.join(__dirname, '../node_modules/pdfjs-dist', dir), path.join(outputDir, 'pdfjs', dir)));
+// [claude comment] fonts every epub page is laid out with, so a book paginates the same on every device (see services/epub/loadEpub.js)
+const writeEpubFonts = () => {
+  const families = { 'Epub Serif': 'literata', 'Epub Sans': 'source-sans-3', 'Epub Mono': 'source-code-pro' };
+  const fontsDir = path.join(outputDir, 'epub-fonts');
+  fs.mkdirSync(fontsDir, { recursive: true });
+  const faces = [];
+  Object.entries(families).forEach(([family, packageName]) => {
+    const packageDir = path.join(__dirname, '../node_modules/@fontsource', packageName);
+    const unicodeRanges = JSON.parse(fs.readFileSync(path.join(packageDir, 'unicode.json'), 'utf8'));
+    ['latin', 'latin-ext', 'greek', 'cyrillic'].forEach((subset) => [400, 700].forEach((weight) => ['normal', 'italic'].forEach((style) => {
+      const file = `${packageName}-${subset}-${weight}-${style}.woff2`;
+      fs.copyFileSync(path.join(packageDir, 'files', file), path.join(fontsDir, file));
+      faces.push({ family, weight, style, file, subset, unicodeRange: unicodeRanges[subset] });
+    })));
+  });
+  fs.writeFileSync(path.join(fontsDir, 'fonts.json'), JSON.stringify(faces));
+};
+writeEpubFonts();
 
 // allows to import from the deep nested folders:
 // instead of: import '../../../../../services',
@@ -157,7 +175,7 @@ const buildServiceWorker = async () => {
     swDest: path.join(outputDir, 'webpacked-service-worker.js'),
     globDirectory: outputDir,
     globPatterns: ['**/*.{js,css,png,jpg,gif,svg,ico,mp3,woff,woff2,ttf,otf,eot,xml,webmanifest}'],
-    globIgnores: ['**/*.map', 'service-worker.bundled.js', 'webpacked-service-worker.js', 'pdfjs/**'],
+    globIgnores: ['**/*.map', 'service-worker.bundled.js', 'webpacked-service-worker.js', 'pdfjs/**', 'epub-fonts/**'],
     maximumFileSizeToCacheInBytes: 10 * 1024 * 1024
   });
   warnings.forEach((warning) => console.warn(warning));

@@ -81,8 +81,9 @@ class Page_pdfs extends React.Component {
 
   // ___books
   deletePdf = (pdfId) => {
+    const pdf = this.state.pdfs.find((p) => p.id === pdfId);
     this.setState((state) => ({ pdfs: state.pdfs.filter((p) => p.id !== pdfId), confirmDeleteId: null }));
-    forgetPdfBytes(pdfId);
+    if (pdf) forgetPdfBytes(pdf);
     api.post.PdfApi.deletePdf(false, { pdfId }).catch(this.load);
   }
 
@@ -372,8 +373,8 @@ class Page_pdfs extends React.Component {
               <Link to="/pdfs/review" className="review-all">Review {nOfDue} {nOfDue === 1 ? 'place' : 'places'}</Link>
             }
             <label className={`upload ${upload ? '-busy' : ''}`}>
-              <input id="pdf-upload" type="file" accept="application/pdf,.pdf" multiple onChange={this.onFileChosen} disabled={!!upload}/>
-              {upload ? `Uploading… ${Math.round(100 * upload.loaded / (upload.total || 1))}%` : '+ Add PDF'}
+              <input id="pdf-upload" type="file" accept="application/pdf,.pdf,application/epub+zip,.epub" multiple onChange={this.onFileChosen} disabled={!!upload}/>
+              {upload ? `Uploading… ${Math.round(100 * upload.loaded / (upload.total || 1))}%` : '+ Add book'}
             </label>
           </div>
         </div>
@@ -385,7 +386,7 @@ class Page_pdfs extends React.Component {
         {
           this.state.status === 'loading' ? <p className="empty">Loading…</p> :
           this.state.status === 'failure' ? <p className="error">Couldn't load your books - check your connection.</p> :
-          this.state.pdfs.length === 0 ? <p className="empty">No books yet. Add a PDF to start reading.</p> :
+          this.state.pdfs.length === 0 ? <p className="empty">No books yet. Add a PDF or EPUB to start reading.</p> :
           pdfs.length === 0 ? <p className="empty">{selected === 'unsorted' ? 'Every book is in a folder.' : 'No books in this folder yet.'}</p> :
           <ul className="pdfs">{pdfs.map(this.renderPdf)}</ul>
         }

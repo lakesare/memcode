@@ -1,3 +1,5 @@
+import { loadEpub, forgetEpubLayouts, epubTitleOf } from '~/services/epub/loadEpub';
+
 const CACHE_NAME = 'pdfs_v1';
 
 const fileUrl = (pdfId) => `/api/pdfs/${pdfId}/file`;
@@ -64,13 +66,21 @@ const downloadPdfBytes = async (pdfId, expectedSize, onProgress) => {
   return bytes;
 };
 
-const forgetPdfBytes = async (pdfId) => {
+const ifEpub = (pdf) => /\.epub$/i.test(pdf.s3Key || '');
+
+const forgetPdfBytes = async (pdf) => {
   const cache = await openCache();
-  if (cache) await cache.delete(fileUrl(pdfId));
+  if (cache) await cache.delete(fileUrl(pdf.id));
+  if (ifEpub(pdf)) await forgetEpubLayouts(pdf.id);
 };
 
-const loadPdf = async (pdfId, expectedSize, onProgress) => {
-  const [pdfjs, bytes] = await Promise.all([getPdfjs(), downloadPdfBytes(pdfId, expectedSize, onProgress)]);
+// onProgress(loaded, total, phase) - phase is 'download', then 'layout' (chapters laid out) for epubs
+const loadPdf = async (pdf, onProgress) => {
+  if (ifEpub(pdf)) {
+    const bytes = await downloadPdfBytes(pdf.id, pdf.sizeBytes, (loaded, total) => onProgress && onProgress(loaded, total, 'download'));
+    return loadEpub(bytes, (done, total) => onProgress && onProgress(done, total, 'layout'), pdf.id);
+  }
+  const [pdfjs, bytes] = await Promise.all([getPdfjs(), downloadPdfBytes(pdf.id, pdf.sizeBytes, (loaded, total) => onProgress && onProgress(loaded, total, 'download'))]);
   const loadingTask = pdfjs.getDocument({
     data:                bytes,
     wasmUrl:             '/pdfjs/wasm/',
@@ -95,9 +105,12 @@ const loadPdf = async (pdfId, expectedSize, onProgress) => {
   return { pdfjs, pdfDocument, pageSizes, loadingTask };
 };
 
-const uploadPdf = (file, onProgress) =>
-  new Promise((resolve, reject) => {
+const uploadPdf = async (file, onProgress) => {
+  const title = /\.epub$/i.test(file.name) ? await epubTitleOf(file).catch(() => null) : null;
+  return new Promise((resolve, reject) => {
     const formData = new FormData();
+    // [claude comment] before the file - multer only sees fields that arrive ahead of it
+    if (title) formData.append('title', title);
     formData.append('file', file);
     const xhr = new XMLHttpRequest();
     xhr.open('POST', '/api/pdfs/upload');
@@ -113,6 +126,7 @@ const uploadPdf = (file, onProgress) =>
     xhr.onerror = () => reject(new Error('Upload failed - check your connection'));
     xhr.send(formData);
   });
+};
 
 export { loadPdf, uploadPdf, forgetPdfBytes };
 export default loadPdf;

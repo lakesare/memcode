@@ -42,7 +42,7 @@ class BookmarksModal extends React.Component {
   load = async () => {
     try {
       const { pdf, highlights, bookmarks } = await api.get.PdfApi.getPdf(false, { pdfId: this.props.pdfId });
-      const { pdfjs, pdfDocument, loadingTask } = await loadPdf(pdf.id, pdf.sizeBytes);
+      const { pdfjs, pdfDocument, loadingTask } = await loadPdf(pdf);
       this.loadingTask = loadingTask;
       if (this.unmounted) { loadingTask.destroy(); return; }
       this.setState({ status: 'success', pdfjs, pdfDocument, highlights, bookmarks });
