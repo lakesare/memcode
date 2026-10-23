@@ -35,6 +35,7 @@ class Page_pdfs extends React.Component {
   componentDidMount = () => {
     document.addEventListener('pointerdown', this.onDocumentPointerDown);
     this.load();
+    if (new URLSearchParams(this.props.location.search).get('shared')) this.uploadSharedBooks();
   }
 
   componentWillUnmount = () => {
@@ -62,9 +63,28 @@ class Page_pdfs extends React.Component {
 
   currentFolderId = () => (this.state.selectedFolder === 'unsorted' ? null : this.state.selectedFolder)
 
-  onFileChosen = async (event) => {
+  onFileChosen = (event) => {
     const files = Array.from(event.target.files || []);
     event.target.value = '';
+    this.uploadFiles(files);
+  }
+
+  // [claude comment] books shared from another app were put in this cache by the service worker
+  uploadSharedBooks = async () => {
+    this.props.history.replace('/pdfs');
+    if (!('caches' in window)) return;
+    const cache = await caches.open('shared-books');
+    const requests = await cache.keys();
+    const files = await Promise.all(requests.map(async (request) => {
+      const response = await cache.match(request);
+      const blob = await response.blob();
+      return new File([blob], decodeURIComponent(response.headers.get('X-File-Name') || 'Shared book.pdf'), { type: blob.type });
+    }));
+    await Promise.all(requests.map((request) => cache.delete(request)));
+    if (files.length > 0) this.uploadFiles(files);
+  }
+
+  uploadFiles = async (files) => {
     const folderId = this.currentFolderId();
     for (const file of files) {
       this.setState({ upload: { name: file.name, loaded: 0, total: file.size }, uploadError: null });

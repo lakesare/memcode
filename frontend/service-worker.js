@@ -108,3 +108,17 @@ registerRoute(
     ],
   })
 );
+
+// [claude comment] books shared to the installed app from another Android app arrive here (see share_target in site.webmanifest); they wait in this cache until /pdfs uploads them with the user's login
+registerRoute(
+  ({ url }) => url.pathname === '/pdfs/share-target',
+  async ({ request }) => {
+    const formData = await request.formData();
+    const cache = await caches.open('shared-books');
+    await Promise.all(formData.getAll('file').filter((file) => file && file.name).map((file, index) =>
+      cache.put(`/shared-books/${Date.now()}-${index}`, new Response(file, { headers: { 'Content-Type': file.type, 'X-File-Name': encodeURIComponent(file.name) } }))
+    ));
+    return Response.redirect('/pdfs?shared=1', 303);
+  },
+  'POST'
+);
